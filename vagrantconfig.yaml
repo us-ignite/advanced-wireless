@@ -1,0 +1,23 @@
+# Configuration for Vagrant
+
+# Change to true if you can use nfs; using nfs significantly
+# improves performance.
+nfs: true
+
+# Turns on Vagrant debug flags, useful if you have issues with puppet
+debug: false
+
+# Start Virtualbox in GUI mode, useful for debuging issues during the vm startup
+gui: false
+
+# Used for any username/password combination
+username: us_ignite
+password: us_ignite
+
+# Recommended add to /etc/hosts
+server_name: local-us-ignite.org
+server_ip: 22.22.22.12
+
+# project details
+project_name: us_ignite
+mount_point: /home/vagrant/us_ignite

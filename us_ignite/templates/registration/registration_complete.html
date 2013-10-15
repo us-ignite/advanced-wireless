@@ -1,0 +1,13 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Registration complete - {{ super.block }}{% endblock title %}
+
+{% block content %}
+<h1>Registration complete</h1>
+
+<p>Your registration has been completed, please check your inbox for an activation email.</p>
+
+<p>This activation key will expire in {{ expiration_days }} days.</p>
+
+
+{% endblock content %}

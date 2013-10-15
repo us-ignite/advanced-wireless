@@ -1,0 +1,1 @@
+web: gunicorn <%= project_name %>.wsgi.local -c <%= project_path %>/gunicorn_autoreload.py

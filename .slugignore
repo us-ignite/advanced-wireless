@@ -1,0 +1,8 @@
+puppet/
+gunicorn_local.py
+vagrantconfig.yaml
+Vagrantfile
+Procfile.local
+notes.rst
+fabric.py
+mercurio.cfg

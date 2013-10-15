@@ -1,0 +1,1 @@
+web: gunicorn us_ignite.heroku -b 0.0.0.0:$PORT -w 4

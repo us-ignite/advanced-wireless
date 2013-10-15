@@ -1,0 +1,14 @@
+*.py[co]
+*.sw[po]
+.coverage
+pip-log.txt
+.DS_Store
+.noseids
+*~
+#*
+.#*
+*.egg-info
+.vagrant
+settings_local.py
+local.py
+gunicorn.log

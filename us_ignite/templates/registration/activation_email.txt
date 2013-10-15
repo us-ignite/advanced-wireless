@@ -1,0 +1,7 @@
+Hi there,
+
+This is your activation email please follow the following link to activate your account:
+
+{{ activation_key }}
+
+The US Ignite team.

@@ -1,0 +1,15 @@
+# Production
+Django == 1.5.1
+dj-database-url == 0.2.1
+gevent == 0.13.8
+greenlet==0.4.0
+gunicorn==0.17.2
+wsgiref==0.1.2
+psycogreen==1.0
+django-storages == 1.1.6
+boto == 2.8.0
+django_compressor == 1.2
+django-registration == 1.0
+
+# Compiled
+psycopg2
