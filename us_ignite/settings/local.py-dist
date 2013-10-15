@@ -3,6 +3,8 @@ import os
 
 from us_ignite.settings import *
 
+WSGI_APPLICATION = 'us_ignite.wsgi.local.application'
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'rfzk&#(iol-6p&i1lowu__%tg4r&b3d=1(^(+@)zrd-&i1q+0$'
 
