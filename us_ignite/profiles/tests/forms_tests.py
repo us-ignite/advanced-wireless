@@ -52,7 +52,7 @@ class TestUserRegistrationForm(TestCase):
         })
         eq_(form.is_valid(), False)
         ok_('email' in form.errors)
-        user_get_mock.assert_called_once_with(email='user-b@us-ignite.org')
+        user_get_mock.assert_called_once_with(email__iexact='user-b@us-ignite.org')
 
     @patch(user_get, side_effect=User.DoesNotExist)
     def test_form_succeeds_with_valid_values(self, user_get_mock):
@@ -62,4 +62,4 @@ class TestUserRegistrationForm(TestCase):
             'password2': 'abc',
         })
         eq_(form.is_valid(), True)
-        user_get_mock.assert_called_once_with(email='user-c@us-ignite.org')
+        user_get_mock.assert_called_once_with(email__iexact='user-c@us-ignite.org')

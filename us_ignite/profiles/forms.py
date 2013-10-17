@@ -13,7 +13,7 @@ class UserRegistrationForm(forms.Form):
         """Makes sure this email is unique"""
         if 'email' in self.cleaned_data:
             try:
-                User.objects.get(email=self.cleaned_data['email'])
+                User.objects.get(email__iexact=self.cleaned_data['email'])
             except User.DoesNotExist:
                 return self.cleaned_data['email']
             else:
