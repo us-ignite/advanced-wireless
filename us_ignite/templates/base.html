@@ -14,8 +14,18 @@
   <body>
     {% block content %}
     <h1>US Ignite</h1>
+
+
+    <div class="">
+          {% if request.user.is_authenticated %}
+          Logged in as: {{ request.user.email }}
+          {% endif %}
+    </div>
+
     <ul>
       <li><a href="{% url 'registration_register' %}">Registration</a></li>
+      <li><a href="{% url 'auth_login' %}">Login</a></li>
+      <li><a href="{% url 'auth_logout' %}">Logout</a></li>
     </ul>
     {% endblock content %}
   </body>
