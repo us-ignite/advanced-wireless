@@ -119,6 +119,13 @@ TEMPLATE_DIRS = (
     here('templates'),
 )
 
+# Authentication:
+AUTHENTICATION_BACKENDS = (
+    'us_ignite.profiles.backends.authentication.EmailModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
