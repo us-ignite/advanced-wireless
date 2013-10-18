@@ -2,9 +2,10 @@ import uuid
 
 from django.contrib.sites.models import Site
 from django.contrib.sites.models import RequestSite
+from django.views.generic.base import TemplateView
 
 from registration import signals
-from registration.backends.default.views import RegistrationView
+from registration.backends.default.views import RegistrationView, ActivationView
 from registration.models import RegistrationProfile
 
 from us_ignite.profiles import forms
@@ -59,4 +60,14 @@ class EmailRegistrationView(RegistrationView):
             sender=self.__class__, user=new_user, request=request)
         return new_user
 
+
+# Registration views:
+# Using function aliases for lazy loadind and readability in the urls file.
 registration_view = EmailRegistrationView.as_view()
+registration_activation_complete = TemplateView.as_view(
+    template_name='registration/activation_complete.html')
+registration_activate = ActivationView.as_view()
+registration_complete = TemplateView.as_view(
+    template_name='registration/registration_complete.html')
+registration_disallowed = TemplateView.as_view(
+    template_name='registration/registration_closed.html')

@@ -12,3 +12,4 @@ pip-log.txt
 settings_local.py
 local.py
 gunicorn.log
+tmp/

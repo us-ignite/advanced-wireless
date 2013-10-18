@@ -54,3 +54,6 @@ CACHES = {
 
 # Faster tests with the MD5hasher.
 PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
+
+
+SITE_URL = 'http://testing-us-ignite.org'

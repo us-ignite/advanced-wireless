@@ -24,8 +24,21 @@
 
     <ul>
       <li><a href="{% url 'registration_register' %}">Registration</a></li>
+      <li><a href="{% url 'registration_activation_complete' %}">Activation complete</a></li>
+      <li><a href="{% url 'registration_activate' '1234567890123456789012345678901234567890' %}">Failed registration activation</a></li>
+      <li><a href="{% url 'registration_complete' %}">Registration complete</a></li>
+      <li><a href="{% url 'registration_disallowed' %}">Registration disallowed</a></li>
+    </ul>
+
+    <ul>
       <li><a href="{% url 'auth_login' %}">Login</a></li>
       <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+      <li><a href="{% url 'auth_password_change' %}">Password change</a></li>
+      <li><a href="{% url 'auth_password_change_done' %}">Completed password change</a></li>
+      <li><a href="{% url 'auth_password_reset' %}">Password reset</a></li>
+      {% comment %}<li><a href="{% url 'auth_password_reset_confirm' %}">Password reset confirmation</a></li>{% endcomment %}
+      <li><a href="{% url 'auth_password_reset_complete'%}">Reset complete</a></li>
+      <li><a href="{% url 'auth_password_reset_done'%}">Reset done</a></li>
     </ul>
     {% endblock content %}
   </body>
