@@ -4,7 +4,7 @@ from mock import patch
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from us_ignite.profiles.forms import UserRegistrationForm
+from us_ignite.profiles.forms import UserRegistrationForm, ProfileForm
 
 user_get = 'django.contrib.auth.models.User.objects.get'
 
@@ -63,3 +63,33 @@ class TestUserRegistrationForm(TestCase):
         })
         eq_(form.is_valid(), True)
         user_get_mock.assert_called_once_with(email__iexact='user-c@us-ignite.org')
+
+
+class TestProfileForm(TestCase):
+
+    def test_form_list_non_sensitive_values(self):
+        form = ProfileForm()
+        eq_(sorted(form.fields.keys()),
+            ['bio', 'first_name', 'last_name', 'website'])
+
+    def test_form_accepts_empty_payload(self):
+        form = ProfileForm({})
+        ok_(form.is_valid())
+
+    def test_form_accepts_empty_values(self):
+        form = ProfileForm({
+            'first_name': '',
+            'last_name': '',
+            'bio': '',
+            'website': '',
+        })
+        ok_(form.is_valid())
+
+    def test_form_receives_valid_values(self):
+        form = ProfileForm({
+            'first_name': 'John',
+            'last_name': 'Donne',
+            'bio': 'English poet, satirist and lawyer.',
+            'website': 'http://en.wikipedia.org/wiki/John_Donne',
+        })
+        ok_(form.is_valid())

@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from us_ignite.profiles.models import Profile
+
 
 class UserRegistrationForm(forms.Form):
     email = forms.EmailField()
@@ -28,3 +30,12 @@ class UserRegistrationForm(forms.Form):
                 raise forms.ValidationError('Passwords are not the same')
             return cleaned_data
         raise forms.ValidationError('Passwords are required.')
+
+
+class ProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=255, required=False)
+    last_name = forms.CharField(max_length=255, required=False)
+
+    class Meta:
+        model = Profile
+        fields = ('first_name', 'last_name', 'website', 'bio')
