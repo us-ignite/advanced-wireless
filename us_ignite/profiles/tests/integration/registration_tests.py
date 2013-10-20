@@ -13,17 +13,13 @@ from django_nose.tools import assert_redirects
 from registration.models import RegistrationProfile
 from nose.tools import ok_, eq_
 
+from us_ignite.common.tests import utils
 from us_ignite.profiles.tests import fixtures
 
 
 def _teardown_profiles():
     for model in [RegistrationProfile, User]:
         model.objects.all().delete()
-
-
-def _get_login_url(url):
-    """Returns an expected login URL."""
-    return '%s?next=%s' % (reverse('auth_login'), url)
 
 
 class TestRegistrationForm(TestCase):
@@ -66,8 +62,6 @@ class TestRegistrationForm(TestCase):
                         reverse('registration_activate', args=[key]))
         ok_(url in mail.outbox[0].body)
         _teardown_profiles()
-
-
 
 
 class TestActivationCompletePage(TestCase):
@@ -134,7 +128,7 @@ class TestUnauthenticatedPasswordChangePage(TestCase):
     def test_get_request_requires_authentication(self):
         url = '/accounts/password/change/'
         response = self.client.get(url)
-        assert_redirects(response, _get_login_url(url))
+        assert_redirects(response, utils.get_login_url(url))
 
     def test_post_request_requires_authentication(self):
         url = '/accounts/password/change/'
@@ -144,7 +138,7 @@ class TestUnauthenticatedPasswordChangePage(TestCase):
             'new_password2': 'hell0123',
         }
         response = self.client.post(url, payload)
-        assert_redirects(response, _get_login_url(url))
+        assert_redirects(response, utils.get_login_url(url))
 
 
 class TestAuthenticatedPasswordChangePage(TestCase):
@@ -190,7 +184,7 @@ class TestPasswordChangeDonePage(TestCase):
     def test_page_requires_authentication(self):
         url = '/accounts/password/change/done/'
         response = self.client.get(url)
-        assert_redirects(response, _get_login_url(url))
+        assert_redirects(response, utils.get_login_url(url))
 
     def test_authenticated_request_is_successful(self):
         fixtures.get_user('hello')
@@ -288,4 +282,3 @@ class TestResetDonepage(TestCase):
         url = '/accounts/password/reset/done/'
         response = self.client.get(url)
         eq_(response.status_code, 200)
-
