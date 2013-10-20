@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(r'^$', TemplateView.as_view(template_name="base.html")),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('us_ignite.profiles.urls')),
+    url(r'^browserid/', include('django_browserid.urls')),
 )
 
 

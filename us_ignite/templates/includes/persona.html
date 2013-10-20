@@ -1,0 +1,8 @@
+{% load browserid %}
+
+{% browserid_info %}
+{% if user.is_authenticated %}
+{% browserid_logout text='Logout' %}
+{% else %}
+{% browserid_login text='Login' color='dark' %}
+{% endif %}

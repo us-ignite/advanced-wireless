@@ -107,7 +107,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.core.context_processors.request',
-#    'us_ignite.common.context_processors.settings_available',
+    'django_browserid.context_processors.browserid',
+    'us_ignite.common.context_processors.settings_available',
 )
 
 ROOT_URLCONF = 'us_ignite.urls'
@@ -123,11 +124,13 @@ TEMPLATE_DIRS = (
 AUTHENTICATION_BACKENDS = (
     'us_ignite.profiles.backends.authentication.EmailModelBackend',
     'django.contrib.auth.backends.ModelBackend',
+    'django_browserid.auth.BrowserIDBackend',
 )
 
 
 INSTALLED_APPS = (
     'django.contrib.auth',
+    'django_browserid',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -244,6 +247,7 @@ COMPRESS_OFFLINE_MANIFEST = 'manifest.%s.json' % STATIC_FILES_VERSION
 STATIC_URL = 'http://%s/static/%s/' % (AWS_S3_CUSTOM_DOMAIN,
                                        STATIC_FILES_VERSION)
 
-
-# Email:
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Login details:
+LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL_FAILURE = '/'
+LOGOUT_REDIRECT_URL = '/'
