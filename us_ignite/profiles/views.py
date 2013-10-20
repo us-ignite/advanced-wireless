@@ -1,14 +1,17 @@
 import uuid
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import Site
 from django.contrib.sites.models import RequestSite
+from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 
 from registration import signals
-from registration.backends.default.views import RegistrationView, ActivationView
+from registration.backends.default import views as registration_views
 from registration.models import RegistrationProfile
 
 from us_ignite.profiles import forms
+from us_ignite.profiles.models import Profile
 
 
 def get_uuid():
@@ -20,7 +23,7 @@ def get_uuid():
     return stream[:12] + stream[13:16] + stream[17:]
 
 
-class EmailRegistrationView(RegistrationView):
+class EmailRegistrationView(registration_views.RegistrationView):
     form_class = forms.UserRegistrationForm
 
     def register(self, request, **cleaned_data):
@@ -66,8 +69,32 @@ class EmailRegistrationView(RegistrationView):
 registration_view = EmailRegistrationView.as_view()
 registration_activation_complete = TemplateView.as_view(
     template_name='registration/activation_complete.html')
-registration_activate = ActivationView.as_view()
+registration_activate = registration_views.ActivationView.as_view()
 registration_complete = TemplateView.as_view(
     template_name='registration/registration_complete.html')
 registration_disallowed = TemplateView.as_view(
     template_name='registration/registration_closed.html')
+
+
+@login_required
+def user_profile(request):
+    """View for the ``Profile`` of the ``User``."""
+    # Make sure the user has a profile:
+    profile, is_new = Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = forms.ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            request.user.first_name = form.cleaned_data['first_name']
+            request.user.last_name = form.cleaned_data['last_name']
+            request.user.save()
+            return redirect('user_profile')
+    else:
+        form = forms.ProfileForm(instance=profile, initial={
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+        })
+    context = {
+        'form': form,
+    }
+    return render(request, 'profile/user_profile.html', context)

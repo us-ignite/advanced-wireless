@@ -3,6 +3,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns(
     'us_ignite.profiles.views',
+    url(r'^profile/$', 'user_profile', name='user_profile'),
     url(r'^register/$', 'registration_view', name='registration_register'),
     url(r'^activate/complete/$', 'registration_activation_complete',
         name='registration_activation_complete'),
