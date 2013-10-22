@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'registration',
     'us_ignite.common',
     'us_ignite.profiles',
+    'us_ignite.people',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -216,3 +217,6 @@ AWS_HEADERS = {
     'Expires': expire_date.strftime('%a, %d %b %Y 00:00:00 GMT'),
     'Cache-Control': 'max-age=%s' % expire_seconds,
 }
+
+# Paginator:
+PAGINATOR_PAGE_SIZE = 10

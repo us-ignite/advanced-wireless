@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}User profile - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>People list</h1>
+
+{% for object in page.object_list %}
+<p>
+  {{ object }}
+</p>
+{% endfor%}
+
+{% include "includes/pagination.html" %}
+
+{% endblock content %}
