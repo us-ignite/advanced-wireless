@@ -26,3 +26,15 @@ Add the following line to ``/etc/hosts`` to access the VM via http://local-us-ig
 Add an ssh config entry for this project, so you can access the VM with ``ssh us_ignite::
 
     vagrant ssh-config --host us_ignite | sed -e '$a\' | tee -a ~/.ssh/config
+
+
+Running it in heroku
+--------------------
+
+The application has been bootstrapped to heroku and it is available in the following URL http://us-ignite.herokuapp.com/
+
+In order for the fabric scripts to work the heroku application needs to be added with the ``production`` alias::
+
+    $ git remote add production git@heroku.com:us-ignite.git
+
+Please note that you will only be able to deploy if you have been added as a collaborator for the project.
