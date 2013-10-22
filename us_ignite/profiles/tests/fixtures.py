@@ -8,6 +8,7 @@ def get_user(slug, **kwargs):
         'username': slug,
         'password': slug,
         'email': '%s@%s.org' % (slug, slug),
+        'first_name': slug,
     }
     defaults.update(kwargs)
     return User.objects.create_user(**defaults)

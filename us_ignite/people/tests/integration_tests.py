@@ -49,3 +49,25 @@ class TestPeopleListPage(TestCase):
         self.user.save()
         response = self.client.get('/people/')
         eq_(len(response.context['page'].object_list), 0)
+
+    def test_users_can_be_sorted(self):
+        user_a = fixtures.get_user(
+            'alpha', email='alpha@us-ignite.org')
+        profile_a = fixtures.get_profile(user=user_a)
+        user_b = fixtures.get_user(
+            'beta', email='beta@us-ignite.org')
+        profile_b = fixtures.get_profile(user=user_b)
+        response = self.client.get('/people/', {'order': 'user__first_name'})
+        eq_(list(response.context['page'].object_list),
+            [profile_a, profile_b, self.profile])
+
+    def test_users_can_be_reverse_sorted(self):
+        user_a = fixtures.get_user(
+            'alpha', email='alpha@us-ignite.org')
+        profile_a = fixtures.get_profile(user=user_a)
+        user_b = fixtures.get_user(
+            'beta', email='beta@us-ignite.org')
+        profile_b = fixtures.get_profile(user=user_b)
+        response = self.client.get('/people/', {'order': '-user__first_name'})
+        eq_(list(response.context['page'].object_list),
+            [self.profile, profile_b, profile_a])
