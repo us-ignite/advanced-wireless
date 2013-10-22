@@ -23,3 +23,13 @@ def get_page(object_list, page_no):
         page = paginator.page(1)
     return page
 
+
+def get_sort_by(payload, field_list):
+    """Validates the ``sort`` value in the payload.
+
+    The value is validated from the list of params passed as a field_list.
+    """
+    sort_by = payload.get('sort', None)
+    reverse_list = ['-%s' % f for f in field_list]
+    final_list = field_list + reverse_list
+    return sort_by if sort_by in final_list else None
