@@ -12,9 +12,7 @@
 </form>
 
 {% for object in page.object_list %}
-<p>
-  {{ object }}
-</p>
+{% include "people/object_block.html" with object=object %}
 {% endfor%}
 
 {% include "includes/pagination.html" %}

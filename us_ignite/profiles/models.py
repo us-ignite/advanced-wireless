@@ -1,3 +1,5 @@
+import hashlib
+
 from django.db import models
 
 from us_ignite.profiles import managers
@@ -15,6 +17,16 @@ class Profile(models.Model):
 
     def __unicode__(self):
         return u'Profile for %s' % self.user
+
+    @property
+    def full_name(self):
+        user = self.user
+        return u'%s %s' % (user.first_name, user.last_name)
+
+    def get_gravatar_url(self, size=100):
+        """Determines gravatar icon url"""
+        user_hash = hashlib.md5(self.user.email).hexdigest()
+        return u'//www.gravatar.com/avatar/%s?s=%s' % (user_hash, size)
 
 
 class ProfileLink(models.Model):

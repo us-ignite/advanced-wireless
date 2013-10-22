@@ -21,6 +21,17 @@ class TestProfileModel(TestCase):
         profile = Profile.objects.create(**data)
         ok_(profile.pk)
 
+    def test_user_full_name_is_valid(self):
+        user = fixtures.get_user('john', first_name='John', last_name='Donne')
+        profile = fixtures.get_profile(user=user)
+        eq_(profile.full_name, u'John Donne')
+
+    def test_gravatar_url_exists(self):
+        user = fixtures.get_user('paul')
+        profile = fixtures.get_profile(user=user)
+        eq_(profile.get_gravatar_url(),
+            '//www.gravatar.com/avatar/f978b2b03ad48da6d36c431f72d6fd97?s=100')
+
 
 class TestProfileLinkModel(TestCase):
 
