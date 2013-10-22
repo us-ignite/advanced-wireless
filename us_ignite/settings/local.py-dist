@@ -3,17 +3,15 @@ import os
 
 from us_ignite.settings import *
 
-WSGI_APPLICATION = 'us_ignite.wsgi.local.application'
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'rfzk&#(iol-6p&i1lowu__%tg4r&b3d=1(^(+@)zrd-&i1q+0$'
-
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
-# Function to dinamically get absolute PATHS to the PROJECT ROOT.
+# Get absolute PATHS to the PROJECT ROOT:
 here = lambda *x: os.path.join(PROJECT_ROOT, '..', *x)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = 'rfzk&#(iol-6p&i1lowu__%tg4r&b3d=1(^(+@)zrd-&i1q+0$'
 
 # Local database uses postgres
 DATABASES = {
@@ -27,6 +25,7 @@ DATABASES = {
     }
 }
 
+WSGI_APPLICATION = 'us_ignite.wsgi.local.application'
 
 USE_DEBUG_TOOLBAR = False
 
@@ -56,56 +55,65 @@ if USE_DEBUG_TOOLBAR:
 
 SITE_URL = 'http://local-us-ignite.org'
 
-# Disable authentication
-BASIC_WWW_AUTHENTICATION = False
 
-USE_FILESYSTEM = True
-
-if USE_FILESYSTEM:
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-    STATIC_URL = '/static/'
-
-# Determines if the assets should be minified during the development
-USE_COMPRESS = False
-
-# compress
-if not USE_COMPRESS:
-    COMPRESS_ENABLED = False
-
-if USE_COMPRESS and USE_FILESYSTEM:
-    COMPRESS_ENABLED = True
-    COMPRESS_STORAGE = 'compressor.storage.CompressorFileStorage'
-    COMPRESS_OFFLINE = False
-
-
-# Serve the assets locally
-COMPRESS_ENABLED = not DEBUG
-
-USE_FILESYSTEM = True
-
-if USE_FILESYSTEM:
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-    STATIC_URL = '/static/'
-
-# Determines if the assets should be minified during the development
-USE_COMPRESS = False
-
-# compress
-if not USE_COMPRESS:
-    COMPRESS_ENABLED = False
-
-if USE_COMPRESS and USE_FILESYSTEM:
-    COMPRESS_ENABLED = True
-    COMPRESS_STORAGE = 'compressor.storage.CompressorFileStorage'
-    COMPRESS_OFFLINE = False
-
-
-# Serve the assets locally
-COMPRESS_ENABLED = not DEBUG
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATIC_URL = '/static/'
 
 # email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_PORT = 1025
+
+# Logging:
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'heroku': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.SysLogHandler',
+            'formatter': 'simple'
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'us_ignite.common': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'django_browserid': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    }
+}
