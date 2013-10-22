@@ -88,6 +88,19 @@ def production_confirmation(function):
     return wrapper
 
 
+def _validate_pushed_commits():
+    with lcd(PROJECT_ROOT):
+        result = local('git log --pretty=format:"%h %s" origin/master..HEAD',
+                       capture=True)
+        if not result:
+            return True
+        print red('FAILURE: There are unpushed commits to origin/master.')
+        print yellow('Make sure these commits are pushed before '
+                     'deploying to heroku:')
+        print yellow(result)
+        exit(4)
+
+
 @only_outside_vm
 @production_confirmation
 def deploy(confirmation):
@@ -96,6 +109,7 @@ def deploy(confirmation):
     print yellow('Deploying to %s. Because you said so.' % SLUG)
     with lcd(PROJECT_ROOT):
         print yellow('Pushing changes to %s in Heroku.' % SLUG)
+        _validate_pushed_commits()
         local('git push %s master' % env.slug)
         syncdb()
     print yellow('URL: %s' % env.url)
