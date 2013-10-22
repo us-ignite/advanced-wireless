@@ -9,6 +9,7 @@ from fabric.contrib import console
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 here = lambda *x: os.path.join(PROJECT_ROOT, *x)
 
+DB_STRING = 'us_ignite'
 
 def production():
     """Connection details for the ``production`` app"""
@@ -121,3 +122,33 @@ def test(apps=''):
     """Runs the test suite."""
     local('django-admin.py test %s '
           '--settings=us_ignite.settings.testing' % apps)
+
+
+@only_inside_vm
+def drop_local_db():
+    """Removes the local development database."""
+    print yellow('Droping and creating a new DB.')
+    local('PGPASSWORD=%(db)s dropdb %(db)s -U %(db)s -h localhost'
+          % {'db': DB_STRING})
+    local("PGPASSWORD=%(db)s createdb %(db)s -T template0 -E UTF-8 "
+          "-l en_US.UTF-8 -O %(db)s -U %(db)s -h localhost"
+          % {'db': DB_STRING})
+
+
+@only_inside_vm
+def reset_local_db():
+    """Resets the local development DB
+    Check the database has the right UTF8 encoding before running this command.
+    sudo -u postgres psql --listsudo -u postgres psql --list
+    """
+    confirmation = red('You are about to IRREVERSIBLY clear the existing'
+                       ' local database. Procceed?')
+    if console.confirm(confirmation):
+        drop_local_db()
+        local('django-admin.py syncdb --noinput '
+              '--settings=%s.settings.local' % DB_STRING)
+        # local('django-admin.py migrate --noinput '
+        #       '--settings=%s.settings.local' % DB_STRING)
+    else:
+        print yellow('Phew, aborted.')
+        exit(1)
