@@ -7,18 +7,18 @@ from us_ignite.common import pagination
 class TestGetSortBy(TestCase):
 
     def test_invalid_sort_param_is_removed(self):
-        payload = {'sort': 'id'}
-        result = pagination.get_sort_by(payload, ['name'])
+        payload = {'order': 'id'}
+        result = pagination.get_order_value(payload, ['name'])
         eq_(result, None)
 
     def test_valid_sort_param_is_passed(self):
-        payload = {'sort': 'first_name'}
-        result = pagination.get_sort_by(payload, ['first_name', 'last_name'])
+        payload = {'order': 'first_name'}
+        result = pagination.get_order_value(payload, ['first_name', 'last_name'])
         eq_(result, 'first_name')
 
     def test_reverse_sort_param_is_passed(self):
-        payload = {'sort': '-last_name'}
-        result = pagination.get_sort_by(payload, ['first_name', 'last_name'])
+        payload = {'order': '-last_name'}
+        result = pagination.get_order_value(payload, ['first_name', 'last_name'])
         eq_(result, '-last_name')
 
 
