@@ -24,6 +24,7 @@
           {% endif %}
     </div>
 
+    <h2>Registration</h2>
     <ul>
       <li><a href="{% url 'registration_register' %}">Registration</a></li>
       <li><a href="{% url 'registration_activation_complete' %}">Activation complete</a></li>
@@ -32,6 +33,7 @@
       <li><a href="{% url 'registration_disallowed' %}">Registration disallowed</a></li>
     </ul>
 
+    <h2>Accounts</h2>
     <ul>
       <li><a href="{% url 'auth_login' %}">Login</a></li>
       <li><a href="{% url 'auth_logout' %}">Logout</a></li>
@@ -41,6 +43,11 @@
       {% comment %}<li><a href="{% url 'auth_password_reset_confirm' %}">Password reset confirmation</a></li>{% endcomment %}
       <li><a href="{% url 'auth_password_reset_complete'%}">Reset complete</a></li>
       <li><a href="{% url 'auth_password_reset_done'%}">Reset done</a></li>
+    </ul>
+
+    <h2>People</h2>
+    <ul>
+      <li><a href="{% url 'people_list' %}">Member list</a></li>
     </ul>
     {% endblock content %}
 
