@@ -13,3 +13,4 @@ settings_local.py
 local.py
 gunicorn.log
 tmp/
+notes.rst
