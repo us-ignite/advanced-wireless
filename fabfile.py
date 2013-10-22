@@ -64,27 +64,36 @@ def syncdb():
     dj_heroku('syncdb --noinput', env.slug)
 
 
+def production_confirmation(function):
+    """Production confirmation."""
+    @functools.wraps(function)
+    def wrapper(confirmation='', *args, **kwargs):
+        confirmation = False if confirmation == 'False' else True
+        SLUG = env.slug.upper()
+        if env.slug not in ['production']:
+            print red('Invaid destination: %s.' % SLUG)
+            exit(3)
+        if confirmation and env.slug == 'production':
+            msg = red('You are about to DEPLOY %s to Heroku. Procceed?' % SLUG)
+            if not console.confirm(msg):
+                print yellow('Phew, aborted.')
+                exit(2)
+        return function(confirmation, *args, **kwargs)
+    return wrapper
+
+
 @only_outside_vm
-def deploy(confirmation=''):
+@production_confirmation
+def deploy(confirmation):
     """Deploys the given build."""
-    confirmation = False if confirmation == 'False' else True
     SLUG = env.slug.upper()
-    if env.slug not in ['production']:
-        print red('Invaid destination: %s.' % SLUG)
-        exit(3)
-    if confirmation and env.slug == 'production':
-        msg = red('You are about to DEPLOY %s to Heroku. Procceed?' % SLUG)
-        if not console.confirm(msg):
-            print yellow('Phew, aborted.')
-            exit(2)
     print yellow('Deploying to %s. Because you said so.' % SLUG)
     with lcd(PROJECT_ROOT):
         print yellow('Pushing changes to %s in Heroku.' % SLUG)
-        local('git push %s master --force' % env.slug)
+        local('git push %s master' % env.slug)
         syncdb()
     print yellow('URL: %s' % env.url)
-    print red('Done?')
-    print '%s' % datetime.now()
+    print red('Done! - %s' % datetime.now())
 
 
 @only_inside_vm
