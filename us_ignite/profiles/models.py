@@ -1,10 +1,17 @@
 from django.db import models
 
+from us_ignite.profiles import managers
+
 
 class Profile(models.Model):
     user = models.OneToOneField('auth.User', primary_key=True)
     website = models.URLField(max_length=500, blank=True)
     bio = models.TextField(blank=True)
+    # TODO: add public flag.
+
+    # managers
+    active = managers.ProfileActiveManager()
+    objects = models.Manager()
 
     def __unicode__(self):
         return u'Profile for %s' % self.user
