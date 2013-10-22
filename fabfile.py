@@ -64,6 +64,12 @@ def syncdb():
     dj_heroku('syncdb --noinput', env.slug)
 
 
+@only_outside_vm
+def shell():
+    """Open a shell in the given environment."""
+    dj_heroku('shell', env.slug)
+
+
 def production_confirmation(function):
     """Production confirmation."""
     @functools.wraps(function)
