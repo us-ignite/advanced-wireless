@@ -5,6 +5,12 @@
 {% block content %}
 <h1>People list</h1>
 
+<form method="get" action=".">
+  {{ order_form.order.label_tag }}:
+  {{ order_form.order }}
+  <button type="submit">Order</button>
+</form>
+
 {% for object in page.object_list %}
 <p>
   {{ object }}
