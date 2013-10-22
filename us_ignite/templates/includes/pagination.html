@@ -4,6 +4,6 @@
   {% endif %}
   <li>Page {{ page.number }} of {{ page.paginator.num_pages }}.</li>
   {% if page.has_next %}
-  <li><a href="?page={{ page.next_page_number }}{% if order %}&order={{ order|urlencode }}">next</a></li>
+  <li><a href="?page={{ page.next_page_number }}{% if order %}&order={{ order|urlencode }}{% endif %}">next</a></li>
   {% endif %}
 </ul>
