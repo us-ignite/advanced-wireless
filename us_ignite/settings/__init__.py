@@ -191,8 +191,8 @@ LOGGING = {
 
 
 EMAIL_SUBJECT_PREFIX = '[US Ignite] '
-
 SEND_BROKEN_LINK_EMAILS = True
+DEFAULT_FROM_EMAIL = 'info@us-ignite.org'
 
 ALLOWED_HOSTS = [
     'local-us-ignite.org',
