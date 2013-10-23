@@ -38,3 +38,16 @@ In order for the fabric scripts to work the heroku application needs to be added
     $ git remote add production git@heroku.com:us-ignite.git
 
 Please note that you will only be able to deploy if you have been added as a collaborator for the project.
+
+
+Helpful commands
+----------------
+
+Reset the local database:
+-------------------------
+
+While the models are still being defined it is useful to reset the database for the vm. The following command must be run inside the vm::
+
+    $ fab reset_local_db
+
+This command will drop the existing database and re create it by running ``syncdb``.
