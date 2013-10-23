@@ -37,7 +37,10 @@ class AutoUUIDField(models.SlugField):
         return slug
 
     def pre_save(self, model_instance, add):
-        value = force_unicode(self.create_slug(model_instance, add))
+        # Get value from the current instance:
+        value = getattr(model_instance, self.attname)
+        if not value:
+            value = force_unicode(self.create_slug(model_instance, add))
         setattr(model_instance, self.attname, value)
         return value
 
