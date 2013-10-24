@@ -101,6 +101,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
     'django_browserid.context_processors.browserid',
     'us_ignite.common.context_processors.settings_available',
 )
@@ -190,6 +191,8 @@ LOGGING = {
     }
 }
 
+# Message storage
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 EMAIL_SUBJECT_PREFIX = '[US Ignite] '
 SEND_BROKEN_LINK_EMAILS = True
