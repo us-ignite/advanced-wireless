@@ -71,3 +71,22 @@ class TestPeopleListPage(TestCase):
         response = self.client.get('/people/', {'order': '-user__first_name'})
         eq_(list(response.context['page'].object_list),
             [self.profile, profile_b, profile_a])
+
+
+class TestProfileDetailPage(TestCase):
+
+    def setUp(self):
+        self.user = fixtures.get_user(
+            'us-ignite', email='user@us-ignite.org')
+        self.profile = fixtures.get_profile(user=self.user)
+        self.client.login(username='us-ignite', password='us-ignite')
+
+    def tearDown(self):
+        self.client.logout()
+        _teardown_profiles()
+
+    def test_get_request_is_successful(self):
+        response = self.client.get('/people/%s/' % self.profile.slug)
+        ok_(response.status_code, 200)
+        ok_('object' in response.context)
+

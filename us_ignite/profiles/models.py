@@ -1,6 +1,7 @@
 import hashlib
 
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from us_ignite.common.fields import AutoUUIDField
 from us_ignite.profiles import managers
@@ -29,6 +30,9 @@ class Profile(models.Model):
         """Determines gravatar icon url"""
         user_hash = hashlib.md5(self.user.email).hexdigest()
         return u'//www.gravatar.com/avatar/%s?s=%s' % (user_hash, size)
+
+    def get_absolute_url(self):
+        return reverse('profile_detail', args=[self.slug])
 
 
 class ProfileLink(models.Model):

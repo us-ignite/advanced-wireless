@@ -48,7 +48,10 @@
 
     <h2>People</h2>
     <ul>
-      <li><a href="{% url 'people_list' %}">Member list</a></li>
+      <li><a href="{% url 'profile_list' %}">Member list</a></li>
+      {% if request.user.is_authenticated %}
+      <li><a href="{{ request.user.profile.get_absolute_url }}">Profile Detail</a></li>
+      {% endif %}
     </ul>
     {% endblock content %}
 

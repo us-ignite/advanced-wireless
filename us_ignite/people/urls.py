@@ -2,5 +2,6 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
     'us_ignite.people.views',
-    url(r'^$', 'people_list', name='people_list'),
+    url(r'^$', 'profile_list', name='profile_list'),
+    url(r'^(?P<slug>\w{1,32})/$', 'profile_detail', name='profile_detail'),
 )
