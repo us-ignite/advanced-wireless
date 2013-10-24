@@ -10,6 +10,7 @@ from us_ignite.profiles import managers
 class Profile(models.Model):
     user = models.OneToOneField('auth.User', primary_key=True)
     slug = AutoUUIDField(unique=True, editable=True)
+    display_name = models.CharField(max_length=255, blank=True)
     website = models.URLField(max_length=500, blank=True)
     bio = models.TextField(blank=True)
     # TODO: add public flag.
