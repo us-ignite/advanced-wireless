@@ -1,7 +1,9 @@
 from django import forms
+from django.forms.models import inlineformset_factory
+
 from django.contrib.auth.models import User
 
-from us_ignite.profiles.models import Profile
+from us_ignite.profiles.models import Profile, ProfileLink
 
 
 class UserRegistrationForm(forms.Form):
@@ -39,3 +41,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('first_name', 'last_name', 'website', 'bio')
+
+
+ProfileLinkFormSet = inlineformset_factory(
+    Profile, ProfileLink, max_num=3, extra=1)

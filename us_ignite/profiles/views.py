@@ -1,8 +1,9 @@
 import uuid
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.sites.models import Site
-from django.contrib.sites.models import RequestSite
+from django.contrib import messages
+from django.contrib.sites.models import Site, RequestSite
+
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView
 
@@ -83,18 +84,23 @@ def user_profile(request):
     profile, is_new = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = forms.ProfileForm(request.POST, instance=profile)
-        if form.is_valid():
+        formset = forms.ProfileLinkFormSet(request.POST, instance=profile)
+        if form.is_valid() and formset.is_valid():
             form.save()
+            formset.save()
             request.user.first_name = form.cleaned_data['first_name']
             request.user.last_name = form.cleaned_data['last_name']
             request.user.save()
+            messages.success(request, 'Profile has been updated successfully.')
             return redirect('user_profile')
     else:
         form = forms.ProfileForm(instance=profile, initial={
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
         })
+        formset = forms.ProfileLinkFormSet(instance=profile)
     context = {
         'form': form,
+        'formset': formset,
     }
     return render(request, 'profile/user_profile.html', context)
