@@ -4,7 +4,8 @@ from mock import patch
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from us_ignite.profiles.forms import UserRegistrationForm, ProfileForm
+from us_ignite.profiles.forms import (UserRegistrationForm, ProfileForm,
+                                      InviterForm)
 
 user_get = 'django.contrib.auth.models.User.objects.get'
 
@@ -93,3 +94,46 @@ class TestProfileForm(TestCase):
             'website': 'http://en.wikipedia.org/wiki/John_Donne',
         })
         ok_(form.is_valid())
+
+
+class TestInviterForm(TestCase):
+
+    def test_form_fields_are_not_sensitive(self):
+        form = InviterForm()
+        eq_(sorted(form.fields.keys()), ['users', ])
+
+    def test_form_with_invalid_format_fails(self):
+        users = "Alpha, alpha@us-ignite.org, extra"
+        form = InviterForm({'users': users})
+        eq_(form.is_valid(), False)
+        ok_('users' in form.errors)
+
+    def test_form_with_invalid_email_fails(self):
+        users = "Alpha, not an email."
+        form = InviterForm({'users': users})
+        eq_(form.is_valid(), False)
+        ok_('users' in form.errors)
+
+    def test_valid_submission_is_accepted(self):
+        users = "Alpha, alpha@us-ignite.org"
+        form = InviterForm({'users': users})
+        eq_(form.is_valid(), True)
+        eq_(form.cleaned_data['users'], [('Alpha', 'alpha@us-ignite.org')])
+
+    def test_multiple_line_submission_is_accepted(self):
+        users = ["Alpha, alpha@us-ignite.org", "Beta, beta@us-ignite.org"]
+        users = '\n'.join(users)
+        form = InviterForm({'users': users})
+        eq_(form.is_valid(), True)
+        eq_(form.cleaned_data['users'], [
+            ('Alpha', 'alpha@us-ignite.org'),
+            ('Beta', 'beta@us-ignite.org'),
+        ])
+
+    def test_blank_lines_are_ignored(self):
+        users = [""] * 10
+        users += ["Alpha, alpha@us-ignite.org"]
+        users = '\n'.join(users)
+        form = InviterForm({'users': users})
+        eq_(form.is_valid(), True)
+        eq_(form.cleaned_data['users'], [('Alpha', 'alpha@us-ignite.org')])

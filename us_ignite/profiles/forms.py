@@ -1,7 +1,7 @@
 from django import forms
-from django.forms.models import inlineformset_factory
-
+from django.core import validators
 from django.contrib.auth.models import User
+from django.forms.models import inlineformset_factory
 
 from us_ignite.profiles.models import Profile, ProfileLink
 
@@ -45,3 +45,37 @@ class ProfileForm(forms.ModelForm):
 
 ProfileLinkFormSet = inlineformset_factory(
     Profile, ProfileLink, max_num=3, extra=1)
+
+
+class InviterForm(forms.Form):
+    users = forms.CharField(widget=forms.Textarea,
+                            help_text='Users must be in a ``name, email`` '
+                            'format each new user must be in a new line.')
+
+    def clean_users(self):
+        """Prepares the users to be imported.
+
+        The output will be a list of tuples of name and email address::
+
+            [('Name', 'Email address')]
+        """
+        if self.cleaned_data.get('users'):
+            rows = self.cleaned_data['users'].splitlines()
+            rows = filter(None, rows)
+            if not rows:
+                raise forms.ValidationError('No users have been provided.')
+            cleaned_users = []
+            for r in rows:
+                try:
+                    name, email = r.split(',')
+                except Exception, e:
+                    raise forms.ValidationError(
+                        '``%s`` has an invalid format. Must be ``name, email``'% r)
+                # Remove email whitespace:
+                email = email.replace(' ', '')
+                try:
+                    validators.validate_email(email)
+                except forms.ValidationError:
+                    raise forms.ValidationError('Invalid email: %s' % email)
+                cleaned_users.append((name, email))
+            return cleaned_users
