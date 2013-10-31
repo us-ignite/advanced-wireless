@@ -3,8 +3,11 @@ import hashlib
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from us_ignite.profiles import communications, managers
 from us_ignite.common.fields import AutoUUIDField
-from us_ignite.profiles import managers
+
+from django_browserid.signals import user_created
+from registration.signals import user_activated
 
 
 class Profile(models.Model):
@@ -47,3 +50,12 @@ class ProfileLink(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return self.url
+
+
+# Welcome email when a new account is created via Mozilla Persona:
+user_created.connect(
+    communications.send_welcome_email, dispatch_uid='browserid_welcome_email')
+
+# Welcome email when a user has been activated via US Ignite registration:
+user_activated.connect(
+    communications.send_welcome_email, dispatch_uid='registration_welcome_email')
