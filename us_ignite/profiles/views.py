@@ -10,6 +10,7 @@ from django.views.generic.base import TemplateView
 from registration import signals
 from registration.backends.default import views as registration_views
 from registration.models import RegistrationProfile
+from registration.views import ActivationView as BaseActivationView
 
 from us_ignite.profiles import forms
 from us_ignite.profiles.models import Profile
@@ -56,7 +57,7 @@ class EmailRegistrationView(registration_views.RegistrationView):
             site = Site.objects.get_current()
         else:
             site = RequestSite(request)
-    # Generate a random username, email is used for login:
+        # Generate a random username, email is used for login:
         username = get_uuid()
         new_user = (RegistrationProfile.objects
                     .create_inactive_user(username, email, password, site))
@@ -65,12 +66,32 @@ class EmailRegistrationView(registration_views.RegistrationView):
         return new_user
 
 
+class ActivationView(BaseActivationView):
+
+    def activate(self, request, activation_key):
+        """
+        Given an an activation key, look up and activate the user
+        account corresponding to that key (if possible).
+
+        After successful activation, the signal
+        ``registration.signals.user_activated`` will be sent, with the
+        newly activated ``User`` as the keyword argument ``user`` and
+        the class of this backend as the sender.
+        """
+        activated_user = RegistrationProfile.objects.activate_user(activation_key)
+        return activated_user
+
+    def get_success_url(self, request, user):
+        return ('registration_activation_complete', (), {})
+
 # Registration views:
 # Using function aliases for lazy loadind and readability in the urls file.
 registration_view = EmailRegistrationView.as_view()
 registration_activation_complete = TemplateView.as_view(
     template_name='registration/activation_complete.html')
-registration_activate = registration_views.ActivationView.as_view()
+# Using local ``Activation`` view to avoid sending duplicate
+# user_activated signals:
+registration_activate = ActivationView.as_view()
 registration_complete = TemplateView.as_view(
     template_name='registration/registration_complete.html')
 registration_disallowed = TemplateView.as_view(
