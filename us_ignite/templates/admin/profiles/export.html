@@ -1,0 +1,38 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_modify %}
+{% load admin_urls %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+
+{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> &rsaquo;
+  <a href="{% url 'admin:profiles_profile_changelist' %}">{% trans 'Profiles' %}</a> &rsaquo;
+  {{ title }}
+</div>
+{% endblock %}
+{% endif %}
+
+
+{% block content %}
+<div id="content-main">
+  <p>The export will generate a CSV file containing <strong>name</strong> and <strong>email address</strong>.</p>
+  <form action="." method="post" id="export_users_form">{% csrf_token %}
+    <div class="submit-row">
+      <input type="submit" value="Export users" class="default" name="_export">
+      <p class="deletelink-box"><a href="{% url 'admin:profiles_profile_changelist' %}" class="deletelink">Cancel</a></p>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

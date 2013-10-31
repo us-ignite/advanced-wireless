@@ -6,6 +6,9 @@
   <a href="{% url "admin:invite_users" %}">Invite users</a>
 </li>
 <li>
+  <a href="{% url "admin:export_users" %}">Export users</a>
+</li>
+<li>
   <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class="addlink">
     {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
   </a>
