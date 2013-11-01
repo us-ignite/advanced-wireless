@@ -15,6 +15,17 @@
   <body>
     {% include "includes/messages.html" %}
 
+    <ul>
+      {% if request.user.is_authenticated %}
+      <li>Logged in as: {{ request.user.email }}</li>
+      <li><a href="{% url 'user_profile' %}">Edit user profile</a></li>
+      <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+      {% else %}
+      <li><a href="{% url 'auth_login' %}">Login</a></li>
+      <li><a href="{% url 'registration_register' %}">Registration</a></li>
+      {% endif %}
+    </ul>
+
     {% block content %}{% endblock content %}
 
     <script src="{{ STATIC_URL }}scripts/jquery-2.0.3.js"></script>
