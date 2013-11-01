@@ -1,4 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns,  url
+from django.contrib.auth.views import login
+
+from us_ignite.common import decorators
 
 
 urlpatterns = patterns(
@@ -13,17 +16,15 @@ urlpatterns = patterns(
     # confusing 404.
     url(r'^activate/(?P<activation_key>\w+)/$', 'registration_activate',
         name='registration_activate'),
-    url(r'', include('registration.backends.default.urls')),
     url(r'^register/complete/$', 'registration_complete',
         name='registration_complete'),
     url(r'^register/closed/$', 'registration_disallowed',
         name='registration_disallowed'),
 )
 
-
 urlpatterns += patterns(
     'django.contrib.auth.views',
-    url(r'^login/$', 'login',
+    url(r'^login/$', decorators.not_auth_required(login),
         {'template_name': 'registration/login.html'}, name='auth_login'),
     url(r'^logout/$', 'logout',
         {'template_name': 'registration/logout.html'}, name='auth_logout'),

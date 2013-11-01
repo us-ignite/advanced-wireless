@@ -82,3 +82,24 @@ class TestGroupRequiredDecoratorFixtured(TestCase):
             ['downloads', 'special_resources'])(dummy_view)
         response = view(request, 'OK')
         eq_(response, 'OK')
+
+
+class TestNonAuthRequired(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def test_authenticated_user_is_redirected(self):
+        request = self.factory.get('/alpha/')
+        request.user = _get_auth_user_mock()
+        view = decorators.not_auth_required(dummy_view)
+        response = view(request, 'OK')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], '/')
+
+    def test_unauth_user_request_is_successful(self):
+        request = self.factory.get('/beta/')
+        request.user = _get_non_auth_user_mock()
+        view = decorators.not_auth_required(dummy_view)
+        response = view(request, 'OK1')
+        eq_(response, 'OK1')

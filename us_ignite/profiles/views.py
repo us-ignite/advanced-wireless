@@ -12,6 +12,7 @@ from registration.backends.default import views as registration_views
 from registration.models import RegistrationProfile
 from registration.views import ActivationView as BaseActivationView
 
+from us_ignite.common import decorators
 from us_ignite.profiles import forms
 from us_ignite.profiles.models import Profile
 
@@ -86,7 +87,8 @@ class ActivationView(BaseActivationView):
 
 # Registration views:
 # Using function aliases for lazy loadind and readability in the urls file.
-registration_view = EmailRegistrationView.as_view()
+registration_view = decorators.not_auth_required(
+    EmailRegistrationView.as_view())
 registration_activation_complete = TemplateView.as_view(
     template_name='registration/activation_complete.html')
 # Using local ``Activation`` view to avoid sending duplicate

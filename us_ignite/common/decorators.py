@@ -1,6 +1,7 @@
 import functools
 
 from django.contrib.auth.views import redirect_to_login
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 
@@ -49,3 +50,13 @@ def group_required(group_list):
                 return redirect_to_login(path)
         return wrapper
     return decorator
+
+
+def not_auth_required(function):
+    """Redirects the user to the homepage when the user is logged in."""
+    @functools.wraps(function)
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return function(request, *args, **kwargs)
+        return HttpResponseRedirect('/')
+    return wrapper
