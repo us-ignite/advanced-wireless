@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Homepage - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>US Ignite</h1>
+
+<p>US Ignite fosters the creation of next-generation Internet applications that provide transformative public benefit.</p>
+
+<ul>
+  {% if request.user.is_authenticated %}
+  <li>Logged in as: {{ request.user.email }}</li>
+  <li><a href="{% url 'user_profile' %}">Edit user profile</a></li>
+  {% else %}
+  <li><a href="{% url 'auth_login' %}">Login</a></li>
+  <li><a href="{% url 'registration_register' %}">Registration</a></li>
+  {% endif %}
+</ul>
+
+<h2>People</h2>
+<ul>
+  <li><a href="{% url 'profile_list' %}">Member list</a></li>
+</ul>
+{% endblock content %}

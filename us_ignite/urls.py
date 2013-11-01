@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^$', TemplateView.as_view(template_name="base.html")),
+    url(r'^$', TemplateView.as_view(template_name="home.html")),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('us_ignite.profiles.urls')),
     url(r'^people/', include('us_ignite.people.urls')),
@@ -17,6 +17,11 @@ urlpatterns = patterns(
 
 
 if settings.DEBUG:
+    urlpatterns += patterns(
+        '',
+        url(r'^screens/$', TemplateView.as_view(template_name="screens.html")),
+    )
+
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += patterns(
         '',
