@@ -5,6 +5,11 @@
 {% block content %}
 <h1>Profile</h1>
 
+<ul>
+  <li><a href="{% url 'auth_password_change' %}">Password change</a></li>
+  <li><a href="{{ request.user.profile.get_absolute_url }}">View my profile</a></li>
+</ul>
+
 <form method="post" action="{% url 'user_profile' %}">
   {{ form.as_p }}
 
