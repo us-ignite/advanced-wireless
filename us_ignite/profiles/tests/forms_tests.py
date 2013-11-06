@@ -1,6 +1,7 @@
-from nose.tools import ok_, eq_
+from nose.tools import ok_, eq_, raises
 from mock import patch
 
+from django.forms import ValidationError
 from django.test import TestCase
 from django.contrib.auth.models import User
 
@@ -130,8 +131,33 @@ class TestInviterForm(TestCase):
 
     def test_blank_lines_are_ignored(self):
         users = [""] * 10
-        users += ["Alpha, alpha@us-ignite.org"]
+        users += ["Alpha,alpha@us-ignite.org"]
         users = '\n'.join(users)
         form = InviterForm({'users': users})
         eq_(form.is_valid(), True)
         eq_(form.cleaned_data['users'], [('Alpha', 'alpha@us-ignite.org')])
+
+    @raises(ValidationError)
+    def test_user_validation_fails_with_short_row(self):
+        form = InviterForm()
+        user_row = ('alpha',)
+        form._validate_user(user_row)
+
+    @raises(ValidationError)
+    def test_user_validation_fails_with_long_row(self):
+        form = InviterForm()
+        user_row = ('alpha', 'beta', 'gamma')
+        form._validate_user(user_row)
+
+    @raises(ValidationError)
+    def test_user_validation_fails_with_invalid_email(self):
+        form = InviterForm()
+        user_row = ('alpha', 'beta')
+        form._validate_user(user_row)
+
+    def test_user_validation_succeeds_with_valid_row(self):
+        form = InviterForm()
+        # Please note the whitespace at the begining of the email:
+        user_row = ('alpha', ' beta@us-ignite.org')
+        result = form._validate_user(user_row)
+        eq_(result, ('alpha', 'beta@us-ignite.org'))

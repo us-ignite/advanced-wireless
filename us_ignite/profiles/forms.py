@@ -1,8 +1,11 @@
+from StringIO import StringIO
+
 from django import forms
 from django.core import validators
 from django.contrib.auth.models import User
 from django.forms.models import inlineformset_factory
 
+from us_ignite.common import csv_unicode as csv
 from us_ignite.profiles.models import Profile, ProfileLink
 
 
@@ -50,6 +53,22 @@ class InviterForm(forms.Form):
                             help_text='Users must be in a ``name, email`` '
                             'format each new user must be in a new line.')
 
+    def _validate_user(self, row):
+        try:
+            # Unpack the row
+            name, email = row
+        except (ValueError, TypeError):
+            raise forms.ValidationError(
+                '``%s`` has an invalid format. Must be ``name, email``'
+                % ','.join(row))
+        # Remove email whitespace:
+        email = email.replace(' ', '')
+        try:
+            validators.validate_email(email)
+        except forms.ValidationError:
+            raise forms.ValidationError('Invalid email: ``%s``' % email)
+        return (name, email)
+
     def clean_users(self):
         """Prepares the users to be imported.
 
@@ -58,22 +77,13 @@ class InviterForm(forms.Form):
             [('Name', 'Email address')]
         """
         if self.cleaned_data.get('users'):
-            rows = self.cleaned_data['users'].splitlines()
-            rows = filter(None, rows)
-            if not rows:
-                raise forms.ValidationError('No users have been provided.')
+            users_csv = csv.UnicodeReader(
+                StringIO(self.cleaned_data.get('users')))
             cleaned_users = []
-            for r in rows:
-                try:
-                    name, email = r.split(',')
-                except Exception, e:
-                    raise forms.ValidationError(
-                        '``%s`` has an invalid format. Must be ``name, email``'% r)
-                # Remove email whitespace:
-                email = email.replace(' ', '')
-                try:
-                    validators.validate_email(email)
-                except forms.ValidationError:
-                    raise forms.ValidationError('Invalid email: %s' % email)
-                cleaned_users.append((name, email))
+            for row in users_csv:
+                if not row:
+                    continue
+                user_row = self._validate_user(row)
+                if user_row:
+                    cleaned_users.append(user_row)
             return cleaned_users
