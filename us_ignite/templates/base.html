@@ -19,7 +19,7 @@
 
     <ul>
       {% if request.user.is_authenticated %}
-      <li>Logged in as: {{ request.user.email }}</li>
+      <li>Logged in as: {% if request.user.profile.full_name %}{{ request.user.profile.full_name }}{% else %}{{ request.user.email }}{% endif %}</li>
       <li><a href="{% url 'user_profile' %}">Edit user profile</a></li>
       <li><a href="{% url 'auth_logout' %}">Logout</a></li>
       {% else %}
