@@ -61,7 +61,7 @@ def run_heroku(cmd, slug, capture=True):
 
 @only_outside_vm
 def syncdb():
-    print yellow('Syncing %s database.' % env.slug)
+    print yellow('Syncing %s database.' % env.slug.upper())
     dj_heroku('syncdb --noinput', env.slug)
 
 
@@ -114,7 +114,7 @@ def deploy(confirmation):
         local('git push %s master' % env.slug)
         syncdb()
     print yellow('URL: %s' % env.url)
-    print red('Done! - %s' % datetime.now())
+    print green('Done at %s' % datetime.now())
 
 
 @only_inside_vm

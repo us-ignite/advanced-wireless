@@ -89,4 +89,3 @@ class TestProfileDetailPage(TestCase):
         response = self.client.get('/people/%s/' % self.profile.slug)
         ok_(response.status_code, 200)
         ok_('object' in response.context)
-
