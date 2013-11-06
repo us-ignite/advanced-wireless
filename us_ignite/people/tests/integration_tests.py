@@ -26,7 +26,7 @@ class TestPeopleListPage(TestCase):
     def setUp(self):
         self.user = fixtures.get_user(
             'us-ignite', email='user@us-ignite.org')
-        self.profile = fixtures.get_profile(user=self.user)
+        self.profile = fixtures.get_profile(user=self.user, name='us ignite')
         self.client.login(username='us-ignite', password='us-ignite')
 
     def tearDown(self):
@@ -53,22 +53,22 @@ class TestPeopleListPage(TestCase):
     def test_users_can_be_sorted(self):
         user_a = fixtures.get_user(
             'alpha', email='alpha@us-ignite.org')
-        profile_a = fixtures.get_profile(user=user_a)
+        profile_a = fixtures.get_profile(user=user_a, name='alpha')
         user_b = fixtures.get_user(
             'beta', email='beta@us-ignite.org')
-        profile_b = fixtures.get_profile(user=user_b)
-        response = self.client.get('/people/', {'order': 'user__first_name'})
+        profile_b = fixtures.get_profile(user=user_b, name='beta')
+        response = self.client.get('/people/', {'order': 'name'})
         eq_(list(response.context['page'].object_list),
             [profile_a, profile_b, self.profile])
 
     def test_users_can_be_reverse_sorted(self):
         user_a = fixtures.get_user(
             'alpha', email='alpha@us-ignite.org')
-        profile_a = fixtures.get_profile(user=user_a)
+        profile_a = fixtures.get_profile(user=user_a, name='alpha')
         user_b = fixtures.get_user(
             'beta', email='beta@us-ignite.org')
-        profile_b = fixtures.get_profile(user=user_b)
-        response = self.client.get('/people/', {'order': '-user__first_name'})
+        profile_b = fixtures.get_profile(user=user_b, name='beta')
+        response = self.client.get('/people/', {'order': '-name'})
         eq_(list(response.context['page'].object_list),
             [self.profile, profile_b, profile_a])
 

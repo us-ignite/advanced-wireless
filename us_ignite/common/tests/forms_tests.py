@@ -6,8 +6,8 @@ from us_ignite.common import forms
 
 
 ORDER_CHOICES = [
-    ('first_name', 'First name'),
-    ('-last_name', 'Last name'),
+    ('name', 'Name'),
+    ('-name', '-Name'),
 ]
 
 
@@ -28,12 +28,12 @@ class TestOrderForm(TestCase):
         ok_('order' in form.errors)
 
     def test_form_is_valid_with_valid_choice(self):
-        payload = {'order': 'first_name'}
+        payload = {'order': 'name'}
         form = forms.OrderForm(payload, order_choices=ORDER_CHOICES)
         eq_(form.is_valid(), True)
 
     def test_cleaned_data_is_valid_parameter(self):
-        payload = {'order': '-last_name'}
+        payload = {'order': '-name'}
         form = forms.OrderForm(payload, order_choices=ORDER_CHOICES)
         eq_(form.is_valid(), True)
-        eq_(form.cleaned_data['order'], '-last_name')
+        eq_(form.cleaned_data['order'], '-name')

@@ -7,10 +7,8 @@ from us_ignite.common import pagination, forms
 
 PROFILE_SORTING_CHOICES = (
     ('', 'Select ordering'),
-    ('user__first_name', 'First name a-z'),
-    ('-user__first_name', 'First name z-a'),
-    ('user__last_name', 'Last name a-z'),
-    ('-user__last_name', 'Last name z-a'),
+    ('name', 'Name a-z'),
+    ('-name', 'Name z-a'),
 )
 
 
@@ -22,6 +20,7 @@ def profile_list(request):
     order_value = order_form.cleaned_data['order'] if order_form.is_valid() else ''
     object_list = Profile.active.all()
     if order_value:
+        # TODO consider using non case-sensitive ordering:
         object_list = object_list.order_by(order_value)
     page = pagination.get_page(object_list, page_no)
     context = {
