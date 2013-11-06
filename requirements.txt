@@ -14,6 +14,7 @@ requests == 2.0.0
 fancy_tag == 0.2.0
 django-browserid == 0.9
 shortuuid == 0.4
+django-extensions == 1.2.5
 
 # Compiled
 psycopg2
