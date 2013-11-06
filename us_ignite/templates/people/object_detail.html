@@ -6,13 +6,30 @@
 
 <h1>{{ object.full_name }}</h1>
 
+{% if object.website %}
+<p><a href="{{ object.website }}" rel="external">Website</a></p>
+{% endif %}
+
 <p>
   <img src="{{ object.get_gravatar_url }}" alt="Avatar" />
 </p>
 
+{% if object.bio %}
+<h2>Bio:</h2>
 <p>
   {{ object.bio }}
 </p>
+{% endif %}
 
+{% with object.profilelink_set.all as link_list %}
+{% if link_list %}
+<h3>Other URLS:</h3>
+<ul>
+  {% for link in link_list %}
+  <li><a href="{{ link.url }}" rel="external">{{ link.name }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
+{% endwith %}
 
 {% endblock content %}
