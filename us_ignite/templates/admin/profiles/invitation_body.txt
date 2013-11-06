@@ -1,6 +1,8 @@
 Hi there,
 
-You have been invited to join US ignite.
+You have been invited to join US ignite. Please login using your Mozilla Persona account using this email address:
+
+   {{ SITE_URL }}{% url "auth_login" %}
 
 You are receiving this email because you have provided your details to US Ignite.
 

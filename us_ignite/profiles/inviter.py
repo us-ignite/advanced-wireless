@@ -57,6 +57,7 @@ def create_user(raw_user):
 def send_user_invitation(raw_user):
     context = {
         'user': raw_user,
+        'SITE_URL': settings.SITE_URL,
     }
     _template = lambda t: 'admin/profiles/invitation_%s' % t
     subject = render_to_string(_template('subject.txt'), context)
