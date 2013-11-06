@@ -48,7 +48,7 @@ def create_user(raw_user):
         user = create_browserid_user(raw_user.email)
     # Create a new profile:
     profile, new = models.Profile.objects.get_or_create(user=user)
-    profile.display_name = raw_user.name
+    profile.name = raw_user.name
     profile.save()
     # Send profile invitation:
     return user

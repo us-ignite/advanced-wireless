@@ -71,7 +71,7 @@ class TestProfileForm(TestCase):
     def test_form_list_non_sensitive_values(self):
         form = ProfileForm()
         eq_(sorted(form.fields.keys()),
-            ['bio', 'first_name', 'last_name', 'website'])
+            ['bio', 'name', 'website'])
 
     def test_form_accepts_empty_payload(self):
         form = ProfileForm({})
@@ -79,8 +79,7 @@ class TestProfileForm(TestCase):
 
     def test_form_accepts_empty_values(self):
         form = ProfileForm({
-            'first_name': '',
-            'last_name': '',
+            'name': '',
             'bio': '',
             'website': '',
         })
@@ -88,8 +87,7 @@ class TestProfileForm(TestCase):
 
     def test_form_receives_valid_values(self):
         form = ProfileForm({
-            'first_name': 'John',
-            'last_name': 'Donne',
+            'name': 'John Donne',
             'bio': 'English poet, satirist and lawyer.',
             'website': 'http://en.wikipedia.org/wiki/John_Donne',
         })

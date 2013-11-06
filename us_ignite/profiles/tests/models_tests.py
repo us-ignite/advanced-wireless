@@ -22,8 +22,8 @@ class TestProfileModel(TestCase):
         ok_(profile.pk)
 
     def test_user_full_name_is_valid(self):
-        user = fixtures.get_user('john', first_name='John', last_name='Donne')
-        profile = fixtures.get_profile(user=user)
+        user = fixtures.get_user('john')
+        profile = fixtures.get_profile(user=user, name='John Donne')
         eq_(profile.full_name, u'John Donne')
 
     def test_gravatar_url_exists(self):

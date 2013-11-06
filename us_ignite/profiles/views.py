@@ -111,9 +111,6 @@ def user_profile(request):
         if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
-            request.user.first_name = form.cleaned_data['first_name']
-            request.user.last_name = form.cleaned_data['last_name']
-            request.user.save()
             messages.success(request, 'Profile has been updated successfully.')
             return redirect('user_profile')
     else:

@@ -1,4 +1,4 @@
 <p>
-  {{ object.full_name }}
-  <img src="{{ object.get_gravatar_url }}" alt="Avatar" />
+  <a href="{{ object.get_absolute_url }}">{{ object.full_name }}</a>
+  <a href="{{ object.get_absolute_url }}"><img src="{{ object.get_gravatar_url }}" alt="Avatar" /></a>
 </p>

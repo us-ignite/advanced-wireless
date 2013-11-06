@@ -25,8 +25,7 @@ class TestUnauthenticatedEditProfilePage(TestCase):
     def test_profile_update_requires_authentication(self):
         url = '/accounts/profile/'
         data = {
-            'first_name': 'John',
-            'last_name': 'Donne',
+            'name': 'John Donne',
         }
         response = self.client.post(url, data)
         assert_redirects(response, utils.get_login_url(url))
@@ -67,18 +66,18 @@ class TestEditProfilePage(TestCase):
         url = '/accounts/profile/'
         response = self.client.get(url)
         fields = response.context['form'].fields.keys()
-        eq_(sorted(fields), ['bio', 'first_name', 'last_name', 'website'])
+        eq_(sorted(fields), ['bio', 'name', 'website'])
 
     def test_profile_form_update_is_successful(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
         url = '/accounts/profile/'
-        data = {'first_name': 'John', 'last_name': 'Donne'}
+        data = {'name': 'John Donne'}
         data.update(_get_profilelink_inline_payload(profile.pk))
         response = self.client.post(url, data)
         assert_redirects(response, '/accounts/profile/')
-        values = (User.objects.values('first_name', 'last_name')
-                  .get(username='us-ignite'))
-        eq_(values, {'first_name': 'John', 'last_name': 'Donne'})
+        values = (Profile.objects.values('name')
+                  .get(user__username='us-ignite'))
+        eq_(values, {'name': 'John Donne'})
 
     def test_profile_ignores_invaid_values(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
@@ -94,7 +93,7 @@ class TestEditProfilePage(TestCase):
     def test_profile_updates_inline_models(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
         url = '/accounts/profile/'
-        data = {'first_name': '', 'last_name': ''}
+        data = {'name': ''}
         data_list = [{'name': 'Github', 'url': 'http://github.com/'}]
         data.update(_get_profilelink_inline_payload(
             profile.pk, data_list=data_list))

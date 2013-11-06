@@ -35,12 +35,10 @@ class UserRegistrationForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=255, required=False)
-    last_name = forms.CharField(max_length=255, required=False)
 
     class Meta:
         model = Profile
-        fields = ('first_name', 'last_name', 'website', 'bio')
+        fields = ('name', 'website', 'bio')
 
 
 ProfileLinkFormSet = inlineformset_factory(

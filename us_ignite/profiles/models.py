@@ -13,7 +13,7 @@ from registration.signals import user_activated
 class Profile(models.Model):
     user = models.OneToOneField('auth.User', primary_key=True)
     slug = AutoUUIDField(unique=True, editable=True)
-    display_name = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=255, blank=True)
     website = models.URLField(max_length=500, blank=True)
     bio = models.TextField(blank=True)
     # TODO: add public flag.
@@ -27,8 +27,7 @@ class Profile(models.Model):
 
     @property
     def full_name(self):
-        user = self.user
-        return u'%s %s' % (user.first_name, user.last_name)
+        return self.name
 
     def get_gravatar_url(self, size=100):
         """Determines gravatar icon url"""

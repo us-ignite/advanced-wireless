@@ -7,7 +7,7 @@ def export_users(profile_queryset):
     """Prepares the users to be exported."""
     user_list = []
     for profile in profile_queryset:
-        user_list.append((profile.display_name, profile.user.email))
+        user_list.append((profile.full_name, profile.user.email))
     return user_list
 
 
