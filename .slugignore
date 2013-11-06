@@ -6,3 +6,4 @@ Procfile.local
 notes.rst
 fabric.py
 mercurio.cfg
+docs/
