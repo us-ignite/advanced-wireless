@@ -134,9 +134,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'gunicorn',
     'registration',
+    'taggit',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',
+    'us_ignite.apps',
 )
 
 # A sample logging configuration. The only tangible logging
