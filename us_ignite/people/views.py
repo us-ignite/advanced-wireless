@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.template.response import TemplateResponse
+from django.shortcuts import get_object_or_404
 
 from us_ignite.profiles.models import Profile
 from us_ignite.common import pagination, forms
@@ -28,7 +29,7 @@ def profile_list(request):
         'order': order_value,
         'order_form': order_form,
     }
-    return render(request, 'people/object_list.html', context)
+    return TemplateResponse(request, 'people/object_list.html', context)
 
 
 @login_required
@@ -38,4 +39,4 @@ def profile_detail(request, slug):
     context = {
         'object': profile,
     }
-    return render(request, 'people/object_detail.html', context)
+    return TemplateResponse(request, 'people/object_detail.html', context)

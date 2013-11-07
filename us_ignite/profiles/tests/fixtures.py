@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from us_ignite.profiles.models import Profile
 
 
-def get_user(slug, password=None, **kwargs):
+def get_user(slug, password=None, is_superuser=False, is_staff=False, **kwargs):
     defaults = {
         'username': slug,
         'email': '%s@%s.org' % (slug, slug),
@@ -13,6 +13,8 @@ def get_user(slug, password=None, **kwargs):
     user, is_new = User.objects.get_or_create(**defaults)
     password = password if password else slug
     user.set_password(password)
+    user.is_superuser = is_superuser
+    user.is_staff = is_staff
     user.save()
     return user
 

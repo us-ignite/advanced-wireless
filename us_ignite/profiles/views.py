@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.sites.models import Site, RequestSite
 
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.template.response import TemplateResponse
 from django.views.generic.base import TemplateView
 
 from registration import signals
@@ -123,4 +124,4 @@ def user_profile(request):
         'form': form,
         'formset': formset,
     }
-    return render(request, 'profile/user_profile.html', context)
+    return TemplateResponse(request, 'profile/user_profile.html', context)
