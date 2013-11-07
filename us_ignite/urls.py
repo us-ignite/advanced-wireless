@@ -12,6 +12,7 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('us_ignite.profiles.urls')),
     url(r'^people/', include('us_ignite.people.urls')),
+    url(r'^apps/', include('us_ignite.apps.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
 )
 

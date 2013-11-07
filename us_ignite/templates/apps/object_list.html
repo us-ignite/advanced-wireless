@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Application list - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Applications</h1>
+
+{% include "includes/order_form.html" %}
+
+{% for object in page.object_list %}
+{% include "apps/object_block.html" with object=object %}
+{% endfor%}
+
+{% include "includes/pagination.html" %}
+
+{% endblock content %}

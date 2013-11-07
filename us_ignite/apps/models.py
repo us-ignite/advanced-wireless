@@ -8,12 +8,12 @@ from us_ignite.common.fields import AutoUUIDField
 
 
 class Application(models.Model):
-    PUBLIC = 1
+    PUBLISHED = 1
     DRAFT = 2
     REMOVED = 3
     PRIVATE = 4
     STATUS_CHOICES = (
-        (PUBLIC, 'Public'),
+        (PUBLISHED, 'Published'),
         (DRAFT, 'Draft'),
         (REMOVED, 'Removed'),
         (PRIVATE, 'Private'),
