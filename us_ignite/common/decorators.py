@@ -2,7 +2,7 @@ import functools
 
 from django.contrib.auth.views import redirect_to_login
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.template.response import TemplateResponse
 
 
 def group_required(group_list):
@@ -43,7 +43,7 @@ def group_required(group_list):
                 else:
                     # User does not belong to this group
                     # show unavailable page:
-                    return render(request, 'unavailable.html', {})
+                    return TemplateResponse(request, 'unavailable.html', {})
             else:
                 # User must be logged in to access this area:
                 path = request.build_absolute_uri()

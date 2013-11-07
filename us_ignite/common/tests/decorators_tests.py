@@ -62,7 +62,7 @@ class TestGroupRequiredDecoratorFixtured(TestCase):
         view = decorators.group_required(['foo'])(dummy_view)
         response = view(request)
         eq_(response.status_code, 200)
-        ok_('unavailable' in response.content.lower())
+        eq_(response.template_name, 'unavailable.html')
 
     def test_user_group_succeeds(self):
         request = self.factory.get('/resource-url/')
