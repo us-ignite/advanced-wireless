@@ -3,15 +3,18 @@ from django.contrib.auth.models import User
 from us_ignite.profiles.models import Profile
 
 
-def get_user(slug, **kwargs):
+def get_user(slug, password=None, **kwargs):
     defaults = {
         'username': slug,
-        'password': slug,
         'email': '%s@%s.org' % (slug, slug),
         'first_name': slug,
     }
     defaults.update(kwargs)
-    return User.objects.create_user(**defaults)
+    user, is_new = User.objects.get_or_create(**defaults)
+    password = password if password else slug
+    user.set_password(password)
+    user.save()
+    return user
 
 
 def get_profile(**kwargs):
@@ -19,4 +22,5 @@ def get_profile(**kwargs):
     if not 'user' in kwargs:
         defaults['user'] = get_user('john')
     defaults.update(kwargs)
-    return Profile.objects.create(**defaults)
+    profile, is_new = Profile.objects.get_or_create(**defaults)
+    return profile

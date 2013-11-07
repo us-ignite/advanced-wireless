@@ -35,13 +35,14 @@ class TestPeopleListPage(TestCase):
 
     def test_get_request_is_successful(self):
         response = self.client.get('/people/')
-        ok_(response.status_code, 200)
+        eq_(response.status_code, 200)
         eq_(len(response.context['page'].object_list), 1)
 
     def test_admin_users_are_not_listed(self):
         self.user.is_superuser = True
         self.user.save()
         response = self.client.get('/people/')
+        eq_(response.status_code, 200)
         eq_(len(response.context['page'].object_list), 0)
 
     def test_inactive_users_are_not_listed(self):
