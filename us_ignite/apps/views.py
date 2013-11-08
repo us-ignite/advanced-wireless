@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 
+from us_ignite.apps.forms import ApplicationForm
 from us_ignite.apps.models import Application
 from us_ignite.common import pagination, forms
 
@@ -28,3 +31,20 @@ def app_list(request):
         'order_form': order_form,
     }
     return TemplateResponse(request, 'apps/object_list.html', context)
+
+
+@login_required
+def app_add(request):
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.owner = request.user
+            instance.save()
+            return redirect(instance.get_absolute_url())
+    else:
+        form = ApplicationForm()
+    context = {
+        'form': form,
+    }
+    return TemplateResponse(request, 'apps/object_add.html', context)

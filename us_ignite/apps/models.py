@@ -1,4 +1,6 @@
+from django.core.urlresolvers import reverse
 from django.db import models
+
 
 from django_extensions.db.fields import (CreationDateTimeField,
                                          ModificationDateTimeField)
@@ -27,14 +29,17 @@ class Application(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
-    description = models.TextField(blank=True)
+    description = models.TextField()
     assistance = models.TextField(blank=True)
     technology = models.TextField(blank=True)
-
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        # return reverse('app_detail', self.id)
+        return '/apps/'
 
 
 class ApplicationMembership(models.Model):
