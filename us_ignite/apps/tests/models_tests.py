@@ -1,6 +1,6 @@
 from nose.tools import eq_, ok_
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.test import TestCase
 
 from us_ignite.apps import models
@@ -32,6 +32,56 @@ class ApplicationTest(TestCase):
         eq_(instance.technology, '')
         eq_(list(instance.members.all()), [])
         eq_(list(instance.tags.all()), [])
+
+    def test_application_absolute_url(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=user)
+        eq_(application.get_absolute_url(), u'/apps/%s/' % application.slug)
+
+    def test_application_is_public(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.PUBLISHED)
+        ok_(application.is_public())
+
+    def test_application_ownership(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=user)
+        ok_(application.is_owned_by(user))
+
+    def test_application_owner_membership(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=user)
+        ok_(application.has_member(user))
+
+    def test_application_member_membership(self):
+        user = get_user('app-owner')
+        member = get_user('app-member')
+        application = fixtures.get_application(owner=user)
+        models.ApplicationMembership.objects.create(
+            application=application, user=member)
+        ok_(application.has_member(member))
+
+    def test_published_app_is_visible_by_anon(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.PUBLISHED)
+        application.is_visible_by(AnonymousUser())
+
+    def test_draft_app_is_visible_by_owner(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.DRAFT)
+        application.is_visible_by(user)
+
+    def test_draft_app_is_visible_by_member(self):
+        user = get_user('app-owner')
+        member = get_user('app-member')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.DRAFT)
+        models.ApplicationMembership.objects.create(
+            application=application, user=member)
+        application.is_visible_by(member)
 
 
 class TestApplicationMembership(TestCase):

@@ -1,12 +1,12 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
-
 from django_extensions.db.fields import (CreationDateTimeField,
                                          ModificationDateTimeField)
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
+from us_ignite.apps import managers
 
 
 class Application(models.Model):
@@ -33,13 +33,31 @@ class Application(models.Model):
     assistance = models.TextField(blank=True)
     technology = models.TextField(blank=True)
     tags = TaggableManager(blank=True)
+    # managers
+    objects = models.Manager()
+    active = managers.ApplicationActiveManager()
 
     def __unicode__(self):
         return self.name
 
     def get_absolute_url(self):
-        # return reverse('app_detail', self.id)
-        return '/apps/'
+        return reverse('app_detail', args=[self.slug])
+
+    def is_public(self):
+        """Verify if the ``Application`` is accessible by anyone."""
+        return self.status == self.PUBLISHED
+
+    def is_owned_by(self, user):
+        """Validates if the given user owns the ``Application``."""
+        return user.is_authenticated() and user.id == self.owner_id
+
+    def has_member(self, user):
+        """Validates if the given user is a member of this ``Application``."""
+        return self.is_owned_by(user) or self.members.filter(pk=user.id)
+
+    def is_visible_by(self, user):
+        """Validates if this app is acessible by the given ``User``."""
+        return self.is_public() or self.has_member(user)
 
 
 class ApplicationMembership(models.Model):
