@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>{{ object.name }}</h1>
+
+<h2>Description</h2>
+<p>{{ object.description }}</p>
+
+
+{% if object.assistance %}
+<h2>The project needs assistance with</h2>
+<p>{{ object.assistance }}</p>
+{% endif %}
+
+{% if object.technology %}
+<h2>Technology used</h2>
+<p>{{ object.technology }}</p>
+{% endif %}
+
+<h2>Tags</h2>
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+<ul>
+  {% for tag in tag_list %}
+  <li><a href="">{{ tag }}</a></li>
+  {% endfor%}
+</ul>
+{% else %}
+<p>App hasn't been tagged.</p>
+{% endif %}
+{% endwith %}
+
+{% endblock content %}

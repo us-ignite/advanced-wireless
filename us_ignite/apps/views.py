@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
 from us_ignite.apps.forms import ApplicationForm
@@ -31,6 +32,21 @@ def app_list(request):
         'order_form': order_form,
     }
     return TemplateResponse(request, 'apps/object_list.html', context)
+
+
+def get_app_for_user(slug, user):
+    """Validates the user can access the given app."""
+    app = get_object_or_404(Application.active, slug__exact=slug)
+    # Application is published, no need for validation:
+    if app.is_visible_by(user):
+        return app
+    raise Http404
+
+
+def app_detail(request, slug):
+    app = get_app_for_user(slug, request.user)
+    context = {'object': app}
+    return TemplateResponse(request, 'apps/object_detail.html', context)
 
 
 @login_required
