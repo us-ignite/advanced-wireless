@@ -66,13 +66,13 @@ class ApplicationTest(TestCase):
         user = get_user('app-owner')
         application = fixtures.get_application(
             owner=user, status=models.Application.PUBLISHED)
-        application.is_visible_by(AnonymousUser())
+        ok_(application.is_visible_by(AnonymousUser()))
 
     def test_draft_app_is_visible_by_owner(self):
         user = get_user('app-owner')
         application = fixtures.get_application(
             owner=user, status=models.Application.DRAFT)
-        application.is_visible_by(user)
+        ok_(application.is_visible_by(user))
 
     def test_draft_app_is_visible_by_member(self):
         user = get_user('app-owner')
@@ -81,7 +81,26 @@ class ApplicationTest(TestCase):
             owner=user, status=models.Application.DRAFT)
         models.ApplicationMembership.objects.create(
             application=application, user=member)
-        application.is_visible_by(member)
+        ok_(application.is_visible_by(member))
+
+    def test_app_is_editable_by_owner(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.DRAFT)
+        ok_(application.is_editable_by(user))
+
+    def test_app_is_editable_by_other_user(self):
+        user = get_user('app-owner')
+        member = get_user('app-member')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.DRAFT)
+        eq_(application.is_editable_by(member), False)
+
+    def test_app_is_not_editable_by_anon(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.DRAFT)
+        eq_(application.is_editable_by(AnonymousUser()), False)
 
 
 class TestApplicationMembership(TestCase):

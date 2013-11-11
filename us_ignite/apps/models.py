@@ -59,6 +59,10 @@ class Application(models.Model):
         """Validates if this app is acessible by the given ``User``."""
         return self.is_public() or self.has_member(user)
 
+    def is_editable_by(self, user):
+        """Determines if the given user can edit the ``Application``"""
+        return self.owner == user
+
 
 class ApplicationMembership(models.Model):
     user = models.ForeignKey('auth.User')
