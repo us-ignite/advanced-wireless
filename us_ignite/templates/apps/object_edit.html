@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Edit: {{ object.name }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Edit: {{ object.name }}</h1>
+<form method="post" action="{{ object.get_edit_url }}">
+{% include "apps/object_form.html" with form=form %}
+<p>
+  <button type="submit">Update</button>
+</p>
+</form>
+{% endblock content %}

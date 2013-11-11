@@ -47,7 +47,10 @@ def get_app_for_user(slug, user):
 
 def app_detail(request, slug):
     app = get_app_for_user(slug, request.user)
-    context = {'object': app}
+    context = {
+        'object': app,
+        'can_edit': app.is_editable_by(request.user)
+    }
     return TemplateResponse(request, 'apps/object_detail.html', context)
 
 
@@ -69,3 +72,24 @@ def app_add(request):
         'form': form,
     }
     return TemplateResponse(request, 'apps/object_add.html', context)
+
+
+@login_required
+def app_edit(request, slug):
+    app = get_object_or_404(Application.active, slug__exact=slug)
+    if not app.is_editable_by(request.user):
+        raise Http404
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST, instance=app)
+        if form.is_valid():
+            instance = form.save()
+            messages.success(
+                request, 'The application "%s" has been updated.' % instance.name)
+            return redirect(instance.get_absolute_url())
+    else:
+        form = ApplicationForm(instance=app)
+    context = {
+        'object': app,
+        'form': form,
+    }
+    return TemplateResponse(request, 'apps/object_edit.html', context)

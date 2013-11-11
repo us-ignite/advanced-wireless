@@ -43,6 +43,9 @@ class Application(models.Model):
     def get_absolute_url(self):
         return reverse('app_detail', args=[self.slug])
 
+    def get_edit_url(self):
+        return reverse('app_edit', args=[self.slug])
+
     def is_public(self):
         """Verify if the ``Application`` is accessible by anyone."""
         return self.status == self.PUBLISHED

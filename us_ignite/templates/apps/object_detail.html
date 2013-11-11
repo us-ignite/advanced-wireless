@@ -5,6 +5,11 @@
 {% block content %}
 <h1>{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h1>
 
+{% if can_edit %}
+<p><a href="{{ object.get_edit_url }}">Edit app</a></p>
+{% endif %}
+
+
 <h2>Description</h2>
 <p>{{ object.description }}</p>
 

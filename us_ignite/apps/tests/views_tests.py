@@ -5,8 +5,8 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
 from django.test import client, TestCase
 
-from us_ignite.apps import views
-from us_ignite.apps. models import Application
+from us_ignite.apps import forms, views
+from us_ignite.apps.models import Application
 from us_ignite.apps.tests import fixtures
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
@@ -119,7 +119,7 @@ class TestAppAddView(TestCase):
         request.user = _get_user_mock()
         response = views.app_add(request)
         eq_(response.status_code, 200)
-        eq_(sorted(response.context_data.keys()),['form'])
+        eq_(sorted(response.context_data.keys()), ['form'])
         eq_(response.template_name, 'apps/object_add.html')
 
     @patch_form_save
@@ -134,6 +134,7 @@ class TestAppAddView(TestCase):
     @patch_form_save
     def test_simple_post_request_succeeds(self, save_mock):
         request = self.factory.post('/app/add/', _get_message_payload())
+        request._messages = utils.TestMessagesBackend(request)
         request.user = _get_user_mock()
         mock_instance = save_mock.return_value
         mock_instance.get_absolute_url.return_value = '/app/slug/'
@@ -193,6 +194,86 @@ class TestAppDetailView(TestCase):
         with patch('us_ignite.apps.views.get_app_for_user',
                    return_value=mock_app) as get_mock:
             response = views.app_detail(request, 'foo')
-            eq_(sorted(response.context_data.keys()), ['object'])
+            eq_(sorted(response.context_data.keys()), ['can_edit', 'object'])
             eq_(response.template_name, 'apps/object_detail.html')
             get_mock.assert_once_called_with('foo', request.user)
+
+
+class TestAppEditViewAnon(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def test_anon_get_request_require_login(self):
+        request = self.factory.get('/app/my-app/edit/')
+        request._messages = utils.TestMessagesBackend(request)
+        request.user = _get_anon_mock()
+        response = views.app_edit(request)
+        eq_(response['Location'], utils.get_login_url('/app/my-app/edit/'))
+
+    def test_application_post_request_require_login(self):
+        request = self.factory.post('/app/my-app/edit/', _get_message_payload())
+        request.user = _get_anon_mock()
+        response = views.app_edit(request)
+        eq_(response['Location'], utils.get_login_url('/app/my-app/edit/'))
+
+
+class TestAppEditView(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def _get_request(self, url='/app/my-app/edit/'):
+        request = self.factory.get(url)
+        request.user = _get_user_mock()
+        return request
+
+    @raises(Http404)
+    def test_non_existing_app_raises_404(self):
+        request = self._get_request()
+        with patch('us_ignite.apps.views.get_object_or_404',
+                   side_effect=Http404) as get_mock:
+            views.app_edit(request, 'my-app')
+            get_mock.assert_called_once_with(
+                Application.active, slug__exact='my-app')
+
+    @raises(Http404)
+    def test_non_editable_app_raises_404(self):
+        request = self._get_request()
+        mock_app = Mock(spec=Application)()
+        mock_app.is_editable_by.return_value = False
+        with patch('us_ignite.apps.views.get_object_or_404',
+                   return_value=mock_app) as get_mock:
+            views.app_edit(request, 'my-app')
+            mock_app.is_editable_by.assert_called_once_with(request.user)
+
+
+class TestAppEditViewWithData(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def tearDown(self):
+        for model in [Application, User]:
+            model.objects.all().delete()
+
+    def test_get_request_is_successful(self):
+        owner = get_user('us-ignite')
+        app = fixtures.get_application(
+            slug='alpha', status=Application.PUBLISHED, owner=owner)
+        request = self.factory.get('/app/alpha/')
+        request.user = owner
+        response = views.app_edit(request, 'alpha')
+        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+        eq_(response.template_name, 'apps/object_edit.html')
+
+    def test_post_request_is_successful(self):
+        owner = get_user('us-ignite')
+        app = fixtures.get_application(
+            slug='beta', status=Application.PUBLISHED, owner=owner)
+        request = self.factory.post('/app/beta/', _get_message_payload())
+        request._messages = utils.TestMessagesBackend(request)
+        request.user = owner
+        response = views.app_edit(request, 'beta')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], app.get_absolute_url())
