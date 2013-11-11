@@ -44,6 +44,12 @@ class ApplicationTest(TestCase):
             owner=user, status=models.Application.PUBLISHED)
         ok_(application.is_public())
 
+    def test_application_is_draft(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.DRAFT)
+        ok_(application.is_draft())
+
     def test_application_ownership(self):
         user = get_user('app-owner')
         application = fixtures.get_application(owner=user)

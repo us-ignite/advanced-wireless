@@ -47,6 +47,10 @@ class Application(models.Model):
         """Verify if the ``Application`` is accessible by anyone."""
         return self.status == self.PUBLISHED
 
+    def is_draft(self):
+        """Verify if the ``Application`` is a draft."""
+        return self.status == self.DRAFT
+
     def is_owned_by(self, user):
         """Validates if the given user owns the ``Application``."""
         return user.is_authenticated() and user.id == self.owner_id
