@@ -1,10 +1,11 @@
-from mock import Mock
+from mock import patch, Mock
 from nose.tools import eq_, ok_, assert_raises
 
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.test import client, TestCase
 
+from us_ignite.apps.models import Application
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests import fixtures
 from us_ignite.people import views
@@ -128,5 +129,35 @@ class TestProfileDetailView(TestCase):
         fixtures.get_profile(user=user, slug='someone', name='us ignite')
         response = views.profile_detail(self._get_request(), 'someone')
         ok_(response.status_code, 200)
-        eq_(sorted(response.context_data.keys()), ['object'])
+        eq_(sorted(response.context_data.keys()), ['app_list', 'object'])
         _teardown_profiles()
+
+
+app_active_filter = 'us_ignite.apps.models.Application.active.filter'
+
+
+class TestGetUserAppsHelper(TestCase):
+
+    def test_empty_viewer_returns_public_apps(self):
+        owner = _get_user_mock()
+        with patch(app_active_filter, return_value=[]) as filter_mock:
+            result = views.get_user_apps(owner)
+            eq_(result, [])
+            filter_mock.assert_called_once_with(
+                owner=owner, status=Application.PUBLISHED)
+
+    def test_different_viewer_returns_public_apps(self):
+        owner = _get_user_mock()
+        viewer = _get_user_mock()
+        with patch(app_active_filter, return_value=[]) as filter_mock:
+            result = views.get_user_apps(owner, viewer=viewer)
+            eq_(result, [])
+            filter_mock.assert_called_once_with(
+                owner=owner, status=Application.PUBLISHED)
+
+    def test_owner_viewer_returns_all_apps(self):
+        owner = _get_user_mock()
+        with patch(app_active_filter, return_value=[]) as filter_mock:
+            result = views.get_user_apps(owner, viewer=owner)
+            eq_(result, [])
+            filter_mock.assert_called_once_with(owner=owner)

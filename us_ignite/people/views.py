@@ -2,8 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
 
-from us_ignite.profiles.models import Profile
+from us_ignite.apps.models import Application
 from us_ignite.common import pagination, forms
+from us_ignite.profiles.models import Profile
 
 
 PROFILE_SORTING_CHOICES = (
@@ -32,11 +33,23 @@ def profile_list(request):
     return TemplateResponse(request, 'people/object_list.html', context)
 
 
+def get_user_apps(owner, viewer=None):
+    """Returns visible owned apps from the given ``User``."""
+    qs_kwargs = {'owner': owner}
+    # Only list public applications for this user.
+    if not viewer or not owner == viewer:
+        qs_kwargs.update({'status': Application.PUBLISHED})
+    return Application.active.filter(**qs_kwargs)
+
+
 @login_required
 def profile_detail(request, slug):
     """Public profile of a user."""
-    profile = get_object_or_404(Profile.active, slug__exact=slug)
+    profile = get_object_or_404(
+        Profile.active.select_related('user'), slug__exact=slug)
+    app_list = get_user_apps(profile.user, viewer=request.user)
     context = {
         'object': profile,
+        'app_list': app_list,
     }
     return TemplateResponse(request, 'people/object_detail.html', context)

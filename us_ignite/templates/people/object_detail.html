@@ -32,4 +32,14 @@
 {% endif %}
 {% endwith %}
 
+{% if app_list %}
+<h3>Apps</h3>
+<ul>
+  {% for app in app_list %}
+  <li><a href="{{ app.get_absolute_url }}">{{ app.name }} {% if not app.is_public %}({{ app.get_status_display }}){% endif %}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+
 {% endblock content %}
