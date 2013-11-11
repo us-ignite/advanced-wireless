@@ -1,7 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+
 
 from us_ignite.apps.forms import ApplicationForm
 from us_ignite.apps.models import Application
@@ -51,12 +53,15 @@ def app_detail(request, slug):
 
 @login_required
 def app_add(request):
+    """View for adding an ``Application``."""
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.owner = request.user
             instance.save()
+            messages.success(
+                request, 'The application "%s" has been added.' % instance.name)
             return redirect(instance.get_absolute_url())
     else:
         form = ApplicationForm()
