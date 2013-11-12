@@ -6,7 +6,7 @@ from django.http import Http404
 from django.test import client, TestCase
 
 from us_ignite.apps import forms, views
-from us_ignite.apps.models import Application
+from us_ignite.apps.models import Application, ApplicationURL
 from us_ignite.apps.tests import fixtures
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
@@ -86,6 +86,28 @@ def _get_message_payload(**kwargs):
     }
     defaults.update(kwargs)
     return defaults
+
+
+def _get_applinks_inline_payload(pk, data_list=None, **kwargs):
+    """Generates the inline payload for the ``ApplicationLinks``."""
+    data_list = data_list if data_list else [{}]
+    prefix = 'applicationurl_set-'
+    default = {
+        '%sTOTAL_FORMS' % prefix: len(data_list),
+        '%sINITIAL_FORMS' % prefix: 0,
+        '%sMAX_NUM_FORMS'% prefix: 3,
+    }
+    _inline_tuple = lambda i, k, v: ('%s%s-%s' % (prefix, i, k), v)
+    for i, inline in enumerate(data_list):
+        inline_default = {
+            '%s%s-DELETE' % (prefix, i): '',
+            '%s%s-application' % (prefix, i): pk,
+        }
+        inline_item = dict(_inline_tuple(i, k, v) for k, v in inline.items())
+        inline_default.update(inline_item)
+        default.update(inline_default)
+    default.update(kwargs)
+    return default
 
 
 class TestAppAddViewAnon(TestCase):
@@ -254,7 +276,7 @@ class TestAppEditViewWithData(TestCase):
         self.factory = client.RequestFactory()
 
     def tearDown(self):
-        for model in [Application, User]:
+        for model in [Application]:
             model.objects.all().delete()
 
     def test_get_request_is_successful(self):
@@ -264,16 +286,40 @@ class TestAppEditViewWithData(TestCase):
         request = self.factory.get('/app/alpha/')
         request.user = owner
         response = views.app_edit(request, 'alpha')
-        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+        eq_(sorted(response.context_data.keys()), ['form', 'formset', 'object'])
         eq_(response.template_name, 'apps/object_edit.html')
 
     def test_post_request_is_successful(self):
         owner = get_user('us-ignite')
         app = fixtures.get_application(
             slug='beta', status=Application.PUBLISHED, owner=owner)
-        request = self.factory.post('/app/beta/', _get_message_payload())
+        payload = _get_message_payload(name='Updated')
+        payload.update(_get_applinks_inline_payload(app.id))
+        request = self.factory.post('/app/beta/', payload)
         request._messages = utils.TestMessagesBackend(request)
         request.user = owner
         response = views.app_edit(request, 'beta')
         eq_(response.status_code, 302)
         eq_(response['Location'], app.get_absolute_url())
+        eq_(Application.objects.values('name').get(owner=owner),
+            {'name': 'Updated'})
+        eq_(ApplicationURL.objects.filter(application=app).count(), 0)
+
+    def test_post_request_saves_urls(self):
+        owner = get_user('us-ignite')
+        app = fixtures.get_application(
+            slug='beta', status=Application.PUBLISHED, owner=owner)
+        payload = _get_message_payload()
+        links = [
+            {'name': 'github', 'url': 'http://github.com'},
+            {'name': 'twitter', 'url': 'http://twitter.com'},
+        ]
+        payload.update(_get_applinks_inline_payload(app.id, data_list=links))
+        request = self.factory.post('/app/beta/', payload)
+        request._messages = utils.TestMessagesBackend(request)
+        request.user = owner
+        response = views.app_edit(request, 'beta')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], app.get_absolute_url())
+        eq_(ApplicationURL.objects.filter(application=app).count(), 2)
+

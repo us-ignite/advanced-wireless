@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
 
-from us_ignite.apps.forms import ApplicationForm
+from us_ignite.apps.forms import ApplicationForm, ApplicationLinkFormSet
 from us_ignite.apps.models import Application
 from us_ignite.common import pagination, forms
 
@@ -81,15 +81,19 @@ def app_edit(request, slug):
         raise Http404
     if request.method == 'POST':
         form = ApplicationForm(request.POST, instance=app)
-        if form.is_valid():
+        formset = ApplicationLinkFormSet(request.POST, instance=app)
+        if form.is_valid() and formset.is_valid():
             instance = form.save()
+            formset.save()
             messages.success(
                 request, 'The application "%s" has been updated.' % instance.name)
             return redirect(instance.get_absolute_url())
     else:
         form = ApplicationForm(instance=app)
+        formset = ApplicationLinkFormSet(instance=app)
     context = {
         'object': app,
         'form': form,
+        'formset': formset,
     }
     return TemplateResponse(request, 'apps/object_edit.html', context)

@@ -6,6 +6,7 @@
 <h1>Edit: {{ object.name }}</h1>
 <form method="post" action="{{ object.get_edit_url }}">
 {% include "apps/object_form.html" with form=form %}
+{% include "apps/object_form_links.html" with formset=formset %}
 <p>
   <button type="submit">Update</button>
 </p>

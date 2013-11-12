@@ -1,6 +1,7 @@
 from django import forms
+from django.forms.models import inlineformset_factory
 
-from us_ignite.apps.models import Application
+from us_ignite.apps.models import Application, ApplicationURL
 
 
 def _get_status_choices():
@@ -23,3 +24,7 @@ class ApplicationForm(forms.ModelForm):
         model = Application
         fields = ('name', 'description', 'assistance', 'technology',
                   'tags', 'status')
+
+
+ApplicationLinkFormSet = inlineformset_factory(
+    Application, ApplicationURL, max_num=3, extra=3)
