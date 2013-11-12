@@ -6,5 +6,8 @@
 <h1>Add an App</h1>
 <form method="post" action="{% url "app_add" %}">
 {% include "apps/object_form.html" with form=form %}
+<p>
+  <button type="submit">Create</button>
+</p>
 </form>
 {% endblock content %}
