@@ -9,6 +9,11 @@
 <p><a href="{{ object.get_edit_url }}">Edit app</a></p>
 {% endif %}
 
+<ul>
+  <li>Stage: {{ object.get_stage_display }}</li>
+  <li>Created on: {{ object.created  }}</li>
+  <li>Created by {{ object.owner.profile.name }}</li>
+</ul>
 
 <h2>Description</h2>
 <p>{{ object.description }}</p>

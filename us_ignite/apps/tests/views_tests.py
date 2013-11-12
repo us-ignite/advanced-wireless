@@ -83,6 +83,7 @@ def _get_message_payload(**kwargs):
         'name': 'Gigabig App.',
         'description': 'An awesome gigabit app.',
         'status': Application.PUBLISHED,
+        'stage': Application.IDEA,
     }
     defaults.update(kwargs)
     return defaults

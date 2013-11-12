@@ -20,18 +20,28 @@ class Application(models.Model):
         (REMOVED, 'Removed'),
         (PRIVATE, 'Private'),
     )
+    IDEA = 1
+    APPLICATION = 2
+    STAGE_CHOICES = (
+        (IDEA, 'Idea'),
+        (APPLICATION, 'Application'),
+    )
     name = models.CharField(max_length=255)
     slug = AutoUUIDField(unique=True, editable=True)
     owner = models.ForeignKey('auth.User', related_name='ownership_set')
     members = models.ManyToManyField(
         'auth.User', through='apps.ApplicationMembership',
         related_name='membership_set')
+    stage = models.IntegerField(choices=STAGE_CHOICES, default=IDEA)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
+    short_description = models.TextField(blank=True)
+    image = models.ImageField(blank=True, upload_to='apps')
     description = models.TextField()
     assistance = models.TextField(blank=True)
     technology = models.TextField(blank=True)
+    is_featured = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
     # managers
     objects = models.Manager()

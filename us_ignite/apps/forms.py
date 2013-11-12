@@ -22,8 +22,8 @@ class ApplicationForm(forms.ModelForm):
 
     class Meta:
         model = Application
-        fields = ('name', 'description', 'assistance', 'technology',
-                  'tags', 'status')
+        fields = ('name', 'short_description', 'description', 'stage',
+                  'assistance', 'technology', 'tags', 'status')
 
 
 ApplicationLinkFormSet = inlineformset_factory(
