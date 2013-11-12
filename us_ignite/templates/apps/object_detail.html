@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load apps_urls %}
 
 {% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
 
@@ -22,6 +22,17 @@
 {% if object.technology %}
 <h2>Technology used</h2>
 <p>{{ object.technology }}</p>
+{% endif %}
+
+{% if url_list %}
+<h2>Also available in</h2>
+<ul>
+  {% for url in url_list %}
+  <li>
+    <a href="{{ url.url }}">{{ url.name }}</a> {{ url.url|render_as_widget }}
+  </li>
+  {% endfor%}
+</ul>
 {% endif %}
 
 <h2>Tags</h2>

@@ -47,8 +47,10 @@ def get_app_for_user(slug, user):
 
 def app_detail(request, slug):
     app = get_app_for_user(slug, request.user)
+    url_list = app.applicationurl_set.all()
     context = {
         'object': app,
+        'url_list': url_list,
         'can_edit': app.is_editable_by(request.user)
     }
     return TemplateResponse(request, 'apps/object_detail.html', context)
