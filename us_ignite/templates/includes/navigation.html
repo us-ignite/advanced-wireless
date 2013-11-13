@@ -1,0 +1,11 @@
+<h2>Navigation</h2>
+<ul>
+  {% if request.user.is_authenticated %}
+  <li>Logged in as: {% if request.user.profile.full_name %}<a href="{{ request.user.profile.get_absolute_url }}">{{ request.user.profile.full_name }}</a>{% else %}{{ request.user.email }}{% endif %}</li>
+  <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+  {% else %}
+  <li><a href="{% url 'auth_login' %}">Login</a></li>
+  <li><a href="{% url 'registration_register' %}">Registration</a></li>
+  {% endif %}
+  <li><a href="{% url 'app_add' %}">Add Idea or App</a></li>
+</ul>

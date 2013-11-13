@@ -14,22 +14,9 @@
   </head>
   <body>
     <h1><a href="{% url "home" %}">US ignite</a></h1>
-
     {% include "includes/messages.html" %}
-
-    <ul>
-      {% if request.user.is_authenticated %}
-      <li>Logged in as: {% if request.user.profile.full_name %}<a href="{{ request.user.profile.get_absolute_url }}">{{ request.user.profile.full_name }}</a>{% else %}{{ request.user.email }}{% endif %}</li>
-      <li><a href="{% url 'user_profile' %}">Edit user profile</a></li>
-      <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-      {% else %}
-      <li><a href="{% url 'auth_login' %}">Login</a></li>
-      <li><a href="{% url 'registration_register' %}">Registration</a></li>
-      {% endif %}
-    </ul>
-
+    {% include "includes/navigation.html" %}
     {% block content %}{% endblock content %}
-
     <script src="{{ STATIC_URL }}scripts/jquery-2.0.3.js"></script>
     {% block extra_scripts  %}{% endblock extra_scripts  %}
   </body>

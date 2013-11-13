@@ -6,6 +6,15 @@
 
 <h1>{{ object.full_name }}</h1>
 
+
+<ul>
+  <li>Member since: {{ object.created }}</li>
+  {% if request.user == object.user %}
+  <li><a href="{% url 'user_profile' %}">Edit user profile</a></li>
+  {% endif %}
+</ul>
+
+
 {% if object.website %}
 <p><a href="{{ object.website }}" rel="external">Website</a></p>
 {% endif %}
