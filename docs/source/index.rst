@@ -14,6 +14,7 @@ Contents:
    bootstrap
    commands
    accounts
+   applications
 
 
 Indices and tables

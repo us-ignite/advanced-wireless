@@ -1,0 +1,31 @@
+Applications
+============
+
+Applications are at the core of US Ignite.
+
+
+Adding applications
+-------------------
+
+Applications can only be submited by registered users. They can be an ``Idea`` or an full ``Application``.
+
+The user can change the status of application between ``DRAFT`` and ``PUBLISHED``.
+
+- ``Draft`` will make the application visible to the owner and members of the application.
+- ``Published`` will make the application visible to everyone.
+
+.. note::
+
+An special ``Removed`` status is provided for the admins to remove any inappropriate content, without deleting it.
+
+
+Application listing
+-------------------
+
+All the public ``Applications`` are listed in the listing view. They are paginated, and they can be ordered as well.
+
+
+Application detail
+------------------
+
+The ``Application`` detail page is visible to everyone when published. When it is on ``Draft`` mode is only available for owners and members.
