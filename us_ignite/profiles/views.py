@@ -1,7 +1,8 @@
 import uuid
 
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import Site, RequestSite
 
 from django.shortcuts import redirect
@@ -13,6 +14,7 @@ from registration.backends.default import views as registration_views
 from registration.models import RegistrationProfile
 from registration.views import ActivationView as BaseActivationView
 
+from us_ignite.apps.models import Application
 from us_ignite.common import decorators
 from us_ignite.profiles import forms
 from us_ignite.profiles.models import Profile
@@ -125,3 +127,24 @@ def user_profile(request):
         'formset': formset,
     }
     return TemplateResponse(request, 'profile/user_profile.html', context)
+
+
+@login_required
+def user_profile_delete(request):
+    """Removes the authenticated ``User`` details."""
+    # Remove owned applications:
+    application_list = Application.objects.filter(owner=request.user)
+    if request.method == 'POST':
+        for application in application_list:
+            application.delete()
+        # Remove the ``User`` and any non-nullable FK to the user.
+        request.user.delete()
+        # Logut user
+        logout(request)
+        messages.success(request, 'Your acount and all associated data has'
+                         ' been removed.')
+        return redirect('home')
+    context = {
+        'application_list': application_list,
+    }
+    return TemplateResponse(request, 'profile/user_profile_delete.html', context)

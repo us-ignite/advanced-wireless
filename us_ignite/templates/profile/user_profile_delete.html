@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Remove account - {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+<h1>Remove your account.</h1>
+
+<p>
+  This operation is <strong>irreversible</strong>. Any information associated
+  with your account will be removed.
+</p>
+
+{% if application_list %}
+<h2>Applications that will be removed.</h2>
+<ul>
+  {% for application in application_list %}
+  <li><a href="{{ application.get_absolute_url }}">{{ application.name }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+
+<form method="post" action="{% url 'user_profile_delete' %}">
+  {% csrf_token %}
+  <button type="submit" value="_delete">I understand the consequences and I want to delete my account</button>
+</form>
+
+{% endblock content %}
