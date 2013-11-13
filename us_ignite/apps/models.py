@@ -36,11 +36,15 @@ class Application(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
-    short_description = models.TextField(blank=True)
+    short_description = models.TextField(
+        blank=True, help_text='Quick explanation of this app.')
     image = models.ImageField(blank=True, upload_to='apps')
     description = models.TextField()
-    assistance = models.TextField(blank=True)
-    technology = models.TextField(blank=True)
+    assistance = models.TextField(
+        blank=True, help_text='Fill in this field if you require help with '
+        'this app.')
+    technology = models.TextField(
+        blank=True, help_text='Technology used behind this app.')
     is_featured = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
     # managers
