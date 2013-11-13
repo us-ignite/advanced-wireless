@@ -152,3 +152,10 @@ def reset_local_db():
     else:
         print yellow('Phew, aborted.')
         exit(1)
+
+
+@only_inside_vm
+def docs():
+    """Generates Sphinx documentation."""
+    with lcd(here('docs')):
+        local('make html')
