@@ -29,6 +29,12 @@ class Profile(models.Model):
     def __unicode__(self):
         return u'Profile for %s' % self.user
 
+    def get_absolute_url(self):
+        return reverse('profile_detail', args=[self.slug])
+
+    def get_delete_url(self):
+        return reverse('user_profile_delete')
+
     @property
     def full_name(self):
         return self.name
@@ -41,9 +47,6 @@ class Profile(models.Model):
         """Determines gravatar icon url"""
         user_hash = hashlib.md5(self.user.email).hexdigest()
         return u'//www.gravatar.com/avatar/%s?s=%s' % (user_hash, size)
-
-    def get_absolute_url(self):
-        return reverse('profile_detail', args=[self.slug])
 
 
 class ProfileLink(models.Model):

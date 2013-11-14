@@ -123,6 +123,7 @@ def user_profile(request):
         })
         formset = forms.ProfileLinkFormSet(instance=profile)
     context = {
+        'object': profile,
         'form': form,
         'formset': formset,
     }
