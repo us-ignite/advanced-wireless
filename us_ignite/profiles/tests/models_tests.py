@@ -32,6 +32,16 @@ class TestProfileModel(TestCase):
         eq_(profile.get_gravatar_url(),
             '//www.gravatar.com/avatar/f978b2b03ad48da6d36c431f72d6fd97?s=100')
 
+    def test_user_display_name_is_valid(self):
+        user = fixtures.get_user('john')
+        profile = fixtures.get_profile(user=user, name='John Donne')
+        eq_(profile.display_name, u'John Donne')
+
+    def test_empty_profile_user_display_name_is_valid(self):
+        user = fixtures.get_user('john')
+        profile = fixtures.get_profile(user=user)
+        eq_(profile.display_name, u'US Ignite user')
+
 
 class TestProfileLinkModel(TestCase):
 
