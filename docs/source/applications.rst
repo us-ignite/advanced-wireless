@@ -29,3 +29,15 @@ Application detail
 ------------------
 
 The ``Application`` detail page is visible to everyone when published. When it is on ``Draft`` mode is only available for owners and members.
+
+
+Application collaborators
+-------------------------
+
+The collaborators of an ``Application`` need to be registered. Only the owner of an application can add a collaborator.
+
+A collaborator receives an extra set of permissions on a selected ``Application``.
+
+The collaborators need to be added by ``email`` address, if the user is not registered the form will show an error.
+
+
