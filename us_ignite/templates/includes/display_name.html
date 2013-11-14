@@ -1,0 +1,3 @@
+{% if user.profile %}
+<a href="{{ user.profile.get_absolute_url }}">{{ user.profile.display_name }}</a>
+{% else %}US ignite user{% endif %}
