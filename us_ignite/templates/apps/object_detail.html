@@ -5,19 +5,32 @@
 {% block content %}
 <h1>{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h1>
 
-{% if can_edit %}
-<p><a href="{{ object.get_edit_url }}">Edit app</a></p>
-{% endif %}
+<ul>
+  <li>Created on {{ object.created }}</li>
+  <li>Created by {{ object.owner.profile.display_name }}</li>
+  {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
+  {% if is_owner %}<li><a href="{{ object.get_membership_url }}">Edit members</a></li>{% endif %}
+</ul>
 
 <ul>
   <li>Stage: {{ object.get_stage_display }}</li>
   <li>Created on: {{ object.created  }}</li>
-  <li>Created by {{ object.owner.profile.name }}</li>
+  <li>Created by {% include "includes/display_name.html" with user=object.owner %}</li>
 </ul>
 
 <h2>Description</h2>
 <p>{{ object.description }}</p>
 
+{% if member_list  %}
+<h2>Collaborators</h2>
+<ul>
+  {% for member in member_list %}
+  <li>
+    {% include "includes/display_name.html" with user=member %}
+  </li>
+  {% endfor%}
+</ul>
+{% endif %}
 
 {% if object.assistance %}
 <h2>The project needs assistance with</h2>
