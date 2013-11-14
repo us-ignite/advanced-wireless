@@ -5,6 +5,28 @@
 {% block content %}
 <h1>Membership of {{ object.name }}</h1>
 
+<h2>Existing members:</h2>
+{% if membership_list %}
+<ul>
+  {% for membership in membership_list %}
+  <li>
+    {% if membership.user.profile %}
+    <a href="{{ membership.user.profile.get_absolute_url }}">{{ membership.user.profile.display_name }}</a>
+    {% else %}
+    {{ membership.user.email }}
+    {% endif %}
+    <form method="post" action="{% url 'app_membership_remove' object.slug membership.id%}">
+      {% csrf_token %}
+      <button type="submit">Remove member</button>
+    </form>
+  </li>
+  {% endfor%}
+</ul>
+{% else %}
+<p>There are no existing members.</p>
+{% endif %}
+
+
 <form method="post" action="">
   {{ form.as_p }}
   <p>{% csrf_token %}<button type="submit">Add to the project</button></p>

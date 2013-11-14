@@ -5,8 +5,9 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
 from django.test import client, TestCase
 
-from us_ignite.apps import forms, views
-from us_ignite.apps.models import Application, ApplicationURL
+from us_ignite.apps import views
+from us_ignite.apps.models import (Application, ApplicationURL,
+                                   ApplicationMembership)
 from us_ignite.apps.tests import fixtures
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
@@ -374,7 +375,8 @@ class TestAppMembershipView(TestCase):
         request.user = owner
         response = views.app_membership(request, 'gamma')
         eq_(response.status_code, 200)
-        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+        eq_(sorted(response.context_data.keys()),
+            ['form', 'membership_list', 'object'])
         eq_(response.context_data['object'], app)
         self._teardown()
 
@@ -401,5 +403,52 @@ class TestAppMembershipView(TestCase):
         response = views.app_membership(request, 'delta')
         ok_(app.members.get(id=member.id))
         eq_(response.status_code, 302)
-        eq_(response['Location'], app.get_absolute_url())
+        eq_(response['Location'], app.get_membership_url())
 
+
+class TestAppMembershipRemovalView(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def _teardown(self):
+        for model in [User, Application]:
+            model.objects.all().delete()
+
+    def test_anon_get_request_is_forbidden(self):
+        request = self.factory.get('/app/b/membership/remove/1/')
+        request.user = _get_anon_mock()
+        response = views.app_membership_remove(request)
+        eq_(response.status_code, 405)
+
+    def test_anon_post_requires_login(self):
+        request = self.factory.post('/app/b/membership/remove/1/', {})
+        request.user = _get_anon_mock()
+        response = views.app_membership_remove(request)
+        expected_url = utils.get_login_url('/app/b/membership/remove/1/')
+        eq_(response['Location'], expected_url)
+
+    @raises(Http404)
+    def test_non_existing_app_or_owner_raises_404(self):
+        request = self.factory.post('/app/b/membership/remove/1/', {})
+        request.user = _get_user_mock()
+        with patch('us_ignite.apps.views.get_object_or_404',
+                   side_effect=Http404) as get_mock:
+            views.app_membership_remove(request, 'b', 1)
+            get_mock.assert_called_once_with(
+                ApplicationMembership.objects.select_related('application'),
+                application__slug__exact='b', application__owner=request.user, pk=1)
+
+    def test_removal_request_is_successful(self):
+        owner = get_user('owner')
+        app = fixtures.get_application(
+            slug='zeta', status=Application.PUBLISHED, owner=owner)
+        membership = fixtures.get_membership(application=app, user=owner)
+        url = '/app/zeta/membership/remove/%s/' % membership.id
+        request = self.factory.post(url, {})
+        request.user = owner
+        request._messages = utils.TestMessagesBackend(request)
+        response = views.app_membership_remove(request, 'zeta', membership.id)
+        eq_(response.status_code, 302)
+        eq_(response['Location'], app.get_membership_url())
+        eq_(ApplicationMembership.objects.all().count(), 0)

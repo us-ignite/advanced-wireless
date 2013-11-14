@@ -9,4 +9,6 @@ urlpatterns = patterns(
     url(r'^(?P<slug>[-\w]+)/edit/$', 'app_edit', name='app_edit'),
     url(r'^(?P<slug>[-\w]+)/membership/$', 'app_membership',
         name='app_membership'),
+    url(r'^(?P<slug>[-\w]+)/membership/remove/(?P<membership_id>\d+)/$',
+        'app_membership_remove', name='app_membership_remove'),
 )

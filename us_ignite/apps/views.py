@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.views.decorators.http import require_http_methods
 
 
 from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
@@ -123,12 +124,30 @@ def app_membership(request, slug):
                 membership.append(create_member(app, member))
             total_members = len(filter(None, membership))
             messages.success(
-                request, 'Added "%s" new collaborators.' % total_members)
-            return redirect(app.get_absolute_url())
+                request, 'Added %s new collaborators.' % total_members)
+            return redirect(app.get_membership_url())
     else:
         form = MembershipForm()
+    membership_list = (app.applicationmembership_set
+                       .select_related('user', 'application', 'user__profile')
+                       .all())
     context = {
         'object': app,
+        'membership_list': membership_list,
         'form': form,
     }
     return TemplateResponse(request, 'apps/object_membership.html', context)
+
+
+@require_http_methods(["POST"])
+@login_required
+def app_membership_remove(request, slug, membership_id):
+    """Removes the given user from the given app."""
+    membership = get_object_or_404(
+        ApplicationMembership.objects.select_related('application'),
+        application__slug__exact=slug, application__owner=request.user,
+        pk=membership_id)
+    redirect_url = membership.application.get_membership_url()
+    membership.delete()
+    messages.success(request, 'Removed collaborator.')
+    return redirect(redirect_url)
