@@ -218,7 +218,7 @@ class TestAppDetailView(TestCase):
                    return_value=mock_app) as get_mock:
             response = views.app_detail(request, 'foo')
             eq_(sorted(response.context_data.keys()),
-                ['can_edit', 'object', 'url_list'])
+                ['can_edit', 'is_owner', 'member_list', 'object', 'url_list'])
             eq_(response.template_name, 'apps/object_detail.html')
             get_mock.assert_once_called_with('foo', request.user)
 
@@ -230,7 +230,6 @@ class TestAppEditViewAnon(TestCase):
 
     def test_anon_get_request_require_login(self):
         request = self.factory.get('/app/my-app/edit/')
-        request._messages = utils.TestMessagesBackend(request)
         request.user = _get_anon_mock()
         response = views.app_edit(request)
         eq_(response['Location'], utils.get_login_url('/app/my-app/edit/'))
@@ -324,4 +323,83 @@ class TestAppEditViewWithData(TestCase):
         eq_(response.status_code, 302)
         eq_(response['Location'], app.get_absolute_url())
         eq_(ApplicationURL.objects.filter(application=app).count(), 2)
+
+
+class TestAppMembershipView(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def _teardown(self):
+        for model in [User, Application]:
+            model.objects.all().delete()
+
+    def test_anon_get_request_require_login(self):
+        request = self.factory.get('/app/b/membership/')
+        request.user = _get_anon_mock()
+        response = views.app_membership(request)
+        eq_(response['Location'], utils.get_login_url('/app/b/membership/'))
+
+    def test_application_post_request_require_login(self):
+        request = self.factory.post('/app/b/membership/', {})
+        request.user = _get_anon_mock()
+        response = views.app_membership(request)
+        eq_(response['Location'], utils.get_login_url('/app/b/membership/'))
+
+    @raises(Http404)
+    def test_non_existing_app_or_owner_raises_404_on_get(self):
+        request = self.factory.get('/app/b/membership/')
+        request.user = _get_user_mock()
+        with patch('us_ignite.apps.views.get_object_or_404',
+                   side_effect=Http404) as get_mock:
+            views.app_membership(request, 'b')
+            get_mock.assert_called_once_with(
+                Application.active, slug__exact='b', owner=request.user)
+
+    @raises(Http404)
+    def test_non_existing_app_or_owner_raises_404_on_post(self):
+        request = self.factory.post('/app/b/membership/', {})
+        request.user = _get_user_mock()
+        with patch('us_ignite.apps.views.get_object_or_404',
+                   side_effect=Http404) as get_mock:
+            views.app_membership(request, 'b')
+            get_mock.assert_called_once_with(
+                Application.active, slug__exact='b', owner=request.user)
+
+    def test_valid_membership_get_request_is_successful(self):
+        owner = get_user('owner')
+        app = fixtures.get_application(
+            slug='gamma', status=Application.PUBLISHED, owner=owner)
+        request = self.factory.get('/app/gamma/membership/')
+        request.user = owner
+        response = views.app_membership(request, 'gamma')
+        eq_(response.status_code, 200)
+        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+        eq_(response.context_data['object'], app)
+        self._teardown()
+
+    def test_valid_membership_empty_payload_fails(self):
+        owner = get_user('owner')
+        fixtures.get_application(
+            slug='gamma', status=Application.PUBLISHED, owner=owner)
+        request = self.factory.post('/app/gamma/membership/', {})
+        request.user = owner
+        response = views.app_membership(request, 'gamma')
+        eq_(response.status_code, 200)
+        ok_(response.context_data['form'].errors)
+        self._teardown()
+
+    def test_valid_membership_adds_user(self):
+        owner = get_user('owner')
+        member = get_user('member', email='member@us-ignite.org')
+        app = fixtures.get_application(
+            slug='delta', status=Application.PUBLISHED, owner=owner)
+        request = self.factory.post(
+            '/app/delta/membership/', {'collaborators': 'member@us-ignite.org'})
+        request.user = owner
+        request._messages = utils.TestMessagesBackend(request)
+        response = views.app_membership(request, 'delta')
+        ok_(app.members.get(id=member.id))
+        eq_(response.status_code, 302)
+        eq_(response['Location'], app.get_absolute_url())
 

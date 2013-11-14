@@ -5,8 +5,9 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
 
-from us_ignite.apps.forms import ApplicationForm, ApplicationLinkFormSet
-from us_ignite.apps.models import Application
+from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
+                                  MembershipForm)
+from us_ignite.apps.models import Application, ApplicationMembership
 from us_ignite.common import pagination, forms
 
 
@@ -47,11 +48,12 @@ def get_app_for_user(slug, user):
 
 def app_detail(request, slug):
     app = get_app_for_user(slug, request.user)
-    url_list = app.applicationurl_set.all()
     context = {
         'object': app,
-        'url_list': url_list,
-        'can_edit': app.is_editable_by(request.user)
+        'url_list': app.applicationurl_set.all(),
+        'member_list': app.members.select_related('profile').all(),
+        'can_edit': app.is_editable_by(request.user),
+        'is_owner': app.is_owned_by(request.user),
     }
     return TemplateResponse(request, 'apps/object_detail.html', context)
 
@@ -99,3 +101,34 @@ def app_edit(request, slug):
         'formset': formset,
     }
     return TemplateResponse(request, 'apps/object_edit.html', context)
+
+
+def create_member(app, user):
+    """Create a new member when it is unexistent and return it."""
+    membership, is_new = (ApplicationMembership.objects
+                          .get_or_create(application=app, user=user))
+    return membership if is_new else None
+
+
+@login_required
+def app_membership(request, slug):
+    """Adds collaborators to an application."""
+    app = get_object_or_404(
+        Application.active, slug__exact=slug, owner=request.user)
+    if request.method == 'POST':
+        form = MembershipForm(request.POST)
+        if form.is_valid():
+            membership = []
+            for member in form.cleaned_data['collaborators']:
+                membership.append(create_member(app, member))
+            total_members = len(filter(None, membership))
+            messages.success(
+                request, 'Added "%s" new collaborators.' % total_members)
+            return redirect(app.get_absolute_url())
+    else:
+        form = MembershipForm()
+    context = {
+        'object': app,
+        'form': form,
+    }
+    return TemplateResponse(request, 'apps/object_membership.html', context)
