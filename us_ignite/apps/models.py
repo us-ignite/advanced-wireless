@@ -6,6 +6,7 @@ from django_extensions.db.fields import (CreationDateTimeField,
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
+from us_ignite.common.text import truncatewords
 from us_ignite.apps import managers
 
 
@@ -86,6 +87,11 @@ class Application(models.Model):
     def is_editable_by(self, user):
         """Determines if the given user can edit the ``Application``"""
         return self.owner == user
+
+    def get_short_description(self):
+        if self.short_description:
+            return self.short_description
+        return truncatewords(self.description, 30)
 
 
 class ApplicationMembership(models.Model):
