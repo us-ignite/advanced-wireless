@@ -19,7 +19,8 @@
 </ul>
 
 <h2>Description</h2>
-<p>{{ object.description }}</p>
+
+{{ object.description|linebreaks }}
 
 {% if member_list  %}
 <h2>Collaborators</h2>
