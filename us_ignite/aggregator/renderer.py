@@ -1,5 +1,8 @@
+import hashlib
+
 from urlparse import urlparse
 
+from django.core.cache import cache
 from django.template.loader import render_to_string
 
 from us_ignite.aggregator import github, twitter
@@ -51,3 +54,19 @@ def render_url(url):
     parsed_url = urlparse(url)
     renderer = SUPPORTED_URLS.get(parsed_url.netloc)
     return renderer(parsed_url) if renderer else None
+
+
+def _get_cache_key(url, prefix=''):
+    suffix = hashlib.md5(url).hexdigest()
+    return '%s%s' % (prefix, suffix)
+
+
+def cached_render_url(url):
+    cache_key = _get_cache_key(url, prefix='RENDER')
+    response = cache.get(cache_key)
+    if response:
+        return response
+    rendered = render_url(url)
+    # Cache for an hour:
+    cache.set(cache_key, rendered, 60 * 60)
+    return rendered
