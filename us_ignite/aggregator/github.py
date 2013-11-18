@@ -1,7 +1,17 @@
 import logging
 import requests
 
+from django.utils.html import strip_tags
+
 logger = logging.getLogger('us_ignite.aggregator.github')
+
+
+def clean_commit(commit):
+    """Returns the first line of the commit."""
+    commit = strip_tags(commit)
+    # Lines with meaningful values:
+    lines = [line for line in commit.splitlines() if line.strip()]
+    return lines[0] if lines else u'Missing commit message.'
 
 
 def get_commits(user, project, total=5):

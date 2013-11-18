@@ -33,3 +33,22 @@ class TestGetCommits(TestCase):
         result = github.get_commits('madewithbytes', 'us_ignite')
         eq_(result, [1, 1, 1, 1, 1])
 
+
+class TestCleanCommit(TestCase):
+
+    def test_empty_commit_returns_defualt_value(self):
+        empty = '    '.join(['\r\n'] * 10)
+        result = github.clean_commit(empty)
+        eq_(result, 'Missing commit message.')
+
+    def test_commit_with_whitespace_returns_significant_message(self):
+        commit = '    '.join(['\r\n'] * 5)
+        commit += 'Hello world!'
+        result = github.clean_commit(commit)
+        eq_(result, 'Hello world!')
+
+    def test_html_is_stripped(self):
+        commit = '    '.join(['\r\n'] * 5)
+        commit += '<a href="http://us-ignite.org/">Hello world!</a>'
+        result = github.clean_commit(commit)
+        eq_(result, 'Hello world!')
