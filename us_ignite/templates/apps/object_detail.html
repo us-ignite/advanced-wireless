@@ -45,12 +45,12 @@
 
 {% if url_list %}
 <h2>Also available in</h2>
-<ul>
-  {% for url in url_list %}
-  <li>
-    <a href="{{ url.url }}">{{ url.name }}</a> {{ url.url|render_as_widget }}
-  </li>
-  {% endfor%}
+{% for url in url_list %}
+<div class="">
+  <a href="{{ url.url }}">{{ url.name }}</a>
+  {{ url.url|render_as_widget }}
+</div>
+{% endfor%}
 </ul>
 {% endif %}
 
