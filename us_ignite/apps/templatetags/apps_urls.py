@@ -1,10 +1,10 @@
 from django import template
 
-from us_ignite.apps import aggregator
+from us_ignite.aggregator import renderer
 
 
 def render_as_widget(url):
-    result = aggregator.render_url(url)
+    result = renderer.render_url(url)
     return result if result else u''
 
 
