@@ -1,1 +1,8 @@
-Github username: <a href="{{ parsed_url.geturl }}">{{ username }}</a>. {% if project %}project: <a href="{{ parsed_url.geturl }}">{{ project }}</a>.{% endif %}
+<p>
+  Github username: <a href="{{ parsed_url.geturl }}">{{ username }}</a>. {% if project %}Project: <a href="{{ parsed_url.geturl }}">{{ project }}</a>.
+</p>
+
+<p>
+  Latest commits API: <a href="https://api.github.com/repos/{{ username }}/{{ project }}/commits">https://api.github.com/repos/{{ username }}/{{ project }}/commits</a>
+</p>
+{% endif %}
