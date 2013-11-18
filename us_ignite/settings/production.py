@@ -1,5 +1,6 @@
 # Production settings for us_ignite
 import os
+import urlparse
 
 from us_ignite.settings import *
 
@@ -13,6 +14,19 @@ SITE_URL = 'http://us-ignite.herokuapp.com'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = env('SECRET_KEY')
+
+redis_url = urlparse.urlparse(env('REDISTOGO_URL'))
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': '%s:%s' % (redis_url.hostname, redis_url.port),
+        'OPTIONS': {
+            'DB': 0,
+            'PASSWORD': redis_url.password,
+        }
+    }
+}
 
 # Basic authentication for Heroku
 BASIC_WWW_AUTHENTICATION_USERNAME = env('WWW_USERNAME')
