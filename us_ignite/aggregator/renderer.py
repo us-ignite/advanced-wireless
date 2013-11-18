@@ -2,7 +2,7 @@ from urlparse import urlparse
 
 from django.template.loader import render_to_string
 
-from us_ignite.aggregator import github
+from us_ignite.aggregator import github, twitter
 
 
 def render_github(parsed_url):
@@ -32,9 +32,11 @@ def render_twitter(parsed_url):
         username = path_bits.pop(1)
     except IndexError:
         return u''
+    tweet_list = twitter.get_timeline(username)
     context = {
         'parsed_url': parsed_url,
         'username': username,
+        'tweet_list': tweet_list,
     }
     return render_to_string('apps/includes/twitter.html', context)
 

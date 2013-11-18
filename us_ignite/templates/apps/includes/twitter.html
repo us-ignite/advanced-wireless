@@ -1,1 +1,9 @@
-Twitter username: <a href="{{ parsed_url.geturl }}">{{ username }}</a>
+{% if tweet_list %}
+<h3>Latest tweets</h3>
+<ul>
+  {% for tweet in tweet_list %}
+  <li>{{ tweet.text }}</li>
+  {% endfor%}
+  <li><a href="{{ parsed_url.geturl }}">View more</a></li>
+</ul>
+{% endif %}
