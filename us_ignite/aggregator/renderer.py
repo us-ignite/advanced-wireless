@@ -2,6 +2,8 @@ from urlparse import urlparse
 
 from django.template.loader import render_to_string
 
+from us_ignite.aggregator import github
+
 
 def render_github(parsed_url):
     path_bits = parsed_url.path.split('/')
@@ -13,10 +15,13 @@ def render_github(parsed_url):
         project = path_bits.pop(1)
     except IndexError:
         project = None
+    # Latest commits:
+    commit_list = github.get_commits(username, project) if project else []
     context = {
         'parsed_url': parsed_url,
         'username': username,
         'project': project,
+        'commit_list': commit_list,
     }
     return render_to_string('apps/includes/github.html', context)
 
