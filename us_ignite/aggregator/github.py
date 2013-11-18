@@ -27,6 +27,9 @@ def get_commits(user, project, total=5):
                     url, response.content)
         return []
     try:
-        return response.json()[:total]
+        response = response.json()[:total]
     except ValueError:
         return []
+    for item in response:
+        item['cleaned_commit'] = clean_commit(item['commit']['message'])
+    return response

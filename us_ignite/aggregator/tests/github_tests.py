@@ -8,6 +8,17 @@ from us_ignite.aggregator import github
 patch_requests = patch('requests.get')
 
 
+def _get_commit_response(extra_data=None):
+    data = {
+        'commit': {
+            'message': 'Hello!',
+        }
+    }
+    if extra_data:
+        data.update(extra_data)
+    return data
+
+
 class TestGetCommits(TestCase):
 
     @patch_requests
@@ -28,10 +39,11 @@ class TestGetCommits(TestCase):
     def test_response_is_successful(self, mock_get):
         mock_response = MagicMock()
         mock_response.status_code = 200
-        mock_response.json.return_value = [1] * 10
+        mock_response.json.return_value = [_get_commit_response()] * 10
         mock_get.return_value = mock_response
         result = github.get_commits('madewithbytes', 'us_ignite')
-        eq_(result, [1, 1, 1, 1, 1])
+        extra_data = {'cleaned_commit': 'Hello!'}
+        eq_(result, [_get_commit_response(extra_data)] * 5)
 
 
 class TestCleanCommit(TestCase):

@@ -4,7 +4,7 @@
   {% for commit in commit_list %}
   <li>
     <a href="{{ commit.html_url }}">{{ commit.committer.login }}</a>:
-    {{ commit.commit.message }}
+    {{ commit.cleaned_commit }}
   </li>
   {% endfor%}
   <li><a href="{{ parsed_url.geturl }}">View more</a></li>
