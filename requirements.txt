@@ -21,8 +21,7 @@ twython == 3.1.0
 requests-oauthlib == 0.3.2
 oauthlib == 0.6.0
 redis == 2.8.0
-django-redis-cache == .10.0
+django-redis-cache == 0.10.0
 
 # Compiled
 psycopg2
-
