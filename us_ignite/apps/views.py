@@ -8,7 +8,8 @@ from django.views.decorators.http import require_http_methods
 
 from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
                                   MembershipForm)
-from us_ignite.apps.models import Application, ApplicationMembership
+from us_ignite.apps.models import (Application, ApplicationMembership,
+                                   ApplicationVersion)
 from us_ignite.common import pagination, forms
 
 
@@ -102,6 +103,17 @@ def app_edit(request, slug):
         'formset': formset,
     }
     return TemplateResponse(request, 'apps/object_edit.html', context)
+
+
+@require_http_methods(["POST"])
+@login_required
+def app_version_add(request, slug):
+    app = get_object_or_404(Application.active, slug__exact=slug)
+    if not app.is_editable_by(request.user):
+        raise Http404
+    ApplicationVersion.objects.create_version(app)
+    messages.success(request, 'Application has been versioned.')
+    return redirect(app.get_absolute_url())
 
 
 def create_member(app, user):

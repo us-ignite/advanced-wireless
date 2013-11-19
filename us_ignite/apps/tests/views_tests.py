@@ -326,6 +326,52 @@ class TestAppEditViewWithData(TestCase):
         eq_(ApplicationURL.objects.filter(application=app).count(), 2)
 
 
+class TestAppVersion(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def _teardown(self):
+        for model in [User, Application]:
+            model.objects.all().delete()
+
+    def test_anon_get_request_is_forbidden(self):
+        request = self.factory.get('/app/app/version/')
+        request.user = _get_anon_mock()
+        response = views.app_version_add(request)
+        eq_(response.status_code, 405)
+
+    def test_anon_post_requires_login(self):
+        request = self.factory.post('/app/app/version/', {})
+        request.user = _get_anon_mock()
+        response = views.app_version_add(request)
+        expected_url = utils.get_login_url('/app/app/version/')
+        eq_(response['Location'], expected_url)
+
+    @raises(Http404)
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_non_existing_app_or_owner_raises_404(self, mock_get):
+        mock_get.side_effect = Http404
+        request = self.factory.post('/app/app/version/', {})
+        request.user = _get_user_mock()
+        views.app_version_add(request, 'app')
+
+    @patch('us_ignite.apps.models.ApplicationVersion.objects.create_version')
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_versioning_is_successful(self, mock_get, mock_create):
+        app_mock = Mock(spec=Application)
+        app_mock.name = 'Gigabit'
+        app_mock.get_absolute_url.return_value = '/app/app/'
+        mock_get.return_value = app_mock
+        request = self.factory.post('/app/app/version/', {})
+        request.user = _get_user_mock()
+        request._messages = utils.TestMessagesBackend(request)
+        response = views.app_version_add(request, 'app')
+        mock_create.assert_called_once_with(app_mock)
+        eq_(response.status_code, 302)
+        eq_(response['Location'], '/app/app/')
+
+
 class TestAppMembershipView(TestCase):
 
     def setUp(self):

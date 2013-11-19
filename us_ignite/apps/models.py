@@ -71,6 +71,9 @@ class Application(ApplicationBase):
     def get_edit_url(self):
         return reverse('app_edit', args=[self.slug])
 
+    def get_version_url(self):
+        return reverse('app_version_add', args=[self.slug])
+
     def get_membership_url(self):
         return reverse('app_membership', args=[self.slug])
 

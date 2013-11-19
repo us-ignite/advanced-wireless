@@ -47,6 +47,12 @@ class ApplicationTest(TestCase):
         application = fixtures.get_application(owner=user)
         eq_(application.get_edit_url(), u'/apps/%s/edit/' % application.slug)
 
+    def test_application_version_url(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=user)
+        eq_(application.get_version_url(),
+            u'/apps/%s/version/' % application.slug)
+
     def test_application_is_public(self):
         user = get_user('app-owner')
         application = fixtures.get_application(
