@@ -54,6 +54,7 @@ def app_detail(request, slug):
         'object': app,
         'url_list': app.applicationurl_set.all(),
         'member_list': app.members.select_related('profile').all(),
+        'version_list': app.applicationversion_set.all(),
         'can_edit': app.is_editable_by(request.user),
         'is_owner': app.is_owned_by(request.user),
     }

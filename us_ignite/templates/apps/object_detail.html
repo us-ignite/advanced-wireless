@@ -74,4 +74,14 @@
 {% endif %}
 {% endwith %}
 
+{% if version_list %}
+<h2>Previous versions</h2>
+<ul>
+  {% for version in version_list %}
+  <li><a href="{{ version.get_absolute_url }}">{{ version.name }}</a> created on {{ version.created }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+
 {% endblock content %}

@@ -138,3 +138,7 @@ class ApplicationVersion(ApplicationBase):
 
     def __unicode__(self):
         return u'Version %s of application' % self.application
+
+    def get_absolute_url(self):
+        return reverse(
+            'app_version_detail', args=[self.application.slug, self.slug])

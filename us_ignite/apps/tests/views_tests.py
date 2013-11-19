@@ -219,7 +219,8 @@ class TestAppDetailView(TestCase):
                    return_value=mock_app) as get_mock:
             response = views.app_detail(request, 'foo')
             eq_(sorted(response.context_data.keys()),
-                ['can_edit', 'is_owner', 'member_list', 'object', 'url_list'])
+                ['can_edit', 'is_owner', 'member_list', 'object', 'url_list',
+                 'version_list'])
             eq_(response.template_name, 'apps/object_detail.html')
             get_mock.assert_once_called_with('foo', request.user)
 
