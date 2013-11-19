@@ -415,7 +415,6 @@ class TestAppVersionDetailView(TestCase):
         eq_(response.template_name, 'apps/object_version_detail.html')
 
 
-
 class TestAppMembershipView(TestCase):
 
     def setUp(self):

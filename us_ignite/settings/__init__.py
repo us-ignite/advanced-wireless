@@ -194,7 +194,6 @@ LOGGING = {
 # Storage settings, filesystem by default:
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-STATIC_URL = '/static/'
 
 # Message storage:
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
