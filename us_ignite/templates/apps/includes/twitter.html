@@ -2,7 +2,7 @@
 <h3>Latest tweets</h3>
 <ul>
   {% for tweet in tweet_list %}
-  <li>{{ tweet.text }}</li>
+  <li>{{ tweet.text|urlize }}</li>
   {% endfor%}
   <li><a href="{{ parsed_url.geturl }}">View more</a></li>
 </ul>
