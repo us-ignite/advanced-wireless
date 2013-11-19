@@ -64,3 +64,8 @@ STATIC_URL = '/static/'
 
 TWITTER_API_KEY = 'api-key'
 TWITTER_API_SECRET = 'api-secret'
+
+# AWS dummy:
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_STORAGE_BUCKET_NAME = 'testing-us-ignite-dot-org'
