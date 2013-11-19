@@ -155,3 +155,31 @@ class TestApplicationURL(TestCase):
         eq_(instance.application, application)
         eq_(instance.name, '')
         eq_(instance.url, 'http://us-ignite.org')
+
+
+class TestApplicationVersion(TestCase):
+
+    def tearDown(self):
+        for model in [User, models.Application, models.ApplicationVersion]:
+            model.objects.all().delete()
+
+    def test_application_creation_is_successful(self):
+        user = get_user('us-ignite')
+        application = fixtures.get_application(
+            name='Gigabit app', owner=user)
+        data = {
+            'application': application,
+            'name': application.name,
+        }
+        instance = models.ApplicationVersion.objects.create(**data)
+        ok_(instance.application, application)
+        eq_(instance.name, 'Gigabit app')
+        ok_(instance.slug)
+        eq_(instance.stage, models.Application.IDEA)
+        ok_(instance.created)
+        ok_(instance.modified)
+        eq_(instance.description, '')
+        eq_(instance.short_description, '')
+        eq_(instance.image, '')
+        eq_(instance.assistance, '')
+        eq_(instance.technology, '')

@@ -10,7 +10,36 @@ from us_ignite.common.text import truncatewords
 from us_ignite.apps import managers
 
 
-class Application(models.Model):
+class ApplicationBase(models.Model):
+    """Abstract model for ``Application`` and ``ApplicationVersion`` fields."""
+    IDEA = 1
+    APPLICATION = 2
+    STAGE_CHOICES = (
+        (IDEA, 'Idea'),
+        (APPLICATION, 'Application'),
+    )
+    name = models.CharField(max_length=255)
+    stage = models.IntegerField(choices=STAGE_CHOICES, default=IDEA)
+    image = models.ImageField(blank=True, upload_to='apps')
+    short_description = models.TextField(
+        blank=True, help_text='Quick explanation of this app.')
+    description = models.TextField()
+    technology = models.TextField(
+        blank=True, help_text='Technology used behind this app.')
+    assistance = models.TextField(
+        blank=True, help_text='Fill in this field if you require help.')
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+
+    class Meta:
+        abstract = True
+
+
+class Application(ApplicationBase):
+    """``Applications``add core
+
+    Any content related field that needs to be versioned must be
+    added to the ``ApplicationBase``"""
     PUBLISHED = 1
     DRAFT = 2
     REMOVED = 3
@@ -21,31 +50,12 @@ class Application(models.Model):
         (REMOVED, 'Removed'),
         (PRIVATE, 'Private'),
     )
-    IDEA = 1
-    APPLICATION = 2
-    STAGE_CHOICES = (
-        (IDEA, 'Idea'),
-        (APPLICATION, 'Application'),
-    )
-    name = models.CharField(max_length=255)
     slug = AutoUUIDField(unique=True, editable=True)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     owner = models.ForeignKey('auth.User', related_name='ownership_set')
     members = models.ManyToManyField(
         'auth.User', through='apps.ApplicationMembership',
         related_name='membership_set')
-    stage = models.IntegerField(choices=STAGE_CHOICES, default=IDEA)
-    status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    created = CreationDateTimeField()
-    modified = ModificationDateTimeField()
-    short_description = models.TextField(
-        blank=True, help_text='Quick explanation of this app.')
-    image = models.ImageField(blank=True, upload_to='apps')
-    description = models.TextField()
-    assistance = models.TextField(
-        blank=True, help_text='Fill in this field if you require help with '
-        'this app.')
-    technology = models.TextField(
-        blank=True, help_text='Technology used behind this app.')
     is_featured = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
     # managers
@@ -114,3 +124,14 @@ class ApplicationURL(models.Model):
 
     def __unicode__(self):
         return self.url
+
+
+class ApplicationVersion(ApplicationBase):
+    """Version of the ``Application``."""
+    application = models.ForeignKey('apps.Application')
+    slug = AutoUUIDField(unique=True, editable=True)
+    # managers:
+    objects = managers.ApplicationVersionManager()
+
+    def __unicode__(self):
+        return u'Version %s of application' % self.application
