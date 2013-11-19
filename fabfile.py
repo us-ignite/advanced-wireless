@@ -11,6 +11,7 @@ here = lambda *x: os.path.join(PROJECT_ROOT, *x)
 
 DB_STRING = 'us_ignite'
 
+
 def production():
     """Connection details for the ``production`` app"""
     env.slug = 'production'
@@ -66,6 +67,12 @@ def syncdb():
 
 
 @only_outside_vm
+def collectstatic():
+    print yellow('Collecting static assets.')
+    dj_heroku('collectstatic --noinput', env.slug)
+
+
+@only_outside_vm
 def shell():
     """Open a shell in the given environment."""
     dj_heroku('shell', env.slug)
@@ -110,9 +117,13 @@ def deploy(confirmation):
     print yellow('Deploying to %s. Because you said so.' % SLUG)
     with lcd(PROJECT_ROOT):
         print yellow('Pushing changes to %s in Heroku.' % SLUG)
+        # Make sure the remote and Heroku are in sync:
         _validate_pushed_commits()
         local('git push %s master' % env.slug)
+        # Sync database:
         syncdb()
+        # Collect any static assets:
+        collectstatic()
     print yellow('URL: %s' % env.url)
     print green('Done at %s' % datetime.now())
 
