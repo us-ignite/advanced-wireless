@@ -5,17 +5,16 @@
 {% block content %}
 <h1>{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h1>
 
-<ul>
-  <li>Created on {{ object.created }}</li>
-  <li>Created by {{ object.owner.profile.display_name }}</li>
-  {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
-  {% if is_owner %}<li><a href="{{ object.get_membership_url }}">Edit members</a></li>{% endif %}
-</ul>
+{% if object.image  %}
+<img src="{{ object.image.url }}" alt="" title="{{ object.name }}"/>
+{% endif %}
+
 
 <ul>
   <li>Stage: {{ object.get_stage_display }}</li>
-  <li>Created on: {{ object.created  }}</li>
-  <li>Created by {% include "includes/display_name.html" with user=object.owner %}</li>
+  <li>Created by {% include "includes/display_name.html" with user=object.owner %} on {{ object.created }}</li>
+  {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
+  {% if is_owner %}<li><a href="{{ object.get_membership_url }}">Edit members</a></li>{% endif %}
 </ul>
 
 <h2>Description</h2>
