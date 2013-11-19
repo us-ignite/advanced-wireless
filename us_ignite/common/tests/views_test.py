@@ -14,7 +14,6 @@ class TestCustom404(TestCase):
         request = self.factory.get('/')
         response = views.custom_404(request)
         eq_(response.status_code, 404)
-        eq_(response.template_name, '404.html')
 
 
 class TestCustom500(TestCase):
@@ -26,4 +25,3 @@ class TestCustom500(TestCase):
         request = self.factory.get('/')
         response = views.custom_500(request)
         eq_(response.status_code, 500)
-        eq_(response.template_name, '500.html')
