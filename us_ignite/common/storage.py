@@ -9,8 +9,8 @@ STATIC_LOCATION = 'static'
 class StaticS3Storage(S3BotoStorage):
 
     def __init__(self, *args, **kwargs):
-        super(StaticS3Storage, self).__init__(location=STATIC_LOCATION,
-                                              *args, **kwargs)
+        super(StaticS3Storage, self).__init__(
+            location=STATIC_LOCATION, *args, **kwargs)
 
     def url(self, name):
         url = super(StaticS3Storage, self).url(name)
@@ -33,8 +33,8 @@ class MediaS3Storage(S3BotoStorage):
 class CachedS3BotoStorage(S3BotoStorage):
     """S3 storage backend that saves the files locally, too."""
     def __init__(self, location=STATIC_LOCATION, *args, **kwargs):
-        super(CachedS3BotoStorage, self).__init__(location=location,
-                                                  *args, **kwargs)
+        super(CachedS3BotoStorage, self).__init__(
+            location=location, *args, **kwargs)
         self.local_storage = get_storage_class(
             "compressor.storage.CompressorFileStorage")()
 
