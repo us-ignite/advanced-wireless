@@ -117,6 +117,26 @@ def app_version_add(request, slug):
     return redirect(app.get_absolute_url())
 
 
+def app_version_detail(request, slug, version_slug):
+    app = get_app_for_user(slug, request.user)
+    # Determine if the slug provided is a valid version:
+    version = None
+    version_list = []
+    for version_obj in app.applicationversion_set.all():
+        if version_obj.slug == version_slug:
+            version = version_obj
+        else:
+            version_list.append(version_obj)
+    if not version:
+        raise Http404
+    context = {
+        'object': version,
+        'version_list': version_list,
+        'app': app,
+    }
+    return TemplateResponse(request, 'apps/object_version_detail.html', context)
+
+
 def create_member(app, user):
     """Create a new member when it is unexistent and return it."""
     membership, is_new = (ApplicationMembership.objects

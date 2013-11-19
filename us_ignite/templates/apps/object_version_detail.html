@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Version of application: {{ object.name }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h1>
+
+{% if object.image  %}
+<img src="{{ object.image.url }}" alt="" title="{{ object.name }}"/>
+{% endif %}
+
+<ul>
+  <li><a href="{{ app.get_absolute_url }}">View current application</a>.</li>
+  <li>Stage: {{ object.get_stage_display }}</li>
+  <li>Versioned on {{ object.created }}</li>
+  <li>Created by {% include "includes/display_name.html" with user=app.owner %}</li>
+</ul>
+
+<h2>Description</h2>
+
+{{ object.description|linebreaks }}
+
+{% if object.technology %}
+<h2>Technology used</h2>
+<p>{{ object.technology }}</p>
+{% endif %}
+
+
+{% if version_list %}
+<h2>Other versions</h2>
+<ul>
+  {% for version in version_list %}
+  <li><a href="{{ version.get_absolute_url }}">{{ version.name }}</a> created on {{ version.created }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+{% endblock content %}

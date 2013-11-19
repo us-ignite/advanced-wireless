@@ -7,7 +7,7 @@ from django.test import client, TestCase
 
 from us_ignite.apps import views
 from us_ignite.apps.models import (Application, ApplicationURL,
-                                   ApplicationMembership)
+                                   ApplicationMembership, ApplicationVersion)
 from us_ignite.apps.tests import fixtures
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
@@ -371,6 +371,49 @@ class TestAppVersion(TestCase):
         mock_create.assert_called_once_with(app_mock)
         eq_(response.status_code, 302)
         eq_(response['Location'], '/app/app/')
+
+
+class TestAppVersionDetailView(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    @raises(Http404)
+    @patch('us_ignite.apps.views.get_app_for_user')
+    def test_missing_app_raises_404(self, get_mock):
+        get_mock.side_effect = Http404
+        request = self.factory.get('/apps/gigabit/version/1/')
+        request.user = AnonymousUser()
+        views.app_version_detail(request, 'gigabit', '1')
+        get_mock.assert_once_called_with('foo', request.user)
+
+    @patch('us_ignite.apps.views.get_app_for_user')
+    def test_missing_version_raises_404(self, get_mock):
+        app_mock = Mock(spec=Application)
+        app_mock.applicationversion_set.all.return_value = []
+        get_mock.return_value = app_mock
+        request = self.factory.get('/apps/gigabit/version/1/')
+        request.user = AnonymousUser()
+        assert_raises(Http404, views.app_version_detail, request, 'gigabit', '1')
+        get_mock.assert_called_once_with('gigabit', request.user)
+        app_mock.applicationversion_set.all.assert_called_once()
+
+    @patch('us_ignite.apps.views.get_app_for_user')
+    def test_version_renders_successfully(self, get_mock):
+        app_mock = Mock(spec=Application)
+        version_mock = Mock(spec=ApplicationVersion)
+        version_mock.slug = '1'
+        app_mock.applicationversion_set.all.return_value = [version_mock]
+        get_mock.return_value = app_mock
+        request = self.factory.get('/apps/gigabit/version/1/')
+        request.user = AnonymousUser()
+        response = views.app_version_detail(request, 'gigabit', '1')
+        get_mock.assert_called_once_with('gigabit', request.user)
+        app_mock.applicationversion_set.all.assert_called_once()
+        eq_(sorted(response.context_data.keys()),
+            ['app', 'object', 'version_list'])
+        eq_(response.template_name, 'apps/object_version_detail.html')
+
 
 
 class TestAppMembershipView(TestCase):

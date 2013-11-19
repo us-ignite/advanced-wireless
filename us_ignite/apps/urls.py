@@ -9,6 +9,8 @@ urlpatterns = patterns(
     url(r'^(?P<slug>[-\w]+)/edit/$', 'app_edit', name='app_edit'),
     url(r'^(?P<slug>[-\w]+)/version/$', 'app_version_add',
         name='app_version_add'),
+    url(r'^(?P<slug>[-\w]+)/version/(?P<version_slug>[-\w]+)/$',
+        'app_version_detail', name='app_version_detail'),
     url(r'^(?P<slug>[-\w]+)/membership/$', 'app_membership',
         name='app_membership'),
     url(r'^(?P<slug>[-\w]+)/membership/remove/(?P<membership_id>\d+)/$',
