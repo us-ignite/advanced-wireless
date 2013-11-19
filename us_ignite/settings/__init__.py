@@ -1,5 +1,4 @@
 # Django settings for us_ignite project.
-import datetime
 import os
 import dj_database_url
 
@@ -192,9 +191,15 @@ LOGGING = {
     }
 }
 
-# Message storage
+# Storage settings, filesystem by default:
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STATIC_URL = '/static/'
+
+# Message storage:
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
+# Email settings:
 EMAIL_SUBJECT_PREFIX = '[US Ignite] '
 SEND_BROKEN_LINK_EMAILS = True
 DEFAULT_FROM_EMAIL = 'info@us-ignite.org'
@@ -205,22 +210,11 @@ ALLOWED_HOSTS = [
 ]
 
 
-# Account settings
+# Account settings:
 ACCOUNT_ACTIVATION_DAYS = 7
-# Login details:
 LOGIN_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL_FAILURE = '/'
 LOGOUT_REDIRECT_URL = '/'
-
-
-# Remote assets headers:
-expire_date = datetime.date.today() + datetime.timedelta(days=365)
-expire_seconds = 30 * 24 * 60 * 60
-
-AWS_HEADERS = {
-    'Expires': expire_date.strftime('%a, %d %b %Y 00:00:00 GMT'),
-    'Cache-Control': 'max-age=%s' % expire_seconds,
-}
 
 # Paginator:
 PAGINATOR_PAGE_SIZE = 10

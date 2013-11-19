@@ -1,4 +1,5 @@
 # Production settings for us_ignite
+import datetime
 import os
 import urlparse
 
@@ -15,6 +16,23 @@ SITE_URL = 'http://us-ignite.herokuapp.com'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = env('SECRET_KEY')
 
+# Remote storage settings:
+STATICFILES_STORAGE = 'us_ignite.common.storage.StaticS3Storage'
+DEFAULT_FILE_STORAGE = 'us_ignite.common.storage.MediaS3Storage'
+
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+
+AWS_STORAGE_BUCKET_NAME = 'local-us-ignite-dot-org'
+
+expire_date = datetime.date.today() + datetime.timedelta(days=365)
+expire_seconds = 30 * 24 * 60 * 60
+AWS_HEADERS = {
+    'Expires': expire_date.strftime('%a, %d %b %Y 00:00:00 GMT'),
+    'Cache-Control': 'max-age=%s' % expire_seconds,
+}
+
+
 redis_url = urlparse.urlparse(env('REDISTOGO_URL'))
 
 CACHES = {
@@ -28,11 +46,6 @@ CACHES = {
     }
 }
 
-# Basic authentication for Heroku
-BASIC_WWW_AUTHENTICATION_USERNAME = env('WWW_USERNAME')
-BASIC_WWW_AUTHENTICATION_PASSWORD = env('WWW_PASSWORD')
-BASIC_WWW_AUTHENTICATION = False
-
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST')
@@ -40,10 +53,6 @@ EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
-# Settings to use the filesystem
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-STATIC_URL = '/static/'
 
 # Twitter API:
 TWITTER_API_KEY = env('TWITTER_API_KEY')
