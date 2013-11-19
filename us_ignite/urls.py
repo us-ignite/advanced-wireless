@@ -4,7 +4,12 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
 
 from django.contrib import admin
+
 admin.autodiscover()
+
+# custom 404 and 500 handlers
+handler404 = 'us_ignite.common.views.custom_404'
+handler500 = 'us_ignite.common.views.custom_500'
 
 urlpatterns = patterns(
     '',
@@ -16,6 +21,11 @@ urlpatterns = patterns(
     url(r'^browserid/', include('django_browserid.urls')),
 )
 
+urlpatterns += patterns(
+    'us_ignite.common.views',
+    url(r'^404/$', 'custom_404', name='http404'),
+    url(r'^500/$', 'custom_500', name='http500'),
+)
 
 if settings.DEBUG:
     urlpatterns += patterns(
