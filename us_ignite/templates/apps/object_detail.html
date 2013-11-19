@@ -14,7 +14,15 @@
   <li>Stage: {{ object.get_stage_display }}</li>
   <li>Created by {% include "includes/display_name.html" with user=object.owner %} on {{ object.created }}</li>
   {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
-  {% if is_owner %}<li><a href="{{ object.get_membership_url }}">Edit members</a></li>{% endif %}
+  {% if is_owner %}
+  <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
+  <li>
+    <form method="post" action="{{ object.get_version_url }}">
+      {% csrf_token %}
+      <button type="submit">Create version</button>
+    </form>
+  </li>
+  {% endif %}
 </ul>
 
 <h2>Description</h2>
