@@ -63,7 +63,7 @@ def app_detail(request, slug):
 def app_add(request):
     """View for adding an ``Application``."""
     if request.method == 'POST':
-        form = ApplicationForm(request.POST)
+        form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.owner = request.user
@@ -85,7 +85,7 @@ def app_edit(request, slug):
     if not app.is_editable_by(request.user):
         raise Http404
     if request.method == 'POST':
-        form = ApplicationForm(request.POST, instance=app)
+        form = ApplicationForm(request.POST, request.FILES, instance=app)
         formset = ApplicationLinkFormSet(request.POST, instance=app)
         if form.is_valid() and formset.is_valid():
             instance = form.save()

@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Add an App</h1>
-<form method="post" action="{% url "app_add" %}">
+<form method="post" action="{% url "app_add" %}" enctype="multipart/form-data">
 {% include "apps/object_form.html" with form=form %}
 <p>
   <button type="submit">Create</button>
