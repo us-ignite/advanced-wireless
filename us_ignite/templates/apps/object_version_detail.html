@@ -12,19 +12,40 @@
 <ul>
   <li><a href="{{ app.get_absolute_url }}">View current application</a>.</li>
   <li>Stage: {{ object.get_stage_display }}</li>
+  {% if object.website %}<li>Website: {{ object.website }}</li>{% endif %}
   <li>Versioned on {{ object.created }}</li>
   <li>Created by {% include "includes/display_name.html" with user=app.owner %}</li>
 </ul>
 
-<h2>Description</h2>
+<h2>Summary</h2>
+<p>
+  {{ object.summary }}
+</p>
 
-{{ object.description|linebreaks }}
-
-{% if object.technology %}
-<h2>Technology used</h2>
-<p>{{ object.technology }}</p>
+{% if object.impact_statement %}
+<h2>Impact statement</h2>
+<p>
+  {{ object.impact_statement }}
+</p>
 {% endif %}
 
+<h2>Description</h2>
+{{ object.description|linebreaks }}
+
+{% if object.roadmap %}
+<h2>Roadmap</h2>
+{{ object.roadmap }}
+{% endif %}
+
+{% if object.team_description %}
+<h2>Team description</h2>
+{{ object.team_description }}
+{% endif %}
+
+{% if object.acknowledgments %}
+<h2>Acknowledgements</h2>
+<p>{{ object.acknowledgments }}</p>
+{% endif %}
 
 {% if version_list %}
 <h2>Other versions</h2>
