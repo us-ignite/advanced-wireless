@@ -163,7 +163,7 @@ class ApplicationURL(models.Model):
 class ApplicationImage(models.Model):
     application = models.ForeignKey('apps.Application')
     name = models.CharField(max_length=255, blank=True)
-    image = models.ImageField(blank=True, upload_to='apps', max_length=500)
+    image = models.ImageField(upload_to='apps', max_length=500)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
