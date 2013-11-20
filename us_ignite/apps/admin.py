@@ -1,10 +1,14 @@
 from django.contrib import admin
 
-from us_ignite.apps.models import Application, ApplicationURL
+from us_ignite.apps.models import Application, ApplicationURL, ApplicationImage
 
 
 class ApplicationURLInline(admin.TabularInline):
     model = ApplicationURL
+
+
+class ApplicationImageInline(admin.TabularInline):
+    model = ApplicationImage
 
 
 class ApplicationAdmin(admin.ModelAdmin):
@@ -12,6 +16,6 @@ class ApplicationAdmin(admin.ModelAdmin):
     search_fields = ['name', 'slug', 'short_description', 'description']
     list_filter = ['stage', 'status', 'created']
     date_hierarchy = 'created'
-    inlines = [ApplicationURLInline]
+    inlines = [ApplicationURLInline, ApplicationImageInline]
 
 admin.site.register(Application, ApplicationAdmin)
