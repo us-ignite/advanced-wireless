@@ -7,7 +7,7 @@ from django.views.decorators.http import require_http_methods
 
 
 from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
-                                  MembershipForm)
+                                  MembershipForm, ApplicationImageFormSet)
 from us_ignite.apps.models import (Application, ApplicationMembership,
                                    ApplicationVersion)
 from us_ignite.common import pagination, forms
@@ -88,20 +88,26 @@ def app_edit(request, slug):
         raise Http404
     if request.method == 'POST':
         form = ApplicationForm(request.POST, request.FILES, instance=app)
-        formset = ApplicationLinkFormSet(request.POST, instance=app)
-        if form.is_valid() and formset.is_valid():
+        link_formset = ApplicationLinkFormSet(request.POST, instance=app)
+        image_formset = ApplicationImageFormSet(
+            request.POST, request.FILES, instance=app)
+        if (form.is_valid() and link_formset.is_valid()
+            and image_formset.is_valid()):
             instance = form.save()
-            formset.save()
+            link_formset.save()
+            image_formset.save()
             messages.success(
                 request, 'The application "%s" has been updated.' % instance.name)
             return redirect(instance.get_absolute_url())
     else:
         form = ApplicationForm(instance=app)
-        formset = ApplicationLinkFormSet(instance=app)
+        link_formset = ApplicationLinkFormSet(instance=app)
+        image_formset = ApplicationImageFormSet(instance=app)
     context = {
         'object': app,
         'form': form,
-        'formset': formset,
+        'link_formset': link_formset,
+        'image_formset': image_formset,
     }
     return TemplateResponse(request, 'apps/object_edit.html', context)
 

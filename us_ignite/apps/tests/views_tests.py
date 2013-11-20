@@ -113,6 +113,28 @@ def _get_applinks_inline_payload(pk, data_list=None, **kwargs):
     return default
 
 
+def _get_appimages_inline_payload(pk, data_list=None, **kwargs):
+    """Generates the inline payload for the ``ApplicationImages``."""
+    data_list = data_list if data_list else [{}]
+    prefix = 'applicationimage_set-'
+    default = {
+        '%sTOTAL_FORMS' % prefix: len(data_list),
+        '%sINITIAL_FORMS' % prefix: 0,
+        '%sMAX_NUM_FORMS'% prefix: 3,
+    }
+    _inline_tuple = lambda i, k, v: ('%s%s-%s' % (prefix, i, k), v)
+    for i, inline in enumerate(data_list):
+        inline_default = {
+            '%s%s-DELETE' % (prefix, i): '',
+            '%s%s-application' % (prefix, i): pk,
+        }
+        inline_item = dict(_inline_tuple(i, k, v) for k, v in inline.items())
+        inline_default.update(inline_item)
+        default.update(inline_default)
+    default.update(kwargs)
+    return default
+
+
 class TestAppAddViewAnon(TestCase):
 
     def setUp(self):
@@ -212,18 +234,18 @@ class TestAppDetailView(TestCase):
             views.app_detail(request, 'foo')
             get_mock.assert_once_called_with('foo', request.user)
 
-    def test_app_detail_is_valid(self):
+    @patch('us_ignite.apps.views.get_app_for_user')
+    def test_app_detail_is_valid(self, get_mock):
         request = self.factory.get('/apps/foo/')
         request.user = AnonymousUser()
         mock_app = Mock(spec=Application)()
-        with patch('us_ignite.apps.views.get_app_for_user',
-                   return_value=mock_app) as get_mock:
-            response = views.app_detail(request, 'foo')
-            eq_(sorted(response.context_data.keys()),
-                ['can_edit', 'is_owner', 'member_list', 'object', 'url_list',
-                 'version_list'])
-            eq_(response.template_name, 'apps/object_detail.html')
-            get_mock.assert_once_called_with('foo', request.user)
+        get_mock.return_value = mock_app
+        response = views.app_detail(request, 'foo')
+        eq_(sorted(response.context_data.keys()),
+            ['can_edit', 'image_list', 'is_owner', 'member_list',
+             'object', 'url_list', 'version_list'])
+        eq_(response.template_name, 'apps/object_detail.html')
+        get_mock.assert_once_called_with('foo', request.user)
 
 
 class TestAppEditViewAnon(TestCase):
@@ -290,7 +312,8 @@ class TestAppEditViewWithData(TestCase):
         request = self.factory.get('/app/alpha/')
         request.user = owner
         response = views.app_edit(request, 'alpha')
-        eq_(sorted(response.context_data.keys()), ['form', 'formset', 'object'])
+        eq_(sorted(response.context_data.keys()),
+            ['form', 'image_formset', 'link_formset', 'object'])
         eq_(response.template_name, 'apps/object_edit.html')
 
     def test_post_request_is_successful(self):
@@ -299,6 +322,7 @@ class TestAppEditViewWithData(TestCase):
             slug='beta', status=Application.PUBLISHED, owner=owner)
         payload = _get_message_payload(name='Updated')
         payload.update(_get_applinks_inline_payload(app.id))
+        payload.update(_get_appimages_inline_payload(app.id))
         request = self.factory.post('/app/beta/', payload)
         request._messages = utils.TestMessagesBackend(request)
         request.user = owner
@@ -319,6 +343,7 @@ class TestAppEditViewWithData(TestCase):
             {'name': 'twitter', 'url': 'http://twitter.com'},
         ]
         payload.update(_get_applinks_inline_payload(app.id, data_list=links))
+        payload.update(_get_appimages_inline_payload(app.id))
         request = self.factory.post('/app/beta/', payload)
         request._messages = utils.TestMessagesBackend(request)
         request.user = owner
