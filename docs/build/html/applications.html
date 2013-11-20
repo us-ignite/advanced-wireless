@@ -49,11 +49,20 @@
             
   <div class="section" id="applications">
 <h1>Applications<a class="headerlink" href="#applications" title="Permalink to this headline">¶</a></h1>
-<p>Applications are at the core of US Ignite.</p>
-<div class="section" id="adding-applications">
-<h2>Adding applications<a class="headerlink" href="#adding-applications" title="Permalink to this headline">¶</a></h2>
-<p>Applications can only be submited by registered users. They can be an <tt class="docutils literal"><span class="pre">Idea</span></tt> or an full <tt class="docutils literal"><span class="pre">Application</span></tt>.</p>
-<p>The user can change the status of application between <tt class="docutils literal"><span class="pre">DRAFT</span></tt> and <tt class="docutils literal"><span class="pre">PUBLISHED</span></tt>.</p>
+<p>Applications are at the core of US Ignite</p>
+<p>The applications were  modeled based on: <a class="reference external" href="https://etherpad.mozilla.org/ignite-site-app-entry">https://etherpad.mozilla.org/ignite-site-app-entry</a></p>
+<p>The applications can be at different stages:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Idea complete</li>
+<li>Team complete / Forming team</li>
+<li>Alpha version / developing alpha / testing alpha</li>
+<li>Beta version / developing beta / in beta test</li>
+<li>Demo-able / demoing</li>
+<li>Deployable / deploying</li>
+</ul>
+</div></blockquote>
+<p>Users have full control on the visibility of the application they can select between <tt class="docutils literal"><span class="pre">DRAFT</span></tt> and <tt class="docutils literal"><span class="pre">PUBLISHED</span></tt>.</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">Draft</span></tt> will make the application visible to the owner and members of the application.</li>
 <li><tt class="docutils literal"><span class="pre">Published</span></tt> will make the application visible to everyone.</li>
@@ -62,6 +71,10 @@
 <p class="first admonition-title">Note</p>
 <p class="last">An special <tt class="docutils literal"><span class="pre">Removed</span></tt> status is provided for the admins to remove any inappropriate content, without deleting it.</p>
 </div>
+<p>The application can show the usage of the next gen characteristics.</p>
+<div class="section" id="adding-applications">
+<h2>Adding applications<a class="headerlink" href="#adding-applications" title="Permalink to this headline">¶</a></h2>
+<p>Applications can only be submited by registered users.</p>
 </div>
 <div class="section" id="application-listing">
 <h2>Application listing<a class="headerlink" href="#application-listing" title="Permalink to this headline">¶</a></h2>
@@ -70,6 +83,19 @@
 <div class="section" id="application-detail">
 <h2>Application detail<a class="headerlink" href="#application-detail" title="Permalink to this headline">¶</a></h2>
 <p>The <tt class="docutils literal"><span class="pre">Application</span></tt> detail page is visible to everyone when published. When it is on <tt class="docutils literal"><span class="pre">Draft</span></tt> mode is only available for owners and members.</p>
+<p>Github and Twitter URLS are automatically detected and if possible the profile page will show the latest 5 commits or tweets.</p>
+</div>
+<div class="section" id="application-collaborators">
+<h2>Application collaborators<a class="headerlink" href="#application-collaborators" title="Permalink to this headline">¶</a></h2>
+<p>The collaborators of an <tt class="docutils literal"><span class="pre">Application</span></tt> need to be registered. Only the owner of an application can add a collaborator.</p>
+<p>A collaborator receives an extra set of permissions on a selected <tt class="docutils literal"><span class="pre">Application</span></tt>.</p>
+<p>The collaborators need to be added by <tt class="docutils literal"><span class="pre">email</span></tt> address, if the user is not registered the form will show an error.</p>
+</div>
+<div class="section" id="application-versioning">
+<h2>Application versioning<a class="headerlink" href="#application-versioning" title="Permalink to this headline">¶</a></h2>
+<p>The owner of an application can generate a version of it for reference of what the application looked at a certain point.</p>
+<p>The versioning functionality is available in the application profile page.</p>
+<p>The visibility of the application is connected to the visibility ov the versions, this means that if the application is not visible the versions won&#8217;t be visible either.</p>
 </div>
 </div>
 
@@ -85,6 +111,8 @@
 <li><a class="reference internal" href="#adding-applications">Adding applications</a></li>
 <li><a class="reference internal" href="#application-listing">Application listing</a></li>
 <li><a class="reference internal" href="#application-detail">Application detail</a></li>
+<li><a class="reference internal" href="#application-collaborators">Application collaborators</a></li>
+<li><a class="reference internal" href="#application-versioning">Application versioning</a></li>
 </ul>
 </li>
 </ul>
