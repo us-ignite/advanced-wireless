@@ -12,9 +12,12 @@ class TestApplicationForm(TestCase):
 
     def test_fields_listed_are_not_sensitive(self):
         form = forms.ApplicationForm()
-        eq_(sorted(form.fields.keys()),
-            ['assistance', 'description', 'image', 'name',
-             'short_description', 'stage', 'status', 'tags', 'technology'])
+        expected_fields = sorted(
+            ['name', 'summary', 'impact_statement', 'description',
+             'image', 'domain',  'features', 'stage', 'roadmap',
+             'assistance', 'team_description', 'acknowledgments',
+             'tags', 'status'])
+        eq_(sorted(form.fields.keys()), expected_fields)
 
     def test_removed_field_is_not_a_status_choice(self):
         form = forms.ApplicationForm()
@@ -29,6 +32,7 @@ class TestApplicationForm(TestCase):
         payload = {
             'name': 'Great Gigabit App',
             'description': 'This app will change everything.',
+            'summary': 'This app is great!',
             'status': Application.DRAFT,
             'stage': Application.IDEA,
         }
@@ -39,6 +43,7 @@ class TestApplicationForm(TestCase):
         payload = {
             'name': 'Great Gigabit App',
             'description': 'This app will change everything.',
+            'summary': 'This app is great!',
             'status': Application.REMOVED,
             'stage': Application.IDEA,
         }

@@ -8,7 +8,7 @@ from us_ignite.apps.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
 
-class ApplicationTest(TestCase):
+class TestApplicationModel(TestCase):
 
     def tearDown(self):
         for model in [User, models.Application]:
@@ -21,19 +21,27 @@ class ApplicationTest(TestCase):
             'owner': user,
         }
         instance = models.Application.objects.create(**data)
+        ok_(instance.id)
         eq_(instance.name, 'Gigabit app')
         ok_(instance.slug)
         eq_(instance.owner, user)
         eq_(instance.status, models.Application.DRAFT)
         eq_(instance.stage, models.Application.IDEA)
+        eq_(instance.website, '')
+        eq_(instance.image, '')
+        eq_(instance.summary, '')
+        eq_(instance.impact_statement, '')
+        eq_(instance.description, '')
+        eq_(instance.roadmap, '')
+        eq_(instance.assistance, '')
+        eq_(instance.team_description, '')
+        eq_(instance.acknowledgments, '')
+        eq_(instance.notes, '')
         ok_(instance.created)
         ok_(instance.modified)
-        eq_(instance.description, '')
-        eq_(instance.short_description, '')
-        eq_(instance.image, '')
-        eq_(instance.assistance, '')
-        eq_(instance.technology, '')
         eq_(instance.is_featured, False)
+        eq_(list(instance.features.all()), [])
+        eq_(instance.domain, None)
         eq_(list(instance.members.all()), [])
         eq_(list(instance.tags.all()), [])
 
@@ -123,6 +131,21 @@ class ApplicationTest(TestCase):
             owner=user, status=models.Application.DRAFT)
         eq_(application.is_editable_by(AnonymousUser()), False)
 
+    def test_get_summary_shortens_description(self):
+        user = get_user('app-owner')
+        description = ' '.join(['word'] * 50)
+        application = fixtures.get_application(
+            owner=user, description=description)
+        summary = application.get_summary()
+        # 31 words considering the ellipsis:
+        eq_(len(summary.split(' ')), 31)
+
+    def test_get_summary_returns_existing_summary(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, summary='summary', description='description')
+        eq_(application.get_summary(), 'summary')
+
 
 class TestApplicationMembership(TestCase):
 
@@ -158,12 +181,13 @@ class TestApplicationURL(TestCase):
             'url': 'http://us-ignite.org',
         }
         instance = models.ApplicationURL.objects.create(**data)
+        ok_(instance.id)
         eq_(instance.application, application)
         eq_(instance.name, '')
         eq_(instance.url, 'http://us-ignite.org')
 
 
-class TestApplicationVersion(TestCase):
+class TestApplicationVersionModel(TestCase):
 
     def tearDown(self):
         for model in [User, models.Application, models.ApplicationVersion]:
@@ -178,14 +202,34 @@ class TestApplicationVersion(TestCase):
             'name': application.name,
         }
         instance = models.ApplicationVersion.objects.create(**data)
+        ok_(instance.id)
         ok_(instance.application, application)
         eq_(instance.name, 'Gigabit app')
-        ok_(instance.slug)
         eq_(instance.stage, models.Application.IDEA)
+        eq_(instance.website, '')
+        eq_(instance.image, '')
+        ok_(instance.slug)
         ok_(instance.created)
         ok_(instance.modified)
+        eq_(instance.summary, '')
+        eq_(instance.impact_statement, '')
         eq_(instance.description, '')
-        eq_(instance.short_description, '')
-        eq_(instance.image, '')
+        eq_(instance.roadmap, '')
         eq_(instance.assistance, '')
-        eq_(instance.technology, '')
+        eq_(instance.team_description, '')
+        eq_(instance.acknowledgments, '')
+
+
+class TestFeatureModel(TestCase):
+
+    def tearDown(self):
+        for model in [models.Feature]:
+            model.objects.all().delete()
+
+    def test_feature_creation_is_successful(self):
+        instance = models.Feature.objects.create(**{
+            'name': 'OpenFlow',
+        })
+        ok_(instance.id)
+        eq_(instance.name, 'OpenFlow')
+        ok_(instance.slug)

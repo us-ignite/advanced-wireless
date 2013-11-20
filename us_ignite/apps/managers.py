@@ -16,10 +16,15 @@ class ApplicationVersionManager(models.Manager):
             'application': application,
             'name': application.name,
             'stage': application.stage,
+            'website': application.website,
             'image': application.image,
-            'short_description': application.short_description,
+            'summary': application.summary,
+            'impact_statement': application.impact_statement,
             'description': application.description,
-            'technology': application.technology,
+            'roadmap': application.roadmap,
             'assistance': application.assistance,
+            'team_description': application.team_description,
+            'acknowledgments': application.acknowledgments,
+            'notes': application.notes,
         }
         return self.create(**data)

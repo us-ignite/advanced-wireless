@@ -21,11 +21,16 @@ class ApplicationForm(forms.ModelForm):
     """Model form for the ``Application`` with whitelisted fields."""
     status = forms.ChoiceField(
         choices=_get_status_choices(), initial=Application.DRAFT)
+    summary = forms.CharField(
+        max_length=140, widget=forms.Textarea,
+        help_text='Tweet-length pitch / summary of project.')
 
     class Meta:
         model = Application
-        fields = ('name', 'short_description', 'description', 'image',
-                  'stage', 'assistance', 'technology', 'tags', 'status')
+        fields = ('name', 'summary', 'impact_statement', 'description',
+                  'image', 'domain',  'features', 'stage', 'roadmap',
+                  'assistance', 'team_description', 'acknowledgments',
+                  'tags', 'status',)
 
 
 ApplicationLinkFormSet = inlineformset_factory(

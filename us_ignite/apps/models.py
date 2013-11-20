@@ -1,8 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
-from django_extensions.db.fields import (CreationDateTimeField,
-                                         ModificationDateTimeField)
+from django_extensions.db.fields import (
+    AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
@@ -10,24 +10,53 @@ from us_ignite.common.text import truncatewords
 from us_ignite.apps import managers
 
 
+class Feature(models.Model):
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name')
+
+    def __unicode__(self):
+        return self.name
+
+
+class Domain(models.Model):
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name')
+
+    def __unicode__(self):
+        return self.name
+
+
 class ApplicationBase(models.Model):
     """Abstract model for ``Application`` and ``ApplicationVersion`` fields."""
     IDEA = 1
-    APPLICATION = 2
+    TEAM = 2
+    ALPHA = 3
+    BETA = 4
+    DEMO = 5
+    DEPLOYABLE = 6
     STAGE_CHOICES = (
-        (IDEA, 'Idea'),
-        (APPLICATION, 'Application'),
+        (IDEA, 'Idea complete'),
+        (TEAM, 'Team complete / Forming team'),
+        (ALPHA, 'Alpha version / developing alpha / testing alpha.'),
+        (BETA, 'Beta version / developing beta / in beta test'),
+        (DEMO, 'Demo-able / demoing'),
+        (DEPLOYABLE, 'Deployable / deploying')
     )
     name = models.CharField(max_length=255)
     stage = models.IntegerField(choices=STAGE_CHOICES, default=IDEA)
-    image = models.ImageField(blank=True, upload_to='apps')
-    short_description = models.TextField(
-        blank=True, help_text='Quick explanation of this app.')
+    website = models.URLField(max_length=500)
+    image = models.ImageField(blank=True, upload_to='apps', max_length=500)
+    summary = models.TextField(
+        blank=True, help_text='Tweet-length pitch summary of project.')
+    impact_statement = models.TextField(
+        blank=True, help_text='Story of benefit.')
     description = models.TextField()
-    technology = models.TextField(
-        blank=True, help_text='Technology used behind this app.')
+    roadmap = models.TextField(blank=True, help_text='Development Roadmap.')
     assistance = models.TextField(
         blank=True, help_text='Fill in this field if you require help.')
+    team_description = models.TextField(blank=True)
+    acknowledgments = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
@@ -52,11 +81,13 @@ class Application(ApplicationBase):
     )
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
+    is_featured = models.BooleanField(default=False)
     owner = models.ForeignKey('auth.User', related_name='ownership_set')
     members = models.ManyToManyField(
         'auth.User', through='apps.ApplicationMembership',
         related_name='membership_set')
-    is_featured = models.BooleanField(default=False)
+    features = models.ManyToManyField('apps.Feature', blank=True)
+    domain = models.ForeignKey('apps.Domain', blank=True, null=True)
     tags = TaggableManager(blank=True)
     # managers
     objects = models.Manager()
@@ -101,9 +132,9 @@ class Application(ApplicationBase):
         """Determines if the given user can edit the ``Application``"""
         return self.owner == user
 
-    def get_short_description(self):
-        if self.short_description:
-            return self.short_description
+    def get_summary(self):
+        if self.summary:
+            return self.summary
         return truncatewords(self.description, 30)
 
 
@@ -127,6 +158,17 @@ class ApplicationURL(models.Model):
 
     def __unicode__(self):
         return self.url
+
+
+class ApplicationImage(models.Model):
+    application = models.ForeignKey('apps.Application')
+    name = models.CharField(max_length=255, blank=True)
+    image = models.ImageField(blank=True, upload_to='apps', max_length=500)
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+
+    def __unicode__(self):
+        return 'Image: %s' % self.name
 
 
 class ApplicationVersion(ApplicationBase):
