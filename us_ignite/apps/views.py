@@ -53,6 +53,7 @@ def app_detail(request, slug):
     context = {
         'object': app,
         'url_list': app.applicationurl_set.all(),
+        'image_list': app.applicationimage_set.all(),
         'member_list': app.members.select_related('profile').all(),
         'version_list': app.applicationversion_set.all(),
         'can_edit': app.is_editable_by(request.user),

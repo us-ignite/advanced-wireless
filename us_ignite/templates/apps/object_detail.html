@@ -5,11 +5,6 @@
 {% block content %}
 <h1>{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h1>
 
-{% if object.image  %}
-<img src="{{ object.image.url }}" alt="" title="{{ object.name }}"/>
-{% endif %}
-
-
 <ul>
   <li>Stage: {{ object.get_stage_display }}</li>
   {% if object.website %}<li>Website: {{ object.website }}</li>{% endif %}
@@ -37,6 +32,20 @@
   {{ object.impact_statement }}
 </p>
 {% endif %}
+
+{% if object.image  %}
+<img src="{{ object.image.url }}" alt="" title="{{ object.name }}"/>
+{% endif %}
+
+{% if image_list %}
+<h2>Extra images</h2>
+<ul>
+  {% for image in image_list %}
+  <li><img src="{{ image.image.url}}" alt="{{ image.name }}" title="{{ image.name }}"/></li>
+  {% endfor%}
+</ul>
+{% endif %}
+
 
 <h2>Description</h2>
 {{ object.description|linebreaks }}
