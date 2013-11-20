@@ -12,6 +12,7 @@
 
 <ul>
   <li>Stage: {{ object.get_stage_display }}</li>
+  {% if object.website %}<li>Website: {{ object.website }}</li>{% endif %}
   <li>Created by {% include "includes/display_name.html" with user=object.owner %} on {{ object.created }}</li>
   {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
   {% if is_owner %}
@@ -25,9 +26,30 @@
   {% endif %}
 </ul>
 
-<h2>Description</h2>
+<h2>Summary</h2>
+<p>
+  {{ object.summary }}
+</p>
 
+{% if object.impact_statement %}
+<h2>Impact statement</h2>
+<p>
+  {{ object.impact_statement }}
+</p>
+{% endif %}
+
+<h2>Description</h2>
 {{ object.description|linebreaks }}
+
+{% if object.roadmap %}
+<h2>Roadmap</h2>
+{{ object.roadmap }}
+{% endif %}
+
+{% if object.team_description %}
+<h2>Team description</h2>
+{{ object.team_description }}
+{% endif %}
 
 {% if member_list  %}
 <h2>Collaborators</h2>
@@ -41,13 +63,13 @@
 {% endif %}
 
 {% if object.assistance %}
-<h2>The project needs assistance with</h2>
+<h2>The project needs assistance</h2>
 <p>{{ object.assistance }}</p>
 {% endif %}
 
-{% if object.technology %}
-<h2>Technology used</h2>
-<p>{{ object.technology }}</p>
+{% if object.acknowledgments %}
+<h2>Acknowledgements</h2>
+<p>{{ object.acknowledgments }}</p>
 {% endif %}
 
 {% if url_list %}
