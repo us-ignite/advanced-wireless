@@ -233,3 +233,54 @@ class TestFeatureModel(TestCase):
         ok_(instance.id)
         eq_(instance.name, 'OpenFlow')
         ok_(instance.slug)
+
+
+class TestPageModel(TestCase):
+
+    def tearDown(self):
+        for model in [models.Application, models.Page]:
+            model.objects.all().delete()
+
+    def test_page_creation_is_successful(self):
+        data = {
+            'name': 'Featured apps',
+        }
+        instance = models.Page.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.name, 'Featured apps')
+        ok_(instance.slug)
+        eq_(instance.description, '')
+        ok_(instance.created)
+        ok_(instance.modified)
+        eq_(instance.status, models.Page.DRAFT)
+
+    def test_featured_page_is_swapped(self):
+        user = get_user('app-maker')
+        application = fixtures.get_application(owner=user)
+        fixtures.get_page(
+            name='Awesome apps', status=models.Page.FEATURED)
+        new_page = fixtures.get_page(
+            name='Gigabit apps', status=models.Page.FEATURED)
+        eq_(models.Page.objects.get(status=models.Page.FEATURED),
+            new_page)
+
+
+class TestPageApplication(TestCase):
+
+    def tearDown(self):
+        for model in [models.Application, models.Page]:
+            model.objects.all().delete()
+
+    def test_page_item_is_created_successfully(self):
+        user = get_user('app-maker')
+        application = fixtures.get_application(owner=user)
+        page = fixtures.get_page(name='Awesome apps')
+        data = {
+            'application': application,
+            'page': page,
+        }
+        instance = models.PageApplication.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.application, application)
+        eq_(instance.page, page)
+        eq_(instance.order, 0)

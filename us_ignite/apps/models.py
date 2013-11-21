@@ -184,3 +184,44 @@ class ApplicationVersion(ApplicationBase):
     def get_absolute_url(self):
         return reverse(
             'app_version_detail', args=[self.application.slug, self.slug])
+
+
+class Page(models.Model):
+    """Group of applications listed in a ``Page``."""
+    PUBLISHED = 1
+    DRAFT = 2
+    FEATURED = 3
+    STATUS_CHOICES = (
+        (FEATURED, 'Featured'),
+        (PUBLISHED, 'Published'),
+        (DRAFT, 'Draft'),
+    )
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name')
+    status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
+    description = models.TextField(blank=True)
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+
+    def save(self, *args, **kwargs):
+        if self.status == self.FEATURED:
+            # Move any ``FEATURED`` page to ``PUBLISHED``,
+            # only a single FEATURED page can be shown:
+            (self.__class__.objects.filter(status=self.FEATURED)
+             .update(status=self.PUBLISHED))
+        return super(Page, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+
+
+class PageApplication(models.Model):
+    page = models.ForeignKey('apps.Page')
+    application = models.ForeignKey('apps.Application')
+    order = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return u'%s for page %s' % (self.application, self.page)
+
+    class Meta:
+        ordering = ('order', )
