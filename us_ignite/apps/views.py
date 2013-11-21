@@ -201,10 +201,17 @@ def app_membership_remove(request, slug, membership_id):
 
 def apps_featured(request):
     """Shows the featured application page."""
-    try:
-        page = Page.objects.get(status=Page.FEATURED)
-    except Page.DoesNotExist:
-        raise Http404
+    page = get_object_or_404(Page, status=Page.FEATURED)
+    application_list = [a.application for a in page.pageapplication_set.all()]
+    context = {
+        'object': page,
+        'application_list': application_list,
+    }
+    return TemplateResponse(request, 'apps/featured.html', context)
+
+
+def apps_featured_archive(request, slug):
+    page = get_object_or_404(Page, status=Page.PUBLISHED, slug__exact=slug)
     application_list = [a.application for a in page.pageapplication_set.all()]
     context = {
         'object': page,

@@ -570,19 +570,19 @@ class TestAppMembershipRemovalView(TestCase):
         eq_(ApplicationMembership.objects.all().count(), 0)
 
 
-class TestFeatureApplicationView(TestCase):
+class TestFeaturedApplicationView(TestCase):
 
     def setUp(self):
         self.factory = client.RequestFactory()
 
     @raises(Http404)
-    @patch('us_ignite.apps.models.Page.objects.get')
+    @patch('us_ignite.apps.views.get_object_or_404')
     def test_page_does_not_exist(self, get_mock):
-        get_mock.side_effect = Page.DoesNotExist
+        get_mock.side_effect = Http404
         request = self.factory.get('/featured/')
         views.apps_featured(request)
 
-    @patch('us_ignite.apps.models.Page.objects.get')
+    @patch('us_ignite.apps.views.get_object_or_404')
     def test_page_request_is_successful(self, mock_get):
         mock_page = mock_get.return_value
         mock_page.pageapplication_set.all.return_value = []
@@ -591,5 +591,31 @@ class TestFeatureApplicationView(TestCase):
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
             ['application_list', 'object'])
-        mock_get.assert_called_once_with(status=Page.FEATURED)
+        mock_get.assert_called_once_with(Page, status=Page.FEATURED)
+        mock_page.pageapplication_set.all.assert_called_once()
+
+
+class TestFeaturedApplicationARchiveView(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    @raises(Http404)
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_page_does_not_exist(self, get_mock):
+        get_mock.side_effect = Http404
+        request = self.factory.get('/featured/archive/slug/')
+        views.apps_featured_archive(request, 'slug')
+
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_page_request_is_successful(self, mock_get):
+        mock_page = mock_get.return_value
+        mock_page.pageapplication_set.all.return_value = []
+        request = self.factory.get('/featured/archive/slug/')
+        response = views.apps_featured_archive(request, 'slug')
+        eq_(response.status_code, 200)
+        eq_(sorted(response.context_data.keys()),
+            ['application_list', 'object'])
+        mock_get.assert_called_once_with(
+            Page, status=Page.PUBLISHED, slug__exact='slug')
         mock_page.pageapplication_set.all.assert_called_once()
