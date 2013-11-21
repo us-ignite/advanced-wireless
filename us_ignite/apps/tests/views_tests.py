@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.http import Http404
 from django.test import client, TestCase
 
-from us_ignite.apps import views
+from us_ignite.apps import views, forms
 from us_ignite.apps.models import (Application, ApplicationURL,
                                    ApplicationMembership, ApplicationVersion)
 from us_ignite.apps.tests import fixtures
@@ -179,7 +179,8 @@ class TestAppAddView(TestCase):
         eq_(save_mock.call_count, 0)
 
     @patch_form_save
-    def test_simple_post_request_succeeds(self, save_mock):
+    @patch.object(forms.ApplicationForm, 'save_m2m', create=True)
+    def test_simple_post_request_succeeds(self, save_m2m_mock, save_mock):
         request = self.factory.post('/app/add/', _get_message_payload())
         request._messages = utils.TestMessagesBackend(request)
         request.user = _get_user_mock()
@@ -191,7 +192,7 @@ class TestAppAddView(TestCase):
         save_mock.assert_called_once_with(commit=False)
         eq_(mock_instance.owner, request.user)
         mock_instance.save.assert_called_once()
-
+        save_m2m_mock.assert_called_once()
 
 class TestGetAppForUserHelper(TestCase):
 

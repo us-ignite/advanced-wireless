@@ -71,6 +71,7 @@ def app_add(request):
             instance = form.save(commit=False)
             instance.owner = request.user
             instance.save()
+            form.save_m2m()
             messages.success(
                 request, 'The application "%s" has been added.' % instance.name)
             return redirect(instance.get_absolute_url())
