@@ -6,7 +6,7 @@ from django.http import Http404
 from django.test import client, TestCase
 
 from us_ignite.apps import views, forms
-from us_ignite.apps.models import (Application, ApplicationURL,
+from us_ignite.apps.models import (Application, ApplicationURL, Page,
                                    ApplicationMembership, ApplicationVersion)
 from us_ignite.apps.tests import fixtures
 from us_ignite.common.tests import utils
@@ -568,3 +568,28 @@ class TestAppMembershipRemovalView(TestCase):
         eq_(response.status_code, 302)
         eq_(response['Location'], app.get_membership_url())
         eq_(ApplicationMembership.objects.all().count(), 0)
+
+
+class TestFeatureApplicationView(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    @raises(Http404)
+    @patch('us_ignite.apps.models.Page.objects.get')
+    def test_page_does_not_exist(self, get_mock):
+        get_mock.side_effect = Page.DoesNotExist
+        request = self.factory.get('/featured/')
+        views.apps_featured(request)
+
+    @patch('us_ignite.apps.models.Page.objects.get')
+    def test_page_request_is_successful(self, mock_get):
+        mock_page = mock_get.return_value
+        mock_page.pageapplication_set.all.return_value = []
+        request = self.factory.get('/featured/')
+        response = views.apps_featured(request)
+        eq_(response.status_code, 200)
+        eq_(sorted(response.context_data.keys()),
+            ['application_list', 'object'])
+        mock_get.assert_called_once_with(status=Page.FEATURED)
+        mock_page.pageapplication_set.all.assert_called_once()

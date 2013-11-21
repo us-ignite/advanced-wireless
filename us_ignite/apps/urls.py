@@ -5,6 +5,7 @@ urlpatterns = patterns(
     'us_ignite.apps.views',
     url(r'^$', 'app_list', name='app_list'),
     url(r'^add/$', 'app_add', name='app_add'),
+    url(r'^featured/$', 'apps_featured', name='apps_featured'),
     url(r'^(?P<slug>[-\w]+)/$', 'app_detail', name='app_detail'),
     url(r'^(?P<slug>[-\w]+)/edit/$', 'app_edit', name='app_edit'),
     url(r'^(?P<slug>[-\w]+)/version/$', 'app_version_add',

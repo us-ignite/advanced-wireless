@@ -9,7 +9,7 @@ from django.views.decorators.http import require_http_methods
 from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
                                   MembershipForm, ApplicationImageFormSet)
 from us_ignite.apps.models import (Application, ApplicationMembership,
-                                   ApplicationVersion)
+                                   ApplicationVersion, Page)
 from us_ignite.awards.models import ApplicationAward
 from us_ignite.common import pagination, forms
 
@@ -197,3 +197,18 @@ def app_membership_remove(request, slug, membership_id):
     membership.delete()
     messages.success(request, 'Removed collaborator.')
     return redirect(redirect_url)
+
+
+def apps_featured(request):
+    """Shows the featured application page."""
+    try:
+        page = Page.objects.get(status=Page.FEATURED)
+    except Page.DoesNotExist:
+        raise Http404
+    application_list = [a.application for a in page.pageapplication_set.all()]
+    context = {
+        'object': page,
+        'application_list': application_list,
+    }
+    return TemplateResponse(request, 'apps/featured.html', context)
+
