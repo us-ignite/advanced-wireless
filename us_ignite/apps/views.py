@@ -211,4 +211,3 @@ def apps_featured(request):
         'application_list': application_list,
     }
     return TemplateResponse(request, 'apps/featured.html', context)
-
