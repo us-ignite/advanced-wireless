@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from us_ignite.apps.models import Application, ApplicationURL, ApplicationImage
+from us_ignite.apps.models import (Application, ApplicationURL,
+                                   ApplicationImage, Domain, Feature)
 
 
 class ApplicationURLInline(admin.TabularInline):
@@ -18,4 +19,14 @@ class ApplicationAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     inlines = [ApplicationURLInline, ApplicationImageInline]
 
+
+class DomainAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+
+
+class FeatureAdmin(admin. ModelAdmin):
+    list_display = ('name', 'slug')
+
 admin.site.register(Application, ApplicationAdmin)
+admin.site.register(Domain, DomainAdmin)
+admin.site.register(Feature, FeatureAdmin)
