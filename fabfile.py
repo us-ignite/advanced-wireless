@@ -48,10 +48,10 @@ def only_inside_vm(function):
     return inner
 
 
-def dj_heroku(command, slug, capture=False):
+def dj_heroku(command, slug, environment, capture=False):
     """Runs a given django management command in the given Heroku's app."""
     new_cmd = ('heroku run django-admin.py %s --settings=us_ignite.'
-               'settings.%s --remote %s' % (command, slug, slug))
+               'settings.%s --app %s' % (command, environment, slug))
     return local(new_cmd, capture)
 
 
@@ -63,19 +63,19 @@ def run_heroku(cmd, slug, capture=True):
 @only_outside_vm
 def syncdb():
     print yellow('Syncing %s database.' % env.slug.upper())
-    dj_heroku('syncdb --noinput', env.slug)
+    dj_heroku('syncdb --noinput', env.app, env.slug)
 
 
 @only_outside_vm
 def collectstatic():
     print yellow('Collecting static assets.')
-    dj_heroku('collectstatic --noinput', env.slug)
+    dj_heroku('collectstatic --noinput', env.app, env.slug)
 
 
 @only_outside_vm
 def shell():
     """Open a shell in the given environment."""
-    dj_heroku('shell', env.slug)
+    dj_heroku('shell', env.app, env.slug)
 
 
 def production_confirmation(function):
@@ -177,7 +177,7 @@ def load_fixtures():
     confirmation = red('You are about to IRREVERSIBLY add fixtures to the'
                        ' remote database. Procceed?')
     if console.confirm(confirmation):
-        dj_heroku('app_load_fixtures', env.slug)
+        dj_heroku('app_load_fixtures', env.app, env.slug)
     else:
         print yellow('Phew, aborted.')
         exit(1)
