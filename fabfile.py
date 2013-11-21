@@ -179,6 +179,7 @@ def load_fixtures():
     if console.confirm(confirmation):
         dj_heroku('app_load_fixtures', env.app, env.slug)
         dj_heroku('awards_load_fixtures', env.app, env.slug)
+        dj_heroku('common_load_fixtures', env.app, env.slug)
     else:
         print yellow('Phew, aborted.')
         exit(1)
