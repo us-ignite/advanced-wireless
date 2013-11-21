@@ -214,14 +214,23 @@ class Page(models.Model):
     def __unicode__(self):
         return self.name
 
+    def is_featured(self):
+        return self.status == self.FEATURED
+
+    def get_absolute_url(self):
+        if self.is_featured():
+            return reverse('apps_featured')
+        return reverse('apps_featured_archive', args=[self.slug])
+
+
 
 class PageApplication(models.Model):
     page = models.ForeignKey('apps.Page')
     application = models.ForeignKey('apps.Application')
     order = models.IntegerField(default=0)
 
-    def __unicode__(self):
-        return u'%s for page %s' % (self.application, self.page)
-
     class Meta:
         ordering = ('order', )
+
+    def __unicode__(self):
+        return u'%s for page %s' % (self.application, self.page)

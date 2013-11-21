@@ -238,7 +238,7 @@ class TestFeatureModel(TestCase):
 class TestPageModel(TestCase):
 
     def tearDown(self):
-        for model in [models.Application, models.Page]:
+        for model in [models.Page]:
             model.objects.all().delete()
 
     def test_page_creation_is_successful(self):
@@ -255,14 +255,27 @@ class TestPageModel(TestCase):
         eq_(instance.status, models.Page.DRAFT)
 
     def test_featured_page_is_swapped(self):
-        user = get_user('app-maker')
-        application = fixtures.get_application(owner=user)
         fixtures.get_page(
             name='Awesome apps', status=models.Page.FEATURED)
         new_page = fixtures.get_page(
             name='Gigabit apps', status=models.Page.FEATURED)
         eq_(models.Page.objects.get(status=models.Page.FEATURED),
             new_page)
+
+    def test_is_featured_property(self):
+        page = fixtures.get_page(
+            name='Awesome apps', status=models.Page.FEATURED)
+        eq_(page.is_featured(), True)
+
+    def test_get_absolute_url_featured(self):
+        page = fixtures.get_page(
+            name='Awesome apps', status=models.Page.FEATURED)
+        eq_(page.get_absolute_url(), '/apps/featured/')
+
+    def test_get_absolute_url_published(self):
+        page = fixtures.get_page(
+            name='older', status=models.Page.PUBLISHED)
+        eq_(page.get_absolute_url(), '/apps/featured/archive/older/')
 
 
 class TestPageApplication(TestCase):
