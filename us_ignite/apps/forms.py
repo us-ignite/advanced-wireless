@@ -32,6 +32,9 @@ class ApplicationForm(forms.ModelForm):
                   'image', 'domain',  'features', 'stage', 'roadmap',
                   'assistance', 'team_description', 'acknowledgments',
                   'tags', 'status',)
+        widgets = {
+            'features': forms.CheckboxSelectMultiple(),
+        }
 
 
 ApplicationLinkFormSet = inlineformset_factory(
