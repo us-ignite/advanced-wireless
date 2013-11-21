@@ -33,6 +33,21 @@
 </p>
 {% endif %}
 
+{% if object.domain %}
+<h2>Domain</h2>
+<p>{{ object.domain.name }}</p>
+{% endif %}
+
+{% if feature_list %}
+<h2>Features</h2>
+<ul>
+  {% for feature in feature_list %}
+  <li>{{ feature.name }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+
 {% if object.image  %}
 <img src="{{ object.image.url }}" alt="" title="{{ object.name }}"/>
 {% endif %}
@@ -113,6 +128,16 @@
   {% endfor%}
 </ul>
 {% endif %}
+
+{% if award_list %}
+<h2>Affiliations and Awards</h2>
+<ul>
+  {% for award in award_list %}
+  <li>{{ award }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
 
 
 {% endblock content %}

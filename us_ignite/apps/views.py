@@ -10,6 +10,7 @@ from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
                                   MembershipForm, ApplicationImageFormSet)
 from us_ignite.apps.models import (Application, ApplicationMembership,
                                    ApplicationVersion)
+from us_ignite.awards.models import ApplicationAward
 from us_ignite.common import pagination, forms
 
 
@@ -50,11 +51,15 @@ def get_app_for_user(slug, user):
 
 def app_detail(request, slug):
     app = get_app_for_user(slug, request.user)
+    award_list = (ApplicationAward.objects
+                  .select_related('award').filter(application=app))
     context = {
         'object': app,
         'url_list': app.applicationurl_set.all(),
         'image_list': app.applicationimage_set.all(),
+        'feature_list': app.features.all(),
         'member_list': app.members.select_related('profile').all(),
+        'award_list': award_list,
         'version_list': app.applicationversion_set.all(),
         'can_edit': app.is_editable_by(request.user),
         'is_owner': app.is_owned_by(request.user),
