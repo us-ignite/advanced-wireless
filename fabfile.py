@@ -170,3 +170,15 @@ def docs():
     """Generates Sphinx documentation."""
     with lcd(here('docs')):
         local('make html')
+
+
+@only_outside_vm
+def load_fixtures():
+    confirmation = red('You are about to IRREVERSIBLY add fixtures to the'
+                       ' remote database. Procceed?')
+    if console.confirm(confirmation):
+        dj_heroku('app_load_fixtures', env.slug)
+    else:
+        print yellow('Phew, aborted.')
+        exit(1)
+
