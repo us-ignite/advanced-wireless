@@ -12,6 +12,7 @@
   {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
   {% if is_owner %}
   <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
+  <li><a href="{{ object.get_export_url }}">Export application</a></li>
   <li>
     <form method="post" action="{{ object.get_version_url }}">
       {% csrf_token %}

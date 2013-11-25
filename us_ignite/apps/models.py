@@ -108,6 +108,9 @@ class Application(ApplicationBase):
     def get_membership_url(self):
         return reverse('app_membership', args=[self.slug])
 
+    def get_export_url(self):
+        return reverse('app_export', args=[self.slug])
+
     def is_public(self):
         """Verify if the ``Application`` is accessible by anyone."""
         return self.status == self.PUBLISHED
