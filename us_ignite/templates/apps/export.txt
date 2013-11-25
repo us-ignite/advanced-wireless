@@ -1,0 +1,111 @@
+{% autoescape off %}{{ object.name }}{% if object.is_draft %}(Draft){% endif %}
+====================================
+
+- Stage: {{ object.get_stage_display }}
+- Website: {{ object.website }}
+- Created by {{ object.owner.email }}
+
+Summary
+-------
+
+{{ object.summary }}
+
+{% if object.impact_statement %}
+Impact statement
+-----------------
+
+{{ object.impact_statement }}
+{% endif %}
+
+{% if object.domain %}
+Domain
+------
+
+{{ object.domain.name }}
+{% endif %}
+
+{% if feature_list %}
+Features
+---------
+  {% for feature in feature_list %}
+  - {{ feature.name }}
+  {% endfor%}
+{% endif %}
+{% endautoescape %}
+
+{% if object.image  %}
+Image
+-----
+
+{{ object.image.url }}
+{% endif %}
+
+{% if image_list %}
+Extra images
+------------
+  {% for image in image_list %}
+  - {{ image.name }}: {{ image.image.url}}
+  {% endfor%}
+{% endif %}
+
+Description
+-----------
+
+{{ object.description }}
+
+{% if object.roadmap %}
+Roadmap
+-------
+
+{{ object.roadmap }}
+{% endif %}
+
+{% if object.team_description %}
+Team description
+----------------
+
+{{ object.team_description }}
+{% endif %}
+
+{% if member_list  %}
+Collaborators
+-------------
+
+  {% for member in member_list %}
+  - {{ member.email }}
+  {% endfor%}
+{% endif %}
+
+{% if object.assistance %}
+The project needs assistance
+-----------------------------
+
+{{ object.assistance }}
+{% endif %}
+
+{% if object.acknowledgments %}
+Acknowledgements
+----------------
+
+{{ object.acknowledgments }}
+{% endif %}
+
+{% if url_list %}
+Also available in
+  {% for url in url_list %}
+  - {{ url.name }}: {{ url.url }}
+  {% endfor%}
+{% endif %}
+
+Tags
+----
+
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+  {% for tag in tag_list %}
+  - {{ tag }}
+  {% endfor%}
+{% else %}
+App hasn't been tagged.
+{% endif %}
+{% endwith %}

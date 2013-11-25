@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.views.decorators.http import require_http_methods
-
+from django.utils import timezone
 
 from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
                                   MembershipForm, ApplicationImageFormSet)
@@ -218,3 +219,27 @@ def apps_featured_archive(request, slug):
         'application_list': application_list,
     }
     return TemplateResponse(request, 'apps/featured.html', context)
+
+
+@login_required
+def app_export(request, slug):
+    """Generates an export of the current status of the application."""
+    app = get_object_or_404(Application.active, slug__exact=slug)
+    if not app.has_member(request.user):
+        raise Http404
+    context = {
+        'object': app,
+        'url_list': app.applicationurl_set.all(),
+        'image_list': app.applicationimage_set.all(),
+        'feature_list': app.features.all(),
+        'member_list': app.members.select_related('profile').all(),
+
+    }
+    content = render_to_string('apps/export.txt', context)
+    response = HttpResponse(content, content_type='text/plain')
+    filename = '%s-export-%s' % (
+        app.slug, timezone.now().strftime("%Y%m%d-%H%M%S"))
+    response['Content-Disposition'] = (
+        'attachment; filename="%s.txt"' % filename)
+    response['Content-Length'] = len(response.content)
+    return response

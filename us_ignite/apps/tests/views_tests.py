@@ -595,7 +595,7 @@ class TestFeaturedApplicationView(TestCase):
         mock_page.pageapplication_set.all.assert_called_once()
 
 
-class TestFeaturedApplicationARchiveView(TestCase):
+class TestFeaturedApplicationArchiveView(TestCase):
 
     def setUp(self):
         self.factory = client.RequestFactory()
@@ -619,3 +619,53 @@ class TestFeaturedApplicationARchiveView(TestCase):
         mock_get.assert_called_once_with(
             Page, status=Page.PUBLISHED, slug__exact='slug')
         mock_page.pageapplication_set.all.assert_called_once()
+
+
+class TestAppExportView(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def test_export_requires_login(self):
+        request = self.factory.get('/app/blue/export/')
+        request.user = _get_anon_mock()
+        response = views.app_export(request, 'blue')
+        expected_url = utils.get_login_url('/app/blue/export/')
+        eq_(response['Location'], expected_url)
+
+    @raises(Http404)
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_non_active_app_raises_404(self, mock_get):
+        mock_get.side_effect = Http404
+        request = self.factory.get('/app/blue/export')
+        request.user = _get_user_mock()
+        views.app_export(request, 'blue')
+
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_non_member_raises_404(self, mock_get):
+        app_mock = Mock(spec=Application)
+        app_mock.name = 'Gigabit'
+        app_mock.has_member.return_value = False
+        mock_get.return_value = app_mock
+        request = self.factory.get('/app/blue/export')
+        request.user = _get_user_mock()
+        assert_raises(Http404, views.app_export, request, 'blue')
+        mock_get.assert_called_once_with(Application.active, slug__exact='blue')
+        app_mock.has_member.assert_called_once_with(request.user)
+
+    @patch('us_ignite.apps.views.render_to_string')
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_app_is_exported_successfully(self, mock_get, mock_render):
+        mock_render.return_value = 'OK'
+        app_mock = Mock(spec=Application)()
+        app_mock.name = 'Gigabit'
+        app_mock.has_member.return_value = True
+        mock_get.return_value = app_mock
+        request = self.factory.get('/app/blue/export')
+        request.user = _get_user_mock()
+        response = views.app_export(request, 'blue')
+        mock_get.assert_called_once_with(Application.active, slug__exact='blue')
+        mock_render.assert_called_once()
+        eq_(response['Content-Type'], 'text/plain')
+        ok_('attachment; filename=' in response['Content-Disposition'])
+        ok_(response.content, 'OK')
