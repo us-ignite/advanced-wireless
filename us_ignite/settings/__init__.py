@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'us_ignite.people',
     'us_ignite.apps',
     'us_ignite.awards',
+    'us_ignite.hubs'
 )
 
 # A sample logging configuration. The only tangible logging
