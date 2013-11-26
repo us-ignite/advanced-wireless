@@ -1,10 +1,38 @@
+from django.contrib.auth.models import User, AnonymousUser
 from django.core.urlresolvers import reverse
 from django.contrib.messages.storage.base import BaseStorage, Message
+
+from django.test import client
+
+from mock import Mock
 
 
 def get_login_url(url):
     """Returns an expected login URL."""
     return ('%s?next=%s' % (reverse('auth_login'), url))
+
+
+def get_anon_mock():
+    """Generate an anon user mock."""
+    return AnonymousUser()
+
+
+def get_user_mock():
+    """Generate an authed user mock."""
+    user = Mock(spec=User)
+    user.is_authenticated.return_value = True
+    return user
+
+
+def get_request(method, *args, **kwargs):
+    """Generatse a request with the given ``method``."""
+    user = kwargs.pop('user', None)
+    factory = client.RequestFactory()
+    method_action = getattr(factory, method)
+    request = method_action(*args, **kwargs)
+    if user:
+        request.user = user
+    return request
 
 
 class TestMessagesBackend(BaseStorage):
