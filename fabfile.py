@@ -31,7 +31,7 @@ def only_outside_vm(function):
     @functools.wraps(function)
     def inner(*args, **kwargs):
         if IS_VM:
-            print red('Command can only be OUTSIDE the VM.')
+            print red('Command can only be executed OUTSIDE the VM.')
             return exit(1)
         return function(*args, **kwargs)
     return inner
@@ -42,7 +42,7 @@ def only_inside_vm(function):
     @functools.wraps(function)
     def inner(*args, **kwargs):
         if not IS_VM:
-            print red('Command can only be INSIDE the VM.')
+            print red('Command can only be executed INSIDE the VM.')
             return exit(1)
         return function(*args, **kwargs)
     return inner
