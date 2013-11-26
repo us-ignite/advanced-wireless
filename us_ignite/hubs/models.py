@@ -36,7 +36,7 @@ class Hub(models.Model):
 
 class HubActivity(models.Model):
     hub = models.ForeignKey('hubs.Hub')
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     url = models.URLField(max_length=500, blank=True)
     user = models.ForeignKey('auth.User', blank=True, null=True)
