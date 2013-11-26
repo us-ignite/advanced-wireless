@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.core import mail
 from django.test import TestCase
 
-from nose.tools import eq_, ok_
+from nose.tools import eq_
 from mock import Mock
 
 from us_ignite.profiles import communications

@@ -1,4 +1,4 @@
-from mock import patch, Mock
+from mock import patch
 from nose.tools import eq_, ok_, assert_raises
 
 from django.contrib.auth.models import User
@@ -9,20 +9,6 @@ from us_ignite.apps.models import Application
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests import fixtures
 from us_ignite.people import views
-
-
-def _get_anon_mock():
-    """Generate an anon user mock."""
-    user = Mock(spec=User)
-    user.is_authenticated.return_value = False
-    return user
-
-
-def _get_user_mock():
-    """Generate an authed user mock."""
-    user = Mock(spec=User)
-    user.is_authenticated.return_value = True
-    return user
 
 
 def _teardown_profiles():
@@ -38,12 +24,12 @@ class TestProfileListView(TestCase):
     def _get_request(self, url='/people/', data=None):
         data = data if data else {}
         request = self.factory.get(url, data)
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         return request
 
     def test_profile_list_requires_authentication(self):
         request = self.factory.get('/people/')
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.profile_list(request)
         eq_(response.status_code, 302)
         eq_(response['Location'], utils.get_login_url('/people/'))
@@ -107,12 +93,12 @@ class TestProfileDetailView(TestCase):
     def _get_request(self, url='/people/someone/', data=None):
         data = data if data else {}
         request = self.factory.get(url, data)
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         return request
 
     def test_profile_detail_requires_authentication(self):
         request = self.factory.get('/people/someone/')
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.profile_detail(request)
         eq_(response.status_code, 302)
         eq_(response['Location'], utils.get_login_url('/people/someone/'))
@@ -139,7 +125,7 @@ app_active_filter = 'us_ignite.apps.models.Application.active.filter'
 class TestGetUserAppsHelper(TestCase):
 
     def test_empty_viewer_returns_public_apps(self):
-        owner = _get_user_mock()
+        owner = utils.get_user_mock()
         with patch(app_active_filter, return_value=[]) as filter_mock:
             result = views.get_user_apps(owner)
             eq_(result, [])
@@ -147,8 +133,8 @@ class TestGetUserAppsHelper(TestCase):
                 owner=owner, status=Application.PUBLISHED)
 
     def test_different_viewer_returns_public_apps(self):
-        owner = _get_user_mock()
-        viewer = _get_user_mock()
+        owner = utils.get_user_mock()
+        viewer = utils.get_user_mock()
         with patch(app_active_filter, return_value=[]) as filter_mock:
             result = views.get_user_apps(owner, viewer=viewer)
             eq_(result, [])
@@ -156,7 +142,7 @@ class TestGetUserAppsHelper(TestCase):
                 owner=owner, status=Application.PUBLISHED)
 
     def test_owner_viewer_returns_all_apps(self):
-        owner = _get_user_mock()
+        owner = utils.get_user_mock()
         with patch(app_active_filter, return_value=[]) as filter_mock:
             result = views.get_user_apps(owner, viewer=owner)
             eq_(result, [])

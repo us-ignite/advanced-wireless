@@ -1,4 +1,4 @@
-from mock import patch, Mock
+from mock import patch
 from nose.tools import eq_, ok_
 
 from django.contrib.auth.models import User
@@ -6,6 +6,7 @@ from django.test import TestCase
 
 from us_ignite.apps.models import Application
 from us_ignite.apps import forms
+from us_ignite.common.tests import utils
 
 
 class TestApplicationForm(TestCase):
@@ -55,13 +56,6 @@ class TestApplicationForm(TestCase):
 patch_user_get = patch('django.contrib.auth.models.User.objects.get')
 
 
-def _get_user_mock():
-    """Generate an authed user mock."""
-    user = Mock(spec=User)
-    user.is_authenticated.return_value = True
-    return user
-
-
 class TestMembershipForm(TestCase):
 
     def test_membership_form_does_not_contain_sensitive_information(self):
@@ -86,7 +80,7 @@ class TestMembershipForm(TestCase):
 
     @patch_user_get
     def test_registered_member_succeeds(self, get_mock):
-        user_mock = _get_user_mock()
+        user_mock = utils.get_user_mock()
         get_mock.return_value = user_mock
         form = forms.MembershipForm({'collaborators': 'info@us-ignite.org'})
         eq_(form.is_valid(), True)

@@ -13,20 +13,6 @@ from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
 
 
-def _get_anon_mock():
-    """Generate an anon user mock."""
-    user = Mock(spec=User)
-    user.is_authenticated.return_value = False
-    return user
-
-
-def _get_user_mock():
-    """Generate an authed user mock."""
-    user = Mock(spec=User)
-    user.is_authenticated.return_value = True
-    return user
-
-
 def _teardown_apps():
     for model in [User, Application]:
         model.objects.all().delete()
@@ -142,13 +128,13 @@ class TestAppAddViewAnon(TestCase):
 
     def test_anon_get_request_require_login(self):
         request = self.factory.get('/app/add/')
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_add(request)
         eq_(response['Location'], utils.get_login_url('/app/add/'))
 
     def test_application_post_request_require_login(self):
         request = self.factory.post('/app/add/', _get_message_payload())
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_add(request)
         eq_(response['Location'], utils.get_login_url('/app/add/'))
 
@@ -163,7 +149,7 @@ class TestAppAddView(TestCase):
 
     def test_get_request_is_successful(self):
         request = self.factory.get('/app/add/')
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         response = views.app_add(request)
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()), ['form'])
@@ -172,7 +158,7 @@ class TestAppAddView(TestCase):
     @patch_form_save
     def test_empty_post_request_fails(self, save_mock):
         request = self.factory.post('/app/add/', {})
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         response = views.app_add(request)
         eq_(response.status_code, 200)
         ok_(response.context_data['form'].errors)
@@ -183,7 +169,7 @@ class TestAppAddView(TestCase):
     def test_simple_post_request_succeeds(self, save_m2m_mock, save_mock):
         request = self.factory.post('/app/add/', _get_message_payload())
         request._messages = utils.TestMessagesBackend(request)
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         mock_instance = save_mock.return_value
         mock_instance.get_absolute_url.return_value = '/app/slug/'
         response = views.app_add(request)
@@ -256,13 +242,13 @@ class TestAppEditViewAnon(TestCase):
 
     def test_anon_get_request_require_login(self):
         request = self.factory.get('/app/my-app/edit/')
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_edit(request)
         eq_(response['Location'], utils.get_login_url('/app/my-app/edit/'))
 
     def test_application_post_request_require_login(self):
         request = self.factory.post('/app/my-app/edit/', _get_message_payload())
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_edit(request)
         eq_(response['Location'], utils.get_login_url('/app/my-app/edit/'))
 
@@ -274,7 +260,7 @@ class TestAppEditView(TestCase):
 
     def _get_request(self, url='/app/my-app/edit/'):
         request = self.factory.get(url)
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         return request
 
     @raises(Http404)
@@ -365,13 +351,13 @@ class TestAppVersion(TestCase):
 
     def test_anon_get_request_is_forbidden(self):
         request = self.factory.get('/app/app/version/')
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_version_add(request)
         eq_(response.status_code, 405)
 
     def test_anon_post_requires_login(self):
         request = self.factory.post('/app/app/version/', {})
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_version_add(request)
         expected_url = utils.get_login_url('/app/app/version/')
         eq_(response['Location'], expected_url)
@@ -381,7 +367,7 @@ class TestAppVersion(TestCase):
     def test_non_existing_app_or_owner_raises_404(self, mock_get):
         mock_get.side_effect = Http404
         request = self.factory.post('/app/app/version/', {})
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         views.app_version_add(request, 'app')
 
     @patch('us_ignite.apps.models.ApplicationVersion.objects.create_version')
@@ -392,7 +378,7 @@ class TestAppVersion(TestCase):
         app_mock.get_absolute_url.return_value = '/app/app/'
         mock_get.return_value = app_mock
         request = self.factory.post('/app/app/version/', {})
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         request._messages = utils.TestMessagesBackend(request)
         response = views.app_version_add(request, 'app')
         mock_create.assert_called_once_with(app_mock)
@@ -453,20 +439,20 @@ class TestAppMembershipView(TestCase):
 
     def test_anon_get_request_require_login(self):
         request = self.factory.get('/app/b/membership/')
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_membership(request)
         eq_(response['Location'], utils.get_login_url('/app/b/membership/'))
 
     def test_application_post_request_require_login(self):
         request = self.factory.post('/app/b/membership/', {})
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_membership(request)
         eq_(response['Location'], utils.get_login_url('/app/b/membership/'))
 
     @raises(Http404)
     def test_non_existing_app_or_owner_raises_404_on_get(self):
         request = self.factory.get('/app/b/membership/')
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         with patch('us_ignite.apps.views.get_object_or_404',
                    side_effect=Http404) as get_mock:
             views.app_membership(request, 'b')
@@ -476,7 +462,7 @@ class TestAppMembershipView(TestCase):
     @raises(Http404)
     def test_non_existing_app_or_owner_raises_404_on_post(self):
         request = self.factory.post('/app/b/membership/', {})
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         with patch('us_ignite.apps.views.get_object_or_404',
                    side_effect=Http404) as get_mock:
             views.app_membership(request, 'b')
@@ -533,13 +519,13 @@ class TestAppMembershipRemovalView(TestCase):
 
     def test_anon_get_request_is_forbidden(self):
         request = self.factory.get('/app/b/membership/remove/1/')
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_membership_remove(request)
         eq_(response.status_code, 405)
 
     def test_anon_post_requires_login(self):
         request = self.factory.post('/app/b/membership/remove/1/', {})
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_membership_remove(request)
         expected_url = utils.get_login_url('/app/b/membership/remove/1/')
         eq_(response['Location'], expected_url)
@@ -547,7 +533,7 @@ class TestAppMembershipRemovalView(TestCase):
     @raises(Http404)
     def test_non_existing_app_or_owner_raises_404(self):
         request = self.factory.post('/app/b/membership/remove/1/', {})
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         with patch('us_ignite.apps.views.get_object_or_404',
                    side_effect=Http404) as get_mock:
             views.app_membership_remove(request, 'b', 1)
@@ -628,7 +614,7 @@ class TestAppExportView(TestCase):
 
     def test_export_requires_login(self):
         request = self.factory.get('/app/blue/export/')
-        request.user = _get_anon_mock()
+        request.user = utils.get_anon_mock()
         response = views.app_export(request, 'blue')
         expected_url = utils.get_login_url('/app/blue/export/')
         eq_(response['Location'], expected_url)
@@ -638,7 +624,7 @@ class TestAppExportView(TestCase):
     def test_non_active_app_raises_404(self, mock_get):
         mock_get.side_effect = Http404
         request = self.factory.get('/app/blue/export')
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         views.app_export(request, 'blue')
 
     @patch('us_ignite.apps.views.get_object_or_404')
@@ -648,7 +634,7 @@ class TestAppExportView(TestCase):
         app_mock.has_member.return_value = False
         mock_get.return_value = app_mock
         request = self.factory.get('/app/blue/export')
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         assert_raises(Http404, views.app_export, request, 'blue')
         mock_get.assert_called_once_with(Application.active, slug__exact='blue')
         app_mock.has_member.assert_called_once_with(request.user)
@@ -662,7 +648,7 @@ class TestAppExportView(TestCase):
         app_mock.has_member.return_value = True
         mock_get.return_value = app_mock
         request = self.factory.get('/app/blue/export')
-        request.user = _get_user_mock()
+        request.user = utils.get_user_mock()
         response = views.app_export(request, 'blue')
         mock_get.assert_called_once_with(Application.active, slug__exact='blue')
         mock_render.assert_called_once()
