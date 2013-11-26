@@ -44,7 +44,7 @@ class ApplicationBase(models.Model):
     )
     name = models.CharField(max_length=255)
     stage = models.IntegerField(choices=STAGE_CHOICES, default=IDEA)
-    website = models.URLField(max_length=500)
+    website = models.URLField(max_length=500, blank=True)
     image = models.ImageField(blank=True, upload_to='apps', max_length=500)
     summary = models.TextField(
         blank=True, help_text='Tweet-length pitch summary of project.')
@@ -224,7 +224,6 @@ class Page(models.Model):
         if self.is_featured():
             return reverse('apps_featured')
         return reverse('apps_featured_archive', args=[self.slug])
-
 
 
 class PageApplication(models.Model):
