@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Register a hub - {{ block.super }}{% endblock title %}
+
+{% block content %}
+
+{% if object_list %}
+<h1>Existing applications</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Created</th>
+    <th>Status</th>
+    <th>Notes</th>
+  </tr>
+  {% for object in object_list %}
+  <tr>
+    <td>{{ object.name }}</td>
+    <td>{{ object.created }}</td>
+    <td>{{ object.get_status_display }}</td>
+    <td>{{ object.notes }}</td>
+  </tr>
+  {% endfor%}
+</table>
+{% endif %}
+
+
+<h1>Apply an Ignite community</h1>
+
+<p>
+  Apply to be a Gigabit community.
+</p>
+
+<form method="post" action=".">
+  {{ form.as_p }}
+  <p>
+    {% csrf_token %}
+    <button type="submit">Register</button>
+  </p>
+</form>
+
+{% endblock content %}
