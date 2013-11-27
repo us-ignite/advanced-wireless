@@ -39,7 +39,8 @@ def hub_detail(request, slug):
 
     This view aggregates all the content related to this ``Hub``.
     """
-    instance = get_object_or_404(Hub, slug=slug)
+    instance = get_object_or_404(
+        Hub.objects.select_related('guardian'), slug=slug)
     if not instance.is_published() and not instance.is_guardian(request.user):
         raise Http404
     context = {
