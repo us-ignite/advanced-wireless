@@ -1,19 +1,21 @@
 from mock import patch, Mock
-from nose.tools import eq_, ok_
+from nose.tools import eq_, ok_, raises
 
-from django.db.models import Q
+from django.contrib.auth.models import User
+from django.http import Http404
 from django.test import TestCase
 
 from us_ignite.common.tests import utils
+from us_ignite.profiles.tests.fixtures import get_user
 from us_ignite.hubs import models, views
+from us_ignite.hubs.tests import fixtures
 
 
 patch_hub_request_filter = patch(
     'us_ignite.hubs.models.HubRequest.objects.filter')
-patch_hub_request_form_save = patch(
-    'us_ignite.hubs.forms.HubRequestForm.save')
-patch_notify_request = patch(
-    'us_ignite.hubs.mailer.notify_request')
+patch_hub_request_form_save = patch('us_ignite.hubs.forms.HubRequestForm.save')
+patch_notify_request = patch('us_ignite.hubs.mailer.notify_request')
+patch_get_object = patch('us_ignite.hubs.views.get_object_or_404')
 
 
 class TestHubApplicationView(TestCase):
@@ -63,3 +65,38 @@ class TestHubApplicationView(TestCase):
         mock_save.assert_called_once_with(commit=False)
         mock_instance.assert_called_once()
         mock_notify.assert_called_once_with(mock_instance)
+        eq_(response.status_code, 302)
+        eq_(response['Location'], '/')
+
+
+class TestHubDetail(TestCase):
+
+    def tearDown(self):
+        for model in [models.Hub, User]:
+            model.objects.all().delete()
+
+    def test_published_hub_request_is_successful(self):
+        fixtures.get_hub(name='Community', slug='community',
+                         status=models.Hub.PUBLISHED)
+        request = utils.get_request(
+            'get', '/hub/community/', user=utils.get_anon_mock())
+        response = views.hub_detail(request, 'community')
+        eq_(response.status_code, 200)
+        eq_(sorted(response.context_data.keys()), ['object'])
+
+    @raises(Http404)
+    def test_unpublished_hub_request_fails(self):
+        fixtures.get_hub(name='Community', slug='community',
+                         status=models.Hub.DRAFT)
+        request = utils.get_request(
+            'get', '/hub/community/', user=utils.get_anon_mock())
+        views.hub_detail(request, 'community')
+
+    def test_guardian_unpublished_request_succeeds(self):
+        guardian = get_user('guardian')
+        fixtures.get_hub(name='Community', slug='community',
+                         status=models.Hub.DRAFT, guardian=guardian)
+        request = utils.get_request('get', '/hub/community/', user=guardian)
+        response = views.hub_detail(request, 'community')
+        eq_(response.status_code, 200)
+        eq_(sorted(response.context_data.keys()), ['object'])

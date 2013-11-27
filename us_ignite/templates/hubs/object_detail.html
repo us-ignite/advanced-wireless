@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.name }} - {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+<h1>{{ object.name }}</h1>
+
+{{ object.description|linebreaks }}
+
+{% endblock content %}
