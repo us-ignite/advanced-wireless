@@ -1,10 +1,10 @@
 from django import forms
 
-from us_ignite.hubs.models import Hub
+from us_ignite.hubs.models import HubRequest
 
 
-class HubForm(forms.ModelForm):
+class HubRequestForm(forms.ModelForm):
 
     class Meta:
-        model = Hub
+        model = HubRequest
         fields = ('name', 'website', 'summary', 'description')

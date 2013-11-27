@@ -8,12 +8,12 @@ from us_ignite.hubs import forms
 class TestHubForm(TestCase):
 
     def test_form_fields_are_not_sensitive(self):
-        form = forms.HubForm()
+        form = forms.HubRequestForm()
         eq_(sorted(form.fields.keys()),
             sorted(['name', 'website', 'summary', 'description']))
 
     def test_empty_form_fails(self):
-        form = forms.HubForm({})
+        form = forms.HubRequestForm({})
         eq_(form.is_valid(), False)
 
     def test_valid_data_is_successful(self):
@@ -21,5 +21,5 @@ class TestHubForm(TestCase):
             'name': 'Gigabit community',
             'description': 'Community description.',
         }
-        form = forms.HubForm(data)
+        form = forms.HubRequestForm(data)
         eq_(form.is_valid(), True)
