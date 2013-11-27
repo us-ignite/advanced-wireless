@@ -11,6 +11,7 @@ class HubRequestAdmin(admin.ModelAdmin):
 
 
 class HubAdmin(admin.ModelAdmin):
+    raw_id_fields = ('guardian', )
     list_display = ('name', 'slug', 'status', 'created')
     search_fields = ('name', 'slug', 'description', 'summary')
     date_hierarchy = 'created'
