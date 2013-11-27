@@ -6,6 +6,14 @@
 {% block content %}
 <h1>{{ object.name }}</h1>
 
+<p>
+  {% if object.guardian %}
+  <a href="">Contact the guardian of this community: {{ object.guardian.profile.get_absolute_url }}</a>
+  {% else %}
+  <a href="{% url 'hub_application' %}">Apply to be the guardian of this community</a>
+  {% endif %}
+</p>
+
 {{ object.description|linebreaks }}
 
 {% endblock content %}
