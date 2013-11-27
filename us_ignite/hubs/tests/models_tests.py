@@ -31,6 +31,12 @@ class TestHubRequestModel(TestCase):
         ok_(instance.created)
         ok_(instance.modified)
 
+    def test_admin_url(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_hub_request(user=user)
+        eq_(instance.get_admin_url(),
+            '/admin/hubs/hubrequest/%s/' % instance.id)
+
 
 class TestHubModel(TestCase):
 

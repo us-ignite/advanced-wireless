@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from django_extensions.db.fields import (
@@ -32,6 +33,9 @@ class HubRequest(models.Model):
 
     class Meta:
         ordering = ('created', )
+
+    def get_admin_url(self):
+        return reverse('admin:hubs_hubrequest_change', args=[self.id])
 
 
 class Hub(models.Model):
