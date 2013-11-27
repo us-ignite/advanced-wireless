@@ -1,4 +1,4 @@
-from mock import patch
+from mock import patch, Mock
 from nose.tools import eq_, ok_
 
 from django.db.models import Q
@@ -12,6 +12,8 @@ patch_hub_request_filter = patch(
     'us_ignite.hubs.models.HubRequest.objects.filter')
 patch_hub_request_form_save = patch(
     'us_ignite.hubs.forms.HubRequestForm.save')
+patch_notify_request = patch(
+    'us_ignite.hubs.mailer.notify_request')
 
 
 class TestHubApplicationView(TestCase):
@@ -44,8 +46,11 @@ class TestHubApplicationView(TestCase):
         ok_(response.context_data['form'].errors)
 
     @patch_hub_request_filter
+    @patch_notify_request
     @patch_hub_request_form_save
-    def test_submission_is_successful(self, mock_save, *args):
+    def test_submission_is_successful(self, mock_save, mock_notify, *args):
+        mock_instance = Mock(spec=models.HubRequest)()
+        mock_save.return_value = mock_instance
         data = {
             'name': 'Gigabit community',
             'description': 'Community description.',
@@ -56,4 +61,5 @@ class TestHubApplicationView(TestCase):
         request._messages = utils.TestMessagesBackend(request)
         response = views.hub_application(request)
         mock_save.assert_called_once_with(commit=False)
-
+        mock_instance.assert_called_once()
+        mock_notify.assert_called_once_with(mock_instance)

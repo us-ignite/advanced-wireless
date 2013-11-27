@@ -5,7 +5,7 @@ from django.template.response import TemplateResponse
 from django.shortcuts import redirect
 
 from us_ignite.hubs.models import HubRequest
-from us_ignite.hubs import forms
+from us_ignite.hubs import forms, mailer
 
 
 @login_required
@@ -19,6 +19,8 @@ def hub_application(request):
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
+            # Notify US Ignite about this request:
+            mailer.notify_request(instance)
             msg = 'The registration for "%s" has been submited.' % instance.name
             messages.success(request, msg)
             return redirect('home')
