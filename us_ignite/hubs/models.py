@@ -64,6 +64,12 @@ class Hub(models.Model):
     def __unicode__(self):
         return self.name
 
+    def is_guardian(self, user):
+        return self.guardian == user
+
+    def is_published(self):
+        return self.status == self.PUBLISHED
+
 
 class HubActivity(models.Model):
     hub = models.ForeignKey('hubs.Hub')

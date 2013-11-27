@@ -41,7 +41,7 @@ class TestHubRequestModel(TestCase):
 class TestHubModel(TestCase):
 
     def tearDown(self):
-        for model in [Hub]:
+        for model in [Hub, User]:
             model.objects.all().delete()
 
     def test_model_can_be_created_successfully(self):
@@ -62,6 +62,18 @@ class TestHubModel(TestCase):
         ok_(instance.modified)
         eq_(list(instance.features.all()), [])
         eq_(list(instance.tags.all()), [])
+
+    def test_is_guardian(self):
+        guardian = get_user('guardian')
+        instance = fixtures.get_hub(guardian=guardian)
+        eq_(instance.is_guardian(guardian), True)
+
+    def test_is_published(self):
+        guardian = get_user('guardian')
+        instance = fixtures.get_hub(guardian=guardian, status=Hub.PUBLISHED)
+        eq_(instance.is_published(), True)
+
+
 
 
 class TestHubActivityModel(TestCase):
