@@ -14,4 +14,8 @@ class HubForm(forms.ModelForm):
 
     class Meta:
         model = Hub
-        fields = ('name', 'website', 'summary', 'description')
+        fields = ('name', 'website', 'summary', 'description', 'image',
+                  'tags', 'features')
+        widgets = {
+            'features': forms.CheckboxSelectMultiple,
+        }

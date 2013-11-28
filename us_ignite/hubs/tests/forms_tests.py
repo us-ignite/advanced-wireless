@@ -30,7 +30,8 @@ class TestHubForm(TestCase):
     def test_form_fields_are_not_sensitive(self):
         form = forms.HubForm()
         eq_(sorted(form.fields.keys()),
-            sorted(['name', 'website', 'summary', 'description']))
+            sorted(['name', 'website', 'summary', 'description', 'image',
+                    'features', 'tags']))
 
     def test_empty_form_fails(self):
         form = forms.HubForm({})
