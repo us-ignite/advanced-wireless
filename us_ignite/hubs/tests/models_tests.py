@@ -78,6 +78,11 @@ class TestHubModel(TestCase):
         instance = fixtures.get_hub(guardian=guardian)
         eq_(instance.get_absolute_url(), '/hub/%s/' % instance.slug)
 
+    def test_get_membership_url(self):
+        guardian = get_user('guardian')
+        instance = fixtures.get_hub(guardian=guardian)
+        eq_(instance.get_membership_url(), '/hub/%s/membership/' % instance.slug)
+
 
 class TestHubActivityModel(TestCase):
 

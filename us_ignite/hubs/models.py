@@ -67,6 +67,9 @@ class Hub(models.Model):
     def get_absolute_url(self):
         return reverse('hub_detail', args=[self.slug])
 
+    def get_membership_url(self):
+        return reverse('hub_membership', args=[self.slug])
+
     def is_guardian(self, user):
         return self.guardian == user
 
