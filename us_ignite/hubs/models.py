@@ -64,6 +64,9 @@ class Hub(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('hub_detail', args=[self.slug])
+
     def is_guardian(self, user):
         return self.guardian == user
 

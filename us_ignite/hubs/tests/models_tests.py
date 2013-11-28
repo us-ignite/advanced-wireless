@@ -73,7 +73,10 @@ class TestHubModel(TestCase):
         instance = fixtures.get_hub(guardian=guardian, status=Hub.PUBLISHED)
         eq_(instance.is_published(), True)
 
-
+    def test_get_absolute_url(self):
+        guardian = get_user('guardian')
+        instance = fixtures.get_hub(guardian=guardian)
+        eq_(instance.get_absolute_url(), '/hub/%s/' % instance.slug)
 
 
 class TestHubActivityModel(TestCase):
