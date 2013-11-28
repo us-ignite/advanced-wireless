@@ -69,34 +69,66 @@ class TestHubApplicationView(TestCase):
         eq_(response['Location'], '/')
 
 
-class TestHubDetail(TestCase):
+class TestHubDetailView(TestCase):
 
     def tearDown(self):
         for model in [models.Hub, User]:
             model.objects.all().delete()
 
     def test_published_hub_request_is_successful(self):
-        fixtures.get_hub(name='Community', slug='community',
-                         status=models.Hub.PUBLISHED)
+        fixtures.get_hub(name='community', status=models.Hub.PUBLISHED)
         request = utils.get_request(
             'get', '/hub/community/', user=utils.get_anon_mock())
         response = views.hub_detail(request, 'community')
         eq_(response.status_code, 200)
-        eq_(sorted(response.context_data.keys()), ['object'])
+        eq_(sorted(response.context_data.keys()),
+            sorted(['object', 'member_list', 'is_member', 'is_guardian']))
 
     @raises(Http404)
     def test_unpublished_hub_request_fails(self):
-        fixtures.get_hub(name='Community', slug='community',
-                         status=models.Hub.DRAFT)
+        fixtures.get_hub(name='community', status=models.Hub.DRAFT)
         request = utils.get_request(
             'get', '/hub/community/', user=utils.get_anon_mock())
         views.hub_detail(request, 'community')
 
     def test_guardian_unpublished_request_succeeds(self):
         guardian = get_user('guardian')
-        fixtures.get_hub(name='Community', slug='community',
-                         status=models.Hub.DRAFT, guardian=guardian)
+        hub = fixtures.get_hub(name='community', status=models.Hub.DRAFT,
+                               guardian=guardian)
         request = utils.get_request('get', '/hub/community/', user=guardian)
         response = views.hub_detail(request, 'community')
         eq_(response.status_code, 200)
-        eq_(sorted(response.context_data.keys()), ['object'])
+        eq_(sorted(response.context_data.keys()),
+            sorted(['object', 'member_list', 'is_member', 'is_guardian']))
+
+
+class TestHubMembershipView(TestCase):
+
+    def tearDown(self):
+        for model in [models.Hub, User]:
+            model.objects.all().delete()
+
+    def test_membership_requires_a_post_request(self):
+        request = utils.get_request(
+            'get', '/hub/community/membership/', user=utils.get_anon_mock())
+        response = views.hub_membership(request, 'community')
+        eq_(response.status_code, 405)
+
+    def test_membership_requires_authentication(self):
+        request = utils.get_request(
+            'post', '/hub/community/membership/', user=utils.get_anon_mock())
+        response = views.hub_membership(request, 'community')
+        eq_(response.status_code, 302)
+        eq_(response['Location'],
+            utils.get_login_url('/hub/community/membership/'))
+
+    def test_membership_request_is_successful(self):
+        member = get_user('member')
+        hub = fixtures.get_hub(name='community', status=models.Hub.PUBLISHED)
+        request = utils.get_request(
+            'post', '/hub/community/', data={}, user=member)
+        request._messages = utils.TestMessagesBackend(request)
+        response = views.hub_membership(request, 'community')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], hub.get_absolute_url())
+        ok_(models.HubMembership.objects.get(user=member, hub=hub))

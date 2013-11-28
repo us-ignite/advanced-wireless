@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.http import require_http_methods
 
-from us_ignite.hubs.models import Hub, HubRequest
+from us_ignite.hubs.models import Hub, HubRequest, HubMembership
 from us_ignite.hubs import forms, mailer
 
 
@@ -41,9 +42,25 @@ def hub_detail(request, slug):
     """
     instance = get_object_or_404(
         Hub.objects.select_related('guardian'), slug=slug)
+    member_list = instance.hubmembership_set.all()
+    # Determine if the user is a member of this ``Hub``:
+    is_member = [m for m in member_list if m.user == request.user]
     if not instance.is_published() and not instance.is_guardian(request.user):
         raise Http404
     context = {
         'object': instance,
+        'member_list': member_list,
+        'is_member': is_member,
+        'is_guardian': instance.is_guardian(request.user)
     }
     return TemplateResponse(request, 'hubs/object_detail.html', context)
+
+
+@require_http_methods(['POST'])
+@login_required
+def hub_membership(request, slug):
+    """Associates the user with the selected community"""
+    instance = get_object_or_404(Hub.objects, slug=slug, status=Hub.PUBLISHED)
+    HubMembership.objects.get_or_create(user=request.user, hub=instance)
+    messages.success(request, 'You are now part of %s.' % instance.name)
+    return redirect(instance.get_absolute_url())

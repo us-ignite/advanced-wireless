@@ -5,4 +5,6 @@ urlpatterns = patterns(
     'us_ignite.hubs.views',
     url(r'^apply/$', 'hub_application', name='hub_application'),
     url(r'^(?P<slug>[-\w]+)/$', 'hub_detail', name='hub_detail'),
+    url(r'^(?P<slug>[-\w]+)/membership/$', 'hub_membership',
+        name='hub_membership'),
 )

@@ -14,6 +14,15 @@
   {% endif %}
 </p>
 
+{% if not is_member and not is_owner %}
+<form method="post" action="{{ object.get_membership_url }}">
+  <p>
+    {% csrf_token %}
+    <button type="submit">Subscribe to this community</button>
+  </p>
+</form>
+{% endif %}
+
 {{ object.description|linebreaks }}
 
 {% endblock content %}
