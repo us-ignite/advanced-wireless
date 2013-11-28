@@ -42,13 +42,14 @@ def hub_detail(request, slug):
     """
     instance = get_object_or_404(
         Hub.objects.select_related('guardian'), slug__exact=slug)
-    member_list = instance.hubmembership_set.all()
+    member_list = instance.hubmembership_set.select_related('profile').all()
     # Determine if the user is a member of this ``Hub``:
     is_member = [m for m in member_list if m.user == request.user]
     if not instance.is_published() and not instance.is_guardian(request.user):
         raise Http404
     context = {
         'object': instance,
+        'feature_list': instance.features.all(),
         'member_list': member_list,
         'is_member': is_member,
         'is_guardian': instance.is_guardian(request.user)

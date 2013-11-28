@@ -14,16 +14,14 @@
   {% if object.website %}
   <li><a href="{{ object.website }}">Website</a></li>
   {% endif %}
-
+  <li>
+    {% if object.guardian %}
+    <a href="">Contact the guardian of this community: {{ object.guardian.profile.get_absolute_url }}</a>
+    {% else %}
+    <a href="{% url 'hub_application' %}">Apply to be the guardian of this community</a>
+    {% endif %}
+  </li>
 </ul>
-
-<p>
-  {% if object.guardian %}
-  <a href="">Contact the guardian of this community: {{ object.guardian.profile.get_absolute_url }}</a>
-  {% else %}
-  <a href="{% url 'hub_application' %}">Apply to be the guardian of this community</a>
-  {% endif %}
-</p>
 
 {% if not is_member and not is_owner %}
 <form method="post" action="{{ object.get_membership_url }}">
@@ -34,6 +32,37 @@
 </form>
 {% endif %}
 
+<h2>Summary</h2>
+<p>{{ object.summary }}</p>
+
+{% if object.image  %}
+<img src="{{ object.image.url }}" alt="" title="{{ object.name }}"/>
+{% endif %}
+
+<h2>Description</h2>
 {{ object.description|linebreaks }}
+
+{% if feature_list %}
+<h2>Features</h2>
+<ul>
+  {% for feature in feature_list %}
+  <li>{{ feature.name }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+<h2>Tags</h2>
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+<ul>
+  {% for tag in tag_list %}
+  <li><a href="">{{ tag }}</a></li>
+  {% endfor%}
+</ul>
+{% else %}
+<p>App hasn't been tagged.</p>
+{% endif %}
+{% endwith %}
+
 
 {% endblock content %}
