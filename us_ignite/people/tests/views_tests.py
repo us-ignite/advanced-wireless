@@ -115,7 +115,8 @@ class TestProfileDetailView(TestCase):
         fixtures.get_profile(user=user, slug='someone', name='us ignite')
         response = views.profile_detail(self._get_request(), 'someone')
         ok_(response.status_code, 200)
-        eq_(sorted(response.context_data.keys()), ['app_list', 'object'])
+        eq_(sorted(response.context_data.keys()),
+            sorted(['app_list', 'object', 'membership_list']))
         _teardown_profiles()
 
 

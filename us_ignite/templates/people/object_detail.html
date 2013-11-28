@@ -50,5 +50,16 @@
 </ul>
 {% endif %}
 
+{% if membership_list %}
+<h2>Ignite Communities</h2>
+<ul>
+  {% for membership in membership_list %}
+  <li><a href="{{ membership.hub.get_absolute_url }}">{{ membership.hub }}</a></li>
+  {% endfor%}
+</ul>
+
+{% endif %}
+
+
 
 {% endblock content %}
