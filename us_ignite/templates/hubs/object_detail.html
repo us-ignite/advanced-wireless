@@ -6,6 +6,17 @@
 {% block content %}
 <h1>{{ object.name }}</h1>
 
+<ul>
+  <li>Created on: {{ object.created }}</li>
+  {% if is_guardian %}
+  <li><a href="{{ object.get_edit_url }}">Edit community</a></li>
+  {% endif %}
+  {% if object.website %}
+  <li><a href="{{ object.website }}">Website</a></li>
+  {% endif %}
+
+</ul>
+
 <p>
   {% if object.guardian %}
   <a href="">Contact the guardian of this community: {{ object.guardian.profile.get_absolute_url }}</a>
