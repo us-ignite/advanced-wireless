@@ -41,7 +41,7 @@ def hub_detail(request, slug):
     This view aggregates all the content related to this ``Hub``.
     """
     instance = get_object_or_404(
-        Hub.objects.select_related('guardian'), slug=slug)
+        Hub.objects.select_related('guardian'), slug__exact=slug)
     member_list = instance.hubmembership_set.all()
     # Determine if the user is a member of this ``Hub``:
     is_member = [m for m in member_list if m.user == request.user]
@@ -60,7 +60,28 @@ def hub_detail(request, slug):
 @login_required
 def hub_membership(request, slug):
     """Associates the user with the selected community"""
-    instance = get_object_or_404(Hub.objects, slug=slug, status=Hub.PUBLISHED)
+    instance = get_object_or_404(
+        Hub.objects, slug__exact=slug, status=Hub.PUBLISHED)
     HubMembership.objects.get_or_create(user=request.user, hub=instance)
     messages.success(request, 'You are now part of %s.' % instance.name)
     return redirect(instance.get_absolute_url())
+
+
+@login_required
+def hub_edit(request, slug):
+    instance = get_object_or_404(
+        Hub.objects, slug__exact=slug, guardian=request.user)
+    if request.method == 'POST':
+        form = forms.HubForm(request.POST, instance=instance)
+        if form.is_valid():
+            instance = form.save()
+            msg = '%s has been updated successfully' % instance.name
+            messages.success(request, msg)
+            return redirect(instance.get_absolute_url())
+    else:
+        form = forms.HubForm(instance=instance)
+    context = {
+        'form': form,
+        'object': instance,
+    }
+    return TemplateResponse(request, 'hubs/object_edit.html', context)

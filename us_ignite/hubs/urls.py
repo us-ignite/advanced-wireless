@@ -7,4 +7,5 @@ urlpatterns = patterns(
     url(r'^(?P<slug>[-\w]+)/$', 'hub_detail', name='hub_detail'),
     url(r'^(?P<slug>[-\w]+)/membership/$', 'hub_membership',
         name='hub_membership'),
+    url(r'^(?P<slug>[-\w]+)/edit/$', 'hub_edit', name='hub_edit'),
 )
