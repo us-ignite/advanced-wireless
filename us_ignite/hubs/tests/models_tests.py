@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from us_ignite.profiles.tests.fixtures import get_user
-from us_ignite.hubs.models import Hub, HubActivity, HubRequest
+from us_ignite.hubs.models import Hub, HubActivity, HubMembership, HubRequest
 from us_ignite.hubs.tests import fixtures
 
 
@@ -100,3 +100,23 @@ class TestHubActivityModel(TestCase):
         eq_(instance.user, None)
         ok_(instance.created)
         ok_(instance.modified)
+
+
+class TestHubMembershipModel(TestCase):
+
+    def tearDown(self):
+        for model in [Hub, User]:
+            model.objects.all().delete()
+
+    def test_create_membership(self):
+        user = get_user('member')
+        hub = fixtures.get_hub(status=Hub.PUBLISHED)
+        data = {
+            'hub': hub,
+            'user': user,
+        }
+        instance = HubMembership.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.hub, hub)
+        eq_(instance.user, user)
+        ok_(instance.created)

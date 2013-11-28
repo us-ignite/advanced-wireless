@@ -85,6 +85,16 @@ class HubActivity(models.Model):
 
     class Meta:
         verbose_name_plural = 'Hub Activities'
+        ordering = ('-created', )
 
     def __unicode__(self):
         return self.name
+
+
+class HubMembership(models.Model):
+    hub = models.ForeignKey('hubs.Hub')
+    user = models.ForeignKey('auth.User')
+    created = CreationDateTimeField()
+
+    class Meta:
+        ordering = ('-created', )
