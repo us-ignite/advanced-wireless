@@ -4,7 +4,7 @@
 
 
 {% block content %}
-<h1>{{ object.name }}</h1>
+<h1>{{ object.name }}{% if not object.is_published %}(DRAFT){% endif %}</h1>
 
 <ul>
   <li>Created on: {{ object.created }}</li>
