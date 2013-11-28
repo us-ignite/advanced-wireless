@@ -53,7 +53,9 @@ class Hub(models.Model):
     description = models.TextField()
     image = models.ImageField(blank=True, upload_to='hub', max_length=500)
     website = models.URLField(max_length=500, blank=True)
-    features = models.ManyToManyField('apps.Feature', blank=True)
+    features = models.ManyToManyField(
+        'apps.Feature', blank=True, help_text='Existing NextGen features in '
+        'this community.')
     tags = TaggableManager(blank=True)
     notes = models.TextField(blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
