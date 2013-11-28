@@ -182,3 +182,14 @@ class TestHubEditView(TestCase):
         eq_(response['Location'], hub.get_absolute_url())
         eq_(models.Hub.objects.values('name').get(slug='community'),
             {'name': 'New name!'})
+
+
+class TestHubListView(TestCase):
+
+    def test_get_request_is_successful(self):
+        user = utils.get_anon_mock()
+        request = utils.get_request('get', '/hub/', user=user)
+        response = views.hub_list(request)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'hub/object_list.html')
+        eq_(sorted(response.context_data.keys()), ['object_list'])

@@ -69,6 +69,7 @@ def hub_membership(request, slug):
 
 @login_required
 def hub_edit(request, slug):
+    """Allows ``guardians`` to edit a ``Hub``. """
     instance = get_object_or_404(
         Hub.objects, slug__exact=slug, guardian=request.user)
     if request.method == 'POST':
@@ -85,3 +86,12 @@ def hub_edit(request, slug):
         'object': instance,
     }
     return TemplateResponse(request, 'hubs/object_edit.html', context)
+
+
+def hub_list(request):
+    """List al the available ``Hubs``."""
+    object_list = Hub.objects.filter(status=Hub.PUBLISHED)
+    context = {
+        'object_list': object_list,
+    }
+    return TemplateResponse(request, 'hubs/object_list.html', context)

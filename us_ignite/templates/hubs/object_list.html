@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Ignite communities - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Ignite communities</h1>
+
+{% for object in object_list %}
+<div>
+  <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+  <p>{{ object.summary }}</p>
+
+</div>
+{% endfor%}
+{% endblock content %}
