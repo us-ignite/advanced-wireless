@@ -3,8 +3,11 @@ from nose.tools import eq_, ok_
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from us_ignite.apps.models import Application
+from us_ignite.apps.tests.fixtures import get_application
 from us_ignite.profiles.tests.fixtures import get_user
-from us_ignite.hubs.models import Hub, HubActivity, HubMembership, HubRequest
+from us_ignite.hubs.models import (Hub, HubActivity, HubMembership, HubRequest,
+                                   HubAppMembership)
 from us_ignite.hubs.tests import fixtures
 
 
@@ -124,4 +127,26 @@ class TestHubMembershipModel(TestCase):
         ok_(instance.id)
         eq_(instance.hub, hub)
         eq_(instance.user, user)
+        ok_(instance.created)
+
+
+class TestHubAppMembershipModel(TestCase):
+
+    def tearDown(self):
+        for model in [Hub, Application, User]:
+            model.objects.all().delete()
+
+    def test_membership_is_create_successful(self):
+        user = get_user('owner')
+        hub = fixtures.get_hub(name='Gigabit hub')
+        app = get_application(owner=user)
+        data = {
+            'hub': hub,
+            'application': app,
+        }
+        instance = HubAppMembership.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.hub, hub)
+        eq_(instance.application, app)
+        eq_(instance.is_featured, False)
         ok_(instance.created)

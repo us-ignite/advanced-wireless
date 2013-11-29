@@ -106,3 +106,13 @@ class HubMembership(models.Model):
 
     class Meta:
         ordering = ('-created', )
+
+
+class HubAppMembership(models.Model):
+    hub = models.ForeignKey('hubs.Hub')
+    application = models.ForeignKey('apps.Application')
+    is_featured = models.BooleanField(default=False)
+    created = CreationDateTimeField()
+
+    class Meta:
+        ordering = ('-created', )
