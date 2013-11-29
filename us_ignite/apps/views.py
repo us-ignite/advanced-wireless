@@ -62,6 +62,7 @@ def app_detail(request, slug):
         'image_list': app.applicationimage_set.all(),
         'feature_list': app.features.all(),
         'member_list': app.members.select_related('profile').all(),
+        'hub_list': app.hubappmembership_set.select_related('hub').all(),
         'award_list': award_list,
         'version_list': app.applicationversion_set.all(),
         'can_edit': app.is_editable_by(request.user),
