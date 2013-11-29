@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Hub membership to {{ object.name }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Membership of {{ object.name }}</h1>
+
+<form method="post" action=".">
+  {{ form.as_p }}
+  <p>{% csrf_token %}<button type="submit">Update</button></p>
+</form>
+
+{% endblock content %}

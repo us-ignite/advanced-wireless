@@ -11,6 +11,8 @@ urlpatterns = patterns(
     url(r'^(?P<slug>[-\w]+)/$', 'app_detail', name='app_detail'),
     url(r'^(?P<slug>[-\w]+)/edit/$', 'app_edit', name='app_edit'),
     url(r'^(?P<slug>[-\w]+)/export/$', 'app_export', name='app_export'),
+    url(r'^(?P<slug>[-\w]+)/hubs-membership/$', 'app_hub_membership',
+        name='app_hub_membership'),
     url(r'^(?P<slug>[-\w]+)/version/$', 'app_version_add',
         name='app_version_add'),
     url(r'^(?P<slug>[-\w]+)/version/(?P<version_slug>[-\w]+)/$',

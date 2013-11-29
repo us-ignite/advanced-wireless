@@ -55,6 +55,18 @@ class TestApplicationModel(TestCase):
         application = fixtures.get_application(owner=user)
         eq_(application.get_edit_url(), u'/apps/%s/edit/' % application.slug)
 
+    def test_membership_url(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=user)
+        eq_(application.get_membership_url(),
+            u'/apps/%s/membership/' % application.slug)
+
+    def test_hub_membership_url(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=user)
+        eq_(application.get_hub_membership_url(),
+            u'/apps/%s/hubs-membership/' % application.slug)
+
     def test_application_version_url(self):
         user = get_user('app-owner')
         application = fixtures.get_application(owner=user)

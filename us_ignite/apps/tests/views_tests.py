@@ -10,6 +10,8 @@ from us_ignite.apps.models import (Application, ApplicationURL, Page,
                                    ApplicationMembership, ApplicationVersion)
 from us_ignite.apps.tests import fixtures
 from us_ignite.common.tests import utils
+from us_ignite.hubs.models import Hub, HubAppMembership
+from us_ignite.hubs.tests.fixtures import get_hub
 from us_ignite.profiles.tests.fixtures import get_user
 
 
@@ -655,3 +657,137 @@ class TestAppExportView(TestCase):
         eq_(response['Content-Type'], 'text/plain')
         ok_('attachment; filename=' in response['Content-Disposition'])
         ok_(response.content, 'OK')
+
+
+class TestAppHubMembershipAnon(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def test_anon_get_request_require_login(self):
+        request = self.factory.get('/app/my-app/hubs/')
+        request.user = utils.get_anon_mock()
+        response = views.app_hub_membership(request)
+        eq_(response['Location'], utils.get_login_url('/app/my-app/hubs/'))
+
+    def test_application_post_request_require_login(self):
+        request = self.factory.post('/app/my-app/hubs/', {})
+        request.user = utils.get_anon_mock()
+        response = views.app_hub_membership(request)
+        eq_(response['Location'], utils.get_login_url('/app/my-app/hubs/'))
+
+
+class TestAppHubMembership(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+
+    def _get_request(self, url='/app/my-app/hubs/'):
+        request = self.factory.get(url)
+        request.user = utils.get_user_mock()
+        return request
+
+    @raises(Http404)
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_non_existing_app_raises_404(self, mock_get):
+        mock_get.side_effect = Http404
+        request = self._get_request()
+        views.app_hub_membership(request, 'my-app')
+        mock_get.assert_called_once_with(
+            Application.active, slug__exact='my-app')
+
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_non_editable_app_raises_404(self, mock_get):
+        mock_app = Mock(spec=Application)()
+        mock_app.is_editable_by.return_value = False
+        mock_get.return_value = mock_app
+        request = self._get_request()
+        assert_raises(Http404, views.app_hub_membership, request, 'my-app')
+        mock_app.is_editable_by.assert_called_once_with(request.user)
+
+
+class TestAppHubMembershipWithData(TestCase):
+
+    def setUp(self):
+        self.factory = client.RequestFactory()
+        self.hub = get_hub(name='My hub.', status=Hub.PUBLISHED)
+        self.user = get_user('us-ignite')
+
+    def tearDown(self):
+        for model in [Application, Hub, User]:
+            model.objects.all().delete()
+
+    def test_get_request_is_successful(self):
+        app = fixtures.get_application(
+            slug='alpha', status=Application.PUBLISHED, owner=self.user)
+        request = self.factory.get('/app/alpha/hubs/')
+        request.user = self.user
+        response = views.app_hub_membership(request, 'alpha')
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'apps/object_hub_membership.html')
+        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+        eq_(response.context_data['object'], app)
+
+    def test_post_payload_is_successful(self):
+        app = fixtures.get_application(
+            slug='alpha', status=Application.PUBLISHED, owner=self.user)
+        data = {
+            'hubs': [self.hub.id],
+        }
+        request = self.factory.post('/app/alpha/hubs/', data)
+        request.user = self.user
+        request._messages = utils.TestMessagesBackend(request)
+        response = views.app_hub_membership(request, 'alpha')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], app.get_absolute_url())
+        ok_(HubAppMembership.objects.get(application=app, hub=self.hub))
+
+
+class TestGetMembershipForm(TestCase):
+
+    @patch('us_ignite.apps.views.HubAppMembershipForm')
+    def test_empty_membership_list_has_no_defaults(self, mock_form):
+        form = views._get_membership_form([])
+        hubs = form.fields['hubs']
+        mock_form.assert_called_once_with()
+
+    @patch('us_ignite.apps.views.HubAppMembershipForm')
+    def test_membership_list_uses_initial_data(self, mock_form):
+        mock_membership = Mock()
+        mock_membership.hub.id = 1
+        form = views._get_membership_form([mock_membership])
+        hubs = form.fields['hubs']
+        mock_form.assert_called_once_with({'hubs': [1]})
+
+
+patch_membership_get = patch(
+    'us_ignite.hubs.models.HubAppMembership.objects.get_or_create')
+
+
+class TestUpdateMembership(TestCase):
+
+    @patch_membership_get
+    def test_membership_is_removed(self, mock_membership_get):
+        app = Mock(spec=Application)()
+        hub_list = []
+        mock_membership = Mock(spec=HubAppMembership)()
+        mock_membership.hub = 1
+        mock_membership.delete.return_value = True
+        membership_list = [mock_membership]
+        result = views._update_membership(app, hub_list, membership_list)
+        eq_(result, True)
+        mock_membership.delete.assert_called_once()
+        eq_(mock_membership_get.call_count, 0)
+
+    @patch_membership_get
+    def test_membership_is_kept(self, mock_membership_get):
+        app = Mock(spec=Application)()
+        hub_list = [1]
+        mock_membership = Mock(spec=HubAppMembership)()
+        mock_membership.hub = 1
+        mock_membership.delete.return_value = True
+        membership_list = [mock_membership]
+        result = views._update_membership(app, hub_list, membership_list)
+        eq_(result, True)
+        eq_(mock_membership.delete.call_count, 0)
+        mock_membership_get.assert_called_once_with(hub=1, application=app)

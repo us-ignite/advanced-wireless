@@ -13,6 +13,8 @@ from us_ignite.apps.models import (Application, ApplicationMembership,
                                    ApplicationVersion, Page)
 from us_ignite.awards.models import ApplicationAward
 from us_ignite.common import pagination, forms
+from us_ignite.hubs.forms import HubAppMembershipForm
+from us_ignite.hubs.models import HubAppMembership
 
 
 APPS_SORTING_CHOICES = (
@@ -243,3 +245,46 @@ def app_export(request, slug):
         'attachment; filename="%s.txt"' % filename)
     response['Content-Length'] = len(response.content)
     return response
+
+
+def _get_membership_form(membership_list):
+    id_list = [m.hub.id for m in membership_list]
+    args = [{'hubs': id_list}] if id_list else []
+    return HubAppMembershipForm(*args)
+
+
+def _update_membership(app, hub_list, membership_list):
+    # Remove any non selected hub membership:
+    for membership in membership_list:
+        if membership.hub not in hub_list:
+            membership.delete()
+    # Add any new Hub membership:
+    for hub in hub_list:
+        HubAppMembership.objects.get_or_create(hub=hub, application=app)
+    return True
+
+
+@login_required
+def app_hub_membership(request, slug):
+    """View to manage the membership of an app to a hub."""
+    app = get_object_or_404(Application.active, slug__exact=slug)
+    if not app.is_editable_by(request.user):
+        raise Http404
+    # Determine existing membership:
+    app_hubs = app.hubappmembership_set.select_related('hub').all()
+    if request.method == 'POST':
+        form = HubAppMembershipForm(request.POST)
+        if form.is_valid():
+            hubs = form.cleaned_data['hubs']
+            _update_membership(app, hubs, app_hubs)
+            msg = 'Hub membership updated.'
+            messages.success(request, msg)
+            return redirect(app.get_absolute_url())
+    else:
+        form = _get_membership_form(app_hubs)
+    context = {
+        'object': app,
+        'form': form,
+    }
+    return TemplateResponse(
+        request, 'apps/object_hub_membership.html', context)

@@ -12,6 +12,7 @@
   {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
   {% if is_owner %}
   <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
+  <li><a href="{{ object.get_hub_membership_url }}">Edit hubs membership</a></li>
   <li><a href="{{ object.get_export_url }}">Export application</a></li>
   <li>
     <form method="post" action="{{ object.get_version_url }}">
@@ -139,6 +140,12 @@
 </ul>
 {% endif %}
 
-
-
+{% if hub_list %}
+<h2>Ignite communities</h2>
+<ul>
+  {% for hub in hub_list %}
+  <li><a href="{{ hub.hub.get_absolute_url }}">{{ hub.hub.name }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
 {% endblock content %}
