@@ -44,3 +44,14 @@ class TestHubForm(TestCase):
         }
         form = forms.HubForm(data)
         eq_(form.is_valid(), True)
+
+
+class TestHubAppMEmbershipForm(TestCase):
+
+    def test_form_fields_are_not_sensitive(self):
+        form = forms.HubAppMembershipForm()
+        eq_(sorted(form.fields.keys()), ['hubs'])
+
+    def test_empty_form_payload_succeeds(self):
+        form = forms.HubAppMembershipForm({})
+        eq_(form.is_valid(), True)
