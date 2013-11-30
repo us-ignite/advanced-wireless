@@ -1,3 +1,4 @@
+from mock import patch
 from nose.tools import eq_, ok_
 
 from django.contrib.auth.models import User
@@ -85,6 +86,13 @@ class TestHubModel(TestCase):
         guardian = get_user('guardian')
         instance = fixtures.get_hub(guardian=guardian)
         eq_(instance.get_membership_url(), '/hub/%s/membership/' % instance.slug)
+
+    @patch('us_ignite.hubs.models.HubActivity.objects.create')
+    def test_record_activity_is_successful(self, mock_create):
+        guardian = get_user('guardian')
+        instance = fixtures.get_hub(guardian=guardian)
+        instance.record_activity('Hello')
+        mock_create.assert_called_once_with(hub=instance, name='Hello')
 
 
 class TestHubActivityModel(TestCase):

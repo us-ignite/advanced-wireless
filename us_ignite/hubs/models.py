@@ -81,6 +81,16 @@ class Hub(models.Model):
     def is_published(self):
         return self.status == self.PUBLISHED
 
+    def record_activity(self, name, extra_data=None):
+        data = {
+            'hub': self,
+            'name': name,
+        }
+        if extra_data:
+            data.update(extra_data)
+        return HubActivity.objects.create(**data)
+
+
 
 class HubActivity(models.Model):
     hub = models.ForeignKey('hubs.Hub')
