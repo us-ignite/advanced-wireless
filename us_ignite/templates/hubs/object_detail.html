@@ -65,4 +65,17 @@
 {% endwith %}
 
 
+<h2>Activity list</h2>
+{% if activity_list %}
+<ul>
+  {% for activity in activity_list %}
+  <li>{{ activity.name }} <a href="{{ activity.url }}">{{ activity.created }}</a></li>
+  {% endfor%}
+</ul>
+{% else %}
+<p>No recent activity available.</p>
+{% endif %}
+
+
+
 {% endblock content %}
