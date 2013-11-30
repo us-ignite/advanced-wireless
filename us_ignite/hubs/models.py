@@ -37,6 +37,18 @@ class HubRequest(models.Model):
     def get_admin_url(self):
         return reverse('admin:hubs_hubrequest_change', args=[self.id])
 
+    def is_approved(self):
+        return self.status == self.APPROVED
+
+    def is_rejected(self):
+        return self.status == self.REJECTED
+
+    def is_removed(self):
+        return self.status == self.REMOVED
+
+    def is_pending(self):
+        return self.status == self.PENDING
+
 
 class Hub(models.Model):
     """Local communities with Gigabit capabilities."""
@@ -89,7 +101,6 @@ class Hub(models.Model):
         if extra_data:
             data.update(extra_data)
         return HubActivity.objects.create(**data)
-
 
 
 class HubActivity(models.Model):

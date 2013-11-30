@@ -41,6 +41,30 @@ class TestHubRequestModel(TestCase):
         eq_(instance.get_admin_url(),
             '/admin/hubs/hubrequest/%s/' % instance.id)
 
+    def test_is_approved(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_hub_request(
+            user=user, status=HubRequest.APPROVED)
+        eq_(instance.is_approved())
+
+    def test_is_rejected(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_hub_request(
+            user=user, status=HubRequest.REJECTED)
+        eq_(instance.is_rejected())
+
+    def test_is_removed(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_hub_request(
+            user=user, status=HubRequest.REMOVED)
+        eq_(instance.is_removed())
+
+    def test_is_pending(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_hub_request(
+            user=user, status=HubRequest.PENDING)
+        eq_(instance.is_pending())
+
 
 class TestHubModel(TestCase):
 
