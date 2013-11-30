@@ -12,9 +12,11 @@ Contents:
    :maxdepth: 2
 
    bootstrap
+   architecture
    commands
    accounts
    applications
+   communities
 
 
 Indices and tables

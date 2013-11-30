@@ -43,3 +43,11 @@ If a ``Django`` console is required in the application this can be achieved by r
 
     fab production shell
 
+
+Loading initial fixtures
+------------------------
+
+A single command has been provided to load the initial fixtures in the remote server. The command must be executed **outside** the VM.
+
+    fab production load_fixtures
+

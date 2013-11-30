@@ -30,6 +30,8 @@ Regular registration is offered in the website in case the user prefer so, the j
 - User receives welcome email.
 - User is able to authenticate with the credentials provided.
 
+Please note that the key expires in the ammount of days specified in the settings file, which is 7 at the moment.
+
 
 Invite users
 ------------
@@ -51,6 +53,17 @@ The journey is as follow:
 - User receives invitation email.
 - User clicks on unique URL and must login via Mozilla Persona.
 
+Login
+-----
+
+The login form allows to use Mozilla persona or the user account to authenticate.
+
+
+Forgotten password
+------------------
+
+When the user has registered for a regular Ignite account, the user can request a new password with the forgotten password form.
+
 
 Account Removal
 ---------------
@@ -68,7 +81,13 @@ Profile detail
 
 Once the user has filled in his/her details a ``Profile`` detail page will be created.
 
+The profile lists the information available from the user. ``Gravatar`` service is used to show user profile.
+
+
 Members listing
 ---------------
 
-Members listing is only available to registered users. Only active users are listed.
+Members listing is only available to registered users.
+
+- Only active users are listed.
+- The lists is paginated and can be ordered.

@@ -26,6 +26,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="US Ignite 0.1a documentation" href="index.html" />
+    <link rel="next" title="Ignite Communities" href="communities.html" />
     <link rel="prev" title="Accounts" href="accounts.html" /> 
   </head>
   <body>
@@ -35,6 +36,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="communities.html" title="Ignite Communities"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="accounts.html" title="Accounts"
              accesskey="P">previous</a> |</li>
@@ -71,31 +75,69 @@
 <p class="first admonition-title">Note</p>
 <p class="last">An special <tt class="docutils literal"><span class="pre">Removed</span></tt> status is provided for the admins to remove any inappropriate content, without deleting it.</p>
 </div>
-<p>The application can show the usage of the next gen characteristics.</p>
 <div class="section" id="adding-applications">
 <h2>Adding applications<a class="headerlink" href="#adding-applications" title="Permalink to this headline">¶</a></h2>
-<p>Applications can only be submited by registered users.</p>
+<p>Applications can only be added by registered users. The information that can be added and listed as part of the application profile is:</p>
+<ul class="simple">
+<li>Name</li>
+<li>Summary</li>
+<li>Description</li>
+<li>Images that support the app.</li>
+<li>Links that support the app.</li>
+<li>List of NextGen features that it uses.</li>
+<li>Main domain of application of this app.</li>
+</ul>
 </div>
 <div class="section" id="application-listing">
 <h2>Application listing<a class="headerlink" href="#application-listing" title="Permalink to this headline">¶</a></h2>
-<p>All the public <tt class="docutils literal"><span class="pre">Applications</span></tt> are listed in the listing view. They are paginated, and they can be ordered as well.</p>
+<p>All the public <tt class="docutils literal"><span class="pre">Applications</span></tt> are listed in the listing view. The listing includes</p>
+<ul class="simple">
+<li>Pagination.</li>
+<li>Ordering.</li>
+</ul>
 </div>
 <div class="section" id="application-detail">
 <h2>Application detail<a class="headerlink" href="#application-detail" title="Permalink to this headline">¶</a></h2>
 <p>The <tt class="docutils literal"><span class="pre">Application</span></tt> detail page is visible to everyone when published. When it is on <tt class="docutils literal"><span class="pre">Draft</span></tt> mode is only available for owners and members.</p>
 <p>Github and Twitter URLS are automatically detected and if possible the profile page will show the latest 5 commits or tweets.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The applications owned by a user will be listed in the user profile.</p>
+</div>
+</div>
+<div class="section" id="application-edit">
+<h2>Application edit<a class="headerlink" href="#application-edit" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">Application</span></tt> can only be edited by the <tt class="docutils literal"><span class="pre">owner</span></tt> of the application.</p>
 </div>
 <div class="section" id="application-collaborators">
 <h2>Application collaborators<a class="headerlink" href="#application-collaborators" title="Permalink to this headline">¶</a></h2>
-<p>The collaborators of an <tt class="docutils literal"><span class="pre">Application</span></tt> need to be registered. Only the owner of an application can add a collaborator.</p>
+<p>The collaborators of an <tt class="docutils literal"><span class="pre">Application</span></tt> need  to be registered since being a member of an application gives the account extra permissions for the application. Only the owner of an application can add a collaborator.</p>
 <p>A collaborator receives an extra set of permissions on a selected <tt class="docutils literal"><span class="pre">Application</span></tt>.</p>
 <p>The collaborators need to be added by <tt class="docutils literal"><span class="pre">email</span></tt> address, if the user is not registered the form will show an error.</p>
+</div>
+<div class="section" id="application-community-membershiop">
+<h2>Application community membershiop<a class="headerlink" href="#application-community-membershiop" title="Permalink to this headline">¶</a></h2>
+<p>The application can be part of several communities, a link in the application profile page is provided to modify this.</p>
 </div>
 <div class="section" id="application-versioning">
 <h2>Application versioning<a class="headerlink" href="#application-versioning" title="Permalink to this headline">¶</a></h2>
 <p>The owner of an application can generate a version of it for reference of what the application looked at a certain point.</p>
 <p>The versioning functionality is available in the application profile page.</p>
 <p>The visibility of the application is connected to the visibility ov the versions, this means that if the application is not visible the versions won&#8217;t be visible either.</p>
+</div>
+<div class="section" id="backing-up-applications">
+<h2>Backing up applications<a class="headerlink" href="#backing-up-applications" title="Permalink to this headline">¶</a></h2>
+<p>Collaborators and owners of an application can backup the details of the applications by creating an export of the existing status of the application.</p>
+</div>
+<div class="section" id="awards">
+<h2>Awards<a class="headerlink" href="#awards" title="Permalink to this headline">¶</a></h2>
+<p>The applications can be awareded to show progress or recognize milestones.</p>
+</div>
+<div class="section" id="featured-applications">
+<h2>Featured applications<a class="headerlink" href="#featured-applications" title="Permalink to this headline">¶</a></h2>
+<p>The applications can be listed in a featured curated <tt class="docutils literal"><span class="pre">Page</span></tt> these applications can be ordered.</p>
+<p>When a <tt class="docutils literal"><span class="pre">Page</span></tt> is feature it uses the main slug for the featured applications. There can only be a single featured page, since it uses a special URL.</p>
+<p>Older published pages can still be accessed using their canonical URLs.</p>
 </div>
 </div>
 
@@ -111,8 +153,13 @@
 <li><a class="reference internal" href="#adding-applications">Adding applications</a></li>
 <li><a class="reference internal" href="#application-listing">Application listing</a></li>
 <li><a class="reference internal" href="#application-detail">Application detail</a></li>
+<li><a class="reference internal" href="#application-edit">Application edit</a></li>
 <li><a class="reference internal" href="#application-collaborators">Application collaborators</a></li>
+<li><a class="reference internal" href="#application-community-membershiop">Application community membershiop</a></li>
 <li><a class="reference internal" href="#application-versioning">Application versioning</a></li>
+<li><a class="reference internal" href="#backing-up-applications">Backing up applications</a></li>
+<li><a class="reference internal" href="#awards">Awards</a></li>
+<li><a class="reference internal" href="#featured-applications">Featured applications</a></li>
 </ul>
 </li>
 </ul>
@@ -120,6 +167,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="accounts.html"
                         title="previous chapter">Accounts</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="communities.html"
+                        title="next chapter">Ignite Communities</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/applications.txt"
@@ -148,6 +198,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="communities.html" title="Ignite Communities"
+             >next</a> |</li>
         <li class="right" >
           <a href="accounts.html" title="Accounts"
              >previous</a> |</li>

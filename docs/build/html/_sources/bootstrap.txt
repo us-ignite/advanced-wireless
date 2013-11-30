@@ -90,4 +90,3 @@ Any interaction with the repository is done via ``fabric``, All the fabric comma
 .. note::
 
    In order to be able to contribute and deploy in the production application the developer needs to be added as a collaborator in Heroku.
-
