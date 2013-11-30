@@ -762,14 +762,10 @@ class TestGetMembershipForm(TestCase):
         mock_form.assert_called_once_with({'hubs': [1]})
 
 
-patch_membership_get = patch(
-    'us_ignite.hubs.models.HubAppMembership.objects.get_or_create')
-
-
 class TestUpdateMembership(TestCase):
 
-    @patch_membership_get
-    def test_membership_is_removed(self, mock_membership_get):
+    @patch('us_ignite.apps.views._add_hub_membership')
+    def test_membership_is_removed(self, mock_add):
         app = Mock(spec=Application)()
         hub_list = []
         mock_membership = Mock(spec=HubAppMembership)()
@@ -777,12 +773,12 @@ class TestUpdateMembership(TestCase):
         mock_membership.delete.return_value = True
         membership_list = [mock_membership]
         result = views._update_membership(app, hub_list, membership_list)
-        eq_(result, True)
+        eq_(result, [])
         mock_membership.delete.assert_called_once()
-        eq_(mock_membership_get.call_count, 0)
+        eq_(mock_add.call_count, 0)
 
-    @patch_membership_get
-    def test_membership_is_kept(self, mock_membership_get):
+    @patch('us_ignite.apps.views._add_hub_membership')
+    def test_membership_is_kept(self, mock_add):
         app = Mock(spec=Application)()
         hub_list = [1]
         mock_membership = Mock(spec=HubAppMembership)()
@@ -790,6 +786,32 @@ class TestUpdateMembership(TestCase):
         mock_membership.delete.return_value = True
         membership_list = [mock_membership]
         result = views._update_membership(app, hub_list, membership_list)
-        eq_(result, True)
         eq_(mock_membership.delete.call_count, 0)
-        mock_membership_get.assert_called_once_with(hub=1, application=app)
+        mock_add.assert_called_once_with(1, app)
+
+
+patch_membership_get = patch(
+    'us_ignite.hubs.models.HubAppMembership.objects.get_or_create')
+
+
+class TestAddHubMembership(TestCase):
+
+    @patch_membership_get
+    def test_membership_is_created_successfully(self, mock_get):
+        mock_get.return_value = ('instance', True)
+        hub = Mock(spec=Hub)()
+        hub.record_activity.return_value = True
+        app = Mock(spec=Application)()
+        result = views._add_hub_membership(hub, app)
+        mock_get.assert_called_once_with(hub=hub, application=app)
+        hub.record_activity.assert_called_once()
+
+    @patch_membership_get
+    def test_membership_already_exists(self, mock_get):
+        mock_get.return_value = ('instance', False)
+        hub = Mock(spec=Hub)()
+        hub.record_activity.return_value = True
+        app = Mock(spec=Application)()
+        result = views._add_hub_membership(hub, app)
+        mock_get.assert_called_once_with(hub=hub, application=app)
+        eq_(hub.record_activity.call_count, 0)

@@ -260,9 +260,24 @@ def _update_membership(app, hub_list, membership_list):
         if membership.hub not in hub_list:
             membership.delete()
     # Add any new Hub membership:
-    for hub in hub_list:
-        HubAppMembership.objects.get_or_create(hub=hub, application=app)
-    return True
+    new_membership_list = []
+    return [_add_hub_membership(hub, app) for hub in hub_list]
+
+
+def _add_hub_membership(hub, app):
+    """Generates the hub membership."""
+    instance, is_new = HubAppMembership.objects.get_or_create(
+        hub=hub, application=app)
+    # Record the activity for this membership.
+    if is_new:
+        name = ('App %s has been registered as part of this '
+                'community.' % app.name)
+        extra_data = {
+            'url': app.get_absolute_url(),
+            'user': app.owner,
+        }
+        hub.record_activity(name, extra_data=extra_data)
+    return instance
 
 
 @login_required
