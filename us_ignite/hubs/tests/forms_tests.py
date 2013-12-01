@@ -46,7 +46,7 @@ class TestHubForm(TestCase):
         eq_(form.is_valid(), True)
 
 
-class TestHubAppMEmbershipForm(TestCase):
+class TestHubAppMembershipForm(TestCase):
 
     def test_form_fields_are_not_sensitive(self):
         form = forms.HubAppMembershipForm()
@@ -54,4 +54,19 @@ class TestHubAppMEmbershipForm(TestCase):
 
     def test_empty_form_payload_succeeds(self):
         form = forms.HubAppMembershipForm({})
+        eq_(form.is_valid(), True)
+
+
+class TestHubApprovalRequestForm(TestCase):
+
+    def test_form_fields_are_not_sensitive(self):
+        form = forms.HubApprovalRequestForm()
+        eq_(sorted(form.fields.keys()), ['notes', 'status'])
+
+    def test_empty_form_payload_fails(self):
+        form = forms.HubApprovalRequestForm({})
+        eq_(form.is_valid(), False)
+
+    def test_valid_form_payload_succeeds(self):
+        form = forms.HubApprovalRequestForm({'status': 1})
         eq_(form.is_valid(), True)
