@@ -45,25 +45,25 @@ class TestHubRequestModel(TestCase):
         user = get_user('us-ignite')
         instance = fixtures.get_hub_request(
             user=user, status=HubRequest.APPROVED)
-        eq_(instance.is_approved())
+        eq_(instance.is_approved(), True)
 
     def test_is_rejected(self):
         user = get_user('us-ignite')
         instance = fixtures.get_hub_request(
             user=user, status=HubRequest.REJECTED)
-        eq_(instance.is_rejected())
+        eq_(instance.is_rejected(), True)
 
     def test_is_removed(self):
         user = get_user('us-ignite')
         instance = fixtures.get_hub_request(
             user=user, status=HubRequest.REMOVED)
-        eq_(instance.is_removed())
+        eq_(instance.is_removed(), True)
 
     def test_is_pending(self):
         user = get_user('us-ignite')
         instance = fixtures.get_hub_request(
             user=user, status=HubRequest.PENDING)
-        eq_(instance.is_pending())
+        eq_(instance.is_pending(), True)
 
 
 class TestHubModel(TestCase):
