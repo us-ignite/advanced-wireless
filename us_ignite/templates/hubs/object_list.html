@@ -5,6 +5,10 @@
 {% block content %}
 <h1>Ignite communities</h1>
 
+<p>
+  <a href="{% url 'hub_application'%}">Apply to be an Ignite Community.</a>
+</p>
+
 {% for object in object_list %}
 <div>
   <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
