@@ -34,6 +34,7 @@ class TestHubRequestModel(TestCase):
         eq_(instance.website, '')
         ok_(instance.created)
         ok_(instance.modified)
+        eq_(instance.hub, None)
 
     def test_admin_url(self):
         user = get_user('us-ignite')
@@ -64,6 +65,7 @@ class TestHubRequestModel(TestCase):
         instance = fixtures.get_hub_request(
             user=user, status=HubRequest.PENDING)
         eq_(instance.is_pending(), True)
+        eq_(instance.hub, None)
 
 
 class TestHubModel(TestCase):

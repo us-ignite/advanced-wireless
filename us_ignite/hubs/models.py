@@ -18,6 +18,7 @@ class HubRequest(models.Model):
         (REMOVED, 'Removed'),
     )
     name = models.CharField(max_length=255)
+    hub = models.ForeignKey('hubs.Hub', blank=True, null=True)
     website = models.URLField(max_length=500, blank=True)
     summary = models.TextField(blank=True)
     description = models.TextField()
@@ -47,7 +48,7 @@ class HubRequest(models.Model):
         return self.status == self.REMOVED
 
     def is_pending(self):
-        return self.status == self.PENDING
+        return (self.status == self.PENDING) and not self.hub
 
 
 class Hub(models.Model):
