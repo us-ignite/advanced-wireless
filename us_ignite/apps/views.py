@@ -129,8 +129,15 @@ def app_version_add(request, slug):
     app = get_object_or_404(Application.active, slug__exact=slug)
     if not app.is_editable_by(request.user):
         raise Http404
-    ApplicationVersion.objects.create_version(app)
-    messages.success(request, 'Application has been versioned.')
+    previous = ApplicationVersion.objects.get_latest_version(app)
+    app_signature = app.get_signature()
+    old_signature = previous.get_signature() if previous else None
+    # Apps have the same content.
+    if old_signature == app_signature:
+        messages.success(request, 'Latest changes have been versioned already.')
+    else:
+        ApplicationVersion.objects.create_version(app)
+        messages.success(request, 'Application has been versioned.')
     return redirect(app.get_absolute_url())
 
 

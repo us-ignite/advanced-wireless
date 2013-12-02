@@ -374,13 +374,16 @@ class TestAppVersion(TestCase):
         request.user = utils.get_user_mock()
         views.app_version_add(request, 'app')
 
+    @patch('us_ignite.apps.models.ApplicationVersion.objects.get_latest_version')
     @patch('us_ignite.apps.models.ApplicationVersion.objects.create_version')
     @patch('us_ignite.apps.views.get_object_or_404')
-    def test_versioning_is_successful(self, mock_get, mock_create):
+    def test_versioning_is_successful(self, mock_get, mock_create, mock_latest):
         app_mock = Mock(spec=Application)
         app_mock.name = 'Gigabit'
         app_mock.get_absolute_url.return_value = '/app/app/'
+        app_mock.get_signature.return_value = 'abcd123'
         mock_get.return_value = app_mock
+        mock_latest.return_value = None
         request = self.factory.post('/app/app/version/', {})
         request.user = utils.get_user_mock()
         request._messages = utils.TestMessagesBackend(request)
