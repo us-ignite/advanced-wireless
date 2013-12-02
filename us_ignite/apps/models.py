@@ -1,3 +1,5 @@
+from hashlib import md5
+
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -62,6 +64,15 @@ class ApplicationBase(models.Model):
 
     class Meta:
         abstract = True
+
+    def get_signature(self):
+        """Generate an md5 signature from the model values."""
+        fields = [self.name, self.stage, self.website, self.image,
+                  self.summary, self.impact_statement, self.description,
+                  self.roadmap, self.assistance, self.team_description,
+                  self.acknowledgments]
+        value = ''.join(['%s' % a for a in fields])
+        return md5(value).hexdigest()
 
 
 class Application(ApplicationBase):

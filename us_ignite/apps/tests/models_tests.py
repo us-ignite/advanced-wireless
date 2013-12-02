@@ -164,6 +164,12 @@ class TestApplicationModel(TestCase):
             owner=user, summary='summary', description='description')
         eq_(application.get_summary(), 'summary')
 
+    def test_get_signature_is_generated(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, summary='summary', description='description')
+        ok_(application.get_signature())
+
 
 class TestApplicationMembership(TestCase):
 
