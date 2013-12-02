@@ -28,3 +28,9 @@ class ApplicationVersionManager(models.Manager):
             'notes': application.notes,
         }
         return self.create(**data)
+
+    def get_latest_version(self, application):
+        results = self.filter(application=application).order_by('-created')
+        if results:
+            return results[0]
+        return None

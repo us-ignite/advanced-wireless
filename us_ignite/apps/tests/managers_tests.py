@@ -53,3 +53,17 @@ class TestApplicationVersionManager(TestCase):
         eq_(version.team_description, application.team_description)
         eq_(version.acknowledgments, application.acknowledgments)
         eq_(version.notes, application.notes)
+
+    def test_missing_latest_version_returns_none(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=user)
+        result = ApplicationVersion.objects.get_latest_version(application)
+        eq_(result, None)
+
+    def test_latest_version_is_returned_successfullly(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=user)
+        version = ApplicationVersion.objects.create_version(application)
+        result = ApplicationVersion.objects.get_latest_version(application)
+        eq_(result, version)
+
