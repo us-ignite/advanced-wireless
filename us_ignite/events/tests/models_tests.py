@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from us_ignite.events import models
+from us_ignite.events.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
 
@@ -34,3 +35,8 @@ class TestEventModel(TestCase):
         eq_(instance.notes, '')
         ok_(instance.created)
         ok_(instance.modified)
+
+    def test_absolute_url_is_correct(self):
+        user = get_user('us-ignite')
+        event = fixtures.get_event(user=user)
+        eq_(event.get_absolute_url(), '/event/%s/' % event.slug)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
@@ -37,3 +38,6 @@ class Event(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('event_detail', args=[self.slug])

@@ -19,6 +19,7 @@ urlpatterns = patterns(
     url(r'^people/', include('us_ignite.people.urls')),
     url(r'^apps/', include('us_ignite.apps.urls')),
     url(r'^hub/', include('us_ignite.hubs.urls')),
+    url(r'^event/', include('us_ignite.events.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
 )
 
