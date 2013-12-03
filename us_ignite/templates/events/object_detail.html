@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Event: {{ object.name }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Event: {{ object.name }}{% if object.is_draft %} (DRAFT){% endif %}</h1>
+
+{% if object.image %}
+<img src="{{ object.image.url" alt="" />
+{% endif %}
+
+<ul>
+  <li><a href="{{ object.website }}">Website</a></li>
+  <li>Start: {{ object.start_datetime }}</li>
+  {% if object.end_datetime %}<li>End: {{ object.end_datetime }}</li>{% endif %}
+  <li>Created by {% include "includes/display_name.html" with user=object.user %} on {{ object.created }}</li>
+</ul>
+
+<h2>Description</h2>
+
+{{ object.description|linebreaks }}
+
+<h2>Venue</h2>
+<p>
+  {{ object.venue|linebreaksbr }}
+</p>
+
+<h2>Hubs participating</h2>
+<ul>
+  {% for hub in hub_list %}
+  <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
+  {% endfor%}
+</ul>
+
+<h2>Tags</h2>
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+<ul>
+  {% for tag in tag_list %}
+  <li><a href="">{{ tag }}</a></li>
+  {% endfor%}
+</ul>
+{% else %}
+<p>Event hasn't been tagged.</p>
+{% endif %}
+{% endwith %}
+
+
+{% endblock content %}

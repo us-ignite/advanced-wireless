@@ -11,5 +11,6 @@ def event_detail(request, slug):
         raise Http404
     context = {
         'object': event,
+        'hub_list': event.hubs.all(),
     }
     return TemplateResponse(request, 'events/object_detail.html', context)
