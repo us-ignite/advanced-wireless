@@ -60,3 +60,7 @@ class TestEventModel(TestCase):
         event = fixtures.get_event(user=user)
         eq_(event.is_owner(user), True)
 
+    def test_is_visible_by_owner(self):
+        user = get_user('us-ignite')
+        event = fixtures.get_event(user=user, status=models.Event.DRAFT)
+        eq_(event.is_visible_by(user), True)

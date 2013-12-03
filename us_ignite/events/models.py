@@ -57,3 +57,6 @@ class Event(models.Model):
 
     def is_owner(self, user):
         return self.user == user
+
+    def is_visible_by(self, user):
+        return self.is_published() or self.is_owner(user)
