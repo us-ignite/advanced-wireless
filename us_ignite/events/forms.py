@@ -15,11 +15,14 @@ def _get_status_choices():
     return filter(is_valid_status, Event.STATUS_CHOICES)
 
 
+DATE_HELP_TEXT = 'Format: YYYY-MM-DD HH:MM'
+
 class EventForm(forms.ModelForm):
     start_datetime = forms.DateTimeField(
-        input_formats=settings.DATETIME_INPUT_FORMATS)
+        input_formats=settings.DATETIME_INPUT_FORMATS, help_text=DATE_HELP_TEXT)
     end_datetime = forms.DateTimeField(
-        input_formats=settings.DATETIME_INPUT_FORMATS, required=False)
+        input_formats=settings.DATETIME_INPUT_FORMATS, required=False,
+        help_text=DATE_HELP_TEXT)
     status = forms.ChoiceField(
         choices=_get_status_choices(), initial=Event.DRAFT)
     hubs = forms.ModelMultipleChoiceField(
