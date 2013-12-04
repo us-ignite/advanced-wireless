@@ -1,3 +1,6 @@
+import datetime
+import pytz
+
 from nose.tools import eq_, ok_
 
 from django.contrib.auth.models import User
@@ -17,10 +20,11 @@ class TestEventModel(TestCase):
 
     def test_event_is_created_successfully(self):
         user = get_user('us-ignite')
+        startdatetime = timezone.now()
         data = {
             'name': 'Gigabit community meet-up',
             'venue': 'London, UK',
-            'start_datetime': timezone.now(),
+            'start_datetime': startdatetime,
             'user': user,
         }
         instance = models.Event.objects.create(**data)
@@ -30,6 +34,8 @@ class TestEventModel(TestCase):
         eq_(instance.status, models.Event.DRAFT)
         eq_(instance.website, '')
         eq_(instance.image, '')
+        eq_(instance.start_datetime, startdatetime)
+        eq_(instance.end_datetime, None)
         eq_(instance.venue, 'London, UK')
         eq_(instance.description, '')
         eq_(list(instance.tags.all()), [])
@@ -64,3 +70,17 @@ class TestEventModel(TestCase):
         user = get_user('us-ignite')
         event = fixtures.get_event(user=user, status=models.Event.DRAFT)
         eq_(event.is_visible_by(user), True)
+
+    def test_google_calendar_url_is_none(self):
+        user = get_user('us-ignite')
+        event = fixtures.get_event(user=user, status=models.Event.DRAFT)
+        eq_(event.get_google_calendar_url(), None)
+
+    def test_google_calendar_url_succeeds(self):
+        user = get_user('us-ignite')
+        ny_tz = pytz.timezone("America/New_York")
+        start = ny_tz.localize(datetime.datetime(2013, 12, 2, 12, 00))
+        end = ny_tz.localize(datetime.datetime(2013, 12, 2, 13, 00))
+        event = fixtures.get_event(
+            user=user, start_datetime=start, end_datetime=end)
+        ok_(event.get_google_calendar_url())

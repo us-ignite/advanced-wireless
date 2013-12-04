@@ -6,7 +6,7 @@ from django_extensions.db.fields import (
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
-from us_ignite.events import managers
+from us_ignite.events import managers, exporter
 
 
 class Event(models.Model):
@@ -60,3 +60,8 @@ class Event(models.Model):
 
     def is_visible_by(self, user):
         return self.is_published() or self.is_owner(user)
+
+    def get_google_calendar_url(self):
+        return exporter.get_google_calendar_url(
+            self.name, self.start_datetime, self.end_datetime,
+            self.description, self.venue)
