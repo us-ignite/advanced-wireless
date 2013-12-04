@@ -1,0 +1,5 @@
+<div class="">
+  <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+  <p>{{ object.start_datetime }}{% if object.start_endtime %} to {{ object.start_endtime }}{% endif %}</p>
+  <p>{{ object.description }}</p>
+</div>

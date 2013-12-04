@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Upcoming events - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Upcoming events</h1>
+
+{% if page.object_list  %}
+{% for object in page.object_list %}
+{% include "events/object_block.html" with object=object %}
+{% endfor%}
+{% else %}
+<p>No upcoming events.</p>
+{% endif %}
+
+
+{% include "includes/pagination.html" %}
+
+{% endblock content %}

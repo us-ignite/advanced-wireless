@@ -96,3 +96,17 @@ class TestEventAddView(TestCase):
         eq_(response.status_code, 302)
         eq_(response['Location'], event.get_absolute_url())
         self._tear_down()
+
+
+class TestEventListView(TestCase):
+
+    @patch('us_ignite.events.models.Event.published.filter')
+    def test_event_list_request_is_successful(self, mock_filter):
+        mock_filter.return_value = []
+        request = utils.get_request(
+            'get', '/event/add/', user=utils.get_anon_mock())
+        response = views.event_list(request)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'events/object_list.html')
+        eq_(sorted(response.context_data.keys()), ['page'])
+        mock_filter.assert_called_once()

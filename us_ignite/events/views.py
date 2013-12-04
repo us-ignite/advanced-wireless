@@ -3,7 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.utils import timezone
 
+from us_ignite.common import pagination
 from us_ignite.events.forms import EventForm
 from us_ignite.events.models import Event
 
@@ -39,3 +41,14 @@ def event_add(request):
         'form': form,
     }
     return TemplateResponse(request, 'events/object_add.html', context)
+
+
+def event_list(request):
+    page_no = pagination.get_page_no(request.GET)
+    now = timezone.now()
+    object_list = Event.published.filter(start_datetime__gte=now)
+    page = pagination.get_page(object_list, page_no)
+    context = {
+        'page': page,
+    }
+    return TemplateResponse(request, 'events/object_list.html', context)
