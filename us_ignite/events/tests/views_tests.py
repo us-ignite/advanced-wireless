@@ -47,7 +47,7 @@ class TestEventDetailView(TestCase):
         mock_instance.is_visible_by.assert_called_once_with(request.user)
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
-            ['hub_list', 'object'])
+            ['hub_list', 'is_owner', 'object'])
         eq_(response.template_name, 'events/object_detail.html')
 
 

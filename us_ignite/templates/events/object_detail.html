@@ -20,6 +20,10 @@
   {% endif %}
   <li><a href="{{ object.get_ics_url }}">Download ics file</a></li>
   <li>Created by {% include "includes/display_name.html" with user=object.user %} on {{ object.created }}</li>
+  {% if is_owner %}
+  <li><a href="{{ object.get_edit_url }}">Edit event</a></li>
+  {% endif %}
+
 </ul>
 
 <h2>Description</h2>

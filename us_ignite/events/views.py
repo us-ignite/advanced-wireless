@@ -19,6 +19,7 @@ def event_detail(request, slug):
     context = {
         'object': event,
         'hub_list': event.hubs.all(),
+        'is_owner': event.is_owner(request.user),
     }
     return TemplateResponse(request, 'events/object_detail.html', context)
 
