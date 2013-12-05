@@ -31,12 +31,15 @@
   {{ object.venue|linebreaksbr }}
 </p>
 
+{% if hub_list %}
 <h2>Hubs participating</h2>
 <ul>
   {% for hub in hub_list %}
   <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
   {% endfor%}
 </ul>
+
+{% endif %}
 
 <h2>Tags</h2>
 {% with object.tags.all as tag_list %}

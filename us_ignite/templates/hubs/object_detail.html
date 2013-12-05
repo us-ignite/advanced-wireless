@@ -32,8 +32,10 @@
 </form>
 {% endif %}
 
+{% if object.summary %}
 <h2>Summary</h2>
 <p>{{ object.summary }}</p>
+{% endif %}
 
 {% if object.image  %}
 <img src="{{ object.image.url }}" alt="" title="{{ object.name }}"/>
@@ -63,6 +65,16 @@
 <p>App hasn't been tagged.</p>
 {% endif %}
 {% endwith %}
+
+{% if event_list %}
+<h2>Upcoming events</h2>
+<ul>
+  {% for event in event_list %}
+  <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a> on {{ event.start_datetime }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
 
 
 <h2>Activity list</h2>

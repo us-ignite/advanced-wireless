@@ -83,7 +83,7 @@ class TestHubDetailView(TestCase):
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
             sorted(['object', 'feature_list', 'member_list', 'is_member',
-                    'is_guardian', 'activity_list']))
+                    'is_guardian', 'activity_list', 'event_list']))
 
     @raises(Http404)
     def test_unpublished_hub_request_fails(self):
@@ -101,7 +101,7 @@ class TestHubDetailView(TestCase):
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
             sorted(['object', 'feature_list', 'member_list', 'is_member',
-                    'is_guardian', 'activity_list']))
+                    'is_guardian', 'activity_list', 'event_list']))
 
 
 class TestHubMembershipView(TestCase):
