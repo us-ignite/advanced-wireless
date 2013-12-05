@@ -63,6 +63,26 @@ def event_add(request):
     return TemplateResponse(request, 'events/object_add.html', context)
 
 
+@login_required
+def event_edit(request, slug):
+    event = get_object_or_404(
+        Event.published, slug__exact=slug, user=request.user)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            instance = form.save()
+            messages.success(
+                request, 'The event "%s" has been updated.' % instance.name)
+            return redirect(instance.get_absolute_url())
+    else:
+        form = EventForm(instance=event)
+    context = {
+        'object': event,
+        'form': form,
+    }
+    return TemplateResponse(request, 'events/object_edit.html', context)
+
+
 def event_list(request):
     page_no = pagination.get_page_no(request.GET)
     now = timezone.now()

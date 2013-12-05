@@ -90,3 +90,8 @@ class TestEventModel(TestCase):
         user = get_user('us-ignite')
         event = fixtures.get_event(user=user)
         eq_(event.get_ics_url(), '/event/%s/ics/' % event.slug)
+
+    def test_edit_url_is_correct(self):
+        user = get_user('us-ignite')
+        event = fixtures.get_event(user=user)
+        eq_(event.get_edit_url(), '/event/%s/edit/' % event.slug)

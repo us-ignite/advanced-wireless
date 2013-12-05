@@ -70,3 +70,6 @@ class Event(models.Model):
 
     def get_ics_url(self):
         return reverse('event_detail_ics', args=[self.slug])
+
+    def get_edit_url(self):
+        return reverse('event_edit', args=[self.slug])

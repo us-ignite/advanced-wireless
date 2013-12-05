@@ -138,3 +138,64 @@ class TestEventListView(TestCase):
         eq_(response.template_name, 'events/object_list.html')
         eq_(sorted(response.context_data.keys()), ['page'])
         mock_filter.assert_called_once()
+
+
+class TestEventEditView(TestCase):
+
+    def _tear_down(self):
+        for model in [Event, User]:
+            model.objects.all().delete()
+
+    def test_add_event_requires_auth(self):
+        request = utils.get_request(
+            'get', '/event/foo/edit/', user=utils.get_anon_mock())
+        response = views.event_edit(request, 'foo')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], utils.get_login_url('/event/foo/edit/'))
+
+    def test_event_edit_requires_owner(self):
+        user = get_user('ignite-user')
+        event = fixtures.get_event(
+            user=user, slug='foo', status=Event.PUBLISHED)
+        request = utils.get_request(
+            'get', event.get_absolute_url(), user=get_user('other'))
+        assert_raises(Http404, views.event_edit, request, 'foo')
+        self._tear_down()
+
+    def test_event_detail_is_successful(self):
+        user = get_user('ignite-user')
+        event = fixtures.get_event(
+            user=user, slug='foo', status=Event.PUBLISHED)
+        request = utils.get_request('get', event.get_absolute_url(), user=user)
+        response = views.event_edit(request, 'foo')
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'events/object_edit.html')
+        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+
+    def test_event_invalid_payload_fails(self):
+        user = get_user('ignite-user')
+        event = fixtures.get_event(
+            user=user, slug='foo', status=Event.PUBLISHED)
+        request = utils.get_request(
+            'post', event.get_absolute_url(), data={}, user=user)
+        response = views.event_edit(request, 'foo')
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'events/object_edit.html')
+        ok_(response.context_data['form'].errors)
+
+    def test_valid_payload_is_saved(self):
+        user = get_user('ignite-user')
+        event = fixtures.get_event(
+            user=user, slug='foo', status=Event.PUBLISHED)
+        data = {
+            'name': 'Gigabit community',
+            'status': Event.DRAFT,
+            'start_datetime': '2013-12-14 14:30:59',
+            'venue': 'London UK',
+        }
+        request = utils.get_request(
+            'post', event.get_absolute_url(), data=data, user=user)
+        request._messages = utils.TestMessagesBackend(request)
+        response = views.event_edit(request, 'foo')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], event.get_absolute_url())
