@@ -18,6 +18,7 @@
     Export to <a href="{{ object.get_google_calendar_url }}" target="_blank">Google calendar</a>
   </li>
   {% endif %}
+  <li><a href="{{ object.get_ics_url }}">Download ics file</a></li>
   <li>Created by {% include "includes/display_name.html" with user=object.user %} on {{ object.created }}</li>
 </ul>
 
@@ -49,6 +50,5 @@
 <p>Event hasn't been tagged.</p>
 {% endif %}
 {% endwith %}
-
 
 {% endblock content %}

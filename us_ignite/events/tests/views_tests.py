@@ -9,6 +9,7 @@ from django.test import TestCase
 from us_ignite.common.tests import utils
 from us_ignite.events import views
 from us_ignite.events.models import Event
+from us_ignite.events.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
 
@@ -48,6 +49,33 @@ class TestEventDetailView(TestCase):
         eq_(sorted(response.context_data.keys()),
             ['hub_list', 'object'])
         eq_(response.template_name, 'events/object_detail.html')
+
+
+class TestEventDetailICSView(TestCase):
+
+    def _tear_down(self):
+        for model in [Event, User]:
+            model.objects.all().delete()
+
+    @patch('us_ignite.events.views.get_object_or_404')
+    def test_missing_event_raises_404(self, mock_get):
+        mock_get.side_effect = Http404
+        request = utils.get_request(
+            'get', '/event/abc/ics/', user=utils.get_anon_mock())
+        assert_raises(Http404, views.event_detail_ics, request, 'abc')
+        mock_get.assert_called_once_with(Event.published, slug__exact='abc')
+
+    def test_valid_event_returns_calendar(self):
+        user = get_user('ignite-user')
+        event = fixtures.get_event(
+            user=user, slug='abc', status=Event.PUBLISHED)
+        request = utils.get_request(
+            'get', '/event/abc/ics/', user=utils.get_anon_mock())
+        response = views.event_detail_ics(request, 'abc')
+        eq_(response.status_code, 200)
+        eq_(response['Content-Disposition'], 'attachment; filename="event.ics"')
+        eq_(response['Content-Type'], 'text/calendar')
+        ok_(response.content)
 
 
 class TestEventAddView(TestCase):

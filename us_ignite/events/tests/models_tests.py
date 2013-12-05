@@ -84,3 +84,8 @@ class TestEventModel(TestCase):
         event = fixtures.get_event(
             user=user, start_datetime=start, end_datetime=end)
         ok_(event.get_google_calendar_url())
+
+    def test_ics_url_is_correct(self):
+        user = get_user('us-ignite')
+        event = fixtures.get_event(user=user)
+        eq_(event.get_ics_url(), '/event/%s/ics/' % event.slug)

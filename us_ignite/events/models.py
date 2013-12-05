@@ -65,3 +65,6 @@ class Event(models.Model):
         return exporter.get_google_calendar_url(
             self.name, self.start_datetime, self.end_datetime,
             self.description, self.venue)
+
+    def get_ics_url(self):
+        return reverse('event_detail_ics', args=[self.slug])
