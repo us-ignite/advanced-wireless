@@ -11,7 +11,8 @@ class TestEventForm(TestCase):
         form = forms.EventForm()
         eq_(sorted(form.fields.keys()),
             sorted(['name', 'status', 'website', 'image', 'start_datetime',
-                    'end_datetime', 'venue', 'description', 'tags', 'hubs'])
+                    'end_datetime', 'venue', 'description', 'tags',
+                    'hubs', 'position'])
         )
 
     def test_empty_payload_fails(self):

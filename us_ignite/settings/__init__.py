@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'registration',
     'taggit',
+    'geoposition',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',

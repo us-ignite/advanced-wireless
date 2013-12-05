@@ -45,6 +45,7 @@ class TestEventModel(TestCase):
         eq_(instance.notes, '')
         ok_(instance.created)
         ok_(instance.modified)
+        ok_(instance.position)
 
     def test_absolute_url_is_correct(self):
         user = get_user('us-ignite')

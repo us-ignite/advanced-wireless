@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
+from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
@@ -30,6 +31,7 @@ class Event(models.Model):
     description = models.TextField(blank=True)
     tags = TaggableManager(blank=True)
     hubs = models.ManyToManyField('hubs.Hub')
+    position = GeopositionField(blank=True)
     user = models.ForeignKey('auth.User')
     is_featured = models.BooleanField(default=False)
     notes = models.TextField(blank=True)
