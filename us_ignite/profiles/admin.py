@@ -12,7 +12,7 @@ email.short_description = 'email'
 
 
 def _get_filename(name):
-    return '%s-%s' % (name, timezone.now().strftime("%Y%m%d-%H%M%S"))
+    return '%s-%s' % (name, timezone.now().strftime("%Y%m%dT%H%M%S"))
 
 
 class ProfileLinkInline(admin.TabularInline):
@@ -65,12 +65,35 @@ class ProfileAdmin(admin.ModelAdmin):
         return render(request, 'admin/profiles/inviter.html', context)
 
     def export_users(self, request):
+        """Generate a CSV file with the existing user Profiles.
+
+        Since users without a profile are not considered by using
+        the Profile creation date the app guarantees that the sooner
+        or later the user will be returned."""
         if request.method == 'POST':
-            user_qs = Profile.active.all()
-            filename = _get_filename('US-Ignite-Users')
-            user_list = exporter.export_users(user_qs)
-            return exporter.csv_response(filename, user_list)
+            form = forms.UserExportForm(request.POST)
+            if form.is_valid():
+                kwargs = {}
+                filename = 'US-Ignite-Users'
+                start = form.cleaned_data.get('start')
+                if start:
+                    kwargs['created__gte'] = start
+                    filename += '-from-%s' % start.strftime("%d%b%y")
+                end = form.cleaned_data.get('end')
+                if end:
+                    kwargs['created__lte'] = end
+                    filename += '-until-%s' % end.strftime("%d%b%y")
+                user_qs = Profile.active.filter(**kwargs)
+                if user_qs:
+                    filename = _get_filename(filename)
+                    user_list = exporter.export_users(user_qs)
+                    return exporter.csv_response(filename, user_list)
+                self.message_user(
+                    request, 'No users registered during the given dates.')
+        else:
+            form = forms.UserExportForm()
         context = {
+            'form': form,
             'title': 'Export users',
         }
         return render(request, 'admin/profiles/export.html', context)

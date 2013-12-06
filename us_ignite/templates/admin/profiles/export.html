@@ -4,7 +4,11 @@
 
 {% block extrahead %}{{ block.super }}
 <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
 {{ media }}
+{{ form.media }}
 {% endblock %}
 
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
@@ -28,6 +32,9 @@
 <div id="content-main">
   <p>The export will generate a CSV file containing <strong>name</strong> and <strong>email address</strong>.</p>
   <form action="." method="post" id="export_users_form">{% csrf_token %}
+    <table>
+      {{ form }}
+    </table>
     <div class="submit-row">
       <input type="submit" value="Export users" class="default" name="_export">
       <p class="deletelink-box"><a href="{% url 'admin:profiles_profile_changelist' %}" class="deletelink">Cancel</a></p>

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from nose.tools import ok_, eq_, raises
 from mock import patch
 
@@ -6,7 +8,7 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 
 from us_ignite.profiles.forms import (UserRegistrationForm, ProfileForm,
-                                      InviterForm)
+                                      InviterForm, UserExportForm)
 
 user_get = 'django.contrib.auth.models.User.objects.get'
 
@@ -161,3 +163,41 @@ class TestInviterForm(TestCase):
         user_row = ('alpha', ' beta@us-ignite.org')
         result = form._validate_user(user_row)
         eq_(result, ('alpha', 'beta@us-ignite.org'))
+
+
+class TestUserExportForm(TestCase):
+
+    def test_form_fileds_are_not_sensitive(self):
+        form = UserExportForm()
+        eq_(sorted(form.fields.keys()), ['end', 'start'])
+
+    def test_form_is_valid_with_empty_values(self):
+        form = UserExportForm({})
+        eq_(form.is_valid(), True)
+
+    def test_form_fails_when_start_date_is_in_the_future(self):
+        data = {
+            'start_0': '2013-12-6',
+            'start_1': '00:00:00',
+            'end_0': '2013-12-5',
+            'end_1': '00:00:00',
+        }
+        form = UserExportForm(data)
+        eq_(form.is_valid(), False)
+        ok_(form.non_field_errors())
+
+    def test_form_is_valid_with_start_date(self):
+        data = {
+            'start_0': '2013-12-6',
+            'start_1': '00:00:00',
+        }
+        form = UserExportForm(data)
+        eq_(form.is_valid(), True)
+
+    def test_form_is_valid_with_end_date(self):
+        data = {
+            'end_0': '2013-12-6',
+            'end_1': '00:00:00',
+        }
+        form = UserExportForm(data)
+        eq_(form.is_valid(), True)

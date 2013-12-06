@@ -2,6 +2,7 @@ from StringIO import StringIO
 
 from django import forms
 from django.core import validators
+from django.contrib.admin import widgets
 from django.contrib.auth.models import User
 from django.forms.models import inlineformset_factory
 
@@ -49,6 +50,7 @@ ProfileLinkFormSet = inlineformset_factory(
 
 
 class InviterForm(forms.Form):
+    """Form to invite users to use the US Ignite site."""
     users = forms.CharField(widget=forms.Textarea,
                             help_text='Users must be in a ``name, email`` '
                             'format each new user must be in a new line.')
@@ -87,3 +89,19 @@ class InviterForm(forms.Form):
                 if user_row:
                     cleaned_users.append(user_row)
             return cleaned_users
+
+
+class UserExportForm(forms.Form):
+    """Form used to filter the exported users."""
+    start = forms.DateTimeField(
+        required=False, widget=widgets.AdminSplitDateTime())
+    end = forms.DateTimeField(
+        required=False, widget=widgets.AdminSplitDateTime())
+
+    def clean(self):
+        start = self.cleaned_data.get('start')
+        end = self.cleaned_data.get('end')
+        if (start and end) and (start > end):
+            raise forms.ValidationError(
+                'Start date is later than the end date.')
+        return self.cleaned_data

@@ -1,5 +1,8 @@
+from datetime import datetime
+
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.utils.timezone import utc
 
 from django_nose.tools import assert_redirects
 from registration.models import RegistrationProfile
@@ -164,13 +167,57 @@ class TestExportUsersAdmin(TestCase):
 
     def test_export_does_not_show_innactive_users(self):
         url = '/admin/profiles/profile/export/'
-        user = fixtures.get_user(
-            'john', email='no-contact@us-ignite.org')
-        user.is_active = False
-        user.save()
+        innactive_user = fixtures.get_user(
+            'paul', email='invalid@us-ignite.org', is_active=False)
+        fixtures.get_profile(user=innactive_user, name='Paul')
+        user = fixtures.get_user('john', email='no-contact@us-ignite.org')
         fixtures.get_profile(user=user, name='John Donne')
         response = self.client.post(url, {})
         eq_(response.status_code, 200)
         ok_('attachment;' in response['Content-Disposition'])
-        eq_(response.content, '')
+        eq_(response.content, 'John Donne,no-contact@us-ignite.org\r\n')
 
+    def test_empty_query_returns_warning(self):
+        url = '/admin/profiles/profile/export/'
+        response = self.client.post(url, {})
+        eq_(response.status_code, 200)
+        messages = [m.message for m in list(response.context['messages'])]
+        eq_(messages, ['No users registered during the given dates.'])
+
+    def test_form_filter_users_by_start_date(self):
+        url = '/admin/profiles/profile/export/'
+        user = fixtures.get_user('john', email='no-contact@us-ignite.org')
+        created = datetime(2013, 12, 6, 0, 0, 0).replace(tzinfo=utc)
+        fixtures.get_profile(user=user, name='John Donne', created=created)
+        response = self.client.post(
+            url, {'start_0': '2013-12-7','start_1': '00:00:00'})
+        eq_(response.status_code, 200)
+        messages = [m.message for m in list(response.context['messages'])]
+        eq_(messages, ['No users registered during the given dates.'])
+
+    def test_form_filter_users_by_end_date(self):
+        url = '/admin/profiles/profile/export/'
+        user = fixtures.get_user('john', email='no-contact@us-ignite.org')
+        created = datetime(2013, 12, 6, 0, 0, 0).replace(tzinfo=utc)
+        fixtures.get_profile(user=user, name='John Donne', created=created)
+        response = self.client.post(
+            url, {'end_0': '2013-12-5', 'end_1': '00:00:00'})
+        eq_(response.status_code, 200)
+        messages = [m.message for m in list(response.context['messages'])]
+        eq_(messages, ['No users registered during the given dates.'])
+
+    def test_form_filter_uses_end_and_start_date(self):
+        url = '/admin/profiles/profile/export/'
+        user = fixtures.get_user('john', email='no-contact@us-ignite.org')
+        created = datetime(2013, 12, 6).replace(tzinfo=utc)
+        fixtures.get_profile(user=user, name='John Donne', created=created)
+        response = self.client.post(url, {
+            'start_0': '2013-12-5',
+            'start_1': '00:00:00',
+            'end_0': '2013-12-7',
+            'end_1': '23:59:59',
+        })
+        eq_(response.status_code, 200)
+        eq_(response.status_code, 200)
+        ok_('attachment;' in response['Content-Disposition'])
+        eq_(response.content, 'John Donne,no-contact@us-ignite.org\r\n')
