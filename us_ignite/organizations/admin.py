@@ -14,6 +14,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_filter = ('status', )
     date_hierarchy = 'created'
     inlines = [OrganizationMembershipInline]
+    prepopulated_fields = {"slug": ("name",)}
 
 
 admin.site.register(Organization, OrganizationAdmin)
