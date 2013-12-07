@@ -35,7 +35,10 @@ class Organization(models.Model):
         return self.status == self.DRAFT
 
     def is_member(self, user):
-        return self.members.filter(id__exact=user.id)
+        return True if self.members.filter(id__exact=user.id) else False
+
+    def is_visible_by(self, user):
+        return self.is_published() or self.is_member(user)
 
 
 class OrganizationMember(models.Model):

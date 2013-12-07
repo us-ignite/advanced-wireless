@@ -3,6 +3,7 @@ from nose.tools import eq_, ok_
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.organizations.tests import fixtures
@@ -44,3 +45,17 @@ class TestOrganization(TestCase):
         user = get_user('member')
         OrganizationMember.objects.create(user=user, organization=instance)
         ok_(instance.is_member(user))
+
+    def test_public_organization_is_visible(self):
+        instance = fixtures.get_organization(status=Organization.PUBLISHED)
+        eq_(instance.is_visible_by(utils.get_anon_mock()), True)
+
+    def test_draft_organization_is_visible_by_member(self):
+        instance = fixtures.get_organization(status=Organization.DRAFT)
+        user = get_user('member')
+        OrganizationMember.objects.create(user=user, organization=instance)
+        eq_(instance.is_visible_by(user), True)
+
+    def test_draft_organization_is_not_visible(self):
+        instance = fixtures.get_organization(status=Organization.DRAFT)
+        eq_(instance.is_visible_by(utils.get_anon_mock()), False)
