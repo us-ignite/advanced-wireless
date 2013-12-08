@@ -3,6 +3,35 @@
 {% block title %}Organization: {{ object.name }} {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>{{ object.name }}</h1>
+<h1>{{ object.name }}{% if object.is_draft %}(DRAFT){% endif %}</h1>
+
+{% if object.bio %}
+<h2>Bio</h2>
+{{ object.bio|linebreaks}}
+{% endif %}
+
+{% if object.image %}<img src="{{ object.image.url }}" alt="" />{% endif %}
+
+{% if member_list %}
+<h2>Members</h2>
+<ul>
+  {% for member in member_list %}
+  <li>{% include "includes/display_name.html" with user=object.owner %}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+<h2>Tags</h2>
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+<ul>
+  {% for tag in tag_list %}
+  <li><a href="">{{ tag }}</a></li>
+  {% endfor%}
+</ul>
+{% else %}
+<p>App hasn't been tagged.</p>
+{% endif %}
+{% endwith %}
 
 {% endblock content %}

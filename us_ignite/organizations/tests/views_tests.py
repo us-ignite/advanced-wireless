@@ -40,4 +40,4 @@ class TestOrganizationDetailView(TestCase):
         response = views.organization_detail(request, 'foo')
         eq_(response.status_code, 200)
         eq_(response.template_name, 'organizations/object_detail.html')
-        eq_(sorted(response.context_data.keys()), ['object'])
+        eq_(sorted(response.context_data.keys()), ['member_list', 'object'])

@@ -11,6 +11,7 @@ def organization_detail(request, slug):
         raise Http404
     context = {
         'object': organization,
+        'member_list': organization.members.all(),
     }
     return TemplateResponse(
         request, 'organizations/object_detail.html', context)
