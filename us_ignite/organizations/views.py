@@ -39,3 +39,11 @@ def organization_edit(request, slug):
         'form': form,
     }
     return TemplateResponse(request, 'organizations/object_edit.html', context)
+
+
+def organization_list(request):
+    object_list = Organization.objects.filter(status=Organization.PUBLISHED)
+    context = {
+        'object_list': object_list,
+    }
+    return TemplateResponse(request, 'organizations/object_list.html', context)

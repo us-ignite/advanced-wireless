@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Organizations - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Organizations</h1>
+{% for object in object_list %}
+<div>
+  <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+</div>
+{% endfor%}
+{% endblock content %}

@@ -77,6 +77,7 @@ class TestOrganizationEditView(TestCase):
             'get', '/org/foo/edit/', user=user)
         response = views.organization_edit(request, 'foo')
         eq_(response.status_code, 200)
+        eq_(response.template_name, 'organizations/object_edit.html')
         eq_(sorted(response.context_data.keys()),
             ['form', 'object'])
         self._tear_down()
@@ -99,3 +100,14 @@ class TestOrganizationEditView(TestCase):
         eq_(org.name, 'New name')
         eq_(org.bio, 'Bio')
         self._tear_down()
+
+
+class TestOrganizationListTest(TestCase):
+
+    def test_request_is_successful(self):
+        request = utils.get_request(
+            'get', '/org/', user=utils.get_user_mock())
+        response = views.organization_list(request)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'organizations/object_list.html')
+        eq_(sorted(response.context_data.keys()), ['object_list'])
