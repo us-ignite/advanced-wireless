@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
@@ -40,11 +41,20 @@ class Organization(models.Model):
     def is_visible_by(self, user):
         return self.is_published() or self.is_member(user)
 
+    def get_absolute_url(self):
+        return reverse('organization_detail', args=[self.slug])
+
+    def get_edit_url(self):
+        return reverse('organization_edit', args=[self.slug])
+
 
 class OrganizationMember(models.Model):
     user = models.ForeignKey('auth.User')
     organization = models.ForeignKey('organizations.Organization')
     created = CreationDateTimeField()
+
+    class Meta:
+        unique_together = ('user', 'organization')
 
     def __unicode__(self):
         return u'%s membership of %s' % (self.organization, self.user)

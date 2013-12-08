@@ -59,3 +59,11 @@ class TestOrganization(TestCase):
     def test_draft_organization_is_not_visible(self):
         instance = fixtures.get_organization(status=Organization.DRAFT)
         eq_(instance.is_visible_by(utils.get_anon_mock()), False)
+
+    def test_get_absolute_url(self):
+        instance = fixtures.get_organization(slug='ignite')
+        eq_(instance.get_absolute_url(), '/org/ignite/')
+
+    def test_get_edit_url(self):
+        instance = fixtures.get_organization(slug='ignite')
+        eq_(instance.get_edit_url(), '/org/ignite/edit/')
