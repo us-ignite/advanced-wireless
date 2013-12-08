@@ -15,6 +15,7 @@ def organization_detail(request, slug):
     context = {
         'object': organization,
         'member_list': organization.members.all(),
+        'is_member': organization.is_member(request.user),
     }
     return TemplateResponse(
         request, 'organizations/object_detail.html', context)

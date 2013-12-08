@@ -43,7 +43,8 @@ class TestOrganizationDetailView(TestCase):
         response = views.organization_detail(request, 'foo')
         eq_(response.status_code, 200)
         eq_(response.template_name, 'organizations/object_detail.html')
-        eq_(sorted(response.context_data.keys()), ['member_list', 'object'])
+        eq_(sorted(response.context_data.keys()),
+            ['is_member', 'member_list', 'object'])
 
 
 class TestOrganizationEditView(TestCase):
@@ -76,7 +77,8 @@ class TestOrganizationEditView(TestCase):
             'get', '/org/foo/edit/', user=user)
         response = views.organization_edit(request, 'foo')
         eq_(response.status_code, 200)
-        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+        eq_(sorted(response.context_data.keys()),
+            ['form', 'object'])
         self._tear_down()
 
     def test_edit_payload_is_successful(self):

@@ -5,6 +5,13 @@
 {% block content %}
 <h1>{{ object.name }}{% if object.is_draft %}(DRAFT){% endif %}</h1>
 
+{% if is_member %}
+<ul>
+  <li><a href="{{ object.get_edit_url }}">Edit Organization</a></li>
+</ul>
+{% endif %}
+
+
 {% if object.bio %}
 <h2>Bio</h2>
 {{ object.bio|linebreaks}}
