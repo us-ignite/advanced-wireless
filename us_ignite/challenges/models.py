@@ -35,6 +35,15 @@ class Challenge(models.Model):
     def __unicode__(self):
         return self.name
 
+    def is_published(self):
+        return self.status == self.PUBLISHED
+
+    def is_draft(self):
+        return self.status == self.DRAFT
+
+    def is_removed(self):
+        return self.status == self.REMOVED
+
 
 class Question(models.Model):
     challenge = models.ForeignKey('challenges.Challenge')
@@ -55,12 +64,10 @@ class Entry(models.Model):
     PENDING = 1
     ACCEPTED = 2
     REJECTED = 3
-    WINNER = 4
     STATUS_CHOICES = (
         (PENDING, 'Pending'),
         (ACCEPTED, 'Accepted'),
         (REJECTED, 'Rejected'),
-        (WINNER, 'Winner'),
     )
     challenge = models.ForeignKey('challenges.Challenge')
     application = models.ForeignKey('apps.Application')
@@ -74,3 +81,12 @@ class Entry(models.Model):
 
     def __unicode__(self):
         return u'Entry to %s for %s' % (self.application, self.challenge)
+
+    def is_pending(self):
+        return self.status == self.PENDING
+
+    def is_accepted(self):
+        return self.status == self.ACCEPTED
+
+    def is_rejected(self):
+        return self.status == self.REJECTED

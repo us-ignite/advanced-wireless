@@ -46,6 +46,21 @@ class TestChallengeModel(TestCase):
         ok_(instance.created)
         ok_(instance.modified)
 
+    def test_instance_is_published(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_challenge(user=user, status=Challenge.PUBLISHED)
+        eq_(instance.is_published(), True)
+
+    def test_instance_is_draft(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_challenge(user=user, status=Challenge.DRAFT)
+        eq_(instance.is_draft(), True)
+
+    def test_instance_is_removed(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_challenge(user=user, status=Challenge.REMOVED)
+        eq_(instance.is_removed(), True)
+
 
 class TestQuestionModel(TestCase):
 
@@ -92,3 +107,27 @@ class TestEntryModel(TestCase):
         eq_(instance.notes, '')
         ok_(instance.created)
         ok_(instance.modified)
+
+    def test_instance_is_pending(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.PENDING)
+        eq_(entry.is_pending(), True)
+
+    def test_instance_is_accepted(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.ACCEPTED)
+        eq_(entry.is_accepted(), True)
+
+    def test_instance_is_rejected(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.REJECTED)
+        eq_(entry.is_rejected(), True)
