@@ -78,6 +78,7 @@ class Entry(models.Model):
 
     class Meta:
         unique_together = ('challenge', 'application')
+        verbose_name_plural = 'entries'
 
     def __unicode__(self):
         return u'Entry to %s for %s' % (self.application, self.challenge)
