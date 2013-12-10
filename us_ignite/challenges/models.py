@@ -106,6 +106,17 @@ class Entry(models.Model):
     def is_rejected(self):
         return self.status == self.REJECTED
 
+    def save_answers(self, answers_data):
+        """Create or update the answers for this user."""
+        question_list = Question.objects.get_from_keys(answers_data.keys())
+        answer_list = []
+        for question in question_list:
+            answer_text = answers_data['question_%s' % question.id]
+            answer = EntryAnswer.get_or_create_answer(
+                self, question, answer_text)
+            answer_list.append(answer)
+        return answer_list
+
 
 class EntryAnswer(models.Model):
     entry = models.ForeignKey('challenges.Entry')
@@ -120,3 +131,13 @@ class EntryAnswer(models.Model):
 
     def __unicode__(self):
         return u"%s: %s" % (self.question.question, self.answer)
+
+    @classmethod
+    def get_or_create_answer(cls, entry, question, answer_text):
+        answer, is_new = cls.objects.get_or_create(
+            entry=entry, question=question)
+        # Only update the answer when the text is different:
+        if not answer.answer == answer_text:
+            answer.answer = answer_text
+            answer.save()
+        return answer

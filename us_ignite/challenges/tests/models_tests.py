@@ -1,4 +1,5 @@
 from dateutil.relativedelta import relativedelta
+from mock import Mock, patch
 from nose.tools import eq_, ok_
 
 from django.contrib.auth.models import User
@@ -140,6 +141,23 @@ class TestEntryModel(TestCase):
             application, challenge=challenge, status=Entry.DRAFT)
         eq_(entry.is_draft(), True)
 
+    @patch('us_ignite.challenges.models.EntryAnswer.get_or_create_answer')
+    @patch('us_ignite.challenges.models.Question.objects.get_from_keys')
+    def test_save_answers_is_sucessful(self, mock_keys, mock_answer):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge)
+        question = Mock(spec=Question)()
+        question.id = 4
+        mock_keys.return_value = [question]
+        mock_answer.return_value = 4
+        answers = entry.save_answers({'question_4': 'foo'})
+        eq_(answers, [4])
+        mock_answer.assert_called_once_with(entry, question, 'foo')
+        mock_keys.assert_called_once_with(['question_4'])
+
 
 class TestEntryAnswerModel(TestCase):
 
@@ -159,6 +177,20 @@ class TestEntryAnswerModel(TestCase):
             'answer': 'Uses Gigabit features.'
         }
         instance = EntryAnswer.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.question, question)
+        eq_(instance.answer, 'Uses Gigabit features.')
+        ok_(instance.created)
+        ok_(instance.modified)
+
+    def test_get_or_create_answer(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        question = fixtures.get_question(challenge)
+        entry = fixtures.get_entry(application)
+        instance = EntryAnswer.get_or_create_answer(
+            entry, question, 'Uses Gigabit features.')
         ok_(instance.id)
         eq_(instance.question, question)
         eq_(instance.answer, 'Uses Gigabit features.')
