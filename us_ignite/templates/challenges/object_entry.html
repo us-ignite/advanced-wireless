@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Enter to {{ challenge.name }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Participate in challenge: {{ challenge.name }}</h1>
+<p>{{ challenge.summary }}</p>
+
+<h2>Application: {{ application.name }}</h2>
+<p>{{ application.get_summary }}</p>
+
+<h2>Entry form:</h2>
+<form method="post" action="{% url 'challenge_entry' challenge.slug application.slug%}">
+  {{ form.as_p }}
+  <p>
+    {% csrf_token %}
+    <button type="submit">Enter challenge</button>
+  </p>
+</form>
+
+{% endblock content %}
