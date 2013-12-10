@@ -61,17 +61,19 @@ class Question(models.Model):
 
 
 class Entry(models.Model):
+    DRAFT = 0
     PENDING = 1
     ACCEPTED = 2
     REJECTED = 3
     STATUS_CHOICES = (
+        (DRAFT, 'Draft'),
         (PENDING, 'Pending'),
         (ACCEPTED, 'Accepted'),
         (REJECTED, 'Rejected'),
     )
     challenge = models.ForeignKey('challenges.Challenge')
     application = models.ForeignKey('apps.Application')
-    status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
@@ -82,6 +84,9 @@ class Entry(models.Model):
 
     def __unicode__(self):
         return u'Entry to %s for %s' % (self.application, self.challenge)
+
+    def is_draft(self):
+        return self.status == self.DRAFT
 
     def is_pending(self):
         return self.status == self.PENDING

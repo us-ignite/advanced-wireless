@@ -11,7 +11,6 @@ from us_ignite.challenges.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
 
-
 class TestChallengeModel(TestCase):
 
     def tearDown(self):
@@ -103,7 +102,7 @@ class TestEntryModel(TestCase):
         ok_(instance.id)
         eq_(instance.challenge, challenge)
         eq_(instance.application, application)
-        eq_(instance.status, Entry.PENDING)
+        eq_(instance.status, Entry.DRAFT)
         eq_(instance.notes, '')
         ok_(instance.created)
         ok_(instance.modified)
@@ -131,3 +130,11 @@ class TestEntryModel(TestCase):
         entry = fixtures.get_entry(
             application, challenge=challenge, status=Entry.REJECTED)
         eq_(entry.is_rejected(), True)
+
+    def test_instance_is_draft(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.DRAFT)
+        eq_(entry.is_draft(), True)
