@@ -4,6 +4,8 @@ from django.db import models
 from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
 
+from us_ignite.challenges import managers
+
 
 class Challenge(models.Model):
     PUBLISHED = 1
@@ -28,6 +30,10 @@ class Challenge(models.Model):
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
+
+    # managers
+    objects = models.Manager()
+    active = managers.ActiveChallenges()
 
     class Meta:
         ordering = ('-created', )
