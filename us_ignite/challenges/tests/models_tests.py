@@ -108,13 +108,13 @@ class TestEntryModel(TestCase):
         ok_(instance.created)
         ok_(instance.modified)
 
-    def test_instance_is_pending(self):
+    def test_instance_is_submitted(self):
         user = get_user('us-ignite')
         challenge = fixtures.get_challenge(user=user)
         application = get_application(owner=user)
         entry = fixtures.get_entry(
-            application, challenge=challenge, status=Entry.PENDING)
-        eq_(entry.is_pending(), True)
+            application, challenge=challenge, status=Entry.SUBMITTED)
+        eq_(entry.is_submitted(), True)
 
     def test_instance_is_accepted(self):
         user = get_user('us-ignite')

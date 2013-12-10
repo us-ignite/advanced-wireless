@@ -68,12 +68,12 @@ class Question(models.Model):
 
 class Entry(models.Model):
     DRAFT = 0
-    PENDING = 1
+    SUBMITTED = 1
     ACCEPTED = 2
     REJECTED = 3
     STATUS_CHOICES = (
         (DRAFT, 'Draft'),
-        (PENDING, 'Pending'),
+        (SUBMITTED, 'Submitted'),
         (ACCEPTED, 'Accepted'),
         (REJECTED, 'Rejected'),
     )
@@ -94,8 +94,8 @@ class Entry(models.Model):
     def is_draft(self):
         return self.status == self.DRAFT
 
-    def is_pending(self):
-        return self.status == self.PENDING
+    def is_submitted(self):
+        return self.status == self.SUBMITTED
 
     def is_accepted(self):
         return self.status == self.ACCEPTED
