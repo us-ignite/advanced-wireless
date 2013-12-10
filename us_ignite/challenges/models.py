@@ -31,9 +31,9 @@ class Challenge(models.Model):
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
-    # managers
+    # managers:
     objects = models.Manager()
-    active = managers.ActiveChallenges()
+    active = managers.ActiveChallengesManager()
 
     class Meta:
         ordering = ('-created', )
@@ -58,6 +58,9 @@ class Question(models.Model):
     order = models.IntegerField(default=0)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
+
+    # managers:
+    objects = managers.QuestionManager()
 
     class Meta:
         ordering = ('order', )

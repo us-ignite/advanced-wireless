@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils import timezone
 
-from us_ignite.challenges.models import Challenge
+from us_ignite.challenges.models import Challenge, Question
 from us_ignite.challenges.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
@@ -67,3 +67,16 @@ class TestActiveChallengesManager(TestCase):
         }
         fixtures.get_challenge(**data)
         eq_(list(Challenge.active.all()), [])
+
+
+class TestQuestionManager(TestCase):
+
+    def tearDown(self):
+        for model in [Challenge, Question, User]:
+            model.objects.all().delete()
+
+    def test_questions_are_returned_from_keys(self):
+        challenge = fixtures.get_challenge()
+        question = fixtures.get_question(challenge, id=3)
+        question_list = Question.objects.get_from_keys(['question_3'])
+        eq_(list(question_list), [question])
