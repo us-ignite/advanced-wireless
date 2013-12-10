@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Challenges - {{ block.super }}{% endblock title %}
+
+{% block content %}
+
+{% for object in object_list %}
+{% include "challenges/object_block.html" %}
+{% endfor%}
+
+{% endblock content %}
