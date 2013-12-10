@@ -5,8 +5,9 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils import timezone
 
+from us_ignite.apps.models import Application
 from us_ignite.apps.tests.fixtures import get_application
-from us_ignite.challenges.models import Challenge, Entry, Question
+from us_ignite.challenges.models import Challenge, Entry, EntryAnswer, Question
 from us_ignite.challenges.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
@@ -64,7 +65,7 @@ class TestChallengeModel(TestCase):
 class TestQuestionModel(TestCase):
 
     def tearDown(self):
-        for model in [Question, Challenge, User]:
+        for model in [Question, Challenge, Application, User]:
             model.objects.all().delete()
 
     def test_instance_is_created_successfully(self):
@@ -87,7 +88,7 @@ class TestQuestionModel(TestCase):
 class TestEntryModel(TestCase):
 
     def tearDown(self):
-        for model in [Entry, Challenge, User]:
+        for model in [Entry, Challenge, Application, User]:
             model.objects.all().delete()
 
     def test_instance_is_created_successfully(self):
@@ -138,3 +139,28 @@ class TestEntryModel(TestCase):
         entry = fixtures.get_entry(
             application, challenge=challenge, status=Entry.DRAFT)
         eq_(entry.is_draft(), True)
+
+
+class TestEntryAnswerModel(TestCase):
+
+    def tearDown(self):
+        for model in [Question, Entry, Challenge, Application, User]:
+            model.objects.all().delete()
+
+    def test_entry_can_be_created_successfully(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        question = fixtures.get_question(challenge)
+        entry = fixtures.get_entry(application)
+        data = {
+            'entry': entry,
+            'question': question,
+            'answer': 'Uses Gigabit features.'
+        }
+        instance = EntryAnswer.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.question, question)
+        eq_(instance.answer, 'Uses Gigabit features.')
+        ok_(instance.created)
+        ok_(instance.modified)

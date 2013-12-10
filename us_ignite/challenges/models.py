@@ -96,3 +96,18 @@ class Entry(models.Model):
 
     def is_rejected(self):
         return self.status == self.REJECTED
+
+
+class EntryAnswer(models.Model):
+    entry = models.ForeignKey('challenges.Entry')
+    question = models.ForeignKey('challenges.Question')
+    answer = models.TextField(blank=True)
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+
+    class Meta:
+        unique_together = ('entry', 'question')
+        ordering = ('question__order', )
+
+    def __unicode__(self):
+        return u"%s: %s" % (self.question.question, self.answer)
