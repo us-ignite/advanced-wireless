@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from us_ignite.challenges.models import Challenge, Entry, Question
+from us_ignite.challenges.models import Challenge, Entry, EntryAnswer, Question
 
 
 class QuestionInlineAdmin(admin.TabularInline):
@@ -16,11 +16,17 @@ class ChallengeAdmin(admin.ModelAdmin):
     inlines = [QuestionInlineAdmin]
 
 
+class EntryAnswerAdminInstance(admin.TabularInline):
+    extra = 0
+    model = EntryAnswer
+
+
 class EntryAdmin(admin.ModelAdmin):
     list_display = ('challenge', 'application', 'status', 'created', 'modified')
     list_filter = ('challenge__name', 'status')
     date_hierarchy = 'created'
     raw_id_fields = ('application', )
+    inlines = [EntryAnswerAdminInstance, ]
 
 
 admin.site.register(Challenge, ChallengeAdmin)
