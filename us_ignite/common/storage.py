@@ -1,7 +1,10 @@
+import logging
+
 from django.core.files.storage import get_storage_class
 
 from storages.backends.s3boto import S3BotoStorage
 
+logger = logging.getLogger('us_ignite.common.storage')
 
 STATIC_LOCATION = 'static'
 

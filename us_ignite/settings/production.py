@@ -32,8 +32,8 @@ AWS_HEADERS = {
     'Cache-Control': 'max-age=%s' % expire_seconds,
 }
 
-STATIC_URL = '//%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
-
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = '//%s/static/' % AWS_S3_CUSTOM_DOMAIN
 
 redis_url = urlparse.urlparse(env('REDISTOGO_URL'))
 
