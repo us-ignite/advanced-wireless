@@ -46,12 +46,12 @@ class TestProfileListView(TestCase):
         eq_(sorted(response.context_data.keys()),
             ['order', 'order_form', 'page'])
 
-    def test_admin_users_are_not_listed(self):
+    def test_admin_users_are_listed(self):
         user = fixtures.get_user('us-ignite', is_superuser=True)
         fixtures.get_profile(user=user, name='us ignite')
         response = views.profile_list(self._get_request())
         eq_(response.status_code, 200)
-        eq_(len(response.context_data['page'].object_list), 0)
+        eq_(len(response.context_data['page'].object_list), 1)
         _teardown_profiles()
 
     def test_inactive_users_are_not_listed(self):
@@ -103,11 +103,14 @@ class TestProfileDetailView(TestCase):
         eq_(response.status_code, 302)
         eq_(response['Location'], utils.get_login_url('/people/someone/'))
 
-    def test_superuser_profile_is_unavailable(self):
+    def test_superuser_profile_is_available(self):
         user = fixtures.get_user('us-ignite', is_superuser=True)
         fixtures.get_profile(user=user, slug='someone', name='us ignite')
         request = self._get_request()
-        assert_raises(Http404, views.profile_detail, request, 'someone')
+        response = views.profile_detail(request, 'someone')
+        ok_(response.status_code, 200)
+        eq_(sorted(response.context_data.keys()),
+            sorted(['app_list', 'object', 'membership_list']))
         _teardown_profiles()
 
     def test_get_request_is_successful(self):
