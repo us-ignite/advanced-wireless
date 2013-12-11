@@ -62,11 +62,11 @@ def _get_cache_key(url, prefix=''):
 
 
 def cached_render_url(url):
-    cache_key = _get_cache_key(url, prefix='RENDER')
+    cache_key = _get_cache_key(url, prefix='RENDERER')
     response = cache.get(cache_key)
     if response:
         return response
     rendered = render_url(url)
-    # Cache for an hour:
-    cache.set(cache_key, rendered, 60 * 60)
+    # Cache for 10 minutes:
+    cache.set(cache_key, rendered, 60 * 10)
     return rendered
