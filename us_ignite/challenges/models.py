@@ -87,6 +87,9 @@ class Entry(models.Model):
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
+    # managers:
+    objects = managers.EntryManager()
+
     class Meta:
         unique_together = ('challenge', 'application')
         verbose_name_plural = 'entries'

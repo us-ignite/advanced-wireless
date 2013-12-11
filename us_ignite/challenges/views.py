@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from us_ignite.apps.models import Application
 from us_ignite.challenges import forms
-from us_ignite.challenges.models import Challenge, Entry, EntryAnswer, Question
+from us_ignite.challenges.models import Challenge, Entry
 
 
 def challenge_list(request):
@@ -19,14 +19,6 @@ def challenge_list(request):
     return TemplateResponse(request, 'challenges/object_list.html', context)
 
 
-def get_entry(challenge, application):
-    try:
-        entry = Entry.objects.get(challenge=challenge, application=application)
-    except Entry.DoesNotExist:
-        entry = None
-    return entry
-
-
 @login_required
 def challenge_entry(request, challenge_slug, app_slug):
     challenge = get_object_or_404(Challenge.active, slug__exact=challenge_slug)
@@ -35,22 +27,23 @@ def challenge_entry(request, challenge_slug, app_slug):
         status=Application.PUBLISHED)
     # Generate a form from the questions in the admin:
     ChallengeForm = forms.get_challenge_form(challenge)
-    entry, is_new = Entry.objects.get_or_create(
-        challenge=challenge, application=application)
     # TODO: determine what happens after the entry has been accepted.
     if request.method == 'POST':
+        # The entry is only created on a POST:
+        entry, is_new = Entry.objects.get_or_create(
+            challenge=challenge, application=application)
         form = ChallengeForm(request.POST)
         if form.is_valid():
             status = form.cleaned_data.pop('status')
             entry.status = status
             entry.save()
-            answers = entry.save_answers(form.cleaned_data)
+            entry.save_answers(form.cleaned_data)
             messages.success(request, 'Entry saved.')
             return redirect(
                 'challenge_entry', challenge_slug=challenge.slug,
                 app_slug=application.slug)
     else:
-        entry = get_entry(challenge, application)
+        entry = Entry.objects.get_entry_or_none(challenge, application)
         args = [forms.get_challenge_initial_data(entry)] if entry else []
         form = ChallengeForm(*args)
     context = {
