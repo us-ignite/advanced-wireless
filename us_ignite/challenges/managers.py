@@ -18,3 +18,14 @@ class QuestionManager(models.Manager):
         question_ids = [int(k.replace('question_', '')) for k in form_keys]
         return (self.get_query_set()
                 .filter(id__in=question_ids, *args, **kwargs))
+
+
+class EntryManager(models.Manager):
+
+    def get_entry_or_none(self, challenge, application):
+        try:
+            entry = self.get(challenge=challenge, application=application)
+        except self.model.DoesNotExist:
+            entry = None
+        return entry
+

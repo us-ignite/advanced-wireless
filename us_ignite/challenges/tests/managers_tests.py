@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils import timezone
 
-from us_ignite.challenges.models import Challenge, Question
+from us_ignite.apps.models import Application
+from us_ignite.apps.tests.fixtures import get_application
+from us_ignite.challenges.models import Challenge, Question, Entry
 from us_ignite.challenges.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
@@ -80,3 +82,24 @@ class TestQuestionManager(TestCase):
         question = fixtures.get_question(challenge, id=3)
         question_list = Question.objects.get_from_keys(['question_3'])
         eq_(list(question_list), [question])
+
+
+class TestEntryManager(TestCase):
+
+    def tearDown(self):
+        for model in [Entry, Challenge, Application, User]:
+            model.objects.all().delete()
+
+    def test_missing_entry_returns_none(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        eq_(Entry.objects.get_entry_or_none(challenge, application), None)
+
+    def test_existing_entry_is_returned(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.SUBMITTED)
+        eq_(Entry.objects.get_entry_or_none(challenge, application), entry)
