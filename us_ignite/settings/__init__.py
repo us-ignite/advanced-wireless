@@ -89,6 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -214,6 +215,8 @@ ALLOWED_HOSTS = [
     'us-ignite.herokuapp.com',
 ]
 
+# Avoid embeding the app in an iframe X-Frame-Options
+X_FRAME_OPTIONS = 'DENY'
 
 # Account settings:
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -239,3 +242,4 @@ DATETIME_INPUT_FORMATS = (
     '%m/%d/%y %H:%M',        # '10/25/06 14:30'
     '%m/%d/%y',
 )
+
