@@ -22,6 +22,7 @@ class Organization(models.Model):
     image = models.ImageField(upload_to="org", blank=True)
     members = models.ManyToManyField(
         'auth.User', blank=True, through='organizations.OrganizationMember')
+    website = models.URLField(max_length=500, blank=True)
     tags = TaggableManager(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()

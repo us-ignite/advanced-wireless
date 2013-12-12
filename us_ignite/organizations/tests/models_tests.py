@@ -27,6 +27,7 @@ class TestOrganization(TestCase):
         eq_(instance.status, Organization.DRAFT)
         eq_(instance.bio, '')
         eq_(instance.image, '')
+        eq_(instance.website, '')
         eq_(list(instance.members.all()), [])
         eq_(list(instance.tags.all()), [])
         ok_(instance.created)
