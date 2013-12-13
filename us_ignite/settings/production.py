@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 # settings is one directory up now
 here = lambda *x: os.path.join(PROJECT_ROOT, '..', *x)
 
-SITE_URL = 'http://us-ignite.herokuapp.com'
+SITE_URL = 'https://us-ignite.herokuapp.com'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = env('SECRET_KEY')
