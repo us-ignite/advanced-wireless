@@ -62,6 +62,59 @@ class TestChallengeModel(TestCase):
         instance = fixtures.get_challenge(user=user, status=Challenge.REMOVED)
         eq_(instance.is_removed(), True)
 
+    def test_challenge_is_open(self):
+        user = get_user('us-ignite')
+        start = timezone.now() - relativedelta(days=1)
+        end = start + relativedelta(days=10)
+        data = {
+            'user': user,
+            'start_datetime': start,
+            'end_datetime': end,
+            'status': Challenge.PUBLISHED,
+        }
+        instance = fixtures.get_challenge(**data)
+        eq_(instance.is_open(), True)
+
+    def test_past_challenge_is_closed(self):
+        user = get_user('us-ignite')
+        start = timezone.now() - relativedelta(days=3)
+        end = start + relativedelta(days=2)
+        data = {
+            'user': user,
+            'start_datetime': start,
+            'end_datetime': end,
+            'status': Challenge.PUBLISHED,
+        }
+        instance = fixtures.get_challenge(**data)
+        eq_(instance.is_open(), False)
+
+    def test_future_challenge_is_closed(self):
+        user = get_user('us-ignite')
+        start = timezone.now() + relativedelta(days=3)
+        end = start + relativedelta(days=2)
+        data = {
+            'user': user,
+            'start_datetime': start,
+            'end_datetime': end,
+            'status': Challenge.PUBLISHED,
+        }
+        instance = fixtures.get_challenge(**data)
+        eq_(instance.is_open(), False)
+
+    def test_not_published_challenge_is_closed(self):
+        user = get_user('us-ignite')
+        start = timezone.now() - relativedelta(days=1)
+        end = start + relativedelta(days=4)
+        data = {
+            'user': user,
+            'start_datetime': start,
+            'end_datetime': end,
+            'status': Challenge.DRAFT,
+        }
+        instance = fixtures.get_challenge(**data)
+        eq_(instance.is_open(), False)
+
+
 
 class TestQuestionModel(TestCase):
 

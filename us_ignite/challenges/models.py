@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 from django_extensions.db.fields import (
@@ -49,6 +50,13 @@ class Challenge(models.Model):
 
     def is_removed(self):
         return self.status == self.REMOVED
+
+    def is_open(self):
+        """Check if the challenge dates are open and it is published."""
+        now = timezone.now()
+        return ((self.start_datetime <= now)
+                and (now <= self.end_datetime)
+                and self.is_published())
 
 
 class Question(models.Model):
