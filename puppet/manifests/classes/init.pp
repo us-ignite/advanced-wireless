@@ -1,6 +1,6 @@
 # Commands to run before all others in puppet.
 class init {
-  $packages = ["python-software-properties", "build-essential"]
+  $packages = ["python-software-properties", "build-essential", "libffi-dev"]
   group { "puppet":
     ensure => "present",
   }
