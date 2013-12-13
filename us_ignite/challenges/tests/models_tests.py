@@ -114,6 +114,10 @@ class TestChallengeModel(TestCase):
         instance = fixtures.get_challenge(**data)
         eq_(instance.is_open(), False)
 
+    def test_get_absolute_url(self):
+        user = get_user('us-ignite')
+        instance = fixtures.get_challenge(user=user)
+        eq_(instance.get_absolute_url(), '/challenges/%s/' % instance.slug)
 
 
 class TestQuestionModel(TestCase):

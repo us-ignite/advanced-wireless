@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 
@@ -41,6 +42,9 @@ class Challenge(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('challenge_detail', args=[self.slug])
 
     def is_published(self):
         return self.status == self.PUBLISHED
