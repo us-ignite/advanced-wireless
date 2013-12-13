@@ -143,3 +143,47 @@ class TestChallengeEntryView(TestCase):
             'question_id': question.id
         }]
         eq_(list(values), expected)
+
+
+patch_app_filter = patch('us_ignite.apps.models.Application.objects.filter')
+patch_entry_filter = patch('us_ignite.challenges.models.Entry.objects'
+                           '.get_entries_for_apps')
+
+
+class TestChallengeDetailViews(TestCase):
+
+    @patch('us_ignite.challenges.views.get_object_or_404')
+    def invalid_challenge_raises_404(self, mock_get):
+        mock_get.side_effect = Http404
+        request = utils.get_request(
+            'get', '/challenges/gigabit/', user=utils.get_anon_mock())
+        assert_raises(Http404, views.challenge_detail, request, 'gigabit')
+
+    @patch_app_filter
+    def challenge_detail_anon_request_is_valid(self, mock_filter):
+        request = utils.get_request(
+            'get', '/challenges/gigabit/', user=utils.get_anon_mock())
+        response = views.challenge_detail(request, 'gigabit')
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'challenges/object_detail.html')
+        eq_(sorted(response.context_data.keys()), ['entry_list', 'object'])
+        eq_(mock_filter.call_count, 0)
+
+    @patch_entry_filter
+    @patch_app_filter
+    @patch('us_ignite.challenges.views.get_object_or_404')
+    def challenge_detail_auth_user_is_valid(self, mock_get, mock_app, mock_entry):
+        mock_challenge = Mock(spec=Challenge)()
+        mock_get.return_value = mock_challenge
+        mock_app.return_value = ['app']
+        request = utils.get_request(
+            'get', '/challenges/gigabit/', user=utils.get_user_mock())
+        response = views.challenge_detail(request, 'gigabit')
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'challenges/object_detail.html')
+        eq_(sorted(response.context_data.keys()), ['entry_list', 'object'])
+        mock_get.assert_called_once_with(
+            Challenge.active, slug__exact='gigabit', status=Challenge.PUBLISHED)
+        mock_app.assert_called_once_with(
+            owner=request.user, status=Application.PUBLISHED)
+        mock_entry.assert_called_once_with(mock_challenge, ['app'])

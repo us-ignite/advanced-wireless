@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils import timezone
@@ -17,6 +18,23 @@ def challenge_list(request):
         'object_list': object_list,
     }
     return TemplateResponse(request, 'challenges/object_list.html', context)
+
+
+def challenge_detail(request, slug):
+    challenge = get_object_or_404(
+        Challenge.active, slug__exact=slug, status=Challenge.PUBLISHED)
+    entry_list = []
+    if request.user.is_authenticated():
+        application_list = Application.objects.filter(
+            owner=request.user, status=Application.PUBLISHED)
+        if application_list:
+            entry_list = Entry.objects.get_entries_for_apps(
+                challenge, application_list)
+    context = {
+        'object': challenge,
+        'entry_list': entry_list,
+    }
+    return TemplateResponse(request, 'challenges/object_detail.html', context)
 
 
 @login_required
