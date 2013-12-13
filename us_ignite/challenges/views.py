@@ -29,6 +29,8 @@ def challenge_entry(request, challenge_slug, app_slug):
     The ``owner`` of the ``Application`` can save the progress on the entry
     decide when it's ready to participate."""
     challenge = get_object_or_404(Challenge.active, slug__exact=challenge_slug)
+    if not challenge.is_open():
+        raise Http404
     application = get_object_or_404(
         Application.active, slug__exact=app_slug, owner=request.user,
         status=Application.PUBLISHED)
