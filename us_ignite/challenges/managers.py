@@ -1,5 +1,9 @@
+from collections import namedtuple
+
 from django.db import models
-from django.utils import timezone
+
+
+AppEntry = namedtuple('AppEntry', ['application', 'entry'])
 
 
 class ActiveChallengesManager(models.Manager):
@@ -26,3 +30,15 @@ class EntryManager(models.Manager):
         except self.model.DoesNotExist:
             entry = None
         return entry
+
+    def get_entries_for_apps(self, challenge, application_list):
+        ids = [a.id for a in application_list]
+        entries = self.get_query_set().filter(
+            challenge=challenge, application__id__in=ids)
+        entries_dict = {e.application_id: e for e in entries}
+        result = []
+        for app in application_list:
+            entry = entries_dict.get(app.id, None)
+            app_entry = AppEntry(application=app, entry=entry)
+            result.append(app_entry)
+        return result

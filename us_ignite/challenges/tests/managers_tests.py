@@ -5,6 +5,7 @@ from django.test import TestCase
 
 from us_ignite.apps.models import Application
 from us_ignite.apps.tests.fixtures import get_application
+from us_ignite.challenges.managers import AppEntry
 from us_ignite.challenges.models import Challenge, Question, Entry
 from us_ignite.challenges.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
@@ -24,8 +25,7 @@ class TestActiveChallengesManager(TestCase):
 
     def test_removed_challenge_is_not_returned(self):
         user = get_user('us-ignite')
-        instance = fixtures.get_challenge(
-            user=user, status=Challenge.REMOVED)
+        fixtures.get_challenge(user=user, status=Challenge.REMOVED)
         eq_(list(Challenge.active.all()), [])
 
 
@@ -61,3 +61,18 @@ class TestEntryManager(TestCase):
         entry = fixtures.get_entry(
             application, challenge=challenge, status=Entry.SUBMITTED)
         eq_(Entry.objects.get_entry_or_none(challenge, application), entry)
+
+    def test_get_entries_for_apps_returns_empty_entries(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        result = Entry.objects.get_entries_for_apps(challenge, [application])
+        eq_(result, [AppEntry(application=application, entry=None)])
+
+    def test_get_entries_for_apps_returns_entry(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(application, challenge=challenge)
+        result = Entry.objects.get_entries_for_apps(challenge, [application])
+        eq_(result, [AppEntry(application=application, entry=entry)])
