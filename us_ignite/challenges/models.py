@@ -109,6 +109,10 @@ class Entry(models.Model):
     def __unicode__(self):
         return u'Entry to %s for %s' % (self.application, self.challenge)
 
+    def get_absolute_url(self):
+        return reverse(
+            'entry_detail', args=[self.challenge.slug, self.application.slug])
+
     def is_draft(self):
         return self.status == self.DRAFT
 

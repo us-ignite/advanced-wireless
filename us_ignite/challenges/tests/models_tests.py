@@ -166,6 +166,15 @@ class TestEntryModel(TestCase):
         ok_(instance.created)
         ok_(instance.modified)
 
+    def test_get_absolute_url(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.SUBMITTED)
+        eq_(entry.get_absolute_url(),
+            '/challenges/%s/%s/' % (challenge.slug, application.slug))
+
     def test_instance_is_submitted(self):
         user = get_user('us-ignite')
         challenge = fixtures.get_challenge(user=user)
