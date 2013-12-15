@@ -226,6 +226,8 @@ ALLOWED_HOSTS = [
     'us-ignite.herokuapp.com',
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Cookie configuration:
 SESSION_COOKIE_HTTPONLY = True
 # Avoid embeding the app in an iframe X-Frame-Options:
