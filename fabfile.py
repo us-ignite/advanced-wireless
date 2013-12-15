@@ -15,7 +15,7 @@ DB_STRING = 'us_ignite'
 def production():
     """Connection details for the ``production`` app"""
     env.slug = 'production'
-    env.url = 'http://us-ignite.herokuapp.com/'
+    env.url = 'https://us-ignite.herokuapp.com/'
     env.app = 'us-ignite'
 
 
