@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Enter to {{ challenge.name }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Challenge: {{ challenge.name }}</h1>
+<p>{{ challenge.summary }}</p>
+
+<h2>Application: {{ application.name }}</h2>
+<p>{{ application.get_summary }}</p>
+
+{% for answer in answer_list %}
+<h3>{{ answer.question.question }}</h3>
+<p>{{ answer.answer }}</p>
+{% endfor%}
+
+{% endblock content %}

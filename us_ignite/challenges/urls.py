@@ -7,4 +7,6 @@ urlpatterns = patterns(
     url(r'^(?P<slug>[-\w]+)/$', 'challenge_detail', name='challenge_detail'),
     url(r'^(?P<challenge_slug>[-\w]+)/enter/(?P<app_slug>[-\w]+)/$',
         'challenge_entry', name='challenge_entry'),
+    url(r'^(?P<challenge_slug>[-\w]+)/(?P<app_slug>[-\w]+)/$',
+        'entry_detail', name='entry_detail'),
 )

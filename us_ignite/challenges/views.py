@@ -37,6 +37,27 @@ def challenge_detail(request, slug):
     return TemplateResponse(request, 'challenges/object_detail.html', context)
 
 
+def entry_detail(request, challenge_slug, app_slug):
+    """Detail of the ``Entry`` to a ``Challenge`` """
+    challenge = get_object_or_404(Challenge.active, slug__exact=challenge_slug)
+    application = get_object_or_404(
+        Application.active, slug__exact=app_slug, owner=request.user,
+        status=Application.PUBLISHED)
+    entry = Entry.objects.get_entry_or_none(challenge, application)
+    if not entry:
+        raise Http404
+    answer_list = (entry.entryanswer_set.select_related('question').all()
+                   .order_by('question__order'))
+    context = {
+        'challenge': challenge,
+        'application': application,
+        'entry': entry,
+        'answer_list': answer_list,
+    }
+    return TemplateResponse(
+        request, 'challenges/entry_detail.html', context)
+
+
 @login_required
 def challenge_entry(request, challenge_slug, app_slug):
     """Entry form for an ``Application`` for a given ``Challenge``.

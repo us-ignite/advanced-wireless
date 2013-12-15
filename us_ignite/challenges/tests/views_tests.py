@@ -187,3 +187,47 @@ class TestChallengeDetailViews(TestCase):
         mock_app.assert_called_once_with(
             owner=request.user, status=Application.PUBLISHED)
         mock_entry.assert_called_once_with(mock_challenge, ['app'])
+
+
+class TestEntryDetailView(TestCase):
+
+    @patch('us_ignite.challenges.views.get_object_or_404')
+    def test_invalid_challenge_raises_404(self, mock_get):
+        mock_get.side_effect = Http404
+        request = utils.get_request(
+            'get', '/challenges/gigabit/app/', user=utils.get_anon_mock())
+        assert_raises(Http404, views.entry_detail, request, 'gigabit', 'app')
+        mock_get.assert_called_once_with(
+            Challenge.active, slug__exact='gigabit')
+
+    @patch('us_ignite.challenges.views.get_object_or_404')
+    def test_invalid_application_raises_404(self, mock_get):
+        mock_get.side_effect = [Mock(spec=Challenge), Http404]
+        request = utils.get_request(
+            'get', '/challenges/gigabit/app/', user=utils.get_anon_mock())
+        assert_raises(Http404, views.entry_detail, request, 'gigabit', 'app')
+        mock_get.assert_any_call(
+            Application.active, slug__exact='app', owner=request.user,
+            status=Application.PUBLISHED)
+
+    @patch('us_ignite.challenges.models.Entry.objects.get_entry_or_none')
+    @patch('us_ignite.challenges.views.get_object_or_404')
+    def test_missing_entry_raises_404(self, mock_get, mock_entry):
+        mock_get.side_effect = [Mock(spec=Challenge), Mock(spec=Application)]
+        mock_entry.return_value = None
+        request = utils.get_request(
+            'get', '/challenges/gigabit/app/', user=utils.get_user_mock())
+        assert_raises(Http404, views.entry_detail, request, 'gigabit', 'app')
+
+    @patch('us_ignite.challenges.models.Entry.objects.get_entry_or_none')
+    @patch('us_ignite.challenges.views.get_object_or_404')
+    def test_entry_request_is_successful(self, mock_get, mock_entry):
+        mock_get.side_effect = [Mock(spec=Challenge), Mock(spec=Application)]
+        mock_entry.return_value = Mock(spec=Entry)()
+        request = utils.get_request(
+            'get', '/challenges/gigabit/app/', user=utils.get_user_mock())
+        response = views.entry_detail(request, 'gigabit', 'app')
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'challenges/entry_detail.html')
+        eq_(sorted(response.context_data.keys()),
+            sorted(['challenge', 'application', 'entry', 'answer_list']))
