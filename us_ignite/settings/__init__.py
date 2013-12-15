@@ -227,6 +227,9 @@ ALLOWED_HOSTS = [
 
 # Avoid embeding the app in an iframe X-Frame-Options
 X_FRAME_OPTIONS = 'DENY'
+# Cookie configuration:
+SESSION_COOKIE_HTTPONLY = True
+
 
 # Account settings:
 ACCOUNT_ACTIVATION_DAYS = 7
