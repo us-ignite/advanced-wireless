@@ -32,8 +32,12 @@ class dev {
     require => Class[postsql],
     project_path => $project_path;
   }
-  class { "nginx":
+  class { "certificates":
     require => Class[python],
+    server_name => $server_name;
+  }
+  class { "nginx":
+    require => Class[certificates],
     server_name => $server_name,
     project_name => $project_name,
     project_path => $project_path;
