@@ -89,7 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'djangosecure.middleware.SecurityMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'registration',
     'taggit',
     'geoposition',
+    'djangosecure',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',
@@ -225,10 +226,14 @@ ALLOWED_HOSTS = [
     'us-ignite.herokuapp.com',
 ]
 
-# Avoid embeding the app in an iframe X-Frame-Options
-X_FRAME_OPTIONS = 'DENY'
 # Cookie configuration:
 SESSION_COOKIE_HTTPONLY = True
+# Avoid embeding the app in an iframe X-Frame-Options:
+SECURE_FRAME_DENY = True
+# Browser should not guess content-type:
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# Enable browser XSS protections:
+SECURE_BROWSER_XSS_FILTER = True
 
 
 # Account settings:

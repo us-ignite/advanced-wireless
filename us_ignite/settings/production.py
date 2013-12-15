@@ -13,6 +13,10 @@ here = lambda *x: os.path.join(PROJECT_ROOT, '..', *x)
 
 SITE_URL = 'https://us-ignite.herokuapp.com'
 
+ALLOWED_HOSTS = [
+    'us-ignite.herokuapp.com',
+]
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = env('SECRET_KEY')
 
