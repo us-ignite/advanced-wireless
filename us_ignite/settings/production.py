@@ -17,6 +17,11 @@ ALLOWED_HOSTS = [
     'us-ignite.herokuapp.com',
 ]
 
+# HTTPS configuration:
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 60 * 5
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = env('SECRET_KEY')
 
