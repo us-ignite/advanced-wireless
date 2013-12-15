@@ -66,7 +66,12 @@ def challenge_entry(request, challenge_slug, app_slug):
     into a ``ChallengeForm``.
 
     The ``owner`` of the ``Application`` can save the progress on the entry
-    decide when it's ready to participate."""
+    decide when it's ready to participate.
+
+    Once the entry has been marked as ``SUBMITTED`` or has been
+    ``ACCEPTED`` the page shows the detail of the entry, unless withdrawn,
+    and the entry would require moderation again.
+    """
     challenge = get_object_or_404(Challenge.active, slug__exact=challenge_slug)
     if not challenge.is_open():
         raise Http404
@@ -75,9 +80,10 @@ def challenge_entry(request, challenge_slug, app_slug):
         status=Application.PUBLISHED)
     # Generate a form from the questions in the admin:
     ChallengeForm = forms.get_challenge_form(challenge)
-    # TODO: Once the entry has been marked as SUBMITTED or has been
-    # ACCEPTED the page shows the detail of the entry, unless withdrawn,
-    # and the entry would require moderation as well.
+    entry = Entry.objects.get_entry_or_none(challenge, application)
+    # Entry has been submitted, approved or rejected. Show detail:
+    if entry and not entry.is_draft():
+        return redirect(entry.get_absolute_url())
     if request.method == 'POST':
         # The entry is only created on a POST:
         entry, is_new = Entry.objects.get_or_create(
@@ -93,7 +99,6 @@ def challenge_entry(request, challenge_slug, app_slug):
                 'challenge_entry', challenge_slug=challenge.slug,
                 app_slug=application.slug)
     else:
-        entry = Entry.objects.get_entry_or_none(challenge, application)
         args = [forms.get_challenge_initial_data(entry)] if entry else []
         form = ChallengeForm(*args)
     context = {

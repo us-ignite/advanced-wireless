@@ -150,7 +150,7 @@ patch_entry_filter = patch('us_ignite.challenges.models.Entry.objects'
                            '.get_entries_for_apps')
 
 
-class TestChallengeDetailViews(TestCase):
+class TestChallengeDetailView(TestCase):
 
     @patch('us_ignite.challenges.views.get_object_or_404')
     def invalid_challenge_raises_404(self, mock_get):
