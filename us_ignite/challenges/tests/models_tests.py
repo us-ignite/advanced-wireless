@@ -36,6 +36,8 @@ class TestChallengeModel(TestCase):
         eq_(instance.name, 'Gigabit challenge')
         eq_(instance.slug, 'gigabit-challenge')
         eq_(instance.status, Challenge.DRAFT)
+        eq_(instance.url, '')
+        eq_(instance.is_external, False)
         eq_(instance.start_datetime, start_date)
         eq_(instance.end_datetime, end_date)
         eq_(instance.summary, 'Summary')

@@ -23,6 +23,10 @@ class Challenge(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
+    url = models.URLField(blank=True)
+    is_external = models.BooleanField(
+        default=False, help_text=u'Determines if the challenge is to be '
+        'held in a different Site.')
     summary = models.TextField()
     description = models.TextField()
     image = models.ImageField(upload_to="challenge", blank=True)
