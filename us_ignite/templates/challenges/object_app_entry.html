@@ -1,9 +1,0 @@
-<h3>{{ application.name }}</h3>
-<p>{{ application.get_summary }}</p>
-<a href="{% url "challenge_entry" object.slug application.slug %}">
-  {% if entry %}
-  View this challenge entry.
-  {% else %}
-  Enter {{ application.name }} to this challenge.
-  {% endif %}
-</a>
