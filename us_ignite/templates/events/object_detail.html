@@ -1,23 +1,19 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load thumbnail %}
 
 {% block title %}Event: {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block content %}
 <h1>Event: {{ object.name }}{% if object.is_draft %} (DRAFT){% endif %}</h1>
 
-{% if object.image %}
-<img src="{{ object.image.url" alt="" />
+
+{% if object.image  %}
+<img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
 {% endif %}
 
 <ul>
   <li><a href="{{ object.website }}">Website</a></li>
   <li>Start: {{ object.start_datetime }}</li>
-  {% if object.end_datetime %}
-  <li>End: {{ object.end_datetime }}</li>
-  <li>
-    Export to <a href="{{ object.get_google_calendar_url }}" target="_blank">Google calendar</a>
-  </li>
-  {% endif %}
+  {% if object.end_datetime %}<li>End: {{ object.end_datetime }}</li>{% endif %}
   <li><a href="{{ object.get_ics_url }}">Download ics file</a></li>
   <li>Created by {% include "includes/display_name.html" with user=object.user %} on {{ object.created }}</li>
   {% if is_owner %}

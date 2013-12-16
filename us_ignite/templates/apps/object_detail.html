@@ -58,7 +58,7 @@
 <h2>Extra images</h2>
 <ul>
   {% for image in image_list %}
-  <li><img src="{{ image.image.url}}" alt="{{ image.name }}" title="{{ image.name }}"/></li>
+  <li><img src="{% thumbnail image.image 500x0 %}" alt="{{ image.name }}" title="{{ image.name }}"/></li>
   {% endfor%}
 </ul>
 {% endif %}

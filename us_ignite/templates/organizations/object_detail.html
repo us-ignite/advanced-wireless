@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load thumbnail %}
 
 {% block title %}Organization: {{ object.name }} {{ block.super }}{% endblock title %}
 
@@ -17,7 +17,7 @@
 {{ object.bio|linebreaks}}
 {% endif %}
 
-{% if object.image %}<img src="{{ object.image.url }}" alt="" />{% endif %}
+{% if object.image %}<img src="{% thumbnail object.image 500x0 %}" alt="" />{% endif %}
 
 {% if member_list %}
 <h2>Members</h2>

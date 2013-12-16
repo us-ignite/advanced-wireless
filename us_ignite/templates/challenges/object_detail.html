@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load thumbnail %}
 
 {% block title %}{{ object.name }}{% endblock title %}
 
@@ -16,7 +16,7 @@
 
 <p>{{ object.summary }}</p>
 
-{% if object.image %}<img src="{{ object.image.url }}" alt="" />{% endif %}
+{% if object.image %}<img src="{% thumbnail object.image 500x0 %}" alt="" />{% endif %}
 
 <h2>Description</h2>
 {{ object.description|linebreaks }}
