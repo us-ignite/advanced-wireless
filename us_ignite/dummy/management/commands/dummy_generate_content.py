@@ -5,12 +5,13 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from us_ignite.profiles.models import Profile
-from us_ignite.apps.models import (Application, Domain, Feature, Page,
-                                   PageApplication)
-from us_ignite.hubs.models import Hub
-from us_ignite.events.models import Event
+from us_ignite.apps.models import (
+    Application, Domain, Feature, Page, PageApplication)
+from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images
+from us_ignite.events.models import Event
+from us_ignite.hubs.models import Hub
+from us_ignite.profiles.models import Profile
 
 
 class Command(BaseCommand):
@@ -37,6 +38,7 @@ class Command(BaseCommand):
         return choice(self.feature_list)
 
     def _choice(self, *args):
+        """Choice between the args and an empty string."""
         return choice([''] + list(args))
 
     def _create_app(self):
@@ -44,8 +46,8 @@ class Command(BaseCommand):
             'name': text.random_words(3),
             'stage': choice(Application.STAGE_CHOICES)[0],
             'status': choice(Application.STATUS_CHOICES)[0],
-            'website': 'http://%s/' % text.random_words(1),
-            'summary': self._choice(text.random_paragraphs(1)),
+            'website': u'http://%s/' % text.random_words(1),
+            'summary': self._choice(text.random_words(20)),
             'impact_statement': text.random_words(20),
             'description': text.random_paragraphs(4),
             'roadmap': self._choice(text.random_words(30)),
@@ -55,7 +57,7 @@ class Command(BaseCommand):
             'domain': self._get_domain(),
             'is_featured': choice([True, False]),
             'owner': self._get_user(),
-            'image': images.random_image('%s.png' % text.random_words(1)),
+            'image': images.random_image(u'%s.png' % text.random_words(1)),
         }
         return Application.objects.create(**data)
 
@@ -81,8 +83,8 @@ class Command(BaseCommand):
             'guardian': choice([None, self._get_user()]),
             'summary': text.random_words(10),
             'description': text.random_paragraphs(3),
-            'image': images.random_image('%s.png' % text.random_words(1)),
-            'website': 'http://%s/' % text.random_words(1),
+            'image': images.random_image(u'%s.png' % text.random_words(1)),
+            'website': u'http://%s/' % text.random_words(1),
             'status': choice(Hub.STATUS_CHOICES)[0],
             'is_featured': choice([True, False]),
         }
@@ -97,7 +99,7 @@ class Command(BaseCommand):
         data = {
             'name': text.random_words(5),
             'status': choice(Event.STATUS_CHOICES)[0],
-            'image': images.random_image('%s.png' % text.random_words(1)),
+            'image': images.random_image(u'%s.png' % text.random_words(1)),
             'start_datetime': start_date,
             'end_datetime': choice([None, end_date]),
             'venue': text.random_words(7),
@@ -109,6 +111,48 @@ class Command(BaseCommand):
         for i in range(0, 3):
             event.hubs.add(self._get_hub())
         return event
+
+    def _create_challenge(self):
+        start_date = self._get_start_date()
+        end_date = start_date + timedelta(days=15)
+        data = {
+            'name': text.random_words(5),
+            'status': choice(Challenge.STATUS_CHOICES)[0],
+            'start_datetime': start_date,
+            'end_datetime': end_date,
+            'url': u'http://%s/' % text.random_words(1),
+            'is_external': choice([True, False]),
+            'summary': text.random_paragraphs(1),
+            'description': text.random_paragraphs(3),
+            'image': images.random_image(u'%s.png' % text.random_words(1)),
+            'user': self._get_user(),
+        }
+        challenge = Challenge.objects.create(**data)
+        for i in range(0, 10):
+            self._create_question(challenge, i)
+        return challenge
+
+    def _create_question(self, challenge, order=0):
+        data = {
+            'challenge': challenge,
+            'question': u'%s?' % text.random_words(7),
+            'is_required': choice([True, False]),
+            'order': order,
+        }
+        return Question.objects.create(**data)
+
+    def _create_entries(self):
+        apps = Application.objects.all().order_by('?')
+        for challenge in Challenge.objects.all():
+            for i in range(0, choice(range(1, 10))):
+                data = {
+                    'challenge': challenge,
+                    'application': apps.pop(),
+                    'status': choice(Entry.STATUS_CHOICES)[0],
+                    'notes': self._choice(text.random_words(10)),
+                }
+                Entry.objects.create(**data)
+        return True
 
     def handle(self, *args, **options):
         message = ('This command will IRREVERSIBLE poison the existing '
@@ -129,6 +173,9 @@ class Command(BaseCommand):
         print u'Generating hubs.'
         for i in range(1, 10):
             self._create_hub()
-        print u'Generate events'
-        for i in range(1, 40):
+        print u'Generate events.'
+        for i in range(1, 10):
             self._create_event()
+        print u'Generate challenges.'
+        for i in range(1, 10):
+            self._create_challenge()
