@@ -10,6 +10,7 @@
 <p>{{ application.get_summary }}</p>
 
 <h2>Entry form:</h2>
+<p>Once the application has been submitted, if edited again will need to be submitted agan for consideration.</p>
 <form method="post" action="{% url 'challenge_entry' challenge.slug application.slug%}">
   {{ form.as_p }}
   <p>
