@@ -5,6 +5,7 @@
 {% block content %}
 <h1>Challenge: {{ challenge.name }}</h1>
 <ul>
+  <li>Status: {{ entry.get_status_display }}</li>
   <li>Entered on {{ entry.created }}</li>
   <li>
     <form method="post" action="{{ entry.get_withdraw_url }}">
@@ -22,6 +23,7 @@
 <h2>Application: {{ application.name }}</h2>
 <p>{{ application.get_summary }}</p>
 
+<h2>Challenge entry</h2>
 {% for answer in answer_list %}
 <h3>{{ answer.question.question }}</h3>
 <p>{{ answer.answer }}</p>
