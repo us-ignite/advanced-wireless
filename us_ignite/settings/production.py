@@ -29,6 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 # Remote storage settings:
 STATICFILES_STORAGE = 'us_ignite.common.storage.StaticS3Storage'
 DEFAULT_FILE_STORAGE = 'us_ignite.common.storage.MediaS3Storage'
+THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')

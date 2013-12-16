@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'taggit',
     'geoposition',
     'djangosecure',
+    'easy_thumbnails',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',
@@ -251,7 +252,6 @@ PAGINATOR_PAGE_SIZE = 10
 # Uplaoded file restrictions:
 MAX_UPLOAD_SIZE = int(1024 * 1024 * 5)   # 5MB
 
-
 DATETIME_INPUT_FORMATS = (
     '%Y-%m-%d %H:%M:%S',    # '2006-10-25 14:30:59'
     '%Y-%m-%d %H:%M',        # '2006-10-25 14:30'
@@ -264,3 +264,6 @@ DATETIME_INPUT_FORMATS = (
     '%m/%d/%y',
 )
 
+# Thumbnail format:
+THUMBNAIL_EXTENSION = 'png'
+THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
