@@ -7,6 +7,9 @@
 
 <ul>
   <li>Created by {% include "includes/display_name.html" with user=object.owner %}</li>
+  {% if object.organization %}
+  <li>Organization: <a href="{{ object.organization.get_absolute_url }}">{{ object.organization.name }}</a></li>
+  {% endif %}
   <li>Starts on {{ object.start_datetime }}</li>
   <li>Ends on {{ object.end_datetime }}</li>
 </ul>
