@@ -15,8 +15,10 @@ class ApplicationImageInline(admin.TabularInline):
 
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'stage', 'status')
-    search_fields = ['name', 'slug', 'short_description', 'description']
-    list_filter = ['stage', 'status', 'created']
+    search_fields = ['name', 'slug', 'summary', 'impact_statement',
+                     'description', 'roadmap', 'assistance',
+                     'team_description', 'notes', 'acknowledgments']
+    list_filter = ['stage', 'domain__name', 'status', 'created',]
     date_hierarchy = 'created'
     inlines = [ApplicationURLInline, ApplicationImageInline]
 
