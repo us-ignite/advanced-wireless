@@ -11,6 +11,7 @@ from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub
+from us_ignite.organizations.models import Organization
 from us_ignite.profiles.models import Profile
 
 
@@ -154,6 +155,15 @@ class Command(BaseCommand):
                 Entry.objects.create(**data)
         return True
 
+    def _create_organization(self):
+        data = {
+            'name': text.random_words(3),
+            'status': choice(Organization.STATUS_CHOICES)[0],
+            'bio': self._choice(text.random_words(30)),
+            'image': images.random_image(u'%s.png' % text.random_words(1)),
+        }
+        return Organization.objects.create(**data)
+
     def handle(self, *args, **options):
         message = ('This command will IRREVERSIBLE poison the existing '
                    'database by adding dummy content and images. '
@@ -164,6 +174,9 @@ class Command(BaseCommand):
             exit(0)
         print u'Adding users'
         self._create_users()
+        print u'Adding organizations'
+        for i in range(1, 5):
+            self._create_organization()
         print u'Generating applications.'
         for i in range(1, 20):
             self._create_app()
