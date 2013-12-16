@@ -1,0 +1,15 @@
+<tr>
+  <td>
+    {{ application.name }}
+  </td>
+  <td>
+    {% if entry %}{{ entry.get_status_display }}{% else %}Not participating{% endif %}
+  </td>
+  <td>
+    {% if entry %}
+    <a href="{{ entry.get_absolute_url }}">View entry</a>
+    {% else %}
+    <a href="{% url "challenge_entry" object.slug application.slug %}">Enter challenge</a>
+    {% endif %}
+  </td>
+</tr>
