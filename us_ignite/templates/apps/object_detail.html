@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load apps_urls %}
+{% extends "base.html" %}{% load apps_urls thumbnail %}
 
 {% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
 
@@ -51,7 +51,7 @@
 
 
 {% if object.image  %}
-<img src="{{ object.image.url }}" alt="" title="{{ object.name }}"/>
+<img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
 {% endif %}
 
 {% if image_list %}
