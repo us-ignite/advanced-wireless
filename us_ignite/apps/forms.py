@@ -12,7 +12,6 @@ def _get_status_choices():
     available_status = [
         Application.PUBLISHED,
         Application.DRAFT,
-        Application.PRIVATE,
     ]
     is_valid_status = lambda x: x[0] in available_status
     return filter(is_valid_status, Application.STATUS_CHOICES)

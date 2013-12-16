@@ -83,12 +83,10 @@ class Application(ApplicationBase):
     PUBLISHED = 1
     DRAFT = 2
     REMOVED = 3
-    PRIVATE = 4
     STATUS_CHOICES = (
         (PUBLISHED, 'Published'),
         (DRAFT, 'Draft'),
         (REMOVED, 'Removed'),
-        (PRIVATE, 'Private'),
     )
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
