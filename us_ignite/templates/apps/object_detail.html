@@ -7,7 +7,7 @@
 
 <ul>
   <li>Stage: {{ object.get_stage_display }}</li>
-  {% if object.website %}<li>Website: {{ object.website }}</li>{% endif %}
+  {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
   <li>Created by {% include "includes/display_name.html" with user=object.owner %} on {{ object.created }}</li>
   {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
   {% if is_owner %}
