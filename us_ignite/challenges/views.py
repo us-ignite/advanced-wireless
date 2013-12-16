@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.views.decorators.http import require_http_methods
 from django.utils import timezone
 
 from us_ignite.apps.models import Application
@@ -56,6 +57,17 @@ def entry_detail(request, challenge_slug, app_slug):
     }
     return TemplateResponse(
         request, 'challenges/entry_detail.html', context)
+
+
+@require_http_methods(["POST"])
+@login_required
+def entry_withdraw(request, pk):
+    """Removes the entry from participating in a competition."""
+    entry = get_object_or_404(Entry, pk=pk, application__owner=request.user)
+    entry.status = Entry.DRAFT
+    entry.save()
+    messages.success(request, 'Entry has been withdrawn.')
+    return redirect(entry.get_edit_url())
 
 
 @login_required

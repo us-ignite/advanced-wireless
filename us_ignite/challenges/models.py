@@ -110,8 +110,15 @@ class Entry(models.Model):
         return u'Entry to %s for %s' % (self.application, self.challenge)
 
     def get_absolute_url(self):
-        return reverse(
-            'entry_detail', args=[self.challenge.slug, self.application.slug])
+        return reverse('entry_detail',
+                       args=[self.challenge.slug, self.application.slug])
+
+    def get_edit_url(self):
+        return reverse('challenge_entry',
+                       args=[self.challenge.slug, self.application.slug])
+
+    def get_withdraw_url(self):
+        return reverse('entry_withdraw', args=[self.id])
 
     def is_draft(self):
         return self.status == self.DRAFT
