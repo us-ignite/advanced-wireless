@@ -9,9 +9,11 @@ class QuestionInlineAdmin(admin.TabularInline):
 
 
 class ChallengeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'status', 'start_datetime', 'end_datetime')
+    list_display = (
+        'name', 'slug', 'status', 'is_external',
+        'start_datetime', 'end_datetime')
     search_fields = ('name', 'slug', 'summary', 'description')
-    list_filter = ('status', 'start_datetime', 'end_datetime')
+    list_filter = ('status', 'is_external', 'start_datetime', 'end_datetime')
     date_hierarchy = 'start_datetime'
     inlines = [QuestionInlineAdmin]
 
