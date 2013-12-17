@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Contact {{ object.display_name }} - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Contact user: {{ object.display_name }}</h1>
+
+<p>This will form will be sent directly to the user with your account details. The user will be able to reply directly to you.</p>
+
+<form method="post" action="{{ object.get_contact_url }}">
+  {{ form.as_p }}
+  <p><button type="submit">Contact</button>{% csrf_token %}</p>
+</form>
+
+{% endblock content %}

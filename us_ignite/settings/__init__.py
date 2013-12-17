@@ -156,6 +156,7 @@ INSTALLED_APPS = (
     'us_ignite.events',
     'us_ignite.organizations',
     'us_ignite.challenges',
+    'us_ignite.relay',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -35,6 +35,9 @@ class Profile(models.Model):
     def get_delete_url(self):
         return reverse('user_profile_delete')
 
+    def get_contact_url(self):
+        return reverse('contact_user', args=[self.slug])
+
     @property
     def full_name(self):
         return self.name
