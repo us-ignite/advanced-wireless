@@ -9,6 +9,7 @@
 
 <ul>
   <li>Member since: {{ object.created }}</li>
+  <li><a href="{{ object.get_contact_url }}">Contact this member</a></li>
   {% if request.user == object.user %}
   <li><a href="{% url 'user_profile' %}">Edit user profile</a></li>
   {% endif %}
