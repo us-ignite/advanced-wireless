@@ -69,10 +69,19 @@ class ProfileLink(models.Model):
         return self.url
 
 
-# Welcome email when a new account is created via Mozilla Persona:
+# Mozilla persona flow:
+# Welcome email when a new account is created:
 user_created.connect(
     communications.send_welcome_email, dispatch_uid='browserid_welcome_email')
+# Create a profile on new account creation:
+user_created.connect(
+    Profile.active.get_or_create_for_user,
+    dispatch_uid='browserid_create_profile')
 
-# Welcome email when a user has been activated via US Ignite registration:
+# US Ignite registration flow:
+# Welcome email when new account is created:
 user_activated.connect(
     communications.send_welcome_email, dispatch_uid='registration_welcome_email')
+user_activated.connect(
+    Profile.active.get_or_create_for_user,
+    dispatch_uid='registration_create_profile')
