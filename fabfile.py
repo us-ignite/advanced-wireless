@@ -165,13 +165,6 @@ def reset_local_db():
         exit(1)
 
 
-@only_inside_vm
-def docs():
-    """Generates Sphinx documentation."""
-    with lcd(here('docs')):
-        local('make html')
-
-
 @only_outside_vm
 def load_fixtures():
     confirmation = red('You are about to IRREVERSIBLY add fixtures to the'
