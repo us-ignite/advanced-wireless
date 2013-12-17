@@ -43,6 +43,10 @@ class Profile(models.Model):
     def display_name(self):
         return self.name if self.name else u'US Ignite user'
 
+    @property
+    def display_email(self):
+        return u'%s <%s>' % (self.display_name, self.user.email)
+
     def get_gravatar_url(self, size=100):
         """Determines gravatar icon url"""
         user_hash = hashlib.md5(self.user.email).hexdigest()

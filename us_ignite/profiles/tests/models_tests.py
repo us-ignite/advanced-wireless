@@ -42,6 +42,11 @@ class TestProfileModel(TestCase):
         profile = fixtures.get_profile(user=user)
         eq_(profile.display_name, u'US Ignite user')
 
+    def test_display_email(self):
+        user = fixtures.get_user('john', email='info@us-ignite.org')
+        profile = fixtures.get_profile(user=user, name='john')
+        eq_(profile.display_email, u'john <info@us-ignite.org>')
+
 
 class TestProfileLinkModel(TestCase):
 
