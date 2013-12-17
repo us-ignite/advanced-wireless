@@ -114,7 +114,7 @@ class HubActivity(models.Model):
     modified = ModificationDateTimeField()
 
     class Meta:
-        verbose_name_plural = 'Hub Activities'
+        verbose_name_plural = 'hub activities'
         ordering = ('-created', )
 
     def __unicode__(self):

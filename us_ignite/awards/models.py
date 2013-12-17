@@ -21,3 +21,13 @@ class ApplicationAward(models.Model):
 
     def __unicode__(self):
         return u'Award %s for %s' % (self.award, self.application)
+
+
+class HubAward(models.Model):
+    """An award given to an application."""
+    award = models.ForeignKey('awards.Award')
+    hub = models.ForeignKey('hubs.Hub')
+    created = CreationDateTimeField()
+
+    def __unicode__(self):
+        return u'Award %s for %s' % (self.award, self.hub)
