@@ -188,6 +188,7 @@ class TestApplicationMembership(TestCase):
         instance = models.ApplicationMembership.objects.create(**data)
         eq_(instance.user, member)
         eq_(instance.application, application)
+        eq_(instance.can_edit, False)
         ok_(instance.created)
 
 

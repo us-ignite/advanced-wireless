@@ -156,6 +156,7 @@ class Application(ApplicationBase):
 class ApplicationMembership(models.Model):
     user = models.ForeignKey('auth.User')
     application = models.ForeignKey('apps.Application')
+    can_edit = models.BooleanField(default=False)
     created = CreationDateTimeField()
 
     class Meta:
