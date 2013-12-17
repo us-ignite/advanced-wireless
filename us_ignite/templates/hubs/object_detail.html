@@ -88,6 +88,13 @@
 <p>No recent activity available.</p>
 {% endif %}
 
+{% if award_list %}
+<h2>Awards</h2>
+<ul>
+  {% for award in award_list %}<li>{{ award.award.name }}</li>{% endfor%}
+</ul>
+{% endif %}
+
 
 
 {% endblock content %}

@@ -51,6 +51,8 @@ def hub_detail(request, slug):
     activity_list = (instance.hubactivity_set
                      .select_related('user').all()[:20])
     event_list = Event.published.get_upcoming(hubs=instance)[:5]
+    award_list = (instance.hubaward_set
+                  .select_related('award').all())
     context = {
         'object': instance,
         'feature_list': instance.features.all(),
@@ -59,6 +61,7 @@ def hub_detail(request, slug):
         'is_guardian': instance.is_guardian(request.user),
         'activity_list': activity_list,
         'event_list': event_list,
+        'award_list': award_list,
     }
     return TemplateResponse(request, 'hubs/object_detail.html', context)
 
