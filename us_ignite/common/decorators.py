@@ -1,7 +1,9 @@
+import hashlib
 import functools
 
 from django.contrib.auth.views import redirect_to_login
-from django.http import HttpResponseRedirect
+from django.core.cache import cache
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template.response import TemplateResponse
 
 
@@ -60,3 +62,60 @@ def not_auth_required(function):
             return function(request, *args, **kwargs)
         return HttpResponseRedirect('/')
     return wrapper
+
+
+def get_request_key(request):
+    """Determines the most suitable key to be used to throttle from a request.
+
+    - Authenticated user ID.
+    - ``HTTP_X_FORWARDED_FOR`` header.
+    - ``X_FORWARDED_FOR`` header.
+    - ``REMOTE_ADDR`` header.
+    """
+    if request.user.is_authenticated():
+        prefix = 'user.%s' % request.user.pk
+    else:
+        prefix = (request.META.get('HTTP_X_FORWARDED_FOR')
+                  or request.META.get('X_FORWARDED_FOR')
+                  or request.META.get('REMOTE_ADDR')
+                  or 'NO-ADDR')
+    return hashlib.md5('%s.%s' % (prefix, request.path_info)).hexdigest()
+
+
+def throttle_view(methods=None, duration=15, prefix=''):
+    """Decorator that throttles the specified methods ``POST`` and ``GET``
+    by default, uses as value:
+
+    - Authenticated user ID.
+    - ``HTTP_X_FORWARDED_FOR`` header.
+    - ``X_FORWARDED_FOR`` header.
+    - Or ``REMOTE_ADDR`` header
+
+    Also accepts a prefix for cache invalidation.
+
+    Usage:
+
+    - Throotle with the ``POST`` method by 30 seconds
+
+    @throttle_view(methods=['POST'], duration=30, prefix='FOO')
+
+    - Throotle with the default values
+
+    @throotle_view()
+    """
+    def decorator(function):
+        @functools.wraps(function)
+        def inner(request, *args, **kwargs):
+            throttled_methods = methods if methods else ['POST', 'GET']
+            if request.method in throttled_methods:
+                key = '%s%s' % (prefix, get_request_key(request))
+                if cache.get(key):
+                    response = HttpResponse('Please try again later.')
+                    response.status_code = 503
+                    response['Retry-After'] = duration
+                    return response
+                else:
+                    cache.set(key, True, duration)
+            return function(request, *args, **kwargs)
+        return inner
+    return decorator

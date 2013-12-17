@@ -1,8 +1,8 @@
 from django.test import client, TestCase
 from django.contrib.auth.models import Group, User
 
-from mock import Mock
-from nose.tools import eq_, ok_, raises
+from mock import Mock, patch
+from nose.tools import eq_, raises
 
 from us_ignite.common import decorators
 from us_ignite.common.tests import utils
@@ -34,8 +34,7 @@ class TestGroupRequiredDecorator(TestCase):
 
     @raises(TypeError)
     def test_decorator_missing_group_list_raises_exception(self):
-        request = self.factory.get('/')
-        view = decorators.group_required()(dummy_view)
+        decorators.group_required()(dummy_view)
 
     def test_decorator_require_authenticated_user(self):
         request = self.factory.get('/custom-url/')
@@ -103,3 +102,102 @@ class TestNonAuthRequired(TestCase):
         view = decorators.not_auth_required(dummy_view)
         response = view(request, 'OK1')
         eq_(response, 'OK1')
+
+
+class ThottleDecoratorTest(TestCase):
+
+    def setUp(self):
+        # key is a mk5 key, determined between the remote ip and
+        # path from the request
+        self.key = '8243f83255259f10db07a5c781f7c3ab'
+        self.factory = client.RequestFactory()
+        kwargs = {'HTTP_X_FORWARDED_FOR': '127.0.0.1'}
+        self.request = self.factory.get('/', **kwargs)
+        self.request.user = utils.get_anon_mock()
+
+    @patch('django.core.cache.cache.set', return_value=True)
+    @patch('django.core.cache.cache.get', return_value=False)
+    def test_view_not_in_cache(self, cache_get, cache_set):
+        decorator = decorators.throttle_view(methods=['GET'], duration=30)
+        mocked = decorator(dummy_view)
+        response = mocked(self.request)
+        cache_get.assert_called_with(self.key)
+        cache_set.assert_called_with(self.key, True, 30)
+        eq_(response, 'ok')
+
+    @patch('django.core.cache.cache.set', return_value=True)
+    @patch('django.core.cache.cache.get', return_value=True)
+    def test_view_in_cache(self, cache_get, cache_set):
+        decorator = decorators.throttle_view(methods=['GET'], duration=30)
+        mocked = decorator(dummy_view)
+        response = mocked(self.request)
+        cache_get.assert_called_with(self.key)
+        eq_(cache_set.called, False)
+        eq_(response.status_code, 503)
+        eq_(response['Retry-After'], '30')
+
+    @patch('django.core.cache.cache.set', return_value=True)
+    @patch('django.core.cache.cache.get', return_value=False)
+    def test_other_method_not_in_cache(self, cache_get, cache_set):
+        decorator = decorators.throttle_view(
+            methods=['POST', 'PUT'], duration=30)
+        mocked = decorator(dummy_view)
+        response = mocked(self.request)
+        eq_(cache_get.called, False)
+        eq_(cache_set.called, False)
+        eq_(response, 'ok')
+
+    @patch('django.core.cache.cache.set', return_value=True)
+    @patch('django.core.cache.cache.get', return_value=True)
+    def test_other_method_in_cache(self, cache_get, cache_set):
+        decorator = decorators.throttle_view(
+            methods=['POST', 'PUT'], duration=30)
+        mocked = decorator(dummy_view)
+        response = mocked(self.request)
+        eq_(cache_get.called, False)
+        eq_(cache_set.called, False)
+        eq_(response, 'ok')
+
+    @patch('django.core.cache.cache.set', return_value=True)
+    @patch('django.core.cache.cache.get', return_value=True)
+    def test_prefix_is_used(self, cache_get, cache_set):
+        decorator = decorators.throttle_view(
+            methods=['GET'], duration=30, prefix='FOO')
+        mocked = decorator(dummy_view)
+        mocked(self.request)
+        key = 'FOO%s' % self.key
+        cache_get.assert_called_with(key)
+        eq_(cache_set.called, False)
+
+
+class TestGetRequestKey(TestCase):
+
+    def test_user_id_is_used(self):
+        user = utils.get_user_mock()
+        user.pk = 4
+        request = utils.get_request('get', '/foo/', user=user)
+        key = decorators.get_request_key(request)
+        eq_(key, '70e69f28d62ccfea7e6e9d0783bdd8d3')
+
+    def test_http_x_forwarded_for_is_used(self):
+        request = utils.get_request('get', '/foo/', user=utils.get_anon_mock())
+        request.META['HTTP_X_FORWARDED_FOR'] = '8.8.8.8'
+        key = decorators.get_request_key(request)
+        eq_(key, 'f1327cab63da54e1dcdf5e43eca03a4a')
+
+    def test_x_forwarded_for_is_used(self):
+        request = utils.get_request('get', '/foo/', user=utils.get_anon_mock())
+        request.META['X_FORWARDED_FOR'] = '8.8.8.8'
+        key = decorators.get_request_key(request)
+        eq_(key, 'f1327cab63da54e1dcdf5e43eca03a4a')
+
+    def test_remote_addr_is_used(self):
+        request = utils.get_request('get', '/foo/', user=utils.get_anon_mock())
+        request.META['REMOTE_ADDR'] = '8.8.8.8'
+        key = decorators.get_request_key(request)
+        eq_(key, 'f1327cab63da54e1dcdf5e43eca03a4a')
+
+    def test_fallback_is_used(self):
+        request = utils.get_request('get', '/foo/', user=utils.get_anon_mock())
+        key = decorators.get_request_key(request)
+        eq_(key, '7e0c041b0a5b439e3c97b07eeffac326')
