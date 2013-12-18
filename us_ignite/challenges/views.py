@@ -38,6 +38,7 @@ def challenge_detail(request, slug):
     return TemplateResponse(request, 'challenges/object_detail.html', context)
 
 
+@login_required
 def entry_detail(request, challenge_slug, app_slug):
     """Detail of the ``Entry`` to a ``Challenge`` """
     challenge = get_object_or_404(Challenge.active, slug__exact=challenge_slug)

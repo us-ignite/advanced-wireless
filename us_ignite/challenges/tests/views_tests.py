@@ -191,11 +191,19 @@ class TestChallengeDetailView(TestCase):
 
 class TestEntryDetailView(TestCase):
 
+    def test_entry_detail_requires_authentication(self):
+        request = utils.get_request(
+            'get', '/challenges/gigabit/app/', user=utils.get_anon_mock())
+        response = views.entry_detail(request, 'gigabit', 'app')
+        eq_(response.status_code, 302)
+        eq_(response['Location'],
+            utils.get_login_url('/challenges/gigabit/app/'))
+
     @patch('us_ignite.challenges.views.get_object_or_404')
     def test_invalid_challenge_raises_404(self, mock_get):
         mock_get.side_effect = Http404
         request = utils.get_request(
-            'get', '/challenges/gigabit/app/', user=utils.get_anon_mock())
+            'get', '/challenges/gigabit/app/', user=utils.get_user_mock())
         assert_raises(Http404, views.entry_detail, request, 'gigabit', 'app')
         mock_get.assert_called_once_with(
             Challenge.active, slug__exact='gigabit')
@@ -204,7 +212,7 @@ class TestEntryDetailView(TestCase):
     def test_invalid_application_raises_404(self, mock_get):
         mock_get.side_effect = [Mock(spec=Challenge), Http404]
         request = utils.get_request(
-            'get', '/challenges/gigabit/app/', user=utils.get_anon_mock())
+            'get', '/challenges/gigabit/app/', user=utils.get_user_mock())
         assert_raises(Http404, views.entry_detail, request, 'gigabit', 'app')
         mock_get.assert_any_call(
             Application.active, slug__exact='app', owner=request.user,
