@@ -62,9 +62,10 @@ class TestMembershipForm(TestCase):
         form = forms.MembershipForm()
         eq_(sorted(form.fields), ['collaborators'])
 
-    def test_empty_payload_fails(self):
+    def test_empty_payload_succeeds(self):
         form = forms.MembershipForm({'collaborators': ''})
-        eq_(form.is_valid(), False)
+        eq_(form.is_valid(), True)
+        eq_(form.cleaned_data['collaborators'], [])
 
     def test_invalid_emails_fails(self):
         form = forms.MembershipForm({'collaborators': 'INVALID'})
@@ -85,3 +86,10 @@ class TestMembershipForm(TestCase):
         form = forms.MembershipForm({'collaborators': 'info@us-ignite.org'})
         eq_(form.is_valid(), True)
         eq_(form.cleaned_data['collaborators'], [user_mock])
+
+
+class TestApplicationMembershipForm(TestCase):
+
+    def test_form_does_not_list_sensitive_fields(self):
+        form = forms.ApplicationMembershipForm()
+        eq_(sorted(form.fields.keys()), ['can_edit', ])

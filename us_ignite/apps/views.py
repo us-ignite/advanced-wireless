@@ -8,7 +8,8 @@ from django.views.decorators.http import require_http_methods
 from django.utils import timezone
 
 from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
-                                  MembershipForm, ApplicationImageFormSet)
+                                  MembershipForm, ApplicationImageFormSet,
+                                  ApplicationMembershipFormSet)
 from us_ignite.apps.models import (Application, ApplicationMembership,
                                    ApplicationVersion, Page)
 from us_ignite.awards.models import ApplicationAward
@@ -175,23 +176,20 @@ def app_membership(request, slug):
         Application.active, slug__exact=slug, owner=request.user)
     if request.method == 'POST':
         form = MembershipForm(request.POST)
-        if form.is_valid():
-            membership = []
+        formset = ApplicationMembershipFormSet(request.POST, instance=app)
+        if form.is_valid() and formset.is_valid():
             for member in form.cleaned_data['collaborators']:
-                membership.append(create_member(app, member))
-            total_members = len(filter(None, membership))
-            messages.success(
-                request, 'Added %s new collaborators.' % total_members)
+                create_member(app, member)
+            formset.save()
+            messages.success(request, 'Membership successfully updated.')
             return redirect(app.get_membership_url())
     else:
         form = MembershipForm()
-    membership_list = (app.applicationmembership_set
-                       .select_related('user', 'application', 'user__profile')
-                       .all())
+        formset = ApplicationMembershipFormSet(instance=app)
     context = {
         'object': app,
-        'membership_list': membership_list,
         'form': form,
+        'formset': formset,
     }
     return TemplateResponse(request, 'apps/object_membership.html', context)
 

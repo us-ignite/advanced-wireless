@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
-from django.forms.models import inlineformset_factory
+from django.forms.models import BaseInlineFormSet, inlineformset_factory
 
 from us_ignite.apps.models import (Application, ApplicationURL,
-                                   ApplicationImage)
+                                   ApplicationImage, ApplicationMembership)
 
 
 def _get_status_choices():
@@ -62,16 +62,27 @@ class MembershipForm(forms.Form):
     """Form to validate the collaborators."""
     collaborators = forms.CharField(
         widget=forms.Textarea, help_text='Add registered users as '
-        'collaborators for this app. One email per line.')
+        'collaborators for this app. One email per line.', required=False)
 
     def clean_collaborators(self):
         """Validates the payload is a list of registered usernames."""
         collaborators_raw = self.cleaned_data.get('collaborators')
+        member_list = []
         if collaborators_raw:
-            member_list = []
             collaborator_list = [c for c in collaborators_raw.splitlines() if c]
             for collaborator in collaborator_list:
                 collaborator = collaborator.strip()
                 member = validate_member(collaborator)
                 member_list.append(member)
-            return member_list
+        return member_list
+
+
+class ApplicationMembershipForm(forms.ModelForm):
+    class Meta:
+        model = ApplicationMembership
+        fields = ('can_edit', )
+
+
+ApplicationMembershipFormSet = inlineformset_factory(
+    Application, ApplicationMembership, extra=0, max_num=0,
+    form=ApplicationMembershipForm)
