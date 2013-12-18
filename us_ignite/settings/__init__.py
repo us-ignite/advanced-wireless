@@ -90,6 +90,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'djangosecure.middleware.SecurityMiddleware',
+    'us_ignite.common.middleware.DoNotTrackMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
