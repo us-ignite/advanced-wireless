@@ -145,7 +145,12 @@ class Application(ApplicationBase):
 
     def is_editable_by(self, user):
         """Determines if the given user can edit the ``Application``"""
-        return self.owner == user
+        if user.is_authenticated():
+            if ((self.owner == user)
+                or self.applicationmembership_set.filter(
+                    user=user, can_edit=True)):
+                return True
+        return False
 
     def get_summary(self):
         if self.summary:

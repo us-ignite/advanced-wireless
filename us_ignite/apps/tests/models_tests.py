@@ -149,6 +149,24 @@ class TestApplicationModel(TestCase):
             owner=user, status=models.Application.DRAFT)
         eq_(application.is_editable_by(AnonymousUser()), False)
 
+    def test_app_is_editable_by_member_with_edit_permissions(self):
+        user = get_user('app-owner')
+        member = get_user('member')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.DRAFT)
+        models.ApplicationMembership.objects.create(
+            application=application, user=member, can_edit=True)
+        eq_(application.is_editable_by(member), True)
+
+    def test_app_is_not_editable_by_member(self):
+        user = get_user('app-owner')
+        member = get_user('member')
+        application = fixtures.get_application(
+            owner=user, status=models.Application.DRAFT)
+        models.ApplicationMembership.objects.create(
+            application=application, user=member, can_edit=False)
+        eq_(application.is_editable_by(member), False)
+
     def test_get_summary_shortens_description(self):
         user = get_user('app-owner')
         description = ' '.join(['word'] * 50)
