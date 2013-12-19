@@ -435,12 +435,12 @@ class TestAppVersionDetailView(TestCase):
         eq_(response.template_name, 'apps/object_version_detail.html')
 
 
-def _get_appmember_payload(pk, data_list=None, **kwargs):
+def _get_appmember_payload(pk, data_list=None, initial_forms=0, **kwargs):
     data_list = data_list if data_list else [{}]
     prefix = 'applicationmembership_set-'
     default = {
         '%sTOTAL_FORMS' % prefix: len(data_list),
-        '%sINITIAL_FORMS' % prefix: 0,
+        '%sINITIAL_FORMS' % prefix: initial_forms,
         '%sMAX_NUM_FORMS'% prefix: 0,
     }
     _inline_tuple = lambda i, k, v: ('%s%s-%s' % (prefix, i, k), v)
@@ -454,7 +454,6 @@ def _get_appmember_payload(pk, data_list=None, **kwargs):
         default.update(inline_default)
     default.update(kwargs)
     return default
-
 
 
 class TestAppMembershipView(TestCase):
@@ -478,27 +477,34 @@ class TestAppMembershipView(TestCase):
         response = views.app_membership(request)
         eq_(response['Location'], utils.get_login_url('/app/b/membership/'))
 
-    @raises(Http404)
-    def test_non_existing_app_or_owner_raises_404_on_get(self):
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_non_existing_app_raises_404(self, get_mock):
+        get_mock.side_effect = Http404
         request = self.factory.get('/app/b/membership/')
         request.user = utils.get_user_mock()
-        with patch('us_ignite.apps.views.get_object_or_404',
-                   side_effect=Http404) as get_mock:
-            views.app_membership(request, 'b')
-            get_mock.assert_called_once_with(
-                Application.active, slug__exact='b', owner=request.user)
+        assert_raises(Http404, views.app_membership, request, 'b')
+        get_mock.assert_called_once_with(
+            Application.active, slug__exact='b')
 
-    @raises(Http404)
-    def test_non_existing_app_or_owner_raises_404_on_post(self):
+    @patch('us_ignite.apps.views.get_object_or_404')
+    def test_non_existing_app_or_owner_raises_404_on_post(self, get_mock):
+        get_mock.side_effect = Http404
         request = self.factory.post('/app/b/membership/', {})
         request.user = utils.get_user_mock()
-        with patch('us_ignite.apps.views.get_object_or_404',
-                   side_effect=Http404) as get_mock:
-            views.app_membership(request, 'b')
-            get_mock.assert_called_once_with(
-                Application.active, slug__exact='b', owner=request.user)
+        assert_raises(Http404, views.app_membership, request, 'b')
+        get_mock.assert_called_once_with(Application.active, slug__exact='b')
 
-    def test_valid_membership_get_request_is_successful(self):
+    def test_member_cannot_change_app_membership(self):
+        owner = get_user('owner')
+        member = get_user('member', email='member@us-ignite.org')
+        app = fixtures.get_application(
+            slug='delta', status=Application.PUBLISHED, owner=owner)
+        payload = _get_appmember_payload(app.id)
+        request = utils.get_request(
+            'post', '/app/delta/membership/', data=payload, user=member)
+        assert_raises(Http404, views.app_membership, request, 'delta')
+
+    def test_owner_membership_get_request_is_successful(self):
         owner = get_user('owner')
         app = fixtures.get_application(
             slug='gamma', status=Application.PUBLISHED, owner=owner)
@@ -511,7 +517,7 @@ class TestAppMembershipView(TestCase):
         eq_(response.context_data['object'], app)
         self._teardown()
 
-    def test_valid_membership_empty_payload_succeds(self):
+    def test_owner_membership_empty_payload_succeds(self):
         owner = get_user('owner')
         app = fixtures.get_application(
             slug='gamma', status=Application.PUBLISHED, owner=owner)
@@ -537,6 +543,23 @@ class TestAppMembershipView(TestCase):
         request._messages = utils.TestMessagesBackend(request)
         response = views.app_membership(request, 'delta')
         ok_(app.members.get(id=member.id))
+        eq_(response.status_code, 302)
+        eq_(response['Location'], app.get_membership_url())
+
+    def test_owner_member_removal_is_successful(self):
+        owner = get_user('owner')
+        member = get_user('member', email='member@us-ignite.org')
+        app = fixtures.get_application(
+            slug='delta', status=Application.PUBLISHED, owner=owner)
+        membership = fixtures.get_membership(app, member)
+        inlines = [{'id': membership.id, 'DELETE': 'on'}]
+        payload = _get_appmember_payload(
+            app.id, data_list=inlines, initial_forms=1)
+        request = self.factory.post('/app/delta/membership/', payload)
+        request.user = owner
+        request._messages = utils.TestMessagesBackend(request)
+        response = views.app_membership(request, 'delta')
+        eq_(list(app.members.all()), [])
         eq_(response.status_code, 302)
         eq_(response['Location'], app.get_membership_url())
 

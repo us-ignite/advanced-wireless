@@ -173,7 +173,9 @@ def create_member(app, user):
 def app_membership(request, slug):
     """Adds collaborators to an application."""
     app = get_object_or_404(
-        Application.active, slug__exact=slug, owner=request.user)
+        Application.active, slug__exact=slug)
+    if not app.is_owned_by(request.user):
+        raise Http404
     if request.method == 'POST':
         form = MembershipForm(request.POST)
         formset = ApplicationMembershipFormSet(request.POST, instance=app)
