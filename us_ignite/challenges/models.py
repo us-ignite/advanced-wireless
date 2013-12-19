@@ -32,6 +32,9 @@ class Challenge(models.Model):
     image = models.ImageField(upload_to="challenge", blank=True)
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True)
+    hide_entries = models.BooleanField(
+        default=False, help_text='When active entries are published only '
+        'after the Challenge has finished.')
     user = models.ForeignKey('auth.User')
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()

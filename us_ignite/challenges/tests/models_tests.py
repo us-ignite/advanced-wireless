@@ -48,6 +48,7 @@ class TestChallengeModel(TestCase):
         eq_(instance.notes, '')
         ok_(instance.created)
         ok_(instance.modified)
+        eq_(instance.hide_entries, False)
 
     def test_instance_is_published(self):
         user = get_user('us-ignite')
