@@ -35,7 +35,8 @@ class Challenge(models.Model):
     hide_entries = models.BooleanField(
         default=False, help_text='When active entries are published only '
         'after the Challenge has finished.')
-    user = models.ForeignKey('auth.User')
+    user = models.ForeignKey(
+        'auth.User', help_text='User responsible for this Challenge.')
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()

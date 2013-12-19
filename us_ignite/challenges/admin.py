@@ -15,6 +15,7 @@ class ChallengeAdmin(admin.ModelAdmin):
     search_fields = ('name', 'slug', 'summary', 'description')
     list_filter = ('status', 'is_external', 'start_datetime', 'end_datetime')
     date_hierarchy = 'start_datetime'
+    raw_id_fields = ['user', ]
     inlines = [QuestionInlineAdmin]
 
 
