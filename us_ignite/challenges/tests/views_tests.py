@@ -49,22 +49,35 @@ class TestChallengeEntryView(TestCase):
             utils.get_login_url('/challenges/foo/enter/abc/'))
 
     @patch('us_ignite.challenges.views.get_object_or_404')
-    def test_challenge_does_not_exist(self, mock_get):
+    def test_application_does_not_exist(self, mock_get):
         mock_get.side_effect = Http404
         request = utils.get_request(
             'get', '/challenge/foo/enter/abc/', user=utils.get_user_mock())
         assert_raises(Http404, views.challenge_entry, request, 'foo', 'abc')
-        mock_get.assert_called_once_with(Challenge.active, slug__exact='foo')
+        mock_get.assert_called_once_with(
+            Application, slug__exact='abc', owner=request.user,
+            status=Application.PUBLISHED)
 
     @patch('us_ignite.challenges.views.get_object_or_404')
-    def test_application_does_not_exist(self, mock_get):
-        mock_get.side_effect = [Mock(spec=Challenge), Http404]
+    def test_challenge_does_not_exist(self, mock_get):
+        mock_get.side_effect = [Mock(spec=Application), Http404]
         request = utils.get_request(
             'get', '/challenges/foo/enter/abc/', user=utils.get_user_mock())
         assert_raises(Http404, views.challenge_entry, request, 'foo', 'abc')
         mock_get.assert_any_call(
-            Application.active, slug__exact='abc', owner=request.user,
-            status=Application.PUBLISHED)
+            Challenge, slug__exact='foo', status=Challenge.PUBLISHED)
+
+    @patch('us_ignite.challenges.views.get_object_or_404')
+    def test_closed_challenge_redirects_to_detail_page(self, mock_get):
+        app_mock = Mock(spec=Application)
+        challenge_mock = Mock(spec=Challenge)
+        challenge_mock.is_open.return_value = False
+        mock_get.side_effect = [app_mock, challenge_mock]
+        request = utils.get_request(
+            'get', '/challenges/foo/enter/abc/', user=utils.get_user_mock())
+        response = views.challenge_entry(request, 'foo', 'abc')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], '/challenges/foo/abc/')
 
     def test_challenge_form_is_returned_successful(self):
         user = get_user('us-ignite')

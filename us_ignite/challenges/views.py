@@ -38,13 +38,7 @@ def challenge_detail(request, slug):
     return TemplateResponse(request, 'challenges/object_detail.html', context)
 
 
-@login_required
-def entry_detail(request, challenge_slug, app_slug):
-    """Detail of the ``Entry`` to a ``Challenge``
-
-    The ``Challenge`` and the ``Application`` must be published.
-
-    """
+def get_entry_or_404(challenge_slug, app_slug):
     query_kwargs = {
         'challenge__status': Challenge.PUBLISHED,
         'challenge__slug__exact': challenge_slug,
@@ -56,6 +50,17 @@ def entry_detail(request, challenge_slug, app_slug):
         entry = Entry.objects.select_related(*related).get(**query_kwargs)
     except Entry.DoesNotExist:
         raise Http404('Entry does not exist.')
+    return entry
+
+
+@login_required
+def entry_detail(request, challenge_slug, app_slug):
+    """Detail of the ``Entry`` to a ``Challenge``
+
+    The ``Challenge`` and the ``Application`` must be published.
+
+    """
+    entry = get_entry_or_404(challenge_slug, app_slug)
     is_owner = entry.application.is_owned_by(request.user)
     # Make sure the entry is available to this user:
     if not entry.is_visible_by(request.user):
@@ -82,17 +87,19 @@ def challenge_entry(request, challenge_slug, app_slug):
 
     The ``Challenge`` has a list of ``Questions`` that will be translated
     into a ``ChallengeForm``."""
-    challenge = get_object_or_404(Challenge.active, slug__exact=challenge_slug)
-    if not challenge.is_open():
-        raise Http404
+    # Application must be owned by the user:
     application = get_object_or_404(
-        Application.active, slug__exact=app_slug, owner=request.user,
+        Application, slug__exact=app_slug, owner=request.user,
         status=Application.PUBLISHED)
-    # Generate a form from the questions in the admin:
-    ChallengeForm = forms.get_challenge_form(challenge)
+    # Challenge must be open:
+    challenge = get_object_or_404(
+        Challenge, slug__exact=challenge_slug, status=Challenge.PUBLISHED)
+    if not challenge.is_open():
+        return redirect('entry_detail', challenge_slug, app_slug)
+    # Determine if an entry already exists:
     entry = Entry.objects.get_entry_or_none(challenge, application)
+    ChallengeForm = forms.get_challenge_form(challenge)
     if request.method == 'POST':
-        # The entry is only created on a POST:
         entry, is_new = Entry.objects.get_or_create(
             challenge=challenge, application=application)
         form = ChallengeForm(request.POST)
