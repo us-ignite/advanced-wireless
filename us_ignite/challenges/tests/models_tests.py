@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from us_ignite.apps.models import Application
 from us_ignite.apps.tests.fixtures import get_application
+from us_ignite.common.tests import utils
 from us_ignite.challenges.models import Challenge, Entry, EntryAnswer, Question
 from us_ignite.challenges.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
@@ -122,6 +123,30 @@ class TestChallengeModel(TestCase):
         instance = fixtures.get_challenge(user=user)
         eq_(instance.get_absolute_url(), '/challenges/%s/' % instance.slug)
 
+    def challenge_has_finished(self):
+        user = get_user('us-ignite')
+        start = timezone.now() - relativedelta(days=3)
+        end = start + relativedelta(days=2)
+        data = {
+            'user': user,
+            'start_datetime': start,
+            'end_datetime': end,
+        }
+        instance = fixtures.get_challenge(**data)
+        eq_(instance.has_finished(), True)
+
+    def challenge_has_not_finished(self):
+        user = get_user('us-ignite')
+        start = timezone.now()
+        end = start + relativedelta(days=2)
+        data = {
+            'user': user,
+            'start_datetime': start,
+            'end_datetime': end,
+        }
+        instance = fixtures.get_challenge(**data)
+        eq_(instance.has_finished(), False)
+
 
 class TestQuestionModel(TestCase):
 
@@ -204,21 +229,13 @@ class TestEntryModel(TestCase):
             application, challenge=challenge, status=Entry.SUBMITTED)
         eq_(entry.is_submitted(), True)
 
-    def test_instance_is_accepted(self):
+    def test_instance_is_removed(self):
         user = get_user('us-ignite')
         challenge = fixtures.get_challenge(user=user)
         application = get_application(owner=user)
         entry = fixtures.get_entry(
-            application, challenge=challenge, status=Entry.ACCEPTED)
-        eq_(entry.is_accepted(), True)
-
-    def test_instance_is_rejected(self):
-        user = get_user('us-ignite')
-        challenge = fixtures.get_challenge(user=user)
-        application = get_application(owner=user)
-        entry = fixtures.get_entry(
-            application, challenge=challenge, status=Entry.REJECTED)
-        eq_(entry.is_rejected(), True)
+            application, challenge=challenge, status=Entry.REMOVED)
+        eq_(entry.is_removed(), True)
 
     def test_instance_is_draft(self):
         user = get_user('us-ignite')
@@ -245,6 +262,29 @@ class TestEntryModel(TestCase):
         mock_answer.assert_called_once_with(entry, question, 'foo')
         mock_keys.assert_called_once_with(['question_4'])
 
+    def test_is_visible_for_published_challenges(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.SUBMITTED)
+        eq_(entry.is_visible_by(utils.get_anon_mock()), True)
+
+    def test_is_visible_for_owners(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.DRAFT)
+        eq_(entry.is_visible_by(user), True)
+
+    def test_is_not_visible_when_is_draft(self):
+        user = get_user('us-ignite')
+        challenge = fixtures.get_challenge(user=user)
+        application = get_application(owner=user)
+        entry = fixtures.get_entry(
+            application, challenge=challenge, status=Entry.DRAFT)
+        eq_(entry.is_visible_by(utils.get_anon_mock()), False)
 
 class TestEntryAnswerModel(TestCase):
 

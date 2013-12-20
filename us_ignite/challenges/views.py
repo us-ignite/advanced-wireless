@@ -40,24 +40,40 @@ def challenge_detail(request, slug):
 
 @login_required
 def entry_detail(request, challenge_slug, app_slug):
-    """Detail of the ``Entry`` to a ``Challenge`` """
-    challenge = get_object_or_404(Challenge.active, slug__exact=challenge_slug)
-    application = get_object_or_404(
-        Application.active, slug__exact=app_slug, owner=request.user,
-        status=Application.PUBLISHED)
-    entry = Entry.objects.get_entry_or_none(challenge, application)
-    if not entry:
-        raise Http404
+    """Detail of the ``Entry`` to a ``Challenge``
+
+    The ``Challenge`` and the ``Application`` must be published.
+
+    """
+    query_kwargs = {
+        'challenge__status': Challenge.PUBLISHED,
+        'challenge__slug__exact': challenge_slug,
+        'application__status': Application.PUBLISHED,
+        'application__slug__exact': app_slug
+    }
+    related = ['challenge', 'application', 'application__user']
+    try:
+        entry = Entry.objects.select_related(*related).get(**query_kwargs)
+    except Entry.DoesNotExist:
+        raise Http404('Entry does not exist.')
+    is_owner = entry.application.is_owned_by(request.user)
+    # Make sure the entry is available to this user:
+    if not entry.is_visible_by(request.user):
+        raise Http404('Entry is not published.')
+    # When the challenge has not finished entries might be hidden:
+    if not entry.challenge.has_finished():
+        if entry.challenge.hide_entries and not is_owner:
+            raise Http404('Entry is not public yet.')
     answer_list = (entry.entryanswer_set.select_related('question').all()
                    .order_by('question__order'))
     context = {
-        'challenge': challenge,
-        'application': application,
+        'challenge': entry.challenge,
+        'application': entry.application,
         'entry': entry,
         'answer_list': answer_list,
+        'is_owner': is_owner,
     }
-    return TemplateResponse(
-        request, 'challenges/entry_detail.html', context)
+    return TemplateResponse(request, 'challenges/entry_detail.html', context)
 
 
 @require_http_methods(["POST"])
@@ -94,9 +110,6 @@ def challenge_entry(request, challenge_slug, app_slug):
     # Generate a form from the questions in the admin:
     ChallengeForm = forms.get_challenge_form(challenge)
     entry = Entry.objects.get_entry_or_none(challenge, application)
-    # Entry has been submitted, approved or rejected. Show detail:
-    if entry and not entry.is_draft():
-        return redirect(entry.get_absolute_url())
     if request.method == 'POST':
         # The entry is only created on a POST:
         entry, is_new = Entry.objects.get_or_create(

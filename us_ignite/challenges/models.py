@@ -19,7 +19,7 @@ class Challenge(models.Model):
         (REMOVED, 'Removed'),
     )
     name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
+    slug = AutoSlugField(populate_from='name', unique=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
@@ -70,6 +70,10 @@ class Challenge(models.Model):
                 and (now <= self.end_datetime)
                 and self.is_published())
 
+    def has_finished(self):
+        now = timezone.now()
+        return self.end_datetime < now
+
 
 class Question(models.Model):
     challenge = models.ForeignKey('challenges.Challenge')
@@ -90,15 +94,13 @@ class Question(models.Model):
 
 
 class Entry(models.Model):
-    DRAFT = 0
     SUBMITTED = 1
-    ACCEPTED = 2
-    REJECTED = 3
+    DRAFT = 2
+    REMOVED = 3
     STATUS_CHOICES = (
         (DRAFT, 'Draft'),
         (SUBMITTED, 'Submitted'),
-        (ACCEPTED, 'Accepted'),
-        (REJECTED, 'Rejected'),
+        (REMOVED, 'Removed'),
     )
     challenge = models.ForeignKey('challenges.Challenge')
     application = models.ForeignKey('apps.Application')
@@ -134,11 +136,8 @@ class Entry(models.Model):
     def is_submitted(self):
         return self.status == self.SUBMITTED
 
-    def is_accepted(self):
-        return self.status == self.ACCEPTED
-
-    def is_rejected(self):
-        return self.status == self.REJECTED
+    def is_removed(self):
+        return self.status == self.REMOVED
 
     def save_answers(self, answers_data):
         """Create or update the answers for this user."""
@@ -150,6 +149,12 @@ class Entry(models.Model):
                 self, question, answer_text)
             answer_list.append(answer)
         return answer_list
+
+    def is_visible_by(self, user):
+        """Determines if the entry is visible by the given user."""
+        if self.is_submitted():
+            return True
+        return user.is_authenticated() and self.application.owner_id == user.id
 
 
 class EntryAnswer(models.Model):
