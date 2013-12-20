@@ -3,10 +3,11 @@
 {% block title %}Enter to {{ challenge.name }} - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>Challenge: {{ challenge.name }}</h1>
+<h1>Challenge: <a href="{{ challenge.get_absolute_url }}">{{ challenge.name }}</a></h1>
 <ul>
   <li>Status: {{ entry.get_status_display }}</li>
   <li>Entered on {{ entry.created }}</li>
+  {% if challenge.hide_entries %}<li>Entries will be published after the challenge has finished.</li>{% endif %}
   <li>
     <form method="post" action="{{ entry.get_withdraw_url }}">
       {% csrf_token %}

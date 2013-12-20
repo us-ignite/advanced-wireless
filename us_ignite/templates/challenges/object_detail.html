@@ -12,6 +12,7 @@
   {% endif %}
   <li>Starts on {{ object.start_datetime }}</li>
   <li>Ends on {{ object.end_datetime }}</li>
+  {% if object.hide_entries %}<li>Entries will be published after the challenge has finished.</li>{% endif %}
 </ul>
 
 <p>{{ object.summary }}</p>

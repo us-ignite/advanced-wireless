@@ -3,7 +3,8 @@
 {% block title %}Enter to {{ challenge.name }} - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>Participate in challenge: {{ challenge.name }}</h1>
+<h1>Participate in challenge: <a href="{{ challenge.get_absolute_url }}">{{ challenge.name }}</a></h1>
+{% if challenge.hide_entries %}<p>Entries will be published after the challenge has finished.</p>{% endif %}
 <p>{{ challenge.summary }}</p>
 
 <h2>Application: {{ application.name }}</h2>
