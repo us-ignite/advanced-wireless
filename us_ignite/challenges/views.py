@@ -12,8 +12,9 @@ from us_ignite.challenges.models import Challenge, Entry
 
 def challenge_list(request):
     now = timezone.now()
-    object_list = Challenge.objects.filter(
-        end_datetime__gte=now, status=Challenge.PUBLISHED)
+    object_list = (Challenge.objects
+                   .filter(end_datetime__gte=now, status=Challenge.PUBLISHED)
+                   .order_by('start_datetime'))
     context = {
         'object_list': object_list,
     }
