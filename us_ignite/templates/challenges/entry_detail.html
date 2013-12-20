@@ -8,13 +8,6 @@
   <li>Status: {{ entry.get_status_display }}</li>
   <li>Entered on {{ entry.created }}</li>
   {% if challenge.hide_entries %}<li>Entries will be published after the challenge has finished.</li>{% endif %}
-  <li>
-    <form method="post" action="{{ entry.get_withdraw_url }}">
-      {% csrf_token %}
-      <p>Withdraw the entry will become a draft and it will require to be moderated.</p>
-      <button type="submit">Withdraw entry</button>
-    </form>
-  </li>
 </ul>
 
 <p>{{ challenge.get_display_status }}</p>

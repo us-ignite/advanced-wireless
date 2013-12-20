@@ -127,9 +127,6 @@ class Entry(models.Model):
         return reverse('challenge_entry',
                        args=[self.challenge.slug, self.application.slug])
 
-    def get_withdraw_url(self):
-        return reverse('entry_withdraw', args=[self.id])
-
     def is_draft(self):
         return self.status == self.DRAFT
 

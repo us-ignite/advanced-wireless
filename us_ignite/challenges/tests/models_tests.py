@@ -212,15 +212,6 @@ class TestEntryModel(TestCase):
         eq_(entry.get_edit_url(),
             '/challenges/%s/enter/%s/' % (challenge.slug, application.slug))
 
-    def test_withdraw_url(self):
-        user = get_user('us-ignite')
-        challenge = fixtures.get_challenge(user=user)
-        application = get_application(owner=user)
-        entry = fixtures.get_entry(
-            application, challenge=challenge, status=Entry.SUBMITTED)
-        eq_(entry.get_withdraw_url(),
-            '/challenges/withdraw/%s/' % (entry.id))
-
     def test_instance_is_submitted(self):
         user = get_user('us-ignite')
         challenge = fixtures.get_challenge(user=user)

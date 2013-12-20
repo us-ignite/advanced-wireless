@@ -76,31 +76,12 @@ def entry_detail(request, challenge_slug, app_slug):
     return TemplateResponse(request, 'challenges/entry_detail.html', context)
 
 
-@require_http_methods(["POST"])
-@login_required
-def entry_withdraw(request, pk):
-    """Removes the entry from participating in a competition."""
-    entry = get_object_or_404(Entry, pk=pk, application__owner=request.user)
-    entry.status = Entry.DRAFT
-    entry.save()
-    messages.success(request, 'Entry has been withdrawn.')
-    return redirect(entry.get_edit_url())
-
-
 @login_required
 def challenge_entry(request, challenge_slug, app_slug):
     """Entry form for an ``Application`` for a given ``Challenge``.
 
     The ``Challenge`` has a list of ``Questions`` that will be translated
-    into a ``ChallengeForm``.
-
-    The ``owner`` of the ``Application`` can save the progress on the entry
-    decide when it's ready to participate.
-
-    Once the entry has been marked as ``SUBMITTED`` or has been
-    ``ACCEPTED`` the page shows the detail of the entry, unless withdrawn,
-    and the entry would require moderation again.
-    """
+    into a ``ChallengeForm``."""
     challenge = get_object_or_404(Challenge.active, slug__exact=challenge_slug)
     if not challenge.is_open():
         raise Http404

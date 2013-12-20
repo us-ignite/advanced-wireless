@@ -277,37 +277,3 @@ class TestEntryDetailView(TestCase):
             'get', '/challenges/gigabit/app/', user=utils.get_user_mock())
         assert_raises(Http404, views.entry_detail, request, 'gigabit', 'app')
         mock_entry.challenge.has_finished.assert_called_once()
-
-
-class TestEntryWithdrawView(TestCase):
-
-    def test_get_request_is_invalid(self):
-        request = utils.get_request(
-            'get', '/challenge/withdraw/4/', user=utils.get_user_mock())
-        response = views.entry_withdraw(request, 4)
-        eq_(response.status_code, 405)
-
-    def test_request_requires_login(self):
-        user = utils.get_anon_mock()
-        request = utils.get_request(
-            'post', '/challenge/withdraw/4/', data={}, user=user)
-        response = views.entry_withdraw(request, 4)
-        eq_(response.status_code, 302)
-        eq_(response['Location'],
-            utils.get_login_url('/challenge/withdraw/4/'))
-
-    @patch('us_ignite.challenges.views.get_object_or_404')
-    def test_withdraw_request_is_successful(self, mock_get):
-        mock_entry = Mock(spec=Entry)()
-        mock_entry.get_edit_url.return_value = u'/challenge/foo/app/'
-        mock_get.return_value = mock_entry
-        user = utils.get_user_mock()
-        request = utils.get_request(
-            'post', '/challenge/withdraw/4/', data={}, user=user)
-        request._messages = utils.TestMessagesBackend(request)
-        response = views.entry_withdraw(request, 4)
-        eq_(response.status_code, 302)
-        eq_(response['Location'], '/challenge/foo/app/')
-        mock_entry.save.assert_called_once_with()
-        mock_get.assert_called_once_with(
-            Entry, pk=4, application__owner=request.user)
