@@ -29,7 +29,7 @@ class TestEventModel(TestCase):
         }
         instance = models.Event.objects.create(**data)
         ok_(instance.id)
-        eq_(instance.name, 'Gigabit community meet-up'),
+        eq_(instance.name, 'Gigabit community meet-up')
         ok_(instance.slug)
         eq_(instance.status, models.Event.DRAFT)
         eq_(instance.website, '')
