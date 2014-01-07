@@ -158,7 +158,6 @@ INSTALLED_APPS = (
     'us_ignite.organizations',
     'us_ignite.challenges',
     'us_ignite.relay',
-    'us_ignite.blog',
     'us_ignite.uploads',
 )
 
