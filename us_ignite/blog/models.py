@@ -6,6 +6,7 @@ from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
 
+from us_ignite.common import sanitizer
 from us_ignite.blog import managers
 
 
@@ -47,9 +48,9 @@ class Entry(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.body_html = self.body
+        self.body_html = sanitizer.sanitize(self.body)
         if self.summary:
-            self.summary_html = self.summary
+            self.summary_html = sanitizer.sanitize(self.summary)
         return super(Entry, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
