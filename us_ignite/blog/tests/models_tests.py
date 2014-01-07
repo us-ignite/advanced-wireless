@@ -31,7 +31,7 @@ class TestEntryModel(TestCase):
         eq_(instance.status, Entry.DRAFT)
         eq_(instance.title, 'Gigabit entry')
         eq_(instance.body, 'Lorem Ipsum')
-        eq_(instance.body_html, '')
+        eq_(instance.body_html, 'Lorem Ipsum')
         eq_(instance.summary, '')
         eq_(instance.summary_html, '')
         eq_(instance.image, '')

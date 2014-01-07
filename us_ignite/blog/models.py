@@ -46,6 +46,12 @@ class Entry(models.Model):
     def __unicode__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        self.body_html = self.body
+        if self.summary:
+            self.summary_html = self.summary
+        return super(Entry, self).save(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse('blog_entry_detail', args=[
             int(self.publication_date.strftime('%Y')),
