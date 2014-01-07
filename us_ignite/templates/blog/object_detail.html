@@ -1,11 +1,15 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load thumbnail %}
 
 {% block title %}{{ object.title }} - {{ block.super }}{% endblock title %}
 
 {% block content %}
 <h1>{{ object.title }}</h1>
 
-{{ object.body }}
+{% if object.image  %}
+<img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
+{% endif %}
+
+{{ object.body_html|safe }}
 
 {% endblock content %}
 
