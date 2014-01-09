@@ -132,7 +132,7 @@ class TestEventListView(TestCase):
     def test_event_list_request_is_successful(self, mock_filter):
         mock_filter.return_value = []
         request = utils.get_request(
-            'get', '/event/add/', user=utils.get_anon_mock())
+            'get', '/events/', user=utils.get_anon_mock())
         response = views.event_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'events/object_list.html')
