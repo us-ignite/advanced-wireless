@@ -43,3 +43,16 @@ class TestResourceDetailView(TestCase):
         eq_(response.status_code, 200)
         eq_(response.template_name, 'resources/object_detail.html')
         eq_(response.context_data.keys(), ['object'])
+
+
+class TestResourceListView(TestCase):
+
+    @patch('us_ignite.resources.models.Resource.objects.filter')
+    def test_resource_list_request_is_successful(self, mock_filter):
+        mock_filter.return_value = []
+        request = utils.get_request(
+            'get', '/events/', user=utils.get_anon_mock())
+        response = views.resource_list(request)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'resources/object_list.html')
+        eq_(sorted(response.context_data.keys()), ['page'])

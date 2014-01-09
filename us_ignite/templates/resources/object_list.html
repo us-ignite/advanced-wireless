@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Resources - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Resources</h1>
+
+{% if page.object_list  %}
+{% for object in page.object_list %}
+{% include "resources/object_block.html" with object=object %}
+{% endfor%}
+{% else %}
+<p>No resources available.</p>
+{% endif %}
+
+{% include "includes/pagination.html" %}
+
+{% endblock content %}
