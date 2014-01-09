@@ -32,3 +32,9 @@ class Resource(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def is_visible_by(self, user):
+        return self.is_published() or user == self.owner
+
+    def is_published(self):
+        return self.status == self.PUBLISHED
