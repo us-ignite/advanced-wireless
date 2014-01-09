@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from us_ignite.common.fields import AutoUUIDField
@@ -32,6 +33,9 @@ class Resource(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('resource_detail', args=[self.slug])
 
     def is_visible_by(self, user):
         return self.is_published() or user == self.owner

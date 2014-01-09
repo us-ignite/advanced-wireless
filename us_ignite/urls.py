@@ -23,6 +23,7 @@ urlpatterns = patterns(
     url(r'^org/', include('us_ignite.organizations.urls')),
     url(r'^challenges/', include('us_ignite.challenges.urls')),
     url(r'^contact/', include('us_ignite.relay.urls')),
+    url(r'^resources/', include('us_ignite.resources.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
 )
 
