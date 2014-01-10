@@ -1,3 +1,5 @@
+from urlparse import urlparse, parse_qs
+
 from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
@@ -40,8 +42,38 @@ ApplicationLinkFormSet = inlineformset_factory(
     Application, ApplicationURL, max_num=3, extra=3)
 
 
+def is_embedable_url(url):
+    domain_list = ['www.youtube.com']
+    url_parsed = urlparse(url)
+    if url_parsed.netloc.lower() in domain_list:
+        query = parse_qs(url_parsed.query)
+        return True if query.get('v') else False
+    return False
+
+
+class ApplicationMediaForm(forms.ModelForm):
+
+    def clean_url(self):
+        url = self.cleaned_data.get('url')
+        if url:
+            if is_embedable_url(url):
+                return url
+            raise forms.ValidationError('Not valid URL.')
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        if cleaned_data.get('url') or cleaned_data.get('image'):
+            return self.cleaned_data
+        raise forms.ValidationError('An image or a URL is required.')
+
+    class Meta:
+        fields = ('name', 'image', 'url')
+        model = ApplicationMedia
+
+
 ApplicationMediaFormSet = inlineformset_factory(
-    Application, ApplicationMedia, max_num=10, extra=1)
+    Application, ApplicationMedia, max_num=10, extra=1,
+    form=ApplicationMediaForm)
 
 
 def validate_member(email):

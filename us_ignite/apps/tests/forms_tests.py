@@ -93,3 +93,55 @@ class TestApplicationMembershipForm(TestCase):
     def test_form_does_not_list_sensitive_fields(self):
         form = forms.ApplicationMembershipForm()
         eq_(sorted(form.fields.keys()), ['can_edit', ])
+
+
+class TestIsEmbedableURL(TestCase):
+
+    def test_empty_url_fails(self):
+        eq_(forms.is_embedable_url(''), False)
+
+    def test_invalid_url_fails(self):
+        eq_(forms.is_embedable_url('http://us-ignite.org/'), False)
+
+    def test_invalid_youtube_url_fails(self):
+        eq_(forms.is_embedable_url('http://www.youtube.com/'), False)
+
+    def test_valid_url_succeeds(self):
+        url = 'http://www.youtube.com/watch?v=CcE_k6DjE3A'
+        eq_(forms.is_embedable_url(url), True)
+
+
+class TestApplicationMediaForm(TestCase):
+
+    def test_form_does_not_list_sensitive_fields(self):
+        field_list = ['name', 'image', 'url']
+        form = forms.ApplicationMediaForm()
+        eq_(sorted(form.fields.keys()), sorted(field_list))
+
+    def test_empty_payload_fails(self):
+        form = forms.ApplicationMediaForm({})
+        eq_(form.is_valid(), False)
+        ok_(form.non_field_errors())
+
+    def test_missing_url_or_image_fails(self):
+        data = {'name': 'My image'}
+        form = forms.ApplicationMediaForm(data)
+        eq_(form.is_valid(), False)
+        ok_(form.non_field_errors())
+
+    def test_form_is_invalid_with_non_video_url(self):
+        data = {'url': 'http://us-ignite.org'}
+        form = forms.ApplicationMediaForm(data)
+        eq_(form.is_valid(), False)
+        ok_('url' in form.errors)
+
+    def test_form_is_valid_with_video_url(self):
+        data = {'url': 'http://www.youtube.com/watch?v=CcE_k6DjE3A'}
+        form = forms.ApplicationMediaForm(data)
+        eq_(form.is_valid(), True)
+
+    def test_form_invalid_youtube_url(self):
+        data = {'url': 'http://www.youtube.com/'}
+        form = forms.ApplicationMediaForm(data)
+        eq_(form.is_valid(), False)
+        ok_('url' in form.errors)
