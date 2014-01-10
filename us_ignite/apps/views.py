@@ -11,7 +11,7 @@ from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
                                   MembershipForm, ApplicationImageFormSet,
                                   ApplicationMembershipFormSet)
 from us_ignite.apps.models import (Application, ApplicationMembership,
-                                   ApplicationVersion, Page)
+                                   ApplicationVersion, Domain, Page)
 from us_ignite.awards.models import ApplicationAward
 from us_ignite.common import pagination, forms
 from us_ignite.hubs.forms import HubAppMembershipForm
@@ -25,21 +25,26 @@ APPS_SORTING_CHOICES = (
 )
 
 
-def app_list(request):
+def app_list(request, domain=None):
     """Lists the published ``Applications``"""
+    if domain:
+        domain = get_object_or_404(Domain, slug=domain)
+    extra_qs = {'domain': domain} if domain else {}
     page_no = pagination.get_page_no(request.GET)
+    # Validate the domain is valid if provided:
     order_form = forms.OrderForm(
         request.GET, order_choices=APPS_SORTING_CHOICES)
     order_value = order_form.cleaned_data['order'] if order_form.is_valid() else ''
-    object_list = Application.objects.filter(status=Application.PUBLISHED)
+    object_list = Application.objects.filter(
+        status=Application.PUBLISHED, **extra_qs)
     if order_value:
-        # TODO consider using non case-sensitive ordering:
         object_list = object_list.order_by(order_value)
     page = pagination.get_page(object_list, page_no)
     context = {
         'page': page,
         'order': order_value,
         'order_form': order_form,
+        'domain_list': Domain.objects.all(),
     }
     return TemplateResponse(request, 'apps/object_list.html', context)
 
@@ -194,6 +199,7 @@ def app_membership(request, slug):
         'formset': formset,
     }
     return TemplateResponse(request, 'apps/object_membership.html', context)
+
 
 def apps_featured(request):
     """Shows the featured application page."""

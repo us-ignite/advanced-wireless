@@ -5,6 +5,14 @@
 {% block content %}
 <h1>Applications</h1>
 
+<h2>Domains</h2>
+<ul>
+  <li><a href="{% url 'app_list' %}">All domains</a></li>
+  {% for domain in domain_list %}
+  <li><a href="{% url 'app_list_domain' domain.slug %}">{{ domain.name }}</a></li>
+  {% endfor%}
+</ul>
+
 {% include "includes/order_form.html" %}
 
 {% for object in page.object_list %}
