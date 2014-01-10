@@ -185,12 +185,15 @@ class ApplicationMedia(models.Model):
     application = models.ForeignKey('apps.Application')
     name = models.CharField(max_length=255, blank=True)
     image = models.ImageField(upload_to='apps', max_length=500, blank=True)
-    url = models.URLField(blank=True)
+    url = models.URLField(blank=True, null=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
     def __unicode__(self):
         return 'Media: %s' % self.name
+
+    class Meta:
+        ordering = ('created', )
 
 
 class ApplicationVersion(ApplicationBase):
