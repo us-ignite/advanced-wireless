@@ -59,6 +59,7 @@ class ApplicationMediaForm(forms.ModelForm):
             if is_embedable_url(url):
                 return url
             raise forms.ValidationError('Not valid URL.')
+        return ''
 
     def clean(self):
         cleaned_data = self.cleaned_data
