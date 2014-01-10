@@ -2,6 +2,7 @@ from datetime import timedelta
 from random import choice
 
 from django.contrib.auth.models import User
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
@@ -172,13 +173,16 @@ class Command(BaseCommand):
         if not response or not response == 'y':
             print 'Phew, aborted!'
             exit(0)
+        call_command('app_load_fixtures')
+        call_command('awards_load_fixtures')
+        call_command('common_load_fixtures')
         print u'Adding users'
         self._create_users()
         print u'Adding organizations'
         for i in range(1, 5):
             self._create_organization()
         print u'Generating applications.'
-        for i in range(10, 30):
+        for i in range(1, 30):
             self._create_app()
         print u'Generating app pages.'
         for i in range(1, 5):
