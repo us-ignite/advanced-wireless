@@ -57,13 +57,9 @@
 {% if media_list %}
 <h2>Extra media</h2>
 <ul>
-  {% for image in media_list %}
+  {% for media in media_list %}
   <li>
-    {% if image.image %}
-    <img src="{% thumbnail image.image 500x0 %}" alt="{{ image.name }}" title="{{ image.name }}"/>
-    {% else %}
-    <a href="{{ image.url }}">{{ image.name }}</a>
-    {% endif %}
+    {% include "apps/includes/media.html" with object=media %}
   </li>
   {% endfor%}
 </ul>
