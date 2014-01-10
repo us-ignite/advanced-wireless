@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from us_ignite.apps.models import (Application, ApplicationURL,
-                                   ApplicationImage, Domain, Feature,
+                                   ApplicationMedia, Domain, Feature,
                                    Page, PageApplication)
 
 
@@ -9,8 +9,8 @@ class ApplicationURLInline(admin.TabularInline):
     model = ApplicationURL
 
 
-class ApplicationImageInline(admin.TabularInline):
-    model = ApplicationImage
+class ApplicationMediaInline(admin.TabularInline):
+    model = ApplicationMedia
 
 
 class ApplicationAdmin(admin.ModelAdmin):
@@ -20,7 +20,7 @@ class ApplicationAdmin(admin.ModelAdmin):
                      'team_description', 'notes', 'acknowledgments']
     list_filter = ['stage', 'domain__name', 'status', 'created',]
     date_hierarchy = 'created'
-    inlines = [ApplicationURLInline, ApplicationImageInline]
+    inlines = [ApplicationURLInline, ApplicationMediaInline]
 
 
 class DomainAdmin(admin.ModelAdmin):

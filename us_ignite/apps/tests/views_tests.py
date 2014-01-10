@@ -81,7 +81,6 @@ class TestAppListView(TestCase):
         _teardown_apps()
 
 
-
 def _get_message_payload(**kwargs):
     defaults = {
         'name': 'Gigabig App.',
@@ -117,9 +116,9 @@ def _get_applinks_inline_payload(pk, data_list=None, **kwargs):
 
 
 def _get_appimages_inline_payload(pk, data_list=None, **kwargs):
-    """Generates the inline payload for the ``ApplicationImages``."""
+    """Generates the inline payload for the ``ApplicationMedias``."""
     data_list = data_list if data_list else [{}]
-    prefix = 'applicationimage_set-'
+    prefix = 'applicationmedia_set-'
     default = {
         '%sTOTAL_FORMS' % prefix: len(data_list),
         '%sINITIAL_FORMS' % prefix: 0,
@@ -247,7 +246,7 @@ class TestAppDetailView(TestCase):
         response = views.app_detail(request, 'foo')
         eq_(sorted(response.context_data.keys()),
             sorted(['award_list', 'can_edit', 'feature_list',
-                    'image_list', 'is_owner', 'member_list',
+                    'media_list', 'is_owner', 'member_list',
                     'object', 'url_list', 'version_list', 'hub_list'])
         )
         eq_(response.template_name, 'apps/object_detail.html')

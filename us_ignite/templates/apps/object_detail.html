@@ -54,11 +54,17 @@
 <img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
 {% endif %}
 
-{% if image_list %}
-<h2>Extra images</h2>
+{% if media_list %}
+<h2>Extra media</h2>
 <ul>
-  {% for image in image_list %}
-  <li><img src="{% thumbnail image.image 500x0 %}" alt="{{ image.name }}" title="{{ image.name }}"/></li>
+  {% for image in media_list %}
+  <li>
+    {% if image.image %}
+    <img src="{% thumbnail image.image 500x0 %}" alt="{{ image.name }}" title="{{ image.name }}"/>
+    {% else %}
+    <a href="{{ image.url }}">{{ image.name }}</a>
+    {% endif %}
+  </li>
   {% endfor%}
 </ul>
 {% endif %}

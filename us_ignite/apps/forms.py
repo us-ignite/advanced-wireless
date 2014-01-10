@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
-from django.forms.models import BaseInlineFormSet, inlineformset_factory
+from django.forms.models import inlineformset_factory
 
 from us_ignite.apps.models import (Application, ApplicationURL,
-                                   ApplicationImage, ApplicationMembership)
+                                   ApplicationMedia, ApplicationMembership)
 
 
 def _get_status_choices():
@@ -40,8 +40,8 @@ ApplicationLinkFormSet = inlineformset_factory(
     Application, ApplicationURL, max_num=3, extra=3)
 
 
-ApplicationImageFormSet = inlineformset_factory(
-    Application, ApplicationImage, max_num=10, extra=1)
+ApplicationMediaFormSet = inlineformset_factory(
+    Application, ApplicationMedia, max_num=10, extra=1)
 
 
 def validate_member(email):

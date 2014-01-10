@@ -8,7 +8,7 @@ from django.views.decorators.http import require_http_methods
 from django.utils import timezone
 
 from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
-                                  MembershipForm, ApplicationImageFormSet,
+                                  MembershipForm, ApplicationMediaFormSet,
                                   ApplicationMembershipFormSet)
 from us_ignite.apps.models import (Application, ApplicationMembership,
                                    ApplicationVersion, Domain, Page)
@@ -65,7 +65,7 @@ def app_detail(request, slug):
     context = {
         'object': app,
         'url_list': app.applicationurl_set.all(),
-        'image_list': app.applicationimage_set.all(),
+        'media_list': app.applicationmedia_set.all(),
         'feature_list': app.features.all(),
         'member_list': app.members.select_related('profile').all(),
         'hub_list': app.hubappmembership_set.select_related('hub').all(),
@@ -106,7 +106,7 @@ def app_edit(request, slug):
     if request.method == 'POST':
         form = ApplicationForm(request.POST, request.FILES, instance=app)
         link_formset = ApplicationLinkFormSet(request.POST, instance=app)
-        image_formset = ApplicationImageFormSet(
+        image_formset = ApplicationMediaFormSet(
             request.POST, request.FILES, instance=app)
         if (form.is_valid() and link_formset.is_valid()
             and image_formset.is_valid()):
@@ -119,7 +119,7 @@ def app_edit(request, slug):
     else:
         form = ApplicationForm(instance=app)
         link_formset = ApplicationLinkFormSet(instance=app)
-        image_formset = ApplicationImageFormSet(instance=app)
+        image_formset = ApplicationMediaFormSet(instance=app)
     context = {
         'object': app,
         'form': form,

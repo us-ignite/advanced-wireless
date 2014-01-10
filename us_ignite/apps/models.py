@@ -181,15 +181,16 @@ class ApplicationURL(models.Model):
         return self.url
 
 
-class ApplicationImage(models.Model):
+class ApplicationMedia(models.Model):
     application = models.ForeignKey('apps.Application')
     name = models.CharField(max_length=255, blank=True)
-    image = models.ImageField(upload_to='apps', max_length=500)
+    image = models.ImageField(upload_to='apps', max_length=500, blank=True)
+    url = models.URLField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
     def __unicode__(self):
-        return 'Image: %s' % self.name
+        return 'Media: %s' % self.name
 
 
 class ApplicationVersion(ApplicationBase):

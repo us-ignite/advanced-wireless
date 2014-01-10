@@ -6,9 +6,9 @@
 <h1>Edit: {{ object.name }}</h1>
 <form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data">
 {% include "apps/object_form.html" with form=form %}
-<h2>Additional images of your app.</h2>
+<h2>Additional media</h2>
 {% include "apps/object_form_images.html" with formset=image_formset %}
-<h2>URLs of your app.</h2>
+<h2>Additional URLs</h2>
 <p>Add any relevant URLS where the progress of this app can be shown.</p>
 {% include "apps/object_form_links.html" with formset=link_formset %}
 <p>
