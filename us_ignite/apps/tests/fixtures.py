@@ -1,15 +1,16 @@
-from us_ignite.apps.models import Application, ApplicationMembership, Page
+from us_ignite.apps.models import (Application, ApplicationMembership,
+                                   Domain, Page)
 from us_ignite.profiles.tests.fixtures import get_user
 
 
 def get_application(**kwargs):
-    defaults = {
+    data = {
         'name': 'Gigabit app',
     }
     if not 'owner' in kwargs:
-        defaults['owner'] = get_user('us-ignite')
-    defaults.update(kwargs)
-    return Application.objects.create(**defaults)
+        data['owner'] = get_user('us-ignite')
+    data.update(kwargs)
+    return Application.objects.create(**data)
 
 
 def get_membership(application, user):
@@ -19,8 +20,17 @@ def get_membership(application, user):
 
 
 def get_page(**kwargs):
-    defaults = {
+    data = {
         'name': 'Application list',
     }
-    defaults.update(kwargs)
-    return Page.objects.create(**defaults)
+    data.update(kwargs)
+    return Page.objects.create(**data)
+
+
+def get_domain(**kwargs):
+    data = {
+        'name': 'Healthcare',
+        'slug': 'healthcare',
+    }
+    data.update(kwargs)
+    return Domain.objects.create(**data)
