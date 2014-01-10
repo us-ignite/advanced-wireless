@@ -37,6 +37,13 @@ class Resource(models.Model):
     def get_absolute_url(self):
         return reverse('resource_detail', args=[self.slug])
 
+    def get_resource_url(self):
+        if self.asset:
+            return self.asset.url
+        if self.url:
+            return self.url
+        return u''
+
     def is_visible_by(self, user):
         return self.is_published() or user == self.owner
 

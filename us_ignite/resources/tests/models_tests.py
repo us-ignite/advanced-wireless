@@ -54,3 +54,19 @@ class TestResourceModel(TestCase):
         user = get_user('us-ignite')
         resource = fixtures.get_resource(owner=user, status=Resource.DRAFT)
         eq_(resource.is_visible_by(user), True)
+
+    def test_get_absolute_url(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(owner=user, slug='foo')
+        eq_(resource.get_absolute_url(), '/resources/foo/')
+
+    def test_get_resource_url(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(
+            owner=user, url='http://us-ignite.org')
+        eq_(resource.get_resource_url(), 'http://us-ignite.org')
+
+    def test_empty_resource_url(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(owner=user)
+        eq_(resource.get_resource_url(), '')
