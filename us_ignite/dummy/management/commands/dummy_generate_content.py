@@ -178,7 +178,7 @@ class Command(BaseCommand):
         for i in range(1, 5):
             self._create_organization()
         print u'Generating applications.'
-        for i in range(1, 20):
+        for i in range(10, 30):
             self._create_app()
         print u'Generating app pages.'
         for i in range(1, 5):
