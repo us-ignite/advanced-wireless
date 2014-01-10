@@ -1,3 +1,9 @@
 <div class="">
   <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+  <p>{{ object.description }}</p>
+  <ul>
+    <li>Added on {{ object.created }}</li>
+    <li><a href="{{ object.get_asset_url }}">View resource</a></li>
+    <li><a href="{{ object.get_absolute_url }}">Permalink</a></li>
+  </ul>
 </div>
