@@ -31,6 +31,7 @@ django-secure == 1.0
 easy-thumbnails == 1.4
 bleach == 1.2.2
 html5lib == 0.95
+django-embed-video == 0.7
 
 # Compiled
 psycopg2

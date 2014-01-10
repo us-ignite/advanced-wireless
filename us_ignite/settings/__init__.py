@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     'geoposition',
     'djangosecure',
     'easy_thumbnails',
+    'embed_video',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',
