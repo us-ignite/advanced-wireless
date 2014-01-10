@@ -31,6 +31,9 @@ class Resource(models.Model):
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
+    class Meta:
+        ordering = ('-is_featured', '-created')
+
     def __unicode__(self):
         return self.name
 
