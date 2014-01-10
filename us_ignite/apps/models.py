@@ -14,7 +14,7 @@ from us_ignite.apps import managers
 
 class Feature(models.Model):
     name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     def __unicode__(self):
         return self.name
@@ -22,7 +22,7 @@ class Feature(models.Model):
 
 class Domain(models.Model):
     name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     def __unicode__(self):
         return self.name
