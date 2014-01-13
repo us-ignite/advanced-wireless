@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
 from us_ignite.common import pagination
+from us_ignite.resources.forms import ResourceForm
 from us_ignite.resources.models import Resource
 
 
@@ -24,3 +26,20 @@ def resource_list(request):
         'page': page,
     }
     return TemplateResponse(request, 'resources/object_list.html', context)
+
+
+@login_required
+def resource_add(request):
+    if request.method == 'POST':
+        form = ResourceForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.owner = request.user
+            instance.save()
+            return redirect(instance.get_absolute_url())
+    else:
+        form = ResourceForm()
+    context = {
+        'form': form,
+    }
+    return TemplateResponse(request, 'resources/object_add.html', context)

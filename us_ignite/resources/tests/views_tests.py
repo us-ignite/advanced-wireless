@@ -1,10 +1,12 @@
 from nose.tools import assert_raises, eq_, ok_
 from mock import Mock, patch
 
+from django.contrib.auth.models import User
 from django.http import Http404
 from django.test import TestCase
 
 from us_ignite.common.tests import utils
+from us_ignite.profiles.tests.fixtures import get_user
 from us_ignite.resources.models import Resource
 from us_ignite.resources import views
 
@@ -42,7 +44,7 @@ class TestResourceDetailView(TestCase):
         response = views.resource_detail(request, 'foo')
         eq_(response.status_code, 200)
         eq_(response.template_name, 'resources/object_detail.html')
-        eq_(response.context_data.keys(), ['object'])
+        eq_(response.context_data.keys(), ['object', 'is_owner'])
 
 
 class TestResourceListView(TestCase):
@@ -51,8 +53,53 @@ class TestResourceListView(TestCase):
     def test_resource_list_request_is_successful(self, mock_filter):
         mock_filter.return_value = []
         request = utils.get_request(
-            'get', '/events/', user=utils.get_anon_mock())
+            'get', '/resource/', user=utils.get_anon_mock())
         response = views.resource_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'resources/object_list.html')
         eq_(sorted(response.context_data.keys()), ['page'])
+
+
+class TestResourceAddView(TestCase):
+
+    def _tear_down(self):
+        for model in [Resource, User]:
+            model.objects.all().delete()
+
+    def test_view_requires_authentication(self):
+        request = utils.get_request(
+            'get', '/resource/add/', user=utils.get_anon_mock())
+        response = views.resource_add(request)
+        eq_(response.status_code, 302)
+        eq_(response['Location'], utils.get_login_url('/resource/add/'))
+
+    def test_get_request_is_successful(self):
+        request = utils.get_request(
+            'get', '/resource/add/', user=utils.get_user_mock())
+        response = views.resource_add(request)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'resources/object_add.html')
+        eq_(sorted(response.context_data.keys()), ['form'])
+
+    def test_empty_post_request_fails(self):
+        request = utils.get_request(
+            'post', '/resource/add/', data={}, user=utils.get_user_mock())
+        response = views.resource_add(request)
+        eq_(response.status_code, 200)
+        ok_(response.context_data['form'].errors)
+
+    def test_post_request_succeeds(self):
+        user = get_user('us-ignite')
+        data = {
+            'name': 'Gigabit resource',
+            'description': 'Lorem Ipsum',
+            'status': Resource.DRAFT,
+            'url': 'http://us-ignite.org/',
+        }
+        request = utils.get_request(
+            'post', '/resource/add/', data=data, user=user)
+        response = views.resource_add(request)
+        resource = Resource.objects.get(name='Gigabit resource')
+        eq_(response.status_code, 302)
+        eq_(response['Location'], resource.get_absolute_url())
+        self._tear_down()
