@@ -60,6 +60,11 @@ class TestResourceModel(TestCase):
         resource = fixtures.get_resource(owner=user, slug='foo')
         eq_(resource.get_absolute_url(), '/resources/foo/')
 
+    def test_get_edit_url(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(owner=user, slug='foo')
+        eq_(resource.get_edit_url(), '/resources/foo/edit/')
+
     def test_get_resource_url(self):
         user = get_user('us-ignite')
         resource = fixtures.get_resource(

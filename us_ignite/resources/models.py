@@ -40,6 +40,9 @@ class Resource(models.Model):
     def get_absolute_url(self):
         return reverse('resource_detail', args=[self.slug])
 
+    def get_edit_url(self):
+        return reverse('resource_edit', args=[self.slug])
+
     def get_resource_url(self):
         if self.asset:
             return self.asset.url

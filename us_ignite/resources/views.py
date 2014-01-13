@@ -14,6 +14,7 @@ def resource_detail(request, slug):
         raise Http404
     context = {
         'object': resource,
+        'is_owner': resource.is_owner(request.user)
     }
     return TemplateResponse(request, 'resources/object_detail.html', context)
 
@@ -43,3 +44,22 @@ def resource_add(request):
         'form': form,
     }
     return TemplateResponse(request, 'resources/object_add.html', context)
+
+
+@login_required
+def resource_edit(request, slug):
+    resource = get_object_or_404(Resource, slug__exact=slug)
+    if not resource.is_owner(request.user):
+        raise Http404
+    if request.method == 'POST':
+        form = ResourceForm(request.POST, request.FILES, instance=resource)
+        if form.is_valid():
+            instance = form.save()
+            return redirect(instance.get_absolute_url())
+    else:
+        form = ResourceForm(instance=resource)
+    context = {
+        'form': form,
+        'object': resource,
+    }
+    return TemplateResponse(request, 'resources/object_edit.html', context)

@@ -7,6 +7,7 @@
 <p>{{ object.description }}</p>
 <ul>
   <li>Added on {{ object.created }}</li>
+  {% if is_owner %}<li><a href="{{ object.get_edit_url }}">Edit resource</a></li>{% endif %}
   <li><a href="{{ object.get_resource_url }}">View resource</a></li>
 </ul>
 

@@ -7,8 +7,10 @@ from django.test import TestCase
 
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
-from us_ignite.resources.models import Resource
 from us_ignite.resources import views
+from us_ignite.resources.models import Resource
+from us_ignite.resources.tests import fixtures
+
 
 patch_get = patch('us_ignite.resources.views.get_object_or_404')
 
@@ -102,4 +104,66 @@ class TestResourceAddView(TestCase):
         resource = Resource.objects.get(name='Gigabit resource')
         eq_(response.status_code, 302)
         eq_(response['Location'], resource.get_absolute_url())
+        self._tear_down()
+
+
+class TestResourceEditView(TestCase):
+
+    def _tear_down(self):
+        for model in [Resource, User]:
+            model.objects.all().delete()
+
+    def test_view_requires_authentication(self):
+        request = utils.get_request(
+            'get', '/resource/foo/edit/', user=utils.get_anon_mock())
+        response = views.resource_edit(request)
+        eq_(response.status_code, 302)
+        eq_(response['Location'], utils.get_login_url('/resource/foo/edit/'))
+
+    @patch_get
+    def test_resource_requires_ownership(self, mock_get):
+        mock_instance = Mock(spec=Resource)
+        mock_instance.is_owner.return_value = False
+        mock_get.return_value = mock_instance
+        request = utils.get_request(
+            'get', '/resource/foo/edit/', user=utils.get_user_mock())
+        assert_raises(Http404, views.resource_edit, request, 'foo')
+        mock_get.assert_called_once_with(Resource, slug__exact='foo')
+        mock_instance.is_owner.assert_called_once_with(request.user)
+
+    def test_resource_request_is_successsful(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(owner=user)
+        request = utils.get_request('get', resource.get_edit_url(), user=user)
+        response = views.resource_edit(request, resource.slug)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'resources/object_edit.html')
+        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+
+    def test_invalid_form_fails(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(owner=user)
+        request = utils.get_request(
+            'post', resource.get_edit_url(), data={}, user=user)
+        response = views.resource_edit(request, resource.slug)
+        eq_(response.status_code, 200)
+        ok_(response.context_data['form'].errors)
+        self._tear_down()
+
+    def test_resource_update_request_is_successful(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(owner=user)
+        data = {
+            'name': 'Resource Updated',
+            'description': 'Lorem Ipsum',
+            'status': Resource.DRAFT,
+            'url': 'http://us-ignite.org/',
+        }
+        request = utils.get_request(
+            'post', resource.get_edit_url(), data=data, user=user)
+        response = views.resource_edit(request, resource.slug)
+        eq_(response.status_code, 302)
+        eq_(response['Location'], resource.get_absolute_url())
+        resource = Resource.objects.get(pk=resource.pk)
+        eq_(resource.name, 'Resource Updated')
         self._tear_down()
