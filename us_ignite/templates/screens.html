@@ -16,12 +16,12 @@
 <ul>
   <li><a href="{% url 'auth_login' %}">Login</a></li>
   <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-  <li><a href="{% url 'auth_password_change' %}">Password change</a></li>
-  <li><a href="{% url 'auth_password_change_done' %}">Completed password change</a></li>
-  <li><a href="{% url 'auth_password_reset' %}">Password reset</a></li>
-  {% comment %}<li><a href="{% url 'auth_password_reset_confirm' %}">Password reset confirmation</a></li>{% endcomment %}
-  <li><a href="{% url 'auth_password_reset_complete'%}">Reset complete</a></li>
-  <li><a href="{% url 'auth_password_reset_done'%}">Reset done</a></li>
+  <li><a href="{% url 'password_change' %}">Password change</a></li>
+  <li><a href="{% url 'password_change_done' %}">Completed password change</a></li>
+  <li><a href="{% url 'password_reset' %}">Password reset</a></li>
+  {% comment %}<li><a href="{% url 'password_reset_confirm' %}">Password reset confirmation</a></li>{% endcomment %}
+  <li><a href="{% url 'password_reset_complete'%}">Reset complete</a></li>
+  <li><a href="{% url 'password_reset_done'%}">Reset done</a></li>
   <li><a href="{% url 'user_profile' %}">Edit user profile</a></li>
 </ul>
 

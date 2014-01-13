@@ -7,7 +7,7 @@
 
 <ul>
   {% if request.user.has_usable_password %}
-  <li><a href="{% url 'auth_password_change' %}">Password change</a></li>
+  <li><a href="{% url 'password_change' %}">Password change</a></li>
   {% endif %}
   <li><a href="{{ request.user.profile.get_absolute_url }}">View my profile</a></li>
 </ul>

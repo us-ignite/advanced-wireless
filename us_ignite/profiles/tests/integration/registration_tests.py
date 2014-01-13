@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.test import TestCase
-from django.utils.http import int_to_base36
+from django.utils.http import urlsafe_base64_encode
 
 
 from django_nose.tools import assert_redirects
@@ -165,7 +165,7 @@ class TestAuthenticatedPasswordChangePage(TestCase):
             'new_password2': 'hello123',
         }
         response = self.client.post(url, payload)
-        assert_redirects(response, reverse('auth_password_change_done'))
+        assert_redirects(response, reverse('password_change_done'))
 
     def test_invalid_payload_fails(self):
         url = '/accounts/password/change/'
@@ -205,11 +205,11 @@ class TestPasswordResetPage(TestCase):
 
     def test_unregisted_email_POST_request_fails(self):
         payload = {
-            'email': 'unregister@us-ignite.org',
+            'email': 'non-registered@us-ignite.org',
         }
         response = self.client.post('/accounts/password/reset/', payload)
-        eq_(response.status_code, 200)
-        ok_(response.context['form'].errors)
+        assert_redirects(response, reverse('password_reset_done'))
+        eq_(len(mail.outbox), 0)
 
     def test_valid_request_succeeds(self):
         fixtures.get_user('hello', email='hello@us-ignite.org')
@@ -217,7 +217,7 @@ class TestPasswordResetPage(TestCase):
             'email': 'hello@us-ignite.org',
         }
         response = self.client.post('/accounts/password/reset/', payload)
-        assert_redirects(response, reverse('auth_password_reset_done'))
+        assert_redirects(response, reverse('password_reset_done'))
         eq_(len(mail.outbox), 1)
         expected_url = '%s/accounts/password/reset/confirm/' % settings.SITE_URL
         ok_(expected_url in mail.outbox[0].body)
@@ -246,10 +246,10 @@ class TestValidPasswordResetConfirmPage(TestCase):
 
     def setUp(self):
         user = fixtures.get_user('hello', email='hello@us-ignite.org')
-        uid = int_to_base36(user.pk)
+        uid = urlsafe_base64_encode(str(user.pk))
         token = default_token_generator.make_token(user)
-        self._url = reverse('auth_password_reset_confirm',
-                            kwargs={'uidb36': uid, 'token':token})
+        self._url = reverse('password_reset_confirm',
+                            kwargs={'uidb64': uid, 'token':token})
 
     def tearDown(self):
         _teardown_profiles()
@@ -265,7 +265,7 @@ class TestValidPasswordResetConfirmPage(TestCase):
             'new_password2': 'hello',
         }
         response = self.client.post(self._url, payload)
-        assert_redirects(response, reverse('auth_password_reset_complete'))
+        assert_redirects(response, reverse('password_reset_complete'))
 
 
 class TestResetCompletePage(TestCase):
