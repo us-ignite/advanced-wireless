@@ -6,7 +6,7 @@ from us_ignite.hubs.models import Hub
 
 
 def _get_status_choices():
-    """Returns a list of valid user status for the ``Application``"""
+    """Returns a list of valid user status for the ``Event``"""
     available_status = [
         Event.PUBLISHED,
         Event.DRAFT,
@@ -16,6 +16,7 @@ def _get_status_choices():
 
 
 DATE_HELP_TEXT = 'Format: YYYY-MM-DD HH:MM'
+
 
 class EventForm(forms.ModelForm):
     start_datetime = forms.DateTimeField(
