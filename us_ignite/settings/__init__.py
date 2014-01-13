@@ -89,6 +89,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware'
     'djangosecure.middleware.SecurityMiddleware',
     'us_ignite.common.middleware.DoNotTrackMiddleware',
 )
@@ -224,7 +225,6 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Email settings:
 EMAIL_SUBJECT_PREFIX = '[US Ignite] '
-SEND_BROKEN_LINK_EMAILS = True
 DEFAULT_FROM_EMAIL = 'info@us-ignite.org'
 SERVER_EMAIL = 'info@us-ignite.org'
 
