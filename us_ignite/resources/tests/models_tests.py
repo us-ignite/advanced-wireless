@@ -70,3 +70,8 @@ class TestResourceModel(TestCase):
         user = get_user('us-ignite')
         resource = fixtures.get_resource(owner=user)
         eq_(resource.get_resource_url(), '')
+
+    def test_user_is_owner(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(owner=user)
+        eq_(resource.is_owner(user), True)

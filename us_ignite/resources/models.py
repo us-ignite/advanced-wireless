@@ -20,7 +20,7 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    description = models.TextField(blank=True)
+    description = models.TextField()
     owner = models.ForeignKey('auth.User')
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True)
@@ -48,7 +48,10 @@ class Resource(models.Model):
         return u''
 
     def is_visible_by(self, user):
-        return self.is_published() or user == self.owner
+        return self.is_published() or self.is_owner(user)
+
+    def is_owner(self, user):
+        return user == self.owner
 
     def is_published(self):
         return self.status == self.PUBLISHED
