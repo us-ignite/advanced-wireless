@@ -7,6 +7,20 @@
 <p>{{ object.description }}</p>
 <ul>
   <li>Added on {{ object.created }}</li>
-  <li><a href="{{ object.get_asset_url }}">View resource</a></li>
+  <li><a href="{{ object.get_resource_url }}">View resource</a></li>
 </ul>
+
+<h2>Tags</h2>
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+<ul>
+  {% for tag in tag_list %}
+  <li><a href="">{{ tag }}</a></li>
+  {% endfor%}
+</ul>
+{% else %}
+<p>Resource hasn't been tagged.</p>
+{% endif %}
+{% endwith %}
+
 {% endblock content %}
