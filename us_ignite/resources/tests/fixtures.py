@@ -6,7 +6,7 @@ def get_resource(**kwargs):
     data = {
         'name': 'Gigabit resource',
     }
-    if not 'user' in kwargs:
-        data['user'] = get_user('us-ignite')
+    if not 'owner' in kwargs:
+        data['owner'] = get_user('us-ignite')
     data.update(kwargs)
     return Resource.objects.create(**kwargs)
