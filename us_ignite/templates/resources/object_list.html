@@ -5,6 +5,10 @@
 {% block content %}
 <h1>Resources</h1>
 
+<ul>
+  <li><a href="{% url 'resource_add' %}">Add Resource</a></li>
+</ul>
+
 {% if page.object_list  %}
 {% for object in page.object_list %}
 {% include "resources/object_block.html" with object=object %}
