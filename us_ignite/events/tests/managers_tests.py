@@ -11,7 +11,7 @@ from us_ignite.profiles.tests.fixtures import get_user
 class TestEventPublishedManager(TestCase):
 
     def tearDown(self):
-        for model in [User]:
+        for model in [Event, User]:
             model.objects.all().delete()
 
     def test_published_events_are_shown(self):
