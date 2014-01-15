@@ -3,8 +3,14 @@
 {% block title %}Search events - {{ block.super }}{% endblock title %}
 
 {% block content %}
+
 <h1>Search: Events</h1>
-<p><a href="{% url 'event_add' %}">Add an event</a></p>
+
+<form method="get" action="{% url 'search_events' %}">
+  {{ form.as_p }}
+  <p><button type="submit">Submit</button></p>
+</form>
+
 {% if page.object_list  %}
 {% for object in page.object_list %}
 {% include "events/object_block.html" with object=object %}
