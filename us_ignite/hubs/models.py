@@ -100,6 +100,9 @@ class Hub(models.Model):
     def is_published(self):
         return self.status == self.PUBLISHED
 
+    def is_visible_by(self, user):
+        return self.is_published() or self.is_guardian(user)
+
     def record_activity(self, name, extra_data=None):
         data = {
             'hub': self,

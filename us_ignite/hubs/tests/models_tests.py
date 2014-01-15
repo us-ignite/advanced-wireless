@@ -6,10 +6,11 @@ from django.test import TestCase
 
 from us_ignite.apps.models import Application
 from us_ignite.apps.tests.fixtures import get_application
-from us_ignite.profiles.tests.fixtures import get_user
+from us_ignite.common.tests import utils
 from us_ignite.hubs.models import (Hub, HubActivity, HubMembership, HubRequest,
                                    HubAppMembership)
 from us_ignite.hubs.tests import fixtures
+from us_ignite.profiles.tests.fixtures import get_user
 
 
 class TestHubRequestModel(TestCase):
@@ -102,6 +103,15 @@ class TestHubModel(TestCase):
         guardian = get_user('guardian')
         instance = fixtures.get_hub(guardian=guardian, status=Hub.PUBLISHED)
         eq_(instance.is_published(), True)
+
+    def test_published_hub_is_visible(self):
+        instance = fixtures.get_hub(status=Hub.PUBLISHED)
+        eq_(instance.is_visible_by(utils.get_anon_mock()), True)
+
+    def test_unpublished_hub_is_visible_to_guardian(self):
+        guardian = get_user('guardian')
+        instance = fixtures.get_hub(guardian=guardian, status=Hub.DRAFT)
+        eq_(instance.is_visible_by(guardian), True)
 
     def test_get_absolute_url(self):
         guardian = get_user('guardian')
