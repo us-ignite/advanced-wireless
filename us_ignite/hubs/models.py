@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from us_ignite.hubs import managers
+
 from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
@@ -75,6 +77,10 @@ class Hub(models.Model):
     is_featured = models.BooleanField(default=False)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
+
+    # managers
+    objects = models.Manager()
+    active = managers.HubActiveManager()
 
     def __unicode__(self):
         return self.name
