@@ -39,11 +39,12 @@ def hub_application(request):
 def hub_detail(request, slug):
     """Homepage of a Ignite Community.
 
-    This view aggregates all the content related to this ``Hub``.
+    This view aggregates all the content related to this ``Hub``. Available
+    when published or to the ``guardian``.
     """
     instance = get_object_or_404(
         Hub.objects.select_related('guardian'), slug__exact=slug)
-    if not instance.is_published() and not instance.is_guardian(request.user):
+    if not instance.is_visible_by(request.user):
         raise Http404
     member_list = instance.hubmembership_set.select_related('profile').all()
     # Determine if the user is a member of this ``Hub``:
@@ -100,7 +101,7 @@ def hub_edit(request, slug):
 
 def hub_list(request):
     """List al the available ``Hubs``."""
-    object_list = Hub.objects.filter(status=Hub.PUBLISHED)
+    object_list = Hub.active.all()
     context = {
         'object_list': object_list,
     }

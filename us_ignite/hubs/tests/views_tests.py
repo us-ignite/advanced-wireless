@@ -190,10 +190,12 @@ class TestHubEditView(TestCase):
 
 class TestHubListView(TestCase):
 
-    def test_get_request_is_successful(self):
+    @patch('us_ignite.hubs.models.Hub.active.all')
+    def test_get_request_is_successful(self, all_mock):
         user = utils.get_anon_mock()
         request = utils.get_request('get', '/hub/', user=user)
         response = views.hub_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'hubs/object_list.html')
         eq_(sorted(response.context_data.keys()), ['object_list'])
+        all_mock.assert_called_once_with()
