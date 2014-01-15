@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Search apps - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Search: Hubs</h1>
+
+<form method="get" action="{% url 'search_hubs' %}">
+  {{ form.as_p }}
+  <p><button type="submit">Submit</button></p>
+</form>
+
+{% if page.object_list  %}
+{% for object in page.object_list %}
+{% include "hubs/object_block.html" with object=object %}
+{% endfor%}
+{% else %}
+<p>No hubs found.</p>
+{% endif %}
+
+{% include "includes/pagination.html" %}
+{% endblock content %}
