@@ -11,9 +11,7 @@
 
 {% for object in object_list %}
 <div>
-  <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
-  <p>{{ object.summary }}</p>
-
+  {% include "hubs/object_block.html" %}
 </div>
 {% endfor%}
 {% endblock content %}
