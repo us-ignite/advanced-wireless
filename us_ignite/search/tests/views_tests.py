@@ -8,6 +8,7 @@ from us_ignite.common.tests import utils
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub
 from us_ignite.organizations.models import Organization
+from us_ignite.resources.models import Resource
 from us_ignite.search import views
 
 
@@ -60,3 +61,15 @@ class TestSearchOrganizationView(TestCase):
         eq_(response, 'ok')
         search_mock.assert_called_once_with(
             request, Organization.active, 'search/organization_list.html')
+
+
+class TestSearchResourceView(TestCase):
+
+    @patch_search
+    def test_search_tag_is_successful(self, search_mock):
+        search_mock.return_value = 'ok'
+        request = utils.get_request('get', '/search/resource/')
+        response = views.search_resources(request)
+        eq_(response, 'ok')
+        search_mock.assert_called_once_with(
+            request, Resource.published, 'search/resource_list.html')
