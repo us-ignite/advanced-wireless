@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 from us_ignite.common.fields import AutoUUIDField
+from us_ignite.resources import managers
 
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
@@ -30,6 +31,10 @@ class Resource(models.Model):
     tags = TaggableManager(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
+
+    # Managers
+    objects = models.Manager()
+    published = managers.ResourcePublishedManager()
 
     class Meta:
         ordering = ('-is_featured', '-created')
