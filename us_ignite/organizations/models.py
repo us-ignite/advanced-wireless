@@ -5,6 +5,8 @@ from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
 
+from us_ignite.organizations import managers
+
 
 class Organization(models.Model):
     PUBLISHED = 1
@@ -26,6 +28,10 @@ class Organization(models.Model):
     tags = TaggableManager(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
+
+    # managers:
+    objects = models.Manager()
+    active = managers.OrganizationActiveManager()
 
     def __unicode__(self):
         return self.name
