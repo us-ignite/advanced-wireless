@@ -42,7 +42,7 @@ def organization_edit(request, slug):
 
 
 def organization_list(request):
-    object_list = Organization.objects.filter(status=Organization.PUBLISHED)
+    object_list = Organization.active.all()
     context = {
         'object_list': object_list,
     }
