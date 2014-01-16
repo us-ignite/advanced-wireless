@@ -33,7 +33,7 @@
 {% if tag_list %}
 <ul>
   {% for tag in tag_list %}
-  <li><a href="">{{ tag }}</a></li>
+  <li><a href="{% url 'search_organizations' %}?tag={{ tag|urlencode }}">{{ tag }}</a></li>
   {% endfor%}
 </ul>
 {% else %}

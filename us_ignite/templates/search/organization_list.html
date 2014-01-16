@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Search organizations - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>Search: Organizations</h1>
+
+<form method="get" action="{% url 'search_organizations' %}">
+  {{ form.as_p }}
+  <p><button type="submit">Submit</button></p>
+</form>
+
+
+{% if page.object_list  %}
+{% for object in page.object_list %}
+<div>
+  <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+</div>
+{% endfor%}
+{% else %}
+<p>No organizations found.</p>
+{% endif %}
+
+{% include "includes/pagination.html" %}
+{% endblock content %}
