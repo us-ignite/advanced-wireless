@@ -21,7 +21,7 @@ def resource_detail(request, slug):
 
 def resource_list(request):
     page_no = pagination.get_page_no(request.GET)
-    object_list = Resource.objects.filter(status=Resource.PUBLISHED)
+    object_list = Resource.published.all()
     page = pagination.get_page(object_list, page_no)
     context = {
         'page': page,
