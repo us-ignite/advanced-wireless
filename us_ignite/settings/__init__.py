@@ -150,6 +150,7 @@ INSTALLED_APPS = (
     'djangosecure',
     'easy_thumbnails',
     'embed_video',
+    'watson',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',
