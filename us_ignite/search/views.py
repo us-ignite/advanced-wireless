@@ -11,7 +11,8 @@ from us_ignite.search.filters import tag_search
 @csrf_exempt
 def search_apps(request):
     return tag_search(
-        request, Application.active, 'search/application_list.html')
+        request, Application.active.filter(status=Application.PUBLISHED),
+        'search/application_list.html')
 
 
 @csrf_exempt
