@@ -11,7 +11,7 @@ from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
 from us_ignite.common.text import truncatewords
-from us_ignite.apps import managers
+from us_ignite.apps import managers, search
 
 
 class Feature(models.Model):
@@ -264,6 +264,5 @@ class PageApplication(models.Model):
 # Search
 watson.register(
     Application.active.filter(status=Application.PUBLISHED),
-    fields=('name', 'summary', 'impact_statement', 'description',
-            'roadmap', 'assistance', 'team_description', 'acknowledgments')
+    search.ApplicationSearchAdapter
 )
