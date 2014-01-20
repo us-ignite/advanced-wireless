@@ -9,7 +9,7 @@ from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
-from us_ignite.events import managers, exporter
+from us_ignite.events import managers, exporter, search
 
 
 class Event(models.Model):
@@ -79,5 +79,5 @@ class Event(models.Model):
 # Search:
 watson.register(
     Event.published.all(),
-    fields=('name', 'venue', 'description')
+    search.EventSearchAdapter
 )
