@@ -13,8 +13,8 @@ class ResourceSearchAdapter(watson.SearchAdapter):
 
     def get_content(self, obj):
         fields = [
-            self.url,
-            self.asset.url if self.asset else '',
+            obj.url,
+            obj.asset.url if obj.asset else '',
             ', '.join([t.name for t in obj.tags.all()]),
         ]
         return render.render_fields(fields)
