@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 from us_ignite.common.fields import AutoUUIDField
-from us_ignite.resources import managers
+from us_ignite.resources import managers, search
 
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
@@ -70,5 +70,5 @@ class Resource(models.Model):
 # Search:
 watson.register(
     Resource.published.all(),
-    fields=('name', 'description', 'url', 'asset')
+    search.ResourceSearchAdapter
 )
