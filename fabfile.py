@@ -136,6 +136,8 @@ def deploy(confirmation):
         syncdb()
         # Collect any static assets:
         collectstatic()
+        # Index the content
+        buildwatson()
     print yellow('URL: %s' % env.url)
     print green('Done at %s' % datetime.now())
 
