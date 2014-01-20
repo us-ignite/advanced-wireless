@@ -1,3 +1,5 @@
+import watson
+
 from django.db import models
 from django.core.urlresolvers import reverse
 
@@ -65,3 +67,10 @@ class OrganizationMember(models.Model):
 
     def __unicode__(self):
         return u'%s membership of %s' % (self.organization, self.user)
+
+
+# Search:
+watson.register(
+    Organization.active.all(),
+    fields=('name', 'bio')
+)

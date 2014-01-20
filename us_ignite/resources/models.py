@@ -1,3 +1,5 @@
+import watson
+
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -63,3 +65,10 @@ class Resource(models.Model):
 
     def is_published(self):
         return self.status == self.PUBLISHED
+
+
+# Search:
+watson.register(
+    Resource.published.all(),
+    fields=('name', 'description', 'url', 'asset')
+)

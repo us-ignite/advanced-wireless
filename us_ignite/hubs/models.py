@@ -1,3 +1,5 @@
+import watson
+
 from django.core.urlresolvers import reverse
 from django.db import models
 
@@ -147,3 +149,9 @@ class HubAppMembership(models.Model):
 
     class Meta:
         ordering = ('-created', )
+
+# Search:
+watson.register(
+    Hub.active.all(),
+    fields=('name', 'summary', 'description'),
+)

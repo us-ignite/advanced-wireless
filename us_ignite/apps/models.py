@@ -1,3 +1,5 @@
+import watson
+
 from hashlib import md5
 
 from django.core.urlresolvers import reverse
@@ -258,3 +260,10 @@ class PageApplication(models.Model):
 
     def __unicode__(self):
         return u'%s for page %s' % (self.application, self.page)
+
+# Search
+watson.register(
+    Application.active.filter(status=Application.PUBLISHED),
+    fields=('name', 'summary', 'impact_statement', 'description',
+            'roadmap', 'assistance', 'team_description', 'acknowledgments')
+)

@@ -1,3 +1,5 @@
+import watson
+
 from django.db import models
 from django.core.urlresolvers import reverse
 
@@ -73,3 +75,9 @@ class Event(models.Model):
 
     def get_edit_url(self):
         return reverse('event_edit', args=[self.slug])
+
+# Search:
+watson.register(
+    Event.published.all(),
+    fields=('name', 'venue', 'description')
+)
