@@ -41,7 +41,7 @@ class TestSearchEventsView(TestCase):
             request, Event.published, 'search/event_list.html')
 
 
-class TestHubEventsView(TestCase):
+class TestHubsView(TestCase):
 
     @patch_search
     def test_search_tag_is_successful(self, search_mock):
