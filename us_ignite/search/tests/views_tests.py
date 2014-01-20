@@ -3,7 +3,6 @@ from nose.tools import eq_
 
 from django.test import TestCase
 
-from us_ignite.apps.models import Application
 from us_ignite.common.tests import utils
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub
@@ -75,3 +74,27 @@ class TestSearchResourceView(TestCase):
         eq_(response, 'ok')
         search_mock.assert_called_once_with(
             request, Resource.published, 'search/resource_list.html')
+
+
+class TestSearchView(TestCase):
+
+    @patch('watson.search')
+    def test_get_queryless_request_is_successful(self, mock_watson):
+        request = utils.get_request('get', '/search/')
+        response = views.search(request)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'search/object_list.html')
+        eq_(sorted(response.context_data.keys()), ['form', 'object_list'])
+        eq_(response.context_data['object_list'], [])
+        eq_(mock_watson.call_count, 0)
+
+    @patch('watson.search')
+    def test_query_request_is_successful(self, mock_watson):
+        mock_watson.return_value = ['object']
+        request = utils.get_request('get', '/search/', data={'q': 'gigabit'})
+        response = views.search(request)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'search/object_list.html')
+        eq_(sorted(response.context_data.keys()), ['form', 'object_list'])
+        eq_(response.context_data['object_list'], ['object'])
+        mock_watson.assert_called_once_with('gigabit')
