@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+from django.utils.text import slugify
 
 from us_ignite.apps.models import (
     Application, Domain, Feature, Page, PageApplication)
@@ -49,8 +50,8 @@ class Command(BaseCommand):
             'stage': choice(Application.STAGE_CHOICES)[0],
             'status': choice(Application.STATUS_CHOICES)[0],
             'website': u'http://%s/' % text.random_words(1),
-            'summary': self._choice(text.random_words(20)),
-            'impact_statement': text.random_words(20),
+            'summary': self._choice(text.random_words(20))[:140],
+            'impact_statement': text.random_words(20)[:140],
             'description': text.random_paragraphs(4),
             'roadmap': self._choice(text.random_words(30)),
             'assistance': self._choice(text.random_words(30)),
@@ -157,8 +158,10 @@ class Command(BaseCommand):
         return True
 
     def _create_organization(self):
+        name = text.random_words(3)
         data = {
-            'name': text.random_words(3),
+            'name': name,
+            'slug': slugify(name),
             'status': choice(Organization.STATUS_CHOICES)[0],
             'bio': self._choice(text.random_words(30)),
             'image': images.random_image(u'%s.png' % text.random_words(1)),
