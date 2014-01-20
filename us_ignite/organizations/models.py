@@ -7,7 +7,7 @@ from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
 
-from us_ignite.organizations import managers
+from us_ignite.organizations import managers, search
 
 
 class Organization(models.Model):
@@ -72,5 +72,5 @@ class OrganizationMember(models.Model):
 # Search:
 watson.register(
     Organization.active.all(),
-    fields=('name', 'bio')
+    search.OrganizationSearchAdapter
 )
