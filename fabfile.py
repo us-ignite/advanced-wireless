@@ -78,6 +78,18 @@ def shell():
     dj_heroku('shell', env.app, env.slug)
 
 
+@only_outside_vm
+def installwatson():
+    """Install watson full-text search."""
+    dj_heroku('installwatson', env.app, env.slug)
+
+
+@only_outside_vm
+def buildwatson():
+    """Build watson full-text search corpus."""
+    dj_heroku('buildwatson', env.app, env.slug)
+
+
 def production_confirmation(function):
     """Production confirmation."""
     @functools.wraps(function)
@@ -160,6 +172,9 @@ def reset_local_db():
               '--settings=%s.settings.local' % DB_STRING)
         # local('django-admin.py migrate --noinput '
         #       '--settings=%s.settings.local' % DB_STRING)
+        # Install search fields:
+        local('django-admin.py watsoninstall '
+              '--settings=%s.settings.local' % DB_STRING)
     else:
         print yellow('Phew, aborted.')
         exit(1)
