@@ -23,6 +23,6 @@ class ApplicationSearchAdapter(watson.SearchAdapter):
             obj.acknowledgments,
             ', '.join([t.name for t in obj.tags.all()]),
             domain,
-            ', '.join([f.name for f in obj.features.all()])
+            ', '.join([f.name for f in obj.features.all()]),
         ]
         return render.render_fields(fields)
