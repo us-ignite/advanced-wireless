@@ -3,7 +3,7 @@ import watson
 from django.core.urlresolvers import reverse
 from django.db import models
 
-from us_ignite.hubs import managers
+from us_ignite.hubs import managers, search
 
 from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
@@ -153,5 +153,5 @@ class HubAppMembership(models.Model):
 # Search:
 watson.register(
     Hub.active.all(),
-    fields=('name', 'summary', 'description'),
+    search.HubSearchAdapter
 )
