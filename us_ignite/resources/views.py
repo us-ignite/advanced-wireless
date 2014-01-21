@@ -37,6 +37,7 @@ def resource_add(request):
             instance = form.save(commit=False)
             instance.owner = request.user
             instance.save()
+            form.save_m2m()
             return redirect(instance.get_absolute_url())
     else:
         form = ResourceForm()

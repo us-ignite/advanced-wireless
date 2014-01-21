@@ -15,11 +15,11 @@ def _get_status_choices():
 
 class ResourceForm(forms.ModelForm):
     status = forms.ChoiceField(
-        choices=_get_status_choices(), initial=Resource.DRAFT)
+        choices=_get_status_choices(), initial=Resource.PUBLISHED)
 
     class Meta:
         model = Resource
-        fields = ('name', 'description', 'url', 'asset', 'tags')
+        fields = ('name', 'description', 'url', 'asset', 'tags', 'status')
 
     def clean(self):
         cleaned_data = self.cleaned_data
