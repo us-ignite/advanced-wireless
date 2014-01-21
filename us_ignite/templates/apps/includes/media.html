@@ -2,5 +2,5 @@
 {% if object.image %}
 <img src="{% thumbnail object.image 500x0 %}" alt="{{ object.name }}" title="{{ object.name }}"/>
 {% else %}
-{{ object.url|embed:'560x315' }}
+{% video object.url '560x315' %}
 {% endif %}
