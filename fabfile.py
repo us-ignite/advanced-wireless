@@ -175,7 +175,7 @@ def reset_local_db():
         # local('django-admin.py migrate --noinput '
         #       '--settings=%s.settings.local' % DB_STRING)
         # Install search fields:
-        local('django-admin.py watsoninstall '
+        local('django-admin.py installwatson '
               '--settings=%s.settings.local' % DB_STRING)
     else:
         print yellow('Phew, aborted.')
