@@ -1,8 +1,8 @@
 # Development
-fabric == 1.5.2
+fabric == 1.8.1
 pdbpp == 0.7.2
-django-debug-toolbar == 0.9.4
-ipdb == 0.7
+django-debug-toolbar == 1.0.1
+ipdb == 0.8
 
 # Testing
 mock == 1.0.1
