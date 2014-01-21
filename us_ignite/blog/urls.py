@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
     'us_ignite.blog.views',
-    url(r'^$', 'entry_list', name='blog_entry_list'),
+    url(r'^$', 'post_list', name='blog_post_list'),
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
-        'entry_detail', name='blog_entry_detail'),
+        'post_detail', name='blog_post_detail'),
 )

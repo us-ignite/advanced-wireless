@@ -2,24 +2,24 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
 
-from us_ignite.blog.models import Entry
+from us_ignite.blog.models import Post
 
 
-def entry_list(request):
-    object_list = Entry.published.select_related('author').all()
+def post_list(request):
+    object_list = Post.published.select_related('author').all()
     context = {
         'object_list': object_list,
     }
     return TemplateResponse(request, 'blog/object_list.html', context)
 
 
-def entry_detail(request, year, month, slug):
-    entry = get_object_or_404(
-        Entry, slug=slug, publication_date__year=year,
+def post_detail(request, year, month, slug):
+    post = get_object_or_404(
+        Post, slug=slug, publication_date__year=year,
         publication_date__month=month)
-    if not entry.is_visible_by(request.user):
+    if not post.is_visible_by(request.user):
         raise Http404
     context = {
-        'object': entry,
+        'object': post,
     }
     return TemplateResponse(request, 'blog/object_detail.html', context)
