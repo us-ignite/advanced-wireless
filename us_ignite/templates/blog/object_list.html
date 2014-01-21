@@ -6,7 +6,7 @@
 <h1>Blog</h1>
 
 {% for object in object_list %}
-<a href="{{ object.get_absolute_url }}">{{ object }}</a>
+{% include "blog/object_block.html" %}
 {% endfor%}
 
 {% endblock content %}
