@@ -64,3 +64,18 @@ class Post(models.Model):
 
     def is_visible_by(self, user):
         return self.is_published() or self.is_author(user)
+
+
+class PostAttachment(models.Model):
+    post = models.ForeignKey('blog.Post')
+    wp_id = models.CharField(blank=True, max_length=255)
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, blank=True)
+    url = models.URLField(blank=True)
+    attachment = models.FileField(upload_to='posts', blank=True)
+    mime_type = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+    caption = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.title

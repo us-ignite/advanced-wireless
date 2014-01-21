@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
-from us_ignite.blog.models import Post
+from us_ignite.blog.models import Post, PostAttachment
 from us_ignite.blog.tests import fixtures
 
 
@@ -82,3 +82,29 @@ class TestPostModel(TestCase):
         post = fixtures.get_post(
             author=author, publication_date=publication_date, slug='gigabit-a')
         eq_(post.get_absolute_url(), '/blog/2012/10/gigabit-a/')
+
+
+class TestPostAttachmentModel(TestCase):
+
+    def setUp(self):
+        for model in [PostAttachment, Post, User]:
+            model.objects.all().delete()
+
+    def test_post_attachment_is_created_successfully(self):
+        author = get_user('us-ignite')
+        post = fixtures.get_post(author=author, status=Post.PUBLISHED)
+        data = {
+            'post': post,
+            'title': 'Gigabit post',
+        }
+        instance = PostAttachment.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.post, post)
+        eq_(instance.title, 'Gigabit post')
+        eq_(instance.wp_id, '')
+        eq_(instance.slug, '')
+        eq_(instance.url, '')
+        eq_(instance.attachment, '')
+        eq_(instance.mime_type, '')
+        eq_(instance.description, '')
+        eq_(instance.caption, '')
