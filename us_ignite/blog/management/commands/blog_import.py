@@ -9,6 +9,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         print "Importing blogposts."
-        post_list = consumer.consume()
+        post_list = consumer.consume(count=1000)
         print "Imported %s posts" % len(post_list)
         print "Done at %s." % datetime.now()

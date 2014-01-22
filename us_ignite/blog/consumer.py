@@ -11,6 +11,7 @@ from us_ignite.blog.models import Post, PostAttachment
 URL = '%s/api/get_recent_posts/' % settings.WP_URL
 # Timezone used to generate the Posts:
 WP_TIMEZONE = 'America/New_York'
+POST_COUNT = 1000
 
 
 def parse_date(date_string):
@@ -62,9 +63,13 @@ def import_post(data):
     return post
 
 
-def consume(extra_data=None):
-    extra_data = extra_data if extra_data else {}
-    response = requests.get(URL, data=extra_data)
+def consume(extra_data=None, count=POST_COUNT):
+    data = {
+        'count': count
+    }
+    if extra_data:
+        data.update(extra_data)
+    response = requests.get(URL, params=data)
     results = response.json()
     pages = results.get('pages', 0)
     post_list = []
