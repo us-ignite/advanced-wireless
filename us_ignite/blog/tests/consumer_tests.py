@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from us_ignite.blog import consumer
-from us_ignite.blog.models import Post
+from us_ignite.blog.models import Post, PostAttachment
 
 
 class TestParseDateFunction(TestCase):
@@ -73,3 +73,35 @@ class TestConsumeFunction(TestCase):
         response_mock.json.assert_called_once_with()
         eq_(mock_import.call_count, 0)
         eq_(post_list, [])
+
+
+def _get_attachment_data(**kwargs):
+    data = {
+        'id': 3367,
+        'title': 'Image',
+        'slug': 'image',
+        'url': 'http://us-ignite.org/image.jpg',
+        'mime_type': 'image/jpeg',
+        'description': '',
+        'caption': '',
+    }
+    data.update(kwargs)
+    return data
+
+
+class TestImportAttachmentFunction(TestCase):
+
+    @patch.object(PostAttachment, 'save')
+    def test_attachment_is_created_successfully(self, mock_save):
+        data = _get_attachment_data()
+        mock_post = Post()
+        attachment = consumer.import_attachment(mock_post, data)
+        eq_(attachment.wp_id, 3367)
+        eq_(attachment.title, 'Image')
+        eq_(attachment.slug, 'image')
+        eq_(attachment.url, 'http://us-ignite.org/image.jpg')
+        eq_(attachment.mime_type, 'image/jpeg')
+        eq_(attachment.description, '')
+        eq_(attachment.caption, '')
+        eq_(attachment.post, mock_post)
+        mock_save.assert_called_once_with()
