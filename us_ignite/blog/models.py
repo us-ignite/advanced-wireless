@@ -24,9 +24,9 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
     content = models.TextField(blank=True)
-    content_html = models.TextField(blank=True)
+    content_html = models.TextField(blank=True, editable=False)
     excerpt = models.TextField(blank=True)
-    excerpt_html = models.TextField(blank=True)
+    excerpt_html = models.TextField(blank=True, editable=False)
     author = models.ForeignKey('auth.User', blank=True, null=True)
     publication_date = models.DateTimeField(
         blank=True, null=True, default=timezone.now)
