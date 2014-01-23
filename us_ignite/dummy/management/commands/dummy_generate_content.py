@@ -199,3 +199,4 @@ class Command(BaseCommand):
         print u'Generate challenges.'
         for i in range(1, 10):
             self._create_challenge()
+        call_command('blog_import')
