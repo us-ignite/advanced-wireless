@@ -11,4 +11,17 @@
 
 {{ object.content|safe }}
 
+<h2>Tags</h2>
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+<ul>
+  {% for tag in tag_list %}
+  <li><a href="{% url 'search' %}?q={{ tag|urlencode }}">{{ tag }}</a></li>
+  {% endfor%}
+</ul>
+{% else %}
+<p>Post hasn't been tagged.</p>
+{% endif %}
+{% endwith %}
+
 {% endblock content %}

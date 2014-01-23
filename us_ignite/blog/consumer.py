@@ -75,6 +75,10 @@ def import_attachment(post, data):
     return attachment
 
 
+def get_tag_list(category_list):
+    return [c['title'] for c in category_list if c.get('title')]
+
+
 def import_post(data):
     wp_id = data['id']
     try:
@@ -97,6 +101,9 @@ def import_post(data):
     post.publication_date = parse_date(data['date'])
     post.update_date = parse_date(data['modified'])
     post.save()
+    tag_list = get_tag_list(data['categories'])
+    if tag_list:
+        post.tags.add(*tag_list)
     for attachment_data in data.get('attachments', []):
         attachment = import_attachment(post, attachment_data)
     return post

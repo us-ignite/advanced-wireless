@@ -35,6 +35,8 @@ def _get_post_data(**kwargs):
         'date': '2014-01-13 16:05:47',
         'modified': '2014-01-13 16:05:47',
         'url': 'http://us-ignite.org/',
+        'categories': [],
+        'tags': [],
     }
     data.update(kwargs)
     return data
@@ -110,3 +112,14 @@ class TestImportAttachmentFunction(TestCase):
         eq_(attachment.caption, '')
         eq_(attachment.post, mock_post)
         mock_save.assert_called_once_with()
+
+
+class TestGetTagListFunction(TestCase):
+
+    def test_get_tag_list_is_successful(self):
+        data = [
+            {'title': 'Events', 'post_count': 22, 'slug': 'events', 'id': 4},
+            {'title': 'News', 'post_count': 35, 'slug': 'news', 'id': 6},
+        ]
+        tag_list = consumer.get_tag_list(data)
+        eq_(sorted(tag_list), ['Events', 'News'])
