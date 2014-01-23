@@ -1,3 +1,5 @@
+import watson
+
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
@@ -6,7 +8,7 @@ from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
 
-from us_ignite.blog import managers
+from us_ignite.blog import managers, search
 
 
 class Post(models.Model):
@@ -80,3 +82,10 @@ class PostAttachment(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+# Search:
+watson.register(
+    Post.published.all(),
+    search.PostSearchAdapter
+)
