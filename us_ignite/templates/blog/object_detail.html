@@ -9,6 +9,6 @@
 <img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
 {% endif %}
 
-{{ object.content}}
+{{ object.content|safe }}
 
 {% endblock content %}
