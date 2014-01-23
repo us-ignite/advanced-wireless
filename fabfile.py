@@ -190,6 +190,8 @@ def load_fixtures():
         dj_heroku('app_load_fixtures', env.app, env.slug)
         dj_heroku('awards_load_fixtures', env.app, env.slug)
         dj_heroku('common_load_fixtures', env.app, env.slug)
+        dj_heroku('blog_import', env.app, env.slug)
+        buildwatson()
     else:
         print yellow('Phew, aborted.')
         exit(1)
