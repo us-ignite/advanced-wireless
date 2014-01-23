@@ -14,7 +14,7 @@ ALLOWED_TAGS = [
     'strong',
     'ul',
     'p',
-    'br'
+    'br',
 ]
 
 ALLOWED_ATTRIBUTES = {
