@@ -1,10 +1,15 @@
 import pytz
 import requests
+import HTMLParser
 
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.encoding import force_text
+from django.utils.html import strip_tags
+from django.utils.text import slugify
 from django.utils.dateparse import parse_datetime
 
+from us_ignite.common import sanitizer
 from us_ignite.blog.models import Post, PostAttachment
 
 
@@ -20,24 +25,52 @@ def parse_date(date_string):
     return pytz.timezone(WP_TIMEZONE).localize(naive, is_dst=None)
 
 
+def clean_stream(stream):
+    parser = HTMLParser.HTMLParser()
+    replacement_list = [
+        ('<p></p>', ''),
+    ]
+    stream = unicode(parser.unescape(force_text(stream)))
+    stream = sanitizer.sanitize(stream)
+    for o, d in replacement_list:
+        stream = stream.replace(o, d)
+    return stream
+
+
+def clean_excerpt(stream):
+    """Clean the output text from an excerpt."""
+    stream = strip_tags(clean_stream(stream))
+    replacement_list = [
+        (u'Continue reading ', ''),
+        (u'\u2192', ''),
+    ]
+    for o, d in replacement_list:
+        stream = stream.replace(o, d)
+    return stream
+
+
 def get_author(author_data):
-    # TODO: Use a proper user:
-    return User.objects.get(email='alfredo@madewithbyt.es')
+    if not settings.WP_EMAIL:
+        return None
+    try:
+        return User.objects.get(email=settings.WP_EMAIL)
+    except User.DoesNotExist:
+        return None
 
 
 def import_attachment(post, data):
-    wp_id = data['id']
+    wp_id = clean_stream(data['id'])
     try:
         return PostAttachment.objects.get(post=post, wp_id__exact=wp_id)
     except PostAttachment.DoesNotExist:
         pass
     attachment = PostAttachment(post=post, wp_id=wp_id)
-    attachment.title = data['title']
-    attachment.slug = data['slug']
-    attachment.url = data['url']
-    attachment.mime_type = data['mime_type']
-    attachment.description = data['description']
-    attachment.caption = data['caption']
+    attachment.title = clean_stream(data['title'])
+    attachment.slug = slugify(clean_stream(data['slug']))
+    attachment.url = clean_stream(data['url'])
+    attachment.mime_type = clean_stream(data['mime_type'])
+    attachment.description = clean_stream(data['description'])
+    attachment.caption = clean_stream(data['caption'])
     attachment.save()
     return attachment
 
@@ -49,12 +82,15 @@ def import_post(data):
     except Post.DoesNotExist:
         # Publish the post the first time it is imported:
         post = Post(wp_id=wp_id, status=Post.PUBLISHED)
-    post.wp_type = data['type']
-    post.title = data['title']
-    post.slug = data['slug']
-    post.content = data['content']
-    post.excerpt = data['excerpt']
-    post.author = get_author(data['author'])
+    # Determine the author of the post, if existing:
+    author = get_author(data['author'])
+    if not post.author and author:
+        post.author = author
+    post.wp_type = clean_stream(data['type'])
+    post.title = clean_stream(data['title'])
+    post.slug = slugify(clean_stream(data['slug']))
+    post.content = clean_stream(data['content'])
+    post.excerpt = clean_excerpt(data['excerpt'])
     post.publication_date = parse_date(data['date'])
     post.update_date = parse_date(data['modified'])
     post.save()
