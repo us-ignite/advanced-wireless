@@ -87,6 +87,7 @@ def import_post(data):
     if not post.author and author:
         post.author = author
     post.wp_type = clean_stream(data['type'])
+    post.wp_url = clean_stream(data['url'])
     post.title = clean_stream(data['title'])
     post.slug = slugify(clean_stream(data['slug']))
     post.content = clean_stream(data['content'])

@@ -34,6 +34,7 @@ def _get_post_data(**kwargs):
         'author': {},
         'date': '2014-01-13 16:05:47',
         'modified': '2014-01-13 16:05:47',
+        'url': 'http://us-ignite.org/',
     }
     data.update(kwargs)
     return data
@@ -50,6 +51,7 @@ class TestImportPostFunction(TestCase):
         post = consumer.import_post(data)
         mock_save.assert_called_once_with()
         eq_(post.wp_id, 23)
+        eq_(post.wp_url, 'http://us-ignite.org/')
         eq_(post.author, user)
         eq_(post.wp_type, 'post')
         eq_(post.title, 'Gigabit Post')

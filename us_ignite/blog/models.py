@@ -21,6 +21,7 @@ class Post(models.Model):
     status = models.IntegerField(choices=CHOICE_STATUS, default=DRAFT)
     wp_id = models.CharField(blank=True, max_length=255, editable=False)
     wp_type = models.CharField(blank=True, max_length=255, editable=False)
+    wp_url = models.URLField(blank=True)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
     content = models.TextField(blank=True)
