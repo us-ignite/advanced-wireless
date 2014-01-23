@@ -1,9 +1,11 @@
 import watson
 
 from django.template.response import TemplateResponse
+from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
 from us_ignite.apps.models import Application
+from us_ignite.common import pagination
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub
 from us_ignite.organizations.models import Organization
@@ -44,12 +46,17 @@ def search_resources(request):
 @csrf_exempt
 def search(request):
     form = SearchForm(request.GET) if 'q' in request.GET else SearchForm()
+    page_no = pagination.get_page_no(request.GET)
     if form.is_valid():
         object_list = watson.search(form.cleaned_data['q'])
+        pagination_qs = '&%s' % urlencode({'q': form.cleaned_data['q']})
     else:
         object_list = []
+        pagination_qs = ''
+    page = pagination.get_page(object_list, page_no)
     context = {
         'form': form,
-        'object_list': object_list,
+        'page': page,
+        'pagination_qs': pagination_qs,
     }
     return TemplateResponse(request, 'search/object_list.html', context)

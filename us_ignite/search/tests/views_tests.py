@@ -84,8 +84,10 @@ class TestSearchView(TestCase):
         response = views.search(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'search/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['form', 'object_list'])
-        eq_(response.context_data['object_list'], [])
+        eq_(sorted(response.context_data.keys()),
+            ['form', 'page', 'pagination_qs'])
+        eq_(response.context_data['page'].object_list, [])
+        eq_(response.context_data['pagination_qs'], '')
         eq_(mock_watson.call_count, 0)
 
     @patch('watson.search')
@@ -95,6 +97,8 @@ class TestSearchView(TestCase):
         response = views.search(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'search/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['form', 'object_list'])
-        eq_(response.context_data['object_list'], ['object'])
+        eq_(sorted(response.context_data.keys()),
+            ['form', 'page', 'pagination_qs'])
+        eq_(response.context_data['page'].object_list, ['object', ])
+        eq_(response.context_data['pagination_qs'], '&q=gigabit')
         mock_watson.assert_called_once_with('gigabit')
