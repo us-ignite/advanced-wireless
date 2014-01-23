@@ -97,7 +97,7 @@ class TestImportAttachmentFunction(TestCase):
         data = _get_attachment_data()
         mock_post = Post()
         attachment = consumer.import_attachment(mock_post, data)
-        eq_(attachment.wp_id, 3367)
+        eq_(attachment.wp_id, '3367')
         eq_(attachment.title, 'Image')
         eq_(attachment.slug, 'image')
         eq_(attachment.url, 'http://us-ignite.org/image.jpg')
