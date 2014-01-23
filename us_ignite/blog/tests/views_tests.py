@@ -20,7 +20,7 @@ class TestPostListView(TestCase):
         response = views.post_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'blog/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['object_list'])
+        eq_(sorted(response.context_data.keys()), ['page'])
         related_mock.assert_called_once_with('author')
 
 

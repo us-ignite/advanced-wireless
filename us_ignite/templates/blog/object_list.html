@@ -5,8 +5,14 @@
 {% block content %}
 <h1>Blog</h1>
 
-{% for object in object_list %}
-{% include "blog/object_block.html" %}
+{% if page.object_list  %}
+{% for object in page.object_list %}
+{% include "blog/object_block.html" with object=object %}
 {% endfor%}
+{% else %}
+<p>No posts available.</p>
+{% endif %}
+
+{% include "includes/pagination.html" %}
 
 {% endblock content %}

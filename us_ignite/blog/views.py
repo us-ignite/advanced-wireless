@@ -4,12 +4,15 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.text import slugify
 
 from us_ignite.blog.models import Post
+from us_ignite.common import pagination
 
 
 def post_list(request):
+    page_no = pagination.get_page_no(request.GET)
     object_list = Post.published.select_related('author').all()
+    page = pagination.get_page(object_list, page_no)
     context = {
-        'object_list': object_list,
+        'page': page,
     }
     return TemplateResponse(request, 'blog/object_list.html', context)
 
