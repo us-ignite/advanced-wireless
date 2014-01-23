@@ -90,7 +90,9 @@ def import_post(data):
     post.title = clean_stream(data['title'])
     post.slug = slugify(clean_stream(data['slug']))
     post.content = clean_stream(data['content'])
+    post.content_html = post.content
     post.excerpt = clean_excerpt(data['excerpt'])
+    post.excerpt_html = post.excerpt
     post.publication_date = parse_date(data['date'])
     post.update_date = parse_date(data['modified'])
     post.save()

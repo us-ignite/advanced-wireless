@@ -54,7 +54,9 @@ class TestImportPostFunction(TestCase):
         eq_(post.wp_type, 'post')
         eq_(post.title, 'Gigabit Post')
         eq_(post.content, 'Content')
+        eq_(post.content_html, 'Content')
         eq_(post.excerpt, 'Excerpt')
+        eq_(post.excerpt_html, 'Excerpt')
         ok_(post.publication_date)
         ok_(post.update_date)
 
