@@ -27,7 +27,7 @@ class Post(models.Model):
     content_html = models.TextField(blank=True)
     excerpt = models.TextField(blank=True)
     excerpt_html = models.TextField(blank=True)
-    author = models.ForeignKey('auth.User')
+    author = models.ForeignKey('auth.User', blank=True, null=True)
     publication_date = models.DateTimeField(
         blank=True, null=True, default=timezone.now)
     update_date = models.DateTimeField(
