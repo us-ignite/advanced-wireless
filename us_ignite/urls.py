@@ -35,6 +35,13 @@ urlpatterns += patterns(
     url(r'^500/$', 'custom_500', name='http500'),
 )
 
+# Legacy redirects:
+urlpatterns += patterns(
+    '',
+    url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
+        'us_ignite.blog.views.legacy_redirect', name='legacy_post'),
+)
+
 if settings.DEBUG:
     urlpatterns += patterns(
         '',

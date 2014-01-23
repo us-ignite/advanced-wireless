@@ -62,3 +62,28 @@ class TestPostDetailView(TestCase):
             Post, slug='gigabit', publication_date__year=2013,
             publication_date__month=12)
         mock_post.is_visible_by.assert_called_once_with(request.user)
+
+
+class TestLegacyRedirectView(TestCase):
+
+    @patch_get_object
+    def test_redirect_does_not_exists(self, mock_get):
+        mock_get.side_effect = Http404
+        request = utils.get_request('get', '/2014/3/foo/')
+        assert_raises(Http404, views.legacy_redirect, request, 2014, 3, u'foo')
+        mock_get.assert_called_once_with(
+            Post.published, slug='foo', publication_date__year=2014,
+            publication_date__month=3)
+
+    @patch_get_object
+    def test_legacy_redirect_exists(self, mock_get):
+        mock_instance = Mock(spec=Post)
+        mock_instance.get_absolute_url.return_value = '/blog/2014/3/foo/'
+        mock_get.return_value = mock_instance
+        request = utils.get_request('get', '/2014/3/foo/')
+        response = views.legacy_redirect(request, 2014, 3, u'foo')
+        eq_(response.status_code, 301)
+        eq_(response['Location'], '/blog/2014/3/foo/')
+        mock_get.assert_called_once_with(
+            Post.published, slug='foo', publication_date__year=2014,
+            publication_date__month=3)
