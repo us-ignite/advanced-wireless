@@ -36,7 +36,8 @@ class Challenge(models.Model):
         default=False, help_text='When active entries are published only '
         'after the Challenge has finished.')
     user = models.ForeignKey(
-        'auth.User', help_text='User responsible for this Challenge.')
+        'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
+        help_text='User responsible for this Challenge.')
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()

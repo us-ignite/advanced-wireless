@@ -123,7 +123,7 @@ class TestChallengeModel(TestCase):
         instance = fixtures.get_challenge(user=user)
         eq_(instance.get_absolute_url(), '/challenges/%s/' % instance.slug)
 
-    def challenge_has_finished(self):
+    def test_challenge_has_finished(self):
         user = get_user('us-ignite')
         start = timezone.now() - relativedelta(days=3)
         end = start + relativedelta(days=2)
@@ -135,7 +135,7 @@ class TestChallengeModel(TestCase):
         instance = fixtures.get_challenge(**data)
         eq_(instance.has_finished(), True)
 
-    def challenge_has_not_finished(self):
+    def test_challenge_has_not_finished(self):
         user = get_user('us-ignite')
         start = timezone.now()
         end = start + relativedelta(days=2)
@@ -146,6 +146,11 @@ class TestChallengeModel(TestCase):
         }
         instance = fixtures.get_challenge(**data)
         eq_(instance.has_finished(), False)
+
+    def test_challenge_can_be_userless(self):
+        instance = fixtures.get_challenge(user=None)
+        ok_(instance.id)
+        eq_(instance.user, None)
 
 
 class TestQuestionModel(TestCase):
