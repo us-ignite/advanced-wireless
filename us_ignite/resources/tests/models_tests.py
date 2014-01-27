@@ -80,3 +80,14 @@ class TestResourceModel(TestCase):
         user = get_user('us-ignite')
         resource = fixtures.get_resource(owner=user)
         eq_(resource.is_owner(user), True)
+
+    def test_resource_avoids_ownership(self):
+        resource = fixtures.get_resource(owner=None)
+        ok_(resource.id)
+        eq_(resource.owner, None)
+
+    def test_ownerless_resource_has_no_owner(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(owner=None)
+        ok_(not resource.is_owner(user))
+        ok_(not resource.is_owner(utils.get_anon_mock()))

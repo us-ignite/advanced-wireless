@@ -24,7 +24,8 @@ class Resource(models.Model):
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     description = models.TextField()
-    owner = models.ForeignKey('auth.User')
+    owner = models.ForeignKey(
+        'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True)
     url = models.URLField(max_length=500, blank=True)
@@ -61,7 +62,7 @@ class Resource(models.Model):
         return self.is_published() or self.is_owner(user)
 
     def is_owner(self, user):
-        return user == self.owner
+        return self.owner and (user == self.owner)
 
     def is_published(self):
         return self.status == self.PUBLISHED
