@@ -30,7 +30,8 @@ class Post(models.Model):
     content_html = models.TextField(blank=True, editable=False)
     excerpt = models.TextField(blank=True)
     excerpt_html = models.TextField(blank=True, editable=False)
-    author = models.ForeignKey('auth.User', blank=True, null=True)
+    author = models.ForeignKey(
+        'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
     publication_date = models.DateTimeField(
         blank=True, null=True, default=timezone.now)
     update_date = models.DateTimeField(
