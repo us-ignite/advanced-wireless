@@ -1,14 +1,17 @@
-from mock import patch
-from nose.tools import eq_, ok_, assert_raises
+from mock import Mock, patch
+from nose.tools import eq_, ok_
 
 from django.contrib.auth.models import User
-from django.http import Http404
 from django.test import client, TestCase
 
 from us_ignite.apps.models import Application
 from us_ignite.common.tests import utils
+from us_ignite.events.models import Event
+from us_ignite.hubs.models import Hub, HubMembership
+from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.tests import fixtures
 from us_ignite.people import views
+from us_ignite.resources.models import Resource
 
 
 def _teardown_profiles():
@@ -110,7 +113,9 @@ class TestProfileDetailView(TestCase):
         response = views.profile_detail(request, 'someone')
         ok_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
-            sorted(['app_list', 'object', 'membership_list']))
+            sorted(['object', 'application_list', 'event_list',
+                    'resource_list', 'hub_membership_list', 'hub_list',
+                    'hub_request_list', 'organization_list']))
         _teardown_profiles()
 
     def test_get_request_is_successful(self):
@@ -119,35 +124,169 @@ class TestProfileDetailView(TestCase):
         response = views.profile_detail(self._get_request(), 'someone')
         ok_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
-            sorted(['app_list', 'object', 'membership_list']))
+            sorted(['object', 'application_list', 'event_list',
+                    'resource_list', 'hub_membership_list', 'hub_list',
+                    'hub_request_list', 'organization_list']))
         _teardown_profiles()
 
 
-app_active_filter = 'us_ignite.apps.models.Application.active.filter'
+patch_application_filter = patch(
+    'us_ignite.apps.models.Application.active.filter',
+    return_value=Application.objects.none())
 
 
-class TestGetUserAppsHelper(TestCase):
+class TestGetApplicationListFunction(TestCase):
 
-    def test_empty_viewer_returns_public_apps(self):
+    @patch_application_filter
+    def test_empty_viewer_returns_public_apps(self, filter_mock):
         owner = utils.get_user_mock()
-        with patch(app_active_filter, return_value=[]) as filter_mock:
-            result = views.get_user_apps(owner)
-            eq_(result, [])
-            filter_mock.assert_called_once_with(
-                owner=owner, status=Application.PUBLISHED)
+        result = views.get_application_list(owner)
+        filter_mock.assert_called_once_with(
+            owner=owner, status=Application.PUBLISHED)
+        eq_(list(result), [])
 
-    def test_different_viewer_returns_public_apps(self):
+    @patch_application_filter
+    def test_different_viewer_returns_public_apps(self, filter_mock):
         owner = utils.get_user_mock()
         viewer = utils.get_user_mock()
-        with patch(app_active_filter, return_value=[]) as filter_mock:
-            result = views.get_user_apps(owner, viewer=viewer)
-            eq_(result, [])
-            filter_mock.assert_called_once_with(
-                owner=owner, status=Application.PUBLISHED)
+        result = views.get_application_list(owner, viewer=viewer)
+        filter_mock.assert_called_once_with(
+            owner=owner, status=Application.PUBLISHED)
+        eq_(list(result), [])
 
-    def test_owner_viewer_returns_all_apps(self):
+    @patch_application_filter
+    def test_owner_viewer_returns_all_apps(self, filter_mock):
         owner = utils.get_user_mock()
-        with patch(app_active_filter, return_value=[]) as filter_mock:
-            result = views.get_user_apps(owner, viewer=owner)
-            eq_(result, [])
-            filter_mock.assert_called_once_with(owner=owner)
+        result = views.get_application_list(owner, viewer=owner)
+        filter_mock.assert_called_once_with(owner=owner)
+        eq_(list(result), [])
+
+
+patch_event_filter = patch(
+    'us_ignite.events.models.Event.objects.filter',
+    return_value=Event.objects.none()
+)
+
+
+class TestEventListFunction(TestCase):
+
+    @patch_event_filter
+    def test_anon_user_returns_public_objects(self, filter_mock):
+        user = utils.get_user_mock()
+        viewer = utils.get_anon_mock()
+        result = views.get_event_list(user, viewer=viewer)
+        filter_mock.assert_called_once_with(user=user, status=Event.PUBLISHED)
+        eq_(list(result), [])
+
+    @patch_event_filter
+    def test_owner_returns_all_available_objects(self, filter_mock):
+        user = utils.get_user_mock()
+        result = views.get_event_list(user, viewer=user)
+        filter_mock.assert_called_once_with(user=user)
+        eq_(list(result), [])
+
+
+patch_resource_filter = patch(
+    'us_ignite.resources.models.Resource.objects.filter',
+    return_value=Resource.objects.none()
+)
+
+
+class TestResourceListFunction(TestCase):
+
+    @patch_resource_filter
+    def test_anon_user_returns_public_objects(self, filter_mock):
+        owner = utils.get_user_mock()
+        viewer = utils.get_anon_mock()
+        result = views.get_resource_list(owner, viewer=viewer)
+        filter_mock.assert_called_once_with(owner=owner, status=Resource.PUBLISHED)
+        eq_(list(result), [])
+
+    @patch_resource_filter
+    def test_owner_returns_all_available_objects(self, filter_mock):
+        owner = utils.get_user_mock()
+        result = views.get_resource_list(owner, viewer=owner)
+        filter_mock.assert_called_once_with(owner=owner)
+        eq_(list(result), [])
+
+
+patch_hub_filter = patch(
+    'us_ignite.hubs.models.Hub.objects.filter',
+    return_value=Hub.objects.none()
+)
+
+
+class TestHubListFunction(TestCase):
+
+    @patch_hub_filter
+    def test_anon_user_returns_public_objects(self, filter_mock):
+        guardian = utils.get_user_mock()
+        viewer = utils.get_anon_mock()
+        result = views.get_hub_list(guardian, viewer=viewer)
+        filter_mock.assert_called_once_with(guardian=guardian, status=Hub.PUBLISHED)
+        eq_(list(result), [])
+
+    @patch_hub_filter
+    def test_owner_returns_all_available_objects(self, filter_mock):
+        guardian = utils.get_user_mock()
+        result = views.get_hub_list(guardian, viewer=guardian)
+        filter_mock.assert_called_once_with(guardian=guardian)
+        eq_(list(result), [])
+
+
+patch_organization_related = patch(
+    'us_ignite.organizations.models.OrganizationMember.objects.select_related')
+
+
+class TestOrganizationListFunction(TestCase):
+
+    @patch_organization_related
+    def test_anon_user_returns_public_objects(self, related_mock):
+        filter_mock = Mock()
+        filter_mock.filter.return_value = OrganizationMember.objects.none()
+        related_mock.return_value = filter_mock
+        user = utils.get_user_mock()
+        viewer = utils.get_anon_mock()
+        result = views.get_organization_list(user, viewer=viewer)
+        related_mock.assert_called_once_with('organization')
+        filter_mock.filter.assert_called_once_with(
+            user=user, organization__status=Organization.PUBLISHED)
+
+    @patch_organization_related
+    def test_owner_returns_all_available_objects(self, related_mock):
+        filter_mock = Mock()
+        filter_mock.filter.return_value = OrganizationMember.objects.none()
+        related_mock.return_value = filter_mock
+        user = utils.get_user_mock()
+        result = views.get_organization_list(user, viewer=user)
+        related_mock.assert_called_once_with('organization')
+        filter_mock.filter.assert_called_once_with(user=user)
+
+
+patch_hub_membership_related = patch(
+    'us_ignite.hubs.models.HubMembership.objects.select_related')
+
+
+class TestHubMembershipListFunction(TestCase):
+
+    @patch_hub_membership_related
+    def test_anon_user_returns_public_objects(self, related_mock):
+        filter_mock = Mock()
+        filter_mock.filter.return_value = HubMembership.objects.none()
+        related_mock.return_value = filter_mock
+        user = utils.get_user_mock()
+        viewer = utils.get_anon_mock()
+        result = views.get_hub_membership_list(user, viewer=viewer)
+        related_mock.assert_called_once_with('hub')
+        filter_mock.filter.assert_called_once_with(
+            user=user, hub__status=Hub.PUBLISHED)
+
+    @patch_hub_membership_related
+    def test_owner_returns_all_available_objects(self, related_mock):
+        filter_mock = Mock()
+        filter_mock.filter.return_value = HubMembership.objects.none()
+        related_mock.return_value = filter_mock
+        user = utils.get_user_mock()
+        result = views.get_hub_membership_list(user, viewer=user)
+        related_mock.assert_called_once_with('hub')
+        filter_mock.filter.assert_called_once_with(user=user)

@@ -42,24 +42,72 @@
 {% endif %}
 {% endwith %}
 
-{% if app_list %}
+{% if application_list %}
 <h3>Apps</h3>
 <ul>
-  {% for app in app_list %}
+  {% for app in application_list %}
   <li><a href="{{ app.get_absolute_url }}">{{ app.name }} {% if not app.is_public %}({{ app.get_status_display }}){% endif %}</a></li>
   {% endfor%}
 </ul>
 {% endif %}
 
-{% if membership_list %}
-<h2>Ignite Communities</h2>
+{% if event_list %}
+<h3>Events</h3>
 <ul>
-  {% for membership in membership_list %}
+  {% for event in event_list %}
+  <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+{% if resource_list %}
+<h3>Resources</h3>
+<ul>
+  {% for resource in resource_list %}
+  <li><a href="{{ resource.get_absolute_url }}">{{ resource.name }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+{% if hub_list %}
+<h3>Ignite Communities (Guardian)</h3>
+<ul>
+  {% for hub in hub_list %}
+  <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if hub_membership_list %}
+<h3>Ignite Communities (Member)</h3>
+<ul>
+  {% for membership in hub_membership_list %}
   <li><a href="{{ membership.hub.get_absolute_url }}">{{ membership.hub }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+{% if hub_request_list %}
+<h3>Ignite Community Requests</h3>
+<ul>
+  {% for hub_request in hub_request_list %}
+  <li>{{ hub_request }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+{% if organzation_list %}
+<h3>Organizations</h3>
+<ul>
+  {% for organizaton in organization_list %}
+  <li><a href="{{ organization.organization.get_absolute_url }}">{{ organization.organization.name }}</a></li>
   {% endfor%}
 </ul>
 
 {% endif %}
+
+
+
 
 
 
