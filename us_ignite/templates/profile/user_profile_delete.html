@@ -7,19 +7,8 @@
 <h1>Remove your account.</h1>
 
 <p>
-  This operation is <strong>irreversible</strong>. Any information associated
-  with your account will be removed.
+  This operation is <strong>irreversible</strong>.
 </p>
-
-{% if application_list %}
-<h2>Applications that will be removed.</h2>
-<ul>
-  {% for application in application_list %}
-  <li><a href="{{ application.get_absolute_url }}">{{ application.name }}</a></li>
-  {% endfor%}
-</ul>
-{% endif %}
-
 
 <form method="post" action="{% url 'user_profile_delete' %}">
   {% csrf_token %}

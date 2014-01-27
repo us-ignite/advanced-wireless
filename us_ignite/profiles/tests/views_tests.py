@@ -36,7 +36,8 @@ class TestUserProfileDeleteView(TestCase):
         response = views.user_profile_delete(request)
         app_mock.assert_called_once_with(owner=request.user)
         eq_(response.template_name, 'profile/user_profile_delete.html')
-        ok_('application_list' in response.context_data)
+        eq_(sorted(response.context_data.keys()),
+            sorted(['application_list', 'event_list', 'resource_list']))
 
     @patch_app_filter
     @patch('us_ignite.profiles.views.logout')

@@ -16,8 +16,10 @@ from registration.views import ActivationView as BaseActivationView
 
 from us_ignite.apps.models import Application
 from us_ignite.common import decorators
+from us_ignite.events.models import Event
 from us_ignite.profiles import forms
 from us_ignite.profiles.models import Profile
+from us_ignite.resources.models import Resource
 
 
 def get_uuid():
@@ -133,19 +135,21 @@ def user_profile(request):
 @login_required
 def user_profile_delete(request):
     """Removes the authenticated ``User`` details."""
-    # Remove owned applications:
+    # List of the content to be disassociated:
     application_list = Application.objects.filter(owner=request.user)
+    event_list = Event.objects.filter(user=request.user)
+    resource_list = Resource.objects.filter(owner=request.user)
     if request.method == 'POST':
-        for application in application_list:
-            application.delete()
-        # Remove the ``User`` and any non-nullable FK to the user.
         request.user.delete()
         # Logut user
         logout(request)
-        messages.success(request, 'Your acount and all associated data has'
-                         ' been removed.')
+        msg = 'Your account and all associated data has been removed.'
+        messages.success(request, msg)
         return redirect('home')
     context = {
         'application_list': application_list,
+        'event_list': event_list,
+        'resource_list': resource_list,
     }
-    return TemplateResponse(request, 'profile/user_profile_delete.html', context)
+    return TemplateResponse(
+        request, 'profile/user_profile_delete.html', context)
