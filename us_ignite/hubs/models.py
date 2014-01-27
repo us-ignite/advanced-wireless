@@ -65,7 +65,8 @@ class Hub(models.Model):
     )
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='name', unique=True)
-    guardian = models.ForeignKey('auth.User', blank=True, null=True)
+    guardian = models.ForeignKey(
+        'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
     summary = models.TextField(blank=True)
     description = models.TextField()
     image = models.ImageField(blank=True, upload_to='hub', max_length=500)
