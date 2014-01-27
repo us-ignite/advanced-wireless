@@ -96,6 +96,12 @@ class TestApplicationModel(TestCase):
         application = fixtures.get_application(owner=user)
         ok_(application.is_owned_by(user))
 
+    def test_application_with_no_ownership(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=None)
+        eq_(application.is_owned_by(AnonymousUser()), False)
+        eq_(application.is_owned_by(user), False)
+
     def test_application_owner_membership(self):
         user = get_user('app-owner')
         application = fixtures.get_application(owner=user)
@@ -108,6 +114,12 @@ class TestApplicationModel(TestCase):
         models.ApplicationMembership.objects.create(
             application=application, user=member)
         ok_(application.has_member(member))
+
+    def test_no_owner_app_membership(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(owner=None)
+        eq_(application.has_member(user), False)
+        eq_(application.has_member(AnonymousUser()), False)
 
     def test_published_app_is_visible_by_anon(self):
         user = get_user('app-owner')

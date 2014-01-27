@@ -93,7 +93,9 @@ class Application(ApplicationBase):
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     is_featured = models.BooleanField(default=False)
-    owner = models.ForeignKey('auth.User', related_name='ownership_set')
+    owner = models.ForeignKey(
+        'auth.User', related_name='ownership_set', blank=True, null=True,
+        on_delete=models.SET_NULL)
     members = models.ManyToManyField(
         'auth.User', through='apps.ApplicationMembership',
         related_name='membership_set')
@@ -139,7 +141,11 @@ class Application(ApplicationBase):
 
     def has_member(self, user):
         """Validates if the given user is a member of this ``Application``."""
-        return self.is_owned_by(user) or self.members.filter(pk=user.id)
+        if self.is_owned_by(user):
+            return True
+        if user.is_authenticated() and self.members.filter(pk=user.id):
+            return True
+        return False
 
     def is_visible_by(self, user):
         """Validates if this app is acessible by the given ``User``."""
