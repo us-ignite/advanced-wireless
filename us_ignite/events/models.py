@@ -34,13 +34,14 @@ class Event(models.Model):
     tags = TaggableManager(blank=True)
     hubs = models.ManyToManyField('hubs.Hub')
     position = GeopositionField(blank=True)
-    user = models.ForeignKey('auth.User')
+    user = models.ForeignKey(
+        'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
     is_featured = models.BooleanField(default=False)
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
-    # mamagers
+    # managers:
     objects = models.Manager()
     published = managers.EventPublishedManager()
 

@@ -95,3 +95,13 @@ class TestEventModel(TestCase):
         user = get_user('us-ignite')
         event = fixtures.get_event(user=user)
         eq_(event.get_edit_url(), '/event/%s/edit/' % event.slug)
+
+    def test_event_can_be_userless(self):
+        event = fixtures.get_event(user=None)
+        ok_(event.id)
+        eq_(event.user, None)
+
+    def test_userless_event_is_not_owned(self):
+        user = get_user('us-ignite')
+        event = fixtures.get_event(user=None)
+        eq_(event.is_owner(user), False)
