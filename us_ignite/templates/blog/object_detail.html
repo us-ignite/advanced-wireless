@@ -5,9 +5,11 @@
 {% block content %}
 <h1>{{ object.title }}</h1>
 
-{% if object.image  %}
-<img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
-{% endif %}
+{% with object.postattachment_set.all as attachment_list %}
+{% for attachment in attachment_list %}
+<img src="{{ attachment.url }}" alt="" width="500"/>
+{% endfor%}
+{% endwith %}
 
 {{ object.content|safe }}
 
