@@ -73,3 +73,11 @@ TWITTER_API_SECRET = env('TWITTER_API_SECRET')
 
 # WP email
 WP_EMAIL = env('WP_EMAIL')
+
+
+# Enable dummy content generation on this build:
+ENABLE_DUMMY = True
+if ENABLE_DUMMY:
+    INSTALLED_APPS += ('us_ignite.dummy', )
+    # List of words:
+    WORDS_PATH = here('..', 'words')
