@@ -53,7 +53,7 @@ class Command(BaseCommand):
             'name': text.random_words(3),
             'stage': choice(Application.STAGE_CHOICES)[0],
             'status': choice(Application.STATUS_CHOICES)[0],
-            'website': u'http://%s/' % text.random_words(1),
+            'website': self._get_url(),
             'summary': self._choice(text.random_words(20))[:140],
             'impact_statement': text.random_words(20)[:140],
             'description': text.random_paragraphs(4),
@@ -91,7 +91,7 @@ class Command(BaseCommand):
             'summary': text.random_words(10),
             'description': text.random_paragraphs(3),
             'image': images.random_image(u'%s.png' % text.random_words(1)),
-            'website': u'http://%s/' % text.random_words(1),
+            'website': self._get_url(),
             'status': choice(Hub.STATUS_CHOICES)[0],
             'is_featured': choice([True, False]),
         }
