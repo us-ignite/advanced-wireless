@@ -98,8 +98,9 @@ def _get_attachment_data(**kwargs):
 
 class TestImportAttachmentFunction(TestCase):
 
+    @patch('us_ignite.blog.consumer.import_file')
     @patch.object(PostAttachment, 'save')
-    def test_attachment_is_created_successfully(self, mock_save):
+    def test_attachment_is_created_successfully(self, mock_save, mock_file):
         data = _get_attachment_data()
         mock_post = Post()
         attachment = consumer.import_attachment(mock_post, data)
@@ -112,6 +113,8 @@ class TestImportAttachmentFunction(TestCase):
         eq_(attachment.caption, '')
         eq_(attachment.post, mock_post)
         mock_save.assert_called_once_with()
+        mock_file.assert_called_once_with(
+            'http://us-ignite.org/image.jpg', 'blog/image.jpg')
 
 
 class TestGetTagListFunction(TestCase):
@@ -123,3 +126,11 @@ class TestGetTagListFunction(TestCase):
         ]
         tag_list = consumer.get_tag_list(data)
         eq_(sorted(tag_list), ['Events', 'News'])
+
+
+class TestKeyFromURLHelper(TestCase):
+
+    def test_key_is_generated_successfully(self):
+        key = consumer._get_key_from_url(
+            'http://us-ignite.org/image.jpg', prefix='foo')
+        eq_(key, 'foo/image.jpg')
