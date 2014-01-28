@@ -14,6 +14,7 @@
   </head>
   <body>
     <h1><a href="{% url "home" %}">US ignite</a></h1>
+    {% include "includes/status_bar.html" %}
     {% include "includes/messages.html" %}
     {% include "includes/navigation.html" %}
     {% block search %}{% include "includes/search.html" %}{% endblock search %}
