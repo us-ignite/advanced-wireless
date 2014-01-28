@@ -12,8 +12,9 @@ from us_ignite.apps.models import (
 from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images
 from us_ignite.events.models import Event
-from us_ignite.hubs.models import Hub
-from us_ignite.organizations.models import Organization
+from us_ignite.resources.models import Resource
+from us_ignite.hubs.models import Hub, HubMembership
+from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
 
 
@@ -91,7 +92,17 @@ class Command(BaseCommand):
             'status': choice(Hub.STATUS_CHOICES)[0],
             'is_featured': choice([True, False]),
         }
-        return Hub.objects.create(**data)
+        hub = Hub.objects.create(**data)
+        self._create_hub_membership(hub)
+        return hub
+
+    def _create_hub_membership(self, hub):
+        for user in User.objects.all().order_by('?')[:3]:
+            data = {
+                'hub': hub,
+                'user': user,
+            }
+            HubMembership.objects.create(**data)
 
     def _get_hub(self):
         return Hub.objects.filter(status=Hub.PUBLISHED).order_by('?')[0]
@@ -123,7 +134,7 @@ class Command(BaseCommand):
             'status': choice(Challenge.STATUS_CHOICES)[0],
             'start_datetime': start_date,
             'end_datetime': end_date,
-            'url': u'http://%s/' % text.random_words(1),
+            'url': u'http://%s/' % slugify(text.random_words(1)),
             'is_external': choice([True, False]),
             'summary': text.random_paragraphs(1),
             'description': text.random_paragraphs(3),
@@ -166,7 +177,30 @@ class Command(BaseCommand):
             'bio': self._choice(text.random_words(30)),
             'image': images.random_image(u'%s.png' % text.random_words(1)),
         }
-        return Organization.objects.create(**data)
+        organization = Organization.objects.create(**data)
+        self._create_organization_membership(organization)
+        return organization
+
+    def _create_organization_membership(self, organization):
+        for user in User.objects.all().order_by('?')[:3]:
+            data = {
+                'organization': organization,
+                'user': user,
+            }
+            OrganizationMember.objects.create(**data)
+
+    def _create_resource(self):
+        name = text.random_words(4)
+        data = {
+            'name': name,
+            'slug': slugify(name),
+            'status': choice(Resource.STATUS_CHOICES)[0],
+            'description': text.random_paragraphs(1),
+            'owner': self._get_user(),
+            'url': u'http://%s/' % slugify(text.random_words(1)),
+            'is_featured': choice([True, False]),
+        }
+        return Resource.objects.create(**data)
 
     def handle(self, *args, **options):
         message = ('This command will IRREVERSIBLE poison the existing '
@@ -199,4 +233,7 @@ class Command(BaseCommand):
         print u'Generate challenges.'
         for i in range(1, 10):
             self._create_challenge()
+        print u'Generate resources.'
+        for i in range(1, 10):
+            self._create_resource()
         call_command('blog_import')
