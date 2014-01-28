@@ -15,9 +15,9 @@
   <body>
     <h1><a href="{% url "home" %}">US ignite</a></h1>
     {% include "includes/status_bar.html" %}
-    {% include "includes/messages.html" %}
     {% include "includes/navigation.html" %}
     {% block search %}{% include "includes/search.html" %}{% endblock search %}
+    {% include "includes/messages.html" %}
     {% block content %}{% endblock content %}
     <script src="{{ STATIC_URL }}scripts/jquery-2.0.3.js"></script>
     {% block extra_scripts  %}{% endblock extra_scripts  %}
