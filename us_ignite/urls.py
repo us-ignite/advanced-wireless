@@ -42,7 +42,7 @@ urlpatterns += patterns(
         template_name='robots.txt', content_type='text/plain')),
 )
 
-# Legacy redirects:
+# US Ignite legacy redirects:
 urlpatterns += patterns(
     '',
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
