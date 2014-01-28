@@ -3,9 +3,7 @@
 {% block title %}Profile for {{ object.full_name }} - {{ block.super }}{% endblock title %}
 
 {% block content %}
-
 <h1>{{ object.full_name }}</h1>
-
 
 <ul>
   <li>Member since: {{ object.created }}</li>
@@ -43,7 +41,7 @@
 {% endwith %}
 
 {% if application_list %}
-<h3>Apps</h3>
+<h3>Applications</h3>
 <ul>
   {% for app in application_list %}
   <li><a href="{{ app.get_absolute_url }}">{{ app.name }} {% if not app.is_public %}({{ app.get_status_display }}){% endif %}</a></li>
@@ -96,19 +94,15 @@
 </ul>
 {% endif %}
 
-{% if organzation_list %}
+{% if organization_list %}
 <h3>Organizations</h3>
 <ul>
-  {% for organizaton in organization_list %}
+  {% for organization in organization_list %}
   <li><a href="{{ organization.organization.get_absolute_url }}">{{ organization.organization.name }}</a></li>
   {% endfor%}
 </ul>
 
 {% endif %}
-
-
-
-
 
 
 {% endblock content %}
