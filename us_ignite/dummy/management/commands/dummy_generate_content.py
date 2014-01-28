@@ -45,6 +45,9 @@ class Command(BaseCommand):
         """Choice between the args and an empty string."""
         return choice([''] + list(args))
 
+    def _get_url(self):
+        return 'http://us-ignite.org'
+
     def _create_app(self):
         data = {
             'name': text.random_words(3),
@@ -134,7 +137,7 @@ class Command(BaseCommand):
             'status': choice(Challenge.STATUS_CHOICES)[0],
             'start_datetime': start_date,
             'end_datetime': end_date,
-            'url': u'http://%s/' % slugify(text.random_words(1)),
+            'url': self._get_url(),
             'is_external': choice([True, False]),
             'summary': text.random_paragraphs(1),
             'description': text.random_paragraphs(3),
@@ -197,7 +200,7 @@ class Command(BaseCommand):
             'status': choice(Resource.STATUS_CHOICES)[0],
             'description': text.random_paragraphs(1),
             'owner': self._get_user(),
-            'url': u'http://%s/' % slugify(text.random_words(1)),
+            'url': self._get_url(),
             'is_featured': choice([True, False]),
         }
         return Resource.objects.create(**data)
