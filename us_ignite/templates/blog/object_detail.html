@@ -7,7 +7,13 @@
 
 {% with object.postattachment_set.all as attachment_list %}
 {% for attachment in attachment_list %}
-<img src="{{ attachment.url }}" alt="" width="500"/>
+{% if attachment.attachment %}
+<img src="{% thumbnail attachment.attachment 500x0 %}" alt=""/>
+{% else %}
+<img src="{{ attachment.url }}" alt=""/>
+{% endif %}
+
+
 {% endfor%}
 {% endwith %}
 
