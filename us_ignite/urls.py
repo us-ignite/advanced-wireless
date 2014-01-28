@@ -35,6 +35,13 @@ urlpatterns += patterns(
     url(r'^500/$', 'custom_500', name='http500'),
 )
 
+# Static templates:
+urlpatterns += patterns(
+    '',
+    url(r'^robots.txt$', TemplateView.as_view(
+        template_name='robots.txt', content_type='text/plain')),
+)
+
 # Legacy redirects:
 urlpatterns += patterns(
     '',
