@@ -19,4 +19,10 @@ class application ($project_path, $project_name){
   #   require => Exec["syncdb"];
   # }
 
+  exec { "installwatson":
+    cwd => "$project_path",
+    command => "django-admin.py installwatson --settings=$project_name.settings.local",
+    require => Exec["syncdb"];
+  }
+
 }
