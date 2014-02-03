@@ -1,0 +1,35 @@
+import json
+
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import HttpResponse
+from django.template.response import TemplateResponse
+
+from us_ignite.maps.models import Location
+
+
+def location_list(request):
+    """Shows a list of locations in a map."""
+    object_list = Location.published.select_related('category').all()
+    context = {
+        'object_list': object_list,
+    }
+    return TemplateResponse(request, 'maps/object_list.html', context)
+
+
+def _get_location_data(location):
+    return {
+        'latitude': location.position.latitude,
+        'longitude': location.position.longitude,
+        'name': location.name,
+        'website': location.website,
+        'category': location.category.name,
+        'image': location.get_image_url(),
+    }
+
+
+def location_list_json(request):
+    """Returns the locations in JSON format"""
+    object_list = Location.published.select_related('category').all()
+    dict_list = [_get_location_data(l) for l in object_list]
+    response = 'map.render(%s)' % json.dumps(dict_list, cls=DjangoJSONEncoder)
+    return HttpResponse(response, content_type='application/javascript')
