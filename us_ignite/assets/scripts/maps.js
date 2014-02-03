@@ -19,13 +19,20 @@ var map = {
       panControl: false
     };
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var infoWindow = new google.maps.InfoWindow();
     for ( i = 0; i < mapLocations.length; i++ ) {
       var m = mapLocations[i];
       var place = new google.maps.LatLng(m.latitude, m.longitude);
       var marker = new google.maps.Marker({
+        title: m.name,
         map: map,
         position: place,
-        icon: m.image
+        icon: m.image,
+        content: m.content
+      });
+      google.maps.event.addListener(marker, "click", function() {
+        infoWindow.setContent(this.content);
+        infoWindow.open(map, this);
       });
     }
   }

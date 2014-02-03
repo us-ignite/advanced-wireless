@@ -30,7 +30,7 @@ class TestGetLocationDataHelper(TestCase):
         response = views._get_location_data(mock)
         eq_(sorted(response.keys()),
             sorted(['latitude', 'longitude', 'name',
-                    'website', 'category', 'image']))
+                    'website', 'category', 'image', 'content']))
 
 
 class TestLocationListJsonView(TestCase):

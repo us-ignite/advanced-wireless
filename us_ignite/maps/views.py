@@ -16,6 +16,12 @@ def location_list(request):
     return TemplateResponse(request, 'maps/object_list.html', context)
 
 
+def _get_content(name, website):
+    if not website:
+        return name
+    return u'<div><h2><a href="%s">%s</a></h2></div>' % (website, name)
+
+
 def _get_location_data(location):
     return {
         'latitude': location.position.latitude,
@@ -24,6 +30,7 @@ def _get_location_data(location):
         'website': location.website,
         'category': location.category.name,
         'image': location.get_image_url(),
+        'content': _get_content(location.name, location.website),
     }
 
 
