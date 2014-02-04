@@ -52,6 +52,38 @@ class TestApplicationForm(TestCase):
         eq_(form.is_valid(), False)
         ok_('status' in form.errors)
 
+    def _get_form_payload(self, **kwargs):
+        payload = {
+            'name': 'Great Gigabit App',
+            'description': 'This app will change everything.',
+            'summary': 'This app is great!',
+            'status': Application.DRAFT,
+            'stage': Application.IDEA,
+        }
+        payload.update(kwargs)
+        return payload
+
+    def test_form_removes_html_from_team_description(self):
+        html_text = '<p>HTML text</p>'
+        payload = self._get_form_payload(team_description=html_text)
+        form = forms.ApplicationForm(payload)
+        eq_(form.is_valid(), True)
+        eq_(form.cleaned_data['team_description'], 'HTML text')
+
+    def test_form_removes_html_from_description(self):
+        html_text = '<p>HTML text</p>'
+        payload = self._get_form_payload(description=html_text)
+        form = forms.ApplicationForm(payload)
+        eq_(form.is_valid(), True)
+        eq_(form.cleaned_data['description'], 'HTML text')
+
+    def test_form_removes_html_from_roadmap(self):
+        html_text = '<p>HTML text</p>'
+        payload = self._get_form_payload(roadmap=html_text)
+        form = forms.ApplicationForm(payload)
+        eq_(form.is_valid(), True)
+        eq_(form.cleaned_data['roadmap'], 'HTML text')
+
 
 patch_user_get = patch('django.contrib.auth.models.User.objects.get')
 

@@ -1,9 +1,12 @@
+import json
+
 from urlparse import urlparse, parse_qs
 
 from django import forms
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
 from django.forms.models import inlineformset_factory
+from django.utils import html
 
 from us_ignite.apps.models import (Application, ApplicationURL,
                                    ApplicationMedia, ApplicationMembership)
@@ -36,6 +39,19 @@ class ApplicationForm(forms.ModelForm):
         widgets = {
             'features': forms.CheckboxSelectMultiple(),
         }
+
+    def _strip_tags(self, field):
+        if field in self.cleaned_data:
+            return html.strip_tags(self.cleaned_data[field])
+
+    def clean_team_description(self):
+        return self._strip_tags('team_description')
+
+    def clean_description(self):
+        return self._strip_tags('description')
+
+    def clean_roadmap(self):
+        return self._strip_tags('roadmap')
 
 
 ApplicationLinkFormSet = inlineformset_factory(
@@ -119,3 +135,12 @@ class ApplicationMembershipForm(forms.ModelForm):
 ApplicationMembershipFormSet = inlineformset_factory(
     Application, ApplicationMembership, extra=0, max_num=0,
     form=ApplicationMembershipForm)
+
+
+class ImportForm(forms.Form):
+    json = forms.FileField(label='JSON file')
+
+    def clean_json(self):
+        if 'json' in self.cleaned_data:
+            result = json.load(self.cleaned_data['json'])
+            return result
