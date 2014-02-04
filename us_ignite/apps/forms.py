@@ -1,5 +1,3 @@
-import json
-
 from urlparse import urlparse, parse_qs
 
 from django import forms
@@ -135,12 +133,3 @@ class ApplicationMembershipForm(forms.ModelForm):
 ApplicationMembershipFormSet = inlineformset_factory(
     Application, ApplicationMembership, extra=0, max_num=0,
     form=ApplicationMembershipForm)
-
-
-class ImportForm(forms.Form):
-    json = forms.FileField(label='JSON file')
-
-    def clean_json(self):
-        if 'json' in self.cleaned_data:
-            result = json.load(self.cleaned_data['json'])
-            return result
