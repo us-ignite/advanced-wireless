@@ -1,0 +1,57 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static admin_modify %}
+{% load admin_urls %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+
+{% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> &rsaquo;
+  <a href="{% url 'admin:apps_application_changelist' %}">{% trans 'Applications' %}</a> &rsaquo;
+  {{ title }}
+</div>
+{% endblock %}
+{% endif %}
+
+
+{% block content %}
+<div id="content-main">
+  <form action="." method="post" id="import_apps_form" enctype="multipart/form-data">{% csrf_token %}
+    <div>
+      {% if form.errors or form.non_field_errors %}
+      <p class="errornote">Please correct the errors below.</p>
+      {{ form.non_field_errors }}
+      {% endif %}
+      <fieldset class="module aligned">
+        <div class="description">
+          Import Mozilla Ignite applications.
+        </div>
+        {% for field in form %}
+        <div class="form-row{% if field.errors %} errors{% endif %}">
+          {% if field.errors %}{{ field.errors }}{% endif %}
+          {{ field.label_tag }}{{ field }}
+          {% if field.field.help_text %}
+          <p class="help">{{ field.field.help_text|safe }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </fieldset>
+    </div>
+    <div class="submit-row">
+      <input type="submit" value="Import Applications" class="default" name="_import">
+      <p class="deletelink-box"><a href="{% url 'admin:apps_application_changelist' %}" class="deletelink">Cancel</a></p>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
