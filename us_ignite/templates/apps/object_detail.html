@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load apps_urls thumbnail %}
+{% extends "base.html" %}{% load apps_urls thumbnail common_markdown %}
 
 {% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
 
@@ -67,7 +67,7 @@
 
 
 <h2>Description</h2>
-{{ object.description|linebreaks }}
+{{ object.description|markdown }}
 
 {% if object.roadmap %}
 <h2>Roadmap</h2>
@@ -76,7 +76,7 @@
 
 {% if object.team_description %}
 <h2>Team description</h2>
-{{ object.team_description }}
+{{ object.team_description|markdown }}
 {% endif %}
 
 {% if member_list  %}
