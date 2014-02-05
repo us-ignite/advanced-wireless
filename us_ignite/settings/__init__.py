@@ -165,6 +165,7 @@ INSTALLED_APPS = (
     'us_ignite.uploads',
     'us_ignite.resources',
     'us_ignite.maps',
+    'us_ignite.sections',
 )
 
 # A sample logging configuration. The only tangible logging

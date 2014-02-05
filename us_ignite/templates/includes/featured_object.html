@@ -1,0 +1,20 @@
+{% load thumbnail %}
+<a href="{{ object.get_absolute_url }}" title="{{ object.name }}" >
+  {% if object.image %}
+  <img src="{% thumbnail object.image 250x200 crop %}" alt="{{ object.name }}" />
+  {% else %}
+  <img src="{{ STATIC_URL }}images/250x200.gif" alt="Placeholder." />
+  {% endif %}
+</a>
+
+{{ object.name }}
+
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+<ul>
+  {% for tag in tag_list %}
+  <li><a href="{% url 'search' %}?q={{ tag|urlencode }}">{{ tag }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
+{% endwith %}

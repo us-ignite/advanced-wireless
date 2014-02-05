@@ -1,12 +1,84 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load thumbnail %}
+
 
 {% block title %}Homepage - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>US Ignite</h1>
+<section>
+  <h1>US Ignite</h1>
+  <p>
+    We foster the development of next-generation applications.
+    Through our work, we help developers, communities, individuals,
+    and partners bring gigabit applications to life.
+    <a href="#TODO">What we do</a>
+  </p>
+</section>
 
-<p>US Ignite fosters the creation of next-generation Internet applications that provide transformative public benefit.</p>
+<section>
+  <div class="#TODO">
+    <h2>Developers</h2>
+    <p>
+      Build Gigabit apps that transform how we live, work learn and play.
+      <a href="#TODO">Get involved</a>
+    </p>
+  </div>
+  <div class="#TODO">
+    <h2>Partners</h2>
+    <p>
+      We work with forward looking partners who understand that the future is here.
+      <a href="#TODO">Support US Ignite</a>
+    </p>
+  </div>
+  <div class="#TODO">
+    <h2>Community leaders</h2>
+    <p>
+      Showcase advanced networks and apps in your community.
+      <a href="#TODO">Become a US Ignite city</a>
+    </p>
+  </div>
+</section>
 
+<section>
+  <h2>Applications</h2>
+  <p>
+    Ultra high speed networks are fostering ideas to solve problems
+    and reinvent everything, from education to healthcare in neighborhoods
+    accross the country.
+    <a href="{% url 'app_list' %}">View applications</a>
+  </p>
+  <h3>Featured app</h3>
+  {% include "includes/featured_object.html" with object=application %}
+</section>
 
+<section>
+  <h2>Communities</h2>
+  <p>
+    Communities nationwide are using advanced networks to help
+    transform themselves into innovation and technology-driven
+    economies to complete in the 21st century.
+    <a href="{% url 'hub_list' %}">View our communities</a>
+  </p>
+  <h3>Featured community</h3>
+  {% include "includes/featured_object.html" with object=hub %}
+</section>
+
+<section>
+  <h2>Sign up to receive updates from US Ignite</h2>
+  <form method="post" action=".">
+    <input type="email" name="email" placeholder="Enter your email address..." />
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+<section>
+  <h2>Resources</h2>
+  <p>
+    Learn how to build next generation applications, and how these powerful
+    new technologies are transforming communities for the better.
+    <a href="{% url 'resource_list' %}">View resources</a>
+  </p>
+  <h3>Featured resource</h3>
+  {% include "includes/featured_object.html" with object=resource %}
+</section>
 
 {% endblock content %}
