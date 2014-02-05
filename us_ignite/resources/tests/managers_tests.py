@@ -23,3 +23,15 @@ class TestResourcePublishedManager(TestCase):
         user = get_user('us-ignite')
         resource = fixtures.get_resource(owner=user, status=Resource.DRAFT)
         eq_(list(Resource.published.all()), [])
+
+    def test_featured_resource_is_returned(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(
+            owner=user, status=Resource.PUBLISHED, is_featured=True)
+        eq_(Resource.published.get_featured(), resource)
+
+    def test_not_featured_resource_is_not_returned(self):
+        user = get_user('us-ignite')
+        resource = fixtures.get_resource(
+            owner=user, status=Resource.PUBLISHED, is_featured=False)
+        eq_(Resource.published.get_featured(), None)
