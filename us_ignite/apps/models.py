@@ -271,6 +271,6 @@ class PageApplication(models.Model):
 
 # Search
 watson.register(
-    Application.active.filter(status=Application.PUBLISHED),
+    Application.published.all(),
     search.ApplicationSearchAdapter
 )
