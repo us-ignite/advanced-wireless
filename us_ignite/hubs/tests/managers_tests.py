@@ -18,3 +18,11 @@ class TestHubActiveManager(TestCase):
     def test_unpublished_hubs_are_not_listed(self):
         hub = fixtures.get_hub(name='gigabit', status=Hub.DRAFT)
         eq_(list(Hub.active.all()), [])
+
+    def test_featured_hub_is_returned(self):
+        hub = fixtures.get_hub(status=Hub.PUBLISHED, is_featured=True)
+        eq_(Hub.active.get_featured(), hub)
+
+    def test_not_featured_hub_returns_none(self):
+        hub = fixtures.get_hub(status=Hub.PUBLISHED, is_featured=False)
+        eq_(Hub.active.get_featured(), None)

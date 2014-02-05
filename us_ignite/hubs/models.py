@@ -85,6 +85,9 @@ class Hub(models.Model):
     objects = models.Manager()
     active = managers.HubActiveManager()
 
+    class Meta:
+        ordering = ('-is_featured', 'created')
+
     def __unicode__(self):
         return self.name
 
