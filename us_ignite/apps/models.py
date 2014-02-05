@@ -102,9 +102,11 @@ class Application(ApplicationBase):
     features = models.ManyToManyField('apps.Feature', blank=True)
     domain = models.ForeignKey('apps.Domain', blank=True, null=True)
     tags = TaggableManager(blank=True)
-    # managers
+
+    # managers:
     objects = models.Manager()
     active = managers.ApplicationActiveManager()
+    published = managers.ApplicationPublishedManager()
 
     def __unicode__(self):
         return self.name

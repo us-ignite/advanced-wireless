@@ -8,6 +8,13 @@ class ApplicationActiveManager(models.Manager):
                 .filter(~models.Q(status=self.model.REMOVED)))
 
 
+class ApplicationPublishedManager(models.Manager):
+
+    def get_query_set(self):
+        return (super(ApplicationPublishedManager, self).get_query_set()
+                .filter(status=self.model.PUBLISHED))
+
+
 class ApplicationVersionManager(models.Manager):
 
     def create_version(self, application):

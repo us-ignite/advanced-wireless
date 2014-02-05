@@ -28,6 +28,26 @@ class TestApplicationActiveManager(TestCase):
         eq_(list(queryset), [])
 
 
+class TestApplicationPublishedManager(TestCase):
+
+    def tearDown(self):
+        for model in [User, Application]:
+            model.objects.all().delete()
+
+    def test_published_application_is_returned(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=Application.PUBLISHED)
+        queryset = Application.published.all()
+        eq_(list(queryset), [application])
+
+    def test_draft_application_is_not_returned(self):
+        user = get_user('app-owner')
+        fixtures.get_application(owner=user, status=Application.DRAFT)
+        queryset = Application.published.all()
+        eq_(list(queryset), [])
+
+
 class TestApplicationVersionManager(TestCase):
 
     def tearDown(self):
