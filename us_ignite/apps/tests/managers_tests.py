@@ -47,6 +47,20 @@ class TestApplicationPublishedManager(TestCase):
         queryset = Application.published.all()
         eq_(list(queryset), [])
 
+    def test_featured_application_is_returned(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=Application.PUBLISHED, is_featured=True)
+        result = Application.published.get_featured()
+        eq_(result, application)
+
+    def test_featured_application_is__not_returned(self):
+        user = get_user('app-owner')
+        application = fixtures.get_application(
+            owner=user, status=Application.PUBLISHED, is_featured=False)
+        result = Application.published.get_featured()
+        eq_(result, None)
+
 
 class TestApplicationVersionManager(TestCase):
 

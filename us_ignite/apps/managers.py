@@ -14,6 +14,13 @@ class ApplicationPublishedManager(models.Manager):
         return (super(ApplicationPublishedManager, self).get_query_set()
                 .filter(status=self.model.PUBLISHED))
 
+    def get_featured(self):
+        try:
+            return (self.get_queryset().filter(is_featured=True)
+                    .order_by('-is_featured', 'created')[0])
+        except IndexError:
+            return None
+
 
 class ApplicationVersionManager(models.Manager):
 
