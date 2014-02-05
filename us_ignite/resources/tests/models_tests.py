@@ -29,6 +29,7 @@ class TestResourceModel(TestCase):
         eq_(instance.owner, user)
         eq_(instance.organization, None)
         eq_(instance.url, '')
+        eq_(instance.image, '')
         eq_(instance.asset, '')
         eq_(instance.is_featured, False)
         eq_(list(instance.tags.all()), [])

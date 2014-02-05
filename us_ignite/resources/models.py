@@ -29,7 +29,8 @@ class Resource(models.Model):
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True)
     url = models.URLField(max_length=500, blank=True)
-    asset = models.ImageField(upload_to="resource", blank=True)
+    image = models.ImageField(upload_to="resource", blank=True)
+    asset = models.FileField(upload_to="resource", blank=True)
     is_featured = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
     created = CreationDateTimeField()
