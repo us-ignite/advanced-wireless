@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}News - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>News</h1>
+
+{% if page.object_list  %}
+{% for object in page.object_list %}
+{% include "news/object_block.html" with object=object %}
+{% endfor%}
+{% else %}
+<p>No news available.</p>
+{% endif %}
+
+{% include "includes/pagination.html" %}
+
+
+{% endblock content %}
