@@ -167,6 +167,7 @@ INSTALLED_APPS = (
     'us_ignite.maps',
     'us_ignite.sections',
     'us_ignite.news',
+    'us_ignite.advertising',
 )
 
 # A sample logging configuration. The only tangible logging
