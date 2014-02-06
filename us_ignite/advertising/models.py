@@ -21,7 +21,9 @@ class Advert(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     url = models.URLField(max_length=500)
     image = models.ImageField(upload_to="ads")
-    is_featured = models.BooleanField(default=False)
+    is_featured = models.BooleanField(
+        default=False, help_text='Marking this Advert as featured will publish'
+        ' it and show it on the site.')
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
