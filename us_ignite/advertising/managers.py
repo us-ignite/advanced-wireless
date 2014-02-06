@@ -7,3 +7,9 @@ class AdvertPublishedManager(models.Manager):
         return (super(AdvertPublishedManager, self)
                 .get_query_set(*args, **kwargs)
                 .filter(status=self.model.PUBLISHED))
+
+    def get_featured(self):
+        try:
+            return (self.get_query_set().filter(is_featured=True)[0])
+        except IndexError:
+            return None
