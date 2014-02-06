@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "blog/base.html" %}
 
 {% block title %}Blog - {{ block.super }}{% endblock title %}
 
-{% block content %}
+{% block section %}
 <h1>Blog</h1>
 
 {% if page.object_list  %}
@@ -15,4 +15,4 @@
 
 {% include "includes/pagination.html" %}
 
-{% endblock content %}
+{% endblock section %}

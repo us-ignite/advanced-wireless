@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% load advertising_tags %}
+
+
+{% block content %}
+
+{# Content all the areas of the blog #}
+{% block section %}{% endblock section %}
+
+{# Sidebar for all the areas of the blog #}
+{% block sidebar %}
+
+{% endblock sidebar %}
+{% advertising_box "advertising/object_block.html" %}
+{% endblock content %}
