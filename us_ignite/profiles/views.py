@@ -107,7 +107,7 @@ registration_disallowed = TemplateView.as_view(
 
 @login_required
 def user_profile(request):
-    """View for the ``Profile`` of the ``User``."""
+    """Edit the ``User`` owned ``Profile``."""
     # Make sure the user has a profile:
     profile, is_new = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
