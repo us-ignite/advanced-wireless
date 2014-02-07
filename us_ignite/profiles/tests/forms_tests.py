@@ -74,7 +74,7 @@ class TestProfileForm(TestCase):
     def test_form_list_non_sensitive_values(self):
         form = ProfileForm()
         eq_(sorted(form.fields.keys()),
-            ['bio', 'name', 'website'])
+            ['bio', 'is_public', 'name', 'tags', 'website'])
 
     def test_form_accepts_empty_payload(self):
         form = ProfileForm({})
