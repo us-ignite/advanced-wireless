@@ -1,5 +1,5 @@
 from django.contrib import admin
-from us_ignite.awards.models import Award, ApplicationAward, HubAward
+from us_ignite.awards.models import Award, ApplicationAward, HubAward, UserAward
 
 
 class AwardAdmin(admin.ModelAdmin):
@@ -20,12 +20,13 @@ class HubAwardAdmin(admin.ModelAdmin):
 
 
 class UserAwardAdmin(admin.ModelAdmin):
-    list_display = ('award', 'user__profile__name', 'created')
+    list_display = ('award', 'user', 'created')
     date_hierarchy = 'created'
-    list_filter = ('award__name', 'user__profile__name')
+    list_filter = ('award__name', 'user')
     raw_id_fields = ('user', )
 
 
 admin.site.register(Award, AwardAdmin)
 admin.site.register(ApplicationAward, ApplicationAwardAdmin)
 admin.site.register(HubAward, HubAwardAdmin)
+admin.site.register(UserAward, UserAwardAdmin)
