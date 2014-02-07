@@ -81,3 +81,7 @@ if ENABLE_DUMMY:
     INSTALLED_APPS += ('us_ignite.dummy', )
     # List of words:
     WORDS_PATH = here('..', 'words')
+
+
+MAILCHIMP_API_KEY = env('MAILCHIMP_API_KEY')
+MAILCHIMP_LIST = env('MAILCHIMP_LIST')

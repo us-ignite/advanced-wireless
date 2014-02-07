@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'us_ignite.sections',
     'us_ignite.news',
     'us_ignite.advertising',
+    'us_ignite.mailinglist',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -282,3 +283,7 @@ THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 # WP
 WP_URL = 'http://us-ignite.org'
 WP_EMAIL = ''
+
+# MailChimp integration:
+MAILCHIMP_API_KEY = ''
+MAILCHIMP_LIST = ''
