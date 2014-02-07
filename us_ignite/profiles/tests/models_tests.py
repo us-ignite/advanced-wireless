@@ -20,6 +20,14 @@ class TestProfileModel(TestCase):
         }
         profile = Profile.objects.create(**data)
         ok_(profile.pk)
+        eq_(profile.user, user)
+        ok_(profile.slug)
+        eq_(profile.website, '')
+        eq_(profile.bio, '')
+        ok_(profile.created)
+        ok_(profile.modified)
+        eq_(list(profile.tags.all()), [])
+        eq_(profile.is_public, False)
 
     def test_user_full_name_is_valid(self):
         user = fixtures.get_user('john')

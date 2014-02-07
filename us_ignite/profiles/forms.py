@@ -42,7 +42,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('name', 'website', 'bio')
+        fields = ('name', 'website', 'bio', 'tags', 'is_public')
 
 
 ProfileLinkFormSet = inlineformset_factory(

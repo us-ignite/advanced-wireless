@@ -1,14 +1,17 @@
+import watson
+
 import hashlib
 
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from us_ignite.profiles import communications, managers
+from us_ignite.profiles import communications, managers, search
 from us_ignite.common.fields import AutoUUIDField
 
 from django_browserid.signals import user_created
-from django_extensions.db.fields import (CreationDateTimeField,
-                                         ModificationDateTimeField)
+from django_extensions.db.fields import (
+    CreationDateTimeField, ModificationDateTimeField)
+from taggit.managers import TaggableManager
 from registration.signals import user_activated
 
 
@@ -20,7 +23,10 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
-    # TODO: add status flag.
+    tags = TaggableManager(blank=True)
+    is_public = models.BooleanField(
+        default=False, help_text='By marking the profile as public it will be'
+        ' shown in search results.')
 
     # managers
     objects = models.Manager()
@@ -85,3 +91,9 @@ user_activated.connect(
 user_activated.connect(
     Profile.active.get_or_create_for_user,
     dispatch_uid='registration_create_profile')
+
+# Search:
+watson.register(
+    Profile.objects.filter(is_public=True, user__is_active=True),
+    search.ProfileSearchAdapter
+)
