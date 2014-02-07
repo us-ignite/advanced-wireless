@@ -108,6 +108,7 @@ def profile_detail(request, slug):
         hub_request_list = []
     context = {
         'object': profile,
+        'is_owner': profile.user == request.user,
         'application_list': application_list,
         'event_list': event_list,
         'resource_list': resource_list,
