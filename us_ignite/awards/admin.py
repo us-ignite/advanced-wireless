@@ -10,12 +10,20 @@ class ApplicationAwardAdmin(admin.ModelAdmin):
     list_display = ('award', 'application', 'created')
     date_hierarchy = 'created'
     list_filter = ('award__name',)
+    raw_id_fields = ('application', )
 
 
 class HubAwardAdmin(admin.ModelAdmin):
     list_display = ('award', 'hub', 'created')
     date_hierarchy = 'created'
     list_filter = ('award__name',)
+
+
+class UserAwardAdmin(admin.ModelAdmin):
+    list_display = ('award', 'user__profile__name', 'created')
+    date_hierarchy = 'created'
+    list_filter = ('award__name', 'user__profile__name')
+    raw_id_fields = ('user', )
 
 
 admin.site.register(Award, AwardAdmin)

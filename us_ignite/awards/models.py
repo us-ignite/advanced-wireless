@@ -31,3 +31,12 @@ class HubAward(models.Model):
 
     def __unicode__(self):
         return u'Award %s for %s' % (self.award, self.hub)
+
+
+class UserAward(models.Model):
+    award = models.ForeignKey('awards.Award')
+    user = models.ForeignKey('auth.User')
+    created = CreationDateTimeField()
+
+    def __unicode__(self):
+        return u'Award %s for %s' % (self.award, self.user)

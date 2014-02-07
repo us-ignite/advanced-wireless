@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from us_ignite.apps.models import Application
 from us_ignite.apps.tests.fixtures import get_application
-from us_ignite.awards.models import Award, ApplicationAward, HubAward
+from us_ignite.awards.models import Award, ApplicationAward, HubAward, UserAward
 from us_ignite.awards.tests import fixtures
 from us_ignite.hubs.models import Hub
 from us_ignite.hubs.tests.fixtures import get_hub
@@ -54,7 +54,7 @@ class TestApplicationAwardModel(TestCase):
 class TestHubAwardModel(TestCase):
 
     def tearDown(self):
-        for model in [Award, Hub]:
+        for model in [Award, Hub, User]:
             model.objects.all().delete()
 
     def test_hub_award_creation_is_successful(self):
@@ -69,4 +69,24 @@ class TestHubAwardModel(TestCase):
         ok_(instance.id)
         ok_(instance.created)
         eq_(instance.hub, hub)
+        eq_(instance.award, award)
+
+
+class TestUserAwardModel(TestCase):
+
+    def tearDown(self):
+        for model in [Award, User]:
+            model.objects.all().delete()
+
+    def test_hub_award_creation_is_successful(self):
+        user = get_user('us-ignite')
+        award = fixtures.get_award(name='Gold star')
+        data = {
+            'user': user,
+            'award': award,
+        }
+        instance = UserAward.objects.create(**data)
+        ok_(instance.id)
+        ok_(instance.created)
+        eq_(instance.user, user)
         eq_(instance.award, award)
