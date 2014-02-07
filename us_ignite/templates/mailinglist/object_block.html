@@ -1,0 +1,9 @@
+<form method="post" action="{% url 'mailing_subscribe' %}">
+  <label for="mailing_email">Sign up to receive email updates from US Ignite</label>
+  <p>
+    <input type="email" name="email" id="mailing_email" placeholder="Enter your email address..."/>
+  </p>
+  <p>
+    <button type="submit">Submit</button>{% csrf_token %}
+  </p>
+</form>
