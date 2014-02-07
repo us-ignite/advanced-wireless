@@ -3,6 +3,7 @@ from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
 
 from us_ignite.apps.models import Application
+from us_ignite.awards.models import UserAward
 from us_ignite.common import pagination, forms
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub, HubMembership, HubRequest
@@ -82,6 +83,11 @@ def get_hub_membership_list(user, viewer=None):
     return (HubMembership.objects.select_related('hub').filter(**qs_kwargs))
 
 
+def get_award_list(user, viewer=None):
+    qs_kwargs = {'user': user}
+    return UserAward.objects.select_related('award').filter(**qs_kwargs)
+
+
 @login_required
 def profile_detail(request, slug):
     """Public profile of a user."""
@@ -94,6 +100,7 @@ def profile_detail(request, slug):
     hub_list = get_hub_list(user, viewer=request.user)
     organization_list = get_organization_list(user, viewer=request.user)
     hub_membership_list = get_hub_membership_list(user, viewer=request.user)
+    award_list = get_award_list(user, viewer=request.user)
     # Content available when the ``User`` owns this ``Profile``:
     if user == request.user:
         hub_request_list = HubRequest.objects.filter(user=user)
@@ -108,5 +115,6 @@ def profile_detail(request, slug):
         'hub_list': hub_list,
         'hub_request_list': hub_request_list,
         'organization_list': organization_list,
+        'award_list': award_list,
     }
     return TemplateResponse(request, 'people/object_detail.html', context)

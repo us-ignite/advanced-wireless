@@ -115,7 +115,7 @@ class TestProfileDetailView(TestCase):
         eq_(sorted(response.context_data.keys()),
             sorted(['object', 'application_list', 'event_list',
                     'resource_list', 'hub_membership_list', 'hub_list',
-                    'hub_request_list', 'organization_list']))
+                    'hub_request_list', 'organization_list', 'award_list']))
         _teardown_profiles()
 
     def test_get_request_is_successful(self):
@@ -126,7 +126,7 @@ class TestProfileDetailView(TestCase):
         eq_(sorted(response.context_data.keys()),
             sorted(['object', 'application_list', 'event_list',
                     'resource_list', 'hub_membership_list', 'hub_list',
-                    'hub_request_list', 'organization_list']))
+                    'hub_request_list', 'organization_list', 'award_list']))
         _teardown_profiles()
 
 
@@ -290,3 +290,19 @@ class TestHubMembershipListFunction(TestCase):
         result = views.get_hub_membership_list(user, viewer=user)
         related_mock.assert_called_once_with('hub')
         filter_mock.filter.assert_called_once_with(user=user)
+
+
+patch_award_related = patch(
+    'us_ignite.awards.models.UserAward.objects.select_related')
+
+
+class TestAwardListFunction(TestCase):
+
+    @patch_award_related
+    def test_awards_are_returned(self, mock_related):
+        mock_related.return_value.filter.return_value = []
+        user = utils.get_user_mock()
+        result = views.get_award_list(user)
+        eq_(result, [])
+        mock_related.assert_called_once_with('award')
+        mock_related.return_value.filter.assert_called_once_with(user=user)

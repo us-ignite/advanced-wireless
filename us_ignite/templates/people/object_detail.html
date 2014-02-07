@@ -29,6 +29,16 @@
 </p>
 {% endif %}
 
+{% if award_list %}
+<h2>Awards</h2>
+<ul>
+  {% for award in award_list %}
+  <li>{{ award.award.name }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+
 {% with object.profilelink_set.all as link_list %}
 {% if link_list %}
 <h3>Other URLS:</h3>
