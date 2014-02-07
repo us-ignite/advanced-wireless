@@ -1,0 +1,9 @@
+{% if object_list %}
+<h3>US Ignite news</h3>
+<ul>
+  {% for object in object_list %}
+  <li><a href="{{ object.url }}">{{ object.name }}</a></li>
+  {% endfor%}
+  <li><a href="{% url 'article_list' %}">View more</a></li>
+</ul>
+{% endif %}
