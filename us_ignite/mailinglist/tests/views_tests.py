@@ -31,7 +31,7 @@ class TestMailingSubscribeView(TestCase):
         request._messages = utils.TestMessagesBackend(request)
         response = views.mailing_subscribe(request)
         eq_(response.status_code, 302)
-        eq_(response['Location'], '/subscribe/')
+        eq_(response['Location'], '/')
         mock_subscribe.assert_called_once_with('user@us-ignite.org')
 
     @patch('us_ignite.mailinglist.views.subscribe_email')

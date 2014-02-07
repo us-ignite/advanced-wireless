@@ -30,9 +30,11 @@ def mailing_subscribe(request):
             try:
                 subscribe_email(form.cleaned_data['email'])
                 messages.success(request, 'Successfully subscribed.')
+                redirect_to = 'home'
             except mailchimp.ListAlreadySubscribedError:
                 messages.error(request, 'Already subscribed.')
-            return redirect('mailing_subscribe')
+                redirect_to = 'mailing_subscribe'
+            return redirect(redirect_to)
     else:
         form = EmailForm()
     context = {
