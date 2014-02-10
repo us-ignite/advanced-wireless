@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>{% load sections_tags %}
 <html>
   <head>
     <meta charset="utf-8">
@@ -22,5 +22,8 @@
     {% block content %}{% endblock content %}
     <script src="{{ STATIC_URL }}scripts/jquery-2.0.3.js"></script>
     {% block extra_scripts  %}{% endblock extra_scripts  %}
+    <footer>
+      {% render_sponsors "sections/sponsor_list.html" %}
+    </footer>
   </body>
 </html>
