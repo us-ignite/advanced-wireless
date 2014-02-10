@@ -62,8 +62,8 @@ CACHES = {
 
 # Email:
 EMAIL_SUBJECT_PREFIX = '[STAGE US Ignite] '
-DEFAULT_FROM_EMAIL = 'staging@us-ignite.org'
-SERVER_EMAIL = 'staging@us-ignite.org'
+DEFAULT_FROM_EMAIL = 'info@staging.us-ignite.org'
+SERVER_EMAIL = 'info@staging.us-ignite.org'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST')
