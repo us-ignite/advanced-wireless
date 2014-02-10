@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     'embed_video',
     'watson',
     'tinymce',
+    'south',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',
