@@ -19,6 +19,13 @@ def production():
     env.app = 'us-ignite'
 
 
+def staging():
+    """Connection details for the ``production`` app"""
+    env.slug = 'staging'
+    env.url = 'https://us-ignite-staging.herokuapp.com/'
+    env.app = 'us-ignite-staging'
+
+
 def is_vm():
     """Determines if the script is running in a VM"""
     return os.environ['USER'] == 'vagrant'
