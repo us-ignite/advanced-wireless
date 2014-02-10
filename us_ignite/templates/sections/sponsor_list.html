@@ -1,0 +1,8 @@
+<h3>Sponsors</h3>
+<ul>
+  {% for object in object_list %}<li>
+    <a href="{{ object.website }}" title="{{ object.name }}">
+      {{ object.image.url }}
+    </a>
+  </li>{% endfor%}
+</ul>
