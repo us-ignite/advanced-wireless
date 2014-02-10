@@ -67,34 +67,8 @@ def run_heroku(cmd, slug, capture=True):
     return local('heroku %s --app %s' % (cmd, slug), capture=capture)
 
 
-@only_outside_vm
-def syncdb():
-    print yellow('Syncing %s database.' % env.slug.upper())
-    dj_heroku('syncdb --noinput', env.app, env.slug)
-
-
-@only_outside_vm
-def collectstatic():
-    print yellow('Collecting static assets.')
-    dj_heroku('collectstatic --noinput', env.app, env.slug)
-
-
-@only_outside_vm
-def shell():
-    """Open a shell in the given environment."""
-    dj_heroku('shell', env.app, env.slug)
-
-
-@only_outside_vm
-def installwatson():
-    """Install watson full-text search."""
-    dj_heroku('installwatson', env.app, env.slug)
-
-
-@only_outside_vm
-def buildwatson():
-    """Build watson full-text search corpus."""
-    dj_heroku('buildwatson', env.app, env.slug)
+def run_command(command):
+    dj_heroku(command, env.app, env.slug)
 
 
 def production_confirmation(function):
@@ -103,7 +77,7 @@ def production_confirmation(function):
     def wrapper(confirmation='', *args, **kwargs):
         confirmation = False if confirmation == 'False' else True
         SLUG = env.slug.upper()
-        if env.slug not in ['production']:
+        if env.slug not in ['production', 'staging']:
             print red('Invaid destination: %s.' % SLUG)
             exit(3)
         if confirmation and env.slug == 'production':
@@ -129,6 +103,31 @@ def _validate_pushed_commits():
 
 
 @only_outside_vm
+def syncdb():
+    print yellow('Syncing %s database.' % env.slug.upper())
+    dj_heroku('syncdb --noinput', env.app, env.slug)
+    dj_heroku('migrate --noinput', env.app, env.slug)
+
+
+@only_outside_vm
+def collectstatic():
+    print yellow('Collecting static assets.')
+    dj_heroku('collectstatic --noinput', env.app, env.slug)
+
+
+@only_outside_vm
+def shell():
+    """Open a shell in the given environment."""
+    dj_heroku('shell', env.app, env.slug)
+
+
+@only_outside_vm
+def buildwatson():
+    """Build watson full-text search corpus."""
+    dj_heroku('buildwatson', env.app, env.slug)
+
+
+@only_outside_vm
 @production_confirmation
 def deploy(confirmation):
     """Deploys the given build."""
@@ -147,6 +146,33 @@ def deploy(confirmation):
         buildwatson()
     print yellow('URL: %s' % env.url)
     print green('Done at %s' % datetime.now())
+
+
+@only_outside_vm
+def migrate_apps(url):
+    confirmation = red(
+        'You are about to import the Mozilla Ignite apps. Proceed?')
+    if console.confirm(confirmation):
+        dj_heroku('app_import %s' % url, env.app, env.slug)
+        print green('Done at %s' % datetime.now())
+    else:
+        print yellow('Phew, aborted.')
+        exit(1)
+
+
+@only_outside_vm
+def load_fixtures():
+    confirmation = red('You are about to IRREVERSIBLY add fixtures to the'
+                       ' remote database. Procceed?')
+    if console.confirm(confirmation):
+        dj_heroku('app_load_fixtures', env.app, env.slug)
+        dj_heroku('awards_load_fixtures', env.app, env.slug)
+        dj_heroku('common_load_fixtures', env.app, env.slug)
+        dj_heroku('blog_import', env.app, env.slug)
+        buildwatson()
+    else:
+        print yellow('Phew, aborted.')
+        exit(1)
 
 
 @only_inside_vm
@@ -179,27 +205,8 @@ def reset_local_db():
         drop_local_db()
         local('django-admin.py syncdb --noinput '
               '--settings=%s.settings.local' % DB_STRING)
-        # local('django-admin.py migrate --noinput '
-        #       '--settings=%s.settings.local' % DB_STRING)
-        # Install search fields:
-        local('django-admin.py installwatson '
+        local('django-admin.py migrate --noinput '
               '--settings=%s.settings.local' % DB_STRING)
     else:
         print yellow('Phew, aborted.')
         exit(1)
-
-
-@only_outside_vm
-def load_fixtures():
-    confirmation = red('You are about to IRREVERSIBLY add fixtures to the'
-                       ' remote database. Procceed?')
-    if console.confirm(confirmation):
-        dj_heroku('app_load_fixtures', env.app, env.slug)
-        dj_heroku('awards_load_fixtures', env.app, env.slug)
-        dj_heroku('common_load_fixtures', env.app, env.slug)
-        dj_heroku('blog_import', env.app, env.slug)
-        buildwatson()
-    else:
-        print yellow('Phew, aborted.')
-        exit(1)
-
