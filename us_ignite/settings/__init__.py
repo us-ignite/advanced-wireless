@@ -298,9 +298,6 @@ TINYMCE_DEFAULT_CONFIG = {
                                 '|,formatselect,|,bullist,numlist,|,undo,redo,'
                                 '|,link,unlink,anchor|,tablecontrols,'),
     'theme_advanced_blockformats': 'p,h2,h3,h4',
-    'style_formats': [
-        {'title' : 'Bold text', 'inline' : 'strong'},
-    ],
     'forced_root_block': 'p',
     'custom_undo_redo_levels': 20,
     'cleanup_on_startup': True,
