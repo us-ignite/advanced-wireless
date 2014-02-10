@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from us_ignite.sections.models import Sponsor
+
+
+class SponsorAdmin(admin.ModelAdmin):
+    list_display = ['name', 'order']
+
+
+admin.site.register(Sponsor, SponsorAdmin)
