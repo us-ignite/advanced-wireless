@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'embed_video',
     'watson',
+    'tinymce',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',
@@ -287,3 +288,24 @@ WP_EMAIL = ''
 # MailChimp integration:
 MAILCHIMP_API_KEY = ''
 MAILCHIMP_LIST = ''
+
+# TinyMCE configuration:
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'theme_advanced_toolbar_location': 'top',
+    'plugins': 'table,paste',
+    'theme_advanced_buttons1': (',code,|,bold,italic,underline,'
+                                '|,formatselect,|,bullist,numlist,|,undo,redo,'
+                                '|,link,unlink,anchor|,tablecontrols,'),
+    'theme_advanced_blockformats': 'p,h2,h3,h4',
+    'style_formats': [
+        {'title' : 'Bold text', 'inline' : 'strong'},
+    ],
+    'forced_root_block': 'p',
+    'custom_undo_redo_levels': 20,
+    'cleanup_on_startup': True,
+    'relative_urls': False,
+}
+TINYMCE_SPELLCHECKER = False
+TINYMCE_COMPRESSOR = False
+TINYMCE_FILEBROWSER = False

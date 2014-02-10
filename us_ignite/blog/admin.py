@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 from us_ignite.blog.models import Post, PostAttachment
 
+from tinymce.widgets import TinyMCE
+
 
 class PostAdminForm(forms.ModelForm):
     author = forms.ModelChoiceField(
@@ -11,6 +13,9 @@ class PostAdminForm(forms.ModelForm):
 
     class Meta:
         model = Post
+        widgets = {
+            'content': TinyMCE(attrs={'cols': 80, 'rows': 30}),
+        }
 
 
 class PostAttachmentInline(admin.StackedInline):
