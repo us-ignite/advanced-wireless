@@ -8,6 +8,7 @@ from django.utils import html
 
 from us_ignite.apps.models import (Application, ApplicationURL,
                                    ApplicationMedia, ApplicationMembership)
+from us_ignite.common import output
 
 
 def _get_status_choices():
@@ -50,6 +51,10 @@ class ApplicationForm(forms.ModelForm):
 
     def clean_roadmap(self):
         return self._strip_tags('roadmap')
+
+    def clean_tags(self):
+        if 'tags' in self.cleaned_data:
+            return output.prepare_tags(self.cleaned_data['tags'])
 
 
 ApplicationLinkFormSet = inlineformset_factory(

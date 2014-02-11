@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 
+from us_ignite.common import output
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub
 
@@ -29,6 +30,10 @@ class EventForm(forms.ModelForm):
     hubs = forms.ModelMultipleChoiceField(
         queryset=Hub.objects.filter(status=Hub.PUBLISHED),
         required=False, widget=forms.CheckboxSelectMultiple)
+
+    def clean_tags(self):
+        if 'tags' in self.cleaned_data:
+            return output.prepare_tags(self.cleaned_data['tags'])
 
     class Meta:
         fields = (

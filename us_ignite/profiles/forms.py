@@ -6,7 +6,7 @@ from django.contrib.admin import widgets
 from django.contrib.auth.models import User
 from django.forms.models import inlineformset_factory
 
-from us_ignite.common import csv_unicode as csv
+from us_ignite.common import output, csv_unicode as csv
 from us_ignite.profiles.models import Profile, ProfileLink
 
 
@@ -39,6 +39,10 @@ class UserRegistrationForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
+
+    def clean_tags(self):
+        if 'tags' in self.cleaned_data:
+            return output.prepare_tags(self.cleaned_data['tags'])
 
     class Meta:
         model = Profile

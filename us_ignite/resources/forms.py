@@ -1,5 +1,6 @@
 from django import forms
 
+from us_ignite.common import output
 from us_ignite.resources.models import Resource
 
 
@@ -17,12 +18,16 @@ class ResourceForm(forms.ModelForm):
     status = forms.ChoiceField(
         choices=_get_status_choices(), initial=Resource.PUBLISHED)
 
-    class Meta:
-        model = Resource
-        fields = ('name', 'description', 'url', 'asset', 'tags', 'status')
+    def clean_tags(self):
+        if 'tags' in self.cleaned_data:
+            return output.prepare_tags(self.cleaned_data['tags'])
 
     def clean(self):
         cleaned_data = self.cleaned_data
         if cleaned_data.get('asset') or cleaned_data.get('url'):
             return cleaned_data
         raise forms.ValidationError('An asset or an URL is required.')
+
+    class Meta:
+        model = Resource
+        fields = ('name', 'description', 'url', 'asset', 'tags', 'status')

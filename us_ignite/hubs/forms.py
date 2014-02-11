@@ -1,5 +1,6 @@
 from django import forms
 
+from us_ignite.common import output
 from us_ignite.apps.models import Feature
 from us_ignite.hubs.models import Hub, HubRequest
 
@@ -15,6 +16,10 @@ class HubForm(forms.ModelForm):
     features = forms.ModelMultipleChoiceField(
         queryset=Feature.objects.all(), required=False,
         widget=forms.CheckboxSelectMultiple)
+
+    def clean_tags(self):
+        if 'tags' in self.cleaned_data:
+            return output.prepare_tags(self.cleaned_data['tags'])
 
     class Meta:
         model = Hub
