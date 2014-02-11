@@ -20,7 +20,7 @@ class Advert(models.Model):
     slug = AutoSlugField(populate_from='name')
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     url = models.URLField(max_length=500)
-    image = models.ImageField(upload_to="ads")
+    image = models.ImageField(upload_to="featured")
     is_featured = models.BooleanField(
         default=False, help_text='Marking this Advert as featured will publish'
         ' it and show it on the site.')
