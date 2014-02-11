@@ -75,8 +75,8 @@ class TestConsumeFunction(TestCase):
         mock_get.return_value = response_mock
         post_list = consumer.consume()
         mock_get.assert_called_once_with(
-            'http://us-ignite.org/api/get_recent_posts/',
-            params={'count': 1000})
+            'http://us-ignite.org/',
+            params={'count': 1000, 'json': 'get_recent_posts'})
         response_mock.json.assert_called_once_with()
         eq_(mock_import.call_count, 0)
         eq_(post_list, [])

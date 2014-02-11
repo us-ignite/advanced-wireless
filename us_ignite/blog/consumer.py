@@ -19,7 +19,7 @@ from us_ignite.common import sanitizer
 from us_ignite.blog.models import Post, PostAttachment
 
 logger = logging.getLogger('us_ignite.blog.consumer')
-URL = '%s/api/get_recent_posts/' % settings.WP_URL
+URL = '%s/' % settings.WP_URL
 # Timezone used to generate the Posts:
 WP_TIMEZONE = 'America/New_York'
 POST_COUNT = 1000
@@ -138,7 +138,8 @@ def import_post(data):
 
 def consume(extra_data=None, count=POST_COUNT):
     data = {
-        'count': count
+        'count': count,
+        'json': 'get_recent_posts',
     }
     if extra_data:
         data.update(extra_data)
