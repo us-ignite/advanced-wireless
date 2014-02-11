@@ -13,3 +13,7 @@ def to_html(stream):
     }
     stream = force_text(stream)
     return sanitize(markdown.markdown(stream, ['nl2br'], **config))
+
+
+def prepare_tags(tag_list):
+    return [tag.lower() for tag in tag_list]
