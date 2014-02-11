@@ -19,6 +19,10 @@ ALLOWED_TAGS = [
     'h4',
     'h5',
     'h6',
+    'table',
+    'tr',
+    'th',
+    'td',
 ]
 
 ALLOWED_ATTRIBUTES = {
