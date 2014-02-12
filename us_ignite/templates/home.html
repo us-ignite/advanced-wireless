@@ -1,5 +1,4 @@
-{% extends "base.html" %}{% load thumbnail %}
-
+{% extends "base.html" %}{% load advertising_tags thumbnail %}
 
 {% block title %}Homepage - {{ block.super }}{% endblock title %}
 
@@ -15,26 +14,29 @@
 </section>
 
 <section>
-  <div class="#TODO">
+  <div>
     <h2>Developers</h2>
     <p>
       Build Gigabit apps that transform how we live, work learn and play.
       <a href="#TODO">Get involved</a>
     </p>
   </div>
-  <div class="#TODO">
+  <div>
     <h2>Partners</h2>
     <p>
       We work with forward looking partners who understand that the future is here.
       <a href="#TODO">Support US Ignite</a>
     </p>
   </div>
-  <div class="#TODO">
+  <div>
     <h2>Community leaders</h2>
     <p>
       Showcase advanced networks and apps in your community.
       <a href="#TODO">Become a US Ignite city</a>
     </p>
+  </div>
+  <div class="">
+    {% advertising_box "advertising/object_block.html" %}
   </div>
 </section>
 
