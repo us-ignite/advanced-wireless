@@ -1,6 +1,8 @@
+import json
 import watson
 
 from django.template.response import TemplateResponse
+from django.http import HttpResponse
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,6 +14,8 @@ from us_ignite.organizations.models import Organization
 from us_ignite.resources.models import Resource
 from us_ignite.search.filters import tag_search
 from us_ignite.search.forms import SearchForm
+
+from taggit.models import Tag
 
 
 @csrf_exempt
@@ -60,3 +64,11 @@ def search(request):
         'pagination_qs': pagination_qs,
     }
     return TemplateResponse(request, 'search/object_list.html', context)
+
+
+@csrf_exempt
+def tag_list(request):
+    object_list = Tag.objects.filter(is_featured=True).order_by('name')
+    object_list = [t.name for t in object_list]
+    return HttpResponse(
+        json.dumps(object_list), content_type='application/javascript')

@@ -10,6 +10,8 @@ from us_ignite.organizations.models import Organization
 from us_ignite.resources.models import Resource
 from us_ignite.search import views
 
+from taggit.models import Tag
+
 
 patch_search = patch('us_ignite.search.views.tag_search')
 
@@ -102,3 +104,16 @@ class TestSearchView(TestCase):
         eq_(response.context_data['page'].object_list, ['object', ])
         eq_(response.context_data['pagination_qs'], '&q=gigabit')
         mock_watson.assert_called_once_with('gigabit')
+
+
+class TestTagListView(TestCase):
+
+    @patch('taggit.models.Tag.objects.filter')
+    def test_tag_list_is_successful(self, mock_filter):
+        mock_filter.return_value = Tag.objects.none()
+        request = utils.get_request('get', '/search/tags.json')
+        response = views.tag_list(request)
+        eq_(response.status_code, 200)
+        eq_(response['Content-Type'], 'application/javascript')
+        eq_(response.content, u"[]")
+        mock_filter.assert_called_once_with(is_featured=True)
