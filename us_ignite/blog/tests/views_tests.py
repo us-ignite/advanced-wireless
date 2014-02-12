@@ -16,12 +16,15 @@ class TestPostListView(TestCase):
 
     @patch('us_ignite.blog.models.Post.published.select_related')
     def test_request_is_successful(self, related_mock):
+        related_mock.return_value.filter.return_value = []
+        related_mock.return_value.all.return_value = []
         request = utils.get_request('get', '/blog/', user=utils.get_anon_mock())
         response = views.post_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'blog/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['page'])
-        related_mock.assert_called_once_with('author')
+        eq_(sorted(response.context_data.keys()), ['featured_list', 'page'])
+        related_mock.return_value.filter.assert_called_once_with(is_featured=True)
+        related_mock.return_value.all.assert_called_once_with()
 
 
 class TestPostDetailView(TestCase):

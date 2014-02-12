@@ -5,6 +5,15 @@
 {% block section %}
 <h1>Blog</h1>
 
+{% if featured_list %}
+<h2>Featured posts</h2>
+<ul>
+  {% for featured in featured_list %}
+  {% include "blog/object_block.html" with object=object %}
+  {% endfor%}
+</ul>
+{% endif %}
+
 {% if page.object_list  %}
 {% for object in page.object_list %}
 {% include "blog/object_block.html" with object=object %}

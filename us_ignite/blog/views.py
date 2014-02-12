@@ -8,11 +8,15 @@ from us_ignite.common import pagination
 
 
 def post_list(request):
+    """List the published ``Posts``"""
     page_no = pagination.get_page_no(request.GET)
+    featured_list = (Post.published.select_related('author')
+                     .filter(is_featured=True)[:3])
     object_list = Post.published.select_related('author').all()
     page = pagination.get_page(object_list, page_no)
     context = {
         'page': page,
+        'featured_list': featured_list,
     }
     return TemplateResponse(request, 'blog/object_list.html', context)
 
