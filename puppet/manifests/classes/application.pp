@@ -13,11 +13,11 @@ class application ($project_path, $project_name){
     require => File["$project_path/$project_name/settings/local.py"];
   }
 
-  # exec { "migratedb":
-  #   cwd => "$project_path",
-  #   command => "django-admin.py migrate --noinput --settings=$project_name.settings.local",
-  #   require => Exec["syncdb"];
-  # }
+  exec { "migratedb":
+    cwd => "$project_path",
+    command => "django-admin.py migrate --noinput --settings=$project_name.settings.local",
+    require => Exec["syncdb"];
+  }
 
   exec { "installwatson":
     cwd => "$project_path",
