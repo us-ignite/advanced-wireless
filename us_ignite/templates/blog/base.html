@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load advertising_tags news_tags %}
+{% extends "base.html" %}{% load snippets_tags news_tags %}
 
 
 {% block content %}
@@ -10,7 +10,7 @@
 {% block sidebar %}
 
 {% endblock sidebar %}
-{% advertising_box "advertising/object_block.html" %}
+{% snippet "featured" "snippets/featured.html" %}
 
 {% latest_articles "news/object_short_list.html" %}
 
