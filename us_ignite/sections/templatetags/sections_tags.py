@@ -14,10 +14,10 @@ class RenderingNode(template.Node):
 
     def render(self, context):
         template_name = self.template_name.resolve(context)
-        context = {
+        template_context = {
             'object_list': Sponsor.objects.all()
         }
-        return render_to_string(template_name, context)
+        return render_to_string(template_name, template_context)
 
 
 def _render_sponsors(parser, token):
@@ -36,6 +36,5 @@ def _render_sponsors(parser, token):
     # Determine the template name (could be a variable or a string):
     template_name = parser.compile_filter(bits[1])
     return RenderingNode(template_name)
-
 
 register.tag('render_sponsors', _render_sponsors)
