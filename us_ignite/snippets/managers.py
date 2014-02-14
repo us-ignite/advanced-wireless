@@ -1,10 +1,10 @@
 from django.db import models
 
 
-class AdvertPublishedManager(models.Manager):
+class SnippetPublishedManager(models.Manager):
 
     def get_query_set(self, *args, **kwargs):
-        return (super(AdvertPublishedManager, self)
+        return (super(SnippetPublishedManager, self)
                 .get_query_set(*args, **kwargs)
                 .filter(status=self.model.PUBLISHED))
 

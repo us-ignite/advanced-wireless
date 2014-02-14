@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load advertising_tags thumbnail %}
+{% extends "base.html" %}{% load snippets_tags thumbnail %}
 
 {% block title %}Homepage - {{ block.super }}{% endblock title %}
 
@@ -11,6 +11,8 @@
     and partners bring gigabit applications to life.
     <a href="#TODO">What we do</a>
   </p>
+
+  {% snippet "home-box" "snippets/home-box.html" %}
 </section>
 
 <section>
@@ -36,7 +38,7 @@
     </p>
   </div>
   <div class="">
-    {% advertising_box "advertising/object_block.html" %}
+    {% snippet "featured" "snippets/featured.html" %}
   </div>
 </section>
 

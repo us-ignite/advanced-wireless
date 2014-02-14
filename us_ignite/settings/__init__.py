@@ -169,7 +169,7 @@ INSTALLED_APPS = (
     'us_ignite.maps',
     'us_ignite.sections',
     'us_ignite.news',
-    'us_ignite.advertising',
+    'us_ignite.snippets',
     'us_ignite.mailinglist',
 )
 

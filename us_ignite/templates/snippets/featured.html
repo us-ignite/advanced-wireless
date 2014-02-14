@@ -1,5 +1,7 @@
 {% if object %}{% load thumbnail %}
 <a href="{{ object.url }}" title="{{ object.name }}">
+  {% if object.image %}
   <img src="{% thumbnail object.image 200x200 crop %}" alt="{{ object.name }}" />
+  {% endif %}
 </a>
 {% endif %}
