@@ -29,15 +29,19 @@ class Challenge(models.Model):
         'held in a different Site.')
     summary = models.TextField()
     description = models.TextField()
+    event_dates = models.TextField(
+        blank=True, help_text=u'Important event dates.')
+    acknowledgments = models.TextField(
+        blank=True, help_text=u'Partners/Sponsors/Acknowledgements')
     image = models.ImageField(upload_to="challenge", blank=True)
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True)
     hide_entries = models.BooleanField(
-        default=False, help_text='When active entries are published only '
+        default=False, help_text=u'When active entries are published only '
         'after the Challenge has finished.')
     user = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
-        help_text='User responsible for this Challenge.')
+        help_text=u'User responsible for this Challenge.')
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()

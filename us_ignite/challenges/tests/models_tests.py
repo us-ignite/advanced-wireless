@@ -50,6 +50,9 @@ class TestChallengeModel(TestCase):
         ok_(instance.created)
         ok_(instance.modified)
         eq_(instance.hide_entries, False)
+        eq_(instance.image, '')
+        eq_(instance.event_dates, '')
+        eq_(instance.acknowledgments, '')
 
     def test_instance_is_published(self):
         user = get_user('us-ignite')
