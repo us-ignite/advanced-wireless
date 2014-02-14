@@ -25,7 +25,7 @@ class TestSnippetModel(TestCase):
         eq_(instance.url, 'http://us-ignite.org/')
         eq_(instance.url_text, '')
         eq_(instance.body, '')
-        eq_(instance.image, 'ad.png')
+        eq_(instance.image, '')
         eq_(instance.is_featured, False)
         ok_(instance.created)
         ok_(instance.modified)
