@@ -1,6 +1,10 @@
 from django.contrib import admin
 
-from us_ignite.events.models import Event
+from us_ignite.events.models import Event, EventURL
+
+
+class EventURLAdminInline(admin.TabularInline):
+    model = EventURL
 
 
 class EventAdmin(admin.ModelAdmin):
@@ -8,5 +12,6 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ('name', 'slug', 'venue', 'description', 'notes')
     list_filter = ('status', 'start_datetime', 'is_featured', 'created')
     date_hierarchy = 'start_datetime'
+    inlines = [EventURLAdminInline]
 
 admin.site.register(Event, EventAdmin)
