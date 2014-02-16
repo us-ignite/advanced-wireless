@@ -12,8 +12,11 @@
 
 <ul>
   <li><a href="{{ object.website }}">Website</a></li>
+  {% if object.tickets_url %}<li><a href="{{ object.tickets_url }}">Tickets</a></li>{% endif %}
   <li>Start: {{ object.start_datetime }}</li>
   {% if object.end_datetime %}<li>End: {{ object.end_datetime }}</li>{% endif %}
+  <li>Scope: {{ object.get_scope_display }}</li>
+  {% if object.audience %}<li>{{ object.audience.name }}</li>{% endif %}
   <li><a href="{{ object.get_ics_url }}">Download ics file</a></li>
   <li>Created by {% include "includes/display_name.html" with user=object.user %} on {{ object.created }}</li>
   {% if is_owner %}
@@ -30,6 +33,13 @@
 <p>
   {{ object.venue|linebreaksbr }}
 </p>
+
+{% if object.contact %}
+<h2>Contact Details</h2>
+<p>
+  {{ object.contact|linebreaksbr }}
+</p>
+{% endif %}
 
 {% if hub_list %}
 <h2>Hubs participating</h2>
