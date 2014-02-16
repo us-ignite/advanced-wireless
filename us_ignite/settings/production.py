@@ -34,7 +34,7 @@ THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 
-AWS_STORAGE_BUCKET_NAME = 'us-ignite-dot-org'
+AWS_STORAGE_BUCKET_NAME = 'us-ignite-org'
 
 expire_date = datetime.date.today() + datetime.timedelta(days=365)
 expire_seconds = 30 * 24 * 60 * 60
