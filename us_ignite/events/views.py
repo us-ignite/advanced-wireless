@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from icalendar import Calendar, Event as CalEvent
 from us_ignite.common import pagination
-from us_ignite.events.forms import EventForm
+from us_ignite.events.forms import EventForm, EventURLFormSet
 from us_ignite.events.models import Event
 
 
@@ -48,18 +48,24 @@ def event_add(request):
     """Form to add an ``Event``. Only authenticated users can add events."""
     if request.method == 'POST':
         form = EventForm(request.POST)
-        if form.is_valid():
+        formset = EventURLFormSet(request.POST)
+        if form.is_valid() and formset.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
             instance.save()
             form.save_m2m()
+            # Save URL inline form:
+            formset.instance = instance
+            formset.save()
             messages.success(
                 request, 'The event "%s" has been added.' % instance.name)
             return redirect(instance.get_absolute_url())
     else:
         form = EventForm()
+        formset = EventURLFormSet()
     context = {
         'form': form,
+        'formset': formset,
     }
     return TemplateResponse(request, 'events/object_add.html', context)
 

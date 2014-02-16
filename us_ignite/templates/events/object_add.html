@@ -5,7 +5,7 @@
 {% block content %}
 <h1>Add an Event</h1>
 <form method="post" action="{% url "event_add" %}" enctype="multipart/form-data">
-  {{ form.as_p }}
+  {% include "events/object_form.html" %}
   <p>
     {% csrf_token %}
     <button type="submit">Create</button>

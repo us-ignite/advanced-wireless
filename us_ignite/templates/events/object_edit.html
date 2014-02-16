@@ -5,7 +5,7 @@
 {% block content %}
 <h1>Edit: {{ object.name }}</h1>
 <form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data">
-  {{ form.as_p }}
+  {% include "events/object_form.html" %}
   <p>
     {% csrf_token %}
     <button type="submit">Update</button>

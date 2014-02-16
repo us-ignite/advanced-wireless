@@ -1,8 +1,9 @@
 from django import forms
 from django.conf import settings
+from django.forms.models import inlineformset_factory
 
 from us_ignite.common import output
-from us_ignite.events.models import Event
+from us_ignite.events.models import Event, EventURL
 from us_ignite.hubs.models import Hub
 
 
@@ -42,3 +43,7 @@ class EventForm(forms.ModelForm):
             'venue', 'position', 'contact', 'hubs', 'tags',
         )
         model = Event
+
+
+EventURLFormSet = inlineformset_factory(
+    Event, EventURL, max_num=3)
