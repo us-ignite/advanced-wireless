@@ -217,6 +217,7 @@ class Command(BaseCommand):
         call_command('awards_load_fixtures')
         call_command('common_load_fixtures')
         call_command('snippets_load_fixtures')
+        call_command('events_load_fixtures')
         call_command('blog_import')
         print u'Adding users'
         self._create_users()
