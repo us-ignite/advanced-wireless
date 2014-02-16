@@ -1,6 +1,10 @@
 from django.contrib import admin
 
-from us_ignite.events.models import Event, EventURL
+from us_ignite.events.models import Audience, Event, EventURL
+
+
+class AudienceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', )
 
 
 class EventURLAdminInline(admin.TabularInline):
@@ -15,3 +19,4 @@ class EventAdmin(admin.ModelAdmin):
     inlines = [EventURLAdminInline]
 
 admin.site.register(Event, EventAdmin)
+admin.site.register(Audience, AudienceAdmin)
