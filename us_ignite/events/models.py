@@ -4,12 +4,23 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from django_extensions.db.fields import (
-    CreationDateTimeField, ModificationDateTimeField)
+    AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
 from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
 from us_ignite.events import managers, exporter, search
+
+
+class Audience(models.Model):
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name', unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name', )
 
 
 class Event(models.Model):
@@ -21,21 +32,31 @@ class Event(models.Model):
         (DRAFT, 'Draft'),
         (REMOVED, 'Removed'),
     )
-
+    NATIONAL = 1
+    REGIONAL = 2
+    SCOPE_CHOICES = (
+        (NATIONAL, 'National'),
+        (REGIONAL, 'Regional'),
+    )
     name = models.CharField(max_length=500)
     slug = AutoUUIDField(unique=True, editable=True)
-    status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    website = models.URLField(max_length=500, blank=True)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=PUBLISHED)
     image = models.ImageField(upload_to="events", blank=True)
+    description = models.TextField()
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField(blank=True, null=True)
     venue = models.TextField()
-    description = models.TextField(blank=True)
+    contact = models.TextField(blank=True)
+    scope = models.IntegerField(choices=SCOPE_CHOICES, default=NATIONAL)
+    audience = models.ForeignKey('events.Audience', blank=True, null=True)
+    website = models.URLField(max_length=500, blank=True)
+    tickets_url = models.URLField(max_length=500, blank=True)
     tags = TaggableManager(blank=True)
     hubs = models.ManyToManyField('hubs.Hub')
     position = GeopositionField(blank=True)
     user = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
+    is_ignite = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
@@ -76,6 +97,15 @@ class Event(models.Model):
 
     def get_edit_url(self):
         return reverse('event_edit', args=[self.slug])
+
+
+class EventURL(models.Model):
+    event = models.ForeignKey('events.Event')
+    name = models.CharField(max_length=200)
+    url = models.URLField(max_length=500)
+
+    def __unicode__(self):
+        return self.name
 
 # Search:
 watson.register(

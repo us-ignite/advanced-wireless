@@ -10,9 +10,10 @@ class TestEventForm(TestCase):
     def test_fields_listed_are_not_sensitive(self):
         form = forms.EventForm()
         eq_(sorted(form.fields.keys()),
-            sorted(['name', 'status', 'website', 'image', 'start_datetime',
-                    'end_datetime', 'venue', 'description', 'tags',
-                    'hubs', 'position'])
+            sorted(['audience', 'contact', 'description', 'end_datetime',
+                    'hubs', 'image', 'name', 'position', 'scope',
+                    'start_datetime', 'status', 'tags', 'tickets_url',
+                    'venue', 'website'])
         )
 
     def test_empty_payload_fails(self):
@@ -23,7 +24,9 @@ class TestEventForm(TestCase):
         data = {
             'name': 'Gigabit community',
             'status': 1,
+            'description': 'Gigabit meetup',
             'start_datetime': '2013-12-14 14:30:59',
+            'scope': 1,
             'venue': 'London UK',
         }
         form = forms.EventForm(data)

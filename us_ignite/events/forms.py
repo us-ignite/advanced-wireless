@@ -37,8 +37,8 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         fields = (
-            'name', 'status', 'website', 'image', 'start_datetime',
-            'end_datetime', 'description', 'venue', 'position',
-            'tags', 'hubs'
+            'name', 'status', 'description', 'website', 'tickets_url',
+            'image', 'start_datetime', 'end_datetime', 'audience', 'scope',
+            'venue', 'position', 'contact', 'hubs', 'tags',
         )
         model = Event

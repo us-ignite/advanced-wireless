@@ -12,9 +12,22 @@ from us_ignite.events.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
 
+class TestAudience(TestCase):
+
+    def tearDown(self):
+        models.Audience.objects.all().delete()
+
+    def test_audience_is_created_successfully(self):
+        data = {'name': 'Developer'}
+        instance = models.Audience.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.name, 'Developer')
+        eq_(instance.slug, 'developer')
+
+
 class TestEventModel(TestCase):
 
-    def teatDown(self):
+    def tearDown(self):
         for model in [models.Event, User]:
             model.objects.all().delete()
 
@@ -31,17 +44,22 @@ class TestEventModel(TestCase):
         ok_(instance.id)
         eq_(instance.name, 'Gigabit community meet-up')
         ok_(instance.slug)
-        eq_(instance.status, models.Event.DRAFT)
-        eq_(instance.website, '')
+        eq_(instance.status, models.Event.PUBLISHED)
         eq_(instance.image, '')
+        eq_(instance.description, '')
         eq_(instance.start_datetime, startdatetime)
         eq_(instance.end_datetime, None)
         eq_(instance.venue, 'London, UK')
-        eq_(instance.description, '')
+        eq_(instance.contact, '')
+        eq_(instance.scope, models.Event.NATIONAL)
+        eq_(instance.audience, None)
+        eq_(instance.website, '')
+        eq_(instance.tickets_url, '')
         eq_(list(instance.tags.all()), [])
         eq_(list(instance.hubs.all()), [])
         eq_(instance.user, user)
         eq_(instance.is_featured, False)
+        eq_(instance.is_ignite, False)
         eq_(instance.notes, '')
         ok_(instance.created)
         ok_(instance.modified)
@@ -105,3 +123,24 @@ class TestEventModel(TestCase):
         user = get_user('us-ignite')
         event = fixtures.get_event(user=None)
         eq_(event.is_owner(user), False)
+
+
+class TestEventURLModel(TestCase):
+
+    def tearDown(self):
+        for model in [models.EventURL, models.Event, User]:
+            model.objects.all().delete()
+
+    def test_event_url_is_created_successfully(self):
+        user = get_user('us-ignite')
+        event = fixtures.get_event(user=user)
+        data = {
+            'event': event,
+            'name': 'US Ignite',
+            'url': 'http://us-ignite.org/',
+        }
+        instance = models.EventURL.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.event, event)
+        eq_(instance.name, 'US Ignite')
+        eq_(instance.url, 'http://us-ignite.org/')

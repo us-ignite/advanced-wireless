@@ -115,13 +115,15 @@ class TestEventAddView(TestCase):
             'status': Event.DRAFT,
             'start_datetime': '2013-12-14 14:30:59',
             'venue': 'London UK',
+            'scope': 1,
+            'description': 'Gigabit event',
         }
         request = utils.get_request(
             'post', '/event/add/', data=data, user=user)
         request._messages = utils.TestMessagesBackend(request)
         response = views.event_add(request)
-        event = Event.objects.get(name='Gigabit community')
         eq_(response.status_code, 302)
+        event = Event.objects.get(name='Gigabit community')
         eq_(response['Location'], event.get_absolute_url())
         self._tear_down()
 
@@ -192,6 +194,8 @@ class TestEventEditView(TestCase):
             'status': Event.DRAFT,
             'start_datetime': '2013-12-14 14:30:59',
             'venue': 'London UK',
+            'scope': 1,
+            'description': 'Gigabit event',
         }
         request = utils.get_request(
             'post', event.get_absolute_url(), data=data, user=user)

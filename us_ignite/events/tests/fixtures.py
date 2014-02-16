@@ -1,7 +1,13 @@
 from django.utils import timezone
 
-from us_ignite.events.models import Event
+from us_ignite.events.models import Audience, Event
 from us_ignite.profiles.tests.fixtures import get_user
+
+
+def get_audience(**kwargs):
+    data = {'name': 'Develpoper'}
+    data.update(kwargs)
+    return Audience.objects.create(**data)
 
 
 def get_event(**kwargs):
