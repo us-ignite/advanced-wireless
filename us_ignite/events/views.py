@@ -73,7 +73,9 @@ def event_add(request):
 @login_required
 def event_edit(request, slug):
     event = get_object_or_404(
-        Event.published, slug__exact=slug, user=request.user)
+        Event.objects, slug__exact=slug, user=request.user)
+    if not event.is_visible_by(request.user):
+        raise Http404
     if request.method == 'POST':
         form = EventForm(request.POST, instance=event)
         formset = EventURLFormSet(request.POST, instance=event)
