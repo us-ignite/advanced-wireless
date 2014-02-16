@@ -76,16 +76,20 @@ def event_edit(request, slug):
         Event.published, slug__exact=slug, user=request.user)
     if request.method == 'POST':
         form = EventForm(request.POST, instance=event)
-        if form.is_valid():
+        formset = EventURLFormSet(request.POST, instance=event)
+        if form.is_valid() and formset.is_valid():
             instance = form.save()
+            formset.save()
             messages.success(
                 request, 'The event "%s" has been updated.' % instance.name)
             return redirect(instance.get_absolute_url())
     else:
         form = EventForm(instance=event)
+        formset = EventURLFormSet(instance=event)
     context = {
         'object': event,
         'form': form,
+        'formset': formset,
     }
     return TemplateResponse(request, 'events/object_edit.html', context)
 

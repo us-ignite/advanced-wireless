@@ -8,6 +8,7 @@ from django.test import TestCase
 
 from us_ignite.common.tests import utils
 from us_ignite.events import views
+from us_ignite.events.forms import EventURLFormSet
 from us_ignite.events.models import Event
 from us_ignite.events.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
@@ -97,7 +98,7 @@ class TestEventAddView(TestCase):
         response = views.event_add(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'events/object_add.html')
-        eq_(sorted(response.context_data.keys()), ['form'])
+        eq_(sorted(response.context_data.keys()), ['form', 'formset', ])
 
     def invalid_payload_fails(self):
         user = get_user('ignite-user')
@@ -118,6 +119,8 @@ class TestEventAddView(TestCase):
             'scope': 1,
             'description': 'Gigabit event',
         }
+        formset_data = utils.get_inline_payload(EventURLFormSet)
+        data.update(formset_data)
         request = utils.get_request(
             'post', '/event/add/', data=data, user=user)
         request._messages = utils.TestMessagesBackend(request)
@@ -172,7 +175,8 @@ class TestEventEditView(TestCase):
         response = views.event_edit(request, 'foo')
         eq_(response.status_code, 200)
         eq_(response.template_name, 'events/object_edit.html')
-        eq_(sorted(response.context_data.keys()), ['form', 'object'])
+        eq_(sorted(response.context_data.keys()),
+            ['form', 'formset', 'object'])
 
     def test_event_invalid_payload_fails(self):
         user = get_user('ignite-user')
@@ -197,6 +201,8 @@ class TestEventEditView(TestCase):
             'scope': 1,
             'description': 'Gigabit event',
         }
+        formset_data = utils.get_inline_payload(EventURLFormSet)
+        data.update(formset_data)
         request = utils.get_request(
             'post', event.get_absolute_url(), data=data, user=user)
         request._messages = utils.TestMessagesBackend(request)
