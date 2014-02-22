@@ -11,6 +11,22 @@ from django_extensions.db.fields import (
 from taggit.managers import TaggableManager
 
 
+class ResourceType(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Sector(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Resource(models.Model):
     PUBLISHED = 1
     DRAFT = 2
@@ -23,12 +39,20 @@ class Resource(models.Model):
     name = models.CharField(max_length=255)
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
+    url = models.URLField(max_length=500, blank=True)
     description = models.TextField()
-    owner = models.ForeignKey(
-        'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
+    resource_type = models.ForeignKey(
+        'ResourceType', blank=True, null=True, on_delete=models.SET_NULL)
+    sector = models.ForeignKey(
+        'Sector', blank=True, null=True, on_delete=models.SET_NULL)
+    contact = models.ForeignKey(
+        'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
+        related_name='resource_contact_set')
+    author = models.ForeignKey(
+        'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
+        related_name='resource_author_set')
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True)
-    url = models.URLField(max_length=500, blank=True)
     image = models.ImageField(upload_to="resource", blank=True)
     asset = models.FileField(upload_to="resource", blank=True)
     is_featured = models.BooleanField(default=False)
@@ -60,10 +84,10 @@ class Resource(models.Model):
         return u''
 
     def is_visible_by(self, user):
-        return self.is_published() or self.is_owner(user)
+        return self.is_published() or self.is_editable_by(user)
 
-    def is_owner(self, user):
-        return self.owner and (user == self.owner)
+    def is_editable_by(self, user):
+        return self.contact and (user == self.contact)
 
     def is_published(self):
         return self.status == self.PUBLISHED

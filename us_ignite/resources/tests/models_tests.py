@@ -16,19 +16,22 @@ class TestResourceModel(TestCase):
             model.objects.all().delete()
 
     def test_resource_creation(self):
-        user = get_user('us-ignite')
         data = {
             'name': 'Gigabit resource',
-            'owner': user,
+            'description': 'Gigabit description',
         }
         instance = Resource.objects.create(**data)
         ok_(instance.id)
+        eq_(instance.name, 'Gigabit resource')
         ok_(instance.slug)
         eq_(instance.status, Resource.DRAFT)
-        eq_(instance.description, '')
-        eq_(instance.owner, user)
-        eq_(instance.organization, None)
         eq_(instance.url, '')
+        eq_(instance.description, 'Gigabit description')
+        eq_(instance.resource_type, None)
+        eq_(instance.sector, None)
+        eq_(instance.contact, None)
+        eq_(instance.author, None)
+        eq_(instance.organization, None)
         eq_(instance.image, '')
         eq_(instance.asset, '')
         eq_(instance.is_featured, False)
@@ -38,57 +41,57 @@ class TestResourceModel(TestCase):
 
     def test_is_visible(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user, status=Resource.PUBLISHED)
+        resource = fixtures.get_resource(contact=user, status=Resource.PUBLISHED)
         eq_(resource.is_published(), True)
 
     def test_unpublished_resource_is_not_visible(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user, status=Resource.DRAFT)
+        resource = fixtures.get_resource(contact=user, status=Resource.DRAFT)
         eq_(resource.is_visible_by(utils.get_anon_mock()), False)
 
     def test_visible_resource_is_published(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user, status=Resource.PUBLISHED)
+        resource = fixtures.get_resource(contact=user, status=Resource.PUBLISHED)
         eq_(resource.is_visible_by(utils.get_anon_mock()), True)
 
     def unpublished_resource_can_be_viewed_by_owner(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user, status=Resource.DRAFT)
+        resource = fixtures.get_resource(contact=user, status=Resource.DRAFT)
         eq_(resource.is_visible_by(user), True)
 
     def test_get_absolute_url(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user, slug='foo')
+        resource = fixtures.get_resource(contact=user, slug='foo')
         eq_(resource.get_absolute_url(), '/resources/foo/')
 
     def test_get_edit_url(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user, slug='foo')
+        resource = fixtures.get_resource(contact=user, slug='foo')
         eq_(resource.get_edit_url(), '/resources/foo/edit/')
 
     def test_get_resource_url(self):
         user = get_user('us-ignite')
         resource = fixtures.get_resource(
-            owner=user, url='http://us-ignite.org')
+            contact=user, url='http://us-ignite.org')
         eq_(resource.get_resource_url(), 'http://us-ignite.org')
 
     def test_empty_resource_url(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user)
+        resource = fixtures.get_resource(contact=user)
         eq_(resource.get_resource_url(), '')
 
     def test_user_is_owner(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user)
-        eq_(resource.is_owner(user), True)
+        resource = fixtures.get_resource(contact=user)
+        eq_(resource.is_editable_by(user), True)
 
-    def test_resource_avoids_ownership(self):
-        resource = fixtures.get_resource(owner=None)
+    def test_resource_allows_null_contact(self):
+        resource = fixtures.get_resource(contact=None)
         ok_(resource.id)
-        eq_(resource.owner, None)
+        eq_(resource.contact, None)
 
-    def test_ownerless_resource_has_no_owner(self):
+    def test_ownerless_resource_is_not_editable(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=None)
-        ok_(not resource.is_owner(user))
-        ok_(not resource.is_owner(utils.get_anon_mock()))
+        resource = fixtures.get_resource(contact=None)
+        ok_(not resource.is_editable_by(user))
+        ok_(not resource.is_editable_by(utils.get_anon_mock()))
