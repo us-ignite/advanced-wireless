@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 from us_ignite.common.tests import utils
-from us_ignite.resources.models import Resource
+from us_ignite.resources.models import Resource, ResourceType, Sector
 from us_ignite.resources.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
@@ -95,3 +95,33 @@ class TestResourceModel(TestCase):
         resource = fixtures.get_resource(contact=None)
         ok_(not resource.is_editable_by(user))
         ok_(not resource.is_editable_by(utils.get_anon_mock()))
+
+
+class TestResourceTypeModel(TestCase):
+
+    def tearDown(self):
+        ResourceType.objects.all().delete()
+
+    def test_resource_type_can_be_created_successfully(self):
+        data = {
+            'name': 'Video'
+        }
+        instance = ResourceType.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.name, 'Video')
+        eq_(instance.slug, 'video')
+
+
+class TestSectorModel(TestCase):
+
+    def tearDown(self):
+        Sector.objects.all().delete()
+
+    def test_sector_can_be_created_successfully(self):
+        data = {
+            'name': 'Public Safety'
+        }
+        instance = Sector.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.name, 'Public Safety')
+        eq_(instance.slug, 'public-safety')

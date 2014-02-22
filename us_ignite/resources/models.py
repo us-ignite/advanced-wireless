@@ -7,13 +7,16 @@ from us_ignite.common.fields import AutoUUIDField
 from us_ignite.resources import managers, search
 
 from django_extensions.db.fields import (
-    CreationDateTimeField, ModificationDateTimeField)
+    AutoSlugField,
+    CreationDateTimeField,
+    ModificationDateTimeField,
+)
 from taggit.managers import TaggableManager
 
 
 class ResourceType(models.Model):
     name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     def __unicode__(self):
         return self.name
@@ -21,7 +24,7 @@ class ResourceType(models.Model):
 
 class Sector(models.Model):
     name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True)
+    slug = AutoSlugField(populate_from='name', unique=True)
 
     def __unicode__(self):
         return self.name
