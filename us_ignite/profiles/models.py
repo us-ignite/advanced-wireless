@@ -11,6 +11,7 @@ from us_ignite.common.fields import AutoUUIDField
 from django_browserid.signals import user_created
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
+from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 from registration.signals import user_activated
 
@@ -21,6 +22,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=255, blank=True)
     website = models.URLField(max_length=500, blank=True)
     bio = models.TextField(blank=True)
+    position = GeopositionField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
     tags = TaggableManager(blank=True)
