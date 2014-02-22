@@ -36,6 +36,8 @@ def resource_add(request):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.contact = request.user
+            if form.cleaned_data.get('author'):
+                instance.author = form.cleaned_data['author']
             instance.save()
             form.save_m2m()
             return redirect(instance.get_absolute_url())
@@ -56,6 +58,9 @@ def resource_edit(request, slug):
         form = ResourceForm(request.POST, request.FILES, instance=resource)
         if form.is_valid():
             instance = form.save()
+            if form.cleaned_data.get('author'):
+                instance.author = form.cleaned_data['author']
+                instance.save()
             return redirect(instance.get_absolute_url())
     else:
         form = ResourceForm(instance=resource)
