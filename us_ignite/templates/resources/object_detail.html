@@ -1,15 +1,47 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load thumbnail common_markdown  %}
 
 {% block title %}Resource: {{ object.name}} - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>Resource: {{ object.name }}</h1>
+<h1>{% if object.is_draft %}DRAFT: {% endif %}{{ object.name }}</h1>
 <p>{{ object.description }}</p>
 <ul>
   <li>Added on {{ object.created }}</li>
-  {% if is_owner %}<li><a href="{{ object.get_edit_url }}">Edit resource</a></li>{% endif %}
-  <li><a href="{{ object.get_resource_url }}">View resource</a></li>
+  {% if is_owner %}
+  <li><a href="{{ object.get_edit_url }}">Edit resource</a></li>
+  {% endif %}
+  {% if object.url %}<li><a href="{{ object.url }}">URL</a></li>{% endif %}
+  {% if object.asset %}
+  <li><a href="{{ object.asset.url }}">Download</a></li>
+  {% endif %}
+  {% if object.resource_type %}
+  <li>Resource type: {{ object.resource_type.name }}</li>
+  {% endif %}
+  {% if object.sector %}
+  <li>Sector: {{ object.sector.name }}</li>
+  {% endif %}
+  {% if object.contact %}
+  <li>
+    Contact: {% include "includes/display_name.html" with user=object.contact %}
+  </li>
+  {% endif %}
+  {% if object.author %}
+  <li>
+    Author: {% include "includes/display_name.html" with user=object.author %}
+  </li>
+  {% endif %}
+  {% if object.organization %}
+  <li>
+    Organization: <a href="{{ object.organization.get_absolute_url }}">{{ object.organization.name }}</a>
+  </li>
+  {% endif %}
 </ul>
+
+{% if object.image  %}
+<img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
+{% endif %}
+
+{{ object.description|markdown }}
 
 <h2>Tags</h2>
 {% with object.tags.all as tag_list %}
