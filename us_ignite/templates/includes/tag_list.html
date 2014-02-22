@@ -1,0 +1,8 @@
+{% if tag_list %}
+<h2>Tags</h2>
+<ul>
+  {% for tag in tag_list %}
+  <li><a href="{% url 'search' %}?q={{ tag |urlencode }}">{{ tag }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}

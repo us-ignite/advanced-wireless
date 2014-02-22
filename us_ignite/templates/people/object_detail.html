@@ -29,6 +29,8 @@
 </p>
 {% endif %}
 
+{% include "includes/tag_list.html" with tag_list=object.tags.all %}
+
 {% if award_list %}
 <h2>Awards</h2>
 <ul>
@@ -111,8 +113,6 @@
   <li><a href="{{ organization.organization.get_absolute_url }}">{{ organization.organization.name }}</a></li>
   {% endfor%}
 </ul>
-
 {% endif %}
-
 
 {% endblock content %}
