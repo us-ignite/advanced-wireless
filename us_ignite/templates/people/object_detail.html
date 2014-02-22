@@ -74,7 +74,7 @@
 <h3>Resources</h3>
 <ul>
   {% for resource in resource_list %}
-  <li><a href="{{ resource.get_absolute_url }}">{{ resource.name }}</a></li>
+  <li><a href="{{ resource.get_absolute_url }}">{{ resource.name }}{% if resource.is_draft %} (DRAFT){% endif %}</a></li>
   {% endfor%}
 </ul>
 {% endif %}
