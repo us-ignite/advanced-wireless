@@ -3,7 +3,7 @@
 {% block title %}Resource: {{ object.name}} - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>{% if object.is_draft %}DRAFT: {% endif %}{{ object.name }}</h1>
+<h1>Resource: {{ object.name }}{% if object.is_draft %} (DRAFT){% endif %}</h1>
 <p>{{ object.description }}</p>
 <ul>
   <li>Added on {{ object.created }}</li>
