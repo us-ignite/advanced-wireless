@@ -54,9 +54,9 @@ def get_event_list(user, viewer=None):
     return Event.objects.filter(**qs_kwargs)
 
 
-def get_resource_list(owner, viewer=None):
-    qs_kwargs = {'owner': owner}
-    if not viewer or not owner == viewer:
+def get_resource_list(contact, viewer=None):
+    qs_kwargs = {'contact': contact}
+    if not viewer or not contact == viewer:
         qs_kwargs.update({'status': Resource.PUBLISHED})
     return Resource.objects.filter(**qs_kwargs)
 

@@ -14,7 +14,7 @@ def resource_detail(request, slug):
         raise Http404
     context = {
         'object': resource,
-        'is_owner': resource.is_owner(request.user)
+        'is_owner': resource.is_editable_by(request.user)
     }
     return TemplateResponse(request, 'resources/object_detail.html', context)
 
@@ -50,7 +50,7 @@ def resource_add(request):
 @login_required
 def resource_edit(request, slug):
     resource = get_object_or_404(Resource, slug__exact=slug)
-    if not resource.is_owner(request.user):
+    if not resource.is_editable_by(request.user):
         raise Http404
     if request.method == 'POST':
         form = ResourceForm(request.POST, request.FILES, instance=resource)

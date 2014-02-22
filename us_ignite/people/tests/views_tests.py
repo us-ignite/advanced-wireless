@@ -198,17 +198,18 @@ class TestResourceListFunction(TestCase):
 
     @patch_resource_filter
     def test_anon_user_returns_public_objects(self, filter_mock):
-        owner = utils.get_user_mock()
+        contact = utils.get_user_mock()
         viewer = utils.get_anon_mock()
-        result = views.get_resource_list(owner, viewer=viewer)
-        filter_mock.assert_called_once_with(owner=owner, status=Resource.PUBLISHED)
+        result = views.get_resource_list(contact, viewer=viewer)
+        filter_mock.assert_called_once_with(
+            contact=contact, status=Resource.PUBLISHED)
         eq_(list(result), [])
 
     @patch_resource_filter
-    def test_owner_returns_all_available_objects(self, filter_mock):
-        owner = utils.get_user_mock()
-        result = views.get_resource_list(owner, viewer=owner)
-        filter_mock.assert_called_once_with(owner=owner)
+    def test_contact_returns_all_available_objects(self, filter_mock):
+        contact = utils.get_user_mock()
+        result = views.get_resource_list(contact, viewer=contact)
+        filter_mock.assert_called_once_with(contact=contact)
         eq_(list(result), [])
 
 

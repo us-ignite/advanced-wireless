@@ -123,17 +123,17 @@ class TestResourceEditView(TestCase):
     @patch_get
     def test_resource_requires_ownership(self, mock_get):
         mock_instance = Mock(spec=Resource)
-        mock_instance.is_owner.return_value = False
+        mock_instance.is_editable_by.return_value = False
         mock_get.return_value = mock_instance
         request = utils.get_request(
             'get', '/resource/foo/edit/', user=utils.get_user_mock())
         assert_raises(Http404, views.resource_edit, request, 'foo')
         mock_get.assert_called_once_with(Resource, slug__exact='foo')
-        mock_instance.is_owner.assert_called_once_with(request.user)
+        mock_instance.is_editable_by.assert_called_once_with(request.user)
 
     def test_resource_request_is_successsful(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user)
+        resource = fixtures.get_resource(contact=user)
         request = utils.get_request('get', resource.get_edit_url(), user=user)
         response = views.resource_edit(request, resource.slug)
         eq_(response.status_code, 200)
@@ -142,7 +142,7 @@ class TestResourceEditView(TestCase):
 
     def test_invalid_form_fails(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user)
+        resource = fixtures.get_resource(contact=user)
         request = utils.get_request(
             'post', resource.get_edit_url(), data={}, user=user)
         response = views.resource_edit(request, resource.slug)
@@ -152,7 +152,7 @@ class TestResourceEditView(TestCase):
 
     def test_resource_update_request_is_successful(self):
         user = get_user('us-ignite')
-        resource = fixtures.get_resource(owner=user)
+        resource = fixtures.get_resource(contact=user)
         data = {
             'name': 'Resource Updated',
             'description': 'Lorem Ipsum',

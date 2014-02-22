@@ -138,7 +138,7 @@ def user_profile_delete(request):
     # List of the content to be disassociated:
     application_list = Application.objects.filter(owner=request.user)
     event_list = Event.objects.filter(user=request.user)
-    resource_list = Resource.objects.filter(owner=request.user)
+    resource_list = Resource.objects.filter(contact=request.user)
     if request.method == 'POST':
         request.user.delete()
         # Logut user
