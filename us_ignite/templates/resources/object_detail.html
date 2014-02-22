@@ -22,12 +22,12 @@
   {% endif %}
   {% if object.contact %}
   <li>
-    Contact: {% include "includes/display_name.html" with user=object.contact %}
+    Contact: {% include "includes/display_avatar.html" with user=object.contact %}
   </li>
   {% endif %}
   {% if object.author %}
   <li>
-    Author: {% include "includes/display_name.html" with user=object.author %}
+    Author: {% include "includes/display_avatar.html" with user=object.author %}
   </li>
   {% endif %}
   {% if object.organization %}

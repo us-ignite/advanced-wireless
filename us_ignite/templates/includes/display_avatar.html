@@ -1,0 +1,9 @@
+{% with profile=user.profile %}
+{% if profile %}
+<a href="{{ profile.get_absolute_url }}" title="Contact {{ profile.display_name }}">
+  <img src="{{ profile.get_gravatar_url }}" alt="{{ profile.display_name }}" />
+</a>
+{% else %}
+US ignite user
+{% endif %}
+{% endwith %}
