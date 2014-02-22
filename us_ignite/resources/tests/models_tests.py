@@ -80,6 +80,10 @@ class TestResourceModel(TestCase):
         resource = fixtures.get_resource(contact=user)
         eq_(resource.get_resource_url(), '')
 
+    def test_resource_is_draft(self):
+        resource = fixtures.get_resource(status=Resource.DRAFT)
+        eq_(resource.is_draft(), True)
+
     def test_user_is_owner(self):
         user = get_user('us-ignite')
         resource = fixtures.get_resource(contact=user)

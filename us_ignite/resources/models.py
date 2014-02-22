@@ -95,6 +95,9 @@ class Resource(models.Model):
     def is_published(self):
         return self.status == self.PUBLISHED
 
+    def is_draft(self):
+        return self.status == self.DRAFT
+
 
 # Search:
 watson.register(
