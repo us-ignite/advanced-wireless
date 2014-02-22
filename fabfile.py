@@ -170,6 +170,7 @@ def load_fixtures():
         dj_heroku('common_load_fixtures', env.app, env.slug)
         dj_heroku('snippets_load_fixtures', env.app, env.slug)
         dj_heroku('events_load_fixtures', env.app, env.slug)
+        dj_heroku('resources_load_fixtures', env.app, env.slug)
         dj_heroku('blog_import', env.app, env.slug)
         buildwatson()
     else:
