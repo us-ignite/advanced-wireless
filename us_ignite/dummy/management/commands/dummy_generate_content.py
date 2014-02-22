@@ -199,7 +199,8 @@ class Command(BaseCommand):
             'slug': slugify(name),
             'status': choice(Resource.STATUS_CHOICES)[0],
             'description': text.random_paragraphs(1),
-            'owner': self._get_user(),
+            'contact': self._get_user(),
+            'author': choice([self._get_user(), None]),
             'url': self._get_url(),
             'is_featured': choice([True, False]),
         }
