@@ -11,5 +11,5 @@ class OrganizationForm(forms.ModelForm):
             return output.prepare_tags(self.cleaned_data['tags'])
 
     class Meta:
-        fields = ('name', 'bio', 'image', 'website', 'tags')
+        fields = ('name', 'bio', 'image', 'website', 'tags', 'position')
         model = Organization

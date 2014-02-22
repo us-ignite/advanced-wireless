@@ -32,6 +32,7 @@ class TestOrganization(TestCase):
         eq_(list(instance.tags.all()), [])
         ok_(instance.created)
         ok_(instance.modified)
+        ok_(instance.position)
 
     def test_organization_is_published(self):
         instance = fixtures.get_organization(status=Organization.PUBLISHED)

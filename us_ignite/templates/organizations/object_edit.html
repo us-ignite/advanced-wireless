@@ -12,5 +12,6 @@
     <button type="submit">Update</button>
   </p>
 </form>
-
 {% endblock content %}
+
+{% block extra_scripts %}{{ form.media }}{% endblock extra_scripts %}

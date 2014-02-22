@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
+from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
 from us_ignite.organizations import managers, search
@@ -27,6 +28,7 @@ class Organization(models.Model):
     members = models.ManyToManyField(
         'auth.User', blank=True, through='organizations.OrganizationMember')
     website = models.URLField(max_length=500, blank=True)
+    position = GeopositionField(blank=True)
     tags = TaggableManager(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
