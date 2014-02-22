@@ -104,6 +104,7 @@ class TestResourceAddView(TestCase):
         resource = Resource.objects.get(name='Gigabit resource')
         eq_(response.status_code, 302)
         eq_(response['Location'], resource.get_absolute_url())
+        eq_(resource.contact, user)
         self._tear_down()
 
 

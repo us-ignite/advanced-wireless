@@ -35,7 +35,7 @@ def resource_add(request):
         form = ResourceForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.owner = request.user
+            instance.contact = request.user
             instance.save()
             form.save_m2m()
             return redirect(instance.get_absolute_url())
