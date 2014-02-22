@@ -11,7 +11,8 @@ class TestResourceForm(TestCase):
     def test_fields_are_not_sensitive(self):
         form = forms.ResourceForm()
         eq_(sorted(form.fields.keys()),
-            sorted(['name', 'description', 'url', 'asset', 'tags', 'status']))
+            sorted(['name', 'status', 'description', 'url', 'resource_type',
+                    'sector', 'organization', 'image', 'asset', 'tags']))
 
     def test_empty_payload_fails(self):
         form = forms.ResourceForm({})
