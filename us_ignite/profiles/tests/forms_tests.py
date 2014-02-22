@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from nose.tools import ok_, eq_, raises
 from mock import patch
 
@@ -74,7 +72,7 @@ class TestProfileForm(TestCase):
     def test_form_list_non_sensitive_values(self):
         form = ProfileForm()
         eq_(sorted(form.fields.keys()),
-            ['bio', 'is_public', 'name', 'tags', 'website'])
+            sorted(['bio', 'is_public', 'name', 'tags', 'website', 'position']))
 
     def test_form_accepts_empty_payload(self):
         form = ProfileForm({})

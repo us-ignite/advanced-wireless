@@ -66,7 +66,8 @@ class TestEditProfilePage(TestCase):
         url = '/accounts/profile/'
         response = self.client.get(url)
         fields = response.context['form'].fields.keys()
-        eq_(sorted(fields), ['bio', 'is_public', 'name', 'tags', 'website'])
+        eq_(sorted(fields), sorted(['bio', 'is_public', 'name',
+                                    'tags', 'website', 'position']))
 
     def test_profile_form_update_is_successful(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)

@@ -14,9 +14,8 @@
 
 <form method="post" action="{% url 'user_profile' %}">
   {{ form.as_p }}
-
+  <h2>Extra URLs</h2>
   {{ formset.as_p }}
-
   <p>
     {% csrf_token %}
     <button type="submit">Update</button>
@@ -28,5 +27,6 @@
   <li><a href="{{ object.get_delete_url }}">Remove account</a></li>
 </ul>
 
-
 {% endblock content %}
+
+{% block extra_scripts %}{{ form.media }}{% endblock extra_scripts %}
