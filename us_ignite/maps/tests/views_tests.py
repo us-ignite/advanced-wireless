@@ -29,7 +29,7 @@ class TestGetLocationDataHelper(TestCase):
         mock = Mock()
         response = views._get_location_data(mock)
         eq_(sorted(response.keys()),
-            sorted(['latitude', 'longitude', 'name',
+            sorted(['latitude', 'longitude', 'name', 'type',
                     'website', 'category', 'image', 'content']))
 
 

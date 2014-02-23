@@ -21,6 +21,7 @@ def _get_content(name, website):
 
 def _get_location_data(location):
     return {
+        'type': 'location',
         'latitude': location.position.latitude,
         'longitude': location.position.longitude,
         'name': location.name,
