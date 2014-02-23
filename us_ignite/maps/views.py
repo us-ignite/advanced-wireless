@@ -1,9 +1,6 @@
-import json
-
-from django.core.serializers.json import DjangoJSONEncoder
-from django.http import HttpResponse
 from django.template.response import TemplateResponse
 
+from us_ignite.common.response import json_response
 from us_ignite.maps.models import Location
 
 
@@ -38,5 +35,4 @@ def location_list_json(request):
     """Returns the locations in JSON format"""
     object_list = Location.published.select_related('category').all()
     dict_list = [_get_location_data(l) for l in object_list]
-    response = 'map.render(%s)' % json.dumps(dict_list, cls=DjangoJSONEncoder)
-    return HttpResponse(response, content_type='application/javascript')
+    return json_response(dict_list, callback='map.render')
