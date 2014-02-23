@@ -76,7 +76,6 @@
 {% endif %}
 
 
-
 <h2>Activity list</h2>
 {% if activity_list %}
 <ul>
@@ -96,5 +95,9 @@
 {% endif %}
 
 
+<div id="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC6VsR-gfPbgJCJ67zC0gSx3yq4zljBhk&sensor=false" type="text/javascript"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/maps.js"></script>
+<script type="text/javascript" src="{% url 'hub_locations_json' object.slug %}"></script>
 
 {% endblock content %}

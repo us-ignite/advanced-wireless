@@ -6,6 +6,7 @@ from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_http_methods
 
+from us_ignite.common.response import json_response
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub, HubRequest, HubMembership
 from us_ignite.hubs import forms, mailer
@@ -106,3 +107,18 @@ def hub_list(request):
         'object_list': object_list,
     }
     return TemplateResponse(request, 'hubs/object_list.html', context)
+
+
+def get_event_list(hub):
+    event_list = []
+    for event in Event.published.get_upcoming(hubs=hub):
+        if event.position.longitude and event.position.latitude:
+            event_list.append(event.get_location_dict())
+    return event_list
+
+
+def hub_locations_json(request, slug):
+    hub = get_object_or_404(Hub.active, slug__exact=slug)
+    # Get events with location
+    event_list = get_event_list(hub)
+    return json_response(event_list, callback='map.render')

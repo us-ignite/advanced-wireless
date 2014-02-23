@@ -199,3 +199,18 @@ class TestHubListView(TestCase):
         eq_(response.template_name, 'hubs/object_list.html')
         eq_(sorted(response.context_data.keys()), ['object_list'])
         all_mock.assert_called_once_with()
+
+
+class TestHubLocationsJSON(TestCase):
+
+    @patch_get_object
+    @patch('us_ignite.hubs.views.get_event_list')
+    def test_hub_locations_json(self, mock_list, mock_hub):
+        mock_list.return_value = []
+        mock_hub.return_value = 'foo'
+        request = utils.get_request('get', '/hub/foo/')
+        response = views.hub_locations_json(request, 'foo')
+        eq_(response.status_code, 200)
+        eq_(response['Content-Type'], 'application/javascript')
+        mock_hub.assert_called_once_with(models.Hub.active, slug__exact='foo')
+        mock_list.asset_called_once_with('foo')
