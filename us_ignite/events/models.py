@@ -98,6 +98,18 @@ class Event(models.Model):
     def get_edit_url(self):
         return reverse('event_edit', args=[self.slug])
 
+    def get_location_dict(self):
+        return {
+            'type': 'event',
+            'latitude': self.position.latitude,
+            'longitude': self.position.longitude,
+            'name': self.name,
+            'website': self.get_absolute_url(),
+            'category': '',
+            'image': '',
+            'content': self.name,
+        }
+
 
 class EventURL(models.Model):
     event = models.ForeignKey('events.Event')

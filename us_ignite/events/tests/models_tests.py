@@ -124,6 +124,13 @@ class TestEventModel(TestCase):
         event = fixtures.get_event(user=None)
         eq_(event.is_owner(user), False)
 
+    def test_get_location_dict(self):
+        user = get_user('us-ignite')
+        event = fixtures.get_event(user=user)
+        eq_(sorted(event.get_location_dict().keys()),
+            sorted(['type', 'latitude', 'longitude', 'name', 'website',
+                    'content', 'category', 'image']))
+
 
 class TestEventURLModel(TestCase):
 
