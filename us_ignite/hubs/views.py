@@ -41,10 +41,10 @@ def hub_detail(request, slug):
     """Homepage of a Ignite Community.
 
     This view aggregates all the content related to this ``Hub``. Available
-    when published or to the ``guardian``.
+    when published or to the ``contact``.
     """
     instance = get_object_or_404(
-        Hub.objects.select_related('guardian'), slug__exact=slug)
+        Hub.objects.select_related('contact'), slug__exact=slug)
     if not instance.is_visible_by(request.user):
         raise Http404
     member_list = instance.hubmembership_set.select_related('profile').all()
@@ -60,7 +60,7 @@ def hub_detail(request, slug):
         'feature_list': instance.features.all(),
         'member_list': member_list,
         'is_member': is_member,
-        'is_guardian': instance.is_guardian(request.user),
+        'is_contact': instance.is_contact(request.user),
         'activity_list': activity_list,
         'event_list': event_list,
         'award_list': award_list,
@@ -81,9 +81,9 @@ def hub_membership(request, slug):
 
 @login_required
 def hub_edit(request, slug):
-    """Allows ``guardians`` to edit a ``Hub``. """
+    """Allows ``contacts`` to edit a ``Hub``. """
     instance = get_object_or_404(
-        Hub.objects, slug__exact=slug, guardian=request.user)
+        Hub.objects, slug__exact=slug, contact=request.user)
     if request.method == 'POST':
         form = forms.HubForm(request.POST, instance=instance)
         if form.is_valid():

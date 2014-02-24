@@ -8,17 +8,17 @@
 
 <ul>
   <li>Created on: {{ object.created }}</li>
-  {% if is_guardian %}
+  {% if is_contact %}
   <li><a href="{{ object.get_edit_url }}">Edit community</a></li>
   {% endif %}
   {% if object.website %}
   <li><a href="{{ object.website }}">Website</a></li>
   {% endif %}
   <li>
-    {% if object.guardian %}
-    <a href="">Contact the guardian of this community: {{ object.guardian.profile.get_absolute_url }}</a>
+    {% if object.contact %}
+    <a href="">Contact the contact of this community: {{ object.contact.profile.get_absolute_url }}</a>
     {% else %}
-    <a href="{% url 'hub_application' %}">Apply to be the guardian of this community</a>
+    <a href="{% url 'hub_application' %}">Apply to be the contact of this community</a>
     {% endif %}
   </li>
 </ul>

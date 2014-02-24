@@ -83,7 +83,7 @@ class TestHubDetailView(TestCase):
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
             sorted(['object', 'feature_list', 'member_list', 'is_member',
-                    'is_guardian', 'activity_list', 'event_list', 'award_list'])
+                    'is_contact', 'activity_list', 'event_list', 'award_list'])
         )
 
     @raises(Http404)
@@ -93,16 +93,16 @@ class TestHubDetailView(TestCase):
             'get', '/hub/community/', user=utils.get_anon_mock())
         views.hub_detail(request, 'community')
 
-    def test_guardian_unpublished_request_succeeds(self):
-        guardian = get_user('guardian')
+    def test_contact_unpublished_request_succeeds(self):
+        contact = get_user('contact')
         hub = fixtures.get_hub(name='community', status=models.Hub.DRAFT,
-                               guardian=guardian)
-        request = utils.get_request('get', '/hub/community/', user=guardian)
+                               contact=contact)
+        request = utils.get_request('get', '/hub/community/', user=contact)
         response = views.hub_detail(request, 'community')
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
             sorted(['object', 'feature_list', 'member_list', 'is_member',
-                    'is_guardian', 'activity_list', 'event_list', 'award_list'])
+                    'is_contact', 'activity_list', 'event_list', 'award_list'])
         )
 
 
@@ -152,34 +152,34 @@ class TestHubEditView(TestCase):
         eq_(response['Location'], utils.get_login_url('/hub/community/edit/'))
 
     @raises(Http404)
-    def test_not_guardian_request_fails(self):
+    def test_not_contact_request_fails(self):
         user = get_user('us-ignite')
         fixtures.get_hub(name='community', status=models.Hub.PUBLISHED)
         request = utils.get_request('get', '/hub/community/edit/', user=user)
         views.hub_edit(request, 'community')
 
-    def test_guardian_request_is_successful(self):
-        guardian = get_user('guardian')
+    def test_contact_request_is_successful(self):
+        contact = get_user('contact')
         hub = fixtures.get_hub(
-            name='community', status=models.Hub.PUBLISHED, guardian=guardian)
+            name='community', status=models.Hub.PUBLISHED, contact=contact)
         request = utils.get_request(
-            'get', '/hub/community/edit/', user=guardian)
+            'get', '/hub/community/edit/', user=contact)
         response = views.hub_edit(request, 'community')
         eq_(response.status_code, 200)
         eq_(response.template_name, 'hubs/object_edit.html')
         eq_(sorted(response.context_data.keys()), sorted(['form', 'object']))
         eq_(response.context_data['object'], hub)
 
-    def test_guardian_update_is_successful(self):
-        guardian = get_user('guardian')
+    def test_contact_update_is_successful(self):
+        contact = get_user('contact')
         hub = fixtures.get_hub(
-            name='community', status=models.Hub.PUBLISHED, guardian=guardian)
+            name='community', status=models.Hub.PUBLISHED, contact=contact)
         data = {
             'name': 'New name!',
             'description': 'New description.'
         }
         request = utils.get_request(
-            'post', '/hub/community/edit/', data=data, user=guardian)
+            'post', '/hub/community/edit/', data=data, user=contact)
         request._messages = utils.TestMessagesBackend(request)
         response = views.hub_edit(request, 'community')
         eq_(response.status_code, 302)
