@@ -5,7 +5,7 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 
 from us_ignite.hubs.forms import HubApprovalRequestForm
-from us_ignite.hubs.models import Hub, HubActivity, HubRequest
+from us_ignite.hubs.models import Hub, HubActivity, HubRequest, NetworkSpeed
 
 
 def get_hub_from_request(instance):
@@ -82,6 +82,11 @@ class HubActivityAdmin(admin.ModelAdmin):
     list_filter = ('created', )
 
 
+class NetworkSpeedAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+
+
 admin.site.register(Hub, HubAdmin)
 admin.site.register(HubActivity, HubActivityAdmin)
 admin.site.register(HubRequest, HubRequestAdmin)
+admin.site.register(NetworkSpeed, NetworkSpeedAdmin)
