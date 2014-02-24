@@ -84,49 +84,58 @@ class TestHubModel(TestCase):
         ok_(instance.id)
         eq_(instance.name, 'Local Community')
         eq_(instance.slug, 'local-community')
-        eq_(instance.guardian, None)
         eq_(instance.summary, '')
         eq_(instance.description, 'Gigabit local community')
+        eq_(instance.connections, '')
+        eq_(instance.contact, None)
+        eq_(instance.organization, None)
+        eq_(instance.network_speed, None)
+        eq_(instance.is_advanced, False)
+        eq_(instance.experimentation, Hub.MEDIUM)
+        eq_(instance.estimated_passes, '')
         eq_(instance.image, '')
         eq_(instance.website, '')
-        ok_(instance.created)
-        ok_(instance.modified)
+        eq_(instance.notes, '')
+        eq_(instance.status, Hub.DRAFT)
+        eq_(list(instance.applications.all()), [])
         eq_(list(instance.features.all()), [])
         eq_(list(instance.tags.all()), [])
+        ok_(instance.created)
+        ok_(instance.modified)
 
-    def test_is_guardian(self):
-        guardian = get_user('guardian')
-        instance = fixtures.get_hub(guardian=guardian)
-        eq_(instance.is_guardian(guardian), True)
+    def test_is_contact(self):
+        contact = get_user('contact')
+        instance = fixtures.get_hub(contact=contact)
+        eq_(instance.is_contact(contact), True)
 
     def test_is_published(self):
-        guardian = get_user('guardian')
-        instance = fixtures.get_hub(guardian=guardian, status=Hub.PUBLISHED)
+        contact = get_user('contact')
+        instance = fixtures.get_hub(contact=contact, status=Hub.PUBLISHED)
         eq_(instance.is_published(), True)
 
     def test_published_hub_is_visible(self):
         instance = fixtures.get_hub(status=Hub.PUBLISHED)
         eq_(instance.is_visible_by(utils.get_anon_mock()), True)
 
-    def test_unpublished_hub_is_visible_to_guardian(self):
-        guardian = get_user('guardian')
-        instance = fixtures.get_hub(guardian=guardian, status=Hub.DRAFT)
-        eq_(instance.is_visible_by(guardian), True)
+    def test_unpublished_hub_is_visible_to_contact(self):
+        contact = get_user('contact')
+        instance = fixtures.get_hub(contact=contact, status=Hub.DRAFT)
+        eq_(instance.is_visible_by(contact), True)
 
     def test_get_absolute_url(self):
-        guardian = get_user('guardian')
-        instance = fixtures.get_hub(guardian=guardian)
+        contact = get_user('contact')
+        instance = fixtures.get_hub(contact=contact)
         eq_(instance.get_absolute_url(), '/hub/%s/' % instance.slug)
 
     def test_get_membership_url(self):
-        guardian = get_user('guardian')
-        instance = fixtures.get_hub(guardian=guardian)
+        contact = get_user('contact')
+        instance = fixtures.get_hub(contact=contact)
         eq_(instance.get_membership_url(), '/hub/%s/membership/' % instance.slug)
 
     @patch('us_ignite.hubs.models.HubActivity.objects.create')
     def test_record_activity_is_successful(self, mock_create):
-        guardian = get_user('guardian')
-        instance = fixtures.get_hub(guardian=guardian)
+        contact = get_user('contact')
+        instance = fixtures.get_hub(contact=contact)
         instance.record_activity('Hello')
         mock_create.assert_called_once_with(hub=instance, name='Hello')
 
