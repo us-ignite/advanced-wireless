@@ -87,7 +87,7 @@ class Command(BaseCommand):
     def _create_hub(self):
         data = {
             'name': text.random_words(3),
-            'guardian': choice([None, self._get_user()]),
+            'contact': choice([None, self._get_user()]),
             'summary': text.random_words(10),
             'description': text.random_paragraphs(3),
             'image': images.random_image(u'%s.png' % text.random_words(1)),
