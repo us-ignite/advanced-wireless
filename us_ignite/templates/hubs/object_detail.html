@@ -16,11 +16,20 @@
   {% endif %}
   <li>
     {% if object.contact %}
-    <a href="">Contact the contact of this community: {{ object.contact.profile.get_absolute_url }}</a>
+    {% include "includes/display_avatar.html" with user=object.contact %}
     {% else %}
     <a href="{% url 'hub_application' %}">Apply to be the contact of this community</a>
     {% endif %}
   </li>
+  {% if object.organization %}
+  <li>Organization: <a href="{{ object.organization.get_absolute_url }}">{{ object.organization.name }}</a></li>
+  {% endif %}
+  {% if object.network_speed %}
+  <li>Network Speed: {{ object.network_speed.name }}</li>
+  {% endif %}
+  {% if object.is_advanced %}
+  <li>Community has advanced characteristics</li>
+  {% endif %}
 </ul>
 
 {% if not is_member and not is_owner %}
@@ -53,6 +62,12 @@
 </ul>
 {% endif %}
 
+{% if object.estimated_passes %}
+<h2>Estimated Pases</h2>
+<p>{{ object.estimated_passes }}</p>
+{% endif %}
+
+
 <h2>Tags</h2>
 {% with object.tags.all as tag_list %}
 {% if tag_list %}
@@ -75,6 +90,13 @@
 </ul>
 {% endif %}
 
+{% if award_list %}
+<h2>Awards</h2>
+<ul>
+  {% for award in award_list %}<li>{{ award.award.name }}</li>{% endfor%}
+</ul>
+{% endif %}
+
 
 <h2>Activity list</h2>
 {% if activity_list %}
@@ -87,12 +109,16 @@
 <p>No recent activity available.</p>
 {% endif %}
 
-{% if award_list %}
-<h2>Awards</h2>
+{% with object.applications.all as app_list %}
+{% if app_list %}
+<h2>Piloted applications</h2>
 <ul>
-  {% for award in award_list %}<li>{{ award.award.name }}</li>{% endfor%}
+  {% for app in app_list %}
+  <li><a href="{{ app.get_absolute_url }}">{{ app.name }}</a></li>
+  {% endfor%}
 </ul>
 {% endif %}
+{% endwith %}
 
 
 <div id="map"></div>
