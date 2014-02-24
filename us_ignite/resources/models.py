@@ -55,7 +55,8 @@ class Resource(models.Model):
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
         related_name='resource_author_set')
     organization = models.ForeignKey(
-        'organizations.Organization', blank=True, null=True)
+        'organizations.Organization', blank=True, null=True,
+        on_delete=models.SET_NULL)
     image = models.ImageField(upload_to="resource", blank=True)
     asset = models.FileField(upload_to="resource", blank=True)
     is_featured = models.BooleanField(default=False)
