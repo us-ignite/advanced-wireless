@@ -67,6 +67,14 @@
 <p>{{ object.estimated_passes }}</p>
 {% endif %}
 
+{% if object.connections %}
+<h2>Connections to other networks</h2>
+<p>
+  {{ object.connections }}
+</p>
+{% endif %}
+
+
 
 <h2>Tags</h2>
 {% with object.tags.all as tag_list %}
