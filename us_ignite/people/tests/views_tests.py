@@ -223,17 +223,17 @@ class TestHubListFunction(TestCase):
 
     @patch_hub_filter
     def test_anon_user_returns_public_objects(self, filter_mock):
-        guardian = utils.get_user_mock()
+        contact = utils.get_user_mock()
         viewer = utils.get_anon_mock()
-        result = views.get_hub_list(guardian, viewer=viewer)
-        filter_mock.assert_called_once_with(guardian=guardian, status=Hub.PUBLISHED)
+        result = views.get_hub_list(contact, viewer=viewer)
+        filter_mock.assert_called_once_with(contact=contact, status=Hub.PUBLISHED)
         eq_(list(result), [])
 
     @patch_hub_filter
     def test_owner_returns_all_available_objects(self, filter_mock):
-        guardian = utils.get_user_mock()
-        result = views.get_hub_list(guardian, viewer=guardian)
-        filter_mock.assert_called_once_with(guardian=guardian)
+        contact = utils.get_user_mock()
+        result = views.get_hub_list(contact, viewer=contact)
+        filter_mock.assert_called_once_with(contact=contact)
         eq_(list(result), [])
 
 

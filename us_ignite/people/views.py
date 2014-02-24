@@ -61,9 +61,9 @@ def get_resource_list(contact, viewer=None):
     return Resource.objects.filter(**qs_kwargs)
 
 
-def get_hub_list(guardian, viewer=None):
-    qs_kwargs = {'guardian': guardian}
-    if not guardian or not guardian == viewer:
+def get_hub_list(contact, viewer=None):
+    qs_kwargs = {'contact': contact}
+    if not contact or not contact == viewer:
         qs_kwargs.update({'status': Hub.PUBLISHED})
     return Hub.objects.filter(**qs_kwargs)
 
