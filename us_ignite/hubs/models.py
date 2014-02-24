@@ -139,6 +139,9 @@ class Hub(models.Model):
     def is_published(self):
         return self.status == self.PUBLISHED
 
+    def is_draft(self):
+        return self.status == self.DRAFT
+
     def is_visible_by(self, user):
         return self.is_published() or self.is_contact(user)
 

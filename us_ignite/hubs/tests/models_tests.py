@@ -113,6 +113,11 @@ class TestHubModel(TestCase):
         instance = fixtures.get_hub(contact=contact, status=Hub.PUBLISHED)
         eq_(instance.is_published(), True)
 
+    def test_is_draft(self):
+        contact = get_user('contact')
+        instance = fixtures.get_hub(contact=contact, status=Hub.DRAFT)
+        eq_(instance.is_draft(), True)
+
     def test_published_hub_is_visible(self):
         instance = fixtures.get_hub(status=Hub.PUBLISHED)
         eq_(instance.is_visible_by(utils.get_anon_mock()), True)
