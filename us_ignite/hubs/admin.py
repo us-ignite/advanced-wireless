@@ -12,7 +12,7 @@ def get_hub_from_request(instance):
     """Transform the instance in a request"""
     return Hub.objects.create(
         name=instance.name,
-        guardian=instance.user,
+        contact=instance.user,
         summary=instance.summary,
         description=instance.description,
         website=instance.website
@@ -68,7 +68,7 @@ class HubRequestAdmin(admin.ModelAdmin):
 
 
 class HubAdmin(admin.ModelAdmin):
-    raw_id_fields = ('guardian', )
+    raw_id_fields = ('contact', )
     list_display = ('name', 'slug', 'status', 'created')
     search_fields = ('name', 'slug', 'description', 'summary')
     date_hierarchy = 'created'

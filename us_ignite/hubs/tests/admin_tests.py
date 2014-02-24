@@ -87,7 +87,7 @@ class TestGetHubFromRequestAdmin(TestCase):
         get_hub_from_request(instance)
         mock_create.assert_called_once_with(
             name='Hello',
-            guardian=user,
+            contact=user,
             summary='Summary',
             description='Description',
             website='http://us-ignite.org'
