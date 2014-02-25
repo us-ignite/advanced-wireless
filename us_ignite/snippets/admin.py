@@ -1,19 +1,33 @@
+from django import forms
 from django.contrib import admin
 
 from us_ignite.snippets.models import Snippet
 
+from tinymce.widgets import TinyMCE
+
+
+class SnippetAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = Snippet
+        widgets = {
+            'body': TinyMCE(attrs={'cols': 80, 'rows': 30}),
+        }
+
 
 class SnippetAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'is_featured')
+    list_display = ('name', )
     search_fields = ('name', 'url')
     list_filter = ('status', 'is_featured', 'created')
     date_hierarchy = 'created'
-
-    def save_model(self, request, obj, form, change):
-        """Make sure that there is only a single featured ``Snippet``."""
-        if obj.is_featured:
-            obj.status = obj.PUBLISHED
-            self.model.objects.all().update(is_featured=False)
-        obj.save()
+    form = SnippetAdminForm
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'status', 'slug', 'body')
+        }),
+        ('Extras', {
+            'fields': ('url', 'url_text', 'image'),
+        }),
+    )
 
 admin.site.register(Snippet, SnippetAdmin)

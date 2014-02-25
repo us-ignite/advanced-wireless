@@ -3,6 +3,7 @@ from django.db import models
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
 
+from us_ignite.common import sanitizer
 from us_ignite.snippets import managers
 
 
@@ -20,13 +21,11 @@ class Snippet(models.Model):
         max_length=255, unique=True, help_text='Keyword used to render this'
         ' snippet of content.')
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    url = models.URLField(max_length=500)
+    body = models.TextField()
+    url = models.URLField(max_length=500, blank=True)
     url_text = models.CharField(blank=True, max_length=255)
-    body = models.TextField(blank=True)
     image = models.ImageField(upload_to="featured", blank=True)
-    is_featured = models.BooleanField(
-        default=False, help_text='Marking this Snippet as featured will publish'
-        ' it and show it on the site.')
+    is_featured = models.BooleanField(default=False)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
@@ -39,3 +38,8 @@ class Snippet(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if self.body:
+            self.body = sanitizer.sanitize(self.body)
+        return super(Snippet, self).save(*args, **kwargs)
