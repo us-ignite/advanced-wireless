@@ -31,9 +31,8 @@ class procfile ($project_path, $project_name) {
 
   exec { 'install-upstart':
     cwd => "$project_path",
-    command => "foreman export -a $project_name -d $project_path -u vagrant -f /etc/gunicorn/Procfile upstart /etc/init",
+    command => "foreman export -a $project_name -t $project_path/puppet/modules/procfile/templates/master.conf.erb -d $project_path -u vagrant -f /etc/gunicorn/Procfile upstart /etc/init",
     require => File["procfile"],
-    creates => ['/etc/init/$project_name.conf'],
     environment => "HOME=/home/vagrant",
   }
 
