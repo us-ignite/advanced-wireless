@@ -2,6 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import User
 
+from us_ignite.common import sanitizer
 from us_ignite.blog.models import Post, PostAttachment
 
 from tinymce.widgets import TinyMCE
@@ -10,6 +11,10 @@ from tinymce.widgets import TinyMCE
 class PostAdminForm(forms.ModelForm):
     author = forms.ModelChoiceField(
         queryset=User.objects.filter(is_superuser=True))
+
+    def clean_content(self):
+        if 'content' in self.cleaned_data:
+            return sanitizer.sanitize(self.cleaned_data['content'])
 
     class Meta:
         model = Post
