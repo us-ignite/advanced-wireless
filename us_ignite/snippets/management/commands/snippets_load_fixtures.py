@@ -6,9 +6,16 @@ from us_ignite.snippets.models import Snippet
 FIXTURES = [
     {
         'slug': 'home-box',
-        'name': 'Up next:',
+        'name': 'UP NEXT: LOREM IPSUM',
         'body': '',
-        'url_text': 'Get involved',
+        'url_text': 'GET INVOLVED',
+        'url': '',
+    },
+    {
+        'slug': 'featured',
+        'name': 'FEATURED CONTENT',
+        'body': '',
+        'url_text': 'FEATURED',
         'url': '',
     },
 ]
