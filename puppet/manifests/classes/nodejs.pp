@@ -15,6 +15,7 @@ class nodejs ($project_path){
 
   file { $node_modules_dir:
     ensure => "directory",
+    owner => "vagrant",
     mode => 777,
   }
 
@@ -38,8 +39,16 @@ class nodejs ($project_path){
 
   exec { "node-install-package":
     cwd => "${project_path}",
+    user => "vagrant",
     command => "/usr/bin/npm install .",
     require => Exec["node-grunt-cli"],
+  }
+
+  exec { "node-install-bower-package":
+    cwd => "${project_path}",
+    user => "vagrant",
+    command => "/usr/bin/bower install",
+    require => Exec["node-bower"],
   }
 
 }
