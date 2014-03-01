@@ -14,10 +14,10 @@ class RenderingNode(template.Node):
 
     def render(self, context):
         template_name = self.template_name.resolve(context)
-        template_context = {
+        context.update({
             'object_list': Sponsor.objects.all()
-        }
-        return render_to_string(template_name, template_context)
+        })
+        return render_to_string(template_name, context)
 
 
 def _render_sponsors(parser, token):
