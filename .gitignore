@@ -18,6 +18,5 @@ mercurio.cfg
 static/
 media/
 words
-bower_components/*
 node_modules/*
 node_modules
