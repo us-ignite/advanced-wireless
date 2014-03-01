@@ -1,0 +1,8 @@
+{
+  "name": "foundation-libsass-template",
+  "dependencies": {
+    "foundation": "zurb/bower-foundation",
+    "jquery-1.9.1": "http://code.jquery.com/jquery-1.9.1.min.js",
+    "selectivizr": "*"
+  }
+}
