@@ -25,14 +25,15 @@ Vagrant.configure("2") do |config|
     config.vm.boot_mode = :gui
   end
 
-  config.vm.synced_folder ".", MOUNT_POINT
+  config.vm.synced_folder ".", MOUNT_POINT, id: "project-root"
 
   # Virtualbox has issues with a large amount of shared files,
   # it is recommended to be mounted as NFS
   config.vm.provider :virtualbox do |v, override|
     if CONF['nfs'] == true
-      override.vm.synced_folder ".", MOUNT_POINT, :nfs => true, id: "vagrant-root"
+      override.vm.synced_folder ".", MOUNT_POINT, :nfs => true, id: "project-root"
     end
+    v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/project-root", "1"]
   end
 
   # Add to /etc/hosts
