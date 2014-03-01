@@ -1,0 +1,15 @@
+.newsletter {
+  background-color: $secondary-color;
+  padding: 30px inherit;
+}
+
+.newsletter__heading {
+  color:#fff;
+}
+
+
+@media #{$large-up} {
+  .newsletter__column {
+    padding-top:20px;
+  }
+}

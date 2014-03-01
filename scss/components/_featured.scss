@@ -1,0 +1,36 @@
+.featured {
+	border:1px solid #ccc;
+
+	&.featured--nudge-right {
+		width: 90%;
+		margin-left: 10%;
+	}
+}
+
+.featured__heading {
+	width:100%;
+	text-align: center;
+	background: $alert-color;
+	font-weight: $font-weight-black;
+	color:#fff;
+	font-size:0.875rem;
+	padding:0;
+	margin:0;
+}
+
+.featured__image {
+	width:100%;
+	max-width:100%;
+}
+
+.featured__desc {
+	color:$alert-color;
+	padding:7px 6px;
+	margin-bottom:0;
+}
+
+.featured__tags {
+	font-size:0.938rem;
+	padding:0 6px;
+	margin:0 0 1rem;
+}

@@ -1,0 +1,37 @@
+.homepage-grid {
+	background-color: $primary-color;
+	text-align: center;
+	color: #fff;
+}
+
+.homepage-grid__heading {
+	color:#fff;
+	padding-top:110px;
+	font-size:1.5rem;
+	background:transparent url(../img/icons/keyboard.png) 50% 20px no-repeat;
+}
+
+.homepage-grid__desc {
+
+}
+
+.homepage-grid__col {
+	border-right:5px solid #f26722;
+	margin:30px inherit;
+}
+
+.homepage-grid__col--devs {
+	.homepage-grid__heading {
+		background-image:url(../img/icons/keyboard.png);
+	}
+}
+.homepage-grid__col--partners {
+	.homepage-grid__heading {
+		background-image:url(../img/icons/partners.png);
+	}
+}
+.homepage-grid__col--communities {
+	.homepage-grid__heading {
+		background-image:url(../img/icons/community.png);
+	}
+}
