@@ -7,3 +7,7 @@ notes.rst
 fabric.py
 mercurio.cfg
 docs/
+bower.json
+Gruntfile.js
+LICENSE
+package.json
