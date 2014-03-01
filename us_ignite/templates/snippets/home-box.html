@@ -1,9 +1,5 @@
 <div>
-  <h2>{{ object.name }}</h2>
-  <p>
-    {{ object.body }}
-  </p>
-  <p>
-    <a href="{{ object.url }}">{{ object.url_text }}</a>
-  </p>
+  <h3>{{ object.name }}</h3>
+  {{ object.body|safe }}
+  <a class="secondary button expand" href="{{ object.url }}">{{ object.url_text }}</a>
 </div>

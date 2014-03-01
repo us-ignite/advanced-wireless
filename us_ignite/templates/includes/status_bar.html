@@ -1,11 +1,18 @@
-<ul>
-  <li><a href="{%url 'blog_post_list' %}">Blog</a></li>
-  <li><a href="{% url 'event_list' %}">Events</a></li>
+<ul class="inline-list quicklinks__list right">
+  <li><a href="{%url 'blog_post_list' %}" class="quicklinks__link">BLOG</a></li>
+  <li><a href="{% url 'event_list' %}" class="quicklinks__link">EVENTS</a></li>
   {% if request.user.is_authenticated %}
-  <li>Logged in as: {% include 'includes/display_name.html' with user=request.user  %}</li>
-  <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+  <li><a href="{{ request.user.profile.get_absolute_url }}" class="quicklinks__link">PROFILE</a></li>
+  <li><a href="{% url 'auth_logout' %}" class="quicklinks__link">LOGOUT</a></li>
   {% else %}
-  <li><a href="{% url 'registration_register' %}">Register</a></li>
-  <li><a href="{% url 'auth_login' %}">Sign in</a></li>
+  <li><a href="{% url 'registration_register' %}" class="quicklinks__link">REGISTER</a></li>
+  <li><a href="{% url 'auth_login' %}" class="quicklinks__link">Sign in</a></li>
+  <li>
+    <div class="addthis_toolbox addthis_32x32_style addthis_default_style">
+      <a class="addthis_button_facebook_follow" addthis:userid="usignite"></a>
+      <a class="addthis_button_twitter_follow" addthis:userid="usignite"></a>
+      <a class="addthis_button_google_follow" addthis:userid="usignite"></a>
+    </div>
+  </li>
   {% endif %}
 </ul>

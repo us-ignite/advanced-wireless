@@ -1,11 +1,58 @@
-<h2>Navigation</h2>
-<ul>
-  <li><a href="">About</a></li>
-  <li><a href="">Get involved</a></li>
-  <li><a href="{% url 'app_list' %}">Applications</a></li>
-  <li><a href="{%url 'hub_list' %}">Communities</a></li>
-  <li><a href="{%url 'resource_list' %}">Resources</a></li>
-  <li><a href="{%url 'challenge_list' %}">Challenges</a></li>
-  <li><a href="{% url 'apps_featured' %}">Featured Applications</a></li>
-  <li><a href="{% url 'location_list' %}">US Ignite Map</a></li>
+<!-- Right Nav Section -->
+<ul class="right">
+
+  <li class="has-dropdown">
+    <a href="#">ABOUT</a>
+    <ul class="dropdown">
+      <li><a href="#">First link in dropdown</a></li>
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="#">GET INVOLVED</a>
+    <ul class="dropdown">
+      <li><a href="#">First link in dropdown</a></li>
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="{% url 'app_list' %}">APPLICATIONS</a>
+    <ul class="dropdown">
+      <li><a href="#">First link in dropdown</a></li>
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="{% url 'hub_list' %}">COMMUNITIES</a>
+    <ul class="dropdown">
+      <li><a href="#">First link in dropdown</a></li>
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="{% url 'challenge_list' %}">CHALLENGES</a>
+    <ul class="dropdown">
+      <li><a href="#">First link in dropdown</a></li>
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="{%url 'resource_list' %}">RESOURCES</a>
+    <ul class="dropdown">
+      <li><a href="#">First link in dropdown</a></li>
+    </ul>
+  </li>
+
+  {% block search %}
+  <li class="has-form">
+    <div class="row collapse">
+      <div class="large-12 small-12 columns top-bar__search-container">
+        {% include "includes/search.html" %}
+      </div>
+    </div>
+  </li>
+  {% endblock search %}
+
 </ul>
+
+

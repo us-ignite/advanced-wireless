@@ -1,20 +1,20 @@
 {% load thumbnail %}
 <a href="{{ object.get_absolute_url }}" title="{{ object.name }}" >
   {% if object.image %}
-  <img src="{% thumbnail object.image 250x200 crop %}" alt="{{ object.name }}" />
+  <img src="{% thumbnail object.image 216x108 crop %}" alt="{{ object.name }}" />
   {% else %}
-  <img src="{{ STATIC_URL }}images/250x200.gif" alt="Placeholder." />
+  <img src="{{ STATIC_URL }}img/dummy/book.jpg" class="featured__image">
   {% endif %}
 </a>
-
-{{ object.name }}
-
+<p class="featured__desc">{{ object.name }}</p>
 {% with object.tags.all as tag_list %}
 {% if tag_list %}
-<ul>
+<p class="featured__tags">
   {% for tag in tag_list %}
-  <li><a href="{% url 'search' %}?q={{ tag|urlencode }}">{{ tag }}</a></li>
+  <a href="{% url 'search' %}?q={{ tag|urlencode }}">{{ tag }}</a>
   {% endfor%}
-</ul>
+  <a href="{{ object.get_absolute_url }}">More...</a>
+</p>
 {% endif %}
 {% endwith %}
+</a>

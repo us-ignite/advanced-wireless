@@ -1,29 +1,176 @@
-<!DOCTYPE html>{% load sections_tags %}
-<html>
+<!doctype html>{% load sections_tags %}
+<html class="no-js" lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}US Ignite{% endblock title %}</title>
     {% block meta %}
-    <meta name="description" content="Developing Gigabit-ready digital experiences and applications.">
-    {% endblock meta %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ STATIC_URL }}styles/normalize.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}styles/base.css">
-    {% block extra_styles %}{% endblock extra_styles %}
+    <meta name="description" content="{% block meta_description %}Developing Gigabit-ready digital experiences and applications.Developing Gigabit-ready digital experiences and applications.{% endblock meta_description %}">
     <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico" />
-    <script type="text/javascript">document.documentElement.className = "js"</script>
+    {% endblock meta %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/app.css" />
+    <script src="{{ STATIC_URL }}bower_components/modernizr/modernizr.js"></script>
+    {% block extra_styles %}{% endblock extra_styles %}
   </head>
   <body>
-    <h1><a href="{% url "home" %}">US ignite</a></h1>
-    {% include "includes/status_bar.html" %}
-    {% include "includes/navigation.html" %}
-    {% block search %}{% include "includes/search.html" %}{% endblock search %}
+
+    <!-- quicklinks and social links -->
+    <nav class="quicklinks">
+      <div class="row show-for-medium-up">
+        <div class="large-12 columns right">
+          {% include "includes/status_bar.html" %}
+        </div>
+      </div>
+    </nav>
+    <!-- /quicklinks -->
+
+    <!-- top-bar -->
+    <div class="contain-to-grid border-bottom">
+      <nav role="banner" class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="{% url "home" %}" class="top-bar__logo"><span>US Ignite</span></a></h1>
+          </li>
+          <li class="toggle-topbar menu-icon"><a href="#">Main Menu</a></li>
+        </ul>
+
+        <section class="top-bar-section">
+          {% include "includes/navigation.html" %}
+          <ul class="left">
+          </ul>
+
+        </section>
+      </nav>
+    </div>
+    <!-- /top-bar -->
+
+    {# Mesages are used to display any user notification. #}
     {% include "includes/messages.html" %}
+
     {% block content %}{% endblock content %}
-    <script src="{{ STATIC_URL }}scripts/jquery-2.0.3.js"></script>
-    {% block extra_scripts  %}{% endblock extra_scripts  %}
-    <footer>
-      {% render_sponsors "sections/sponsor_list.html" %}
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="row footer__intro">
+        <div class="large-12 columns">
+          <h6 class="footer__heading">US IGNITE PARTNERS:</h6>
+        </div>
+      </div>
+
+      <div class="row border-bottom border-bottom--dark partner-logos">
+        <div class="columns">
+          {% render_sponsors "sections/sponsor_list.html" %}
+        </div>
+      </div>
+
+      <div class="row show-for-medium-up">
+        <div class="columns">
+          <ul class="small-block-grid-3 large-block-grid-6">
+            <li class="">
+              <h6 class="footer__heading">ABOUT</h6>
+              <ul class="no-bullet">
+                <li><a href="#">What is US Ignite?</a></li>
+                <li><a href="#">Staff</a></li>
+                <li><a href="#">Board of Directors</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Sponsors/Partners</a></li>
+              </ul>
+            </li>
+
+            <li class="">
+              <h6 class="footer__heading">GET INVOLVED</h6>
+              <ul class="no-bullet">
+                <li><a href="#">Developers</a></li>
+                <li><a href="#">Partner/Sponsor</a></li>
+                <li><a href="#">Community Leader</a></li>
+                <li><a href="#">Community Member</a></li>
+                <li><a href="#">Get Started in My Community</a></li>
+              </ul>
+            </li>
+
+            <li class="">
+              <h6 class="footer__heading">APPLICATIONS</h6>
+              <ul class="no-bullet">
+                <li><a href="#">Submit an App Idea</a></li>
+                <li><a href="#">App Projects</a></li>
+              </ul>
+            </li>
+
+            <li class="">
+              <h6 class="footer__heading">CITIES</h6>
+              <ul class="no-bullet">
+                <li><a href="#">Apply to become an US Ignite City</a></li>
+                <li><a href="#">Map of Cities</a></li>
+              </ul>
+            </li>
+
+            <li class="">
+              <h6 class="footer__heading">RESOURCES</h6>
+              <ul class="no-bullet">
+                <li><a href="#">Submit a Resource</a></li>
+                <li><a href="#">Resource List</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <ul class="no-bullet">
+                <li><a href="#">BLOG</a></li>
+                <li><a href="#">EVENTS</a></li>
+                <li><a href="#">REGISTER</a></li>
+                <li><a href="#">SIGN IN</a></li>
+                <li><a href="#">CONTACT US</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <h6 class="footer__heading">FOLLOW US:</h6>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row footer__outro">
+        <div class="large-12 columns">
+          <p><strong>©Copyright 2013 US Ignite. All Rights Reserved</strong></p>
+        </div>
+      </div>
     </footer>
-  </body>
+</div>
+<!-- /footer -->
+
+
+<!--[if lt IE 9]>
+    <script src="{{ STATIC_URL }}bower_components/jquery-1.9.1/index.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/selectivizr/selectivizr.js"></script>
+    <![endif]-->
+<!--[if (gte IE 9) | (!IE)]><!-->
+    <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <!--<![endif]-->
+
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation.min.js"></script>
+    <script src="{{ STATIC_URL }}js/app.js"></script>
+
+    <script type="text/javascript">
+      WebFontConfig = {
+      google: { families: [ 'Lato:400,700,900:latin' ] }
+      };
+      (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+
+    <script>
+      var addthis_config = {
+
+      }
+    </script>
+    <!--script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=benbarnett"></script-->
+    {% block extra_scripts  %}{% endblock extra_scripts  %}
+</body>
 </html>

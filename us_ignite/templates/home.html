@@ -1,84 +1,179 @@
 {% extends "base.html" %}{% load snippets_tags thumbnail %}
 
-{% block title %}Homepage - {{ block.super }}{% endblock title %}
+{% block title %}Home - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<section>
-  <h1>US Ignite</h1>
-  <p>
-    We foster the development of next-generation applications.
-    Through our work, we help developers, communities, individuals,
-    and partners bring gigabit applications to life.
-    <a href="#TODO">What we do</a>
-  </p>
+<!-- slide-one -->
+<div class="row slide slide--one">
+  <div class="small-12 columns slide__container">
 
-  {% snippet "home-box" "snippets/home-box.html" %}
-</section>
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-7 columns">
+        <div class="slide__panel">
+          <h2 class="slide__heading">We foster the development of next-
+            generation applications. Through our work, we help developers, communities,
+            individuals, and partners bring gigabit
+            applications to life.</h2>
 
-<section>
-  <div>
-    <h2>Developers</h2>
-    <p>
-      Build Gigabit apps that transform how we live, work learn and play.
-      <a href="#TODO">Get involved</a>
-    </p>
+          <a class="primary button expand">WHAT WE DO</a>
+        </div>
+      </div>
+
+      <div class="small-12 medium-4 large-4 large-offset-1 columns">
+        <div class="slide__panel slide__panel--dark">
+          {% snippet "home-box" "snippets/home-box.html" %}
+        </div>
+      </div>
+    </div>
+
   </div>
-  <div>
-    <h2>Partners</h2>
-    <p>
-      We work with forward looking partners who understand that the future is here.
-      <a href="#TODO">Support US Ignite</a>
-    </p>
+</div>
+<!-- slide-one -->
+
+<!-- homepage-grid -->
+<div class="row homepage-grid" data-equalizer>
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--devs">
+
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">DEVELOPERS</h4>
+        <p class="homepage-grid__desc">Build gigabit apps that can transform how we live, work and play.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="button expand alert">GET INVOLVED</a>
+      </div>
+    </div>
   </div>
-  <div>
-    <h2>Community leaders</h2>
-    <p>
-      Showcase advanced networks and apps in your community.
-      <a href="#TODO">Become a US Ignite city</a>
-    </p>
+
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--partners">
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">PARTNERS</h4>
+        <p class="homepage-grid__desc">We work with forward thinking partners who understand that the future is here.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="button expand alert">SUPPORT US IGNITE</a>
+      </div>
+    </div>
   </div>
-  <div class="">
+
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--communities">
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">COMMUNITY LEADERS</h4>
+        <p class="homepage-grid__desc">Showcase advanced networks and apps in your community.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="button expand alert">BECOME A US IGNITE CITY</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-6 medium-6 large-3 columns">
     {% snippet "featured" "snippets/featured.html" %}
   </div>
-</section>
+</div>
+<!-- /homepage-grid -->
 
-<section>
-  <h2>Applications</h2>
-  <p>
-    Ultra high speed networks are fostering ideas to solve problems
-    and reinvent everything, from education to healthcare in neighborhoods
-    accross the country.
-    <a href="{% url 'app_list' %}">View applications</a>
-  </p>
-  <h3>Featured app</h3>
-  {% include "includes/featured_object.html" with object=application %}
-</section>
+<!-- slide two -->
+<div class="row slide slide--two">
+  <div class="small-12 columns slide__container">
 
-<section>
-  <h2>Communities</h2>
-  <p>
-    Communities nationwide are using advanced networks to help
-    transform themselves into innovation and technology-driven
-    economies to complete in the 21st century.
-    <a href="{% url 'hub_list' %}">View our communities</a>
-  </p>
-  <h3>Featured community</h3>
-  {% include "includes/featured_object.html" with object=hub %}
-</section>
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns right">
+        <div class="slide__panel">
+          <div class="row collapse">
+            <div class="small-6 columns">
+              <h2 class="slide__heading">Applications</h2>
+              <p class="slide__desc">See ultra high speed networks are fostering ideas to solve problems  and reinvent everything, from education to healthcare in
+                neighborhoods across the country.</p>
 
-<section>
-  {% include "mailinglist/object_block.html" %}
-</section>
+              <a href="{% url 'app_list' %}" class="primary button expand">VIEW APPLICATIONS</a>
 
-<section>
-  <h2>Resources</h2>
-  <p>
-    Learn how to build next generation applications, and how these powerful
-    new technologies are transforming communities for the better.
-    <a href="{% url 'resource_list' %}">View resources</a>
-  </p>
-  <h3>Featured resource</h3>
-  {% include "includes/featured_object.html" with object=resource %}
-</section>
+            </div>
 
+            <div class="small-6 columns">
+              <aside class="featured featured--nudge-right">
+                <h4 class="featured__heading">FEATURED APP</h4>
+                {% include "includes/featured_object.html" with object=application %}
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide two -->
+
+<!-- slide three -->
+<div class="row slide slide--three">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns">
+        <div class="slide__panel">
+          <div class="row collapse">
+            <div class="small-6 columns">
+              <h2 class="slide__heading">Communities</h2>
+              <p class="slide__desc">Communities nationwide are using advanced networks to help transform themselves into innovation and technology-driven economies to compete in the 21st century.</p>
+
+              <a class="primary button expand" href="{% url 'hub_list' %}">VIEW OUR COMMUNITIES</a>
+            </div>
+            <div class="small-6 columns">
+              <aside class="featured featured--nudge-right">
+                <h4 class="featured__heading">FEATURED COMMUNITY</h4>
+                {% include "includes/featured_object.html" with object=hub %}
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide three -->
+
+
+<!-- newsletter -->
+{% include "mailinglist/object_block.html" %}
+<!-- /newsletter -->
+
+<!-- slide four -->
+<div class="row slide slide--four">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns right">
+        <div class="slide__panel">
+          <div class="row collapse">
+            <div class="small-6 columns">
+              <h2 class="slide__heading">Resources</h2>
+              <p class="slide__desc">Learn how to build next-
+                generation applications, and how these powerful new technologies are transforming communities for the better.</p>
+
+              <a href="{% url 'resource_list' %}" class="primary button expand">VIEW RESOURCES</a>
+            </div>
+            <div class="small-6 columns">
+              <aside class="featured featured--nudge-right">
+                <h4 class="featured__heading">FEATURED RESOURCE</h4>
+                {% include "includes/featured_object.html" with object=resource %}
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide four -->
 {% endblock content %}
