@@ -1,8 +1,10 @@
 import logging
 
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
+
+from us_ignite.snippets.models import Snippet
 
 logger = logging.getLogger('us_ignite.profiles')
 
@@ -13,6 +15,7 @@ def send_welcome_email(user, **kwargs):
         logger.debug('Welcome email send via %s', kwargs['sender'])
     context = {
         'user': user,
+        'object': Snippet.published.get_from_key('welcome-email')
     }
     _template = lambda t: 'profile/emails/welcome_%s' % t
     subject = render_to_string(_template('subject.txt'), context)

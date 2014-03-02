@@ -1,1 +1,1 @@
-Welcome to US Ignite
+{% if object %}{{ object.name }}{% else %}Welcome to US Ignite{% endif %}

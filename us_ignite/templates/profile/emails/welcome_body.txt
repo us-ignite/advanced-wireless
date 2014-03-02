@@ -1,4 +1,3 @@
 Hi there,
 
-Welcome to US Ignite.
-
+{{ object.body|striptags }}
