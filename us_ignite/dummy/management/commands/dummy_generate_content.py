@@ -8,9 +8,13 @@ from django.utils import timezone
 from django.utils.text import slugify
 
 from us_ignite.apps.models import (
-    Application, Domain, Feature, Page, PageApplication)
+    Application,
+    Domain,
+    Page,
+    PageApplication,
+)
 from us_ignite.challenges.models import Challenge, Entry, Question
-from us_ignite.dummy import text, images
+from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
 from us_ignite.resources.models import Resource
 from us_ignite.hubs.models import Hub, HubMembership
@@ -18,193 +22,231 @@ from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
 
 
-class Command(BaseCommand):
+def _choice(*args):
+    """Choice between the args and an empty string."""
+    return choice([''] + list(args))
 
-    domain_list = Domain.objects.all()
-    feature_list = Feature.objects.all()
 
-    def _create_users(self):
-        users = ['banana', 'apple', 'orange', 'peach']
-        for f in users:
-            user, is_new = User.objects.get_or_create(username=f, is_active=True)
-            if is_new and choice([True, False]):
-                bio = text.random_paragraphs(2)
-                Profile.objects.create(user=user, name=f, bio=bio)
-        return True
+def _get_start_date():
+    days = choice(range(-5, 50))
+    return timezone.now() + timedelta(days=days)
 
-    def _get_user(self):
-        return User.objects.all().order_by('?')[0]
 
-    def _get_domain(self):
-        return choice(self.domain_list)
-
-    def _get_feature(self):
-        return choice(self.feature_list)
-
-    def _choice(self, *args):
-        """Choice between the args and an empty string."""
-        return choice([''] + list(args))
-
-    def _get_url(self):
-        return 'http://us-ignite.org'
-
-    def _create_app(self):
-        data = {
-            'name': text.random_words(3),
-            'stage': choice(Application.STAGE_CHOICES)[0],
-            'status': choice(Application.STATUS_CHOICES)[0],
-            'website': self._get_url(),
-            'summary': self._choice(text.random_words(20))[:140],
-            'impact_statement': text.random_words(20)[:140],
-            'description': text.random_paragraphs(4),
-            'roadmap': self._choice(text.random_words(30)),
-            'assistance': self._choice(text.random_words(30)),
-            'team_description': self._choice(text.random_words(30)),
-            'acknowledgments': self._choice(text.random_words(30)),
-            'domain': self._get_domain(),
-            'is_featured': choice([True, False]),
-            'owner': self._get_user(),
-            'image': images.random_image(u'%s.png' % text.random_words(1)),
-        }
-        return Application.objects.create(**data)
-
-    def _create_page(self):
-        data = {
-            'name': text.random_words(3),
-            'status': choice(Application.STATUS_CHOICES)[0],
-            'description': text.random_paragraphs(2),
-        }
-        page = Page.objects.create(**data)
-        app_list = (Application.objects
-                    .filter(status=Application.PUBLISHED).order_by('?')[:10])
-        for i, app in enumerate(app_list):
-            PageApplication.objects.create(page=page, application=app, order=i)
-
-    def _get_start_date(self):
-        days = choice(range(-5, 50))
-        return timezone.now() + timedelta(days=days)
-
-    def _create_hub(self):
-        data = {
-            'name': text.random_words(3),
-            'contact': choice([None, self._get_user()]),
-            'summary': text.random_words(10),
-            'description': text.random_paragraphs(3),
-            'image': images.random_image(u'%s.png' % text.random_words(1)),
-            'website': self._get_url(),
-            'status': choice(Hub.STATUS_CHOICES)[0],
-            'is_featured': choice([True, False]),
-        }
-        hub = Hub.objects.create(**data)
-        self._create_hub_membership(hub)
-        return hub
-
-    def _create_hub_membership(self, hub):
-        for user in User.objects.all().order_by('?')[:3]:
+def _create_users():
+    users = ['banana', 'apple', 'orange', 'cherry', 'lemon', 'grape']
+    profile_list = []
+    for f in users:
+        email =  '%s@us-ignite.org' % f
+        user, is_new = User.objects.get_or_create(
+            username=f, is_active=True, email=email)
+        if is_new and choice([True, False]):
             data = {
-                'hub': hub,
+                'bio': text.random_paragraphs(2),
+                'position': locations.get_location(),
                 'user': user,
+                'name': f,
             }
-            HubMembership.objects.create(**data)
+            profile = Profile.objects.create(**data)
+            profile_list.append(profile)
+    return profile_list
 
-    def _get_hub(self):
-        return Hub.objects.filter(status=Hub.PUBLISHED).order_by('?')[0]
 
-    def _create_event(self):
-        start_date = self._get_start_date()
-        end_date = start_date + timedelta(hours=5)
+def _get_user():
+    return User.objects.all().order_by('?')[0]
+
+
+def _get_url():
+    return u'http://us-ignite.org'
+
+
+def _get_domain():
+    return Domain.objects.all().order_by('?')[0]
+
+
+def _get_hub():
+    return Hub.objects.filter(status=Hub.PUBLISHED).order_by('?')[0]
+
+
+def _create_organization_membership(organization):
+    for user in User.objects.all().order_by('?')[:3]:
         data = {
-            'name': text.random_words(5),
-            'status': choice(Event.STATUS_CHOICES)[0],
-            'image': images.random_image(u'%s.png' % text.random_words(1)),
-            'start_datetime': start_date,
-            'end_datetime': choice([None, end_date]),
-            'venue': text.random_words(7),
-            'description': text.random_paragraphs(2),
-            'is_featured': choice([True, False]),
-            'user': self._get_user(),
+            'organization': organization,
+            'user': user,
         }
-        event = Event.objects.create(**data)
-        for i in range(0, 3):
-            event.hubs.add(self._get_hub())
-        return event
+        OrganizationMember.objects.create(**data)
 
-    def _create_challenge(self):
-        start_date = self._get_start_date()
-        end_date = start_date + timedelta(days=15)
+
+def _create_organization():
+    name = text.random_words(3)
+    data = {
+        'name': name.title(),
+        'slug': slugify(name),
+        'status': choice(Organization.STATUS_CHOICES)[0],
+        'bio': _choice(text.random_words(30)),
+        'image': images.random_image(u'%s.png' % text.random_words(1)),
+        'position': locations.get_location(),
+    }
+    organization = Organization.objects.create(**data)
+    _create_organization_membership(organization)
+    return organization
+
+
+def _create_app():
+    data = {
+        'name': text.random_words(3).title(),
+        'stage': choice(Application.STAGE_CHOICES)[0],
+        'status': choice(Application.STATUS_CHOICES)[0],
+        'website': _get_url(),
+        'summary': _choice(text.random_words(20))[:140],
+        'impact_statement': text.random_words(20)[:140],
+        'description': text.random_paragraphs(4),
+        'roadmap': _choice(text.random_words(30)),
+        'assistance': _choice(text.random_words(30)),
+        'team_description': _choice(text.random_words(30)),
+        'acknowledgments': _choice(text.random_words(30)),
+        'domain': _get_domain(),
+        'is_featured': choice([True, False]),
+        'owner': _get_user(),
+        'image': images.random_image(u'%s.png' % text.random_words(1)),
+    }
+    return Application.objects.create(**data)
+
+
+def _create_page():
+    data = {
+        'name': text.random_words(3).title(),
+        'status': choice(Application.STATUS_CHOICES)[0],
+        'description': text.random_paragraphs(2),
+    }
+    page = Page.objects.create(**data)
+    app_list = (Application.objects
+                .filter(status=Application.PUBLISHED).order_by('?')[:10])
+    for i, app in enumerate(app_list):
+        PageApplication.objects.create(page=page, application=app, order=i)
+
+
+def _create_hub_membership(hub):
+    for user in User.objects.all().order_by('?')[:3]:
         data = {
-            'name': text.random_words(5),
-            'status': choice(Challenge.STATUS_CHOICES)[0],
-            'start_datetime': start_date,
-            'end_datetime': end_date,
-            'url': self._get_url(),
-            'is_external': choice([True, False]),
-            'summary': text.random_paragraphs(1),
-            'description': text.random_paragraphs(3),
-            'image': images.random_image(u'%s.png' % text.random_words(1)),
-            'user': self._get_user(),
+            'hub': hub,
+            'user': user,
         }
-        challenge = Challenge.objects.create(**data)
-        for i in range(0, 10):
-            self._create_question(challenge, i)
-        return challenge
+        HubMembership.objects.create(**data)
 
-    def _create_question(self, challenge, order=0):
+
+def _create_hub():
+    data = {
+        'name': text.random_words(3).title(),
+        'contact': choice([None, _get_user()]),
+        'summary': text.random_words(10),
+        'description': text.random_paragraphs(3),
+        'image': images.random_image(u'%s.png' % text.random_words(1)),
+        'website': _get_url(),
+        'status': choice(Hub.STATUS_CHOICES)[0],
+        'is_featured': choice([True, False]),
+    }
+    hub = Hub.objects.create(**data)
+    _create_hub_membership(hub)
+    return hub
+
+
+def _create_event():
+    start_date = _get_start_date()
+    end_date = start_date + timedelta(hours=5)
+    data = {
+        'name': text.random_words(5),
+        'status': choice(Event.STATUS_CHOICES)[0],
+        'image': images.random_image(u'%s.png' % text.random_words(1)),
+        'start_datetime': start_date,
+        'end_datetime': choice([None, end_date]),
+        'venue': text.random_words(7),
+        'description': text.random_paragraphs(2),
+        'is_featured': choice([True, False]),
+        'user': _get_user(),
+        'position': locations.get_location(),
+    }
+    event = Event.objects.create(**data)
+    for i in range(0, 3):
+        event.hubs.add(_get_hub())
+    return event
+
+
+def _create_challenge():
+    start_date = _get_start_date()
+    end_date = start_date + timedelta(days=15)
+    data = {
+        'name': text.random_words(5).title(),
+        'status': choice(Challenge.STATUS_CHOICES)[0],
+        'start_datetime': start_date,
+        'end_datetime': end_date,
+        'url': _get_url(),
+        'is_external': choice([True, False]),
+        'summary': text.random_paragraphs(1),
+        'description': text.random_paragraphs(3),
+        'image': images.random_image(u'%s.png' % text.random_words(1)),
+        'user': _get_user(),
+    }
+    challenge = Challenge.objects.create(**data)
+    for i in range(0, 10):
+        _create_question(challenge, i)
+    _create_entries(challenge)
+    return challenge
+
+
+def _create_question(challenge, order=0):
+    data = {
+        'challenge': challenge,
+        'question': u'%s?' % text.random_words(7),
+        'is_required': choice([True, False]),
+        'order': order,
+    }
+    return Question.objects.create(**data)
+
+
+def _create_entries(challenge):
+    apps = list(Application.objects.all().order_by('?'))
+    entry_list = []
+    for i in range(0, choice(range(1, 10))):
         data = {
             'challenge': challenge,
-            'question': u'%s?' % text.random_words(7),
-            'is_required': choice([True, False]),
-            'order': order,
+            'application': apps.pop(),
+            'status': choice(Entry.STATUS_CHOICES)[0],
+            'notes': _choice(text.random_words(10)),
         }
-        return Question.objects.create(**data)
+        entry = Entry.objects.create(**data)
+        entry_list.append(entry)
+    return entry_list
 
-    def _create_entries(self):
-        apps = Application.objects.all().order_by('?')
-        for challenge in Challenge.objects.all():
-            for i in range(0, choice(range(1, 10))):
-                data = {
-                    'challenge': challenge,
-                    'application': apps.pop(),
-                    'status': choice(Entry.STATUS_CHOICES)[0],
-                    'notes': self._choice(text.random_words(10)),
-                }
-                Entry.objects.create(**data)
-        return True
 
-    def _create_organization(self):
-        name = text.random_words(3)
-        data = {
-            'name': name,
-            'slug': slugify(name),
-            'status': choice(Organization.STATUS_CHOICES)[0],
-            'bio': self._choice(text.random_words(30)),
-            'image': images.random_image(u'%s.png' % text.random_words(1)),
-        }
-        organization = Organization.objects.create(**data)
-        self._create_organization_membership(organization)
-        return organization
+def _create_resource():
+    name = text.random_words(4)
+    data = {
+        'name': name.title(),
+        'slug': slugify(name),
+        'status': choice(Resource.STATUS_CHOICES)[0],
+        'description': text.random_paragraphs(1),
+        'contact': _get_user(),
+        'author': choice([_get_user(), None]),
+        'url': _get_url(),
+        'is_featured': choice([True, False]),
+        'image': images.random_image(u'%s.png' % text.random_words(1)),
+    }
+    return Resource.objects.create(**data)
 
-    def _create_organization_membership(self, organization):
-        for user in User.objects.all().order_by('?')[:3]:
-            data = {
-                'organization': organization,
-                'user': user,
-            }
-            OrganizationMember.objects.create(**data)
 
-    def _create_resource(self):
-        name = text.random_words(4)
-        data = {
-            'name': name,
-            'slug': slugify(name),
-            'status': choice(Resource.STATUS_CHOICES)[0],
-            'description': text.random_paragraphs(1),
-            'contact': self._get_user(),
-            'author': choice([self._get_user(), None]),
-            'url': self._get_url(),
-            'is_featured': choice([True, False]),
-        }
-        return Resource.objects.create(**data)
+def _load_fixtures():
+    """Loads initial fixtures"""
+    call_command('app_load_fixtures')
+    call_command('awards_load_fixtures')
+    call_command('common_load_fixtures')
+    call_command('snippets_load_fixtures')
+    call_command('events_load_fixtures')
+    call_command('resources_load_fixtures')
+    call_command('hubs_load_fixtures')
+    call_command('blog_import')
+
+
+class Command(BaseCommand):
 
     def handle(self, *args, **options):
         message = ('This command will IRREVERSIBLE poison the existing '
@@ -214,35 +256,29 @@ class Command(BaseCommand):
         if not response or not response == 'y':
             print 'Phew, aborted!'
             exit(0)
-        call_command('app_load_fixtures')
-        call_command('awards_load_fixtures')
-        call_command('common_load_fixtures')
-        call_command('snippets_load_fixtures')
-        call_command('events_load_fixtures')
-        call_command('resources_load_fixtures')
-        call_command('hubs_load_fixtures')
-        call_command('blog_import')
-        print u'Adding users'
-        self._create_users()
-        print u'Adding organizations'
-        for i in range(1, 5):
-            self._create_organization()
-        print u'Generating applications.'
-        for i in range(1, 30):
-            self._create_app()
-        print u'Generating app pages.'
-        for i in range(1, 5):
-            self._create_page()
-        print u'Generating hubs.'
-        for i in range(1, 10):
-            self._create_hub()
-        print u'Generate events.'
-        for i in range(1, 10):
-            self._create_event()
-        print u'Generate challenges.'
-        for i in range(1, 10):
-            self._create_challenge()
-        print u'Generate resources.'
-        for i in range(1, 10):
-            self._create_resource()
-        call_command('blog_import')
+        print u'Loading initial fixtures.'
+        _load_fixtures()
+        print u'Adding users.'
+        _create_users()
+        print u'Adding organizations.'
+        for i in range(5, 10):
+            _create_organization()
+        print u'Adding applications.'
+        for i in range(20, 40):
+            _create_app()
+        print u'Adding app pages.'
+        for i in range(5, 10):
+            _create_page()
+        print u'Adding hubs.'
+        for i in range(10, 20):
+            _create_hub()
+        print u'Adding events.'
+        for i in range(15, 30):
+            _create_event()
+        print u'Adding challenges.'
+        for i in range(15, 30):
+            _create_challenge()
+        print u'Adding resources.'
+        for i in range(15, 30):
+            _create_resource()
+        print u'Done.'
