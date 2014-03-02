@@ -18,6 +18,7 @@ class dev {
   class {
     init:;
     updates: ;
+    frontend: ;
   }
 
   class { "memcached":

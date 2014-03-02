@@ -1,8 +1,13 @@
 class frontend {
 
-  package { "sass":
+  $packages = [
+               "sass",
+               "compass",
+               ]
+
+  package { $packages:
     ensure => "installed",
-    provider => "gem";
+    provider => "gem",
   }
 
 }
