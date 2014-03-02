@@ -16,24 +16,19 @@ Exec {
 class dev {
 
   class {
-    update: ;
-
-  }
-
-  class { "init":
-    require => Class[update],
+    init:;
   }
 
   class { "memcached":
-    require => Class[update],
+    require => Class[init],
   }
 
   class { "locales":
-    require => Class[update],
+    require => Class[init],
   }
 
   class { "versioning":
-    require => Class[update],
+    require => Class[init],
   }
 
   class { "nodejs":
