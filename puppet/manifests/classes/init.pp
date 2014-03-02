@@ -10,18 +10,14 @@ class init {
     ensure => "present",
   }
 
-  exec { "update_apt":
-    command => "apt-get update",
-  }
-
-  exec { "dist_upgrade_apt":
-    command => "apt-get -y dist-upgrade",
-    require => Exec["update_apt"],
-  }
-
   package { $packages:
     ensure => present,
     require => Exec["update_apt"],
+  }
+
+  exec { "update_apt":
+    command => "apt-get update",
+    logoutput   => 'on_failure',
   }
 
 }

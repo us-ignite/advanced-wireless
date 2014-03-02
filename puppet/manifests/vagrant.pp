@@ -17,6 +17,7 @@ class dev {
 
   class {
     init:;
+    updates: ;
   }
 
   class { "memcached":

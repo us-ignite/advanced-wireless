@@ -5,10 +5,7 @@ class nodejs ($project_path){
 
   exec { "node-repo" :
     command => "/usr/bin/add-apt-repository -y ppa:chris-lea/node.js",
-    notify => [
-               Exec["dist_upgrade_apt"],
-               Exec["update_apt"],
-               ],
+    notify => Exec["updates_dist_upgrade"],
     creates => "/etc/apt/sources.list.d/chris-lea-node_js-precise.list"
   }
 
@@ -43,15 +40,8 @@ class nodejs ($project_path){
 
   exec { "node-install-package":
     cwd => "${project_path}",
-    user => "vagrant",
     command => "/usr/bin/npm install .",
     require => Exec["node-grunt-cli"],
-  }
-
-  exec { "node-install-bower":
-    cwd => "${project_path}",
-    command => "/usr/bin/bower install",
-    require => Exec["node-bower"],
   }
 
 }
