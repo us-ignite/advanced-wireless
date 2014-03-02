@@ -18,6 +18,13 @@ FIXTURES = [
         'url_text': 'FEATURED',
         'url': '',
     },
+    {
+        'slug': 'welcome-email',
+        'name': 'Welcome to US Ignite',
+        'body': '',
+        'url_text': '',
+        'url': '',
+    },
 ]
 
 
