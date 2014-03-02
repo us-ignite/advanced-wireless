@@ -48,3 +48,11 @@ The VM has been configured to run and reload the code changes automatically with
 
     sudo service us_ignite restart
 
+
+
+Running the test suite
+----------------------
+
+The tests can be triggered from inside the VM by running::
+
+    fab test
