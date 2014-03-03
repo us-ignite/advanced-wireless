@@ -1,3 +1,4 @@
+import watson
 from django.template.response import TemplateResponse
 from django.shortcuts import _get_queryset as get_queryset
 
@@ -12,6 +13,9 @@ def tag_search(request, klass, template):
     if form.is_valid():
         queryset = get_queryset(klass)
         object_list = queryset.filter(tags__name=form.cleaned_data['tag'])
+        # TODO: consider using watson search backend:
+        # object_list = watson.search(
+        #     form.cleaned_data['tag'], models=(queryset, ))
     else:
         object_list = []
     page = pagination.get_page(object_list, page_no)
