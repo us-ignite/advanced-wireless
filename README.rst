@@ -36,11 +36,11 @@ Once the pre-requisites have been installed the application can be started with 
 
    The provisioning will take a while, since it needs to get a copy of the OS box and install any packages required.
 
-The application has been preconfigured to use the host-only IP http://22.22.22.10 and forwards the VM port ``80`` to ``8000`` so http://localhost:8000 is available as well.
+The application has been preconfigured to use the host-only IP http://22.22.22.12 and forwards the VM port ``80`` to ``8000`` so http://localhost:8000 is available as well.
 
 Adding a host alias is recommended. This can be done by adding the following line to  ``/etc/hosts``::
 
-    22.22.22.10    local-us-ignite.org
+    22.22.22.12    local-us-ignite.org
 
 Once this is done the application will be available at http://local-us-ignite.org
 
