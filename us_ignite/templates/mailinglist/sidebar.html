@@ -1,0 +1,20 @@
+<!-- newsletter -->
+<div class="row newsletter newsletter--side">
+  <form method="post" action="{% url 'mailing_subscribe' %}">
+    <div class="small-12 columns newsletter__column">
+      <h4 class="newsletter__heading">SIGN UP TO RECEIVE UPDATES FROM US IGNITE</h4>
+    </div>
+
+    <div class="small-12 columns newsletter__column">
+      <div class="row collapse">
+        <div class="small-12 columns">
+          <input type="text" placeholder="Enter your email address...">
+        </div>
+        <div class="small-12 columns">
+          <a href="#" class="newsletter__submit button alert postfix">SUBMIT</a>{% csrf_token %}
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- /newsletter -->

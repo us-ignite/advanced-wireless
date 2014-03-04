@@ -55,25 +55,7 @@
       {% latest_articles "blog/news_list.html" %}
 
       <h3 class="sidebar__heading">Subscribe & Follow</h3>
-
-      <!-- newsletter -->
-      <div class="row newsletter newsletter--side">
-        <div class="small-12 columns newsletter__column">
-          <h4 class="newsletter__heading">SIGN UP TO RECEIVE UPDATES FROM US IGNITE</h4>
-        </div>
-
-        <div class="small-12 columns newsletter__column">
-          <div class="row collapse">
-            <div class="small-12 columns">
-              <input type="text" placeholder="Enter your email address...">
-            </div>
-            <div class="small-12 columns">
-              <a href="#" class="newsletter__submit button alert postfix">SUBMIT</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /newsletter -->
+      {% include "mailinglist/sidebar.html" %}
 
       <a class="twitter-timeline" href="https://twitter.com/US_Ignite" data-widget-id="440812138123116544">Tweets by @US_Ignite</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
