@@ -25,6 +25,13 @@ FIXTURES = [
         'url_text': '',
         'url': '',
     },
+    {
+        'slug': 'blog-sidebar',
+        'name': 'Dynamic content',
+        'body': '',
+        'url_text': '',
+        'url': '',
+    },
 ]
 
 
