@@ -13,6 +13,7 @@ from us_ignite.apps.models import (
     Page,
     PageApplication,
 )
+from us_ignite.blog.models import Post
 from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
@@ -233,6 +234,11 @@ def _create_resource():
     }
     return Resource.objects.create(**data)
 
+def _feature_posts():
+    for post in Post.objects.all().order_by('?')[:5]:
+        post.is_featured = True
+        post.save()
+
 
 def _load_fixtures():
     """Loads initial fixtures"""
@@ -258,6 +264,8 @@ class Command(BaseCommand):
             exit(0)
         print u'Loading initial fixtures.'
         _load_fixtures()
+        print u'Featuring Posts'
+        _feature_posts()
         print u'Adding users.'
         _create_users()
         print u'Adding organizations.'
