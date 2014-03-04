@@ -1,8 +1,7 @@
-<aside class="large-4 columns sidebar show-for-large-up">
+<aside class="large-4 columns sidebar show-for-large-up">{% load snippets_tags %}
   <div class="row">
     <div class="large-12 columns">
-      <img src="http://placehold.it/317x317" class="sidebar__advert">
-
+      {% snippet "blog-sidebar" "blog/snippet-sidebar.html" %}
       <h3 class="sidebar__heading">In case you missed it</h3>
 
       <ul class="no-bullet sidebar__list">
