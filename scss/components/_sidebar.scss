@@ -1,0 +1,60 @@
+.sidebar {
+  .sidebar__list {
+    margin-left: -12px;
+  }
+
+  .twitter-timeline {
+    margin-top: 25px;
+  }
+}
+
+.sidebar__heading {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: $font-weight-bold;
+  margin-top:25px;
+  padding-bottom:20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar__list__item {
+  clear:both;
+}
+
+.sidebar__list__link {
+  display:block;
+  padding:8px 12px;
+  color: $dark-color;
+  font-weight: $font-weight-bold;
+  font-size: 16px;
+
+  &:hover {
+    background: #fff;
+    color: $secondary-color;
+  }
+}
+
+.sidebar__list__shares {
+  display:block;
+  padding-left:20px;
+  background: transparent url(../img/icons/share.png) left center no-repeat;
+  color: $dark-color;
+  font-size:0.875em;
+  font-weight:$font-weight-normal;
+}
+
+.sidebar__list__image {
+  display: inline-block;
+  vertical-align: top;
+  margin:4px 17px 0 0;
+}
+
+.sidebar__list__desc {
+  display: inline-block;
+}
+
+.sidebar__advert {
+  display:block;
+  width: 100%;
+  margin:45px auto 20px;
+}

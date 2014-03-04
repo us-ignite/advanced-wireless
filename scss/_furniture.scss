@@ -37,11 +37,18 @@ h6 { font-size: $h6-font-size; }
   .name {
     .top-bar__logo {
       display:block;
-      width: 232px;
-      height: 63px;
-      margin-top: 25px;
+      width: 139px;
+      height: 38px;
+      margin-top: 35px;
       margin-left:25px;
       background: transparent url(../img/furniture/logo.png) 0 0 no-repeat;
+      background-size: contain;
+
+      @media #{$medium-up} {
+        width: 232px;
+        height: 63px;
+        margin-top: 25px;
+      }
 
       @media #{$xlarge-up} { 
         margin-left: 0;
@@ -51,28 +58,6 @@ h6 { font-size: $h6-font-size; }
         display:none;
       }
     }
-  }
-
-  .top-bar__search-container {
-    &:after {
-      content: "";
-      display:block;
-      position: absolute;
-      width:23px;
-      height:21px;
-      top: 50%;
-      right:7px;
-      margin-top: -10px;
-      padding:0 15px;
-      background: #fff url(../img/icons/search.png) right center no-repeat;
-    }
-  }
-
-  .top-bar__search-field {
-    position: relative;
-    top: -1px;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
   }
 
   .toggle-topbar.menu-icon a {

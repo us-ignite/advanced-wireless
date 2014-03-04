@@ -1,0 +1,26 @@
+.search {
+  padding: 0 15px;
+  height: 45px;
+
+  &:after {
+    content: "";
+    display:block;
+    position: absolute;
+    width:23px;
+    height:21px;
+    top: 50%;
+    right:7px;
+    margin-top: -11px;
+    padding:0 15px;
+    background: #fff url(../img/icons/search.png) right center no-repeat;
+  }
+
+  .search__field {
+    position: relative;
+    top: -1px;
+    height:auto;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    font-size: 0.875rem;
+  }
+}
