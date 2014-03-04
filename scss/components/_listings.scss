@@ -1,0 +1,48 @@
+.listings {
+	background-color: #fff;
+}
+
+.listings__pagination {
+	margin-top:30px;
+	margin-bottom:40px;
+}
+
+.listings__filter,
+.listings__listing {
+	margin-top:24px;
+	border-bottom: 1px solid #ccc;
+}
+
+.listings__listing {
+	padding-bottom: 24px;
+}
+
+.listings__listing__heading {
+	display:block;
+	font-size: $h2-font-size;
+	color: $secondary-color;
+	margin:8px 0;
+}
+
+.listings__listing__desc {
+	margin: 8px 0 12px 0;
+}
+
+.listings__listing__shares {
+	display:inline-block;
+	padding:8px 8px 8px 32px;
+	background: #f2f2f2 url(../img/icons/share.png) 10px 50% no-repeat;
+	color: $dark-color;
+	font-size:0.875em;
+	font-weight:$font-weight-normal;
+}
+
+.listings__listing__tags,
+.listings__listing__published {
+	color: #939393;
+	font-size: 0.875em;
+}
+
+.listings__listing__published {
+	font-weight: $font-weight-bold;
+}

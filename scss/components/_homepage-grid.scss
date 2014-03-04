@@ -7,12 +7,24 @@
 .homepage-grid__heading {
 	color:#fff;
 	padding-top:110px;
-	font-size:1.5rem;
+	font-size: 1em;
 	background:transparent url(../img/icons/keyboard.png) 50% 20px no-repeat;
+
+	@media #{$medium-up} {
+		font-size:1.5rem;
+	}
 }
 
 .homepage-grid__desc {
 
+}
+
+.homepage-grid__button {
+	font-size:0.8rem;
+
+	@media #{$medium-up} {
+		font-size:1rem;
+	}
 }
 
 .homepage-grid__col {

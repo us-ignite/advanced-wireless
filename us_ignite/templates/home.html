@@ -37,13 +37,13 @@
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
         <h4 class="homepage-grid__heading">DEVELOPERS</h4>
-        <p class="homepage-grid__desc">Build gigabit apps that can transform how we live, work and play.</p>
+        <p class="homepage-grid__desc show-for-medium-up">Build gigabit apps that can transform how we live, work and play.</p>
       </div>
     </div>
 
     <div class="row">
       <div class="small-12 columns">
-        <a class="button expand alert">GET INVOLVED</a>
+        <a class="homepage-grid__button button expand alert">GET INVOLVED</a>
       </div>
     </div>
   </div>
@@ -52,13 +52,13 @@
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
         <h4 class="homepage-grid__heading">PARTNERS</h4>
-        <p class="homepage-grid__desc">We work with forward thinking partners who understand that the future is here.</p>
+        <p class="homepage-grid__desc show-for-medium-up">We work with forward thinking partners who understand that the future is here.</p>
       </div>
     </div>
 
     <div class="row">
       <div class="small-12 columns">
-        <a class="button expand alert">SUPPORT US IGNITE</a>
+        <a class="homepage-grid__button button expand alert">SUPPORT US IGNITE</a>
       </div>
     </div>
   </div>
@@ -67,13 +67,13 @@
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
         <h4 class="homepage-grid__heading">COMMUNITY LEADERS</h4>
-        <p class="homepage-grid__desc">Showcase advanced networks and apps in your community.</p>
+        <p class="homepage-grid__desc show-for-medium-up">Showcase advanced networks and apps in your community.</p>
       </div>
     </div>
 
     <div class="row">
       <div class="small-12 columns">
-        <a class="button expand alert">BECOME A US IGNITE CITY</a>
+        <a class="homepage-grid__button button expand alert">BECOME A US IGNITE CITY</a>
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@
       <div class="small-12 medium-8 large-6 columns right">
         <div class="slide__panel">
           <div class="row collapse">
-            <div class="small-6 columns">
+            <div class="small-12 medium-6 columns">
               <h2 class="slide__heading">Applications</h2>
               <p class="slide__desc">See ultra high speed networks are fostering ideas to solve problems  and reinvent everything, from education to healthcare in
                 neighborhoods across the country.</p>
@@ -101,7 +101,7 @@
 
             </div>
 
-            <div class="small-6 columns">
+            <div class="small-6 medium-6 columns show-for-medium-up">
               <aside class="featured featured--nudge-right">
                 <h4 class="featured__heading">FEATURED APP</h4>
                 {% include "includes/featured_object.html" with object=application %}
@@ -123,13 +123,13 @@
       <div class="small-12 medium-8 large-6 columns">
         <div class="slide__panel">
           <div class="row collapse">
-            <div class="small-6 columns">
+            <div class="small-12 medium-6 columns">
               <h2 class="slide__heading">Communities</h2>
               <p class="slide__desc">Communities nationwide are using advanced networks to help transform themselves into innovation and technology-driven economies to compete in the 21st century.</p>
 
               <a class="primary button expand" href="{% url 'hub_list' %}">VIEW OUR COMMUNITIES</a>
             </div>
-            <div class="small-6 columns">
+            <div class="small-6 medium-6 columns show-for-medium-up">
               <aside class="featured featured--nudge-right">
                 <h4 class="featured__heading">FEATURED COMMUNITY</h4>
                 {% include "includes/featured_object.html" with object=hub %}
@@ -156,14 +156,14 @@
       <div class="small-12 medium-8 large-6 columns right">
         <div class="slide__panel">
           <div class="row collapse">
-            <div class="small-6 columns">
+            <div class="small-12 medium-6 columns">
               <h2 class="slide__heading">Resources</h2>
               <p class="slide__desc">Learn how to build next-
                 generation applications, and how these powerful new technologies are transforming communities for the better.</p>
 
               <a href="{% url 'resource_list' %}" class="primary button expand">VIEW RESOURCES</a>
             </div>
-            <div class="small-6 columns">
+            <div class="small-6 medium-6 columns show-for-medium-up">
               <aside class="featured featured--nudge-right">
                 <h4 class="featured__heading">FEATURED RESOURCE</h4>
                 {% include "includes/featured_object.html" with object=resource %}

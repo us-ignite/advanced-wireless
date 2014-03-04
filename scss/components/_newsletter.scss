@@ -1,6 +1,17 @@
 .newsletter {
   background-color: $secondary-color;
   padding: 30px inherit;
+
+  &.newsletter--side {
+  	background-color: $dark-color;
+  	padding: 12px;
+  }
+}
+
+.newsletter--side {
+	.newsletter__submit {
+		background-color: $secondary-color;
+	}
 }
 
 .newsletter__heading {

@@ -1,0 +1,17 @@
+.listing-featured {
+	background-color: $secondary-color;
+	padding-top:2em;
+	padding-bottom:2em;
+}
+
+.listing-featured__desc {
+	color: #fff;
+	font-size:1em;
+	line-height:1.3;
+	display:block;
+	padding-top:1em;
+
+	@media #{$medium-up} {
+		font-size: 1.5rem;
+	}
+}
