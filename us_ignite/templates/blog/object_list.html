@@ -6,7 +6,7 @@
 
 {% if featured_list %}
   {% for featured in featured_list %}
-  {% include "blog/featured_block.html" with object=object last=featured.last %}
+  {% include "blog/featured_block.html" with object=object last=forloop.last %}
   {% endfor%}
 {% endif %}
 
