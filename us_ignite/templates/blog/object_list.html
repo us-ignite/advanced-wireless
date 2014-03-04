@@ -49,7 +49,7 @@
     </div>
   </div>
   <!-- /listings-filter -->
-  
+
   {% if page.object_list  %}
     {% for object in page.object_list %}
       {% include "blog/object_block.html" with object=object %}
@@ -62,3 +62,8 @@
 </article>
 
 {% endblock section %}
+
+
+{% block sidebar %}
+  {% include "blog/sidebar.html" %}
+{% endblock sidebar %}
