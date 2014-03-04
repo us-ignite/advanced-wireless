@@ -19,6 +19,7 @@ from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
 from us_ignite.resources.models import Resource
 from us_ignite.hubs.models import Hub, HubMembership
+from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
 
@@ -240,6 +241,17 @@ def _feature_posts():
         post.save()
 
 
+def _create_article():
+    data = {
+        'name': text.random_words(7).title(),
+        'status': choice(Article.STATUS_CHOICES)[0],
+        'url': _get_url(),
+        'is_featured': choice([True, False]),
+    }
+    return Article.objects.create(**data)
+
+
+
 def _load_fixtures():
     """Loads initial fixtures"""
     call_command('app_load_fixtures')
@@ -289,4 +301,7 @@ class Command(BaseCommand):
         print u'Adding resources.'
         for i in range(15, 30):
             _create_resource()
+        print u'Adding articles.'
+        for i in range(15, 30):
+            _create_article()
         print u'Done.'
