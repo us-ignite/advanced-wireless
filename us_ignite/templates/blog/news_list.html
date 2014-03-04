@@ -1,0 +1,10 @@
+<ul class="no-bullet sidebar__list">
+  {% for object in object_list %}
+  <li class="sidebar__list__item">
+    <a class="sidebar__list__link" href="{{ object.url }}">{{ object.name }}</a>
+  </li>
+  {% endfor%}
+  <li class="sidebar__list__item">
+    <a class="sidebar__list__link" href="{% url 'article_list' %}">See more.</a>
+  </li>
+</ul>

@@ -1,4 +1,4 @@
-<aside class="large-4 columns sidebar show-for-large-up">{% load snippets_tags %}
+<aside class="large-4 columns sidebar show-for-large-up">{% load snippets_tags news_tags %}
   <div class="row">
     <div class="large-12 columns">
       {% snippet "blog-sidebar" "blog/snippet-sidebar.html" %}
@@ -52,27 +52,7 @@
 
 
       <h3 class="sidebar__heading">US Ignite News</h3>
-
-      <ul class="no-bullet sidebar__list">
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">News item 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Another News item 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Yet News item 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Some real news this time News item 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">News item 1 this is a really quite a long one isn't it oh ok, is it? thanks</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">News item 1</a>
-        </li>
-      </ul>
+      {% latest_articles "blog/news_list.html" %}
 
       <h3 class="sidebar__heading">Subscribe & Follow</h3>
 
