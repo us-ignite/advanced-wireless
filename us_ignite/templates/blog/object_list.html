@@ -3,25 +3,62 @@
 {% block title %}Blog - {{ block.super }}{% endblock title %}
 
 {% block section %}
-<h1>Blog</h1>
 
 {% if featured_list %}
-<h2>Featured posts</h2>
-<ul>
   {% for featured in featured_list %}
-  {% include "blog/object_block.html" with object=object %}
+  {% include "blog/featured_block.html" with object=object last=featured.last %}
   {% endfor%}
-</ul>
 {% endif %}
 
-{% if page.object_list  %}
-{% for object in page.object_list %}
-{% include "blog/object_block.html" with object=object %}
-{% endfor%}
-{% else %}
-<p>No posts available.</p>
-{% endif %}
+<article class="large-8 columns listings">
+  <!-- listings-filter -->
+  <div class="listings__filter">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="row collapse">
+          <div class="medium-4 small-6 columns">
+            <form>
+              <div class="row collapse">
+                <div class="small-3 columns show-for-medium-up">
+                  <label for="right-label" class="left inline show-for-medium-up">Showing:</label>
+                </div>
+                <div class="small-9 columns left">
+                  <select id="right-label">
+                    <option>Test</option>
+                    <option>Test</option>
+                    <option>Test</option>
+                    <option>Test</option>
+                    <option>Test</option>
+                    <option>Test</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
 
-{% include "includes/pagination.html" %}
+          <div class="medium-4 medium-offset-2 small-6 columns">
+            <div class="row collapse">
+              <div class="small-12 columns search">
+                <input type="text" placeholder="SEARCH" class="search__field">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /listings-filter -->
+  
+  {% if page.object_list  %}
+    {% for object in page.object_list %}
+      {% include "blog/object_block.html" with object=object %}
+    {% endfor%}
+  {% else %}
+    <p>No posts available.</p>
+  {% endif %}
+
+  {% include "includes/pagination.html" %}
+</article>
 
 {% endblock section %}

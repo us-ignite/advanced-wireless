@@ -3,14 +3,27 @@
 
 {% block content %}
 
+
+<div class="row collapse">
+  <div class="small-12 columns">
+    <div class="row listing-featured">
+      {% snippet "featured" "snippets/featured.html" %}
+    </div>
+  </div>
+</div>
+
+
 {# Content all the areas of the blog #}
-{% block section %}{% endblock section %}
 
-{# Sidebar for all the areas of the blog #}
-{% block sidebar %}
+<div class="row collapse l-listings">
+  {% block section %}{% endblock section %}
 
-{% endblock sidebar %}
-{% snippet "featured" "snippets/featured.html" %}
+  {# Sidebar for all the areas of the blog #}
+  {% block sidebar %}
+
+  {% endblock sidebar %}
+</div>
+
 
 {% latest_articles "news/object_short_list.html" %}
 
