@@ -9,6 +9,11 @@ h6 { font-size: $h6-font-size; }
   margin-top:25px;
 }
 
+.panel {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .quicklinks {
   background-color: $primary-color;
   min-height:0.438em;
