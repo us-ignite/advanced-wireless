@@ -4,7 +4,7 @@
   
   &.featured--fixed-height {
     height: 288px;
-    margin-bottom: 30px;
+    margin: 30px inherit;
   }
 
   &.featured--nudge-right {
@@ -76,6 +76,13 @@
 .featured__cta {
   font-size: 1.125em;
   margin: 20px 1rem 1rem;
+}
+
+.featured__image-container {
+  @media #{$small-only} {
+    max-height:70%;
+    overflow: hidden;
+  }
 }
 
 .featured__image {

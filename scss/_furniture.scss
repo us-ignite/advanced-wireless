@@ -5,6 +5,10 @@ h4 { font-size: $h4-font-size; }
 h5 { font-size: $h5-font-size; }
 h6 { font-size: $h6-font-size; }
 
+.page-title {
+  margin-top:25px;
+}
+
 .quicklinks {
   background-color: $primary-color;
   min-height:0.438em;
