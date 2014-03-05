@@ -2,6 +2,10 @@
   background-color: $secondary-color;
   padding: 30px inherit;
 
+  &.newsletter--primary {
+    background: $primary-color url(../img/furniture/bg-signup.png) 0 0 no-repeat;
+  }
+
   &.newsletter--side {
   	background-color: $dark-color;
   	padding: 12px;
