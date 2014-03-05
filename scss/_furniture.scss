@@ -30,6 +30,10 @@ h6 { font-size: $h6-font-size; }
     font-size:0.875em;
     font-weight: $font-weight-black;
   }
+
+  .icon {
+    margin-top: 4px;
+  }
 }
 
 .border-bottom {
@@ -120,6 +124,12 @@ h6 { font-size: $h6-font-size; }
   min-height: 300px;
   margin-bottom: 50px;
   display: block;
+}
+
+.inline-list {
+  .squeeze {
+    margin-left: 4px;
+  }
 }
 
 

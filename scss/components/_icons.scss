@@ -1,0 +1,50 @@
+.icon {
+	padding:4px;
+	background-color: #f2f2f2;
+	border-radius: 24px;
+	width: 24px;
+	height: 24px;
+
+	&.dark {
+		background-color: #696969;
+	}
+}
+
+[class*="icon-"] {
+	display: inline-block;
+	position: relative;
+	top: -4px;
+	width: 16px;
+	height: 16px;
+	background-image: url(../img/icons/social.svg);
+	background-repeat: no-repeat;
+
+	.dark & {
+		// background-image: url(../img/icons/social-light.svg);
+	}
+
+}
+.icon-google-plus {
+	background-position: 0 0;
+	width: 16px;
+}
+.icon-twitter {
+	background-position: -32px 0;
+	width: 16px;
+}
+.icon-facebook {
+	background-position: -64px 0;
+	width: 16px;
+}
+.icon-youtube {
+	background-position: -96px 0;
+	width: 16px;
+}
+.icon-feed {
+	background-position: -128px 0;
+	width: 16px;
+}
+.icon-vimeo {
+	background-position: -160px 0;
+	width: 16px;
+}
