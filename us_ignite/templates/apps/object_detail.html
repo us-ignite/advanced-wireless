@@ -3,151 +3,166 @@
 {% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h1>
 
-<ul>
-  <li>Stage: {{ object.get_stage_display }}</li>
-  {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
-  <li>Created by {% include "includes/display_name.html" with user=object.owner %} on {{ object.created }}</li>
-  {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
-  {% if is_owner %}
-  <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
-  <li><a href="{{ object.get_hub_membership_url }}">Edit hubs membership</a></li>
-  <li><a href="{{ object.get_export_url }}">Export application</a></li>
-  <li>
-    <form method="post" action="{{ object.get_version_url }}">
-      {% csrf_token %}
-      <button type="submit">Create version</button>
-    </form>
-  </li>
-  {% endif %}
-</ul>
+<div class="row">
+  <div class="small-12 columns">
+    <h2 class="page-title">{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h2>
 
-<h2>Summary</h2>
-<p>
-  {{ object.summary }}
-</p>
-
-{% if object.impact_statement %}
-<h2>Impact statement</h2>
-<p>
-  {{ object.impact_statement }}
-</p>
-{% endif %}
-
-{% if object.domain %}
-<h2>Domain</h2>
-<p>{{ object.domain.name }}</p>
-{% endif %}
-
-{% if feature_list %}
-<h2>Features</h2>
-<ul>
-  {% for feature in feature_list %}
-  <li>{{ feature.name }}</li>
-  {% endfor%}
-</ul>
-{% endif %}
-
-
-{% if object.image  %}
-<img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
-{% endif %}
-
-{% if media_list %}
-<h2>Extra media</h2>
-<ul>
-  {% for media in media_list %}
-  <li>
-    {% include "apps/includes/media.html" with object=media %}
-  </li>
-  {% endfor%}
-</ul>
-{% endif %}
-
-
-<h2>Description</h2>
-{{ object.description|markdown }}
-
-{% if object.roadmap %}
-<h2>Roadmap</h2>
-{{ object.roadmap }}
-{% endif %}
-
-{% if object.team_description %}
-<h2>Team description</h2>
-{{ object.team_description|markdown }}
-{% endif %}
-
-{% if member_list  %}
-<h2>Collaborators</h2>
-<ul>
-  {% for member in member_list %}
-  <li>
-    {% include "includes/display_name.html" with user=member %}
-  </li>
-  {% endfor%}
-</ul>
-{% endif %}
-
-{% if object.assistance %}
-<h2>The project needs assistance</h2>
-<p>{{ object.assistance }}</p>
-{% endif %}
-
-{% if object.acknowledgments %}
-<h2>Acknowledgements</h2>
-<p>{{ object.acknowledgments }}</p>
-{% endif %}
-
-{% if url_list %}
-<h2>Also available in</h2>
-{% for url in url_list %}
-<div class="">
-  <a href="{{ url.url }}">{{ url.name }}</a>
-  {{ url.url|render_as_widget }}
+    <span class="listings__listing__tags">
+      Tagged: 
+      {% with object.tags.all as tag_list %}
+      {% if tag_list %}
+        {% for tag in tag_list %}
+        <a href="{% url 'search_apps' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
+        {% endfor%}
+      {% else %}
+      Post hasn't been tagged.
+      {% endif %}
+      {% endwith %}
+    </span>
+  </div>
 </div>
-{% endfor%}
-</ul>
-{% endif %}
 
-<h2>Tags</h2>
-{% with object.tags.all as tag_list %}
-{% if tag_list %}
-<ul>
-  {% for tag in tag_list %}
-  <li><a href="{% url 'search_apps' %}?tag={{ tag |urlencode }}">{{ tag }}</a></li>
-  {% endfor%}
-</ul>
-{% else %}
-<p>App hasn't been tagged.</p>
-{% endif %}
-{% endwith %}
+<div class="row collapse l-listings space-top" data-equalizer>
+  <article class="large-8 columns listings" data-equalizer-watch>
 
-{% if version_list %}
-<h2>Previous versions</h2>
-<ul>
-  {% for version in version_list %}
-  <li><a href="{{ version.get_absolute_url }}">{{ version.name }}</a> created on {{ version.created }}</li>
-  {% endfor%}
-</ul>
-{% endif %}
+    <ul data-orbit>
+      {% if object.image  %}
+      <li><img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/></li>
+      {% endif %}
 
-{% if award_list %}
-<h2>Awards</h2>
-<ul>
-  {% for award in award_list %}
-  <li>{{ award }}</li>
-  {% endfor%}
-</ul>
-{% endif %}
+      {% if media_list %}
+      {% for media in media_list %}
+        {% include "apps/includes/media.html" with object=media %}
+      {% endfor%}
+      {% endif %}
+    </ul>
+    
+    <ul>
+      <li>Stage: {{ object.get_stage_display }}</li>
+      {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
+      <li>Created by {% include "includes/display_name.html" with user=object.owner %} on {{ object.created }}</li>
+      {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
+      {% if is_owner %}
+      <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
+      <li><a href="{{ object.get_hub_membership_url }}">Edit hubs membership</a></li>
+      <li><a href="{{ object.get_export_url }}">Export application</a></li>
+      <li>
+        <form method="post" action="{{ object.get_version_url }}">
+          {% csrf_token %}
+          <button type="submit">Create version</button>
+        </form>
+      </li>
+      {% endif %}
+    </ul>
 
-{% if hub_list %}
-<h2>Ignite communities</h2>
-<ul>
-  {% for hub in hub_list %}
-  <li><a href="{{ hub.hub.get_absolute_url }}">{{ hub.hub.name }}</a></li>
-  {% endfor%}
-</ul>
-{% endif %}
+    <h2>Summary</h2>
+    <p>
+      {{ object.summary }}
+    </p>
+
+    {% if object.impact_statement %}
+    <h2>Impact statement</h2>
+    <p>
+      {{ object.impact_statement }}
+    </p>
+    {% endif %}
+
+    {% if object.domain %}
+    <h2>Domain</h2>
+    <p>{{ object.domain.name }}</p>
+    {% endif %}
+
+    {% if feature_list %}
+    <h2>Features</h2>
+    <ul>
+      {% for feature in feature_list %}
+      <li>{{ feature.name }}</li>
+      {% endfor%}
+    </ul>
+    {% endif %}
+
+
+    <h2>Description</h2>
+    {{ object.description|markdown }}
+
+    {% if object.roadmap %}
+    <h2>Roadmap</h2>
+    {{ object.roadmap }}
+    {% endif %}
+
+    {% if object.team_description %}
+    <h2>Team description</h2>
+    {{ object.team_description|markdown }}
+    {% endif %}
+
+    {% if member_list  %}
+    <h2>Collaborators</h2>
+    <ul>
+      {% for member in member_list %}
+      <li>
+        {% include "includes/display_name.html" with user=member %}
+      </li>
+      {% endfor%}
+    </ul>
+    {% endif %}
+
+    {% if object.assistance %}
+    <h2>The project needs assistance</h2>
+    <p>{{ object.assistance }}</p>
+    {% endif %}
+
+    {% if object.acknowledgments %}
+    <h2>Acknowledgements</h2>
+    <p>{{ object.acknowledgments }}</p>
+    {% endif %}
+
+    {% if url_list %}
+    <h2>Also available in</h2>
+    {% for url in url_list %}
+    <div class="">
+      <a href="{{ url.url }}">{{ url.name }}</a>
+      {{ url.url|render_as_widget }}
+    </div>
+    {% endfor%}
+    </ul>
+    {% endif %}
+
+    
+
+    {% if version_list %}
+    <h2>Previous versions</h2>
+    <ul>
+      {% for version in version_list %}
+      <li><a href="{{ version.get_absolute_url }}">{{ version.name }}</a> created on {{ version.created }}</li>
+      {% endfor%}
+    </ul>
+    {% endif %}
+
+    {% if award_list %}
+    <h2>Awards</h2>
+    <ul>
+      {% for award in award_list %}
+      <li>{{ award }}</li>
+      {% endfor%}
+    </ul>
+    {% endif %}
+
+    {% if hub_list %}
+    <h2>Ignite communities</h2>
+    <ul>
+      {% for hub in hub_list %}
+      <li><a href="{{ hub.hub.get_absolute_url }}">{{ hub.hub.name }}</a></li>
+      {% endfor%}
+    </ul>
+    {% endif %}
+
+  </article>
+
+  {# Sidebar for all the areas of the blog #}
+  {% block sidebar %}
+    {% include "blog/sidebar.html" %}
+  {% endblock sidebar %}
+</div>
+
 {% endblock content %}
