@@ -4,9 +4,17 @@
 
 {% block featured %}
   {% if featured_list %}
-    {% for featured in featured_list %}
-    {% include "blog/featured_block.html" with object=object last=forloop.last %}
-    {% endfor%}
+    <div class="row collapse">
+      <div class="small-12 columns">
+        <div class="row listing-featured">
+        
+        {% for featured in featured_list %}
+        {% include "blog/featured_block.html" with object=object last=forloop.last %}
+        {% endfor%}
+
+        </div>
+      </div>
+    </div>
   {% endif %}
 {% endblock %}
 
