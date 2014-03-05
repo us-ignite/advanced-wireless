@@ -1,0 +1,16 @@
+.back-btn {
+   
+}
+
+.back-btn__arrow {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.back-btn__link {
+	&:link,
+	&:visited {
+	  color: #939393;
+	  font-size: 0.875em;
+	}
+}
