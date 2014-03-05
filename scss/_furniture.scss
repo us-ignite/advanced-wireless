@@ -126,6 +126,12 @@ h6 { font-size: $h6-font-size; }
   display: block;
 }
 
+.inline-list {
+  .squeeze {
+    margin-left: 4px;
+  }
+}
+
 
 @media #{$large-up} { 
   h1 {
