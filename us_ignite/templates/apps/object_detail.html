@@ -59,12 +59,25 @@
             </li>
             {% endif %}
           </ul>
+        </div>
+      </div>
+    </div>
 
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
           <h2>Summary</h2>
           <p>
             {{ object.summary }}
           </p>
+        </div>
+      </div>
+    </div>
 
+
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
           {% if object.impact_statement %}
           <h2>Impact statement</h2>
           <p>
@@ -73,8 +86,16 @@
           {% endif %}
 
           {% if object.domain %}
-          <h2>Domain</h2>
-          <p>{{ object.domain.name }}</p>
+          <div class="row domains">
+            <div class="small-12 medium-1 columns">
+              <h5>TAG</h5>
+            </div>
+            <div class="small-12 medium-11 columns">
+              <ul class="inline-list">
+                <li><a href="{% url 'app_list' %}" class="domains__link domains__link--active">{{ object.domain.name }}</a></li>
+              </ul>
+            </div>
+          </div>
           {% endif %}
 
           {% if feature_list %}
@@ -85,7 +106,13 @@
             {% endfor%}
           </ul>
           {% endif %}
+        </div>
+      </div>
+    </div>
 
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
 
           <h2>Description</h2>
           {{ object.description|markdown }}
@@ -94,6 +121,14 @@
           <h2>Roadmap</h2>
           {{ object.roadmap }}
           {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
 
           {% if object.team_description %}
           <h2>Team description</h2>
@@ -110,6 +145,13 @@
             {% endfor%}
           </ul>
           {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
 
           {% if object.assistance %}
           <h2>The project needs assistance</h2>
@@ -132,7 +174,7 @@
           </ul>
           {% endif %}
 
-          
+
 
           {% if version_list %}
           <h2>Previous versions</h2>

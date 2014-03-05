@@ -15,7 +15,8 @@
 
 	&:hover,
 	&:active,
-	&:focus {
+	&:focus,
+	&.domains__link--active {
 		background-color: #616264;
 		color: #fff;
 	}
