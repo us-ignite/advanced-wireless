@@ -4,22 +4,27 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row collapse">
   <div class="small-12 columns">
-    <h2 class="page-title">{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h2>
 
-    <span class="listings__listing__tags">
-      Tagged: 
-      {% with object.tags.all as tag_list %}
-      {% if tag_list %}
-        {% for tag in tag_list %}
-        <a href="{% url 'search_apps' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
-        {% endfor%}
-      {% else %}
-      Post hasn't been tagged.
-      {% endif %}
-      {% endwith %}
-    </span>
+    <div class="row">
+      <div class="small-12 columns">
+        <h2 class="page-title">{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h2>
+
+        <span class="listings__listing__tags">
+          Tagged: 
+          {% with object.tags.all as tag_list %}
+          {% if tag_list %}
+            {% for tag in tag_list %}
+            <a href="{% url 'search_apps' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
+            {% endfor%}
+          {% else %}
+          Post hasn't been tagged.
+          {% endif %}
+          {% endwith %}
+        </span>
+      </div>
+    </div>
   </div>
 </div>
 
