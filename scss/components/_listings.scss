@@ -22,6 +22,10 @@
   font-size: $h2-font-size;
   color: $secondary-color;
   margin:8px 0;
+
+  &.listings__listing__heading--plain {
+    color: $dark-color;
+  }
 }
 
 .listings__listing__desc {
