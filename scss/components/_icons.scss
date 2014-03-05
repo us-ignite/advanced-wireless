@@ -5,8 +5,8 @@
 	width: 24px;
 	height: 24px;
 
-	&.light {
-		background-color: $dark-color;
+	&.dark {
+		background-color: #696969;
 	}
 }
 
@@ -19,8 +19,8 @@
 	background-image: url(../img/icons/social.svg);
 	background-repeat: no-repeat;
 
-	.light & {
-		background-image: url(../img/icons/social-light.svg);
+	.dark & {
+		// background-image: url(../img/icons/social-light.svg);
 	}
 
 }
