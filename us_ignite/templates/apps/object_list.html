@@ -9,15 +9,22 @@
   <li><a href="{% url 'app_add' %}">Submit application</a></li>
 </ul>
 
+<div class="row">
+  <div class="small-12 columns panel">
+    <h2>Lorem Ipsum isn't it wonderful</h2>
+    <p>Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.</p>
+  </div>
+</div>
+
 <h2>Domains</h2>
-<ul>
+<ul class="inline-list">
   <li><a href="{% url 'app_list' %}">All domains</a></li>
   {% for domain in domain_list %}
   <li><a href="{% url 'app_list_domain' domain.slug %}">{{ domain.name }}</a></li>
   {% endfor%}
 </ul>
 
-{% include "includes/order_form.html" %}
+{# include "includes/order_form.html" #}
 
 <div class="row">
 {% for object in page.object_list %}
