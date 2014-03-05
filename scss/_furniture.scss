@@ -5,6 +5,15 @@ h4 { font-size: $h4-font-size; }
 h5 { font-size: $h5-font-size; }
 h6 { font-size: $h6-font-size; }
 
+.page-title {
+  margin-top:25px;
+}
+
+.panel {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .quicklinks {
   background-color: $primary-color;
   min-height:0.438em;
@@ -93,6 +102,14 @@ h6 { font-size: $h6-font-size; }
       padding-right: 0;
     }
   }
+}
+
+.space-top {
+  margin-top: 24px;
+}
+
+.pad-top-20 {
+  padding-top: 20px;
 }
 
 .pad-left-20 {

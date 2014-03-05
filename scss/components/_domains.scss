@@ -1,0 +1,23 @@
+.domains {
+	margin: 25px inherit 0;
+}
+
+.domains__link {
+	&:link,
+	&:visited {
+		background-color: #fff;
+		color: $dark-color;
+		padding: 2px 10px;
+		margin-bottom: 10px;
+		font-size: 0.75em;
+		border-radius: $global-radius;
+	}
+
+	&:hover,
+	&:active,
+	&:focus,
+	&.domains__link--active {
+		background-color: #616264;
+		color: #fff;
+	}
+}

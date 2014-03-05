@@ -1,4 +1,30 @@
-<div class="">
-  <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
-  <p>{{ object.get_summary }}</p>
+<div class="featured featured--fixed-height">
+  <a class="featured__link" href="{{ object.get_absolute_url }}" title="{{ object.name }}">
+
+    <div class="featured__image-container hide-on-hover">
+      {% load thumbnail %}
+      {% if object.image %}
+      <img src="{% thumbnail object.image 216x108 crop %}" alt="{{ object.name }}" class="featured__image" />
+      {% else %}
+      <img src="{{ STATIC_URL }}img/dummy/book.jpg" alt="{{ object.name }}" class="featured__image">
+      {% endif %}
+    </div>
+
+    <h4 class="featured__title">{{ object.name }}</h4>
+    <p class="featured__desc show-only-on-hover">{{ object.get_summary }}</p>
+    <div class="alert button small show-only-on-hover featured__cta">VIEW DETAILS</div>
+
+
+    {% with object.tags.all as tag_list %}
+    {% if tag_list %}
+    <p class="featured__tags">
+      {% for tag in tag_list %}
+      <a href="{% url 'search' %}?q={{ tag|urlencode }}">{{ tag }}</a>
+      {% endfor%}
+      <a href="{{ object.get_absolute_url }}">More...</a>
+    </p>
+    {% endif %}
+    {% endwith %}
+
+  </a>
 </div>
