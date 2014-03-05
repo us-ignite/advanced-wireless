@@ -28,6 +28,7 @@ urlpatterns = patterns(
     url(r'^search/', include('us_ignite.search.urls')),
     url(r'^map/', include('us_ignite.maps.urls')),
     url(r'^news/', include('us_ignite.news.urls')),
+    url(r'^about/', include('us_ignite.sections.urls')),
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
 )
