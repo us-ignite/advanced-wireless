@@ -8,7 +8,7 @@
     <div class="row">
       <div class="small-12 columns back-btn">
         <div class="arrow-left back-btn__arrow"></div>
-        <a href="#" class="back-btn__link">Back to Listing</a>
+        <a href="{% url 'blog_post_list' %}" class="back-btn__link">Back to Listing</a>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
           {% with object.tags.all as tag_list %}
           {% if tag_list %}
             {% for tag in tag_list %}
-            <a href="{% url 'search' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
+            <a href="{% url 'search' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag|upper }}</a>{% if not forloop.last %},{% endif %}
             {% endfor%}
           {% else %}
           Post hasn't been tagged.
@@ -32,9 +32,11 @@
 
         <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
 
+        {% with profile=object.author.profile %}
         <span class="listings__listing__published">
-          November 15 2014 | By <a href="#">Glenn Richard</a>
+          {{ object.publication_date|date:"F jS, Y" }} {% if object.author.profile %}| By <a href="{{ profile.get_absolute_url }}">{{ profile.display_name }}{% endif %}</a>
         </span>
+        {% endwith %}
 
         <div class="listings__listing__shares">
           186 Shares
