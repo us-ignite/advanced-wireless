@@ -19,9 +19,13 @@
 
 {% include "includes/order_form.html" %}
 
+<div class="row">
 {% for object in page.object_list %}
-{% include "apps/object_block.html" with object=object %}
+  <div class="columns small-6 medium-4 large-3">
+    {% include "apps/object_block.html" with object=object %}
+  </div>
 {% endfor%}
+</div>
 
 {% include "includes/pagination.html" %}
 
