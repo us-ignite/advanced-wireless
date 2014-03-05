@@ -16,13 +16,19 @@
   </div>
 </div>
 
-<h2>Domains</h2>
-<ul class="inline-list">
-  <li><a href="{% url 'app_list' %}">All domains</a></li>
-  {% for domain in domain_list %}
-  <li><a href="{% url 'app_list_domain' domain.slug %}">{{ domain.name }}</a></li>
-  {% endfor%}
-</ul>
+<div class="row domains">
+  <div class="small-1 columns">
+    TAGS
+  </div>
+  <div class="small-11 columns">
+    <ul class="inline-list">
+      <li><a href="{% url 'app_list' %}" class="domains__link">All domains</a></li>
+      {% for domain in domain_list %}
+      <li><a href="{% url 'app_list_domain' domain.slug %}" class="domains__link">{{ domain.name }}</a></li>
+      {% endfor%}
+    </ul>
+  </div>
+</div>
 
 {# include "includes/order_form.html" #}
 

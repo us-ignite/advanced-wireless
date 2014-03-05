@@ -1,0 +1,21 @@
+.domains {
+
+}
+
+.domains__link {
+	&:link,
+	&:visited {
+		background-color: #fff;
+		color: $dark-color;
+		padding: 2px 10px;
+		font-size: 0.875em;
+		border-radius: $global-radius;
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: #616264;
+		color: #fff;
+	}
+}
