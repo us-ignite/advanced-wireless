@@ -60,7 +60,8 @@ class TestPostDetailView(TestCase):
         response = views.post_detail(request, 2013, 12, 'gigabit')
         eq_(response.status_code, 200)
         eq_(response.template_name, 'blog/object_detail.html')
-        eq_(sorted(response.context_data.keys()), ['object'])
+        eq_(sorted(response.context_data.keys()),
+            sorted(['object', 'featured_list']))
         mock_get.assert_called_once_with(
             Post, slug='gigabit', publication_date__year=2013,
             publication_date__month=12)

@@ -27,8 +27,11 @@ def post_detail(request, year, month, slug):
         publication_date__month=month)
     if not post.is_visible_by(request.user):
         raise Http404
+    featured_list = (Post.published.select_related('author')
+                     .filter(is_featured=True)[:3])
     context = {
         'object': post,
+        'featured_list': featured_list,
     }
     return TemplateResponse(request, 'blog/object_detail.html', context)
 

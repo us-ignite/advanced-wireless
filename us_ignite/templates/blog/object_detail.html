@@ -70,90 +70,9 @@
   </div>
 
   <!-- related posts -->
-  <div class="listings__listing">
-    <div class="row">
-      <div class="small-4 columns">
-        <img src="http://placehold.it/268x169" class="listings__listing__image">
-      </div>
-
-      <div class="small-8 columns">
-        <span class="listings__listing__tags">
-          Tagged: <a href="#" class="listings__listing__tags__tag">CITIES</a>, <a href="#" class="listings__listing__tags__tag">SDN</a>, <a href="#" class="listings__listing__tags__tag">EVENTS</a>
-        </span>
-
-        <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
-
-        <span class="listings__listing__published">
-          November 15 2014 | By <a href="#">Glenn Richard</a>
-        </span>
-
-        <div class="listings__listing__desc show-for-medium-up">
-          <p>{{ object.excerpt }}</p>
-
-          <span class="listings__listing__shares">
-            186 Shares
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="listings__listing">
-    <div class="row">
-      <div class="small-4 columns">
-        <img src="http://placehold.it/268x169" class="listings__listing__image">
-      </div>
-
-      <div class="small-8 columns">
-        <span class="listings__listing__tags">
-          Tagged: <a href="#" class="listings__listing__tags__tag">CITIES</a>, <a href="#" class="listings__listing__tags__tag">SDN</a>, <a href="#" class="listings__listing__tags__tag">EVENTS</a>
-        </span>
-
-        <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
-
-        <span class="listings__listing__published">
-          November 15 2014 | By <a href="#">Glenn Richard</a>
-        </span>
-
-        <div class="listings__listing__desc show-for-medium-up">
-          <p>{{ object.excerpt }}</p>
-
-          <span class="listings__listing__shares">
-            186 Shares
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="listings__listing">
-    <div class="row">
-      <div class="small-4 columns">
-        <img src="http://placehold.it/268x169" class="listings__listing__image">
-      </div>
-
-      <div class="small-8 columns">
-        <span class="listings__listing__tags">
-          Tagged: <a href="#" class="listings__listing__tags__tag">CITIES</a>, <a href="#" class="listings__listing__tags__tag">SDN</a>, <a href="#" class="listings__listing__tags__tag">EVENTS</a>
-        </span>
-
-        <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
-
-        <span class="listings__listing__published">
-          November 15 2014 | By <a href="#">Glenn Richard</a>
-        </span>
-
-        <div class="listings__listing__desc show-for-medium-up">
-          <p>{{ object.excerpt }}</p>
-
-          <span class="listings__listing__shares">
-            186 Shares
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  {% for featured in featured_list %}
+  {% include "blog/object_block.html" with object=featured %}
+  {% endfor %}
   <!-- /related -->
 
 {% endblock section %}
