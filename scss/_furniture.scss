@@ -99,6 +99,12 @@ h6 { font-size: $h6-font-size; }
   padding-left:20px;
 }
 
+.js .twitter-timeline {
+  min-height: 300px;
+  margin-bottom: 50px;
+  display: block;
+}
+
 
 @media #{$large-up} { 
   h1 {
