@@ -2,9 +2,16 @@
 <ul class="right">
 
   <li class="has-dropdown">
-    <a href="#">ABOUT</a>
+    <a href="{% url 'about' %}">ABOUT</a>
     <ul class="dropdown">
-      <li><a href="#">First link in dropdown</a></li>
+      <li><a href="{% url 'what-is-us-ignite' %}">WHAT IS US IGNITE?</a></li>
+      <li><a href="{% url 'mission' %}">MISSION</a></li>
+      <li><a href="{% url 'technologies' %}">TECHNOLOGIES</a></li>
+      <li><a href="{% url 'contact-us' %}">CONTACT US</a></li>
+      <li><a href="{% url 'staff' %}">STAFF</a></li>
+      <li><a href="{% url 'board-of-directors' %}">BOARD OF DIRECTORS</a></li>
+      <li><a href="{% url 'faq' %}">FAQ</a></li>
+      <li><a href="{% url 'partners' %}">SPONSORS / PARTNERS</a></li>
     </ul>
   </li>
 
