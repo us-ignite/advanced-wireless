@@ -7,7 +7,8 @@
 <div class="row collapse">
   <div class="small-12 columns">
     <div class="row listing-featured">
-      {% snippet "featured" "snippets/featured.html" %}
+      {# snippet "featured" "snippets/featured.html" #}
+      {% block featured %}{% endblock %}
     </div>
   </div>
 </div>
@@ -25,8 +26,8 @@
 </div>
 
 
-{% latest_articles "news/object_short_list.html" %}
+{# latest_articles "news/object_short_list.html" #}
 
-{% include "mailinglist/object_block.html" %}
+{# include "mailinglist/object_block.html" #}
 
 {% endblock content %}

@@ -2,13 +2,15 @@
 
 {% block title %}Blog - {{ block.super }}{% endblock title %}
 
-{% block section %}
+{% block featured %}
+  {% if featured_list %}
+    {% for featured in featured_list %}
+    {% include "blog/featured_block.html" with object=object last=forloop.last %}
+    {% endfor%}
+  {% endif %}
+{% endblock %}
 
-{% if featured_list %}
-  {% for featured in featured_list %}
-  {% include "blog/featured_block.html" with object=object last=forloop.last %}
-  {% endfor%}
-{% endif %}
+{% block section %}
 
 <article class="large-8 columns listings">
   <!-- listings-filter -->
