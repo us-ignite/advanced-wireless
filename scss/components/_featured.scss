@@ -53,6 +53,7 @@
   &:focus {
     background: $primary-color;
     color: #fff;
+    text-decoration: none;
 
     .hide-on-hover {
       display: none;
