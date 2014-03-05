@@ -17,11 +17,13 @@
 {# Content all the areas of the blog #}
 
 <div class="row collapse l-listings">
-  {% block section %}{% endblock section %}
+  <article class="large-8 columns listings">
+    {% block section %}{% endblock section %}
+  </article>
 
   {# Sidebar for all the areas of the blog #}
   {% block sidebar %}
-
+    {% include "blog/sidebar.html" %}
   {% endblock sidebar %}
 </div>
 
