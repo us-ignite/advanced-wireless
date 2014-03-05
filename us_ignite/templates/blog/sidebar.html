@@ -1,0 +1,68 @@
+<aside class="large-4 columns sidebar show-for-large-up">{% load snippets_tags news_tags %}
+  <div class="row">
+    <div class="large-12 columns" data-equalizer-watch>
+      {% snippet "blog-sidebar" "blog/snippet-sidebar.html" %}
+      <h3 class="sidebar__heading">In case you missed it</h3>
+
+      <ul class="no-bullet sidebar__list">
+        <li class="sidebar__list__item">
+          <a href="#" class="sidebar__list__link">
+              <img src="http://placehold.it/51x51" class="sidebar__list__image">
+              <span class="sidebar__list__desc">
+                Super Computing ’13 in Denver
+                <span class="sidebar__list__shares">134 Shares</span>
+              </span>
+          </a>
+        </li>
+
+        <li class="sidebar__list__item">
+          <a href="#" class="sidebar__list__link">
+              <img src="http://placehold.it/51x51" class="sidebar__list__image">
+              <span class="sidebar__list__desc">
+                Super Computing ’13 in Denver
+                <span class="sidebar__list__shares">134 Shares</span>
+              </span>
+          </a>
+        </li>
+      </ul>
+
+
+      <h3 class="sidebar__heading">More from the US Ignite Community</h3>
+
+      <ul class="no-bullet sidebar__list">
+        <li class="sidebar__list__item">
+          <a class="sidebar__list__link">Blog roll link 1</a>
+        </li>
+        <li class="sidebar__list__item">
+          <a class="sidebar__list__link">Blog roll link 1</a>
+        </li>
+        <li class="sidebar__list__item">
+          <a class="sidebar__list__link">Blog roll link 1</a>
+        </li>
+        <li class="sidebar__list__item">
+          <a class="sidebar__list__link">Blog roll link 1</a>
+        </li>
+        <li class="sidebar__list__item">
+          <a class="sidebar__list__link">Blog roll link 1</a>
+        </li>
+        <li class="sidebar__list__item">
+          <a class="sidebar__list__link">Blog roll link 1</a>
+        </li>
+      </ul>
+
+
+      <h3 class="sidebar__heading">US Ignite News</h3>
+      {% latest_articles "blog/news_list.html" %}
+
+      <h3 class="sidebar__heading">Subscribe & Follow</h3>
+      {% include "mailinglist/sidebar.html" %}
+
+      <a class="twitter-timeline" href="https://twitter.com/US_Ignite" data-widget-id="440812138123116544">Tweets by @US_Ignite</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+
+
+    </div>
+  </div>
+</aside>

@@ -13,11 +13,13 @@ from us_ignite.apps.models import (
     Page,
     PageApplication,
 )
+from us_ignite.blog.models import Post
 from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
 from us_ignite.resources.models import Resource
 from us_ignite.hubs.models import Hub, HubMembership
+from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
 
@@ -233,6 +235,22 @@ def _create_resource():
     }
     return Resource.objects.create(**data)
 
+def _feature_posts():
+    for post in Post.objects.all().order_by('?')[:5]:
+        post.is_featured = True
+        post.save()
+
+
+def _create_article():
+    data = {
+        'name': text.random_words(7).title(),
+        'status': choice(Article.STATUS_CHOICES)[0],
+        'url': _get_url(),
+        'is_featured': choice([True, False]),
+    }
+    return Article.objects.create(**data)
+
+
 
 def _load_fixtures():
     """Loads initial fixtures"""
@@ -258,6 +276,8 @@ class Command(BaseCommand):
             exit(0)
         print u'Loading initial fixtures.'
         _load_fixtures()
+        print u'Featuring Posts'
+        _feature_posts()
         print u'Adding users.'
         _create_users()
         print u'Adding organizations.'
@@ -281,4 +301,7 @@ class Command(BaseCommand):
         print u'Adding resources.'
         for i in range(15, 30):
             _create_resource()
+        print u'Adding articles.'
+        for i in range(15, 30):
+            _create_article()
         print u'Done.'

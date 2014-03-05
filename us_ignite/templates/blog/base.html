@@ -3,17 +3,37 @@
 
 {% block content %}
 
+{# snippet "featured" "snippets/featured.html" #}
+{% block featured %}{% endblock %}
+
+
 {# Content all the areas of the blog #}
-{% block section %}{% endblock section %}
 
-{# Sidebar for all the areas of the blog #}
-{% block sidebar %}
+<div class="row collapse l-listings" data-equalizer>
+  <article class="large-8 columns listings" data-equalizer-watch>
+    {% block section %}{% endblock section %}
+  </article>
 
-{% endblock sidebar %}
-{% snippet "featured" "snippets/featured.html" %}
+  {# Sidebar for all the areas of the blog #}
+  {% block sidebar %}
+    {% include "blog/sidebar.html" %}
+  {% endblock sidebar %}
+</div>
 
-{% latest_articles "news/object_short_list.html" %}
 
-{% include "mailinglist/object_block.html" %}
+{# latest_articles "news/object_short_list.html" #}
+
+{# include "mailinglist/object_block.html" #}
 
 {% endblock content %}
+
+{% block extra_scripts %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=242130419276386";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+{% endblock extra_scripts %}

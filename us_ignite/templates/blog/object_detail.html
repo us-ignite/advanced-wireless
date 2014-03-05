@@ -3,33 +3,70 @@
 {% block title %}{{ object.title }} - {{ block.super }}{% endblock title %}
 
 {% block section %}
-<h1>{{ object.title }}</h1>
 
-{% with object.postattachment_set.all as attachment_list %}
-{% for attachment in attachment_list %}
-{% if attachment.attachment %}
-<img src="{% thumbnail attachment.attachment 500x0 %}" alt=""/>
-{% else %}
-<img src="{{ attachment.url }}" alt=""/>
-{% endif %}
+  <div class="listings__listing">
+    <div class="row">
+      <div class="small-12 columns back-btn">
+        <div class="arrow-left back-btn__arrow"></div>
+        <a href="#" class="back-btn__link">Back to Listing</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="listings__listing">
+    <div class="row">
 
+      <div class="small-12 columns">
+        <span class="listings__listing__tags">
+          Tagged: 
+          {% with object.tags.all as tag_list %}
+          {% if tag_list %}
+            {% for tag in tag_list %}
+            <a href="{% url 'search' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
+            {% endfor%}
+          {% else %}
+          Post hasn't been tagged.
+          {% endif %}
+          {% endwith %}
+        </span>
 
-{% endfor%}
-{% endwith %}
+        <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
 
-{{ object.content|safe }}
+        <span class="listings__listing__published">
+          November 15 2014 | By <a href="#">Glenn Richard</a>
+        </span>
 
-<h2>Tags</h2>
-{% with object.tags.all as tag_list %}
-{% if tag_list %}
-<ul>
-  {% for tag in tag_list %}
-  <li><a href="{% url 'search' %}?q={{ tag|urlencode }}">{{ tag }}</a></li>
-  {% endfor%}
-</ul>
-{% else %}
-<p>Post hasn't been tagged.</p>
-{% endif %}
-{% endwith %}
+        <div class="listings__listing__shares">
+          186 Shares
+        </div>
+
+        <div class="listings__listing__desc">
+          {% with object.postattachment_set.all as attachment_list %}
+          <ul class="small-block-grid-3">
+          {% for attachment in attachment_list %}
+            <li>
+              {% if attachment.attachment %}
+              <img src="{% thumbnail attachment.attachment 300x0 %}" alt=""/>
+              {% else %}
+              <img src="{{ attachment.url }}" alt=""/>
+              {% endif %}
+            </li>
+          {% endfor %}
+          </ul>
+          {% endwith %}
+
+          {{ object.content|safe }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="listings__listing">
+    <div class="row">
+      <div class="small-12 columns">
+        <div class="fb-comments" data-href="http://test.com{{ object.get_absolute_url }}" data-numposts="3" data-colorscheme="light"></div>
+      </div>
+    </div>
+  </div>
 
 {% endblock section %}
