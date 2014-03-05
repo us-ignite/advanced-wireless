@@ -16,3 +16,9 @@ def home(request):
         'resource': Resource.published.get_featured(),
     }
     return TemplateResponse(request, 'home.html', context)
+
+
+def render_template(request, template):
+    context = {}
+    template = 'sections/%s' % template
+    return TemplateResponse(request, template, context)
