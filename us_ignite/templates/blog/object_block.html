@@ -1,20 +1,36 @@
-<div class="listings__listing">
+<div class="listings__listing">{% load thumbnail %}
   <div class="row">
     <div class="small-4 columns">
+      {% with attachment=object.attachment %}
+      {% if attachment  %}
+      <img src="{% thumbnail attachment.attachment 268x169 crop %}" alt="" class="listings__listing__image" />
+      {% else %}
       <img src="http://placehold.it/268x169" class="listings__listing__image">
+      {% endif %}
+      {% endwith %}
     </div>
 
     <div class="small-8 columns">
       <span class="listings__listing__tags">
-        Tagged: <a href="#" class="listings__listing__tags__tag">CITIES</a>, <a href="#" class="listings__listing__tags__tag">SDN</a>, <a href="#" class="listings__listing__tags__tag">EVENTS</a>
+        Tagged:
+        {% with object.tags.all as tag_list %}
+          {% if tag_list %}
+            {% for tag in tag_list %}
+              <a href="{% url 'search' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag|upper }}</a>{% if not forloop.last %},{% endif %}
+            {% endfor%}
+          {% else %}
+            Post hasn't been tagged.
+          {% endif %}
+        {% endwith %}
       </span>
 
       <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
 
+      {% with profile=object.author.profile %}
       <span class="listings__listing__published">
-        November 15 2014 | By <a href="#">Glenn Richard</a>
+        {{ object.publication_date|date:"F jS, Y" }} {% if object.author.profile %}| By <a href="{{ profile.get_absolute_url }}">{{ profile.display_name }}{% endif %}</a>
       </span>
-
+      {% endwith %}
       <div class="listings__listing__desc show-for-medium-up">
         <p>{{ object.excerpt }}</p>
 

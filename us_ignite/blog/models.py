@@ -69,6 +69,12 @@ class Post(models.Model):
     def is_visible_by(self, user):
         return self.is_published() or self.is_author(user)
 
+    def attachment(self):
+        try:
+            return self.postattachment_set.all().all()[0]
+        except IndexError:
+            return None
+
 
 class PostAttachment(models.Model):
     post = models.ForeignKey('blog.Post')
