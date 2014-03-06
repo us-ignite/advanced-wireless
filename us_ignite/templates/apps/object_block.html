@@ -8,6 +8,8 @@
       {% else %}
       <img src="{{ STATIC_URL }}img/dummy/book.jpg" alt="{{ object.name }}" class="featured__image">
       {% endif %}
+
+      <span class="domains__icon--{{ object.domain.slug }} domains__icon--absolute-bottom-right"></span>
     </div>
 
     <h4 class="featured__title">{{ object.name }}</h4>

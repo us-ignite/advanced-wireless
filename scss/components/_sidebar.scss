@@ -23,6 +23,7 @@
 
 .sidebar__list__link {
   display:block;
+  position: relative;
   padding:8px 12px;
   color: $dark-color;
   font-weight: $font-weight-bold;
@@ -31,6 +32,34 @@
   &:hover {
     background: #fff;
     color: $secondary-color;
+  }
+}
+
+.sidebar__list--chevrons {
+  margin-left: 0;
+  padding: 12px;
+
+  .sidebar__list__link {
+    border-bottom: 1px solid #ccc;
+
+    &:hover {
+      background: none;
+    }
+  }
+
+  .sidebar__list__link--active {
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top:0;
+      right:-37px;
+
+      border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent; 
+        
+        border-right:20px solid #fff; 
+    }
   }
 }
 
