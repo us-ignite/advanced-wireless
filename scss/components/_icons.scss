@@ -23,6 +23,10 @@
 		// background-image: url(../img/icons/social-light.svg);
 	}
 
+	.no-svg & {
+		background-image: url(../img/icons/social.png);
+	}
+
 }
 .socialicon-google-plus {
 	background-position: 0 0;

@@ -47,6 +47,13 @@
   font-size: 0.875em;
 }
 
+.listings__listing__tags__tag {
+  &:link,
+  &:visited {
+    color: $primary-color;
+  }
+}
+
 .listings__listing__published {
   font-weight: $font-weight-bold;
 }
