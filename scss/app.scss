@@ -40,7 +40,8 @@
 //   "foundation/components/offcanvas",
   "foundation/components/visibility";
 
-  
+  $oldIE: false !default;
+
   @import "furniture";
 
   @import "components/slides";
@@ -58,3 +59,5 @@
   @import "components/icons";
 
   @import "layouts/listings";
+
+  @import "shame";

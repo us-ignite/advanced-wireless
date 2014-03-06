@@ -8,8 +8,16 @@
     <meta name="description" content="{% block meta_description %}Developing Gigabit-ready digital experiences and applications.Developing Gigabit-ready digital experiences and applications.{% endblock meta_description %}">
     <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico" />
     {% endblock meta %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/app.css" />
+
     <script src="{{ STATIC_URL }}bower_components/modernizr/modernizr.js"></script>
+
+    <!--[if lt IE 9]>
+      <link rel="stylesheet" href="{{ STATIC_URL }}css/ie.css" />
+      <![endif]-->
+    <!--[if (gte IE 9) | (!IE)]><!-->
+      <link rel="stylesheet" href="{{ STATIC_URL }}css/app.css" />
+    <!--<![endif]-->
+    
     {% block extra_styles %}{% endblock extra_styles %}
   </head>
   <body>
@@ -152,10 +160,10 @@
     <![endif]-->
   <!--[if (gte IE 9) | (!IE)]><!-->
     <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation.min.js"></script>
+    <script src="{{ STATIC_URL }}js/app.js"></script>
   <!--<![endif]-->
 
-  <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation.min.js"></script>
-  <script src="{{ STATIC_URL }}js/app.js"></script>
 
   <script type="text/javascript">
     WebFontConfig = {
@@ -172,12 +180,6 @@
     })();
   </script>
 
-  <script>
-    var addthis_config = {
-
-    }
-  </script>
-  <!--script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=benbarnett"></script-->
   {% block extra_scripts  %}{% endblock extra_scripts  %}
 </body>
 </html>
