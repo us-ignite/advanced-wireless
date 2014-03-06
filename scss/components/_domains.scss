@@ -21,3 +21,35 @@
 		color: #fff;
 	}
 }
+
+.domains__icon {
+	display: inline-block;
+	position: relative;
+	background: url(../img/icons/domains-solid-26.png) 0 0 no-repeat;
+	width:26px;
+	height:26px;
+}
+
+.domains__icon--education {
+	background-position: 0 0;
+}
+
+.domains__icon--energy {
+	background-position: -43px 0;
+}
+
+.domains__icon--health {
+	background-position: -86px 0;
+}
+
+.domains__icon--safety {
+	background-position: 0 -32px;
+}
+
+.domains__icon--transport {
+	background-position: -43px -31px;
+}
+
+.domains__icon--manufacturing {
+	background-position: -86px -31px;
+}
