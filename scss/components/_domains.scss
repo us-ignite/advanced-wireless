@@ -65,3 +65,43 @@
 .domains__icon--manufacturing {
 	background-position: -86px -31px;
 }
+
+.domains-full-list {
+	text-align: center;
+	font-weight: $font-weight-bold;
+}
+
+
+[class*="domains-full__icon--"] {
+	display: block;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	background: url(../img/icons/domains.png) 0 0 no-repeat;
+	width:89px;
+	height:89px;
+}
+
+.domains-full__icon--education {
+	background-position: 0 0;
+}
+
+.domains-full__icon--energy {
+	background-position: -203px 0;
+}
+
+.domains-full__icon--health {
+	background-position: -398px -6px;
+}
+
+.domains-full__icon--safety {
+	background-position: 0 -127px;
+}
+
+.domains-full__icon--transport {
+	background-position: -205px -117px;
+}
+
+.domains-full__icon--manufacturing {
+	background-position: -410px -131px;
+}
