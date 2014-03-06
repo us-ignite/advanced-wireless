@@ -33,6 +33,13 @@
 	background: url(../img/icons/domains-solid-26.png) 0 0 no-repeat;
 	width:26px;
 	height:26px;
+
+	&.domains__icon--absolute-bottom-right {
+		position: absolute;
+		top: auto;
+		bottom: 6px;
+		right: 6px;
+	}
 }
 
 .domains__icon--education {

@@ -80,6 +80,8 @@
 }
 
 .featured__image-container {
+  position: relative;
+  
   @media #{$small-only} {
     max-height:70%;
     overflow: hidden;
