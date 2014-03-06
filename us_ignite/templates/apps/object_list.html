@@ -43,7 +43,7 @@
         <ul class="inline-list">
           <li><a href="{% url 'app_list' %}" class="domains__link">All</a></li>
           {% for domain in domain_list %}
-          <li><a href="{% url 'app_list_domain' domain.slug %}" class="domains__link">{{ domain.name }}</a></li>
+          <li><a href="{% url 'app_list_domain' domain.slug %}" class="domains__link"><span class="domains__icon--{{ domain.slug }}"></span> {{ domain.name }}</a></li>
           {% endfor%}
         </ul>
       </div>
