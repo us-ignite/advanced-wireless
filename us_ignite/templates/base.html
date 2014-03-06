@@ -8,8 +8,16 @@
     <meta name="description" content="{% block meta_description %}Developing Gigabit-ready digital experiences and applications.Developing Gigabit-ready digital experiences and applications.{% endblock meta_description %}">
     <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico" />
     {% endblock meta %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/app.css" />
+
     <script src="{{ STATIC_URL }}bower_components/modernizr/modernizr.js"></script>
+
+    <!--[if lt IE 9]>
+      <link rel="stylesheet" href="{{ STATIC_URL }}css/ie.css" />
+      <![endif]-->
+    <!--[if (gte IE 9) | (!IE)]><!-->
+      <link rel="stylesheet" href="{{ STATIC_URL }}css/app.css" />
+    <!--<![endif]-->
+    
     {% block extra_styles %}{% endblock extra_styles %}
   </head>
   <body>
@@ -148,8 +156,12 @@
 
   <!--[if lt IE 9]>
     <script src="{{ STATIC_URL }}bower_components/jquery-1.9.1/index.js"></script>
-    <script src="{{ STATIC_URL }}bower_components/selectivizr/selectivizr.js"></script>
-    <![endif]-->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+    <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+  <![endif]-->
   <!--[if (gte IE 9) | (!IE)]><!-->
     <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
   <!--<![endif]-->
@@ -172,12 +184,6 @@
     })();
   </script>
 
-  <script>
-    var addthis_config = {
-
-    }
-  </script>
-  <!--script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=benbarnett"></script-->
   {% block extra_scripts  %}{% endblock extra_scripts  %}
 </body>
 </html>
