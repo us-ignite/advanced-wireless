@@ -1,0 +1,16 @@
+.callout {
+	border:1px solid #ccc;
+
+	@media #{$medium-up} {
+		margin: 0 0 16px 16px;
+		float: right;
+	}
+}
+
+.callout__image {
+	width: 100%;
+
+	@media #{$medium-up} {
+		width:auto;
+	}
+}
