@@ -156,14 +156,18 @@
 
   <!--[if lt IE 9]>
     <script src="{{ STATIC_URL }}bower_components/jquery-1.9.1/index.js"></script>
-    <script src="{{ STATIC_URL }}bower_components/selectivizr/selectivizr.js"></script>
-    <![endif]-->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+    <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+    <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+  <![endif]-->
   <!--[if (gte IE 9) | (!IE)]><!-->
     <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation.min.js"></script>
-    <script src="{{ STATIC_URL }}js/app.js"></script>
   <!--<![endif]-->
 
+  <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation.min.js"></script>
+  <script src="{{ STATIC_URL }}js/app.js"></script>
 
   <script type="text/javascript">
     WebFontConfig = {
