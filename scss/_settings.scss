@@ -134,7 +134,7 @@ $h6-font-size: 1rem;
 // These control how subheaders are styled.
 // $subheader-line-height: 1.4;
 // $subheader-font-color: scale-color($header-font-color, $lightness: 0%);
-$subheader-font-color: $header-font-color;
+$subheader-font-color: #222;
 $subheader-font-weight: $font-weight-normal;
 $subheader-top-margin: 1rem;
 $subheader-bottom-margin: 1.5rem;
@@ -161,8 +161,8 @@ $paragraph-font-size: 1.125rem;
 
 // We use these to style anchors
 $anchor-text-decoration: none;
-$anchor-font-color: $primary-color;
-$anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
+$anchor-font-color: $secondary-color;
+$anchor-font-color-hover: scale-color($secondary-color, $lightness: -14%);
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
