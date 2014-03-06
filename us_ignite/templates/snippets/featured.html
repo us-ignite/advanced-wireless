@@ -2,7 +2,7 @@
 <div class="large-4 small-6 columns listing-featured__item{% if object.last %} show-for-large-up{% endif %}">
   <a href="{{ object.url }}" class="listing-featured__link" title="{{ object.name }}">
   	{% if object.image %}
-    <img src="{% thumbnail object.image 376x238 crop %}" alt="{{ object.name }}" />
+    <img src="{% thumbnail object.image 376x238 crop %}" alt="{{ object.name }}">
     {% endif %}
 
     <span class="listing-featured__desc">
