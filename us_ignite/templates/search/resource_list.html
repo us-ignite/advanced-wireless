@@ -12,7 +12,7 @@
 
 {% if page.object_list  %}
 {% for object in page.object_list %}
-{% include "resources/object_block.html" with object=object %}
+{% include "resources/object_block.html" with object=object.object %}
 {% endfor%}
 {% else %}
 <p>No resources found.</p>
