@@ -1,5 +1,5 @@
 from datetime import timedelta
-from random import choice
+from random import choice, shuffle
 
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -49,6 +49,7 @@ def _create_users():
                 'name': f,
             }
             profile = Profile.objects.create(**data)
+            _add_tags(profile)
             profile_list.append(profile)
     return profile_list
 
@@ -89,6 +90,7 @@ def _create_organization():
         'position': locations.get_location(),
     }
     organization = Organization.objects.create(**data)
+    _add_tags(organization)
     _create_organization_membership(organization)
     return organization
 
@@ -149,6 +151,7 @@ def _create_hub():
     }
     hub = Hub.objects.create(**data)
     _create_hub_membership(hub)
+    _add_tags(hub)
     return hub
 
 
@@ -168,6 +171,7 @@ def _create_event():
         'position': locations.get_location(),
     }
     event = Event.objects.create(**data)
+    _add_tags(event)
     for i in range(0, 3):
         event.hubs.add(_get_hub())
     return event
@@ -233,12 +237,15 @@ def _create_resource():
         'is_featured': choice([True, False]),
         'image': images.random_image(u'%s.png' % text.random_words(1)),
     }
-    return Resource.objects.create(**data)
+    resource = Resource.objects.create(**data)
+    _add_tags(resource)
+    return resource
 
 def _feature_posts():
     for post in Post.objects.all().order_by('?')[:5]:
         post.is_featured = True
         post.save()
+        _add_tags(post)
 
 
 def _create_article():
@@ -250,6 +257,18 @@ def _create_article():
     }
     return Article.objects.create(**data)
 
+
+def _get_tags(total=5):
+    tags = ['gigabit', 'healthcare', 'education', 'energy']
+    tags += [slugify(w) for w in text.random_words(total).split()]
+    shuffle(tags)
+    return tags[:total]
+
+
+def _add_tags(item):
+    tags = _get_tags()
+    item.tags.add(*tags)
+    return tags
 
 
 def _load_fixtures():
