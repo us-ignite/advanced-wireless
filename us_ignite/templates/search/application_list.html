@@ -1,22 +1,20 @@
-{% extends "search/object_list.html" %}
+{% extends "apps/object_list.html" %}
 
-{% block title %}Search apps - {{ block.super }}{% endblock title %}
+{% block title %}Search applications - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Search: Applications</h1>
-
+{% block top_panel %}
 <form method="get" action="{% url 'search_apps' %}">
   {{ form.as_p }}
   <p><button type="submit">Submit</button></p>
 </form>
+{% endblock top_panel %}
 
-{% if page.object_list  %}
-{% for object in page.object_list %}
-{% include "apps/object_block.html" with object=object %}
-{% endfor%}
-{% else %}
-<p>No apps found.</p>
-{% endif %}
-
-{% include "includes/pagination.html" %}
-{% endblock content %}
+{% block object_list %}
+<div class="row">
+  {% for object in page.object_list %}
+  <div class="columns small-12 medium-4 large-3{% if forloop.last %} end{% endif %}">
+    {% include "apps/object_block.html" with object=object.object %}
+  </div>
+  {% endfor%}
+</div>
+{% endblock object_list %}

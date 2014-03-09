@@ -27,13 +27,14 @@
       </div>
     </div>
   
-
+    {% block top_panel %}
     <div class="row panel">
       <div class="small-12 columns">
         <h2>Lorem Ipsum isn't it wonderful</h2>
         <p>Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.</p>
       </div>
     </div>
+    {% endblock top_panel %}
 
     <div class="row domains pad-top-20">
       <div class="small-12 medium-1 columns">
@@ -51,6 +52,7 @@
 
     {# include "includes/order_form.html" #}
 
+    {% block object_list %}
     <div class="row">
     {% for object in page.object_list %}
       <div class="columns small-12 medium-4 large-3{% if forloop.last %} end{% endif %}">
@@ -58,6 +60,7 @@
       </div>
     {% endfor%}
     </div>
+    {% endblock object_list %}
 
     <!-- Signup section -->
     <!-- Only putting this here to demonstrate how it is designed to go inbetween the first set of 8 posts above -->
