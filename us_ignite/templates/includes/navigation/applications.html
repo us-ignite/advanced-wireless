@@ -1,2 +1,2 @@
-<li{% if as_sidebar %} class="sidebar__list__item"{% endif %}><a {% if as_sidebar %} class="sidebar__list__link"{% endif %}href="#TODO">SUBMIT AN APP IDEA</a></li>
-<li{% if as_sidebar %} class="sidebar__list__item"{% endif %}><a {% if as_sidebar %} class="sidebar__list__link"{% endif %}href="#TODO">LIST OF APP PROJECTS</a></li>
+<li{% if as_sidebar %} class="sidebar__list__item"{% endif %}><a {% if as_sidebar %} class="sidebar__list__link"{% endif %}href="{% url 'app_add' %}">SUBMIT AN APP IDEA</a></li>
+<li{% if as_sidebar %} class="sidebar__list__item"{% endif %}><a {% if as_sidebar %} class="sidebar__list__link"{% endif %}href="{% url 'app_list' %}">LIST OF APP PROJECTS</a></li>
