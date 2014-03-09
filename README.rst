@@ -56,3 +56,16 @@ Running the test suite
 The tests can be triggered from inside the VM by running::
 
     fab test
+
+
+Useful development commands
+---------------------------
+
+Generate dummy data (inside the VM)::
+
+    dj dummy_generate_content
+
+
+Incorporate new objects to the full-text search (inside the VM)::
+
+    dj buildwatson
