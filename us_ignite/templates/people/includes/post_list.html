@@ -1,0 +1,12 @@
+<ul>
+  {% for post in post_list %}
+  <li>
+    {% if forloop.count <= 2 %}
+    {% include "blog/object_block.html" with object=post %}
+    {% else %}
+    {# TODO: This segment of the list requires a reduced version of the template #}
+    {% include "blog/object_block.html" with object=post %}
+    {% endif %}
+  </li>
+  {% endfor%}
+</ul>

@@ -1,0 +1,7 @@
+<ul>
+  {% for app in application_list %}
+  <li>
+    {% include "people/includes/object_headline.html" with object=app %}
+  </li>
+  {% endfor%}
+</ul>

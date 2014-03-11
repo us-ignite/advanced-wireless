@@ -1,1 +1,45 @@
 {% extends "people/object_detail.html" %}
+
+{% block title %}Dashboard - {{ block.super }}{% endblock title %}
+
+
+{% block content %}
+<h1>Profile</h1>
+
+
+<img src="{{ object.get_gravatar_url }}" alt="Avatar" />
+
+
+
+<p>
+  Welcome{% if object.full_name %} {{ object.full_name }}{% endif %}, <br>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin posuere
+  quam neque, rutrum tincidunt tellus ornare scelerisque. Quisque varius
+  convallis libero, eu pretium tellus posuere sed. In iaculis viverra
+  ligula vitae scelerisque. Integer dignissim laoreet tortor, ut laoreet
+  nunc auctor vel.
+</p>
+
+<h2>MY APPS</h2>
+{% include "people/includes/app_list.html" %}
+
+<h2>LATEST NEWS</h2>
+{% include "people/includes/post_list.html" %}
+
+<h2>EVENT HIGHLIGHTS</h2>
+{% include "people/includes/event_list.html" %}
+
+<h2>MY COMMUNITIES</h2>
+{% include "people/includes/hub_list.html" %}
+
+<h2>FEATURED RESOURCES</h2>
+{% include "people/includes/resource_list.html" %}
+
+<h3>ADD A RESOURCE</h3>
+<p>DO YOU HAVE A VALUABLE RESOURCE? ADD IT TO OUR RESOURCE LIBRARY.</p>
+<a href="{% url 'resource_add' %}">SUBMIT RESOURCE</a>
+
+<h2>MANAGE YOUR CONTENT</h2>
+{% include "people/includes/content_list.html" %}
+
+{% endblock content %}

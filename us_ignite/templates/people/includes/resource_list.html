@@ -1,0 +1,7 @@
+<ul>
+  {% for resource in featured_resource_list %}
+  <li>
+    {% include "people/includes/object_headline.html" with object=resource %}
+  </li>
+  {% endfor%}
+</ul>

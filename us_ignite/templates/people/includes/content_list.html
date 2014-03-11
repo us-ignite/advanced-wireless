@@ -1,0 +1,7 @@
+<ul>
+  {% for content in content_list %}
+  <li>
+    {% include "people/includes/object_headline.html" with object=content %}
+  </li>
+  {% endfor%}
+</ul>

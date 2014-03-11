@@ -1,0 +1,14 @@
+{% load thumbnail %}
+{% if object.image %}
+<img src="{% thumbnail object.image 295x145 crop %}" alt="" />
+{% else %}
+<img src="http://placehold.it/295x145" alt="" />
+{% endif %}
+<p>
+  <a href="{{ object.get_absolute_url }}">
+    {{ object.name }} {% if object.is_draft %}(DRAFT){% endif %}
+  </a>
+</p>
+<p>
+  <a href="{{ object.get_absolute_url }}">Details</a>
+</p>
