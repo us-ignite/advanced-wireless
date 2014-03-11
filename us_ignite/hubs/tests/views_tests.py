@@ -197,7 +197,7 @@ class TestHubListView(TestCase):
         response = views.hub_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'hubs/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['object_list'])
+        eq_(sorted(response.context_data.keys()), ['page'])
         all_mock.assert_called_once_with()
 
 
