@@ -14,6 +14,7 @@ handler500 = 'us_ignite.common.views.custom_500'
 urlpatterns = patterns(
     '',
     url(r'^$', 'us_ignite.sections.views.home', name='home'),
+    url(r'^dashboard/$', 'us_ignite.people.views.dashboard', name='dashboard'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('us_ignite.profiles.urls')),
     url(r'^people/', include('us_ignite.people.urls')),
