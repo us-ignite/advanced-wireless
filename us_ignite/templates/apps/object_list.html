@@ -1,95 +1,31 @@
-{% extends "base.html" %}
+{% extends "includes/lists/object_list_base.html" %}
 
 {% block title %}Application list - {{ block.super }}{% endblock title %}
 
-{% block featured %}
-  {% if featured_list %}
-    <div class="row collapse">
-      <div class="small-12 columns">
-        <div class="row listing-featured">
-        
-        {% for featured in featured_list %}
-        {% include "blog/featured_block.html" with object=object last=forloop.last %}
-        {% endfor%}
+{% block page_title %}Applications{% endblock page_title %}
 
-        </div>
-      </div>
-    </div>
-  {% endif %}
-{% endblock %}
-
-{% block content %}
-<div class="row collapse">
+{% block top_panel %}
+<div class="row panel">
   <div class="small-12 columns">
-    <div class="row">
-      <div class="small-12 columns">
-        <h2 class="page-title">Applications</h2>
-      </div>
-    </div>
-  
-    {% block top_panel %}
-    <div class="row panel">
-      <div class="small-12 columns">
-        <h2>Lorem Ipsum isn't it wonderful</h2>
-        <p>Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.</p>
-      </div>
-    </div>
-    {% endblock top_panel %}
-
-    <div class="row domains pad-top-20">
-      <div class="small-12 medium-1 columns">
-        <h5>TAGS</h5>
-      </div>
-      <div class="small-12 medium-11 columns">
-        <ul class="inline-list">
-          <li><a href="{% url 'app_list' %}" class="domains__link">All</a></li>
-          {% for domain in domain_list %}
-          <li><a href="{% url 'app_list_domain' domain.slug %}" class="domains__link"><span class="domains__icon--{{ domain.slug }}"></span> {{ domain.name }}</a></li>
-          {% endfor%}
-        </ul>
-      </div>
-    </div>
-
-    {# include "includes/order_form.html" #}
-
-    {% block object_list %}
-    <div class="row">
-    {% for object in page.object_list %}
-      <div class="columns small-12 medium-4 large-3{% if forloop.last %} end{% endif %}">
-        {% include "apps/object_block.html" with object=object %}
-      </div>
-    {% endfor%}
-    </div>
-    {% endblock object_list %}
-
-    <!-- Signup section -->
-    <!-- Only putting this here to demonstrate how it is designed to go inbetween the first set of 8 posts above -->
-    <div class="row newsletter newsletter--primary">
-      <form method="post" action="{% url 'mailing_subscribe' %}">
-      <div class="small-12 medium-8 columns newsletter__column">
-        <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN APPLICATION?</strong> TELL US ABOUT IT...</h4>
-      </div>
-
-      <div class="small-12 medium-4 columns newsletter__column">
-        <a href="{% url 'app_add' %}" class="button alert postfix">SUBMIT YOUR IDEA</a>{% csrf_token %}
-      </div>
-      </form>
-    </div>
-    <!-- /signup -->
-      
-    <!-- dummy repeat of posts to show it might look with more data -->
-    <div class="row">
-    {% for object in page.object_list %}
-      <div class="columns small-12 medium-4 large-3{% if forloop.last %} end{% endif %}">
-        {% include "apps/object_block.html" with object=object %}
-      </div>
-    {% endfor%}
-    </div>
-
-    {% include "includes/pagination.html" %}
-
+    <h2>Lorem Ipsum isn't it wonderful</h2>
+    <p>Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.</p>
   </div>
 </div>
+{% endblock top_panel %}
 
+{% block add_to_list %}
+<!-- Signup section -->
+<!-- Only putting this here to demonstrate how it is designed to go inbetween the first set of 8 posts above -->
+<div class="row newsletter newsletter--primary">
+  <form method="post" action="{% url 'mailing_subscribe' %}">
+  <div class="small-12 medium-8 columns newsletter__column">
+    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN APPLICATION?</strong> TELL US ABOUT IT...</h4>
+  </div>
 
-{% endblock content %}
+  <div class="small-12 medium-4 columns newsletter__column">
+    <a href="{% url 'app_add' %}" class="button alert postfix">SUBMIT YOUR IDEA</a>{% csrf_token %}
+  </div>
+  </form>
+</div>
+<!-- /signup -->
+{% endblock add_to_list %}
