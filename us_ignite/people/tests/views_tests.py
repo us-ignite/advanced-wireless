@@ -218,23 +218,36 @@ patch_hub_filter = patch(
     return_value=Hub.objects.none()
 )
 
+patch_owned_hubs = patch(
+    'us_ignite.people.views.get_hub_owned_list',
+    return_value=Hub.objects.none())
+
+patch_membership_hubs = patch(
+    'us_ignite.people.views.get_hub_membership_list',
+    return_value=HubMembership.objects.none())
+
 
 class TestHubListFunction(TestCase):
 
-    @patch_hub_filter
-    def test_anon_user_returns_public_objects(self, filter_mock):
+    @patch_membership_hubs
+    @patch_owned_hubs
+    def test_anon_user_returns_public_objects(self, owned_mock, membership_mock):
         contact = utils.get_user_mock()
         viewer = utils.get_anon_mock()
         result = views.get_hub_list(contact, viewer=viewer)
-        filter_mock.assert_called_once_with(contact=contact, status=Hub.PUBLISHED)
-        eq_(list(result), [])
+        owned_mock.assert_called_once_with(contact, viewer=viewer)
+        membership_mock.assert_called_once_with(contact, viewer=viewer)
+        eq_(result, set([]))
 
-    @patch_hub_filter
-    def test_owner_returns_all_available_objects(self, filter_mock):
+    @patch_membership_hubs
+    @patch_owned_hubs
+    def test_owner_returns_all_available_objects(
+            self, owned_mock, membership_mock):
         contact = utils.get_user_mock()
         result = views.get_hub_list(contact, viewer=contact)
-        filter_mock.assert_called_once_with(contact=contact)
-        eq_(list(result), [])
+        owned_mock.assert_called_once_with(contact, viewer=contact)
+        membership_mock.assert_called_once_with(contact, viewer=contact)
+        eq_(result, set([]))
 
 
 patch_organization_related = patch(

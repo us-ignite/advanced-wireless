@@ -81,12 +81,14 @@ def get_hub_membership_list(user, viewer=None):
     qs_kwargs = {'user': user}
     if not user or not user == viewer:
         qs_kwargs.update({'hub__status': Hub.PUBLISHED})
-    return (HubMembership.objects.select_related('hub').filter(**qs_kwargs))
+    membership_list = (HubMembership.objects.select_related('hub')
+                       .filter(**qs_kwargs))
+    return [m.hub for m in membership_list]
 
 
 def get_hub_list(user, viewer=None):
     hub_list = list(get_hub_owned_list(user, viewer=viewer))
-    hub_list += list(get_hub_membership_list(user, viewer=viewer))
+    hub_list += get_hub_membership_list(user, viewer=viewer)
     return set(hub_list)
 
 
