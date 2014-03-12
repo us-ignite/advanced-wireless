@@ -12,30 +12,29 @@
 
       
       {% if object.team_description %}
-      <h3 class="sidebar__heading">TEAM DESCRIPTION</h3>
+      <h3 class="sidebar__heading">ABOUT THE TEAM</h3>
       <p class="sidebar__copy">{{ object.team_description|markdown }}</p>
       {% endif %}
 
+      {% if object.summary %}
+      <h3 class="sidebar__heading">DESCRIPTION</h3>
+      <p class="sidebar__copy">
+        {{ object.summary }}
+      </p>
+      {% endif %}
 
-      {% if member_list  %}
+      {% if member_list %}
       <h3 class="sidebar__heading">SUPPORTERS</h3>
-      <ul class="sidebar__list sidebar__list--bullets">
+      <ul class="no-bullet sidebar__list">
         {% for member in member_list %}
         <li class="sidebar__list__item">
-          {% include "includes/display_name.html" with user=member %}
+          {% include "includes/display_name_with_avatar.html" with user=member %}
         </li>
         {% endfor%}
       </ul>
       {% endif %}
 
-      <h3 class="sidebar__heading">Description</h3>
-      <p class="sidebar__copy">
-        This is some copy about the page we're on
-      </p>
-
-
-      <p><a class="button secondary expand" href="#">CONTACT TO LEARN MORE</a></p>
-
+      <p><a class="button secondary expand" href="{{ owner.profile.email }}">CONTACT TO LEARN MORE</a></p>
 
       <h3 class="sidebar__heading">US Ignite News</h3>
       {% latest_articles "blog/news_list.html" %}
