@@ -1,8 +1,10 @@
+Tagged: 
+{% with object.tags.all as tag_list %}
 {% if tag_list %}
-<h2>Tags</h2>
-<ul>
   {% for tag in tag_list %}
-  <li><a href="{% url 'search' %}?q={{ tag |urlencode }}">{{ tag }}</a></li>
+  <a href="{% url '{{ tag_type }}' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
   {% endfor%}
-</ul>
+{% else %}
+Post hasn't been tagged.
 {% endif %}
+{% endwith %}
