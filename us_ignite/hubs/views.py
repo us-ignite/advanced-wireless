@@ -6,6 +6,7 @@ from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_http_methods
 
+from us_ignite.common import pagination
 from us_ignite.common.response import json_response
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub, HubRequest, HubMembership
@@ -102,9 +103,11 @@ def hub_edit(request, slug):
 
 def hub_list(request):
     """List al the available ``Hubs``."""
+    page_no = pagination.get_page_no(request.GET)
     object_list = Hub.active.all()
+    page = pagination.get_page(object_list, page_no)
     context = {
-        'object_list': object_list,
+        'page': page,
     }
     return TemplateResponse(request, 'hubs/object_list.html', context)
 

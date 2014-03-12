@@ -1,0 +1,84 @@
+<aside class="large-4 columns sidebar show-for-large-up">{% load snippets_tags news_tags %}
+  <div class="row">
+    <div class="large-12 columns" data-equalizer-watch>
+      
+      <h3 class="sidebar__heading">Lorem ipsum (like contact)</h3>
+
+      <ul class="no-bullet sidebar__list">
+        <li class="sidebar__list__item">
+          <a href="#" class="sidebar__list__link">
+              <img src="http://placehold.it/51x51" class="sidebar__list__image">
+              <span class="sidebar__list__desc">
+                Mike Jones
+                <span class="sidebar__list__highlight">test@test.com</span>
+              </span>
+          </a>
+        </li>
+      </ul>
+
+
+      <h3 class="sidebar__heading">Lorem ipsum (like team)</h3>
+
+      <ul class="no-bullet sidebar__list">
+        <li class="sidebar__list__item">
+          <a href="#" class="sidebar__list__link">
+              <img src="http://placehold.it/51x51" class="sidebar__list__image">
+              <span class="sidebar__list__desc">
+                Mike Jones
+                <span class="sidebar__list__highlight">test@test.com</span>
+              </span>
+          </a>
+        </li>
+
+        <li class="sidebar__list__item">
+          <a href="#" class="sidebar__list__link">
+              <img src="http://placehold.it/51x51" class="sidebar__list__image">
+              <span class="sidebar__list__desc">
+                Peter Winfrey
+                <span class="sidebar__list__highlight">test@test.com</span>
+              </span>
+          </a>
+        </li>
+      </ul>
+
+      <h3 class="sidebar__heading">Description</h3>
+      <p class="sidebar__copy">
+        This is some copy about the page we're on
+      </p>
+
+
+      <h3 class="sidebar__heading">Lorem List (SUPPORTERS)</h3>
+
+      <ul class="sidebar__list sidebar__list--bullets">
+        <li class="sidebar__list__item">
+          List item 1
+        </li>
+        <li class="sidebar__list__item">
+          List item 1
+        </li>
+        <li class="sidebar__list__item">
+          List item 1
+        </li>
+        <li class="sidebar__list__item">
+          List item 1
+        </li>
+        <li class="sidebar__list__item">
+          List item 1
+        </li>
+        <li class="sidebar__list__item">
+          List item 1
+        </li>
+      </ul>
+
+      <p><a class="button secondary expand" href="#">CONTACT TO LEARN MORE</a></p>
+
+
+      <h3 class="sidebar__heading">US Ignite News</h3>
+      {% latest_articles "blog/news_list.html" %}
+
+      <h3 class="sidebar__heading">Subscribe & Follow</h3>
+      {% include "mailinglist/sidebar.html" %}
+
+    </div>
+  </div>
+</aside>

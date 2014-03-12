@@ -1,6 +1,10 @@
 .sidebar {
   .sidebar__list {
     margin-left: -12px;
+
+    &.sidebar__list--bullets {
+      margin-left: 15px;
+    }
   }
 
   .twitter-timeline {
@@ -80,6 +84,11 @@
 
 .sidebar__list__desc {
   display: inline-block;
+}
+
+.sidebar__list__highlight {
+  display: block;
+  color: $secondary-color;
 }
 
 .sidebar__advert {
