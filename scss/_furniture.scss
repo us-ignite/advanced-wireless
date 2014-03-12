@@ -87,6 +87,10 @@ a:hover {
     }
   }
 
+  .top-bar-section .has-dropdown.moved>.dropdown {
+    top:30px;
+  }
+
   .toggle-topbar.menu-icon a {
     border: 1px solid #e1e1e1;
     padding-left:10px;
