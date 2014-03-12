@@ -1,0 +1,38 @@
+.profile {
+	
+}
+
+.profile__avatar {
+	width:276px;
+}
+
+.profile__quote {
+	margin: 0;
+	padding: 24px 24px 24px 24px;
+	border: 0;
+	font-size: 1.25rem;
+	color: #fff;
+	position: relative;
+
+	@media #{$medium-up} {
+		font-size: 1.750rem;
+	}
+
+	&:before,
+	&:after {
+		content: '“';
+		display: block;
+		position: absolute;
+		top:-15px;
+		left:-20px;
+		font-size: 5rem;
+	}
+
+	&:after {
+		content: '”';
+		top:auto;
+		left:auto;
+		bottom:-65px;
+		right:8px;
+	}
+}

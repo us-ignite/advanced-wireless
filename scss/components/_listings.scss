@@ -15,6 +15,10 @@
 
 .listings__listing {
   padding-bottom: 24px;
+
+  &.listing--collapse {
+    margin:0;
+  }
 }
 
 .listings__listing__heading {
