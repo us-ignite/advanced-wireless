@@ -1,18 +1,31 @@
-{% extends "base.html" %}
+{% extends "includes/lists/object_list_base.html" %}
 
-{% block title %}Upcoming events - {{ block.super }}{% endblock title %}
+{% block title %}Upcoming Events - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Upcoming events</h1>
-<p><a href="{% url 'event_add' %}">Add an event</a></p>
-{% if page.object_list  %}
-{% for object in page.object_list %}
-{% include "events/object_block.html" with object=object %}
-{% endfor%}
-{% else %}
-<p>No upcoming events.</p>
-{% endif %}
+{% block page_title %}Upcoming Events{% endblock page_title %}
 
-{% include "includes/pagination.html" %}
+{% block top_panel %}
+<div class="row panel">
+  <div class="small-12 columns">
+    <h2>Lorem Ipsum isn't it wonderful</h2>
+    <p>Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.</p>
+  </div>
+</div>
+{% endblock top_panel %}
 
-{% endblock content %}
+{% block add_to_list %}
+<!-- Signup section -->
+<!-- Only putting this here to demonstrate how it is designed to go inbetween the first set of 8 posts above -->
+<div class="row newsletter newsletter--primary">
+  <form method="post" action="{% url 'mailing_subscribe' %}">
+  <div class="small-12 medium-8 columns newsletter__column">
+    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN EVENT?</strong> TELL US ABOUT IT...</h4>
+  </div>
+
+  <div class="small-12 medium-4 columns newsletter__column">
+    <a href="{% url 'event_add' %}" class="button alert postfix">ADD YOUR EVENT</a>{% csrf_token %}
+  </div>
+  </form>
+</div>
+<!-- /signup -->
+{% endblock add_to_list %}

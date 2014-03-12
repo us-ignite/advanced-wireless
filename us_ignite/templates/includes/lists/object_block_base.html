@@ -13,7 +13,7 @@
     </div>
 
     <h4 class="featured__title">{{ object.name }}</h4>
-    <p class="featured__desc show-only-on-hover">{{ object.get_summary }}</p>
+    <p class="featured__desc show-only-on-hover">{% block object_detail %}{{ object.get_summary }}{% endblock object_detail %}</p>
     <div class="alert button small show-only-on-hover featured__cta">VIEW DETAILS</div>
 
 

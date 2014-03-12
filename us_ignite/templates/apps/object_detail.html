@@ -1,3 +1,7 @@
 {% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
 {% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
+
+{% block tag_list %}
+  {% include "includes/tag_list.html" with tag_type="search_apps" %}
+{% endblock tag_list %}

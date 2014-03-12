@@ -1,16 +1,8 @@
-{% extends "base.html" %}{% load thumbnail %}
+{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
 {% block title %}Event: {{ object.name }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Event: {{ object.name }}{% if object.is_draft %} (DRAFT){% endif %}</h1>
-
-
-{% if object.image  %}
-<img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/>
-{% endif %}
-
-<ul>
+{% block intro %}
   <li><a href="{{ object.website }}">Website</a></li>
   {% if object.tickets_url %}<li><a href="{{ object.tickets_url }}">Tickets</a></li>{% endif %}
   <li>Start: {{ object.start_datetime }}</li>
@@ -22,46 +14,9 @@
   {% if is_owner %}
   <li><a href="{{ object.get_edit_url }}">Edit event</a></li>
   {% endif %}
+{% endblock intro %}
 
-</ul>
 
-<h2>Description</h2>
-
-{{ object.description|linebreaks }}
-
-<h2>Venue</h2>
-<p>
-  {{ object.venue|linebreaksbr }}
-</p>
-
-{% if object.contact %}
-<h2>Contact Details</h2>
-<p>
-  {{ object.contact|linebreaksbr }}
-</p>
-{% endif %}
-
-{% if hub_list %}
-<h2>Hubs participating</h2>
-<ul>
-  {% for hub in hub_list %}
-  <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
-  {% endfor%}
-</ul>
-
-{% endif %}
-
-<h2>Tags</h2>
-{% with object.tags.all as tag_list %}
-{% if tag_list %}
-<ul>
-  {% for tag in tag_list %}
-  <li><a href="{% url 'search_events' %}?tag={{ tag|urlencode }}">{{ tag }}</a></li>
-  {% endfor%}
-</ul>
-{% else %}
-<p>Event hasn't been tagged.</p>
-{% endif %}
-{% endwith %}
-
-{% endblock content %}
+{% block tag_list %}
+  {% include "includes/tag_list.html" with tag_type="search_events" %}
+{% endblock tag_list %}
