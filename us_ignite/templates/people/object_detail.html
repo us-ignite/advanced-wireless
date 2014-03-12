@@ -50,64 +50,85 @@ Praesent vitae cursus mauris. </blockquote>
     </div>
     <!-- /ABOUT -->
 
+    <!-- APPLICATIONS -->
+    {% if application_list %}
     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
+          <h4 class="listings__listing__heading listings__listing__heading--plain">APPLICATIONS I MANAGE</h4>
 
-
-
-          {% if award_list %}
-          <h2>Awards</h2>
-          <ul>
-            {% for award in award_list %}
-            <li>{{ award.award.name }}</li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-
-
-          {% if application_list %}
-          <h3>Applications</h3>
-          <ul>
-            {% for app in application_list %}
-            <li><a href="{{ app.get_absolute_url }}">{{ app.name }} {% if not app.is_public %}({{ app.get_status_display }}){% endif %}</a></li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-
-          {% if event_list %}
-          <h3>Events</h3>
-          <ul>
-            {% for event in event_list %}
-            <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-
-          {% if resource_list %}
-          <h3>Resources</h3>
-          <ul>
-            {% for resource in resource_list %}
-            <li><a href="{{ resource.get_absolute_url }}">{{ resource.name }}{% if resource.is_draft %} (DRAFT){% endif %}</a></li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-
-          {% if hub_list %}
-          <h3>Ignite Communities (Contact)</h3>
-          <ul>
-            {% for hub in hub_list %}
-            <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-
-          
-
-          
+          <div class="row">
+          {% for app in application_list %}
+            <div class="columns small-12 medium-4{% if forloop.last %} end{% endif %}">
+              {% include "includes/lists/object_block_base.html" with object=app %}
+            </div>
+          {% endfor%}
+          </div>
         </div>
       </div>
     </div>
+    {% endif %}
+    <!-- /APPLICATIONS -->
+
+    <!-- EVENTS -->
+    {% if event_list %}
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          <h4 class="listings__listing__heading listings__listing__heading--plain">EVENTS I MANAGE</h4>
+
+          <div class="row">
+          {% for event in event_list %}
+            <div class="columns small-12 medium-4{% if forloop.last %} end{% endif %}">
+              {% include "includes/lists/object_block_base.html" with object=event %}
+            </div>
+          {% endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <!-- /EVENTS -->
+
+    <!-- RESOURCES -->
+    {% if resource_list %}
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          <h4 class="listings__listing__heading listings__listing__heading--plain">RESOURCES I MANAGE</h4>
+
+          <div class="row">
+          {% for resource in resource_list %}
+            <div class="columns small-12 medium-4{% if forloop.last %} end{% endif %}">
+              {% include "includes/lists/object_block_base.html" with object=resource %}
+            </div>
+          {% endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <!-- /RESOURCES -->
+
+    <!-- COMMUNITIES -->
+    {% if hub_list %}
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          <h4 class="listings__listing__heading listings__listing__heading--plain">COMMUNITIES I MANAGE</h4>
+
+          <div class="row">
+          {% for hub in hub_list %}
+            <div class="columns small-12 medium-4{% if forloop.last %} end{% endif %}">
+              {% include "includes/lists/object_block_base.html" with object=hub %}
+            </div>
+          {% endfor%}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <!-- /COMMUNITIES -->
 
    
 
@@ -121,7 +142,7 @@ Praesent vitae cursus mauris. </blockquote>
 
         <ul class="sidebar__list sidebar__list--bullets">
           <li class="sidebar__list__item">{{ object.full_name }}</li>
-          <li class="sidebar__list__item"><a href="{{ object.get_contact_url }}">Contact</a></li>
+          <li class="sidebar__list__item"><a href="{{ object.get_contact_url }}">Contact me</a></li>
           {% if object.website %}
           <li class="sidebar__list__item"><a href="{{ object.website }}" rel="external">Website</a></li>
           {% endif %}
@@ -165,6 +186,15 @@ Praesent vitae cursus mauris. </blockquote>
         <ul class="sidebar__list sidebar__list--bullets">
           {% for hub_request in hub_request_list %}
           <li class="sidebar__list__item">{{ hub_request }}</li>
+          {% endfor%}
+        </ul>
+        {% endif %}
+
+        {% if award_list %}
+        <h3 class="sidebar__heading">Awards</h3>
+        <ul class="sidebar__list sidebar__list--bullets">
+          {% for award in award_list %}
+          <li class="sidebar__list__item">{{ award.award.name }}</li>
           {% endfor%}
         </ul>
         {% endif %}
