@@ -34,7 +34,7 @@
       </ul>
       {% endif %}
 
-      <p><a class="button secondary expand" href="{{ owner.profile.email }}">CONTACT TO LEARN MORE</a></p>
+      <p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
 
       <h3 class="sidebar__heading">US Ignite News</h3>
       {% latest_articles "blog/news_list.html" %}
