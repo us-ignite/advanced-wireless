@@ -17,16 +17,5 @@
     <div class="alert button small show-only-on-hover featured__cta">VIEW DETAILS</div>
 
 
-    {% with object.tags.all as tag_list %}
-    {% if tag_list %}
-    <p class="featured__tags">
-      {% for tag in tag_list %}
-      <a href="{% url 'search' %}?q={{ tag|urlencode }}">{{ tag }}</a>
-      {% endfor%}
-      <a href="{{ object.get_absolute_url }}">More...</a>
-    </p>
-    {% endif %}
-    {% endwith %}
-
   </a>
 </div>
