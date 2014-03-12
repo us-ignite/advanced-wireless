@@ -47,6 +47,18 @@ def get_application_list(owner, viewer=None):
     return Application.active.filter(**qs_kwargs)
 
 
+def get_similar_applications(application_list, total=4):
+    if application_list:
+        application = application_list[0]
+        params = {
+            'status': Application.PUBLISHED,
+            'domain': application.domain,
+        }
+        return (Application.active.filter(**params)
+                .exclude(owner=application.owner).order_by('?')[:total])
+    return Application.objects.none()
+
+
 def get_event_list(user, viewer=None):
     """Returns visible ``Events`` from the given ``viewer``."""
     qs_kwargs = {'user': user}
@@ -143,6 +155,8 @@ def dashboard(request):
     profile = get_object_or_404(
         Profile.active.select_related('user'), user=request.user)
     user = profile.user
+    application_list = get_application_list(user, viewer=request.user)
+    similar_applications = get_similar_applications(application_list)
     event_list = get_event_list(user, viewer=request.user)
     resource_list = get_resource_list(user, viewer=request.user)
     content_list = list(event_list) + list(resource_list)
@@ -150,7 +164,8 @@ def dashboard(request):
     hub_id_list = [h.id for h in hub_list]
     context = {
         'object': profile,
-        'application_list': get_application_list(user, viewer=request.user),
+        'application_list': application_list,
+        'similar_applications': similar_applications,
         'post_list': get_post_list(),
         'hub_list': hub_list,
         'hub_event_list': Event.published.get_for_hubs(hub_id_list),

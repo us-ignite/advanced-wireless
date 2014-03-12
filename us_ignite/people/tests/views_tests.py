@@ -322,3 +322,89 @@ class TestAwardListFunction(TestCase):
         eq_(result, [])
         mock_related.assert_called_once_with('award')
         mock_related.return_value.filter.assert_called_once_with(user=user)
+
+
+class TestGetSimilarApplications(TestCase):
+
+    def test_missing_applications_return_empty_queryset(self):
+        results = views.get_similar_applications([])
+        eq_(list(results), [])
+
+    @patch('us_ignite.apps.models.Application.active.filter')
+    def test_applications_have_similar_domain(self, mock_filter):
+        mock_filter.return_value.exclude.return_value.order_by.return_value = []
+        application = Mock(spec=Application)
+        application.domain = 'healthcare'
+        application.owner = 'user'
+        results = views.get_similar_applications([application])
+        eq_(results, [])
+        mock_filter.assert_called_once_with(
+            status=Application.PUBLISHED, domain='healthcare')
+        mock_filter.return_value.exclude.assert_called_once_with(
+            owner='user')
+        (mock_filter.return_value.exclude.return_value
+         .order_by.assert_called_once_with('?'))
+
+
+patch_get_object = patch('us_ignite.people.views.get_object_or_404')
+
+class TestDashboardView(TestCase):
+
+    def setUp(self):
+        self.app_list_mock = patch(
+            'us_ignite.people.views.get_application_list')
+        self.app_list_mock.start()
+        self.similar_apps_mock = patch(
+            'us_ignite.people.views.get_similar_applications')
+        self.similar_apps_mock.start()
+        self.event_list_mock = patch(
+            'us_ignite.people.views.get_event_list', return_value=[])
+        self.event_list_mock.start()
+        self.resource_list_mock = patch(
+            'us_ignite.people.views.get_resource_list', return_value=[])
+        self.resource_list_mock.start()
+        self.hub_list_mock = patch('us_ignite.people.views.get_hub_list')
+        self.hub_list_mock.start()
+        self.hub_event_list_mock = patch(
+            'us_ignite.events.models.Event.published.get_for_hubs')
+        self.hub_event_list_mock.start()
+        self.post_list_mock = patch('us_ignite.people.views.get_post_list')
+        self.post_list_mock.start()
+        self.featured_resources_mock = patch(
+            'us_ignite.people.views.get_featured_resources')
+        self.featured_resources_mock.start()
+        self.hub_request_mock = patch(
+            'us_ignite.hubs.models.HubRequest.objects.filter')
+        self.hub_request_mock.start()
+
+    def tearDown(self):
+        self.app_list_mock.stop()
+        self.similar_apps_mock.stop()
+        self.event_list_mock.stop()
+        self.resource_list_mock.stop()
+        self.hub_list_mock.stop()
+        self.hub_event_list_mock.stop()
+        self.post_list_mock.stop()
+        self.featured_resources_mock.stop()
+        self.hub_request_mock.stop()
+
+    def test_dashboard_requires_authentication(self):
+        request = utils.get_request(
+            'get', '/dashboard/', user=utils.get_anon_mock())
+        response = views.dashboard(request)
+        eq_(response['Location'], utils.get_login_url('/dashboard/'))
+
+    @patch_get_object
+    def test_dasboard_request_is_successful(self, mock_get):
+        mock_user = utils.get_user_mock()
+        mock_get.user = mock_user
+        request = utils.get_request('get', '/dashboard/', user=mock_user)
+        response = views.dashboard(request)
+        eq_(response.status_code, 200)
+        eq_(response.template_name, 'people/dashboard.html')
+        eq_(sorted(response.context_data.keys()),
+            sorted(['application_list', 'content_list',
+                    'featured_resource_list', 'hub_event_list',
+                    'hub_list', 'hub_request_list', 'object',
+                    'post_list', 'similar_applications']))
+        mock_get.assert_called_once()

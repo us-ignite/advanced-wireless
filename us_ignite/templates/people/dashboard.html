@@ -21,10 +21,12 @@
 </p>
 
 <h2>MY APPS</h2>
-{% include "people/includes/app_list.html" %}
+{% include "people/includes/app_list.html" with object_list=application_list%}
+<h3>YOU MAY ALSO LIKE THESE APPS</h3>
+{% include "people/includes/app_list_mini.html" with object_list=similar_applications %}
 
 <h2>LATEST NEWS</h2>
-{% include "people/includes/post_list.html" %}
+{% include "people/includes/post_list.html" with object_list=post_list %}
 
 <h2>EVENT HIGHLIGHTS</h2>
 {% include "people/includes/event_list.html" %}

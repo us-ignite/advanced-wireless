@@ -1,12 +1,11 @@
-<ul>
-  {% for post in post_list %}
-  <li>
-    {% if forloop.count <= 2 %}
-    {% include "blog/object_block.html" with object=post %}
-    {% else %}
-    {# TODO: This segment of the list requires a reduced version of the template #}
-    {% include "blog/object_block.html" with object=post %}
-    {% endif %}
-  </li>
-  {% endfor%}
-</ul>
+{% for object in object_list %}
+  {% if forloop.counter <= 2 %}
+    {% include "blog/object_block.html" with object=object %}
+  {% else %}
+    {% include "people/includes/object_headline_mini.html" with object=object %}
+  {% endif %}
+  {% if forloop.counter == 2 %}
+    <h3>IN CASE YOU MISSED THIS NEWS<h3>
+  {% endif %}
+{% endfor%}
+
