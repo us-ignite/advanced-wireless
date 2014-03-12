@@ -64,6 +64,12 @@ a:hover {
       margin-left:25px;
       background: transparent url(../img/furniture/logo-small.png) 0 0 no-repeat;
 
+      .backgroundsize & {
+        background-image: url(../img/furniture/logo.png);
+        background-size: contain;
+        margin-left: 15px;
+      }
+
       @media #{$medium-up} {
         width: 232px;
         height: 63px;
