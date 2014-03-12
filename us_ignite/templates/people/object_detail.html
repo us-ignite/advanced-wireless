@@ -1,118 +1,183 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load apps_urls thumbnail common_markdown %}
 
 {% block title %}Profile for {{ object.full_name }} - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>{{ object.full_name }}</h1>
 
-<ul>
-  <li>Member since: {{ object.created }}</li>
-  <li><a href="{{ object.get_contact_url }}">Contact this member</a></li>
-  {% if request.user == object.user %}
-  <li><a href="{% url 'user_profile' %}">Edit user profile</a></li>
-  {% endif %}
-</ul>
+<div class="row collapse">
+  <div class="small-12 columns">
+
+    <div class="row">
+      <div class="small-12 columns">
+        <h2 class="page-title">{{ object.full_name }}</h2>
+
+        <span class="listings__listing__tags">
+          {% include "includes/tag_list.html" with tag_list=object.tags.all %}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row collapse l-listings space-top" data-equalizer>
+  <article class="large-8 columns listings profile" data-equalizer-watch>
+
+    <div class="listings__listing listing-featured listing--collapse">
+      <div class="row">
+        <div class="small-12 medium-4 columns">
+          <img src="{{ object.get_gravatar_url }}" alt="Avatar" class="profile__avatar" />
+        </div> 
+
+        <div class="small-12 medium-8 columns">
+          <blockquote class="profile__quote">Personal quote lorem dolor sit amet, consectetur adipiscing elit. Proi sit amet feugiat  enim.  Integer id posuere quam. 
+Praesent vitae cursus mauris. </blockquote>
+        </div>
+        
+      </div>
+    </div>
+    
+
+    <!-- ABOUT -->
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+
+          <h4 class="listings__listing__heading listings__listing__heading--plain">ABOUT</h4>
+          <p>{{ object.bio }}</p>
+
+        </div>
+      </div>
+    </div>
+    <!-- /ABOUT -->
+
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
 
 
-{% if object.website %}
-<p><a href="{{ object.website }}" rel="external">Website</a></p>
-{% endif %}
 
-<p>
-  <img src="{{ object.get_gravatar_url }}" alt="Avatar" />
-</p>
-
-{% if object.bio %}
-<h2>Bio:</h2>
-<p>
-  {{ object.bio }}
-</p>
-{% endif %}
-
-{% include "includes/tag_list.html" with tag_list=object.tags.all %}
-
-{% if award_list %}
-<h2>Awards</h2>
-<ul>
-  {% for award in award_list %}
-  <li>{{ award.award.name }}</li>
-  {% endfor%}
-</ul>
-{% endif %}
+          {% if award_list %}
+          <h2>Awards</h2>
+          <ul>
+            {% for award in award_list %}
+            <li>{{ award.award.name }}</li>
+            {% endfor%}
+          </ul>
+          {% endif %}
 
 
-{% with object.profilelink_set.all as link_list %}
-{% if link_list %}
-<h3>Other URLS:</h3>
-<ul>
-  {% for link in link_list %}
-  <li><a href="{{ link.url }}" rel="external">{{ link.name }}</a></li>
-  {% endfor%}
-</ul>
-{% endif %}
-{% endwith %}
+          {% if application_list %}
+          <h3>Applications</h3>
+          <ul>
+            {% for app in application_list %}
+            <li><a href="{{ app.get_absolute_url }}">{{ app.name }} {% if not app.is_public %}({{ app.get_status_display }}){% endif %}</a></li>
+            {% endfor%}
+          </ul>
+          {% endif %}
 
-{% if application_list %}
-<h3>Applications</h3>
-<ul>
-  {% for app in application_list %}
-  <li><a href="{{ app.get_absolute_url }}">{{ app.name }} {% if not app.is_public %}({{ app.get_status_display }}){% endif %}</a></li>
-  {% endfor%}
-</ul>
-{% endif %}
+          {% if event_list %}
+          <h3>Events</h3>
+          <ul>
+            {% for event in event_list %}
+            <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></li>
+            {% endfor%}
+          </ul>
+          {% endif %}
 
-{% if event_list %}
-<h3>Events</h3>
-<ul>
-  {% for event in event_list %}
-  <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></li>
-  {% endfor%}
-</ul>
-{% endif %}
+          {% if resource_list %}
+          <h3>Resources</h3>
+          <ul>
+            {% for resource in resource_list %}
+            <li><a href="{{ resource.get_absolute_url }}">{{ resource.name }}{% if resource.is_draft %} (DRAFT){% endif %}</a></li>
+            {% endfor%}
+          </ul>
+          {% endif %}
 
-{% if resource_list %}
-<h3>Resources</h3>
-<ul>
-  {% for resource in resource_list %}
-  <li><a href="{{ resource.get_absolute_url }}">{{ resource.name }}{% if resource.is_draft %} (DRAFT){% endif %}</a></li>
-  {% endfor%}
-</ul>
-{% endif %}
+          {% if hub_list %}
+          <h3>Ignite Communities (Contact)</h3>
+          <ul>
+            {% for hub in hub_list %}
+            <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
 
-{% if hub_list %}
-<h3>Ignite Communities (Contact)</h3>
-<ul>
-  {% for hub in hub_list %}
-  <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
-  {% endfor %}
-</ul>
-{% endif %}
+          
 
-{% if hub_membership_list %}
-<h3>Ignite Communities (Member)</h3>
-<ul>
-  {% for membership in hub_membership_list %}
-  <li><a href="{{ membership.hub.get_absolute_url }}">{{ membership.hub }}</a></li>
-  {% endfor%}
-</ul>
-{% endif %}
+          
+        </div>
+      </div>
+    </div>
 
-{% if hub_request_list %}
-<h3>Ignite Community Requests</h3>
-<ul>
-  {% for hub_request in hub_request_list %}
-  <li>{{ hub_request }}</li>
-  {% endfor%}
-</ul>
-{% endif %}
+   
 
-{% if organization_list %}
-<h3>Organizations</h3>
-<ul>
-  {% for organization in organization_list %}
-  <li><a href="{{ organization.organization.get_absolute_url }}">{{ organization.organization.name }}</a></li>
-  {% endfor%}
-</ul>
-{% endif %}
+  </article>
+
+  <aside class="large-4 columns sidebar show-for-large-up">{% load snippets_tags news_tags common_markdown %}
+    <div class="row">
+      <div class="large-12 columns" data-equalizer-watch>
+        
+        <h3 class="sidebar__heading">CONTACT</h3>
+
+        <ul class="sidebar__list sidebar__list--bullets">
+          <li class="sidebar__list__item">{{ object.full_name }}</li>
+          <li class="sidebar__list__item"><a href="{{ object.get_contact_url }}">Contact</a></li>
+          {% if object.website %}
+          <li class="sidebar__list__item"><a href="{{ object.website }}" rel="external">Website</a></li>
+          {% endif %}
+          {% if request.user == object.user %}
+          <li class="sidebar__list__item"><a href="{% url 'user_profile' %}">Edit user profile</a></li>
+          {% endif %}
+        </ul>
+
+        {% with object.profilelink_set.all as link_list %}
+        {% if link_list %}
+        <h3 class="sidebar__heading">Other URLS:</h3>
+        <ul class="sidebar__list sidebar__list--bullets">
+          {% for link in link_list %}
+          <li class="sidebar__list__item"><a href="{{ link.url }}" rel="external">{{ link.name }}</a></li>
+          {% endfor%}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+
+        {% if organization_list %}
+        <h3 class="sidebar__heading">Organizations</h3>
+        <ul class="sidebar__list sidebar__list--bullets">
+          {% for organization in organization_list %}
+          <li class="sidebar__list__item"><a href="{{ organization.organization.get_absolute_url }}">{{ organization.organization.name }}</a></li>
+          {% endfor%}
+        </ul>
+        {% endif %}
+
+        {% if hub_membership_list %}
+        <h3 class="sidebar__heading">Ignite Communities (Member)</h3>
+        <ul class="sidebar__list sidebar__list--bullets">
+          {% for membership in hub_membership_list %}
+          <li class="sidebar__list__item"><a href="{{ membership.hub.get_absolute_url }}">{{ membership.hub }}</a></li>
+          {% endfor%}
+        </ul>
+        {% endif %}
+
+        {% if hub_request_list %}
+        <h3 class="sidebar__heading">Ignite Community Requests</h3>
+        <ul class="sidebar__list sidebar__list--bullets">
+          {% for hub_request in hub_request_list %}
+          <li class="sidebar__list__item">{{ hub_request }}</li>
+          {% endfor%}
+        </ul>
+        {% endif %}
+
+      
+        <p><a class="button secondary expand" href="{{ object.get_contact_url }}">CONTACT MEMBER</a></p>
+
+     
+
+      </div>
+    </div>
+  </aside>
+
+</div>
 
 {% endblock content %}
