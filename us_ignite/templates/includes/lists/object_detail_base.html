@@ -42,7 +42,6 @@
             {% block intro %}
               <li>Stage: {{ object.get_stage_display }}</li>
               {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
-              <li>Created by {% include "includes/display_name.html" with user=object.owner %} on {{ object.created }}</li>
               {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
               {% if is_owner %}
               <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
@@ -125,29 +124,6 @@
           <p>{{ object.roadmap }}</p>
           {% endif %}
 
-        </div>
-      </div>
-    </div>
-
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-
-          {% if object.team_description %}
-          <h2>Team description</h2>
-          <p>{{ object.team_description|markdown }}</p>
-          {% endif %}
-
-          {% if member_list  %}
-          <h2>Collaborators</h2>
-          <ul>
-            {% for member in member_list %}
-            <li>
-              {% include "includes/display_name.html" with user=member %}
-            </li>
-            {% endfor%}
-          </ul>
-          {% endif %}
         </div>
       </div>
     </div>
