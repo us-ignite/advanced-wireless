@@ -69,11 +69,22 @@ class Post(models.Model):
     def is_visible_by(self, user):
         return self.is_published() or self.is_author(user)
 
+    @property
     def attachment(self):
         try:
             return self.postattachment_set.all().all()[0]
         except IndexError:
             return None
+
+    @property
+    def image(self):
+        attachment = self.attachment
+        return attachment.attachment if attachment else None
+
+    @property
+    def name(self):
+        return self.title
+
 
 
 class PostAttachment(models.Model):

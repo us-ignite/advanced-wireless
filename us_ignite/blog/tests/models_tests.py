@@ -29,6 +29,7 @@ class TestPostModel(TestCase):
         eq_(instance.status, Post.DRAFT)
         eq_(instance.wp_id, '')
         eq_(instance.wp_type, '')
+        eq_(instance.title, 'Gigabit post')
         eq_(instance.slug, 'gigabit-post')
         eq_(instance.content, '')
         eq_(instance.content_html, '')
@@ -41,6 +42,9 @@ class TestPostModel(TestCase):
         eq_(list(instance.tags.all()), [])
         ok_(instance.created)
         ok_(instance.modified)
+        eq_(instance.attachment, None)
+        eq_(instance.image, None)
+        eq_(instance.name, 'Gigabit post')
 
     def test_post_is_published(self):
         author = get_user('us-ignite')
