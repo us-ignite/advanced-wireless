@@ -101,7 +101,7 @@ def get_hub_membership_list(user, viewer=None):
 def get_hub_list(user, viewer=None):
     hub_list = list(get_hub_owned_list(user, viewer=viewer))
     hub_list += get_hub_membership_list(user, viewer=viewer)
-    return set(hub_list)
+    return list(set(hub_list))
 
 
 def get_award_list(user, viewer=None):
@@ -155,22 +155,22 @@ def dashboard(request):
     profile = get_object_or_404(
         Profile.active.select_related('user'), user=request.user)
     user = profile.user
-    application_list = get_application_list(user, viewer=request.user)
+    application_list = list(get_application_list(user, viewer=request.user))
     similar_applications = get_similar_applications(application_list)
     event_list = get_event_list(user, viewer=request.user)
     resource_list = get_resource_list(user, viewer=request.user)
-    content_list = list(event_list) + list(resource_list)
+    content_list = (list(event_list) + list(resource_list))
     hub_list = get_hub_list(user, viewer=request.user)
     hub_id_list = [h.id for h in hub_list]
     context = {
         'object': profile,
-        'application_list': application_list,
+        'application_list': application_list[:3],
         'similar_applications': similar_applications,
         'post_list': get_post_list(),
-        'hub_list': hub_list,
-        'hub_event_list': Event.published.get_for_hubs(hub_id_list),
+        'hub_list': hub_list[:7],
+        'hub_event_list': Event.published.get_for_hubs(hub_id_list)[:6],
         'featured_resource_list': get_featured_resources(),
         'content_list': content_list,
-        'hub_request_list': HubRequest.objects.filter(user=user),
+        'hub_request_list': HubRequest.objects.filter(user=user)[:6],
     }
     return TemplateResponse(request, 'people/dashboard.html', context)

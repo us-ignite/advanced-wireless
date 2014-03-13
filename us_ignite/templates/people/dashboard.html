@@ -29,19 +29,19 @@
 {% include "people/includes/post_list.html" with object_list=post_list %}
 
 <h2>EVENT HIGHLIGHTS</h2>
-{% include "people/includes/event_list.html" %}
+{% include "people/includes/event_list.html" with object_list=hub_event_list %}
 
 <h2>MY COMMUNITIES</h2>
-{% include "people/includes/hub_list.html" %}
+{% include "people/includes/hub_list.html" with object_list=hub_list %}
 
 <h2>FEATURED RESOURCES</h2>
-{% include "people/includes/resource_list.html" %}
+{% include "people/includes/resource_list.html" with object_list=featured_resource_list %}
 
 <h3>ADD A RESOURCE</h3>
 <p>DO YOU HAVE A VALUABLE RESOURCE? ADD IT TO OUR RESOURCE LIBRARY.</p>
 <a href="{% url 'resource_add' %}">SUBMIT RESOURCE</a>
 
 <h2>MANAGE YOUR CONTENT</h2>
-{% include "people/includes/content_list.html" %}
+{% include "people/includes/content_list.html" with object_list=content_list %}
 
 {% endblock content %}

@@ -1,12 +1,10 @@
-<ul>
-  {% for hub_event in hub_event_list %}
-  <li>
-    {% if forloop.count <= 2 %}
-    {% include "people/includes/object_headline.html" with object=hub_event %}
+  {% for object in object_list %}
+    {% if forloop.counter <= 2 %}
+      {% include "people/includes/object_headline.html" with object=object %}
     {% else %}
-    {# TODO: This segment of the list requires a reduced version of the template #}
-    {% include "people/includes/object_headline.html" with object=hub_event %}
+      {% include "people/includes/object_headline_mini.html" with object=object %}
     {% endif %}
-  </li>
+    {% if forloop.counter == 2 %}
+      <h3>IN CASE YOU MISSED THESE EVENTS</h3>
+    {% endif %}
   {% endfor%}
-</ul>

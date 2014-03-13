@@ -237,7 +237,7 @@ class TestHubListFunction(TestCase):
         result = views.get_hub_list(contact, viewer=viewer)
         owned_mock.assert_called_once_with(contact, viewer=viewer)
         membership_mock.assert_called_once_with(contact, viewer=viewer)
-        eq_(result, set([]))
+        eq_(result, [])
 
     @patch_membership_hubs
     @patch_owned_hubs
@@ -247,7 +247,7 @@ class TestHubListFunction(TestCase):
         result = views.get_hub_list(contact, viewer=contact)
         owned_mock.assert_called_once_with(contact, viewer=contact)
         membership_mock.assert_called_once_with(contact, viewer=contact)
-        eq_(result, set([]))
+        eq_(result, [])
 
 
 patch_organization_related = patch(
