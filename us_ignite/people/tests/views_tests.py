@@ -10,6 +10,7 @@ from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub, HubMembership
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.tests import fixtures
+from us_ignite.profiles.models import Profile
 from us_ignite.people import views
 from us_ignite.resources.models import Resource
 
@@ -347,6 +348,9 @@ class TestGetSimilarApplications(TestCase):
 
 
 patch_get_object = patch('us_ignite.people.views.get_object_or_404')
+patch_get_create = patch(
+    'us_ignite.profiles.models.Profile.objects.get_or_create')
+
 
 class TestDashboardView(TestCase):
 
@@ -394,10 +398,12 @@ class TestDashboardView(TestCase):
         response = views.dashboard(request)
         eq_(response['Location'], utils.get_login_url('/dashboard/'))
 
-    @patch_get_object
-    def test_dasboard_request_is_successful(self, mock_get):
+    @patch_get_create
+    def test_dasboard_request_is_successful(self, mock_get_create):
+        mock_profile = Mock(spec=Profile)
         mock_user = utils.get_user_mock()
-        mock_get.user = mock_user
+        mock_profile.user = mock_user
+        mock_get_create.return_value = [mock_profile, False]
         request = utils.get_request('get', '/dashboard/', user=mock_user)
         response = views.dashboard(request)
         eq_(response.status_code, 200)
@@ -407,4 +413,4 @@ class TestDashboardView(TestCase):
                     'featured_resource_list', 'hub_event_list',
                     'hub_list', 'hub_request_list', 'object',
                     'post_list', 'similar_applications']))
-        mock_get.assert_called_once()
+        mock_get_create.assert_called_once()

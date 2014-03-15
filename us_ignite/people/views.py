@@ -152,8 +152,7 @@ def profile_detail(request, slug):
 
 @login_required
 def dashboard(request):
-    profile = get_object_or_404(
-        Profile.active.select_related('user'), user=request.user)
+    profile, is_new = Profile.objects.get_or_create(user=request.user)
     user = profile.user
     application_list = list(get_application_list(user, viewer=request.user))
     similar_applications = get_similar_applications(application_list)
