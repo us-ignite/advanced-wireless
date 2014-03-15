@@ -103,7 +103,7 @@ class PostAttachment(models.Model):
 
 class BlogLink(models.Model):
     """Sidebar links."""
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     url = models.URLField(max_length=500)
     created = CreationDateTimeField()
     order = models.IntegerField(default=0)

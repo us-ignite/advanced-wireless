@@ -118,12 +118,12 @@ class TestBlogLinkModel(TestCase):
 
     def test_blog_link_is_created_successfully(self):
         data = {
-            'title': 'US Ignite campaign',
+            'name': 'US Ignite campaign',
             'url': 'http://us-ignite.org',
         }
         link = BlogLink.objects.create(**data)
         ok_(link.pk)
-        eq_(link.title, 'US Ignite campaign')
+        eq_(link.name, 'US Ignite campaign')
         eq_(link.url, 'http://us-ignite.org')
         ok_(link.created)
         eq_(link.order, 0)

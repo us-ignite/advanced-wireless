@@ -38,8 +38,8 @@ class PostAdmin(admin.ModelAdmin):
 
 
 class BlogLinkAdmin(admin.ModelAdmin):
-    list_display = ('title', 'url')
-    search_fields = ('title', 'url')
+    list_display = ('name', 'url')
+    search_fields = ('name', 'url')
     list_filter = ('created', )
     date_hierarchy = 'created'
 
