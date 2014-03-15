@@ -304,7 +304,7 @@ class Command(BaseCommand):
         for i in range(5, 10):
             _create_organization()
         print u'Adding applications.'
-        for i in range(20, 40):
+        for i in range(50, 60):
             _create_app()
         print u'Adding app pages.'
         for i in range(5, 10):
