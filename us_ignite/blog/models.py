@@ -86,7 +86,6 @@ class Post(models.Model):
         return self.title
 
 
-
 class PostAttachment(models.Model):
     post = models.ForeignKey('blog.Post')
     wp_id = models.CharField(blank=True, max_length=255)
@@ -97,6 +96,20 @@ class PostAttachment(models.Model):
     mime_type = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     caption = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.title
+
+
+class BlogLink(models.Model):
+    """Sidebar links."""
+    title = models.CharField(max_length=255)
+    url = models.URLField(max_length=500)
+    created = CreationDateTimeField()
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ('order',)
 
     def __unicode__(self):
         return self.title

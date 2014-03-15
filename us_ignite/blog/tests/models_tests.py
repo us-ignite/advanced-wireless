@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
-from us_ignite.blog.models import Post, PostAttachment
+from us_ignite.blog.models import BlogLink, Post, PostAttachment
 from us_ignite.blog.tests import fixtures
 
 
@@ -112,3 +112,18 @@ class TestPostAttachmentModel(TestCase):
         eq_(instance.mime_type, '')
         eq_(instance.description, '')
         eq_(instance.caption, '')
+
+
+class TestBlogLinkModel(TestCase):
+
+    def test_blog_link_is_created_successfully(self):
+        data = {
+            'title': 'US Ignite campaign',
+            'url': 'http://us-ignite.org',
+        }
+        link = BlogLink.objects.create(**data)
+        ok_(link.pk)
+        eq_(link.title, 'US Ignite campaign')
+        eq_(link.url, 'http://us-ignite.org')
+        ok_(link.created)
+        eq_(link.order, 0)
