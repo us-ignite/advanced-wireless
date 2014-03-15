@@ -2,7 +2,7 @@ import functools
 import os
 
 from datetime import datetime
-from fabric.api import local, env, lcd
+from fabric.api import local, env, lcd, task
 from fabric.colors import yellow, red, green
 from fabric.contrib import console
 
@@ -72,7 +72,7 @@ def run_command(command):
 
 
 def production_confirmation(function):
-    """Production confirmation."""
+    """Ask for confirmation for commants in the production environment."""
     @functools.wraps(function)
     def wrapper(confirmation='', *args, **kwargs):
         confirmation = False if confirmation == 'False' else True
@@ -102,15 +102,19 @@ def _validate_pushed_commits():
         exit(4)
 
 
+@task
 @only_outside_vm
 def syncdb():
+    """Syncs the remote environment database."""
     print yellow('Syncing %s database.' % env.slug.upper())
     dj_heroku('syncdb --noinput', env.app, env.slug)
     dj_heroku('migrate --noinput', env.app, env.slug)
 
 
+@task
 @only_outside_vm
 def collectstatic():
+    """Collects the remote environment static assets."""
     print yellow('Collecting static assets.')
     dj_heroku('collectstatic --noinput', env.app, env.slug)
 
@@ -121,12 +125,14 @@ def shell():
     dj_heroku('shell', env.app, env.slug)
 
 
+@task
 @only_outside_vm
 def buildwatson():
-    """Build watson full-text search corpus."""
+    """Build remote watson full-text search corpus."""
     dj_heroku('buildwatson', env.app, env.slug)
 
 
+@task
 @only_outside_vm
 @production_confirmation
 def deploy(confirmation):
@@ -148,8 +154,10 @@ def deploy(confirmation):
     print green('Done at %s' % datetime.now())
 
 
+@task
 @only_outside_vm
 def migrate_apps(url):
+    """Imports Mozilla Ignite apps to the remote environment."""
     confirmation = red(
         'You are about to import the Mozilla Ignite apps. Proceed?')
     if console.confirm(confirmation):
@@ -160,8 +168,10 @@ def migrate_apps(url):
         exit(1)
 
 
+@task
 @only_outside_vm
 def load_fixtures():
+    """Loads the initial fixtures in the remote environment."""
     confirmation = red('You are about to IRREVERSIBLY add fixtures to the'
                        ' remote database. Procceed?')
     if console.confirm(confirmation):
@@ -179,9 +189,10 @@ def load_fixtures():
         exit(1)
 
 
+@task
 @only_inside_vm
 def test(apps=''):
-    """Runs the test suite."""
+    """Runs the test suite in the local environment."""
     local('django-admin.py test %s '
           '--settings=us_ignite.settings.testing' % apps)
 
@@ -197,11 +208,13 @@ def drop_local_db():
           % {'db': DB_STRING})
 
 
+@task
 @only_inside_vm
 def reset_local_db():
-    """Resets the local development DB
+    """Resets the local development environment database.
+
     Check the database has the right UTF8 encoding before running this command.
-    sudo -u postgres psql --listsudo -u postgres psql --list
+    ``sudo -u postgres psql --listsudo -u postgres psql --list``
     """
     confirmation = red('You are about to IRREVERSIBLY clear the existing'
                        ' local database. Procceed?')
@@ -214,3 +227,11 @@ def reset_local_db():
     else:
         print yellow('Phew, aborted.')
         exit(1)
+    confirmation = yellow('Would you like to generate an admin user?')
+    if console.confirm(confirmation):
+        local('django-admin.py createsuperuser '
+              '--settings=%s.settings.local' % DB_STRING)
+    confirmation = red('Would you like to generate dummy fixtures?')
+    if console.confirm(confirmation):
+        local('django-admin.py dummy_generate_content '
+              '--settings=%s.settings.local' % DB_STRING)
