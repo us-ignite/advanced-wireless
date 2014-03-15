@@ -1,0 +1,16 @@
+{% with profile=user.profile %}
+{% if profile %}
+<a href="{{ profile.get_absolute_url }}" title="Contact {{ profile.display_name }}" class="sidebar__list__link">
+  <img src="{{ profile.get_gravatar_url }}" alt="{{ profile.display_name }}" class="sidebar__list__image">
+  <span class="sidebar__list__desc">
+    {{ profile.display_name }}
+    <span class="sidebar__list__highlight">{{ profile.email }}</span>
+  </span>
+</a>
+
+{% else %}
+<span class="sidebar__list__link">
+  US ignite user
+</span>
+{% endif %}
+{% endwith %}

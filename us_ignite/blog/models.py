@@ -69,11 +69,21 @@ class Post(models.Model):
     def is_visible_by(self, user):
         return self.is_published() or self.is_author(user)
 
+    @property
     def attachment(self):
         try:
             return self.postattachment_set.all().all()[0]
         except IndexError:
             return None
+
+    @property
+    def image(self):
+        attachment = self.attachment
+        return attachment.attachment if attachment else None
+
+    @property
+    def name(self):
+        return self.title
 
 
 class PostAttachment(models.Model):
@@ -86,6 +96,20 @@ class PostAttachment(models.Model):
     mime_type = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     caption = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.title
+
+
+class BlogLink(models.Model):
+    """Sidebar links."""
+    name = models.CharField(max_length=255)
+    url = models.URLField(max_length=500)
+    created = CreationDateTimeField()
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ('order',)
 
     def __unicode__(self):
         return self.title

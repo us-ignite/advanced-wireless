@@ -1137,7 +1137,7 @@ $topbar-bg: $topbar-bg-color;
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
-$topbar-dropdown-bg: #333;
+$topbar-dropdown-bg: $secondary-color;
 $topbar-dropdown-link-color: #616264;
 $topbar-dropdown-link-bg: #fff;
 $topbar-dropdown-link-weight: $font-weight-black;
@@ -1176,7 +1176,7 @@ $topbar-menu-link-color-toggled: #888;
 $topbar-menu-icon-color-toggled: #888;
 
 // Transitions and breakpoint styles
-// $topbar-transition-speed: 300ms;
+$topbar-transition-speed: 0s;
 // Using rem-calc for the below breakpoint causes issues with top bar
 $topbar-breakpoint: #{lower-bound($large-range)}; // Change to 9999px for always mobile layout
 $topbar-media-query: $large-up !default;

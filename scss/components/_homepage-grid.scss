@@ -28,9 +28,16 @@
 }
 
 .homepage-grid__col {
-  border-right:5px solid #f26722;
   margin-top:30px;
   margin-bottom:30px;
+
+  &:nth-child(odd) {
+    border-right:5px solid #f26722;
+  }
+
+  @media #{$large-up} {
+    border-right:5px solid #f26722;
+  }
 }
 
 .homepage-grid__col--devs {

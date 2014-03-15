@@ -1,0 +1,10 @@
+{% for object in object_list %}
+  {% if forloop.counter <= 2 %}
+    {% include "people/includes/object_headline.html" with object=object %}
+  {% else %}
+    {% include "people/includes/object_headline_mini.html" with object=object %}
+  {% endif %}
+  {% if forloop.counter == 2 %}
+    <h3>CHECK OUT THESE COMMUNITIES:</h3>
+  {% endif %}
+{% endfor%}

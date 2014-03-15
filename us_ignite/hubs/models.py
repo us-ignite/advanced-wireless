@@ -5,6 +5,7 @@ from django.db import models
 
 from us_ignite.hubs import managers, search
 
+from geoposition.fields import GeopositionField
 from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
@@ -107,6 +108,7 @@ class Hub(models.Model):
     features = models.ManyToManyField(
         'apps.Feature', blank=True, help_text=u'Existing NextGen features in '
         'this community.')
+    position = GeopositionField(blank=True)
     tags = TaggableManager(blank=True)
     notes = models.TextField(blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)

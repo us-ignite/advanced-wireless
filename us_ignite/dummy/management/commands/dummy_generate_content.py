@@ -13,7 +13,7 @@ from us_ignite.apps.models import (
     Page,
     PageApplication,
 )
-from us_ignite.blog.models import Post
+from us_ignite.blog.models import BlogLink, Post
 from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
@@ -148,6 +148,7 @@ def _create_hub():
         'website': _get_url(),
         'status': choice(Hub.STATUS_CHOICES)[0],
         'is_featured': choice([True, False]),
+        'position': locations.get_location(),
     }
     hub = Hub.objects.create(**data)
     _create_hub_membership(hub)
@@ -258,6 +259,14 @@ def _create_article():
     return Article.objects.create(**data)
 
 
+def _create_blog_link():
+    data = {
+        'name': text.random_words(6).title(),
+        'url': _get_url(),
+    }
+    return BlogLink.objects.create(**data)
+
+
 def _get_tags(total=5):
     tags = ['gigabit', 'healthcare', 'education', 'energy']
     tags += [slugify(w) for w in text.random_words(total).split()]
@@ -300,27 +309,30 @@ class Command(BaseCommand):
         print u'Adding users.'
         _create_users()
         print u'Adding organizations.'
-        for i in range(5, 10):
+        for i in range(10):
             _create_organization()
         print u'Adding applications.'
-        for i in range(20, 40):
+        for i in range(40):
             _create_app()
         print u'Adding app pages.'
-        for i in range(5, 10):
+        for i in range(10):
             _create_page()
         print u'Adding hubs.'
-        for i in range(10, 20):
+        for i in range(20):
             _create_hub()
         print u'Adding events.'
-        for i in range(15, 30):
+        for i in range(30):
             _create_event()
         print u'Adding challenges.'
-        for i in range(15, 30):
+        for i in range(30):
             _create_challenge()
         print u'Adding resources.'
-        for i in range(15, 30):
+        for i in range(30):
             _create_resource()
         print u'Adding articles.'
-        for i in range(15, 30):
+        for i in range(30):
             _create_article()
+        print u'Adding blog links.'
+        for i in range(15):
+            _create_blog_link()
         print u'Done.'

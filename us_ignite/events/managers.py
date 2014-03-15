@@ -12,3 +12,6 @@ class EventPublishedManager(models.Manager):
     def get_upcoming(self, **kwargs):
         return (self.get_query_set()
                 .filter(start_datetime__gte=timezone.now(), **kwargs))
+
+    def get_for_hubs(self, hub_list):
+        return self.get_upcoming(hubs__id__in=hub_list)

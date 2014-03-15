@@ -1,4 +1,4 @@
-<aside class="large-4 columns sidebar show-for-large-up">{% load snippets_tags news_tags %}
+<aside class="large-4 medium-3 columns sidebar show-for-medium-up">{% load snippets_tags news_tags blog_tags %}
   <div class="row">
     <div class="large-12 columns" data-equalizer-watch>
       {% snippet "blog-sidebar" "blog/snippet-sidebar.html" %}
@@ -28,28 +28,7 @@
 
 
       <h3 class="sidebar__heading">More from the US Ignite Community</h3>
-
-      <ul class="no-bullet sidebar__list">
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Blog roll link 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Blog roll link 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Blog roll link 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Blog roll link 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Blog roll link 1</a>
-        </li>
-        <li class="sidebar__list__item">
-          <a class="sidebar__list__link">Blog roll link 1</a>
-        </li>
-      </ul>
-
+      {% latest_blog_links "blog/links_short_list.html" %}
 
       <h3 class="sidebar__heading">US Ignite News</h3>
       {% latest_articles "blog/news_list.html" %}

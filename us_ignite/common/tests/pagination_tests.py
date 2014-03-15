@@ -61,3 +61,15 @@ class TestGetPagePaginator(TestCase):
         object_list = [2] * 44
         page = pagination.get_page(object_list, -1)
         eq_(page.number, 1)
+
+    def test_page_is_split_in_two_sections(self):
+        object_list = range(40)
+        page = pagination.get_page(object_list, 1)
+        eq_(page.object_list_top, range(12))
+        eq_(page.object_list_bottom, range(12, 24))
+
+    def test_shortpage_has_one_section(self):
+        object_list = range(3)
+        page = pagination.get_page(object_list, 1)
+        eq_(page.object_list_top, [0, 1, 2])
+        eq_(page.object_list_bottom, [])

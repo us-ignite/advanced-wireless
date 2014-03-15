@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 
 from us_ignite.common import sanitizer
-from us_ignite.blog.models import Post, PostAttachment
+from us_ignite.blog.models import BlogLink, Post, PostAttachment
 
 from tinymce.widgets import TinyMCE
 
@@ -37,4 +37,12 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [PostAttachmentInline]
 
 
+class BlogLinkAdmin(admin.ModelAdmin):
+    list_display = ('name', 'url')
+    search_fields = ('name', 'url')
+    list_filter = ('created', )
+    date_hierarchy = 'created'
+
+
 admin.site.register(Post, PostAdmin)
+admin.site.register(BlogLink, BlogLinkAdmin)

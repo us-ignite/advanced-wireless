@@ -69,6 +69,11 @@
 .domains-full-list {
 	text-align: center;
 	font-weight: $font-weight-bold;
+	font-size: 0.75rem;
+
+	@media #{$medium-up} {
+		font-size:1rem;
+	}
 }
 
 

@@ -1,8 +1,8 @@
+Tagged: 
 {% if tag_list %}
-<h2>Tags</h2>
-<ul>
   {% for tag in tag_list %}
-  <li><a href="{% url 'search' %}?q={{ tag |urlencode }}">{{ tag }}</a></li>
+  <a href="{% url 'search' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last %}{% else %},{% endif %}
   {% endfor%}
-</ul>
+{% else %}
+Post hasn't been tagged.
 {% endif %}

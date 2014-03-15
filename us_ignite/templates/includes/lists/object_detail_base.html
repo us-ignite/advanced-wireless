@@ -12,16 +12,7 @@
         <h2 class="page-title">{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h2>
 
         <span class="listings__listing__tags">
-          Tagged: 
-          {% with object.tags.all as tag_list %}
-          {% if tag_list %}
-            {% for tag in tag_list %}
-            <a href="{% url 'search_apps' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
-            {% endfor%}
-          {% else %}
-          Post hasn't been tagged.
-          {% endif %}
-          {% endwith %}
+          {% block tag_list %}{% endblock %}
         </span>
       </div>
     </div>
@@ -29,7 +20,7 @@
 </div>
 
 <div class="row collapse l-listings space-top" data-equalizer>
-  <article class="large-8 columns listings" data-equalizer-watch>
+  <article class="large-8 medium-9 columns listings" data-equalizer-watch>
 
     <ul data-orbit>
       {% if object.image  %}
@@ -48,39 +39,29 @@
         <div class="small-12 columns">
 
           <ul>
-            <li>Stage: {{ object.get_stage_display }}</li>
-            {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
-            <li>Created by {% include "includes/display_name.html" with user=object.owner %} on {{ object.created }}</li>
-            {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
-            {% if is_owner %}
-            <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
-            <li><a href="{{ object.get_hub_membership_url }}">Edit hubs membership</a></li>
-            <li><a href="{{ object.get_export_url }}">Export application</a></li>
-            <li>
-              <form method="post" action="{{ object.get_version_url }}">
-                {% csrf_token %}
-                <button type="submit">Create version</button>
-              </form>
-            </li>
-            {% endif %}
+            {% block intro %}
+              <li>Stage: {{ object.get_stage_display }}</li>
+              {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
+              {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
+              {% if is_owner %}
+              <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
+              <li><a href="{{ object.get_hub_membership_url }}">Edit hubs membership</a></li>
+              <li><a href="{{ object.get_export_url }}">Export application</a></li>
+              <li>
+                <form method="post" action="{{ object.get_version_url }}">
+                  {% csrf_token %}
+                  <button type="submit">Create version</button>
+                </form>
+              </li>
+              {% endif %}
+            {% endblock intro %}
           </ul>
         </div>
       </div>
     </div>
 
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-          <h2>Summary</h2>
-          <p>
-            {{ object.summary }}
-          </p>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="listings__listing">
+   
+     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
           {% if object.impact_statement %}
@@ -120,36 +101,18 @@
         <div class="small-12 columns">
 
           <h2>Description</h2>
-          {{ object.description|markdown }}
+          <p>{{ object.description|markdown }}</p>
+
+          {% if object.venue %}
+          <h2>Venue</h2>
+          <p>{{ object.venue }}</p>
+          {% endif %}
 
           {% if object.roadmap %}
           <h2>Roadmap</h2>
-          {{ object.roadmap }}
+          <p>{{ object.roadmap }}</p>
           {% endif %}
 
-        </div>
-      </div>
-    </div>
-
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-
-          {% if object.team_description %}
-          <h2>Team description</h2>
-          {{ object.team_description|markdown }}
-          {% endif %}
-
-          {% if member_list  %}
-          <h2>Collaborators</h2>
-          <ul>
-            {% for member in member_list %}
-            <li>
-              {% include "includes/display_name.html" with user=member %}
-            </li>
-            {% endfor%}
-          </ul>
-          {% endif %}
         </div>
       </div>
     </div>
@@ -180,6 +143,12 @@
           {% endif %}
 
 
+          {% if object.contact %}
+          <h2>Contact Details</h2>
+          <p>
+            {{ object.contact|linebreaksbr }}
+          </p>
+          {% endif %}
 
           {% if version_list %}
           <h2>Previous versions</h2>
@@ -203,7 +172,7 @@
           <h2>Ignite communities</h2>
           <ul>
             {% for hub in hub_list %}
-            <li><a href="{{ hub.hub.get_absolute_url }}">{{ hub.hub.name }}</a></li>
+            <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
             {% endfor%}
           </ul>
           {% endif %}
@@ -212,11 +181,13 @@
       </div>
     </div>
 
+    {% block related %}
     <div class="row">
       <div class="small-12 columns">
         <h4 class="listings__listing__heading listings__listing__heading--plain">RELATED CONTENT</h4>
       </div>
     </div>
+    {% endblock related %}
 
     <!-- Need related content array, to use like the below -->
     <div class="row">

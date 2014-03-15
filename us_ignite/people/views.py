@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from us_ignite.apps.models import Application
 from us_ignite.awards.models import UserAward
+from us_ignite.blog.models import Post
 from us_ignite.common import pagination, forms
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub, HubMembership, HubRequest
@@ -46,6 +47,18 @@ def get_application_list(owner, viewer=None):
     return Application.active.filter(**qs_kwargs)
 
 
+def get_similar_applications(application_list, total=4):
+    if application_list:
+        application = application_list[0]
+        params = {
+            'status': Application.PUBLISHED,
+            'domain': application.domain,
+        }
+        return (Application.active.filter(**params)
+                .exclude(owner=application.owner).order_by('?')[:total])
+    return Application.objects.none()
+
+
 def get_event_list(user, viewer=None):
     """Returns visible ``Events`` from the given ``viewer``."""
     qs_kwargs = {'user': user}
@@ -61,7 +74,7 @@ def get_resource_list(contact, viewer=None):
     return Resource.objects.filter(**qs_kwargs)
 
 
-def get_hub_list(contact, viewer=None):
+def get_hub_owned_list(contact, viewer=None):
     qs_kwargs = {'contact': contact}
     if not contact or not contact == viewer:
         qs_kwargs.update({'status': Hub.PUBLISHED})
@@ -80,12 +93,28 @@ def get_hub_membership_list(user, viewer=None):
     qs_kwargs = {'user': user}
     if not user or not user == viewer:
         qs_kwargs.update({'hub__status': Hub.PUBLISHED})
-    return (HubMembership.objects.select_related('hub').filter(**qs_kwargs))
+    membership_list = (HubMembership.objects.select_related('hub')
+                       .filter(**qs_kwargs))
+    return [m.hub for m in membership_list]
+
+
+def get_hub_list(user, viewer=None):
+    hub_list = list(get_hub_owned_list(user, viewer=viewer))
+    hub_list += get_hub_membership_list(user, viewer=viewer)
+    return list(set(hub_list))
 
 
 def get_award_list(user, viewer=None):
     qs_kwargs = {'user': user}
     return UserAward.objects.select_related('award').filter(**qs_kwargs)
+
+
+def get_post_list(limit=7):
+    return Post.objects.all()[:limit]
+
+
+def get_featured_resources(limit=2):
+    return Resource.published.filter(is_featured=True)[:limit]
 
 
 @login_required
@@ -123,31 +152,24 @@ def profile_detail(request, slug):
 
 @login_required
 def dashboard(request):
-    profile = get_object_or_404(
-        Profile.active.select_related('user'), user=request.user)
+    profile, is_new = Profile.objects.get_or_create(user=request.user)
     user = profile.user
-    application_list = get_application_list(user, viewer=request.user)
+    application_list = list(get_application_list(user, viewer=request.user))
+    similar_applications = get_similar_applications(application_list)
     event_list = get_event_list(user, viewer=request.user)
     resource_list = get_resource_list(user, viewer=request.user)
+    content_list = (list(event_list) + list(resource_list))
     hub_list = get_hub_list(user, viewer=request.user)
-    organization_list = get_organization_list(user, viewer=request.user)
-    hub_membership_list = get_hub_membership_list(user, viewer=request.user)
-    award_list = get_award_list(user, viewer=request.user)
-    # Content available when the ``User`` owns this ``Profile``:
-    if user == request.user:
-        hub_request_list = HubRequest.objects.filter(user=user)
-    else:
-        hub_request_list = []
+    hub_id_list = [h.id for h in hub_list]
     context = {
         'object': profile,
-        'is_owner': profile.user == request.user,
-        'application_list': application_list,
-        'event_list': event_list,
-        'resource_list': resource_list,
-        'hub_membership_list': hub_membership_list,
-        'hub_list': hub_list,
-        'hub_request_list': hub_request_list,
-        'organization_list': organization_list,
-        'award_list': award_list,
+        'application_list': application_list[:3],
+        'similar_applications': similar_applications,
+        'post_list': get_post_list(),
+        'hub_list': hub_list[:7],
+        'hub_event_list': Event.published.get_for_hubs(hub_id_list)[:6],
+        'featured_resource_list': get_featured_resources(),
+        'content_list': content_list,
+        'hub_request_list': HubRequest.objects.filter(user=user)[:6],
     }
     return TemplateResponse(request, 'people/dashboard.html', context)

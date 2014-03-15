@@ -14,13 +14,19 @@ def get_page_no(payload):
     return page_no
 
 
-def get_page(object_list, page_no):
+def get_page(object_list, page_no, divider=12):
     """Returns a ``Paginator`` page with the given details."""
     paginator = Paginator(object_list, settings.PAGINATOR_PAGE_SIZE)
     try:
         page = paginator.page(page_no)
     except EmptyPage:
         page = paginator.page(1)
+    if len(page.object_list) >= divider:
+        page.object_list_top = page.object_list[:divider]
+        page.object_list_bottom = page.object_list[divider:]
+    else:
+        page.object_list_top = page.object_list
+        page.object_list_bottom = []
     return page
 
 

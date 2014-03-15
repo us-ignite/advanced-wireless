@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests.fixtures import get_user
-from us_ignite.blog.models import Post, PostAttachment
+from us_ignite.blog.models import BlogLink, Post, PostAttachment
 from us_ignite.blog.tests import fixtures
 
 
@@ -29,6 +29,7 @@ class TestPostModel(TestCase):
         eq_(instance.status, Post.DRAFT)
         eq_(instance.wp_id, '')
         eq_(instance.wp_type, '')
+        eq_(instance.title, 'Gigabit post')
         eq_(instance.slug, 'gigabit-post')
         eq_(instance.content, '')
         eq_(instance.content_html, '')
@@ -41,6 +42,9 @@ class TestPostModel(TestCase):
         eq_(list(instance.tags.all()), [])
         ok_(instance.created)
         ok_(instance.modified)
+        eq_(instance.attachment, None)
+        eq_(instance.image, None)
+        eq_(instance.name, 'Gigabit post')
 
     def test_post_is_published(self):
         author = get_user('us-ignite')
@@ -108,3 +112,18 @@ class TestPostAttachmentModel(TestCase):
         eq_(instance.mime_type, '')
         eq_(instance.description, '')
         eq_(instance.caption, '')
+
+
+class TestBlogLinkModel(TestCase):
+
+    def test_blog_link_is_created_successfully(self):
+        data = {
+            'name': 'US Ignite campaign',
+            'url': 'http://us-ignite.org',
+        }
+        link = BlogLink.objects.create(**data)
+        ok_(link.pk)
+        eq_(link.name, 'US Ignite campaign')
+        eq_(link.url, 'http://us-ignite.org')
+        ok_(link.created)
+        eq_(link.order, 0)
