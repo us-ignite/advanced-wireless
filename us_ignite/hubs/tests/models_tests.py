@@ -102,6 +102,7 @@ class TestHubModel(TestCase):
         eq_(list(instance.tags.all()), [])
         ok_(instance.created)
         ok_(instance.modified)
+        ok_(instance.position)
 
     def test_is_contact(self):
         contact = get_user('contact')
