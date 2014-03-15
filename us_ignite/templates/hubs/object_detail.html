@@ -5,3 +5,20 @@
 {% block tag_list %}
   
 {% endblock tag_list %}
+
+
+{% block related %}
+<div class="row">
+  <div class="small-12 columns">
+    <h4 class="listings__listing__heading listings__listing__heading--plain">MAP</h4>
+    <div id="map" style="width:500px; height:300px;"></div>
+  </div>
+</div>
+{% endblock related %}
+
+{# Scripts required by the map #}
+{% block extra_scripts %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC6VsR-gfPbgJCJ67zC0gSx3yq4zljBhk&sensor=false" type="text/javascript"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/maps.js"></script>
+<script type="text/javascript" src="{% url 'hub_locations_json' object.slug %}"></script>
+{% endblock extra_scripts %}
