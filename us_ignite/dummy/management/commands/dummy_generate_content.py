@@ -148,6 +148,7 @@ def _create_hub():
         'website': _get_url(),
         'status': choice(Hub.STATUS_CHOICES)[0],
         'is_featured': choice([True, False]),
+        'position': locations.get_location(),
     }
     hub = Hub.objects.create(**data)
     _create_hub_membership(hub)
