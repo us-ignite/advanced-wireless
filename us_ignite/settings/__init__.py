@@ -261,7 +261,7 @@ LOGIN_REDIRECT_URL_FAILURE = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Paginator:
-PAGINATOR_PAGE_SIZE = 10
+PAGINATOR_PAGE_SIZE = 20
 
 # Uplaoded file restrictions:
 MAX_UPLOAD_SIZE = int(1024 * 1024 * 5)   # 5MB
