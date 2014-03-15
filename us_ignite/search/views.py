@@ -58,7 +58,8 @@ def search(request):
         object_list = []
         pagination_qs = ''
     page = pagination.get_page(object_list, page_no)
-    page.object_list = [o.object for o in page.object_list]
+    page.object_list_top = [o.object for o in page.object_list_top]
+    page.object_list_bottom = [o.object for o in page.object_list_bottom]
     context = {
         'form': form,
         'page': page,
