@@ -1,0 +1,9 @@
+{% if object_list %}
+<ul class="no-bullet sidebar__list">
+  {% for object in object_list %}
+  <li class="sidebar__list__item">
+    <a href="{{ object.url }}" class="sidebar__list__link">{{ object.name }}</a>
+  </li>
+  {% endfor%}
+</ul>
+{% endif %}
