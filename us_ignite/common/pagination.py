@@ -21,6 +21,12 @@ def get_page(object_list, page_no):
         page = paginator.page(page_no)
     except EmptyPage:
         page = paginator.page(1)
+    if len(page.object_list) >= 6:
+        page.object_list_top = page.object_list[:6]
+        page.object_list_bottom = page.object_list[6:]
+    else:
+        page.object_list_top = page.object_list
+        page.object_list_bottom = []
     return page
 
 
