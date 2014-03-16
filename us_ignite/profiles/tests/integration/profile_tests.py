@@ -66,13 +66,17 @@ class TestEditProfilePage(TestCase):
         url = '/accounts/profile/'
         response = self.client.get(url)
         fields = response.context['form'].fields.keys()
-        eq_(sorted(fields), sorted(['bio', 'is_public', 'name',
-                                    'tags', 'website', 'position']))
+        eq_(sorted(fields),
+            sorted(['bio', 'is_public', 'name', 'tags', 'website',
+                    'position', 'availability', 'quote']))
 
     def test_profile_form_update_is_successful(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
         url = '/accounts/profile/'
-        data = {'name': 'John Donne'}
+        data = {
+            'name': 'John Donne',
+            'availability': Profile.NO_AVAILABILITY,
+        }
         data.update(_get_profilelink_inline_payload(profile.pk))
         response = self.client.post(url, data)
         assert_redirects(response, '/accounts/profile/')
@@ -83,7 +87,10 @@ class TestEditProfilePage(TestCase):
     def test_profile_ignores_invaid_values(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
         url = '/accounts/profile/'
-        data = {'email': 'invalid@us-ignite.org'}
+        data = {
+            'email': 'invalid@us-ignite.org',
+            'availability': Profile.NO_AVAILABILITY,
+        }
         data.update(_get_profilelink_inline_payload(profile.pk))
         response = self.client.post(url, data)
         assert_redirects(response, '/accounts/profile/')
@@ -94,7 +101,10 @@ class TestEditProfilePage(TestCase):
     def test_profile_updates_inline_models(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
         url = '/accounts/profile/'
-        data = {'name': ''}
+        data = {
+            'name': '',
+            'availability': Profile.NO_AVAILABILITY,
+        }
         data_list = [{'name': 'Github', 'url': 'http://github.com/'}]
         data.update(_get_profilelink_inline_payload(
             profile.pk, data_list=data_list))

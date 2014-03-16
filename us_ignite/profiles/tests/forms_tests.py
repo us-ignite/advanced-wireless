@@ -5,8 +5,13 @@ from django.forms import ValidationError
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from us_ignite.profiles.forms import (UserRegistrationForm, ProfileForm,
-                                      InviterForm, UserExportForm)
+from us_ignite.profiles.forms import (
+    InviterForm,
+    ProfileForm,
+    UserExportForm,
+    UserRegistrationForm,
+)
+from us_ignite.profiles.models import Profile
 
 user_get = 'django.contrib.auth.models.User.objects.get'
 
@@ -64,7 +69,8 @@ class TestUserRegistrationForm(TestCase):
             'password2': 'abc',
         })
         eq_(form.is_valid(), True)
-        user_get_mock.assert_called_once_with(email__iexact='user-c@us-ignite.org')
+        user_get_mock.assert_called_once_with(
+            email__iexact='user-c@us-ignite.org')
 
 
 class TestProfileForm(TestCase):
@@ -72,10 +78,13 @@ class TestProfileForm(TestCase):
     def test_form_list_non_sensitive_values(self):
         form = ProfileForm()
         eq_(sorted(form.fields.keys()),
-            sorted(['bio', 'is_public', 'name', 'tags', 'website', 'position']))
+            sorted(['bio', 'is_public', 'name', 'tags', 'website',
+                    'position', 'availability', 'quote']))
 
-    def test_form_accepts_empty_payload(self):
-        form = ProfileForm({})
+    def test_form_accepts_default_payload(self):
+        form = ProfileForm({
+            'availability': Profile.NO_AVAILABILITY,
+        })
         ok_(form.is_valid())
 
     def test_form_accepts_empty_values(self):
@@ -83,6 +92,7 @@ class TestProfileForm(TestCase):
             'name': '',
             'bio': '',
             'website': '',
+            'availability': Profile.NO_AVAILABILITY,
         })
         ok_(form.is_valid())
 
@@ -91,6 +101,7 @@ class TestProfileForm(TestCase):
             'name': 'John Donne',
             'bio': 'English poet, satirist and lawyer.',
             'website': 'http://en.wikipedia.org/wiki/John_Donne',
+            'availability': Profile.NO_AVAILABILITY,
         })
         ok_(form.is_valid())
 
