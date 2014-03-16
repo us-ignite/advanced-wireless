@@ -1,5 +1,9 @@
 .profile {
-	
+	padding-top:2em;
+
+	&.profile--collapse {
+		padding-top: 0;
+	}	
 }
 
 .profile__avatar {
@@ -7,6 +11,8 @@
 }
 
 .profile__heading {
+	margin-top:2em;
+
 	&.profile__heading--light {
 		color: #fff;
 	}

@@ -1,12 +1,17 @@
 {% load thumbnail %}
-<a href="{{ profile.get_absolute_url }}" title="{{ object.name }}" class="sidebar__list__link">
-  {% if object.image %}
-  <img src="{% thumbnail object.image 50x50 crop %}" alt="{{ object.name }}" class="sidebar__list__image">
-  {% else %}
-  <img src="http://placehold.it/50x50" alt="{{ object.name }}" class="sidebar__list__image">
-  {% endif %}
+<a href="{{ profile.get_absolute_url }}" title="{{ object.name }}" class="sidebar__list__link row collapse">
 
-  <span class="sidebar__list__desc">
-    {{ object.name }}
-  </span>
+  <div class="medium-4 large-2 columns">
+    {% if object.image %}
+    <img src="{% thumbnail object.image 50x50 crop %}" alt="{{ object.name }}" class="sidebar__list__image">
+    {% else %}
+    <img src="http://placehold.it/50x50" alt="{{ object.name }}" class="sidebar__list__image">
+    {% endif %}
+  </div>
+
+  <div class="medium-8 large-10 columns">
+    <span class="sidebar__list__desc">
+      {{ object.name }}
+    </span>
+  </div>
 </a>
