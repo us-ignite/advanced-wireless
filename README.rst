@@ -66,6 +66,11 @@ Generate dummy data (inside the VM)::
     dj dummy_generate_content
 
 
+Reset the local db and install fixtures (inside the VM)::
+
+    dj reset_local_db
+
+
 Incorporate new objects to the full-text search (inside the VM)::
 
     dj buildwatson
