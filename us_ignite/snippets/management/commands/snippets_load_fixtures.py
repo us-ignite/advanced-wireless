@@ -32,6 +32,13 @@ FIXTURES = [
         'url_text': '',
         'url': '',
     },
+    {
+        'slug': 'profile-welcome',
+        'name': 'Welcome message in the profile',
+        'body': 'Lorem ipsum',
+        'url_text': '',
+        'url': '',
+    },
 ]
 
 

@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load apps_urls thumbnail common_markdown %}
+{% extends "base.html" %}{% load apps_urls thumbnail common_markdown snippets_tags %}
 
 {% block title %}Dashboard - {{ block.super }}{% endblock title %}
 
@@ -24,12 +24,7 @@
 
     <div class="small-12 medium-8 columns">
       <blockquote class="profile__quote profile__quote--plain">
-        Welcome{% if object.full_name %} {{ object.full_name }}{% endif %}, <br>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin posuere
-  quam neque, rutrum tincidunt tellus ornare scelerisque. Quisque varius
-  convallis libero, eu pretium tellus posuere sed. In iaculis viverra
-  ligula vitae scelerisque. Integer dignissim laoreet tortor, ut laoreet
-  nunc auctor vel.
+        Welcome{% if object.full_name %} {{ object.full_name }}{% endif %}, <br>           {% snippet "profile-welcome" "snippets/profile_welcome.html" %}
       </blockquote>
     </div>
   </div>
