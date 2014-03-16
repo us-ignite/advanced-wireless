@@ -1,7 +1,7 @@
-<ul>
-  {% for object in object_list %}
-  <li>
-    {% include "people/includes/object_headline.html" with object=object %}
-  </li>
-  {% endfor%}
-</ul>
+{% for object in object_list %}
+  <div class="columns small-12 medium-4{% if forloop.last %} end{% endif %}">
+    {% include "includes/lists/object_block_base.html" with object=object %}
+  </div>
+{% endfor%}
+
+

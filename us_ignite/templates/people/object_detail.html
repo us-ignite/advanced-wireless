@@ -9,7 +9,7 @@
 
     <div class="row">
       <div class="small-12 columns">
-        <h2 class="page-title">{{ object.full_name }}</h2>
+        <h2 class="page-title">{% block section_title %}{{ object.full_name }}{% endblock section_title %}</h2>
 
         <span class="listings__listing__tags">
           {% include "includes/tag_list.html" with tag_list=object.tags.all %}
@@ -37,6 +37,7 @@ Praesent vitae cursus mauris. </blockquote>
     </div>
     
 
+    {% block section %}
     <!-- ABOUT -->
     <div class="listings__listing">
       <div class="row">
@@ -130,13 +131,15 @@ Praesent vitae cursus mauris. </blockquote>
     {% endif %}
     <!-- /COMMUNITIES -->
 
-   
+   {% endblock section %}
 
   </article>
 
   <aside class="large-4 medium-3 columns sidebar">{% load snippets_tags news_tags common_markdown %}
     <div class="row">
       <div class="large-12 columns" data-equalizer-watch>
+
+        {% block sidebar %}
         
         <h3 class="sidebar__heading">CONTACT</h3>
 
@@ -202,7 +205,7 @@ Praesent vitae cursus mauris. </blockquote>
       
         <p><a class="button secondary expand" href="{{ object.get_contact_url }}">CONTACT MEMBER</a></p>
 
-     
+        {% endblock sidebar %}
 
       </div>
     </div>

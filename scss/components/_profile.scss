@@ -6,6 +6,12 @@
 	width:276px;
 }
 
+.profile__heading {
+	&.profile__heading--light {
+		color: #fff;
+	}
+}
+
 .profile__quote {
 	margin: 0;
 	padding: 24px 24px 24px 24px;
@@ -34,5 +40,13 @@
 		left:auto;
 		bottom:-65px;
 		right:8px;
+	}
+
+	&.profile__quote--plain {
+		&:before,
+		&:after {
+			content: "";
+			display: none;
+		}
 	}
 }
