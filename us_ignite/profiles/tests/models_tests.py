@@ -29,6 +29,8 @@ class TestProfileModel(TestCase):
         eq_(list(profile.tags.all()), [])
         eq_(profile.is_public, False)
         ok_(profile.position)
+        eq_(profile.quote, '')
+        eq_(profile.availability, Profile.NO_AVAILABILITY)
 
     def test_user_full_name_is_valid(self):
         user = fixtures.get_user('john')
