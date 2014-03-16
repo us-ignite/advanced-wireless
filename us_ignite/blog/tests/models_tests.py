@@ -45,6 +45,7 @@ class TestPostModel(TestCase):
         eq_(instance.attachment, None)
         eq_(instance.image, None)
         eq_(instance.name, 'Gigabit post')
+        eq_(instance.is_custom, False)
 
     def test_post_is_published(self):
         author = get_user('us-ignite')
