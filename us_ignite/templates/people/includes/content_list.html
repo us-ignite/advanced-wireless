@@ -1,5 +1,5 @@
 {% for object in object_list %}
-  <div class="columns small-12 medium-4{% if forloop.last %} end{% endif %}">
+  <div class="columns large-4{% if forloop.last %} end{% endif %}">
     {% include "includes/lists/object_block_base.html" with object=object %}
   </div>
 {% endfor%}

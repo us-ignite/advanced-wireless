@@ -60,7 +60,7 @@ Praesent vitae cursus mauris. </blockquote>
 
           <div class="row">
           {% for app in application_list %}
-            <div class="columns small-12 medium-6 large-4{% if forloop.last %} end{% endif %}">
+            <div class="columns large-4{% if forloop.last %} end{% endif %}">
               {% include "includes/lists/object_block_base.html" with object=app %}
             </div>
           {% endfor%}
@@ -80,7 +80,7 @@ Praesent vitae cursus mauris. </blockquote>
 
           <div class="row">
           {% for event in event_list %}
-            <div class="columns small-12 medium-6 large-4{% if forloop.last %} end{% endif %}">
+            <div class="columns large-4{% if forloop.last %} end{% endif %}">
               {% include "includes/lists/object_block_base.html" with object=event %}
             </div>
           {% endfor%}
@@ -100,7 +100,7 @@ Praesent vitae cursus mauris. </blockquote>
 
           <div class="row">
           {% for resource in resource_list %}
-            <div class="columns small-12 medium-6 large-4{% if forloop.last %} end{% endif %}">
+            <div class="columns large-4{% if forloop.last %} end{% endif %}">
               {% include "includes/lists/object_block_base.html" with object=resource %}
             </div>
           {% endfor%}
@@ -120,7 +120,7 @@ Praesent vitae cursus mauris. </blockquote>
 
           <div class="row">
           {% for hub in hub_list %}
-            <div class="columns small-12 medium-6 large-4{% if forloop.last %} end{% endif %}">
+            <div class="columns large-4{% if forloop.last %} end{% endif %}">
               {% include "includes/lists/object_block_base.html" with object=hub %}
             </div>
           {% endfor%}
