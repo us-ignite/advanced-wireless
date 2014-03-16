@@ -1,9 +1,12 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Edit Resource: {{ object.name }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Edit Resource: {{ object.name }}</h1>
+{% block section_title %}
+Edit Resource: {{ object.name }}
+{% endblock section_title %}
+
+{% block section %}
 
 <form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data">
   {{ form.as_p }}
@@ -12,4 +15,4 @@
     {% csrf_token %}
   </p>
 </form>
-{% endblock content %}
+{% endblock section %}
