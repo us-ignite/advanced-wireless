@@ -44,10 +44,13 @@
             </form>
           </div>
 
+
           <div class="medium-4 medium-offset-2 small-6 columns">
             <div class="row collapse">
               <div class="small-12 columns search">
-                <input type="text" placeholder="SEARCH" class="search__field">
+                <form method="get" action="{% url 'search' %}">
+                  <input type="text" placeholder="SEARCH" class="search__field" name="q">
+                </form>
               </div>
             </div>
           </div>
