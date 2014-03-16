@@ -1,1 +1,24 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class="row registration">
+
+  <div class="small-12 medium-8 large-6 small-centered columns">
+
+    <div class="row">
+      <div class="small-12 small-centered registration__header">
+        <h2 class="registration__heading">{% block section_title %}Title{% endblock section_title %}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 small-centered registration__content">
+        {% block section %}{% endblock section %}
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+{% endblock content %}
