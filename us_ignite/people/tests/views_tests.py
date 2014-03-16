@@ -115,9 +115,8 @@ class TestProfileDetailView(TestCase):
         ok_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
             sorted(['object', 'application_list', 'event_list',
-                    'resource_list', 'hub_membership_list', 'hub_list',
-                    'hub_request_list', 'organization_list', 'award_list',
-                    'is_owner']))
+                    'resource_list', 'hub_list', 'hub_request_list',
+                    'organization_list', 'award_list', 'is_owner']))
         _teardown_profiles()
 
     def test_get_request_is_successful(self):
@@ -127,7 +126,7 @@ class TestProfileDetailView(TestCase):
         ok_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
             sorted(['object', 'application_list', 'event_list',
-                    'resource_list', 'hub_membership_list', 'hub_list',
+                    'resource_list', 'hub_list',
                     'hub_request_list', 'organization_list', 'award_list',
                     'is_owner']))
         _teardown_profiles()

@@ -186,11 +186,11 @@
         </ul>
         {% endif %}
 
-        {% if hub_membership_list %}
-        <h3 class="sidebar__heading">Ignite Communities (Member)</h3>
+        {% if hub_list %}
+        <h3 class="sidebar__heading">Ignite Communities</h3>
         <ul class="sidebar__list sidebar__list--bullets">
-          {% for membership in hub_membership_list %}
-          <li class="sidebar__list__item"><a href="{{ membership.hub.get_absolute_url }}">{{ membership.hub }}</a></li>
+          {% for hub in hub_list %}
+          <li class="sidebar__list__item"><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
           {% endfor%}
         </ul>
         {% endif %}
