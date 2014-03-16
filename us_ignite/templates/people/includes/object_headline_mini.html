@@ -1,5 +1,5 @@
 {% load thumbnail %}
-<a href="{{ profile.get_absolute_url }}" title="{{ object.name }}" class="sidebar__list__link row collapse">
+<a href="{{ object.get_absolute_url }}" title="{{ object.name }}" class="sidebar__list__link row collapse">
 
   <div class="medium-4 large-2 columns">
     {% if object.image %}
