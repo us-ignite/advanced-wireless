@@ -37,7 +37,7 @@
       <nav role="banner" class="top-bar" data-topbar>
         <ul class="title-area">
           <li class="name">
-            <h1><a href="{% url "home" %}" class="top-bar__logo"><span>US Ignite</span></a></h1>
+            <h1><a href="{% if request.user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'home' %}{% endif %}" class="top-bar__logo"><span>US Ignite</span></a></h1>
           </li>
           <li class="toggle-topbar menu-icon"><a href="#">Main Menu</a></li>
         </ul>
