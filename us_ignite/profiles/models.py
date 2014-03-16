@@ -58,7 +58,7 @@ class Profile(models.Model):
     def display_email(self):
         return u'%s <%s>' % (self.display_name, self.user.email)
 
-    def get_gravatar_url(self, size=100):
+    def get_gravatar_url(self, size=276):
         """Determines gravatar icon url"""
         user_hash = hashlib.md5(self.user.email).hexdigest()
         return u'//www.gravatar.com/avatar/%s?s=%s' % (user_hash, size)
