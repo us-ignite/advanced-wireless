@@ -1,9 +1,21 @@
 .profile {
-	
+	padding-top:2em;
+
+	&.profile--collapse {
+		padding-top: 0;
+	}	
 }
 
 .profile__avatar {
 	width:276px;
+}
+
+.profile__heading {
+	margin-top:2em;
+
+	&.profile__heading--light {
+		color: #fff;
+	}
 }
 
 .profile__quote {
@@ -34,5 +46,13 @@
 		left:auto;
 		bottom:-65px;
 		right:8px;
+	}
+
+	&.profile__quote--plain {
+		&:before,
+		&:after {
+			content: "";
+			display: none;
+		}
 	}
 }

@@ -1,6 +1,6 @@
 <div class="listings__listing">{% load thumbnail %}
   <div class="row">
-    <div class="small-4 columns">
+    <div class="small-5 medium-4 show-for-medium-up columns">
       {% with attachment=object.attachment %}
       {% if attachment  %}
       <img src="{% thumbnail attachment.attachment 268x169 crop %}" alt="" class="listings__listing__image" />
@@ -10,7 +10,7 @@
       {% endwith %}
     </div>
 
-    <div class="small-8 columns">
+    <div class="small-12 medium-8 columns">
       <span class="listings__listing__tags">
         Tagged:
         {% with object.tags.all as tag_list %}

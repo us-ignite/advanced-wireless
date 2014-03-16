@@ -1,10 +1,42 @@
-  {% for object in object_list %}
-    {% if forloop.counter <= 2 %}
-      {% include "people/includes/object_headline.html" with object=object %}
-    {% else %}
-      {% include "people/includes/object_headline_mini.html" with object=object %}
-    {% endif %}
-    {% if forloop.counter == 2 %}
-      <h3>IN CASE YOU MISSED THESE EVENTS</h3>
-    {% endif %}
-  {% endfor%}
+  <!-- FULL ROW -->
+  <div class="row collapse l-listings l-listings--full">
+    <article class="large-8 medium-9 small-12 columns listings profile">
+      <div class="row">
+        <div class="small-12 columns">
+          <h4 class="listings__listing__heading listings__listing__heading--plain">EVENT HIGHLIGHTS</h4>
+
+          {% for object in object_list %}
+          {% if forloop.counter <= 2 %}
+            <div class="columns large-6{% if forloop.last %} end{% endif %}">
+              {% include "includes/lists/object_block_base.html" with object=object %}
+            </div>
+          {% endif %}
+          {% endfor %}
+         
+        </div>
+      </div>
+    </article>
+
+    <aside class="large-4 medium-3 show-for-medium-up columns sidebar">{% load snippets_tags news_tags common_markdown %}
+      <div class="row">
+        <div class="large-12 columns">
+          <h3 class="sidebar__heading">IN CASE YOU MISSED THESE EVENTS</h3>
+
+          
+          <ul class="no-bullet sidebar__list">
+            <li class="sidebar__list__item">
+              
+              {% for object in object_list %}
+              {% if forloop.counter > 2 %}
+                {% include "people/includes/object_headline_mini.html" with object=object %}
+              {% endif %}
+              {% endfor %}
+
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </aside>
+  </div>
+  <!-- /FULL ROW -->

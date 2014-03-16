@@ -1,11 +1,17 @@
 {% with profile=user.profile %}
 {% if profile %}
-<a href="{{ profile.get_absolute_url }}" title="Contact {{ profile.display_name }}" class="sidebar__list__link">
-  <img src="{{ profile.get_gravatar_url }}" alt="{{ profile.display_name }}" class="sidebar__list__image">
-  <span class="sidebar__list__desc">
-    {{ profile.display_name }}
-    <span class="sidebar__list__highlight">{{ profile.email }}</span>
-  </span>
+<a href="{{ profile.get_absolute_url }}" title="Contact {{ profile.display_name }}" class="sidebar__list__link row collapse">
+
+  <div class="medium-4 large-2 columns">
+    <img src="{{ profile.get_gravatar_url }}" alt="{{ profile.display_name }}" class="sidebar__list__image">
+  </div>
+
+  <div class="medium-8 large-10 columns">
+    <span class="sidebar__list__desc">
+      {{ profile.display_name }}
+      <span class="sidebar__list__highlight">{{ profile.email }}</span>
+    </span>
+  </div>
 </a>
 
 {% else %}
