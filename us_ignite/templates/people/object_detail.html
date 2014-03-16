@@ -29,13 +29,11 @@
         </div> 
 
         <div class="small-12 medium-8 columns">
-          <blockquote class="profile__quote">Personal quote lorem dolor sit amet, consectetur adipiscing elit. Proi sit amet feugiat  enim.  Integer id posuere quam. 
-Praesent vitae cursus mauris. </blockquote>
+          <blockquote class="profile__quote">{{ object.quote }} </blockquote>
         </div>
         
       </div>
     </div>
-    
 
     {% block section %}
     <!-- ABOUT -->
@@ -50,6 +48,19 @@ Praesent vitae cursus mauris. </blockquote>
       </div>
     </div>
     <!-- /ABOUT -->
+
+    <!-- AVAILABILITY -->
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+
+          <h4 class="listings__listing__heading listings__listing__heading--plain">CURRENT AVAILABILITY TO JOIN A PROJECT</h4>
+          <p>{{ object.get_availability_display }}.</p>
+
+        </div>
+      </div>
+    </div>
+    <!-- /AVAILABILITY -->
 
     <!-- APPLICATIONS -->
     {% if application_list %}
