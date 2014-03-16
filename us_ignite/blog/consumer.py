@@ -3,19 +3,14 @@ import pytz
 import requests
 import HTMLParser
 
-from StringIO import StringIO
-
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core import files
-from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
 from django.utils.encoding import force_text
 from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils.dateparse import parse_datetime
 
-from us_ignite.common import sanitizer
+from us_ignite.common import sanitizer, files
 from us_ignite.blog.models import Post, PostAttachment
 
 logger = logging.getLogger('us_ignite.blog.consumer')
@@ -69,18 +64,6 @@ def _get_key_from_url(url, prefix='blog'):
     return u'%s/%s' % (prefix, suffix)
 
 
-def import_file(url, key):
-    """Imports a given a fileURL and returs a valid key, if the key exist
-    assumes it's the same file."""
-    if default_storage.exists(key):
-        logger.debug('Ignoring existing file: %s', key)
-        return key
-    logger.debug('Downloading: %s',  url)
-    response = requests.get(url)
-    image_file = files.File(StringIO(response.content))
-    return default_storage.save(key, ContentFile(image_file.read()))
-
-
 def import_attachment(post, data):
     wp_id = clean_stream(data['id'])
     try:
@@ -97,7 +80,7 @@ def import_attachment(post, data):
     attachment.description = clean_stream(data['description'])
     attachment.caption = clean_stream(data['caption'])
     file_key = _get_key_from_url(url)
-    attachment.attachment = import_file(url, file_key)
+    attachment.attachment = files.import_file(url, file_key)
     attachment.save()
     return attachment
 

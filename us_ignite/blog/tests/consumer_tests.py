@@ -109,7 +109,7 @@ def _get_attachment_data(**kwargs):
 
 class TestImportAttachmentFunction(TestCase):
 
-    @patch('us_ignite.blog.consumer.import_file')
+    @patch('us_ignite.common.files.import_file')
     @patch.object(PostAttachment, 'save')
     def test_attachment_is_created_successfully(self, mock_save, mock_file):
         data = _get_attachment_data()
