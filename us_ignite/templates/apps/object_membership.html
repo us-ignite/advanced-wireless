@@ -1,9 +1,12 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Edit membership to {{ object.name }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Edit users membership to {{ object.name }}</h1>
+{% block section_title %}
+Edit users membership to {{ object.name }}
+{% endblock section_title %}
+
+{% block section %}
 <form method="post" action="{{ object.get_membership_url }}">
   {{ form.as_p }}
   <h2>Existing members:</h2>
@@ -14,4 +17,4 @@
   {{ formset.management_form }}
   <p>{% csrf_token %}<button type="submit">Update membership</button></p>
 </form>
-{% endblock content %}
+{% endblock section %}

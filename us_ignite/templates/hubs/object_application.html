@@ -1,11 +1,14 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Register a hub - {{ block.super }}{% endblock title %}
 
-{% block content %}
+{% block section_title %}
+Apply to be an Ingite Community
+{% endblock section_title %}
 
+{% block section %}
 {% if object_list %}
-<h1>Existing applications</h1>
+<h3>Existing applications</h3>
 
 <table>
   <tr>
@@ -26,7 +29,7 @@
 {% endif %}
 
 
-<h1>Apply an Ignite community</h1>
+<h3>Apply an Ignite community</h3>
 
 <p>
   Apply to be a Gigabit community.
@@ -40,4 +43,4 @@
   </p>
 </form>
 
-{% endblock content %}
+{% endblock section %}

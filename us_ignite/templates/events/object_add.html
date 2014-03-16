@@ -1,17 +1,20 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Add event - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Add an Event</h1>
+{% block section_title %}
+Add an Event
+{% endblock section_title %}
+
+{% block section %}
 <form method="post" action="{% url "event_add" %}" enctype="multipart/form-data">
   {% include "events/object_form.html" %}
   <p>
     {% csrf_token %}
-    <button type="submit">Create</button>
+    <button type="submit">CREATE</button>
   </p>
 </form>
-{% endblock content %}
+{% endblock section %}
 
 {% block extra_scripts %}
 {{ form.media }}

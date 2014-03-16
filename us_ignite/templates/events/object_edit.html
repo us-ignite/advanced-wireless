@@ -1,17 +1,20 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Edit event {{ object.name }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Edit: {{ object.name }}</h1>
+{% block section_title %}
+Edit: {{ object.name }}
+{% endblock section_title %}
+
+{% block section %}
 <form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data">
   {% include "events/object_form.html" %}
   <p>
     {% csrf_token %}
-    <button type="submit">Update</button>
+    <button type="submit">UPDATE</button>
   </p>
 </form>
-{% endblock content %}
+{% endblock section %}
 
 {% block extra_scripts %}
 {{ form.media }}
