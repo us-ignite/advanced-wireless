@@ -31,3 +31,4 @@ class TestSnippetModel(TestCase):
         ok_(instance.modified)
         eq_(instance.slug, 'featured')
         ok_(instance.id)
+        eq_(instance.notes, '')
