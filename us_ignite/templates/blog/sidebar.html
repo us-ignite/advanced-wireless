@@ -1,39 +1,30 @@
-<aside class="large-4 medium-3 columns sidebar show-for-medium-up">{% load snippets_tags news_tags blog_tags %}
+<aside class="large-4 medium-3 columns sidebar show-for-medium-up">{% load snippets_tags news_tags blog_tags thumbnail %}
   <div class="row">
     <div class="large-12 columns" data-equalizer-watch>
       {% snippet "blog-sidebar" "blog/snippet-sidebar.html" %}
       <h3 class="sidebar__heading">In case you missed it</h3>
 
       <ul class="no-bullet sidebar__list">
+        {% for object in featured_list %}
         <li class="sidebar__list__item">
-          <a href="#" class="sidebar__list__link row collapse">
+          <a href="{{ object.get_absolute_url }}" class="sidebar__list__link row collapse">
               <div class="medium-4 large-2 columns">
+                {% if object.image %}
+                <img src="{% thumbnail object.image 51x51 crop %}" class="sidebar__list__image">
+                {% else %}
                 <img src="http://placehold.it/51x51" class="sidebar__list__image">
+                {% endif %}
               </div>
 
               <div class="medium-8 large-10 columns">
                 <span class="sidebar__list__desc">
-                  Super Computing ’13 in Denver
+                  {{ object.name }}
                   <span class="sidebar__list__shares">134 Shares</span>
                 </span>
               </div>
           </a>
         </li>
-
-        <li class="sidebar__list__item">
-          <a href="#" class="sidebar__list__link row collapse">
-              <div class="medium-4 large-2 columns">
-                <img src="http://placehold.it/51x51" class="sidebar__list__image">
-              </div>
-
-              <div class="medium-8 large-10 columns">
-                <span class="sidebar__list__desc">
-                  Super Computing ’13 in Denver
-                  <span class="sidebar__list__shares">134 Shares</span>
-                </span>
-              </div>
-          </a>
-        </li>
+        {% endfor%}
       </ul>
 
 
