@@ -77,6 +77,9 @@ class Profile(models.Model):
         user_hash = hashlib.md5(self.user.email).hexdigest()
         return u'//www.gravatar.com/avatar/%s?s=%s' % (user_hash, size)
 
+    def is_owned_by(self, user):
+        return self.user == user
+
 
 class ProfileLink(models.Model):
     profile = models.ForeignKey('profiles.Profile')

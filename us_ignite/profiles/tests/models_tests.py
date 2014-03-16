@@ -3,6 +3,7 @@ from nose.tools import ok_, eq_
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+from us_ignite.common.tests import utils
 from us_ignite.profiles.tests import fixtures
 from us_ignite.profiles.models import Profile, ProfileLink
 
@@ -62,6 +63,16 @@ class TestProfileModel(TestCase):
         user = fixtures.get_user('john', email='info@us-ignite.org')
         profile = fixtures.get_profile(user=user, name='john', slug='john')
         eq_(profile.get_contact_url(), u'/contact/john/')
+
+    def test_user_is_owner(self):
+        user = fixtures.get_user('john', email='info@us-ignite.org')
+        profile = fixtures.get_profile(user=user, name='john', slug='john')
+        eq_(profile.is_owned_by(user), True)
+
+    def test_anon_user_is_not_owner(self):
+        user = fixtures.get_user('john', email='info@us-ignite.org')
+        profile = fixtures.get_profile(user=user, name='john', slug='john')
+        eq_(profile.is_owned_by(utils.get_anon_mock()), False)
 
 
 class TestProfileLinkModel(TestCase):
