@@ -1,25 +1,14 @@
-{% extends "base.html" %}
+{% extends "includes/lists/object_list_base.html" %}
 
-{% block title %}Search results - {{ block.super }}{% endblock title %}
+{% block title %}Seach Results - {{ block.super }}{% endblock title %}
 
-{% block search %}{% endblock search %}
+{% block page_title %}Search Results{% endblock page_title %}
 
-{% block content %}
-<h1>Search results</h1>
+{% block top_panel %}
+{% endblock top_panel %}
 
-<form method="get" action="{% url 'search' %}">
-  {{ form }}
-</form>
+{% block tags %}
+{% endblock tags %}
 
-{% if page.object_list  %}
-{% for object in page.object_list %}
-<h3><a href="{{ object.url }}">{{ object.title }}</a></h3>
-<p>{{ result.description }}</p>
-{% endfor%}
-{% else %}
-<p>No results available.</p>
-{% endif %}
-
-{% include "includes/pagination.html" %}
-
-{% endblock content %}
+{% block add_to_list %}
+{% endblock add_to_list %}
