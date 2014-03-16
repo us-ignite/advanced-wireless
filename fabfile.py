@@ -12,6 +12,7 @@ here = lambda *x: os.path.join(PROJECT_ROOT, *x)
 DB_STRING = 'us_ignite'
 
 
+@task
 def production():
     """Connection details for the ``production`` app"""
     env.slug = 'production'
@@ -19,6 +20,7 @@ def production():
     env.app = 'us-ignite'
 
 
+@task
 def staging():
     """Connection details for the ``production`` app"""
     env.slug = 'staging'
