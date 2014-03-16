@@ -39,7 +39,7 @@ class TestProfileModel(TestCase):
         user = fixtures.get_user('paul')
         profile = fixtures.get_profile(user=user)
         eq_(profile.get_gravatar_url(),
-            '//www.gravatar.com/avatar/f978b2b03ad48da6d36c431f72d6fd97?s=100')
+            '//www.gravatar.com/avatar/f978b2b03ad48da6d36c431f72d6fd97?s=276')
 
     def test_user_display_name_is_valid(self):
         user = fixtures.get_user('john')
