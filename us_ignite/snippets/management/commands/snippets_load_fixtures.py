@@ -27,7 +27,7 @@ FIXTURES = [
     },
     {
         'slug': 'blog-sidebar',
-        'name': 'Dynamic content',
+        'name': 'Blog sidebar featured content.',
         'body': '',
         'url_text': '',
         'url': '',
