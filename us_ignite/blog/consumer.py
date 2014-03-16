@@ -112,7 +112,12 @@ def import_post(data):
         post = Post.objects.get(wp_id__exact=wp_id)
     except Post.DoesNotExist:
         # Publish the post the first time it is imported:
+        logger.debug('Import new post: %s', wp_id)
         post = Post(wp_id=wp_id, status=Post.PUBLISHED)
+    # Post has been marked as non-updatable:
+    if post.is_custom:
+        logger.debug('Ignore existing post: %s', post)
+        return post
     # Determine the author of the post, if existing:
     author = get_author(data['author'])
     if not post.author and author:
