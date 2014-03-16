@@ -63,7 +63,7 @@
       text-decoration: none;
 
       .hide-on-hover {
-        display: none;
+        display: none !important;
       }
 
       .show-only-on-hover {
