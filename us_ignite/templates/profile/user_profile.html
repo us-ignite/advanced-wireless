@@ -1,11 +1,14 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Edit profile - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Profile</h1>
+{% block section_title %}
+Profile
+{% endblock section_title %}
 
-<ul>
+{% block section %}
+
+<ul class="inline-list">
   {% if request.user.has_usable_password %}
   <li><a href="{% url 'password_change' %}">Password change</a></li>
   {% endif %}
@@ -27,6 +30,6 @@
   <li><a href="{{ object.get_delete_url }}">Remove account</a></li>
 </ul>
 
-{% endblock content %}
+{% endblock section %}
 
 {% block extra_scripts %}{{ form.media }}{% endblock extra_scripts %}
