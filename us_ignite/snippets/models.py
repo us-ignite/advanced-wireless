@@ -21,7 +21,7 @@ class Snippet(models.Model):
         max_length=255, unique=True, help_text=u'Keyword used to render this'
         ' snippet of content.')
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    body = models.TextField()
+    body = models.TextField(blank=True)
     url = models.URLField(max_length=500, blank=True)
     url_text = models.CharField(blank=True, max_length=255)
     image = models.ImageField(upload_to="featured", blank=True)
