@@ -291,6 +291,7 @@ def _load_fixtures():
     call_command('events_load_fixtures')
     call_command('resources_load_fixtures')
     call_command('hubs_load_fixtures')
+    call_command('sections_load_fixtures')
     call_command('blog_import')
 
 

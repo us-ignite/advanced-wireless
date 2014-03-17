@@ -184,6 +184,7 @@ def load_fixtures():
         dj_heroku('events_load_fixtures', env.app, env.slug)
         dj_heroku('resources_load_fixtures', env.app, env.slug)
         dj_heroku('hubs_load_fixtures', env.app, env.slug)
+        dj_heroku('sections_load_fixtures', env.app, env.slug)
         dj_heroku('blog_import', env.app, env.slug)
         buildwatson()
     else:
@@ -237,3 +238,16 @@ def reset_local_db():
     if console.confirm(confirmation):
         local('django-admin.py dummy_generate_content '
               '--settings=%s.settings.local' % DB_STRING)
+
+
+@task
+@only_outside_vm
+def dummy_data():
+    """Loads dummy data in the remote environment."""
+    confirmation = yellow('Would you like to generate an admin user?')
+    if console.confirm(confirmation):
+        dj_heroku('createsuperuser', env.app, env.slug)
+    confirmation = red('Would you like to generate dummy fixtures?')
+    if console.confirm(confirmation):
+        dj_heroku('dummy_generate_content', env.app, env.slug)
+    print green('Done.')
