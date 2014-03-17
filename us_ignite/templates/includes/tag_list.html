@@ -4,5 +4,5 @@ Tagged:
   <a href="{% url 'search' %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last %}{% else %},{% endif %}
   {% endfor%}
 {% else %}
-Post hasn't been tagged.
+No tags available.
 {% endif %}
