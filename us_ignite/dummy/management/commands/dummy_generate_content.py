@@ -43,7 +43,7 @@ def _create_users():
             username=f, is_active=True, email=email)
         if is_new and choice([True, False]):
             data = {
-                'quote': text.random_words(9),
+                'quote': text.random_words(9)[:140],
                 'bio': text.random_paragraphs(2),
                 'position': locations.get_location(),
                 'user': user,
