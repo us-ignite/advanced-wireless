@@ -3,5 +3,5 @@
 {% block title %}Community {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block tag_list %}
-  
+{% include "includes/tag_list.html" with tag_list=object.tags.all %}  
 {% endblock tag_list %}
