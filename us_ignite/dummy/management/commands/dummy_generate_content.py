@@ -115,7 +115,9 @@ def _create_app():
         'owner': _get_user(),
         'image': images.random_image(u'%s.png' % text.random_words(1)),
     }
-    return Application.objects.create(**data)
+    application = Application.objects.create(**data)
+    _add_tags(application)
+    return application
 
 
 def _create_page():
