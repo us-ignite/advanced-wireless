@@ -87,6 +87,8 @@
 
 .featured__image-container {
   position: relative;
+  max-height: 150px;
+  overflow: hidden;
 }
 
 .featured__image {

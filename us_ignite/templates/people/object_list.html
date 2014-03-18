@@ -1,16 +1,24 @@
-{% extends "base.html" %}
+{% extends "includes/lists/object_list_base.html" %}
 
-{% block title %}User profile - {{ block.super }}{% endblock title %}
+{% block title %}People list - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>People list</h1>
+{% block page_title %}People{% endblock page_title %}
 
-{% include "includes/order_form.html" %}
+{% block tags %}
+{% endblock tags %}
 
-{% for object in page.object_list %}
-{% include "people/object_block.html" with object=object %}
+{% block top_panel %}
+{% endblock top_panel %}
+
+{% block object_list %}
+<div class="row">
+{% for object in page.object_list_top %}
+  <div class="columns large-3{% if forloop.last %} end{% endif %}">
+    {% include "people/object_block.html" with object=object %}
+  </div>
 {% endfor%}
+</div>
+{% endblock object_list %}
 
-{% include "includes/pagination.html" %}
-
-{% endblock content %}
+{% block add_to_list %}
+{% endblock add_to_list %}

@@ -1,5 +1,14 @@
-<h2><a href="{{ object.get_absolute_url }}">{{ object.display_name }}</a></h2>
-<p>
-  <a href="{{ object.get_absolute_url }}"><img src="{{ object.get_gravatar_url }}" alt="Avatar" /></a>
-</p>
-<p>{{ object.bio|truncatewords:30 }}</p>
+<a class="row collapse featured featured--fixed-height featured__link" href="{{ object.get_absolute_url }}" title="{{ object.display_name }}">
+  <div class="featured__image-container hide-on-hover show-for-medium-up medium-4 large-12 columns">
+    <img src="{{ object.get_gravatar_url }}" alt="{{ object.display_name }}" class="featured__image" />
+  </div>
+
+  <div class="small-10 medium-8 large-12 columns">
+    <h4 class="featured__title">{{ object.display_name }}</h4>
+    <p class="featured__desc show-only-on-hover">{{ object.bio|truncatewords:30 }}</p>
+    <div class="alert button small show-only-on-hover featured__cta">VIEW DETAILS</div>
+  </div>
+
+  <div class="small-1 small-offset-1 show-for-small-only columns block-arrow-right"></div>
+
+</a>
