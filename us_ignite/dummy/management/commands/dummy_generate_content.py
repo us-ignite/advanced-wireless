@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from us_ignite.apps.models import (
     Application,
     Domain,
+    Feature,
     Page,
     PageApplication,
 )
@@ -17,7 +18,7 @@ from us_ignite.blog.models import BlogLink, Post
 from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
-from us_ignite.hubs.models import Hub, HubMembership
+from us_ignite.hubs.models import Hub, HubMembership, NetworkSpeed
 from us_ignite.maps.models import Category, Location
 from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
@@ -99,6 +100,10 @@ def _create_organization():
     return organization
 
 
+def _get_organization():
+    return Organization.objects.all().order_by('?')[0]
+
+
 def _create_app():
     data = {
         'name': text.random_words(3).title(),
@@ -149,6 +154,12 @@ def _create_hub():
         'name': text.random_words(3).title(),
         'contact': choice([None, _get_user()]),
         'summary': text.random_words(10),
+        'connections': text.random_paragraphs(1),
+        'organization': choice([None, _get_organization()]),
+        'network_speed': NetworkSpeed.objects.all().order_by('?')[0],
+        'is_advanced': choice([True, False]),
+        'experimentation': choice(Hub.EXPERIMENTATION_CHOICES)[0],
+        'estimated_passes': text.random_words(10),
         'description': text.random_paragraphs(3),
         'image': images.random_image(u'%s.png' % text.random_words(1)),
         'website': _get_url(),
@@ -159,6 +170,8 @@ def _create_hub():
     hub = Hub.objects.create(**data)
     _create_hub_membership(hub)
     _add_tags(hub)
+    _add_features(hub)
+    _add_applications(hub)
     return hub
 
 
@@ -310,9 +323,19 @@ def _add_tags(item):
     item.tags.add(*tags)
     return tags
 
+
 def _feature_tags():
     Tag.objects.all().update(is_featured=True)
 
+
+def _add_features(item, total=3):
+    features = Feature.objects.all().order_by('?')[:total]
+    return [item.features.add(f) for f in features]
+
+
+def _add_applications(item, total=3):
+    apps = Application.objects.all().order_by('?')[:total]
+    return [item.applications.add(a) for a in apps]
 
 def _load_fixtures():
     """Loads initial fixtures"""
