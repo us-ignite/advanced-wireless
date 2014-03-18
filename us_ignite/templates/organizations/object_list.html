@@ -1,12 +1,18 @@
-{% extends "base.html" %}
+{% extends "includes/lists/object_list_base.html" %}
 
-{% block title %}Organizations - {{ block.super }}{% endblock title %}
+{% block title %}Organizations list - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Organizations</h1>
-{% for object in object_list %}
-<div>
-  <h2><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></h2>
+{% block page_title %}Organizations{% endblock page_title %}
+
+{% block top_panel %}
+<div class="row panel">
+  <div class="small-12 columns">
+    <h2>Lorem Ipsum isn't it wonderful</h2>
+    <p>Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.</p>
+  </div>
 </div>
-{% endfor%}
-{% endblock content %}
+{% endblock top_panel %}
+
+{% block add_to_list %}
+
+{% endblock add_to_list %}
