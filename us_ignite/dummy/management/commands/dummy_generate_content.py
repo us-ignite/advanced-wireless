@@ -23,6 +23,7 @@ from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
 from us_ignite.resources.models import Resource
+from taggit.models import Tag
 
 
 def _choice(*args):
@@ -309,6 +310,9 @@ def _add_tags(item):
     item.tags.add(*tags)
     return tags
 
+def _feature_tags():
+    Tag.objects.all().update(is_featured=True)
+
 
 def _load_fixtures():
     """Loads initial fixtures"""
@@ -369,6 +373,9 @@ class Command(BaseCommand):
         print u'Adding location categories.'
         for i in range(6):
             _create_location_category()
+        print u'Adding locations.'
         for i in range(50):
             _create_location()
+        print u'Featuring tags.'
+        _feature_tags()
         print u'Done.'
