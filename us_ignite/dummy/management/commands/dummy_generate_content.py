@@ -17,11 +17,12 @@ from us_ignite.blog.models import BlogLink, Post
 from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
-from us_ignite.resources.models import Resource
 from us_ignite.hubs.models import Hub, HubMembership
+from us_ignite.maps.models import Category, Location
 from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
+from us_ignite.resources.models import Resource
 
 
 def _choice(*args):
@@ -246,6 +247,7 @@ def _create_resource():
     _add_tags(resource)
     return resource
 
+
 def _feature_posts():
     for post in Post.objects.all().order_by('?')[:5]:
         post.is_featured = True
@@ -269,6 +271,30 @@ def _create_blog_link():
         'url': _get_url(),
     }
     return BlogLink.objects.create(**data)
+
+
+def _create_location_category():
+    name = text.random_words(2).title()
+    data = {
+        'name': name,
+        'slug': slugify(name),
+    }
+    return Category.objects.create(**data)
+
+
+def _get_location_category():
+    return Category.objects.all().order_by('?')[0]
+
+
+def _create_location():
+    data = {
+        'name': text.random_words(4).title(),
+        'website': _get_url(),
+        'status': choice(Location.STATUS_CHOICES)[0],
+        'position': locations.get_location(),
+        'category': _get_location_category(),
+    }
+    return Location.objects.create(**data)
 
 
 def _get_tags(total=5):
@@ -340,4 +366,9 @@ class Command(BaseCommand):
         print u'Adding blog links.'
         for i in range(15):
             _create_blog_link()
+        print u'Adding location categories.'
+        for i in range(6):
+            _create_location_category()
+        for i in range(50):
+            _create_location()
         print u'Done.'
