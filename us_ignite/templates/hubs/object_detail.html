@@ -5,3 +5,48 @@
 {% block tag_list %}
 {% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_hubs" %}
 {% endblock tag_list %}
+
+{# Intro content (metadata) #}
+{% block intro %}
+<li>Created: {{ object.created }}</li>
+{% if is_contact %}<li><a href="{{ object.get_edit_url }}">Edit community</a></li>{% endif %}
+{% if object.organization %}<li>Organization: <a href="{{ object.organization.get_absolute_url }}">{{ object.organization.name }}</a></li>{% endif %}
+{% if object.network_speed %}<li>Network Speed: {{ object.network_speed.name }}</li>{% endif %}
+{% if object.is_advanced %}<li>Community has advanced characteristics</li>{% endif %}
+{% endblock %}
+
+{# Specific Hub content #}
+{% block detail_extras %}
+
+{% if object.estimated_passes %}
+<h2>Estimated Pases</h2>
+<p>{{ object.estimated_passes }}</p>
+{% endif %}
+
+{% if object.connections %}
+<h2>Connections to other networks</h2>
+<p>
+  {{ object.connections }}
+</p>
+{% endif %}
+
+{% if event_list %}
+<h2>Upcoming events</h2>
+<ul>
+  {% for event in event_list %}
+  <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a> on {{ event.start_datetime }}</li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+{% with object.applications.all as app_list %}
+{% if app_list %}
+<h2>Piloted applications</h2>
+<ul>
+  {% for app in app_list %}
+  <li><a href="{{ app.get_absolute_url }}">{{ app.name }}</a></li>
+  {% endfor%}
+</ul>
+{% endif %}
+{% endwith %}
+{% endblock detail_extras %}
