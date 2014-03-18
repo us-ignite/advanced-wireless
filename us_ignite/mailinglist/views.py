@@ -1,4 +1,5 @@
 import hashlib
+import logging
 import mailchimp
 
 from django.contrib import messages
@@ -7,6 +8,8 @@ from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 
 from us_ignite.mailinglist.forms import EmailForm
+
+logger = logging.getLogger('us_ignite.mailinglist.views')
 
 
 def subscribe_email(email):
@@ -33,6 +36,12 @@ def mailing_subscribe(request):
                 redirect_to = 'home'
             except mailchimp.ListAlreadySubscribedError:
                 messages.error(request, 'Already subscribed.')
+                redirect_to = 'mailing_subscribe'
+            except Exception, e:
+                logger.exception(e)
+                msg = (u'There is a problem with the maling list. '
+                       'Please try again later.')
+                messages.error(request, msg)
                 redirect_to = 'mailing_subscribe'
             return redirect(redirect_to)
     else:
