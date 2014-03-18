@@ -1,3 +1,4 @@
+{% if page.paginator.num_pages %}
 <div class="pagination-centered">
 	<ul class="pagination">
 	  {% if page.has_previous %}
@@ -9,3 +10,4 @@
 	  {% endif %}
 	</ul>
 </div>
+{% endif %}

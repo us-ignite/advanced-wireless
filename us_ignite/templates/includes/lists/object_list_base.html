@@ -53,11 +53,17 @@
 
     {% block object_list %}
     <div class="row">
+    {% if page.object_list_top %}
     {% for object in page.object_list_top %}
       <div class="columns large-3{% if forloop.last %} end{% endif %}">
         {% include "includes/lists/object_block_base.html" with object=object %}
       </div>
     {% endfor%}
+    {% else %}
+      <div class="columns small-12">
+        <p class="subheader">No results found.</p>
+      </div>
+    {% endif %}
     </div>
     {% endblock object_list %}
 
