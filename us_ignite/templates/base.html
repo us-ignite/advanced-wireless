@@ -122,10 +122,15 @@
 
             <li>
               <ul class="no-bullet">
-                <li><a href="#">BLOG</a></li>
-                <li><a href="#">EVENTS</a></li>
-                <li><a href="#">REGISTER</a></li>
-                <li><a href="#">SIGN IN</a></li>
+                <li><a href="{%url 'blog_post_list' %}">BLOG</a></li>
+                <li><a href="{% url 'event_list' %}">EVENTS</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{{ request.user.profile.get_absolute_url }}">PROFILE</a></li>
+                <li><a href="{% url 'auth_logout' %}">LOGOUT</a></li>
+                {% else %}
+                <li><a href="{% url 'registration_register' %}">REGISTER</a></li>
+                <li><a href="{% url 'auth_login' %}">SIGN IN</a></li>
+                {% endif %}
                 <li><a href="#">CONTACT US</a></li>
               </ul>
             </li>
