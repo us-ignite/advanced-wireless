@@ -6,6 +6,7 @@ module.exports = function(grunt) {
       banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */',
       modern: [
         'us_ignite/assets/bower_components/jquery/dist/jquery.min.js',
+        'us_ignite/assets/bower_components/fastclick/lib/fastclick.js',
         'us_ignite/assets/bower_components/foundation/js/foundation/foundation.js',
         'us_ignite/assets/bower_components/foundation/js/foundation/foundation.dropdown.js',
         'us_ignite/assets/bower_components/foundation/js/foundation/foundation.orbit.js',
