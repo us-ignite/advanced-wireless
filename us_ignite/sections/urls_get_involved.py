@@ -9,7 +9,6 @@ def url_template(path, name=None):
 
 urlpatterns = patterns(
     'us_ignite.get-involved.views',
-    url(r'^$', 'render_template', {'template': 'about.html'}, name='about'),
     url_template('involve-developers'),
     url_template('involve-partners'),
     url_template('involve-communities'),
