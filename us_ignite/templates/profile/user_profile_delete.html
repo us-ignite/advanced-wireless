@@ -1,11 +1,13 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Remove account - {{ block.super }}{% endblock title %}
 
 
-{% block content %}
-<h1>Remove your account.</h1>
+{% block section_title %}
+Remove your account
+{% endblock section_title %}
 
+{% block section %}
 <p>
   This operation is <strong>irreversible</strong>.
 </p>
@@ -15,4 +17,4 @@
   <button type="submit" value="_delete">I understand the consequences and I want to delete my account</button>
 </form>
 
-{% endblock content %}
+{% endblock section %}
