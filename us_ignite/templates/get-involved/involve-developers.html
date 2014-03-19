@@ -1,0 +1,33 @@
+{% extends "get-involved/base.html" %}
+
+{% block title %}Get Involved Developers - {{ block.super }}{% endblock title %}
+
+
+{% block section %}
+<h2 class="header">GET INVOLVED - DEVELOPERS</h2>
+
+<p>As a next-generation app developer, you can open new frontiers and explore what’s possible when you control the network and have all the computing power you need locally at 100 times today’s speeds. </p>
+
+<p>US Ignite is here to help educate you on what’s possible and connect you with partners and resources to bring your idea to implementation.  If you don’t have a project, but would like to jump in, we can also help you join up with like-minded folks.</p>
+
+<p>Here are three ways to get you started:</p>
+
+<ul class="small-block-grid-1 medium-block-grid-3">
+  <li>
+    <a href="#learn">LEARN</a><br>
+    Learn more about what we mean by “next-generation” and the benefits
+  </li>
+
+  <li>
+    <a href="{% url 'registration_register' %}">JOIN</a><br>
+    Create a profile to join the community and have full access to US Ignite resources
+  </li>
+
+  <li>
+    <a href="{% url 'app_list' %}">EXPLORE</a><br>
+    See what transformative apps are in creation today
+  </li>
+</ul>
+
+
+{% endblock section %}

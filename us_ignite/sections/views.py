@@ -18,7 +18,7 @@ def home(request):
     return TemplateResponse(request, 'home.html', context)
 
 
-def render_template(request, template):
+def render_template(request, template, prefix='sections'):
     context = {}
-    template = 'sections/%s' % template
+    template = '%s/%s' % (prefix, template)
     return TemplateResponse(request, template, context)

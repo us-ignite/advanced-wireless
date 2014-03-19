@@ -4,7 +4,9 @@
       
 
       <ul class="no-bullet sidebar__list sidebar__list--chevrons">
+      	{% block sidenav %}
         {% include "includes/navigation/about.html" with as_sidebar="true" %}
+        {% endblock sidenav %}
       </ul>
 
 

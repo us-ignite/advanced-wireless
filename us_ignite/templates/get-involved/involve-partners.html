@@ -1,0 +1,37 @@
+{% extends "get-involved/base.html" %}
+
+{% block title %}Get Involved Partners - {{ block.super }}{% endblock title %}
+
+
+{% block section %}
+<h2 class="header">GET INVOLVED - PARTNERS</h2>
+
+<p>US Ignite has formed partnerships with leading network operators, premier research and educational networks, top equipment manufacturers, federal agencies, telecommunications companies, cities investing in gigabit networks, innovative nonprofits, foundations, entrepreneurs and developers. Through these partnerships, US Ignite acts as a catalyst for innovation bringing together its partners in the development and deployment of next generation applications.</p>
+
+<p>As a sponsor and active member of the US Ignite community, partners position themselves as thought leaders in the transformative area of next-generation application development and gain insights into new business models and revenue streams.</p>
+
+<p>Here are three ways to get you started:</p>
+
+<ul class="small-block-grid-1 medium-block-grid-3">
+  <li>
+    <a href="{% url 'what-is-us-ignite' %}">LEARN</a><br>
+    Learn more about US Ignite and how we work
+  </li>
+
+  <li>
+    <a href="{% url 'registration_register' %}">JOIN</a><br>
+    Submit an inquiry to learn more about partnership opportunities
+  </li>
+
+  <li>
+    <a href="{% url 'app_list' %}">EXPLORE</a><br>
+    See what transformative apps are in creation today
+  </li>
+</ul>
+
+
+{% endblock section %}
+
+{% block related %}
+
+{% endblock related %}
