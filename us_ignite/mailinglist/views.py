@@ -37,11 +37,8 @@ def mailing_subscribe(request):
             except mailchimp.ListAlreadySubscribedError:
                 messages.error(request, 'Already subscribed.')
                 redirect_to = 'mailing_subscribe'
-            except Exception, e:
-                logger.exception(e)
-                msg = (u'There is a problem with the maling list. '
-                       'Please try again later.')
-                messages.error(request, msg)
+            except mailchimp.ValidationError, e:
+                messages.error(request, 'ERROR: %s' % e.args[0])
                 redirect_to = 'mailing_subscribe'
             return redirect(redirect_to)
     else:
