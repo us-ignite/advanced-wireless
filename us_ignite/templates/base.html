@@ -158,12 +158,39 @@
 <!-- /footer -->
 
 
-  <!--[if (gte IE 9) | (!IE)]><!-->
-    <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
-  <!--<![endif]-->
+  <!-- DEV MODE -->
+    <!--[if (gte IE 9) | (!IE)]><!-->
+      <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+    <!--<![endif]-->
 
-  <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation.min.js"></script>
-  <script src="{{ STATIC_URL }}js/app.js"></script>
+    <!--[if lt IE 9]>
+      <script src="{{ STATIC_URL }}bower_components/jquery-1.9.1/index.js"></script>
+
+      <script src="{{ STATIC_URL }}js/vendor/html5shiv.js"></script>
+      <script src="{{ STATIC_URL }}js/vendor/nwmatcher-1.2.5-min.js"></script>
+      <script src="{{ STATIC_URL }}js/vendor/selectivizr-1.0.3b.js"></script>
+      <script src="{{ STATIC_URL }}js/vendor/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.dropdown.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.orbit.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.topbar.js"></script>
+    <script src="{{ STATIC_URL }}js/vendor/jquery-ui-1.10.4.custom.js"></script>
+    <script src="{{ STATIC_URL }}js/app.js"></script>
+  <!-- /DEV MODE -->
+
+  
+  <!-- PROD -->
+    <!--[if (gte IE 9) | (!IE)]><!-->
+    <!--script src="{{ STATIC_URL }}js/lib/modern.js"></script-->
+    <!--<![endif]-->
+
+    <!--[if lt IE 9]>
+    <!--script src="{{ STATIC_URL }}js/lib/basic.js"></script-->
+    <![endif]-->
+  <!-- /PROD -->
+
 
   <script type="text/javascript">
     WebFontConfig = {
@@ -180,17 +207,8 @@
     })();
   </script>
 
-  <!--[if lt IE 9]>
-    <script src="{{ STATIC_URL }}bower_components/jquery-1.9.1/index.js"></script>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
-    <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
-    <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
-  <![endif]-->
 
   {% block extra_scripts  %}{% endblock extra_scripts  %}
 
-  <script src="{{ STATIC_URL }}/js/vendor/jquery-ui-1.10.4.custom.js"></script>
 </body>
 </html>
