@@ -1,23 +1,26 @@
-{% extends "base.html" %}{% load thumbnail %}
+{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
-{% block title %}Organization: {{ object.name }} {{ block.super }}{% endblock title %}
+{% block title %}Organization {{ object.name }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>{{ object.name }}{% if object.is_draft %}(DRAFT){% endif %}</h1>
-
-{% if is_member %}
-<ul>
-  <li><a href="{{ object.get_edit_url }}">Edit Organization</a></li>
-</ul>
-{% endif %}
+{% block tag_list %}
+{% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_organizations" %}
+{% endblock tag_list %}
 
 
+{% block intro %}
+  {% if is_member %}
+  <ul>
+    <li><a href="{{ object.get_edit_url }}">Edit Organization</a></li>
+  </ul>
+  {% endif %}
+{% endblock intro %}
+
+
+{% block detail_extras %}
 {% if object.bio %}
 <h2>Bio</h2>
 {{ object.bio|linebreaks}}
 {% endif %}
-
-{% if object.image %}<img src="{% thumbnail object.image 500x0 %}" alt="" />{% endif %}
 
 {% if member_list %}
 <h2>Members</h2>
@@ -28,17 +31,5 @@
 </ul>
 {% endif %}
 
-<h2>Tags</h2>
-{% with object.tags.all as tag_list %}
-{% if tag_list %}
-<ul>
-  {% for tag in tag_list %}
-  <li><a href="{% url 'search_organizations' %}?tag={{ tag|urlencode }}">{{ tag }}</a></li>
-  {% endfor%}
-</ul>
-{% else %}
-<p>App hasn't been tagged.</p>
-{% endif %}
-{% endwith %}
 
-{% endblock content %}
+{% endblock detail_extras %}

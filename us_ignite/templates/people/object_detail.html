@@ -155,7 +155,9 @@
         <h3 class="sidebar__heading">CONTACT</h3>
 
         <ul class="sidebar__list sidebar__list--bullets">
+          {% if object.full_name %}
           <li class="sidebar__list__item">{{ object.full_name }}</li>
+          {% endif %}
           <li class="sidebar__list__item"><a href="{{ object.get_contact_url }}">Contact me</a></li>
           {% if object.website %}
           <li class="sidebar__list__item"><a href="{{ object.website }}" rel="external">Website</a></li>
