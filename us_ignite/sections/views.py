@@ -19,6 +19,9 @@ def home(request):
 
 
 def render_template(request, template, prefix='sections'):
-    context = {}
+    context = {
+        'prefix': prefix,
+        'slug': template.replace('.html', '')
+    }
     template = '%s/%s' % (prefix, template)
     return TemplateResponse(request, template, context)
