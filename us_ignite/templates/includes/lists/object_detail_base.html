@@ -38,7 +38,7 @@
       <div class="row">
         <div class="small-12 columns">
 
-          <ul>
+          <ul class="no-bullet">
             {% block intro %}
               {% if object.stage %}<li>Stage: {{ object.get_stage_display }}</li>{% endif %}
               {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
@@ -50,7 +50,7 @@
               <li>
                 <form method="post" action="{{ object.get_version_url }}">
                   {% csrf_token %}
-                  <button type="submit">Create version</button>
+                  <p><br><button type="submit">Create version</button></p>
                 </form>
               </li>
               {% endif %}
@@ -61,7 +61,8 @@
     </div>
 
    
-     <div class="listings__listing">
+   {% if object.impact_statement or object.domain or object.feature_list %}
+    <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
           {% if object.impact_statement %}
@@ -95,6 +96,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
 
     <div class="listings__listing">
       <div class="row">
