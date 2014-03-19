@@ -30,7 +30,7 @@ urlpatterns = patterns(
     url(r'^map/', include('us_ignite.maps.urls')),
     url(r'^news/', include('us_ignite.news.urls')),
     url(r'^about/', include('us_ignite.sections.urls')),
-    url(r'^get-involved/', include('us_ignite.get-involved.urls')),
+    url(r'^get-involved/', include('us_ignite.sections.urls_get_involved')),
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
 )
