@@ -158,7 +158,15 @@
 <!-- /footer -->
 
 
-  <!-- DEV MODE -->
+  {% if IS_PRODUCTION %}
+    <!--[if (gte IE 9) | (!IE)]><!-->
+    <script src="{{ STATIC_URL }}js/lib/modern.js"></script>
+    <!--<![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="{{ STATIC_URL }}js/lib/basic.js"></script>
+    <![endif]-->
+  {% else %}
     <!--[if (gte IE 9) | (!IE)]><!-->
       <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
     <!--<![endif]-->
@@ -178,18 +186,7 @@
     <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.topbar.js"></script>
     <script src="{{ STATIC_URL }}js/vendor/jquery-ui-1.10.4.custom.js"></script>
     <script src="{{ STATIC_URL }}js/app.js"></script>
-  <!-- /DEV MODE -->
-
-  
-  <!-- PROD -->
-    <!--[if (gte IE 9) | (!IE)]><!-->
-    <!--script src="{{ STATIC_URL }}js/lib/modern.js"></script-->
-    <!--<![endif]-->
-
-    <!--[if lt IE 9]>
-    <!--script src="{{ STATIC_URL }}js/lib/basic.js"></script-->
-    <![endif]-->
-  <!-- /PROD -->
+  {% endif %}
 
 
   <script type="text/javascript">
