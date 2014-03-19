@@ -180,8 +180,6 @@
     })();
   </script>
 
-  {% block extra_scripts  %}{% endblock extra_scripts  %}
-
   <!--[if lt IE 9]>
     <script src="{{ STATIC_URL }}bower_components/jquery-1.9.1/index.js"></script>
 
@@ -190,5 +188,9 @@
     <script src="//html5base.googlecode.com/svn-history/r38/trunk/js/selectivizr-1.0.3b.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
   <![endif]-->
+
+  {% block extra_scripts  %}{% endblock extra_scripts  %}
+
+  <script src="{{ STATIC_URL }}/js/vendor/jquery-ui-1.10.4.custom.js"></script>
 </body>
 </html>
