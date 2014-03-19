@@ -22,19 +22,15 @@
   <!-- listings-filter -->
   <div class="listings__filter">
     <div class="row">
-      <div class="large-12 columns">
+      <div class="small-12 columns">
         <div class="row collapse">
+          <div class="small-12 large-4 large-offset-8 columns search search--push">
 
-          <div class="medium-4 small-6 columns">
-            <div class="row collapse">
-              <div class="small-12 columns search">
-                <form method="get" action="{% url 'search' %}">
-                  <input type="text" placeholder="SEARCH" class="search__field" name="q">
-                </form>
-              </div>
-            </div>
+            <form method="get" action="{% url 'search' %}">
+              <input type="text" placeholder="SEARCH" class="search__field" name="q">
+            </form>
+
           </div>
-
         </div>
       </div>
     </div>

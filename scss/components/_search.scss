@@ -2,6 +2,10 @@
   padding: 0 15px;
   height: 45px;
 
+  &.search--push {
+    margin-bottom: 1.5em;
+  }
+
   &:after {
     content: "";
     display:block;
