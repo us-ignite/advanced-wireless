@@ -1,0 +1,14 @@
+.map {
+  position: relative;
+  padding-bottom: 1em;
+  height: 600px;
+}
+
+.map__object {
+  width: 100%;
+  height: 100%;
+
+  img {
+    max-width: inherit; 
+  }
+}

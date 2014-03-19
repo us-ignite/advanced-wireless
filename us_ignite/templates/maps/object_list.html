@@ -1,13 +1,27 @@
-{% extends "base.html" %}
+{% extends "includes/lists/object_list_base.html" %}
 
 {% block title %}Locations - {{ block.super }}{% endblock title %}
 
-{% block content %}
+{% block page_title %}Locations{% endblock page_title %}
 
-<h1>Locations</h1>
+{% block tags %}
+{% endblock tags %}
 
-<div id="map" style="width:500px; height:400px;"></div>
+{% block top_panel %}
+{% endblock top_panel %}
+
+{% block object_list %}
+<div class="row">
+  <div class="small-12 large-8 columns">
+    <div class="map">
+      <div id="map" class="map__object"></div>
+    </div>
+  </div>
+</div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC6VsR-gfPbgJCJ67zC0gSx3yq4zljBhk&sensor=false" type="text/javascript"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}scripts/maps.js"></script>
 <script type="text/javascript" src="{% url 'location_list_json' %}"></script>
-{% endblock content %}
+{% endblock object_list %}
+
+{% block add_to_list %}
+{% endblock add_to_list %}
