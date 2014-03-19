@@ -156,6 +156,10 @@ class Hub(models.Model):
             data.update(extra_data)
         return HubActivity.objects.create(**data)
 
+    @property
+    def owner(self):
+        return self.contact
+
 
 class HubActivity(models.Model):
     hub = models.ForeignKey('hubs.Hub')

@@ -16,7 +16,6 @@
   {% endif %}
 {% endblock intro %}
 
-
 {% block tag_list %}
-  {% include "includes/tag_list.html" with tag_type="search_events" %}
+  {% include "includes/tag_list.html" with tag_type="search_events" tag_list=object.tags.all %}
 {% endblock tag_list %}

@@ -38,6 +38,9 @@ class Post(models.Model):
         blank=True, null=True, default=timezone.now)
     tags = TaggableManager(blank=True)
     is_featured = models.BooleanField(default=False)
+    is_custom = models.BooleanField(
+        default=False, help_text=u'If marked will stop the importer from '
+        'updating the content of this Post.')
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 

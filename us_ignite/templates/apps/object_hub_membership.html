@@ -1,13 +1,16 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Edit Hub membership to {{ object.name }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Membership of {{ object.name }}</h1>
+{% block section_title %}
+Membership of {{ object.name }}
+{% endblock section_title %}
+
+{% block section %}
 
 <form method="post" action=".">
   {{ form.as_p }}
   <p>{% csrf_token %}<button type="submit">Update</button></p>
 </form>
 
-{% endblock content %}
+{% endblock section %}

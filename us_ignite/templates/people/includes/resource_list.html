@@ -1,7 +1,37 @@
-<ul>
-  {% for object in object_list %}
-  <li>
-    {% include "people/includes/object_headline.html" with object=object %}
-  </li>
-  {% endfor%}
-</ul>
+<!-- FULL ROW -->
+<div class="row collapse l-listings l-listings--full">
+  <article class="large-8 medium-9 small-12 columns listings profile">
+    <div class="row">
+      <div class="small-12 columns">
+        <h4 class="listings__listing__heading listings__listing__heading--plain">FEATURED RESOURCES</h4>
+
+        {% for object in object_list %}
+        {% if forloop.counter <= 3 %}
+          {% include "blog/object_block.html" with object=object %}
+        {% endif %}
+        {% endfor %}
+       
+      </div>
+    </div>
+  </article>
+
+  <aside class="large-4 medium-3 show-for-medium-up columns sidebar">{% load snippets_tags news_tags common_markdown %}
+    <div class="row">
+      <div class="large-12 columns">
+        <h3 class="sidebar__heading">ADD A RESOURCE</h3>
+
+        
+        <div class="row newsletter newsletter--side">
+          <div class="small-12 columns newsletter__column">
+            <h3 class="newsletter__heading text-align-center">DO YOU HAVE A VALUABLE RESOURCE? ADD IT TO OUR RESOURCE LIBRARY.</h3>
+
+            <a class="button primary expand space-top" href="{% url 'resource_add' %}">SUBMIT RESOURCE</a>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </aside>
+</div>
+<!-- /FULL ROW -->

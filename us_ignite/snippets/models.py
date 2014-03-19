@@ -18,13 +18,15 @@ class Snippet(models.Model):
     )
     name = models.CharField(max_length=255)
     slug = models.SlugField(
-        max_length=255, unique=True, help_text='Keyword used to render this'
+        max_length=255, unique=True, help_text=u'Keyword used to render this'
         ' snippet of content.')
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    body = models.TextField()
+    body = models.TextField(blank=True)
     url = models.URLField(max_length=500, blank=True)
     url_text = models.CharField(blank=True, max_length=255)
     image = models.ImageField(upload_to="featured", blank=True)
+    notes = models.TextField(
+        blank=True, help_text=u'Extra notes about this field. Not public.')
     is_featured = models.BooleanField(default=False)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()

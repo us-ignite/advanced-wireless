@@ -1,7 +1,11 @@
 {% load thumbnail %}
 <div class="large-4 small-6 columns listing-featured__item{% if last %} show-for-large-up{% endif %}">
   <a href="{{ object.get_absolute_url }}" class="listing-featured__link">
+    {% if object.image %}
+    <img src="{% thumbnail object.image 376x238 crop %}">
+    {% else %}
     <img src="http://placehold.it/376x238">
+    {% endif %}
     <span class="listing-featured__desc">
       {{ object.title }}
     </span>

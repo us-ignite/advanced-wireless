@@ -7,9 +7,9 @@
     <div class="row collapse">
       <div class="small-12 columns">
         <div class="row listing-featured">
-        
+
         {% for featured in featured_list %}
-        {% include "blog/featured_block.html" with object=object last=forloop.last %}
+        {% include "blog/featured_block.html" with object=featured last=forloop.last %}
         {% endfor%}
 
         </div>
@@ -24,30 +24,13 @@
     <div class="row">
       <div class="large-12 columns">
         <div class="row collapse">
-          <div class="medium-4 small-6 columns">
-            <form>
-              <div class="row collapse">
-                <div class="small-3 columns show-for-medium-up">
-                  <label for="right-label" class="left inline show-for-medium-up">Showing:</label>
-                </div>
-                <div class="small-9 columns left">
-                  <select id="right-label">
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                    <option>Test</option>
-                  </select>
-                </div>
-              </div>
-            </form>
-          </div>
 
-          <div class="medium-4 medium-offset-2 small-6 columns">
+          <div class="medium-4 small-6 columns">
             <div class="row collapse">
               <div class="small-12 columns search">
-                <input type="text" placeholder="SEARCH" class="search__field">
+                <form method="get" action="{% url 'search' %}">
+                  <input type="text" placeholder="SEARCH" class="search__field" name="q">
+                </form>
               </div>
             </div>
           </div>

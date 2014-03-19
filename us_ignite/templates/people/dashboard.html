@@ -1,47 +1,68 @@
-{% extends "people/object_detail.html" %}
+{% extends "base.html" %}{% load apps_urls thumbnail common_markdown snippets_tags %}
 
 {% block title %}Dashboard - {{ block.super }}{% endblock title %}
 
-
 {% block content %}
-<h1>Profile</h1>
+
+  <div class="row collapse">
+    <div class="small-12 columns">
+
+      <div class="row">
+        <div class="small-12 columns">
+          <h2 class="page-title">Profile</h2>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-<img src="{{ object.get_gravatar_url }}" alt="Avatar" />
+
+  <div class="row collapse listing-featured">
+    <div class="small-12 medium-4 columns text-center">
+      <img src="{{ object.get_gravatar_url }}" alt="Avatar" class="profile__avatar" />
+    </div> 
+
+    <div class="small-12 medium-8 columns">
+      <blockquote class="profile__quote profile__quote--plain">
+        Welcome{% if object.full_name %} {{ object.full_name }}{% endif %}, <br>           {% snippet "profile-welcome" "snippets/profile_welcome.html" %}
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- APPS -->
+  {% include "people/includes/app_list.html" with object_list=application_list similar_list=similar_applications %}
+  <!-- /APP -->
+ 
+  <!-- NEWS -->
+  {% include "people/includes/post_list.html" with object_list=post_list %}
+  <!-- /NEWS -->
+
+  <!-- EVENTS -->
+  {% include "people/includes/event_list.html" with object_list=hub_event_list %}
+  <!-- /EVENTS -->
+
+  <!-- COMMUNITIES -->
+  {% include "people/includes/hub_list.html" with object_list=hub_list %}
+  <!-- /COMMUNITIES -->
+
+  <!-- RESOURCES -->
+  {% include "people/includes/resource_list.html" with object_list=featured_resource_list %}
+  <!-- /RESOURCES -->
 
 
+  <div class="row collapse listing-featured">
+    <div class="small-12 columns">
+      <div class="row">
+        <div class="small-12 columns">
+          <h4 class="profile__heading profile__heading--light">MANAGE YOUR CONTENT</h4>
+        </div>
+      </div>
 
-<p>
-  Welcome{% if object.full_name %} {{ object.full_name }}{% endif %}, <br>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin posuere
-  quam neque, rutrum tincidunt tellus ornare scelerisque. Quisque varius
-  convallis libero, eu pretium tellus posuere sed. In iaculis viverra
-  ligula vitae scelerisque. Integer dignissim laoreet tortor, ut laoreet
-  nunc auctor vel.
-</p>
+      <div class="row">
+        {% include "people/includes/content_list.html" with object_list=content_list %}
+      </div>
+    </div>
+  </div>
 
-<h2>MY APPS</h2>
-{% include "people/includes/app_list.html" with object_list=application_list%}
-<h3>YOU MAY ALSO LIKE THESE APPS</h3>
-{% include "people/includes/app_list_mini.html" with object_list=similar_applications %}
-
-<h2>LATEST NEWS</h2>
-{% include "people/includes/post_list.html" with object_list=post_list %}
-
-<h2>EVENT HIGHLIGHTS</h2>
-{% include "people/includes/event_list.html" with object_list=hub_event_list %}
-
-<h2>MY COMMUNITIES</h2>
-{% include "people/includes/hub_list.html" with object_list=hub_list %}
-
-<h2>FEATURED RESOURCES</h2>
-{% include "people/includes/resource_list.html" with object_list=featured_resource_list %}
-
-<h3>ADD A RESOURCE</h3>
-<p>DO YOU HAVE A VALUABLE RESOURCE? ADD IT TO OUR RESOURCE LIBRARY.</p>
-<a href="{% url 'resource_add' %}">SUBMIT RESOURCE</a>
-
-<h2>MANAGE YOUR CONTENT</h2>
-{% include "people/includes/content_list.html" with object_list=content_list %}
 
 {% endblock content %}

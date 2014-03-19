@@ -6,8 +6,11 @@
 
 {% block title %}Login - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Login</h1>
+{% block section_title %}
+Login
+{% endblock section_title %}
+
+{% block section %}
 
 <p>{% include "includes/persona.html" %} using Mozilla Persona</p>
 
@@ -17,14 +20,12 @@
   {{ form.as_p }}
   <p>
     {% csrf_token %}
-    <button type="submit">Submit</button>
+    <button type="submit">LOGIN</button>
   </p>
 </form>
 
-<ul>
-  <li><a href="{% url 'password_reset' %}">Forgotten password?</a></li>
-</ul>
-{% endblock content %}
+<p><a href="{% url 'password_reset' %}">Forgotten password?</a></p>
+{% endblock section %}
 
 {% block extra_scripts %}
 {% browserid_js %}

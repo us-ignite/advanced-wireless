@@ -17,11 +17,25 @@ from registration.signals import user_activated
 
 
 class Profile(models.Model):
+    NO_AVAILABILITY = 0
+    LIMITED_AVAILABILITY = 1
+    MODERATE_AVAILABILITY = 2
+    HIGH_AVAILABILITY = 3
+    AVAILABILITY_CHOICES = (
+        (NO_AVAILABILITY, u'I do not have any availability at this time'),
+        (LIMITED_AVAILABILITY, u'I have limited availability'),
+        (MODERATE_AVAILABILITY, u'I might be available'),
+        (HIGH_AVAILABILITY, u'Yes, I would love to join a project'),
+    )
     user = models.OneToOneField('auth.User', primary_key=True)
     slug = AutoUUIDField(unique=True, editable=True)
     name = models.CharField(max_length=255, blank=True)
     website = models.URLField(max_length=500, blank=True)
+    quote = models.TextField(
+        blank=True, max_length=140, help_text=u'Short quote.')
     bio = models.TextField(blank=True)
+    availability = models.IntegerField(
+        choices=AVAILABILITY_CHOICES, default=NO_AVAILABILITY)
     position = GeopositionField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
@@ -58,10 +72,13 @@ class Profile(models.Model):
     def display_email(self):
         return u'%s <%s>' % (self.display_name, self.user.email)
 
-    def get_gravatar_url(self, size=100):
+    def get_gravatar_url(self, size=276):
         """Determines gravatar icon url"""
         user_hash = hashlib.md5(self.user.email).hexdigest()
         return u'//www.gravatar.com/avatar/%s?s=%s' % (user_hash, size)
+
+    def is_owned_by(self, user):
+        return self.user == user
 
 
 class ProfileLink(models.Model):

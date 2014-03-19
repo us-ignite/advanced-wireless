@@ -40,7 +40,7 @@
 
           <ul>
             {% block intro %}
-              <li>Stage: {{ object.get_stage_display }}</li>
+              {% if object.stage %}<li>Stage: {{ object.get_stage_display }}</li>{% endif %}
               {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
               {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
               {% if is_owner %}
@@ -176,6 +176,8 @@
             {% endfor%}
           </ul>
           {% endif %}
+
+          {% block detail_extras %}{% endblock detail_extras %}
 
         </div>
       </div>

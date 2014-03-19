@@ -10,6 +10,7 @@ from django.utils.text import slugify
 from us_ignite.apps.models import (
     Application,
     Domain,
+    Feature,
     Page,
     PageApplication,
 )
@@ -17,11 +18,13 @@ from us_ignite.blog.models import BlogLink, Post
 from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
-from us_ignite.resources.models import Resource
-from us_ignite.hubs.models import Hub, HubMembership
+from us_ignite.hubs.models import Hub, HubMembership, NetworkSpeed
+from us_ignite.maps.models import Category, Location
 from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
+from us_ignite.resources.models import Resource
+from taggit.models import Tag
 
 
 def _choice(*args):
@@ -43,10 +46,12 @@ def _create_users():
             username=f, is_active=True, email=email)
         if is_new and choice([True, False]):
             data = {
+                'quote': text.random_words(9)[:140],
                 'bio': text.random_paragraphs(2),
                 'position': locations.get_location(),
                 'user': user,
                 'name': f,
+                'availability': choice(Profile.AVAILABILITY_CHOICES)[0],
             }
             profile = Profile.objects.create(**data)
             _add_tags(profile)
@@ -95,6 +100,10 @@ def _create_organization():
     return organization
 
 
+def _get_organization():
+    return Organization.objects.all().order_by('?')[0]
+
+
 def _create_app():
     data = {
         'name': text.random_words(3).title(),
@@ -113,7 +122,9 @@ def _create_app():
         'owner': _get_user(),
         'image': images.random_image(u'%s.png' % text.random_words(1)),
     }
-    return Application.objects.create(**data)
+    application = Application.objects.create(**data)
+    _add_tags(application)
+    return application
 
 
 def _create_page():
@@ -143,6 +154,12 @@ def _create_hub():
         'name': text.random_words(3).title(),
         'contact': choice([None, _get_user()]),
         'summary': text.random_words(10),
+        'connections': text.random_paragraphs(1),
+        'organization': choice([None, _get_organization()]),
+        'network_speed': NetworkSpeed.objects.all().order_by('?')[0],
+        'is_advanced': choice([True, False]),
+        'experimentation': choice(Hub.EXPERIMENTATION_CHOICES)[0],
+        'estimated_passes': text.random_words(10),
         'description': text.random_paragraphs(3),
         'image': images.random_image(u'%s.png' % text.random_words(1)),
         'website': _get_url(),
@@ -153,6 +170,8 @@ def _create_hub():
     hub = Hub.objects.create(**data)
     _create_hub_membership(hub)
     _add_tags(hub)
+    _add_features(hub)
+    _add_applications(hub)
     return hub
 
 
@@ -242,6 +261,7 @@ def _create_resource():
     _add_tags(resource)
     return resource
 
+
 def _feature_posts():
     for post in Post.objects.all().order_by('?')[:5]:
         post.is_featured = True
@@ -267,6 +287,30 @@ def _create_blog_link():
     return BlogLink.objects.create(**data)
 
 
+def _create_location_category():
+    name = text.random_words(2).title()
+    data = {
+        'name': name,
+        'slug': slugify(name),
+    }
+    return Category.objects.create(**data)
+
+
+def _get_location_category():
+    return Category.objects.all().order_by('?')[0]
+
+
+def _create_location():
+    data = {
+        'name': text.random_words(4).title(),
+        'website': _get_url(),
+        'status': choice(Location.STATUS_CHOICES)[0],
+        'position': locations.get_location(),
+        'category': _get_location_category(),
+    }
+    return Location.objects.create(**data)
+
+
 def _get_tags(total=5):
     tags = ['gigabit', 'healthcare', 'education', 'energy']
     tags += [slugify(w) for w in text.random_words(total).split()]
@@ -280,6 +324,19 @@ def _add_tags(item):
     return tags
 
 
+def _feature_tags():
+    Tag.objects.all().update(is_featured=True)
+
+
+def _add_features(item, total=3):
+    features = Feature.objects.all().order_by('?')[:total]
+    return [item.features.add(f) for f in features]
+
+
+def _add_applications(item, total=3):
+    apps = Application.objects.all().order_by('?')[:total]
+    return [item.applications.add(a) for a in apps]
+
 def _load_fixtures():
     """Loads initial fixtures"""
     call_command('app_load_fixtures')
@@ -289,6 +346,7 @@ def _load_fixtures():
     call_command('events_load_fixtures')
     call_command('resources_load_fixtures')
     call_command('hubs_load_fixtures')
+    call_command('sections_load_fixtures')
     call_command('blog_import')
 
 
@@ -335,4 +393,12 @@ class Command(BaseCommand):
         print u'Adding blog links.'
         for i in range(15):
             _create_blog_link()
+        print u'Adding location categories.'
+        for i in range(6):
+            _create_location_category()
+        print u'Adding locations.'
+        for i in range(50):
+            _create_location()
+        print u'Featuring tags.'
+        _feature_tags()
         print u'Done.'

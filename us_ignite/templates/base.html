@@ -24,7 +24,7 @@
 
     <!-- quicklinks and social links -->
     <nav class="quicklinks">
-      <div class="row show-for-medium-up">
+      <div class="row ">
         <div class="large-12 columns right">
           {% include "includes/status_bar.html" %}
         </div>
@@ -37,7 +37,7 @@
       <nav role="banner" class="top-bar" data-topbar>
         <ul class="title-area">
           <li class="name">
-            <h1><a href="{% url "home" %}" class="top-bar__logo"><span>US Ignite</span></a></h1>
+            <h1><a href="{% if request.user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'home' %}{% endif %}" class="top-bar__logo"><span>US Ignite</span></a></h1>
           </li>
           <li class="toggle-topbar menu-icon"><a href="#">Main Menu</a></li>
         </ul>
@@ -122,10 +122,15 @@
 
             <li>
               <ul class="no-bullet">
-                <li><a href="#">BLOG</a></li>
-                <li><a href="#">EVENTS</a></li>
-                <li><a href="#">REGISTER</a></li>
-                <li><a href="#">SIGN IN</a></li>
+                <li><a href="{%url 'blog_post_list' %}">BLOG</a></li>
+                <li><a href="{% url 'event_list' %}">EVENTS</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{{ request.user.profile.get_absolute_url }}">PROFILE</a></li>
+                <li><a href="{% url 'auth_logout' %}">LOGOUT</a></li>
+                {% else %}
+                <li><a href="{% url 'registration_register' %}">REGISTER</a></li>
+                <li><a href="{% url 'auth_login' %}">SIGN IN</a></li>
+                {% endif %}
                 <li><a href="#">CONTACT US</a></li>
               </ul>
             </li>
@@ -134,10 +139,10 @@
               <h6 class="footer__heading">FOLLOW US:</h6>
 
               <ul class="inline-list">
-                <li><a href="http://facebook.com" class="socialicon dark"><span class="socialicon-facebook"></span></a></li>
-                <li class="squeeze"><a href="http://facebook.com" class="socialicon dark"><span class="socialicon-twitter"></span></a></li>
+                <li><a href="https://www.facebook.com/USIgnite" class="socialicon dark"><span class="socialicon-facebook"></span></a></li>
+                <li class="squeeze"><a href="https://twitter.com/US_Ignite" class="socialicon dark"><span class="socialicon-twitter"></span></a></li>
                 <li class="squeeze"><a href="http://facebook.com" class="socialicon dark"><span class="socialicon-google-plus"></span></a></li>
-                <li class="squeeze"><a href="http://facebook.com" class="socialicon dark"><span class="socialicon-youtube"></span></a></li>
+                <li class="squeeze"><a href="http://www.youtube.com/user/USIgnite1" class="socialicon dark"><span class="socialicon-youtube"></span></a></li>
               </ul>
             </li>
           </ul>

@@ -1,12 +1,14 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Subscribe to the mailing list - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Subscribe to the mailing list</h1>
+{% block section_title %}
+Subscribe to the mailing list
+{% endblock section_title %}
 
+{% block section %}
 <form method="post" action="{% url 'mailing_subscribe' %}">
   {{ form.as_p }}
   <p><button type="submit">Submit</button>{% csrf_token %}</p>
 </form>
-{% endblock content %}
+{% endblock section %}

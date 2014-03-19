@@ -23,3 +23,11 @@ class TestArticleModel(TestCase):
         eq_(instance.is_featured, False)
         ok_(instance.created)
         ok_(instance.modified)
+
+    def test_get_get_absolute_url_is_url(self):
+        data = {
+            'name': 'Gigabit news',
+            'url': 'http://us-ignite.org/',
+        }
+        instance = Article.objects.create(**data)
+        eq_(instance.get_absolute_url(), 'http://us-ignite.org/')

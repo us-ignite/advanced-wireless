@@ -34,6 +34,7 @@
     </div>
     {% endblock top_panel %}
 
+    {% block tags %}
     <div class="row domains pad-top-20">
       <div class="small-12 medium-1 columns">
         <h5>TAGS</h5>
@@ -46,16 +47,23 @@
         </ul>
       </div>
     </div>
+    {% endblock tags %}
 
     {# include "includes/order_form.html" #}
 
     {% block object_list %}
     <div class="row">
+    {% if page.object_list_top %}
     {% for object in page.object_list_top %}
-      <div class="columns small-12 medium-4 large-3{% if forloop.last %} end{% endif %}">
+      <div class="columns large-3{% if forloop.last %} end{% endif %}">
         {% include "includes/lists/object_block_base.html" with object=object %}
       </div>
     {% endfor%}
+    {% else %}
+      <div class="columns small-12">
+        <p class="subheader">No results found.</p>
+      </div>
+    {% endif %}
     </div>
     {% endblock object_list %}
 
@@ -79,7 +87,7 @@
     <!-- dummy repeat of posts to show it might look with more data -->
     <div class="row">
     {% for object in page.object_list_bottom %}
-      <div class="columns small-12 medium-4 large-3{% if forloop.last %} end{% endif %}">
+      <div class="columns large-3{% if forloop.last %} end{% endif %}">
         {% include "apps/object_block.html" with object=object %}
       </div>
     {% endfor%}

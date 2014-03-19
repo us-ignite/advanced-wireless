@@ -1,0 +1,18 @@
+.errorlist {
+	font-size: 0.875rem;
+	font-weight: $font-weight-bold;
+	color: #c00;
+	list-style: none;
+	margin-left:0;
+}
+
+.messages {
+	list-style: none;
+	font-size: 0.875rem;
+	font-weight: $font-weight-bold;
+	background: $alert-color;
+	color: #fff;
+	margin:0;
+	padding: 1em;
+
+}

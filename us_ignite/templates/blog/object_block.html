@@ -1,16 +1,14 @@
 <div class="listings__listing">{% load thumbnail %}
   <div class="row">
-    <div class="small-4 columns">
-      {% with attachment=object.attachment %}
-      {% if attachment  %}
-      <img src="{% thumbnail attachment.attachment 268x169 crop %}" alt="" class="listings__listing__image" />
+    <div class="small-5 medium-4 show-for-medium-up columns">
+      {% if object.image  %}
+      <img src="{% thumbnail object.image 268x169 crop %}" alt="" class="listings__listing__image" />
       {% else %}
       <img src="http://placehold.it/268x169" class="listings__listing__image">
       {% endif %}
-      {% endwith %}
     </div>
 
-    <div class="small-8 columns">
+    <div class="small-12 medium-8 columns">
       <span class="listings__listing__tags">
         Tagged:
         {% with object.tags.all as tag_list %}
@@ -24,7 +22,7 @@
         {% endwith %}
       </span>
 
-      <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+      <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.name }}</a>
 
       {% with profile=object.author.profile %}
       <span class="listings__listing__published">

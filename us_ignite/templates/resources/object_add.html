@@ -1,15 +1,17 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
 {% block title %}Submit Resource - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Submit Resource</h1>
+{% block section_title %}
+Submit Resource
+{% endblock section_title %}
 
+{% block section %}
 <form method="post" action="{% url 'resource_add' %}" enctype="multipart/form-data">
   {{ form.as_p }}
   <p>
-    <button type="submit">Submit</button>
+    <button type="submit">SUBMIT</button>
     {% csrf_token %}
   </p>
 </form>
-{% endblock content %}
+{% endblock section %}

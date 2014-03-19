@@ -8,10 +8,10 @@
     <div class="small-12 columns newsletter__column">
       <div class="row collapse">
         <div class="small-12 columns">
-          <input type="text" placeholder="Enter your email address...">
+          <input type="text" name="email" placeholder="Enter your email address...">
         </div>
         <div class="small-12 columns">
-          <a href="#" class="newsletter__submit button alert postfix">SUBMIT</a>{% csrf_token %}
+          <button type="submit" class="newsletter__submit button alert postfix">SUBMIT</button>{% csrf_token %}
         </div>
       </div>
     </div>

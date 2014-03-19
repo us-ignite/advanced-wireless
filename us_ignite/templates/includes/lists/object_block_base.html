@@ -1,21 +1,21 @@
-<div class="featured featured--fixed-height">
-  <a class="featured__link" href="{{ object.get_absolute_url }}" title="{{ object.name }}">
+<a class="row collapse featured featured--fixed-height featured__link" href="{{ object.get_absolute_url }}" title="{{ object.name }}">
+  <div class="featured__image-container hide-on-hover show-for-medium-up medium-4 large-12 columns">
+    {% load thumbnail %}
+    {% if object.image %}
+    <img src="{% thumbnail object.image 216x108 crop %}" alt="{{ object.name }}" class="featured__image" />
+    {% else %}
+    <img src="{{ STATIC_URL }}img/dummy/book.jpg" alt="{{ object.name }}" class="featured__image">
+    {% endif %}
 
-    <div class="featured__image-container hide-on-hover">
-      {% load thumbnail %}
-      {% if object.image %}
-      <img src="{% thumbnail object.image 216x108 crop %}" alt="{{ object.name }}" class="featured__image" />
-      {% else %}
-      <img src="{{ STATIC_URL }}img/dummy/book.jpg" alt="{{ object.name }}" class="featured__image">
-      {% endif %}
+    <span class="domains__icon--{{ object.domain.slug }} domains__icon--absolute-bottom-right"></span>
+  </div>
 
-      <span class="domains__icon--{{ object.domain.slug }} domains__icon--absolute-bottom-right"></span>
-    </div>
-
+  <div class="small-10 medium-8 large-12 columns">
     <h4 class="featured__title">{{ object.name }}</h4>
     <p class="featured__desc show-only-on-hover">{% block object_detail %}{{ object.get_summary }}{% endblock object_detail %}</p>
     <div class="alert button small show-only-on-hover featured__cta">VIEW DETAILS</div>
+  </div>
 
+  <div class="small-1 small-offset-1 show-for-small-only columns block-arrow-right"></div>
 
-  </a>
-</div>
+</a>

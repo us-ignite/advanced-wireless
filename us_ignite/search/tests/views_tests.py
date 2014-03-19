@@ -94,14 +94,14 @@ class TestSearchView(TestCase):
 
     @patch('watson.search')
     def test_query_request_is_successful(self, mock_watson):
-        mock_watson.return_value = ['object']
+        mock_watson.return_value = []
         request = utils.get_request('get', '/search/', data={'q': 'gigabit'})
         response = views.search(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'search/object_list.html')
         eq_(sorted(response.context_data.keys()),
             ['form', 'page', 'pagination_qs'])
-        eq_(response.context_data['page'].object_list, ['object', ])
+        eq_(response.context_data['page'].object_list, [])
         eq_(response.context_data['pagination_qs'], '&q=gigabit')
         mock_watson.assert_called_once_with('gigabit')
 

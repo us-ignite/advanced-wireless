@@ -1,19 +1,14 @@
-{% extends "base.html" %}
+{% extends "includes/lists/object_list_base.html" %}
 
 {% block title %}News - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>News</h1>
+{% block page_title %}News{% endblock page_title %}
 
-{% if page.object_list  %}
-{% for object in page.object_list %}
-{% include "news/object_block.html" with object=object %}
-{% endfor%}
-{% else %}
-<p>No news available.</p>
-{% endif %}
+{% block top_panel %}
+{% endblock top_panel %}
 
-{% include "includes/pagination.html" %}
+{% block tags %}
+{% endblock tags %}
 
-
-{% endblock content %}
+{% block add_to_list %}
+{% endblock add_to_list %}

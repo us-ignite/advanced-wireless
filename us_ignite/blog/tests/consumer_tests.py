@@ -64,6 +64,17 @@ class TestImportPostFunction(TestCase):
         ok_(post.publication_date)
         ok_(post.update_date)
 
+    @patch('us_ignite.blog.consumer.get_author')
+    @patch('us_ignite.blog.models.Post.objects.get')
+    def test_existing_custom_post_is_ignored(self, mock_get, mock_author):
+        post_double = Post(id=12, is_custom=True)
+        mock_get.return_value = post_double
+        data = _get_post_data(id=10)
+        post = consumer.import_post(data)
+        mock_get.assert_called_once_with(wp_id__exact=10)
+        eq_(post, post_double)
+        eq_(mock_author.call_count, 0)
+
 
 class TestConsumeFunction(TestCase):
 
@@ -98,7 +109,7 @@ def _get_attachment_data(**kwargs):
 
 class TestImportAttachmentFunction(TestCase):
 
-    @patch('us_ignite.blog.consumer.import_file')
+    @patch('us_ignite.common.files.import_file')
     @patch.object(PostAttachment, 'save')
     def test_attachment_is_created_successfully(self, mock_save, mock_file):
         data = _get_attachment_data()

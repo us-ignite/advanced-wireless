@@ -1,11 +1,5 @@
 <ul class="small-block-grid-3 large-block-grid-6">
-  {% for object in object_list %}
-  <img src="{{ object.image.url }}" alt="{{ object.name }}" title="{{ object.name }}"/>
-  {% endfor%}
-  <li><img src="{{ STATIC_URL }}img/logos/ciena.png" alt="Ciena"></li>
-  <li><img src="{{ STATIC_URL }}img/logos/hp.png" alt="HP"></li>
-  <li><img src="{{ STATIC_URL }}img/logos/mozilla.png" alt="Mozilla"></li>
-  <li><img src="{{ STATIC_URL }}img/logos/nec.png" alt="NEC"></li>
-  <li><img src="{{ STATIC_URL }}img/logos/internet2.png" alt="Internet 2"></li>
-  <li><img src="{{ STATIC_URL }}img/logos/verizon.png" alt="Verizon"></li>
+  {% for object in object_list %}{% if object.image %}
+  <li><img src="{{ object.image.url }}" alt="{{ object.name }}" title="{{ object.name }}"/></li>
+  {% endif %}{% endfor%}
 </ul>

@@ -48,9 +48,10 @@ def hub_detail(request, slug):
         Hub.objects.select_related('contact'), slug__exact=slug)
     if not instance.is_visible_by(request.user):
         raise Http404
-    member_list = instance.hubmembership_set.select_related('profile').all()
+    membership_list = instance.hubmembership_set.select_related('profile').all()
+    member_list = [m.user for m in membership_list]
     # Determine if the user is a member of this ``Hub``:
-    is_member = [m for m in member_list if m.user == request.user]
+    is_member = request.user in member_list
     activity_list = (instance.hubactivity_set
                      .select_related('user').all()[:20])
     event_list = Event.published.get_upcoming(hubs=instance)[:5]

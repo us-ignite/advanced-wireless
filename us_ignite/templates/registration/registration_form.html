@@ -6,9 +6,11 @@
 {% browserid_css %}
 {% endblock extra_styles %}
 
-{% block content %}
-<h1>Registration</h1>
+{% block section_title %}
+Registration
+{% endblock section_title %}
 
+{% block section %}
 <p>Create an account by {% include "includes/persona.html" %} using Mozilla Persona</p>
 
 <p>Or create site account:</p>
@@ -17,10 +19,10 @@
   {{ form.as_p }}
   <p>
     {% csrf_token %}
-    <button type="submit">Register</button>
+    <button type="submit">REGISTER</button>
   </p>
 </form>
-{% endblock content %}
+{% endblock section %}
 
 {% block extra_scripts %}
 {% browserid_js %}

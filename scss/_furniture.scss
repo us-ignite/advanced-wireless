@@ -34,9 +34,13 @@ a:hover {
 
   .quicklinks__link {
     margin-top: 4px;
+    font-size:0.65em;
     color:#fff;
-    font-size:0.875em;
     font-weight: $font-weight-black;
+
+    @media #{$medium-up} {
+      font-size:0.875em;
+    }
   }
 
   .icon {
@@ -182,7 +186,7 @@ a:hover {
 
     &.collapse {
       padding-left:0;
-      padding-right: 0;
+      padding-right:0;
     }
   }
 }

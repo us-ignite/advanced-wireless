@@ -123,29 +123,19 @@ def profile_detail(request, slug):
     profile = get_object_or_404(
         Profile.active.select_related('user'), slug__exact=slug)
     user = profile.user
-    application_list = get_application_list(user, viewer=request.user)
-    event_list = get_event_list(user, viewer=request.user)
-    resource_list = get_resource_list(user, viewer=request.user)
-    hub_list = get_hub_list(user, viewer=request.user)
-    organization_list = get_organization_list(user, viewer=request.user)
-    hub_membership_list = get_hub_membership_list(user, viewer=request.user)
-    award_list = get_award_list(user, viewer=request.user)
+    is_owner = profile.user == request.user
     # Content available when the ``User`` owns this ``Profile``:
-    if user == request.user:
-        hub_request_list = HubRequest.objects.filter(user=user)
-    else:
-        hub_request_list = []
+    hub_request_list = HubRequest.objects.filter(user=user) if is_owner else []
     context = {
         'object': profile,
-        'is_owner': profile.user == request.user,
-        'application_list': application_list,
-        'event_list': event_list,
-        'resource_list': resource_list,
-        'hub_membership_list': hub_membership_list,
-        'hub_list': hub_list,
+        'is_owner': is_owner,
+        'application_list': get_application_list(user, viewer=request.user),
+        'event_list': get_event_list(user, viewer=request.user),
+        'resource_list': get_resource_list(user, viewer=request.user),
+        'hub_list': get_hub_list(user, viewer=request.user),
         'hub_request_list': hub_request_list,
-        'organization_list': organization_list,
-        'award_list': award_list,
+        'organization_list': get_organization_list(user, viewer=request.user),
+        'award_list': get_award_list(user, viewer=request.user),
     }
     return TemplateResponse(request, 'people/object_detail.html', context)
 
