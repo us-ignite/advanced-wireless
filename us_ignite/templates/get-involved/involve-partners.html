@@ -1,0 +1,36 @@
+{% extends "get-involved/base.html" %}
+
+{% block title %}Get Involved Partners - {{ block.super }}{% endblock title %}
+
+
+{% block section %}
+<h2 class="header">GET INVOLVED - PARTNERS</h2>
+
+<p>Whether in the commercial, social or government sectors, technology has the power to spur innovation, engage citizens, leverage untapped assets, create efficiencies and change lives.  To that end, US Ignite is a convener of stakeholders that have a vested interest in working together to stimulate the research, development, and promotion of next-generation networks and applications to transform sectors of national priority such as education, healthcare, workforce development, energy, public safety, advanced manufacturing and transportation.  Our intent is to complement, support, and facilitate relationships among key stakeholders providing opportunities to magnify their impact and transform sectors of national priority. 
+</p>
+
+<p>Here are three ways to get you started:</p>
+
+<ul class="small-block-grid-1 medium-block-grid-3">
+  <li>
+    <a href="#learn">LEARN</a><br>
+    Learn more about what we mean by “next-generation” and the benefits
+  </li>
+
+  <li>
+    <a href="{% url 'registration_register' %}">JOIN</a><br>
+    Create a profile to join the community and have full access to US Ignite resources
+  </li>
+
+  <li>
+    <a href="{% url 'hub_list' %}">EXPLORE</a><br>
+    See what transformative communities are in creation today
+  </li>
+</ul>
+
+
+{% endblock section %}
+
+{% block related %}
+
+{% endblock related %}
