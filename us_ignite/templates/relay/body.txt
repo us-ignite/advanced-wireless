@@ -2,7 +2,7 @@ Hi there,
 
 Someone has contacted you via the website, please find the details:
 
-Sender: {{ sender.profile.display_name }} {{ sender.email }} -  {{ SITE_URL}}{{ sender.profile.get_absolute_url }}
+Sender: {% if sender %}{{ sender.profile.display_name }} {{ sender.email }} -  {{ SITE_URL}}{{ sender.profile.get_absolute_url }}{% endif %}{{ email }}
 
 Title: {{ title }}
 

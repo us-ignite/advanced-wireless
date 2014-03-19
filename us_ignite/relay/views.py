@@ -35,3 +35,26 @@ def contact_user(request, slug):
         'object': profile,
     }
     return TemplateResponse(request, 'relay/contact_user.html', context)
+
+
+@throttle_view(methods=['POST'], duration=30)
+def contact_ignite(request):
+    if request.method == 'POST':
+        form = forms.ContactEmailForm(request.POST)
+        if form.is_valid():
+            context = {
+                'title': form.cleaned_data['title'],
+                'body': form.cleaned_data['body'],
+                'SITE_URL': settings.SITE_URL,
+                'email': form.cleaned_data['email']
+            }
+            engine.contact_user(
+                settings.DEFAULT_FROM_EMAIL, form.cleaned_data['email'], context)
+            messages.success(request, 'Message sent successfully.')
+            return redirect('home')
+    else:
+        form = forms.ContactEmailForm()
+    context = {
+        'form': form,
+    }
+    return TemplateResponse(request, 'relay/contact_ignite.html', context)

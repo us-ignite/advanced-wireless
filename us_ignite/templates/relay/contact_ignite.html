@@ -1,0 +1,14 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Contact Ignite - {{ block.super }}{% endblock title %}
+
+{% block section_title %}
+Contact US Ignite
+{% endblock section_title %}
+
+{% block section %}
+<form method="post" action="{{ object.get_contact_url }}">
+  {{ form.as_p }}
+  <p><button type="submit">Contact</button>{% csrf_token %}</p>
+</form>
+{% endblock section %}
