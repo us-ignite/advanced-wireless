@@ -9,6 +9,7 @@
 
   &.newsletter--side {
   	background-color: $dark-color;
+    margin-bottom: 2em;
   	
     @media #{$large-up} {
       padding: 12px;
