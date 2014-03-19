@@ -8,8 +8,25 @@
   {% endblock sidebar %}
 
   <article class="large-8 medium-9 columns listings" data-equalizer-watch>
-    {% block section %}
-    {% endblock section %}
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          {% block section %}
+          {% endblock section %}
+        </div>
+      </div>
+    </div>
+
+
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          {% block related %}
+          {% endblock related %}
+        </div>
+      </div>
+    </div>
+
   </article>
 </div>
 {% endblock content %}
