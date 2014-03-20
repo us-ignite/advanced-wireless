@@ -55,8 +55,9 @@ def hub_detail(request, slug):
     activity_list = (instance.hubactivity_set
                      .select_related('user').all()[:20])
     event_list = Event.published.get_upcoming(hubs=instance)[:5]
-    award_list = (instance.hubaward_set
-                  .select_related('award').all())
+    hub_award_list = (instance.hubaward_set
+                      .select_related('award').all())
+    award_list = [ha.award for ha in hub_award_list]
     context = {
         'object': instance,
         'feature_list': instance.features.all(),
