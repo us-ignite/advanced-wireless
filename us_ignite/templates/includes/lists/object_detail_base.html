@@ -165,7 +165,13 @@
           <h2>Awards</h2>
           <ul>
             {% for award in award_list %}
-            <li>{{ award }}</li>
+            <li>
+              {% if award.image %}
+              <img src="{{ award.image.url }}" alt="{{ award.name }}" title="{{ award.name }}" />
+              {% else %}
+              {{ award.name }}
+              {% endif %}
+            </li>
             {% endfor%}
           </ul>
           {% endif %}
