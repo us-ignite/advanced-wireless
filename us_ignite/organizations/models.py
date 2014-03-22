@@ -28,6 +28,11 @@ class Organization(models.Model):
     members = models.ManyToManyField(
         'auth.User', blank=True, through='organizations.OrganizationMember')
     website = models.URLField(max_length=500, blank=True)
+    interest_ignite = models.TextField(
+        blank=True, help_text=u'Why are you here?')
+    interests = models.ManyToManyField('profiles.Interest', blank=True)
+    interests_other = models.CharField(blank=True, max_length=255)
+    resources_available = models.TextField(blank=True)
     position = GeopositionField(blank=True)
     tags = TaggableManager(blank=True)
     created = CreationDateTimeField()

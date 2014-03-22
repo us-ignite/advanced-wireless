@@ -94,6 +94,9 @@ def _create_organization():
         'bio': _choice(text.random_words(30)),
         'image': images.random_image(u'%s.png' % text.random_words(1)),
         'position': locations.get_location(),
+        'interest_ignite': _choice(text.random_paragraphs(1)),
+        'interests_other': _choice(text.random_words(5)),
+        'resources_available': _choice(text.random_paragraphs(1)),
     }
     organization = Organization.objects.create(**data)
     _add_tags(organization)
@@ -376,7 +379,7 @@ class Command(BaseCommand):
         print u'Adding users.'
         _create_users()
         print u'Adding organizations.'
-        for i in range(10):
+        for i in range(30):
             _create_organization()
         print u'Adding applications.'
         for i in range(40):
@@ -385,7 +388,7 @@ class Command(BaseCommand):
         for i in range(10):
             _create_page()
         print u'Adding hubs.'
-        for i in range(20):
+        for i in range(40):
             _create_hub()
         print u'Adding events.'
         for i in range(30):

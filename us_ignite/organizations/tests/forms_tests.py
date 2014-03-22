@@ -10,7 +10,9 @@ class TestOrganizationForm(TestCase):
     def test_fields_are_not_sensitive(self):
         form = forms.OrganizationForm()
         eq_(sorted(form.fields.keys()),
-            sorted(['name', 'bio', 'image', 'tags', 'website', 'position']))
+            sorted(['name', 'bio', 'image', 'website', 'interest_ignite',
+                    'interests', 'interests_other', 'resources_available',
+                    'tags', 'position']))
 
     def test_form_fails_with_empty_payload(self):
         form = forms.OrganizationForm({})
