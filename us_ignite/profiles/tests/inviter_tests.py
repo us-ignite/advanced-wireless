@@ -36,7 +36,7 @@ class TestCreateBrowserIDUser(TestCase):
         email = 'no-reply@us-ignite.org'
         username = auth.default_username_algo(email)
         inviter.create_browserid_user(email)
-        create_mock.assert_called_once_with(username, email)
+        create_mock.assert_called_once_with(username, email, first_name='')
 
     @patch(get_user)
     @patch(create_user, side_effect=db.IntegrityError)
@@ -44,7 +44,7 @@ class TestCreateBrowserIDUser(TestCase):
         email = 'other@us-ignite.org'
         username = auth.default_username_algo(email)
         inviter.create_browserid_user(email)
-        create_mock.assert_called_once_with(username, email)
+        create_mock.assert_called_once_with(username, email, first_name='')
         get_mock.assert_called_once_with(email=email)
 
 
@@ -73,7 +73,7 @@ class TestCreateUser(TestCase):
         result = inviter.create_user(user)
         eq_(result, 1)
         get_mock.assert_called_once_with(email=email)
-        create_mock.assert_called_once_with(email)
+        create_mock.assert_called_once_with(email, first_name='Someone')
         profile_mock.assert_called_once_with(user=1)
 
 

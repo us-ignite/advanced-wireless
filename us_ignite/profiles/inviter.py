@@ -17,7 +17,7 @@ logger = logging.getLogger('profiles.inviter')
 RawUser = namedtuple('RawUser', ['name', 'email'])
 
 
-def create_browserid_user(email):
+def create_browserid_user(email, first_name=''):
     """Creates users the ``django_browserid`` way."""
     from django.db import IntegrityError
     username_algo = getattr(settings, 'BROWSERID_USERNAME_ALGO', None)
@@ -26,7 +26,7 @@ def create_browserid_user(email):
     else:
         username = auth.default_username_algo(email)
     try:
-        return User.objects.create_user(username, email)
+        return User.objects.create_user(username, email, first_name=first_name)
     except IntegrityError as err:
         # Race condition! Attempt to re-fetch from the database.
         logger.warning('IntegrityError during user creation: {0}'.format(err))
@@ -45,11 +45,10 @@ def create_user(raw_user):
         User.objects.get(email=raw_user.email)
         return None
     except User.DoesNotExist:
-        user = create_browserid_user(raw_user.email)
+        user = create_browserid_user(
+            raw_user.email, first_name=raw_user.name)
     # Create a new profile:
     profile, new = models.Profile.objects.get_or_create(user=user)
-    profile.name = raw_user.name
-    profile.save()
     # Send profile invitation:
     return user
 

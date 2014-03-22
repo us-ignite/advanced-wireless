@@ -7,10 +7,12 @@ from django.contrib.auth.models import User
 from django.forms.models import inlineformset_factory
 
 from us_ignite.common import output, csv_unicode as csv
-from us_ignite.profiles.models import Profile, ProfileLink
+from us_ignite.profiles.models import Profile, ProfileLink, Interest
 
 
 class UserRegistrationForm(forms.Form):
+    first_name = forms.CharField(max_length=255, required=False)
+    last_name = forms.CharField(max_length=255, required=False)
     email = forms.EmailField()
     password1 = forms.CharField(
         widget=forms.PasswordInput(), label="Password")
@@ -39,19 +41,33 @@ class UserRegistrationForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=255, required=False)
+    last_name = forms.CharField(max_length=255, required=False)
+    interests = forms.ModelMultipleChoiceField(
+        queryset=Interest.objects.all(), required=False,
+        widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = Profile
+        fields = ('first_name', 'last_name', 'website', 'quote', 'bio',
+                  'skills', 'availability', 'interests', 'interests_other',
+                  'tags', 'is_public', 'position')
 
     def clean_tags(self):
         if 'tags' in self.cleaned_data:
             return output.prepare_tags(self.cleaned_data['tags'])
 
-    class Meta:
-        model = Profile
-        fields = ('name', 'website', 'quote', 'bio', 'availability',
-                  'tags', 'is_public', 'position')
+    def save(self, *args, **kwargs):
+        profile = super(ProfileForm, self).save(*args, **kwargs)
+        user = profile.user
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
+        return profile
 
 
 ProfileLinkFormSet = inlineformset_factory(
-    Profile, ProfileLink, max_num=3, extra=1)
+    Profile, ProfileLink, max_num=3, extra=3, can_delete=False)
 
 
 class InviterForm(forms.Form):

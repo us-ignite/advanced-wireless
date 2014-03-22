@@ -158,8 +158,9 @@ class TestExportUsersAdmin(TestCase):
 
     def test_export_shows_active_users(self):
         url = '/admin/profiles/profile/export/'
-        user = fixtures.get_user('john', email='no-contact@us-ignite.org')
-        fixtures.get_profile(user=user, name='John Donne')
+        user = fixtures.get_user(
+            'john', email='no-contact@us-ignite.org', first_name='John Donne')
+        fixtures.get_profile(user=user)
         response = self.client.post(url, {})
         eq_(response.status_code, 200)
         ok_('attachment;' in response['Content-Disposition'])
@@ -168,10 +169,12 @@ class TestExportUsersAdmin(TestCase):
     def test_export_does_not_show_innactive_users(self):
         url = '/admin/profiles/profile/export/'
         innactive_user = fixtures.get_user(
-            'paul', email='invalid@us-ignite.org', is_active=False)
-        fixtures.get_profile(user=innactive_user, name='Paul')
-        user = fixtures.get_user('john', email='no-contact@us-ignite.org')
-        fixtures.get_profile(user=user, name='John Donne')
+            'paul', first_name='Paul', email='invalid@us-ignite.org',
+            is_active=False)
+        fixtures.get_profile(user=innactive_user)
+        user = fixtures.get_user(
+            'john', first_name='John Donne', email='no-contact@us-ignite.org')
+        fixtures.get_profile(user=user)
         response = self.client.post(url, {})
         eq_(response.status_code, 200)
         ok_('attachment;' in response['Content-Disposition'])
@@ -208,9 +211,10 @@ class TestExportUsersAdmin(TestCase):
 
     def test_form_filter_uses_end_and_start_date(self):
         url = '/admin/profiles/profile/export/'
-        user = fixtures.get_user('john', email='no-contact@us-ignite.org')
+        user = fixtures.get_user(
+            'john', email='no-contact@us-ignite.org', first_name='John Donne')
         created = datetime(2013, 12, 6).replace(tzinfo=utc)
-        fixtures.get_profile(user=user, name='John Donne', created=created)
+        fixtures.get_profile(user=user,  created=created)
         response = self.client.post(url, {
             'start_0': '2013-12-5',
             'start_1': '00:00:00',

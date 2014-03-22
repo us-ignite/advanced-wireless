@@ -67,6 +67,9 @@ class EmailRegistrationView(registration_views.RegistrationView):
         username = get_uuid()
         new_user = (RegistrationProfile.objects
                     .create_inactive_user(username, email, password, site))
+        new_user.first_name = cleaned_data['first_name']
+        new_user.last_name = cleaned_data['last_name']
+        new_user.save()
         signals.user_registered.send(
             sender=self.__class__, user=new_user, request=request)
         return new_user

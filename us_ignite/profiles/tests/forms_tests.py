@@ -21,7 +21,9 @@ class TestUserRegistrationForm(TestCase):
     def test_default_fields(self):
         form = UserRegistrationForm()
         fields = form.fields.keys()
-        eq_(sorted(fields), ['email', 'password1', 'password2'])
+        eq_(sorted(fields),
+            sorted(['first_name', 'last_name', 'email',
+                    'password1', 'password2']))
 
     def test_empty_form_fails(self):
         form = UserRegistrationForm({})
@@ -78,8 +80,9 @@ class TestProfileForm(TestCase):
     def test_form_list_non_sensitive_values(self):
         form = ProfileForm()
         eq_(sorted(form.fields.keys()),
-            sorted(['bio', 'is_public', 'name', 'tags', 'website',
-                    'position', 'availability', 'quote']))
+            sorted(['bio', 'is_public', 'first_name', 'last_name',
+                    'tags', 'website', 'position', 'availability', 'quote',
+                    'skills', 'interests', 'interests_other',]))
 
     def test_form_accepts_default_payload(self):
         form = ProfileForm({

@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests import fixtures
-from us_ignite.profiles.models import Profile, ProfileLink
+from us_ignite.profiles.models import Profile, ProfileLink, Interest
 
 
 class TestProfileModel(TestCase):
@@ -31,11 +31,13 @@ class TestProfileModel(TestCase):
         eq_(profile.is_public, False)
         ok_(profile.position)
         eq_(profile.quote, '')
+        eq_(profile.skills, '')
         eq_(profile.availability, Profile.NO_AVAILABILITY)
+        eq_(list(profile.interests.all()), [])
 
     def test_user_full_name_is_valid(self):
-        user = fixtures.get_user('john')
-        profile = fixtures.get_profile(user=user, name='John Donne')
+        user = fixtures.get_user('john', first_name='John Donne')
+        profile = fixtures.get_profile(user=user)
         eq_(profile.full_name, u'John Donne')
 
     def test_gravatar_url_exists(self):
@@ -45,12 +47,12 @@ class TestProfileModel(TestCase):
             '//www.gravatar.com/avatar/f978b2b03ad48da6d36c431f72d6fd97?s=276')
 
     def test_user_display_name_is_valid(self):
-        user = fixtures.get_user('john')
-        profile = fixtures.get_profile(user=user, name='John Donne')
+        user = fixtures.get_user('john', first_name='John Donne')
+        profile = fixtures.get_profile(user=user)
         eq_(profile.display_name, u'John Donne')
 
     def test_empty_profile_user_display_name_is_valid(self):
-        user = fixtures.get_user('john')
+        user = fixtures.get_user('john', first_name='US Ignite user')
         profile = fixtures.get_profile(user=user)
         eq_(profile.display_name, u'US Ignite user')
 
@@ -100,3 +102,12 @@ class TestProfileLinkModel(TestCase):
         }
         link = ProfileLink.objects.create(**data)
         eq_(link.url, 'http://us-ignite.org/b/')
+
+
+class TestInterestModel(TestCase):
+
+    def test_instance_is_created_successfully(self):
+        interest = Interest.objects.create(name='Ultra Fast')
+        ok_(interest.pk)
+        eq_(interest.name, 'Ultra Fast')
+        eq_(interest.slug, 'ultra-fast')

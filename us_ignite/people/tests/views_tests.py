@@ -71,7 +71,7 @@ class TestProfileListView(TestCase):
         profile_a = fixtures.get_profile(user=user_a, name='alpha')
         user_b = fixtures.get_user('beta')
         profile_b = fixtures.get_profile(user=user_b, name='beta')
-        request = self._get_request(data={'order': 'name'})
+        request = self._get_request(data={'order': 'user__first_name'})
         response = views.profile_list(request)
         eq_(list(response.context_data['page'].object_list),
             [profile_a, profile_b])
@@ -82,7 +82,7 @@ class TestProfileListView(TestCase):
         profile_a = fixtures.get_profile(user=user_a, name='alpha')
         user_b = fixtures.get_user('beta')
         profile_b = fixtures.get_profile(user=user_b, name='beta')
-        request = self._get_request(data={'order': '-name'})
+        request = self._get_request(data={'order': '-user__first_name'})
         response = views.profile_list(request)
         eq_(list(response.context_data['page'].object_list),
             [profile_b, profile_a])

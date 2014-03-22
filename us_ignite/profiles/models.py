@@ -10,10 +10,24 @@ from us_ignite.common.fields import AutoUUIDField
 
 from django_browserid.signals import user_created
 from django_extensions.db.fields import (
-    CreationDateTimeField, ModificationDateTimeField)
+    AutoSlugField,
+    CreationDateTimeField,
+    ModificationDateTimeField,
+)
 from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 from registration.signals import user_activated
+
+
+class Interest(models.Model):
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name', unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name', )
 
 
 class Profile(models.Model):
@@ -29,13 +43,18 @@ class Profile(models.Model):
     )
     user = models.OneToOneField('auth.User', primary_key=True)
     slug = AutoUUIDField(unique=True, editable=True)
-    name = models.CharField(max_length=255, blank=True)
     website = models.URLField(max_length=500, blank=True)
     quote = models.TextField(
         blank=True, max_length=140, help_text=u'Short quote.')
     bio = models.TextField(blank=True)
+    skills = models.TextField(
+        blank=True, help_text=u'What do you have to contribute? '
+        'Design skills? Programming languages? Subject matter expertise?'
+        ' Project management experience?')
     availability = models.IntegerField(
         choices=AVAILABILITY_CHOICES, default=NO_AVAILABILITY)
+    interests = models.ManyToManyField('profiles.Interest', blank=True)
+    interests_other = models.CharField(blank=True, max_length=255)
     position = GeopositionField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
@@ -59,6 +78,17 @@ class Profile(models.Model):
 
     def get_contact_url(self):
         return reverse('contact_user', args=[self.slug])
+
+    @property
+    def name(self):
+        user = self.user
+        if user.first_name or user.last_name:
+            name = user.first_name
+            if user.first_name and user.last_name:
+                name += u' '
+            name += user.last_name
+            return name
+        return u''
 
     @property
     def full_name(self):

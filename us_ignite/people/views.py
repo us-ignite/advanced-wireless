@@ -15,8 +15,8 @@ from us_ignite.resources.models import Resource
 
 PROFILE_SORTING_CHOICES = (
     ('', 'Select ordering'),
-    ('name', 'Name a-z'),
-    ('-name', 'Name z-a'),
+    ('user__first_name', 'Name a-z'),
+    ('-user__first_name', 'Name z-a'),
 )
 
 

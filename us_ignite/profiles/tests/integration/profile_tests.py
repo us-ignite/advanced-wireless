@@ -67,22 +67,25 @@ class TestEditProfilePage(TestCase):
         response = self.client.get(url)
         fields = response.context['form'].fields.keys()
         eq_(sorted(fields),
-            sorted(['bio', 'is_public', 'name', 'tags', 'website',
-                    'position', 'availability', 'quote']))
+            sorted(['bio', 'is_public', 'tags', 'website',
+                    'position', 'availability', 'quote', 'interests_other',
+                    'first_name', 'last_name', 'interests', 'skills', ]))
 
     def test_profile_form_update_is_successful(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
         url = '/accounts/profile/'
         data = {
-            'name': 'John Donne',
+            'first_name': 'John',
+            'last_name': 'Donne',
             'availability': Profile.NO_AVAILABILITY,
         }
         data.update(_get_profilelink_inline_payload(profile.pk))
         response = self.client.post(url, data)
         assert_redirects(response, '/accounts/profile/')
-        values = (Profile.objects.values('name')
-                  .get(user__username='us-ignite'))
-        eq_(values, {'name': 'John Donne'})
+        profile = Profile.objects.get(user__username='us-ignite')
+        eq_(profile.name, 'John Donne')
+        eq_(profile.user.first_name, 'John')
+        eq_(profile.user.last_name, 'Donne')
 
     def test_profile_ignores_invaid_values(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)

@@ -6,7 +6,7 @@ from us_ignite.common import render
 class ProfileSearchAdapter(watson.SearchAdapter):
 
     def get_title(self, obj):
-        return obj.name
+        return obj.display_name
 
     def get_description(self, obj):
         return obj.bio

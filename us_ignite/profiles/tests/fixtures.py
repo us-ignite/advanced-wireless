@@ -21,8 +21,10 @@ def get_user(slug, password=None, is_superuser=False, is_staff=False, **kwargs):
 
 def get_profile(**kwargs):
     defaults = {}
+    if 'name' in kwargs:
+        name = kwargs.pop('name')
     if not 'user' in kwargs:
-        defaults['user'] = get_user('john')
+        defaults['user'] = get_user('john', first_name=name)
     defaults.update(kwargs)
     profile, is_new = Profile.objects.get_or_create(**defaults)
     return profile
