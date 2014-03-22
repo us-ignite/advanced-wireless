@@ -115,7 +115,7 @@ class TestEventAddView(TestCase):
             'name': 'Gigabit community',
             'status': Event.DRAFT,
             'start_datetime': '2013-12-14 14:30:59',
-            'venue': 'London UK',
+            'address': 'London UK',
             'scope': 1,
             'description': 'Gigabit event',
         }
@@ -197,7 +197,7 @@ class TestEventEditView(TestCase):
             'name': 'Gigabit community',
             'status': Event.DRAFT,
             'start_datetime': '2013-12-14 14:30:59',
-            'venue': 'London UK',
+            'address': 'London UK',
             'scope': 1,
             'description': 'Gigabit event',
         }

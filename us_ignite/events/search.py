@@ -13,7 +13,7 @@ class EventSearchAdapter(watson.SearchAdapter):
 
     def get_content(self, obj):
         fields = [
-            obj.venue,
+            obj.address,
             obj.description,
             ', '.join([t.name for t in obj.tags.all()]),
         ]

@@ -3,8 +3,9 @@ from django.conf import settings
 from django.forms.models import inlineformset_factory
 
 from us_ignite.common import output
-from us_ignite.events.models import Event, EventURL
+from us_ignite.events.models import Audience, Event, EventURL
 from us_ignite.hubs.models import Hub
+from us_ignite.organizations.models import Organization
 
 
 def _get_status_choices():
@@ -31,6 +32,11 @@ class EventForm(forms.ModelForm):
     hubs = forms.ModelMultipleChoiceField(
         queryset=Hub.objects.filter(status=Hub.PUBLISHED),
         required=False, widget=forms.CheckboxSelectMultiple)
+    contact = forms.ModelChoiceField(
+        queryset=Organization.active.all(), required=False)
+    audiences = forms.ModelMultipleChoiceField(
+        queryset=Audience.objects.all(), required=False,
+        widget=forms.CheckboxSelectMultiple)
 
     def clean_tags(self):
         if 'tags' in self.cleaned_data:
@@ -39,11 +45,12 @@ class EventForm(forms.ModelForm):
     class Meta:
         fields = (
             'name', 'status', 'description', 'website', 'tickets_url',
-            'image', 'start_datetime', 'end_datetime', 'audience', 'scope',
-            'venue', 'position', 'contact', 'hubs', 'tags',
+            'image', 'start_datetime', 'end_datetime', 'event_type',
+            'audiences', 'audience_other', 'scope', 'address',
+            'position', 'contact', 'hubs', 'tags'
         )
         model = Event
 
 
 EventURLFormSet = inlineformset_factory(
-    Event, EventURL, max_num=3)
+    Event, EventURL, max_num=3, can_delete=False)

@@ -12,10 +12,7 @@ from us_ignite.events.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
 
-class TestAudience(TestCase):
-
-    def tearDown(self):
-        models.Audience.objects.all().delete()
+class TestAudienceModel(TestCase):
 
     def test_audience_is_created_successfully(self):
         data = {'name': 'Developer'}
@@ -36,7 +33,7 @@ class TestEventModel(TestCase):
         startdatetime = timezone.now()
         data = {
             'name': 'Gigabit community meet-up',
-            'venue': 'London, UK',
+            'address': 'London, UK',
             'start_datetime': startdatetime,
             'user': user,
         }
@@ -49,10 +46,10 @@ class TestEventModel(TestCase):
         eq_(instance.description, '')
         eq_(instance.start_datetime, startdatetime)
         eq_(instance.end_datetime, None)
-        eq_(instance.venue, 'London, UK')
-        eq_(instance.contact, '')
+        eq_(instance.address, 'London, UK')
+        eq_(instance.contact, None)
         eq_(instance.scope, models.Event.NATIONAL)
-        eq_(instance.audience, None)
+        eq_(list(instance.audiences.all()), [])
         eq_(instance.website, '')
         eq_(instance.tickets_url, '')
         eq_(list(instance.tags.all()), [])
@@ -64,6 +61,7 @@ class TestEventModel(TestCase):
         ok_(instance.created)
         ok_(instance.modified)
         ok_(instance.position)
+        eq_(instance.audience_other, '')
 
     def test_absolute_url_is_correct(self):
         user = get_user('us-ignite')
@@ -151,3 +149,14 @@ class TestEventURLModel(TestCase):
         eq_(instance.event, event)
         eq_(instance.name, 'US Ignite')
         eq_(instance.url, 'http://us-ignite.org/')
+
+
+class TestEventTypeModel(TestCase):
+
+    def test_audience_is_created_successfully(self):
+        data = {'name': 'Networking'}
+        instance = models.EventType.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.name, 'Networking')
+        eq_(instance.slug, 'networking')
+

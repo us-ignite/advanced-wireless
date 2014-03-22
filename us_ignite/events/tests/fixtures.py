@@ -13,7 +13,7 @@ def get_audience(**kwargs):
 def get_event(**kwargs):
     data = {
         'name': 'Gigabit community meet-up',
-        'venue': 'Washington, DC',
+        'address': 'Washington, DC',
         'start_datetime': timezone.now(),
     }
     if not 'user' in kwargs:

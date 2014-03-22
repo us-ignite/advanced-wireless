@@ -23,6 +23,17 @@ class Audience(models.Model):
         ordering = ('name', )
 
 
+class EventType(models.Model):
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name', unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name', )
+
+
 class Event(models.Model):
     PUBLISHED = 1
     DRAFT = 2
@@ -45,11 +56,16 @@ class Event(models.Model):
     description = models.TextField()
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField(blank=True, null=True)
-    venue = models.TextField()
-    contact = models.TextField(blank=True)
+    address = models.TextField()
+    contact = models.ForeignKey(
+        'organizations.Organization', blank=True, null=True,
+        on_delete=models.SET_NULL)
     scope = models.IntegerField(choices=SCOPE_CHOICES, default=NATIONAL)
-    audience = models.ForeignKey('events.Audience', blank=True, null=True)
+    audiences = models.ManyToManyField('events.Audience', blank=True)
+    audience_other = models.CharField(blank=True, max_length=200)
     website = models.URLField(max_length=500, blank=True)
+    event_type = models.ForeignKey(
+        'events.EventType', blank=True, null=True, on_delete=models.SET_NULL)
     tickets_url = models.URLField(max_length=500, blank=True)
     tags = TaggableManager(blank=True)
     hubs = models.ManyToManyField('hubs.Hub')
@@ -90,7 +106,7 @@ class Event(models.Model):
     def get_google_calendar_url(self):
         return exporter.get_google_calendar_url(
             self.name, self.start_datetime, self.end_datetime,
-            self.description, self.venue)
+            self.description, self.address)
 
     def get_ics_url(self):
         return reverse('event_detail_ics', args=[self.slug])
