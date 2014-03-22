@@ -45,9 +45,10 @@ class Resource(models.Model):
     url = models.URLField(max_length=500, blank=True)
     description = models.TextField()
     resource_type = models.ForeignKey(
-        'ResourceType', blank=True, null=True, on_delete=models.SET_NULL)
+        'resources.ResourceType', blank=True, null=True,
+        on_delete=models.SET_NULL)
     sector = models.ForeignKey(
-        'Sector', blank=True, null=True, on_delete=models.SET_NULL)
+        'resources.Sector', blank=True, null=True, on_delete=models.SET_NULL)
     contact = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
         related_name='resource_contact_set')
