@@ -31,8 +31,6 @@ class TestApplicationModel(TestCase):
         eq_(instance.image, '')
         eq_(instance.summary, '')
         eq_(instance.impact_statement, '')
-        eq_(instance.description, '')
-        eq_(instance.roadmap, '')
         eq_(instance.assistance, '')
         eq_(instance.team_description, '')
         eq_(instance.acknowledgments, '')
@@ -41,9 +39,11 @@ class TestApplicationModel(TestCase):
         ok_(instance.modified)
         eq_(instance.is_featured, False)
         eq_(list(instance.features.all()), [])
+        eq_(instance.features_other, '')
         eq_(instance.domain, None)
         eq_(list(instance.members.all()), [])
         eq_(list(instance.tags.all()), [])
+        eq_(instance.team_name, '')
 
     def test_application_absolute_url(self):
         user = get_user('app-owner')
@@ -179,25 +179,14 @@ class TestApplicationModel(TestCase):
             application=application, user=member, can_edit=False)
         eq_(application.is_editable_by(member), False)
 
-    def test_get_summary_shortens_description(self):
-        user = get_user('app-owner')
-        description = ' '.join(['word'] * 50)
-        application = fixtures.get_application(
-            owner=user, description=description)
-        summary = application.get_summary()
-        # 31 words considering the ellipsis:
-        eq_(len(summary.split(' ')), 31)
-
     def test_get_summary_returns_existing_summary(self):
         user = get_user('app-owner')
-        application = fixtures.get_application(
-            owner=user, summary='summary', description='description')
+        application = fixtures.get_application(owner=user, summary='summary')
         eq_(application.get_summary(), 'summary')
 
     def test_get_signature_is_generated(self):
         user = get_user('app-owner')
-        application = fixtures.get_application(
-            owner=user, summary='summary', description='description')
+        application = fixtures.get_application(owner=user, summary='summary')
         ok_(application.get_signature())
 
 
@@ -268,8 +257,6 @@ class TestApplicationVersionModel(TestCase):
         ok_(instance.modified)
         eq_(instance.summary, '')
         eq_(instance.impact_statement, '')
-        eq_(instance.description, '')
-        eq_(instance.roadmap, '')
         eq_(instance.assistance, '')
         eq_(instance.team_description, '')
         eq_(instance.acknowledgments, '')

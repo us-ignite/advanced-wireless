@@ -34,8 +34,6 @@ class ApplicationVersionManager(models.Manager):
             'image': application.image,
             'summary': application.summary,
             'impact_statement': application.impact_statement,
-            'description': application.description,
-            'roadmap': application.roadmap,
             'assistance': application.assistance,
             'team_description': application.team_description,
             'acknowledgments': application.acknowledgments,

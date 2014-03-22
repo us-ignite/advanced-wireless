@@ -14,10 +14,10 @@ class TestApplicationForm(TestCase):
     def test_fields_listed_are_not_sensitive(self):
         form = forms.ApplicationForm()
         expected_fields = sorted(
-            ['name', 'summary', 'impact_statement', 'description',
-             'image', 'domain',  'features', 'stage', 'roadmap',
-             'assistance', 'team_description', 'acknowledgments',
-             'tags', 'status'])
+            ['name', 'summary', 'impact_statement',
+             'image', 'domain',  'features', 'stage',
+             'assistance', 'team_name', 'team_description',
+             'acknowledgments', 'tags', 'status'])
         eq_(sorted(form.fields.keys()), expected_fields)
 
     def test_removed_field_is_not_a_status_choice(self):
@@ -32,7 +32,6 @@ class TestApplicationForm(TestCase):
     def test_form_minimum_values_are_valid(self):
         payload = {
             'name': 'Great Gigabit App',
-            'description': 'This app will change everything.',
             'summary': 'This app is great!',
             'status': Application.DRAFT,
             'stage': Application.IDEA,
@@ -43,7 +42,6 @@ class TestApplicationForm(TestCase):
     def test_form_cannot_set_status_to_removed(self):
         payload = {
             'name': 'Great Gigabit App',
-            'description': 'This app will change everything.',
             'summary': 'This app is great!',
             'status': Application.REMOVED,
             'stage': Application.IDEA,
@@ -55,7 +53,6 @@ class TestApplicationForm(TestCase):
     def _get_form_payload(self, **kwargs):
         payload = {
             'name': 'Great Gigabit App',
-            'description': 'This app will change everything.',
             'summary': 'This app is great!',
             'status': Application.DRAFT,
             'stage': Application.IDEA,
@@ -69,20 +66,6 @@ class TestApplicationForm(TestCase):
         form = forms.ApplicationForm(payload)
         eq_(form.is_valid(), True)
         eq_(form.cleaned_data['team_description'], 'HTML text')
-
-    def test_form_removes_html_from_description(self):
-        html_text = '<p>HTML text</p>'
-        payload = self._get_form_payload(description=html_text)
-        form = forms.ApplicationForm(payload)
-        eq_(form.is_valid(), True)
-        eq_(form.cleaned_data['description'], 'HTML text')
-
-    def test_form_removes_html_from_roadmap(self):
-        html_text = '<p>HTML text</p>'
-        payload = self._get_form_payload(roadmap=html_text)
-        form = forms.ApplicationForm(payload)
-        eq_(form.is_valid(), True)
-        eq_(form.cleaned_data['roadmap'], 'HTML text')
 
 
 patch_user_get = patch('django.contrib.auth.models.User.objects.get')

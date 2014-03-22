@@ -81,8 +81,6 @@ class TestApplicationVersionManager(TestCase):
         eq_(version.image, application.image)
         eq_(version.summary, application.summary)
         eq_(version.impact_statement, application.impact_statement)
-        eq_(version.description, application.description)
-        eq_(version.roadmap, application.roadmap)
         eq_(version.assistance, application.assistance)
         eq_(version.team_description, application.team_description)
         eq_(version.acknowledgments, application.acknowledgments)

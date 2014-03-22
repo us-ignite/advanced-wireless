@@ -16,8 +16,8 @@ class ApplicationMediaInline(admin.TabularInline):
 class ApplicationAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'stage', 'status')
     search_fields = ['name', 'slug', 'summary', 'impact_statement',
-                     'description', 'roadmap', 'assistance',
-                     'team_description', 'notes', 'acknowledgments']
+                     'assistance', 'team_description', 'notes',
+                     'acknowledgments']
     list_filter = ['stage', 'domain__name', 'status', 'created', ]
     date_hierarchy = 'created'
     inlines = [ApplicationURLInline, ApplicationMediaInline]

@@ -37,29 +37,38 @@ class ApplicationBase(models.Model):
     ALPHA = 3
     BETA = 4
     DEMO = 5
-    DEPLOYABLE = 6
     STAGE_CHOICES = (
-        (IDEA, 'Idea complete'),
-        (TEAM, 'Team complete / Forming team'),
-        (ALPHA, 'Alpha version / developing alpha / testing alpha.'),
-        (BETA, 'Beta version / developing beta / in beta test'),
-        (DEMO, 'Demo-able / demoing'),
-        (DEPLOYABLE, 'Deployable / deploying')
+        (IDEA, 'Idea Complete'),
+        (TEAM, 'Started Coding'),
+        (ALPHA, 'Alpha version complete.'),
+        (BETA, 'Beta version complete'),
+        (DEMO, '1.0 complete'),
     )
     name = models.CharField(max_length=255)
-    stage = models.IntegerField(choices=STAGE_CHOICES, default=IDEA)
+    stage = models.IntegerField(
+        choices=STAGE_CHOICES, default=IDEA,
+        help_text=u'Please select the option that best reflects your '
+        'current progress')
     website = models.URLField(max_length=500, blank=True)
-    image = models.ImageField(blank=True, upload_to='apps', max_length=500)
+    image = models.ImageField(
+        blank=True, upload_to='apps', max_length=500,
+        help_text=u'E.g. logo, screenshot, application diagram, photo of demo')
     summary = models.TextField(
-        blank=True, help_text='Tweet-length pitch summary of project.')
+        blank=True, help_text=u'One sentence (tweet-length) pitch/summary of '
+        'the application')
     impact_statement = models.TextField(
-        blank=True, help_text='Story of benefit.')
-    description = models.TextField()
-    roadmap = models.TextField(blank=True, help_text='Development Roadmap.')
+        blank=True, help_text=u'Who benefits and how in one paragraph or less')
     assistance = models.TextField(
-        blank=True, help_text='Fill in this field if you require help.')
+        blank=True, help_text=u'Are you looking for additional help for this'
+        ' project? (e.g. specific technical skills, subject matter experts, '
+        'design help, partners for pilots, etc)')
+    team_name = models.CharField(
+        max_length=255, blank=True, help_text=u'Organization/Company name '
+        'of developers')
     team_description = models.TextField(blank=True)
-    acknowledgments = models.TextField(blank=True)
+    acknowledgments = models.TextField(
+        blank=True, help_text=u'Is their anyone you want to acknowledge '
+        'for supporting this application?')
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
@@ -70,8 +79,8 @@ class ApplicationBase(models.Model):
     def get_signature(self):
         """Generate an md5 signature from the model values."""
         fields = [self.name, self.stage, self.website, self.image,
-                  self.summary, self.impact_statement, self.description,
-                  self.roadmap, self.assistance, self.team_description,
+                  self.summary, self.impact_statement,
+                  self.assistance, self.team_description,
                   self.acknowledgments]
         value = ''.join(['%s' % a for a in fields])
         return md5(value).hexdigest()
@@ -99,8 +108,13 @@ class Application(ApplicationBase):
     members = models.ManyToManyField(
         'auth.User', through='apps.ApplicationMembership',
         related_name='membership_set')
-    features = models.ManyToManyField('apps.Feature', blank=True)
-    domain = models.ForeignKey('apps.Domain', blank=True, null=True)
+    features = models.ManyToManyField(
+        'apps.Feature', blank=True, help_text='Check all that apply')
+    features_other = models.CharField(blank=True, max_length=255)
+    domain = models.ForeignKey(
+        'apps.Domain', blank=True, null=True,
+        help_text='What is the primary public benefit priority area '
+        'served by this application?')
     tags = TaggableManager(blank=True)
 
     # managers:
@@ -166,9 +180,7 @@ class Application(ApplicationBase):
         return False
 
     def get_summary(self):
-        if self.summary:
-            return self.summary
-        return truncatewords(self.description, 30)
+        return self.summary
 
 
 class ApplicationMembership(models.Model):

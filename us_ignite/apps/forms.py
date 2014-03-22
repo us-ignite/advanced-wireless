@@ -31,10 +31,10 @@ class ApplicationForm(forms.ModelForm):
 
     class Meta:
         model = Application
-        fields = ('name', 'summary', 'impact_statement', 'description',
-                  'image', 'domain',  'features', 'stage', 'roadmap',
-                  'assistance', 'team_description', 'acknowledgments',
-                  'tags', 'status',)
+        fields = ('name', 'summary', 'impact_statement',
+                  'image', 'domain', 'features', 'stage',
+                  'assistance', 'team_name', 'team_description',
+                  'acknowledgments', 'tags', 'status',)
         widgets = {
             'features': forms.CheckboxSelectMultiple(),
         }
@@ -46,19 +46,13 @@ class ApplicationForm(forms.ModelForm):
     def clean_team_description(self):
         return self._strip_tags('team_description')
 
-    def clean_description(self):
-        return self._strip_tags('description')
-
-    def clean_roadmap(self):
-        return self._strip_tags('roadmap')
-
     def clean_tags(self):
         if 'tags' in self.cleaned_data:
             return output.prepare_tags(self.cleaned_data['tags'])
 
 
 ApplicationLinkFormSet = inlineformset_factory(
-    Application, ApplicationURL, max_num=3, extra=3)
+    Application, ApplicationURL, max_num=3, extra=3, can_delete=False)
 
 
 def is_embedable_url(url):

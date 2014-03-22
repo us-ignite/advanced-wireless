@@ -16,8 +16,6 @@ class ApplicationSearchAdapter(watson.SearchAdapter):
         fields = [
             obj.summary,
             obj.impact_statement,
-            obj.description,
-            obj.roadmap,
             obj.assistance,
             obj.team_description,
             obj.acknowledgments,
