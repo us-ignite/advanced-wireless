@@ -14,6 +14,11 @@ RESOURCE_LIST = (
 )
 
 SECTOR_LIST = (
+    'Healthcare',
+    'Education & Workforce development',
+    'Energy',
+    'Transportation',
+    'Advanced Manufacturing',
     'Public Safety',
 )
 
