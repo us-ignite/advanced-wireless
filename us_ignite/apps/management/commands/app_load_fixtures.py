@@ -10,6 +10,10 @@ FEATURE_LIST = (
     'Speed',
     'Low-latency',
     'Local cloud / edge computing',
+    'Advanced wireless',
+    'Ultra-fast/Gigabit to end-user',
+    'GENI/US Ignite Rack',
+    'Layer 2',
 )
 
 DOMAIN_LIST = (
@@ -17,7 +21,6 @@ DOMAIN_LIST = (
     'Education & Workforce',
     'Energy',
     'Transportation',
-    'Entrepreneurship',
     'Advanced Manufacturing',
     'Public Safety',
     'General / Platform / Other',
