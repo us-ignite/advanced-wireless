@@ -1,4 +1,5 @@
 from datetime import timedelta
+from optparse import make_option
 from random import choice, shuffle
 
 from django.contrib.auth.models import User
@@ -184,7 +185,7 @@ def _create_event():
         'image': images.random_image(u'%s.png' % text.random_words(1)),
         'start_datetime': start_date,
         'end_datetime': choice([None, end_date]),
-        'venue': text.random_words(7),
+        'address': text.random_words(7),
         'description': text.random_paragraphs(2),
         'is_featured': choice([True, False]),
         'user': _get_user(),
@@ -352,14 +353,23 @@ def _load_fixtures():
 
 class Command(BaseCommand):
 
+    option_list = BaseCommand.option_list + (
+        make_option(
+            '--noinput',
+            action='store_true',
+            dest='noinput',
+            default=False,
+            help='Does not ask for any user input.'),
+    )
     def handle(self, *args, **options):
-        message = ('This command will IRREVERSIBLE poison the existing '
-                   'database by adding dummy content and images. '
-                   'Proceed? [y/N] ')
-        response = raw_input(message)
-        if not response or not response == 'y':
-            print 'Phew, aborted!'
-            exit(0)
+        if not options['noinput']:
+            message = ('This command will IRREVERSIBLE poison the existing '
+                       'database by adding dummy content and images. '
+                       'Proceed? [y/N] ')
+            response = raw_input(message)
+            if not response or not response == 'y':
+                print 'Phew, aborted!'
+                exit(0)
         print u'Loading initial fixtures.'
         _load_fixtures()
         print u'Featuring Posts'

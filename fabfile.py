@@ -236,7 +236,7 @@ def reset_local_db():
               '--settings=%s.settings.local' % DB_STRING)
     confirmation = red('Would you like to generate dummy fixtures?')
     if console.confirm(confirmation):
-        local('django-admin.py dummy_generate_content '
+        local('django-admin.py dummy_generate_content --noinput '
               '--settings=%s.settings.local' % DB_STRING)
 
 
