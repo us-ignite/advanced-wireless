@@ -87,7 +87,7 @@ class ApplicationMediaForm(forms.ModelForm):
 
 ApplicationMediaFormSet = inlineformset_factory(
     Application, ApplicationMedia, max_num=10, extra=1,
-    form=ApplicationMediaForm)
+    can_delete=False, form=ApplicationMediaForm)
 
 
 def validate_member(email):
