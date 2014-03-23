@@ -47,12 +47,6 @@
               <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
               <li><a href="{{ object.get_hub_membership_url }}">Edit hubs membership</a></li>
               <li><a href="{{ object.get_export_url }}">Export application</a></li>
-              <li>
-                <form method="post" action="{{ object.get_version_url }}">
-                  {% csrf_token %}
-                  <p><br><button type="submit">Create version</button></p>
-                </form>
-              </li>
               {% endif %}
             {% endblock intro %}
           </ul>
