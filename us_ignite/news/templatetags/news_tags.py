@@ -15,7 +15,7 @@ class ArticleNode(template.Node):
     def render(self, context):
         template_name = self.template_name.resolve(context)
         context = {
-            'object_list': Article.published.all()[:10]
+            'object_list': Article.published.all()[:5]
         }
         return render_to_string(template_name, context)
 
