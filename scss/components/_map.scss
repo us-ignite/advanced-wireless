@@ -13,3 +13,8 @@
     max-width: inherit; 
   }
 }
+
+.geoposition-widget-latitude,
+.geoposition-widget-longitude {
+  display: none;
+}
