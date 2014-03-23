@@ -16,7 +16,7 @@ Profile
 </ul>
 
 <form method="post" action="{% url 'user_profile' %}">
-  {{ form.as_p }}
+  {% include "includes/form.html" with form=form %}
   <h2>Extra URLs</h2>
   {{ formset.as_p }}
   <p>

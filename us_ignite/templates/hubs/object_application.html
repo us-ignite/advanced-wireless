@@ -36,7 +36,7 @@ Apply to be an Ingite Community
 </p>
 
 <form method="post" action=".">
-  {{ form.as_p }}
+  {% include "includes/form.html" with form=form %}
   <p>
     {% csrf_token %}
     <button type="submit">Register</button>

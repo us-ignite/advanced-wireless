@@ -10,7 +10,7 @@ Edit: {{ object.name }}
 {% block section %}
 
 <form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data">
-  {{ form.as_p }}
+  {% include "includes/form.html" with form=form %}
   <p>
     {% csrf_token %}
     <button type="submit">Update</button>
