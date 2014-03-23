@@ -193,6 +193,15 @@ def load_fixtures():
 
 
 @task
+@only_outside_vm
+def create_superuser():
+    """Create a superuser in the remote environment."""
+    confirmation = yellow('Would you like to generate an admin user?')
+    if console.confirm(confirmation):
+        dj_heroku('createsuperuser', env.app, env.slug)
+
+
+@task
 @only_inside_vm
 def test(apps=''):
     """Runs the test suite in the local environment."""
