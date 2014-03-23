@@ -29,8 +29,12 @@ class HubForm(forms.ModelForm):
 
 class HubAppMembershipForm(forms.Form):
     hubs = forms.ModelMultipleChoiceField(
+        label=u'Communities',
         queryset=Hub.objects.filter(status=Hub.PUBLISHED),
-        required=False, widget=forms.CheckboxSelectMultiple)
+        required=False, widget=forms.CheckboxSelectMultiple,
+        help_text=u'Is the Application Connected to a US Ignite '
+        'Community or Partner? (e.g. Funding, Development, Piloting, '
+        'Testing, etc.)')
 
 
 class HubApprovalRequestForm(forms.ModelForm):
