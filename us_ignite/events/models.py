@@ -49,11 +49,11 @@ class Event(models.Model):
         (NATIONAL, 'National'),
         (REGIONAL, 'Regional'),
     )
-    name = models.CharField(max_length=500)
+    name = models.CharField(max_length=500, verbose_name=u'event name')
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PUBLISHED)
     image = models.ImageField(upload_to="events", blank=True)
-    description = models.TextField()
+    description = models.TextField(verbose_name=u'short description')
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField(blank=True, null=True)
     address = models.TextField()
@@ -68,7 +68,7 @@ class Event(models.Model):
         'events.EventType', blank=True, null=True, on_delete=models.SET_NULL)
     tickets_url = models.URLField(max_length=500, blank=True)
     tags = TaggableManager(blank=True)
-    hubs = models.ManyToManyField('hubs.Hub')
+    hubs = models.ManyToManyField('hubs.Hub', verbose_name=u'communities')
     position = GeopositionField(blank=True)
     user = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
