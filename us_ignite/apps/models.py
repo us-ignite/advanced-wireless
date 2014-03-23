@@ -44,7 +44,7 @@ class ApplicationBase(models.Model):
         (BETA, 'Beta version complete'),
         (DEMO, '1.0 complete'),
     )
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name=u'application name')
     stage = models.IntegerField(
         choices=STAGE_CHOICES, default=IDEA,
         help_text=u'Please select the option that best reflects your '

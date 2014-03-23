@@ -107,7 +107,8 @@ def validate_member(email):
 class MembershipForm(forms.Form):
     """Form to validate the collaborators."""
     collaborators = forms.CharField(
-        widget=forms.Textarea, help_text='Add registered users as '
+        label=u'Team Members',
+        widget=forms.Textarea, help_text=u'Add registered users as '
         'collaborators for this app. One email per line.', required=False)
 
     def clean_collaborators(self):
@@ -124,6 +125,7 @@ class MembershipForm(forms.Form):
 
 
 class ApplicationMembershipForm(forms.ModelForm):
+
     class Meta:
         model = ApplicationMembership
         fields = ('can_edit', )
