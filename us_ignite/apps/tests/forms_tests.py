@@ -17,7 +17,7 @@ class TestApplicationForm(TestCase):
             ['name', 'summary', 'impact_statement',
              'image', 'domain',  'features', 'stage',
              'assistance', 'team_name', 'team_description',
-             'acknowledgments', 'tags', 'status'])
+             'acknowledgments', 'tags', 'status', 'awards'])
         eq_(sorted(form.fields.keys()), expected_fields)
 
     def test_removed_field_is_not_a_status_choice(self):

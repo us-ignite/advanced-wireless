@@ -115,6 +115,7 @@ class Application(ApplicationBase):
         'apps.Domain', blank=True, null=True,
         help_text='What is the primary public benefit priority area '
         'served by this application?')
+    awards = models.TextField(blank=True, help_text=u'Recognition or Awards')
     tags = TaggableManager(blank=True)
 
     # managers:

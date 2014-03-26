@@ -44,6 +44,7 @@ class TestApplicationModel(TestCase):
         eq_(list(instance.members.all()), [])
         eq_(list(instance.tags.all()), [])
         eq_(instance.team_name, '')
+        eq_(instance.awards, '')
 
     def test_application_absolute_url(self):
         user = get_user('app-owner')
