@@ -1,10 +1,14 @@
-{% load core_settings %}
-Hi there,
+{% load core_settings %}Hi there,
 
-This is your activation email, please follow the following link to activate your account:
+Thank you so much for creating an account on us-ignite.org. You’ll find it’s a great way to get involved in the next-gen community, learn about upcoming events, and discover transformative next-generation apps currently being built and deployed!
+
+This is your activation email, please use this link to activate your account:
 
 {% get_setting "SITE_URL" %}{% url "registration_activate" activation_key %}
 
-----
+Once your account is activated you will be able to login.
+
+
+Cheers,
 
 The US Ignite team.
