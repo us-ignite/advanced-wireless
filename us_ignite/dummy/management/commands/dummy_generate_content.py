@@ -255,7 +255,7 @@ def _create_resource():
         'status': choice(Resource.STATUS_CHOICES)[0],
         'description': text.random_paragraphs(1),
         'contact': _get_user(),
-        'author': choice([_get_user(), None]),
+        'author': _choice(text.random_words(10)),
         'url': _get_url(),
         'is_featured': choice([True, False]),
         'image': images.random_image(u'%s.png' % text.random_words(1)),

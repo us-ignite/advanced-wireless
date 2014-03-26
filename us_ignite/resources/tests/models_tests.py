@@ -30,7 +30,7 @@ class TestResourceModel(TestCase):
         eq_(instance.resource_type, None)
         eq_(instance.sector, None)
         eq_(instance.contact, None)
-        eq_(instance.author, None)
+        eq_(instance.author, '')
         eq_(instance.organization, None)
         eq_(instance.image, '')
         eq_(instance.asset, '')

@@ -52,9 +52,9 @@ class Resource(models.Model):
     contact = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
         related_name='resource_contact_set')
-    author = models.ForeignKey(
-        'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
-        related_name='resource_author_set')
+    author = models.TextField(
+        blank=True, help_text=u'Primary Author/Presenter (if different '
+        'from contact)')
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True,
         on_delete=models.SET_NULL)

@@ -27,18 +27,10 @@ def _validate_email(email):
 class ResourceForm(forms.ModelForm):
     status = forms.ChoiceField(
         choices=_get_status_choices(), initial=Resource.PUBLISHED)
-    author = forms.EmailField(
-        required=False, help_text=u'Author email address.')
 
     def clean_tags(self):
         if 'tags' in self.cleaned_data:
             return output.prepare_tags(self.cleaned_data['tags'])
-
-    def clean_author(self):
-        """Validates that the email provided is from a registered user."""
-        author = self.cleaned_data.get('author')
-        if author:
-            return _validate_email(self.cleaned_data['author'])
 
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -49,4 +41,4 @@ class ResourceForm(forms.ModelForm):
     class Meta:
         model = Resource
         fields = ('name', 'status', 'description', 'url', 'resource_type',
-                  'sector', 'organization', 'image', 'asset', 'tags')
+                  'sector', 'author', 'organization', 'image', 'asset', 'tags')

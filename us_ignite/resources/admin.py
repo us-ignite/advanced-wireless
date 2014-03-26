@@ -8,7 +8,7 @@ class ResourceAdmin(admin.ModelAdmin):
     search_fields = ('name', 'slug', 'description', 'url')
     list_filter = ('is_featured', 'created')
     date_hierarchy = 'created'
-    raw_id_fields = ['contact', 'author', ]
+    raw_id_fields = ['contact']
 
 
 class ResourceTypeAdmin(admin.ModelAdmin):
