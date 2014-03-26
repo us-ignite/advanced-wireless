@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.template.loader import render_to_string
 
 from us_ignite.snippets.models import Snippet
 
@@ -21,7 +22,7 @@ FIXTURES = [
     {
         'slug': 'welcome-email',
         'name': 'Welcome to US Ignite',
-        'body': '',
+        'body': render_to_string('profile/emails/welcome.html'),
         'url_text': '',
         'url': '',
     },
