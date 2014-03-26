@@ -60,6 +60,8 @@ class Resource(models.Model):
         on_delete=models.SET_NULL)
     image = models.ImageField(upload_to="resource", blank=True)
     asset = models.FileField(upload_to="resource", blank=True)
+    resource_date = models.DateField(
+        blank=True, null=True, help_text=u'Format: YYYY-MM-DD')
     is_featured = models.BooleanField(default=False)
     tags = TaggableManager(blank=True)
     created = CreationDateTimeField()

@@ -35,4 +35,3 @@ class Command(BaseCommand):
             sector, is_new = Sector.objects.get_or_create(name=sector_name)
             if is_new:
                 print "Imported sector: %s" % sector_name
-        print "Done!"

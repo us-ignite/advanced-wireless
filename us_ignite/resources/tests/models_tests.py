@@ -35,6 +35,7 @@ class TestResourceModel(TestCase):
         eq_(instance.image, '')
         eq_(instance.asset, '')
         eq_(instance.is_featured, False)
+        eq_(instance.resource_date, None)
         eq_(list(instance.tags.all()), [])
         ok_(instance.created)
         ok_(instance.modified)

@@ -24,7 +24,7 @@ from us_ignite.maps.models import Category, Location
 from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
-from us_ignite.resources.models import Resource
+from us_ignite.resources.models import Resource, ResourceType, Sector
 from taggit.models import Tag
 
 
@@ -247,6 +247,14 @@ def _create_entries(challenge):
     return entry_list
 
 
+def _get_resource_type():
+    return ResourceType.objects.all().order_by('?')[0]
+
+
+def _get_sector():
+    return Sector.objects.all().order_by('?')[0]
+
+
 def _create_resource():
     name = text.random_words(4)
     data = {
@@ -256,9 +264,12 @@ def _create_resource():
         'description': text.random_paragraphs(1),
         'contact': _get_user(),
         'author': _choice(text.random_words(10)),
+        'resource_date': choice([_get_start_date(), None]),
         'url': _get_url(),
         'is_featured': choice([True, False]),
         'image': images.random_image(u'%s.png' % text.random_words(1)),
+        'resource_type': _get_resource_type(),
+        'sector': _get_sector(),
     }
     resource = Resource.objects.create(**data)
     _add_tags(resource)
@@ -339,6 +350,7 @@ def _add_features(item, total=3):
 def _add_applications(item, total=3):
     apps = Application.objects.all().order_by('?')[:total]
     return [item.applications.add(a) for a in apps]
+
 
 def _load_fixtures():
     """Loads initial fixtures"""
