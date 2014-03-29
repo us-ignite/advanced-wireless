@@ -4,6 +4,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
+from us_ignite.common import pagination
 from us_ignite.organizations.forms import OrganizationForm
 from us_ignite.organizations.models import Organization
 
@@ -42,8 +43,10 @@ def organization_edit(request, slug):
 
 
 def organization_list(request):
+    page_no = pagination.get_page_no(request.GET)
     object_list = Organization.active.all()
+    page = pagination.get_page(object_list, page_no)
     context = {
-        'object_list': object_list,
+        'page': page,
     }
     return TemplateResponse(request, 'organizations/object_list.html', context)
