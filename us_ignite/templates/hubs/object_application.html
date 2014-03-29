@@ -1,15 +1,14 @@
 {% extends "registration/base.html" %}
 
-{% block title %}Register a hub - {{ block.super }}{% endblock title %}
+{% block title %}Add your community - {{ block.super }}{% endblock title %}
 
 {% block section_title %}
-Apply to be an Ingite Community
+Add your community to our hub
 {% endblock section_title %}
 
 {% block section %}
 {% if object_list %}
 <h3>Existing applications</h3>
-
 <table>
   <tr>
     <th>Name</th>
@@ -29,7 +28,7 @@ Apply to be an Ingite Community
 {% endif %}
 
 
-<h3>Apply an Ignite community</h3>
+<h3>Add your community</h3>
 
 <p>
   Apply to be a Gigabit community.
@@ -39,7 +38,7 @@ Apply to be an Ingite Community
   {% include "includes/form.html" with form=form %}
   <p>
     {% csrf_token %}
-    <button type="submit">Register</button>
+    <button type="submit">Apply</button>
   </p>
 </form>
 
