@@ -5,7 +5,7 @@
     {% if object.image %}
     <img src="{% thumbnail object.image 50x50 crop %}" alt="{{ object.name }}" class="sidebar__list__image">
     {% else %}
-    <img src="http://placehold.it/50x50" alt="{{ object.name }}" class="sidebar__list__image">
+    <img src="{{ STATIC_URL }}img/default-square.png" alt="{{ object.name }}" class="sidebar__list__image">
     {% endif %}
   </div>
 
