@@ -4,7 +4,7 @@
       {% if object.image  %}
       <img src="{% thumbnail object.image 268x169 crop %}" alt="" class="listings__listing__image" />
       {% else %}
-      <img src="http://placehold.it/268x169" class="listings__listing__image">
+      <img src="{{ STATIC_URL }}img/project-default.png" class="listings__listing__image">
       {% endif %}
     </div>
 
