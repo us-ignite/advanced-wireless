@@ -40,6 +40,6 @@ class ResourceForm(forms.ModelForm):
 
     class Meta:
         model = Resource
-        fields = ('name', 'status', 'description', 'url', 'resource_type',
-                  'sector', 'author', 'organization', 'image', 'asset',
-                  'resource_date', 'tags')
+        fields = ('name', 'status', 'description', 'url', 'asset',
+                  'resource_type', 'sector', 'author', 'organization',
+                  'image', 'resource_date', 'tags')
