@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from us_ignite.common.tests import utils
 from us_ignite.profiles.tests import fixtures
-from us_ignite.profiles.models import Profile, ProfileLink, Interest
+from us_ignite.profiles.models import Category, Interest, Profile, ProfileLink
 
 
 class TestProfileModel(TestCase):
@@ -33,6 +33,8 @@ class TestProfileModel(TestCase):
         eq_(profile.quote, '')
         eq_(profile.skills, '')
         eq_(profile.availability, Profile.NO_AVAILABILITY)
+        eq_(profile.category, None)
+        eq_(profile.category_other, '')
         eq_(list(profile.interests.all()), [])
 
     def test_user_full_name_is_valid(self):
@@ -111,3 +113,12 @@ class TestInterestModel(TestCase):
         ok_(interest.pk)
         eq_(interest.name, 'Ultra Fast')
         eq_(interest.slug, 'ultra-fast')
+
+
+class TestCategoryModel(TestCase):
+
+    def test_instance_is_created_successfully(self):
+        interest = Category.objects.create(name='Community leader')
+        ok_(interest.pk)
+        eq_(interest.name, 'Community leader')
+        eq_(interest.slug, 'community-leader')

@@ -30,6 +30,17 @@ class Interest(models.Model):
         ordering = ('name', )
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name', unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name', )
+
+
 class Profile(models.Model):
     NO_AVAILABILITY = 0
     LIMITED_AVAILABILITY = 1
@@ -55,6 +66,10 @@ class Profile(models.Model):
         choices=AVAILABILITY_CHOICES, default=NO_AVAILABILITY)
     interests = models.ManyToManyField('profiles.Interest', blank=True)
     interests_other = models.CharField(blank=True, max_length=255)
+    category = models.ForeignKey(
+        'profiles.Category', blank=True, null=True,
+        verbose_name=u'I associate most with')
+    category_other = models.CharField(blank=True, max_length=255)
     position = GeopositionField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
