@@ -82,7 +82,8 @@ class TestProfileForm(TestCase):
         eq_(sorted(form.fields.keys()),
             sorted(['bio', 'is_public', 'first_name', 'last_name',
                     'tags', 'website', 'position', 'availability', 'quote',
-                    'skills', 'interests', 'interests_other',]))
+                    'skills', 'interests', 'interests_other', 'category',
+                    'category_other', ]))
 
     def test_form_accepts_default_payload(self):
         form = ProfileForm({
