@@ -89,8 +89,10 @@ def import_image(path, key):
         return key
     logger.debug('Downloading: %s',  url)
     response = requests.get(url, verify=False)
-    image_file = files.File(StringIO(response.content))
-    return default_storage.save(key, ContentFile(image_file.read()))
+    if response.status_code == 200:
+        image_file = files.File(StringIO(response.content))
+        return default_storage.save(key, ContentFile(image_file.read()))
+    return u''
 
 
 def _get_key_from_url(url, prefix='apps'):
