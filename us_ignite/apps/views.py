@@ -231,7 +231,7 @@ def app_export(request, slug):
     context = {
         'object': app,
         'url_list': app.applicationurl_set.all(),
-        'image_list': app.applicationimage_set.all(),
+        'image_list': app.applicationmedia_set.all(),
         'feature_list': app.features.all(),
         'member_list': app.members.select_related('profile').all(),
 
