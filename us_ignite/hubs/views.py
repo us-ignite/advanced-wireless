@@ -26,7 +26,7 @@ def hub_application(request):
             instance.save()
             # Notify US Ignite about this request:
             mailer.notify_request(instance)
-            msg = 'The registration for "%s" has been submited.' % instance.name
+            msg = 'Your application "%s" has been sent.' % instance.name
             messages.success(request, msg)
             return redirect('home')
     else:

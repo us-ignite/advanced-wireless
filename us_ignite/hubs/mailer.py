@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.mail import mail_admins
 from django.template.loader import render_to_string
 
@@ -5,7 +6,8 @@ from django.template.loader import render_to_string
 def notify_request(hub_request):
     """Notify US ignite about a user submitted ``HubRequest``."""
     context = {
-        'object', hub_request,
+        'object': hub_request,
+        'SITE_URL': settings.SITE_URL,
     }
     subject = render_to_string('hubs/email/request_subject.txt', context)
     subject = ''.join(subject.splitlines())
