@@ -30,10 +30,10 @@ def import_author(data):
     try:
         user = User.objects.get(email=email)
     except User.DoesNotExist:
-        user = User.objects.create_user(data['username'], email)
+        user = User.objects.create_user(
+            data['username'], email, first_name=data['name'][:30])
     profile, is_new = Profile.objects.get_or_create(user=user)
     if is_new:
-        profile.name = data['name']
         profile.website = data['website']
         profile.save()
     return user
