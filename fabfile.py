@@ -119,7 +119,7 @@ def collectstatic():
     """Collects the remote environment static assets."""
     print yellow('Collecting static assets.')
     dj_heroku('collectstatic --noinput '
-              '--ignore=*.scss --ignore=admin/ --ignore=tiny_mce/',
+              '--ignore=*.scss --ignore=admin --ignore=tiny_mce',
               env.app, env.slug)
 
 
