@@ -4,18 +4,15 @@
 
 {% block content %}
 
-
-
-
-
   <div class="row collapse listing-featured">
     <div class="small-12 medium-4 columns text-center">
       <img src="{{ object.get_gravatar_url }}" alt="Avatar" class="profile__avatar" />
-    </div> 
+    </div>
 
     <div class="small-12 medium-8 columns">
       <blockquote class="profile__quote profile__quote--plain">
-        Welcome{% if object.full_name %} {{ object.full_name }}{% endif %}, <br>           {% snippet "profile-welcome" "snippets/profile_welcome.html" %}
+        Welcome{% if object.full_name %} {{ object.full_name }}{% endif %}, <br>
+        {% snippet "profile-welcome" "snippets/profile_welcome.html" %}
       </blockquote>
     </div>
   </div>
@@ -23,7 +20,7 @@
   <!-- APPS -->
   {% include "people/includes/app_list.html" with object_list=application_list similar_list=similar_applications %}
   <!-- /APP -->
- 
+
   <!-- NEWS -->
   {% include "people/includes/post_list.html" with object_list=post_list %}
   <!-- /NEWS -->
@@ -40,7 +37,6 @@
   {% include "people/includes/resource_list.html" with object_list=featured_resource_list %}
   <!-- /RESOURCES -->
 
-
   <div class="row collapse listing-featured">
     <div class="small-12 columns">
       <div class="row">
@@ -54,6 +50,4 @@
       </div>
     </div>
   </div>
-
-
 {% endblock content %}

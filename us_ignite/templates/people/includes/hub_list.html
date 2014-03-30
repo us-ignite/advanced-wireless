@@ -4,15 +4,20 @@
     <div class="row">
       <div class="small-12 columns">
         <h4 class="listings__listing__heading listings__listing__heading--plain">MY COMMUNITIES</h4>
-
-        {% for object in object_list %}
-        {% if forloop.counter <= 3 %}
-          <div class="columns large-4{% if forloop.last %} end{% endif %}">
-            {% include "includes/lists/object_block_base.html" with object=object %}
-          </div>
-        {% endif %}
-        {% endfor %}
-       
+        {% if object_list %}
+          {% for object in object_list %}
+          {% if forloop.counter <= 3 %}
+            <div class="columns large-4{% if forloop.last %} end{% endif %}">
+              {% include "includes/lists/object_block_base.html" with object=object %}
+            </div>
+          {% endif %}
+          {% endfor %}
+          {% else %}
+            <div class="columns large-8 end">
+              <p>You haven't subscribed to a community.</p>
+              <a class="button primary expand space-top" href="{% url 'hub_list' %}">SUBSCRIBE TO A COMMUNITY</a>
+            </div>
+         {% endif %}
       </div>
     </div>
   </article>

@@ -5,14 +5,21 @@
       <div class="small-12 columns">
         <h4 class="listings__listing__heading listings__listing__heading--plain">MY APPS</h4>
 
-        {% for object in object_list %}
-        {% if forloop.counter <= 3 %}
-          <div class="columns large-4{% if forloop.last %} end{% endif %}">
+        {% if object_list %}
+          {% for object in object_list %}
+            {% if forloop.counter <= 3 %}
+            <div class="columns large-4{% if forloop.last %} end{% endif %}">
             {% include "includes/lists/object_block_base.html" with object=object %}
-          </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+            <div class="columns large-8 end">
+              <p>You haven't created an app yet.</p>
+              <a class="button primary expand space-top" href="{% url 'app_add' %}">CREATE APPLICATION</a>
+            </div>
         {% endif %}
-        {% endfor %}
-       
+
       </div>
     </div>
   </article>
@@ -22,10 +29,9 @@
       <div class="large-12 columns">
         <h3 class="sidebar__heading">YOU MAY ALSO LIKE THESE APPS</h3>
 
-        
         <ul class="no-bullet sidebar__list">
           <li class="sidebar__list__item">
-            
+
             {% for object in similar_list %}
               {% include "people/includes/object_headline_mini.html" with object=object %}
             {% endfor %}
