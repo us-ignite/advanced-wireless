@@ -7,6 +7,11 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ("apps", "0001_initial"),
+        ("hubs", "0001_initial"),
+    )
+
     def forwards(self, orm):
         # Adding model 'Award'
         db.create_table(u'awards_award', (
