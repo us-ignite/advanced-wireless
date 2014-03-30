@@ -3,6 +3,8 @@ import shortuuid
 from django.db import models
 from django.utils.encoding import force_unicode
 
+from south.modelsinspector import add_introspection_rules
+
 
 class AutoUUIDField(models.SlugField):
     """Generates an automatic short UUID field."""
@@ -46,3 +48,5 @@ class AutoUUIDField(models.SlugField):
 
     def get_internal_type(self):
         return "SlugField"
+
+add_introspection_rules([], ["^us_ignite\.common\.fields\.AutoUUIDField"])
