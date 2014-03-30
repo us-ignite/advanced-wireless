@@ -45,7 +45,7 @@ AWS_HEADERS = {
 }
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-STATIC_URL = '//%s/static/' % AWS_S3_CUSTOM_DOMAIN
+STATIC_URL = 'https://%s/static/' % AWS_S3_CUSTOM_DOMAIN
 
 redis_url = urlparse.urlparse(env('REDISTOGO_URL'))
 
