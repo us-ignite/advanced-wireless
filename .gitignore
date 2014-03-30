@@ -20,3 +20,4 @@ media/
 words
 node_modules/*
 node_modules
+certs/
