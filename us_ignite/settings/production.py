@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 # settings is one directory up now
 here = lambda *x: os.path.join(PROJECT_ROOT, '..', *x)
 
-SITE_URL = 'https://us-ignite.herokuapp.com'
+SITE_URL = 'https://beta.us-ignite.org'
 
 ALLOWED_HOSTS = [
     'us-ignite.herokuapp.com',
@@ -74,15 +74,6 @@ TWITTER_API_SECRET = env('TWITTER_API_SECRET')
 
 # WP email
 WP_EMAIL = env('WP_EMAIL')
-
-
-# Enable dummy content generation on this build:
-ENABLE_DUMMY = True
-if ENABLE_DUMMY:
-    INSTALLED_APPS += ('us_ignite.dummy', )
-    # List of words:
-    WORDS_PATH = here('..', 'words')
-
 
 MAILCHIMP_API_KEY = env('MAILCHIMP_API_KEY')
 MAILCHIMP_LIST = env('MAILCHIMP_LIST')
