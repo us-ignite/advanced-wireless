@@ -123,6 +123,7 @@ def collectstatic():
               env.app, env.slug)
 
 
+@task
 @only_outside_vm
 def shell():
     """Open a shell in the given environment."""
