@@ -87,12 +87,13 @@ def _create_organization_membership(organization):
 
 def _create_organization():
     name = text.random_words(3)
+    image_name = u'%s.png' % slugify(text.random_words(1))
     data = {
         'name': name.title(),
         'slug': slugify(name),
         'status': choice(Organization.STATUS_CHOICES)[0],
         'bio': _choice(text.random_words(30)),
-        'image': images.random_image(u'%s.png' % text.random_words(1)),
+        'image': images.random_image(image_name),
         'position': locations.get_location(),
         'interest_ignite': _choice(text.random_paragraphs(1)),
         'interests_other': _choice(text.random_words(5)),
@@ -109,6 +110,7 @@ def _get_organization():
 
 
 def _create_app():
+    image_name = images.random_image(u'%s.png' % text.random_words(1))
     data = {
         'name': text.random_words(3).title(),
         'stage': choice(Application.STAGE_CHOICES)[0],
@@ -123,7 +125,7 @@ def _create_app():
         'domain': _get_domain(),
         'is_featured': choice([True, False]),
         'owner': _get_user(),
-        'image': images.random_image(u'%s.png' % text.random_words(1)),
+        'image': image_name,
     }
     application = Application.objects.create(**data)
     _add_tags(application)
@@ -153,6 +155,7 @@ def _create_hub_membership(hub):
 
 
 def _create_hub():
+    image_name = images.random_image(u'%s.png' % text.random_words(1))
     data = {
         'name': text.random_words(3).title(),
         'contact': choice([None, _get_user()]),
@@ -164,7 +167,7 @@ def _create_hub():
         'experimentation': choice(Hub.EXPERIMENTATION_CHOICES)[0],
         'estimated_passes': text.random_words(10),
         'description': text.random_paragraphs(3),
-        'image': images.random_image(u'%s.png' % text.random_words(1)),
+        'image': image_name,
         'website': _get_url(),
         'status': choice(Hub.STATUS_CHOICES)[0],
         'is_featured': choice([True, False]),
