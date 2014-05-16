@@ -18,4 +18,5 @@ urlpatterns = patterns(
     url_template('board-of-directors'),
     url_template('faq'),
     url_template('partners'),
+    url_template('what-we-do'),
 )
