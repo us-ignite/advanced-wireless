@@ -1,23 +1,89 @@
-{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
+{% extends "base.html" %}{{% load apps_urls thumbnail common_markdown %}
 
 {% block title %}Event: {{ object.name }} on {{ object.start_datetime }} - {{ block.super }}{% endblock title %}
 
-{% block content_title %}{{ object.name }} on {{ object.start_datetime }} {% if object.is_draft %}(Draft){% endif %}{% endblock content_title %}
+{% block content %}
+<div class="row collapse">
+  <div class="small-12 columns">
+    <div class="row">
+      <div class="small-12 columns">
+        <h2 class="page-title">{{ object.name }} on {{ object.start_datetime }} {% if object.is_draft %}(Draft){% endif %}</h2>
+        <span class="listings__listing__tags">
+          {% include "includes/tag_list.html" with tag_type="search_events" tag_list=object.tags.all %}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
-{% block intro %}
-  {% if is_owner %}
-  <li><a href="{{ object.get_edit_url }}">Edit event</a></li>
-  {% endif %}
-  <li><a href="{{ object.website }}">Website</a></li>
-  {% if object.tickets_url %}<li><a href="{{ object.tickets_url }}">Tickets</a></li>{% endif %}
-  <li>Start: {{ object.start_datetime }}</li>
-  {% if object.end_datetime %}<li>End: {{ object.end_datetime }}</li>{% endif %}
-  <li>Scope: {{ object.get_scope_display }}</li>
-  {% if object.audience %}<li>{{ object.audience.name }}</li>{% endif %}
-  <li>Created by {% include "includes/display_name.html" with user=object.user %} on {{ object.created }}</li>
-<li><a href="{{ object.get_ics_url }}" class="button">Download calendar invite</a></li>
-{% endblock intro %}
+<div class="row collapse l-listings space-top" data-equalizer>
+  <article class="large-8 medium-9 columns listings" data-equalizer-watch>
+    <ul data-orbit>
+      {% if object.image  %}
+      <li><img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/></li>
+      {% endif %}
+      {% if media_list %}
+      {% for media in media_list %}
+      {% include "apps/includes/media.html" with object=media %}
+      {% endfor%}
+      {% endif %}
+    </ul>
 
-{% block tag_list %}
-  {% include "includes/tag_list.html" with tag_type="search_events" tag_list=object.tags.all %}
-{% endblock tag_list %}
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          <h2>Description</h2>
+          <p>{{ object.description|markdown }}</p>
+          {% if object.venue %}
+          <h2>Venue</h2>
+          <p>{{ object.venue }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          <ul class="no-bullet">
+            {% if is_owner %}
+            <li><a href="{{ object.get_edit_url }}">Edit event</a></li>
+            {% endif %}
+            <li><a href="{{ object.website }}">Website</a></li>
+            {% if object.tickets_url %}<li><a href="{{ object.tickets_url }}">Tickets</a></li>{% endif %}
+            <li>Start: {{ object.start_datetime }}</li>
+            {% if object.end_datetime %}<li>End: {{ object.end_datetime }}</li>{% endif %}
+            <li>Scope: {{ object.get_scope_display }}</li>
+            {% if object.audience %}<li>{{ object.audience.name }}</li>{% endif %}
+            <li>Created by {% include "includes/display_name.html" with user=object.user %} on {{ object.created }}</li>
+          </ul>
+          <p><a href="{{ object.get_ics_url }}" class="button">Download calendar invite</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+
+          {% if object.contact %}
+          <h2>Contact Details</h2>
+          <p>
+            {{ object.contact|linebreaksbr }}
+          </p>
+          {% endif %}
+
+          {% if hub_list %}
+          <h2>Ignite communities</h2>
+          <ul>
+            {% for hub in hub_list %}
+            <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
+            {% endfor%}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+{% endblock content %}
