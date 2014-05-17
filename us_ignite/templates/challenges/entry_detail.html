@@ -1,26 +1,24 @@
-{% extends "base.html" %}
+{% extends "registration/base.html" %}
 
-{% block title %}Enter to {{ challenge.name }} - {{ block.super }}{% endblock title %}
+{% block title %}Entry to {{ challenge.name }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Challenge: <a href="{{ challenge.get_absolute_url }}">{{ challenge.name }}</a></h1>
-<ul>
-  <li>Status: {{ entry.get_status_display }}</li>
-  <li>Entered on {{ entry.created }}</li>
-  {% if challenge.hide_entries %}<li>Entries will be published after the challenge has finished.</li>{% endif %}
-</ul>
+{% block section_title %}
+Entry to  {{ challenge.name }}
+{% endblock section_title %}
 
-<p>{{ challenge.get_display_status }}</p>
-
+{% block section %}
 <p>{{ challenge.summary }}</p>
 
 <h2>Application: {{ application.name }}</h2>
 <p>{{ application.get_summary }}</p>
+<ul>
+  <li>Entered on {{ entry.created }}</li>
+  {% if challenge.hide_entries %}<li>Entries will be published after the challenge has finished.</li>{% endif %}
+</ul>
 
 <h2>Challenge entry</h2>
 {% for answer in answer_list %}
-<h3>{{ answer.question.question }}</h3>
+<h4>{{ answer.question.question }}</h4>
 <p>{{ answer.answer }}</p>
 {% endfor%}
-
-{% endblock content %}
+{% endblock section %}
