@@ -1,11 +1,12 @@
-{% extends "base.html" %}{% load thumbnail %}
+{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
-{% block title %}{{ object.name }}{% endblock title %}
+{% block title %}Challenge {{ object.name }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<h1>Challenge: {{ object.name }} {% if object.is_draft %}(DRAFT){% endif %}</h1>
+{% block tag_list %}
+{% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_hubs" %}
+{% endblock tag_list %}
 
-<ul>
+{% block intro %}
   <li>Created by {% include "includes/display_name.html" with user=object.owner %}</li>
   {% if object.organization %}
   <li>Organization: <a href="{{ object.organization.get_absolute_url }}">{{ object.organization.name }}</a></li>
@@ -13,45 +14,21 @@
   <li>Starts on {{ object.start_datetime }}</li>
   <li>Ends on {{ object.end_datetime }}</li>
   {% if object.hide_entries %}<li>Entries will be published after the challenge has finished.</li>{% endif %}
-</ul>
+{% endblock %}
 
-<p>{{ object.summary }}</p>
+{% block detail_extras %}
 
-{% if object.image %}<img src="{% thumbnail object.image 500x0 %}" alt="" />{% endif %}
+  {% if object.is_external %}
+  <p><a href="{{ object.url }}" class="button" target="_blank">Participate in the challenge.</a></p>
+  {% else %}
+  {% include "challenges/includes/challenge-open.html" %}
+  {% endif %}
+{% endblock %}
 
-<h2>Description</h2>
-{{ object.description|linebreaks }}
 
 
-{% if object.is_external %}
-<p><a href="{{ object.url }}">Participate in the challenge.</a></p>
-{% else %}
 
-{% if object.is_open %}
-<h2>Participate:</h2>
-<p>This challenge is open for entries. </p>
-{% if entry_list %}
-<p>Participate with one of your apps:</p>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Status</th>
-    <th></th>
-  </tr>
-  {% for entry in entry_list %}
-  {% include "challenges/includes/entry_block.html" with object=object application=entry.application entry=entry.entry %}
-  {% endfor%}
-</table>
 
-{% else %}
-<a href="{% url "app_add" %}">Create an application</a> to participate.
-{% endif %}
 
-{% else %}
-<p>This challenge is closed.</p>
-{% endif %}
 
-{% endif %}
-
-{% endblock content %}
