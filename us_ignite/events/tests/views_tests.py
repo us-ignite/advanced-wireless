@@ -38,6 +38,7 @@ class TestEventDetailView(TestCase):
     @patch('us_ignite.events.views.get_object_or_404')
     def test_get_request_is_valid(self, mock_get):
         mock_instance = Mock(spec=Event)()
+        mock_instance.audiences.all.return_value = []
         mock_instance.is_visible_by.return_value = True
         mock_instance.hubs.all.return_value = []
         mock_get.return_value = mock_instance
@@ -48,7 +49,7 @@ class TestEventDetailView(TestCase):
         mock_instance.is_visible_by.assert_called_once_with(request.user)
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
-            ['hub_list', 'is_owner', 'object'])
+            sorted(['hub_list', 'is_owner', 'object', 'audience_list']))
         eq_(response.template_name, 'events/object_detail.html')
 
 

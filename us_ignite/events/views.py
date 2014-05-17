@@ -16,10 +16,13 @@ def event_detail(request, slug):
     event = get_object_or_404(Event, slug__exact=slug)
     if not event.is_visible_by(request.user):
         raise Http404
+    audience_list = [a for a in event.audiences.all()]
+    audience_list += [event.audience_other]
     context = {
         'object': event,
         'hub_list': event.hubs.all(),
         'is_owner': event.is_owner(request.user),
+        'audience_list': audience_list,
     }
     return TemplateResponse(request, 'events/object_detail.html', context)
 
