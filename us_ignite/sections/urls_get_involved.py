@@ -12,6 +12,7 @@ def url_template(path, name=None):
 urlpatterns = patterns(
     'us_ignite.sections.views',
     url_template('involve-developers'),
+    url_template('involve-developers-learn'),
     url_template('involve-partners'),
     url_template('involve-communities'),
     url_template('involve-communities-learn'),
