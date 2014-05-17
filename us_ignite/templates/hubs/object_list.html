@@ -11,13 +11,7 @@
     <p>Our online Hubs provide the perfect opportunity for you to get more involved in our community by learning and sharing relevant information about next-generation technologies. Our Hubs have been designed so members can share resources, expertise, events, applications and more. If you don’t see a community hub listed that meets your needs, go ahead and create your own in just a few simple steps.</p>
   </div>
 </div>
-{% endblock top_panel %}
-
-{% block add_to_list %}
-<!-- Signup section -->
-<!-- Only putting this here to demonstrate how it is designed to go inbetween the first set of 8 posts above -->
 <div class="row newsletter newsletter--primary">
-  <form method="post" action="{% url 'mailing_subscribe' %}">
   <div class="small-12 medium-8 columns newsletter__column">
     <h4 class="newsletter__heading"><strong>WANT TO LIST YOUR COMMUNITY?</strong></h4>
   </div>
@@ -25,9 +19,19 @@
   <div class="small-12 medium-4 columns newsletter__column">
     <a href="{% url 'hub_application'%}" class="button alert postfix">SUBMIT YOUR COMMUNITY</a>{% csrf_token %}
   </div>
-  </form>
 </div>
-<!-- /signup -->
+{% endblock top_panel %}
+
+{% block add_to_list %}
+<div class="row newsletter newsletter--primary">
+  <div class="small-12 medium-8 columns newsletter__column">
+    <h4 class="newsletter__heading"><strong>WANT TO LIST YOUR COMMUNITY?</strong></h4>
+  </div>
+
+  <div class="small-12 medium-4 columns newsletter__column">
+    <a href="{% url 'hub_application'%}" class="button alert postfix">SUBMIT YOUR COMMUNITY</a>{% csrf_token %}
+  </div>
+</div>
 {% endblock add_to_list %}
 
 {% block tags %}{% endblock tags %}
