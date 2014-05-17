@@ -77,44 +77,44 @@
             <li class="">
               <h6 class="footer__heading">ABOUT</h6>
               <ul class="no-bullet">
-                <li><a href="#">What is US Ignite?</a></li>
-                <li><a href="#">Staff</a></li>
-                <li><a href="#">Board of Directors</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Sponsors/Partners</a></li>
+                <li><a href="{% url 'what-is-us-ignite' %}">What is US Ignite?</a></li>
+                <li><a href="{% url 'staff' %}">Staff</a></li>
+                <li><a href="{% url 'board-of-directors' %}">Board of Directors</a></li>
+                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                <li><a href="{% url 'partners' %}">Partners</a></li>
               </ul>
             </li>
 
             <li class="">
               <h6 class="footer__heading">GET INVOLVED</h6>
               <ul class="no-bullet">
-                <li><a href="#">Developers</a></li>
-                <li><a href="#">Partner/Sponsor</a></li>
-                <li><a href="#">Get Started in My Community</a></li>
+                <li><a href="{% url 'involve-developers' %}">Developers</a></li>
+                <li><a href="{% url 'involve-partners' %}">Partner</a></li>
+                <li><a href="{% url 'involve-communities' %}">Get Started in My Community</a></li>
               </ul>
             </li>
 
             <li class="">
               <h6 class="footer__heading">APPLICATIONS</h6>
               <ul class="no-bullet">
-                <li><a href="#">Submit an App Idea</a></li>
-                <li><a href="#">App Projects</a></li>
+                <li><a href="{% url 'app_add' %}">Submit an App Idea</a></li>
+                <li><a href="{% url 'app_list' %}">App Projects</a></li>
               </ul>
             </li>
 
             <li class="">
-              <h6 class="footer__heading">CITIES</h6>
+              <h6 class="footer__heading">COMMUNITIES</h6>
               <ul class="no-bullet">
-                <li><a href="#">Apply to become an US Ignite City</a></li>
-                <li><a href="#">Map of Cities</a></li>
+                <li><a href="{% url 'hub_application' %}">Apply to become an US Ignite Community</a></li>
+                <li><a href="{% url 'hub_list' %}">List of communities</a></li>
               </ul>
             </li>
 
             <li class="">
               <h6 class="footer__heading">RESOURCES</h6>
               <ul class="no-bullet">
-                <li><a href="#">Submit a Resource</a></li>
-                <li><a href="#">Resource List</a></li>
+                <li><a href="{% url 'resource_add' %}">Submit a Resource</a></li>
+                <li><a href="{% url 'resource_list' %}">Resource List</a></li>
               </ul>
             </li>
 
