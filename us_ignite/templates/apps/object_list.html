@@ -11,21 +11,23 @@
     <p>Scroll through and explore these exciting next-generation application in various stages of development. All these applications use next-gen technologies like software-defined networking, local cloud and gigabit to end-user and are transforming how we live, work, learn and play. If you have an application you would like to include in this growing list, please following the instruction below and join the US Ignite community.</p>
   </div>
 </div>
-{% endblock top_panel %}
-
-{% block add_to_list %}
-<!-- Signup section -->
-<!-- Only putting this here to demonstrate how it is designed to go inbetween the first set of 8 posts above -->
 <div class="row newsletter newsletter--primary">
-  <form method="post" action="{% url 'mailing_subscribe' %}">
   <div class="small-12 medium-8 columns newsletter__column">
     <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN APPLICATION?</strong> TELL US ABOUT IT...</h4>
   </div>
-
   <div class="small-12 medium-4 columns newsletter__column">
-    <a href="{% url 'app_add' %}" class="button alert postfix">SUBMIT YOUR IDEA</a>{% csrf_token %}
+    <a href="{% url 'app_add' %}" class="button alert postfix">SUBMIT YOUR APP</a>{% csrf_token %}
   </div>
-  </form>
 </div>
-<!-- /signup -->
+{% endblock top_panel %}
+
+{% block add_to_list %}
+<div class="row newsletter newsletter--primary">
+  <div class="small-12 medium-8 columns newsletter__column">
+    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN APPLICATION?</strong> TELL US ABOUT IT...</h4>
+  </div>
+  <div class="small-12 medium-4 columns newsletter__column">
+    <a href="{% url 'app_add' %}" class="button alert postfix">SUBMIT YOUR APP</a>{% csrf_token %}
+  </div>
+</div>
 {% endblock add_to_list %}
