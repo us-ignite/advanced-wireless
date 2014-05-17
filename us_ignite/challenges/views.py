@@ -6,17 +6,20 @@ from django.template.response import TemplateResponse
 from django.utils import timezone
 
 from us_ignite.apps.models import Application
+from us_ignite.common import pagination
 from us_ignite.challenges import forms
 from us_ignite.challenges.models import Challenge, Entry
 
 
 def challenge_list(request):
+    page_no = pagination.get_page_no(request.GET)
     now = timezone.now()
     object_list = (Challenge.objects
                    .filter(end_datetime__gte=now, status=Challenge.PUBLISHED)
                    .order_by('start_datetime'))
+    page = pagination.get_page(object_list, page_no)
     context = {
-        'object_list': object_list,
+        'page': page,
     }
     return TemplateResponse(request, 'challenges/object_list.html', context)
 

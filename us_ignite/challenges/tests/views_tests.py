@@ -28,7 +28,7 @@ class TestChallengeListView(TestCase):
         response = views.challenge_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'challenges/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['object_list'])
+        eq_(sorted(response.context_data.keys()), ['page'])
         mock_now.assert_called_once_with()
         mock_filter.assert_called_once_with(
             end_datetime__gte='now', status=Challenge.PUBLISHED)
