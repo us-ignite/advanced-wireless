@@ -3,13 +3,14 @@
 {% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block content %}
-
 <div class="row collapse">
   <div class="small-12 columns">
 
     <div class="row">
       <div class="small-12 columns">
-        <h2 class="page-title">{{ object.name }} {% if object.is_draft %}(Draft){% endif %}</h2>
+        <h2 class="page-title">
+          {% block content_title %}{{ object.name }} {% if object.is_draft %}(Draft){% endif %}{% endblock content_title %}
+        </h2>
 
         <span class="listings__listing__tags">
           {% block tag_list %}{% endblock %}

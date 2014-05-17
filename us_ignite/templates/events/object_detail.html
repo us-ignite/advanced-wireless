@@ -1,6 +1,8 @@
 {% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
-{% block title %}Event: {{ object.name }} - {{ block.super }}{% endblock title %}
+{% block title %}Event: {{ object.name }} on {{ object.start_datetime }} - {{ block.super }}{% endblock title %}
+
+{% block content_title %}{{ object.name }} on {{ object.start_datetime }} {% if object.is_draft %}(Draft){% endif %}{% endblock content_title %}
 
 {% block intro %}
   {% if is_owner %}
