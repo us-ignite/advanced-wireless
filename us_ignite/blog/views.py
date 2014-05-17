@@ -13,7 +13,7 @@ def post_list(request):
     featured_list = (Post.published.select_related('author')
                      .filter(is_featured=True)[:3])
     object_list = Post.published.select_related('author').all()
-    page = pagination.get_page(object_list, page_no)
+    page = pagination.get_page(object_list, page_no, page_size=5)
     context = {
         'page': page,
         'featured_list': featured_list,
