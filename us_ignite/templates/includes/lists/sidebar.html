@@ -23,7 +23,7 @@
       </p>
       {% endif %}
 
-      {% if not is_member and not is_owner %}
+      {% if not is_member and not is_owner and object.get_membership_url %}
       <form method="post" action="{{ object.get_membership_url }}">
         {% csrf_token %}<button type="submit" class="newsletter__submit button alert postfix">SUBSCRIBE TO THIS COMMUNITY</button>
       </form>
@@ -39,6 +39,7 @@
         {% endfor%}
       </ul>
       {% endif %}
+
       {% if object.owner %}
       <p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
       {% endif %}
