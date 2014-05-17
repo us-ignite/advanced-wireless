@@ -14,9 +14,9 @@ def get_page_no(payload):
     return page_no
 
 
-def get_page(object_list, page_no, divider=12):
+def get_page(object_list, page_no, divider=12, page_size=settings.PAGINATOR_PAGE_SIZE):
     """Returns a ``Paginator`` page with the given details."""
-    paginator = Paginator(object_list, settings.PAGINATOR_PAGE_SIZE)
+    paginator = Paginator(object_list, page_size)
     try:
         page = paginator.page(page_no)
     except EmptyPage:
