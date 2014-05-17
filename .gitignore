@@ -15,7 +15,7 @@ gunicorn.log
 tmp/
 notes.org
 mercurio.cfg
-static/
+static/*
 media/
 words
 node_modules/*
