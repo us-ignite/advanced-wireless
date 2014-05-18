@@ -22,6 +22,8 @@ APPS_SORTING_CHOICES = (
     ('', 'Select ordering'),
     ('created', 'Created (Oldest first)'),
     ('-created', 'Created (Recent first)'),
+    ('stage', 'Stage (Ideas first)'),
+    ('-stage', 'Stage (Completed first)'),
 )
 
 
