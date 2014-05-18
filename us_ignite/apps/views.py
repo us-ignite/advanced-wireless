@@ -20,8 +20,8 @@ from us_ignite.hubs.models import HubAppMembership
 
 APPS_SORTING_CHOICES = (
     ('', 'Select ordering'),
-    ('name', 'Name a-z'),
-    ('-name', 'Name z-a'),
+    ('created', 'Created (Oldest first)'),
+    ('-created', 'Created (Recent first)'),
 )
 
 
