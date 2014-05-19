@@ -218,7 +218,7 @@ def drop_local_db():
     print yellow('Droping and creating a new DB.')
     local('PGPASSWORD=%(db)s dropdb %(db)s -U %(db)s -h localhost'
           % {'db': DB_STRING})
-    local("PGPASSWORD=%(db)s createdb %(db)s -T template0 -E UTF-8 "
+    local("PGPASSWORD=%(db)s createdb %(db)s -T template_postgis -E UTF-8 "
           "-l en_US.UTF-8 -O %(db)s -U %(db)s -h localhost"
           % {'db': DB_STRING})
 
