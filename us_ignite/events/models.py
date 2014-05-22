@@ -68,7 +68,8 @@ class Event(models.Model):
         'events.EventType', blank=True, null=True, on_delete=models.SET_NULL)
     tickets_url = models.URLField(max_length=500, blank=True)
     tags = TaggableManager(blank=True)
-    hubs = models.ManyToManyField('hubs.Hub', verbose_name=u'communities')
+    hubs = models.ManyToManyField(
+        'hubs.Hub', verbose_name=u'communities', blank=True)
     position = GeopositionField(blank=True)
     user = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
