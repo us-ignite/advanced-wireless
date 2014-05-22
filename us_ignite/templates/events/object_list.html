@@ -11,13 +11,7 @@
     <p>Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.</p>
   </div>
 </div>
-{% endblock top_panel %}
-
-{% block add_to_list %}
-<!-- Signup section -->
-<!-- Only putting this here to demonstrate how it is designed to go inbetween the first set of 8 posts above -->
 <div class="row newsletter newsletter--primary">
-  <form method="post" action="{% url 'mailing_subscribe' %}">
   <div class="small-12 medium-8 columns newsletter__column">
     <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN EVENT?</strong> TELL US ABOUT IT...</h4>
   </div>
@@ -25,9 +19,10 @@
   <div class="small-12 medium-4 columns newsletter__column">
     <a href="{% url 'event_add' %}" class="button alert postfix">ADD YOUR EVENT</a>{% csrf_token %}
   </div>
-  </form>
 </div>
-<!-- /signup -->
+{% endblock top_panel %}
+
+{% block add_to_list %}
 {% endblock add_to_list %}
 
 {% block tags %}{% endblock tags %}
