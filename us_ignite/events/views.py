@@ -99,12 +99,19 @@ def event_edit(request, slug):
     return TemplateResponse(request, 'events/object_edit.html', context)
 
 
-def event_list(request):
+def event_list(request, timeframe='upcoming'):
     page_no = pagination.get_page_no(request.GET)
     now = timezone.now()
-    object_list = Event.published.filter(start_datetime__gte=now)
+    TIMEFRAMES = {
+        'upcoming': {'start_datetime__gte': now},
+        'past': {'start_datetime__lte': now},
+    }
+    if not timeframe in TIMEFRAMES:
+        raise Http404('Unexisting timeframe')
+    object_list = Event.published.filter(**TIMEFRAMES[timeframe])
     page = pagination.get_page(object_list, page_no)
     context = {
         'page': page,
+        'timeframe': timeframe,
     }
     return TemplateResponse(request, 'events/object_list.html', context)
