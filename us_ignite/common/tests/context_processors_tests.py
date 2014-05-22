@@ -11,4 +11,5 @@ class TestSettingsAvailableContextProcessor(TestCase):
     def test_settings_are_available(self):
         request = utils.get_request('get', '/')
         context = context_processors.settings_available(request)
-        eq_(sorted(context.keys()), sorted(['SITE_URL', 'IS_PRODUCTION']))
+        eq_(sorted(context.keys()),
+            sorted(['SITE_URL', 'IS_PRODUCTION', 'ACCOUNT_ACTIVATION_DAYS']))
