@@ -23,15 +23,6 @@
 {% endblock top_panel %}
 
 {% block add_to_list %}
-<div class="row newsletter newsletter--primary">
-  <div class="small-12 medium-8 columns newsletter__column">
-    <h4 class="newsletter__heading"><strong>WANT TO LIST YOUR COMMUNITY?</strong></h4>
-  </div>
-
-  <div class="small-12 medium-4 columns newsletter__column">
-    <a href="{% url 'hub_application'%}" class="button alert postfix">SUBMIT YOUR COMMUNITY</a>{% csrf_token %}
-  </div>
-</div>
 {% endblock add_to_list %}
 
 {% block tags %}{% endblock tags %}
