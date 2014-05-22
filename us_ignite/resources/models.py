@@ -39,7 +39,7 @@ class Resource(models.Model):
         (DRAFT, 'Draft'),
         (REMOVED, 'Removed'),
     )
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name='name of resource')
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     url = models.URLField(max_length=500, blank=True)
