@@ -1,11 +1,18 @@
-Hi there,
+Hi {{ user.name }}},
 
-You have been invited to join US ignite. Please login using your Mozilla Persona account using this email address:
+Your profile on us-ignite.org is waiting for you to review. Please take a few minutes to ensure all your information is up-to-date. Once you log-in, you’ll notice the many ways to get involved in the next-gen community, learn about upcoming events, share resources, and discover transformative next-generation apps currently being built and deployed!
 
-   {{ SITE_URL }}{% url "auth_login" %}
+{{ SITE_URL }}{% url "auth_login" %}
 
-You are receiving this email because you have provided your details to US Ignite.
+Here are a few resources to help get you started.
 
------
+Technologies: Interested in learning more about next-generation technologies like local cloud, software-defined networks (SDN), and gigabit to end-users start here.
+Communities: Join or start a community around a topic of interest.
+Applications: Learn more about next-generation applications and how they are transforming how we live, work, learn and play
 
-Please do not reply to this email
+Again welcome to our community! If you have any questions, problems, or concerns please feel free to contact Jennifer Mott at jennifer.mott@us-ignite.org.
+
+P.S. We wouldn’t want you to miss out on any updates or news from US Ignite, so be sure to add info@us-ingnite.org to your address book.
+
+Cheers,
+The US Ignite Team
