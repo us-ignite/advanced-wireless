@@ -14,7 +14,6 @@ here = lambda *x: os.path.join(PROJECT_ROOT, '..', *x)
 SITE_URL = 'https://beta.us-ignite.org'
 
 ALLOWED_HOSTS = [
-    'us-ignite.herokuapp.com',
     'beta.us-ignite.org',
 ]
 

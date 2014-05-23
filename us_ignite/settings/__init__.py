@@ -239,7 +239,6 @@ SERVER_EMAIL = 'info@us-ignite.org'
 
 ALLOWED_HOSTS = [
     'local-us-ignite.org',
-    'us-ignite.herokuapp.com',
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
