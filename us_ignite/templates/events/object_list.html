@@ -7,8 +7,10 @@
 {% block top_panel %}
 <div class="row panel">
   <div class="small-12 columns">
-    <h2>Lorem Ipsum isn't it wonderful</h2>
-    <p>Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.</p>
+    <h2>Event List</h2>
+    <p>
+      Register today, for one of these great events! Attending a local or national event is the perfect way to get more involved with our community. You’ll get a chance to network with leading technology experts, learn and share relevant information on next-generation technologies, and bring home new ideas and skills to share with your friends and colleagues. Many of these events fill up quickly, so don’t delay in registering for the events you are interested in attending. If you have questions or would like to learn more about an event be sure to contact the event host directly.
+    </p>
     <p>
       {% if timeframe == 'upcoming' %}
       <a href="{% url 'event_list_past' %}" class="button">View Past Events</a>
