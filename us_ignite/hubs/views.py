@@ -114,16 +114,58 @@ def hub_list(request):
     return TemplateResponse(request, 'hubs/object_list.html', context)
 
 
+def get_location_dict(item, location_type):
+    return {
+        'type': location_type,
+        'latitude': item.position.latitude,
+        'longitude': item.position.longitude,
+        'name': item.name,
+        'website': item.get_absolute_url(),
+        'category': '',
+        'image': '',
+        'content': item.name,
+    }
+
+
 def get_event_list(hub):
     event_list = []
     for event in Event.published.get_upcoming(hubs=hub):
         if event.position.longitude and event.position.latitude:
-            event_list.append(event.get_location_dict())
+            event_list.append(get_location_dict(event, 'event'))
     return event_list
+
+
+def get_users(hub):
+    queryset = hub.hubmembership_set.select_related('user__profile').all()
+    return [h.user for h in queryset]
+
+
+def get_user_dict(user_list):
+    new_user_list = []
+    for user in user_list:
+        profile = user.get_profile()
+        if profile:
+            new_user_list.append(get_location_dict(profile, 'user'))
+    return new_user_list
+
+
+def get_organizations(user_list):
+    new_org_list = []
+    for user in user_list:
+        org_list = (user.organizationmember_set
+                    .select_related('organization').all().distinct())
+        for membership in org_list:
+            org = membership.organization
+            new_org_list.append(get_location_dict(org, 'organization'))
+    return new_org_list
 
 
 def hub_locations_json(request, slug):
     hub = get_object_or_404(Hub.active, slug__exact=slug)
+    user_list = get_users(hub)
     # Get events with location
-    event_list = get_event_list(hub)
-    return json_response(event_list, callback='map.render')
+    item_list = get_event_list(hub)
+    item_list += [get_location_dict(hub, 'community')]
+    item_list += get_user_dict(user_list)
+    item_list += get_organizations(user_list)
+    return json_response(item_list, callback='map.render')

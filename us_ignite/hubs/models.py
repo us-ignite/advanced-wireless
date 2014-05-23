@@ -196,6 +196,7 @@ class HubAppMembership(models.Model):
     class Meta:
         ordering = ('-created', )
 
+
 # Search:
 watson.register(
     Hub.active.all(),
