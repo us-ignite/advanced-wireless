@@ -8,7 +8,7 @@ Edit {{ object.name }}
 
 {% block section %}
 
-<form method="post" action="{{ object.get_edit_url }}">
+<form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data">
   {% include "includes/form.html" with form=form %}
   <p>
     {% csrf_token %}
