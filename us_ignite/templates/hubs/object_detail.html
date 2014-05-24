@@ -84,7 +84,6 @@
 
 {% endblock detail_content %}
 
-
 {% block related %}
 {% include "includes/maps/canvas.html" %}
 {% endblock related %}
@@ -111,14 +110,7 @@
 </form>
 {% endif %}
 
-{% if object.organization %}
-<h3 class="sidebar__heading">ORGANIZATION</h3>
-<ul class="no-bullet sidebar__list">
-  <li class="sidebar__list__item">
-    <a href="{{ object.organization.get_absolute_url }}" class="sidebar__list__link row collapse">{{ object.organization.name }}</a>
-  </li>
-</ul>
-{% endif %}
+{% include "includes/sidebar/organization.html" with object=object %}
 
 {% include "includes/sidebar/contact.html" with object=object.owner %}
 
