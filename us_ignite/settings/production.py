@@ -79,3 +79,6 @@ MAILCHIMP_LIST = env('MAILCHIMP_LIST')
 
 # Production flag:
 IS_PRODUCTION = True
+
+# TODO: Remove once in production:
+GOOGLE_ANALYTICS_ID = 'DUMMY'
