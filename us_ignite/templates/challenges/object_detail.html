@@ -1,29 +1,86 @@
 {% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
-{% block title %}Challenge {{ object.name }} - {{ block.super }}{% endblock title %}
+{% block title %}Challenge: {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block tag_list %}
 {% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_hubs" %}
 {% endblock tag_list %}
 
-{% block intro %}
-  <li>Created by {% include "includes/display_name.html" with user=object.owner %}</li>
-  {% if object.organization %}
-  <li>Organization: <a href="{{ object.organization.get_absolute_url }}">{{ object.organization.name }}</a></li>
-  {% endif %}
-  <li>Starts on {{ object.start_datetime }}</li>
-  <li>Ends on {{ object.end_datetime }}</li>
-  {% if object.hide_entries %}<li>Entries will be published after the challenge has finished.</li>{% endif %}
-{% endblock %}
+{% block detail_content %}
 
-{% block detail_extras %}
+<!-- details -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Date / Time</h2>
+      <p>Starts on {{ object.start_datetime }}</p>
+      <p>Ends on {{ object.end_datetime }}</p>
 
-  {% if object.is_external %}
-  <p><a href="{{ object.url }}" class="button" target="_blank">Participate in the challenge.</a></p>
-  {% else %}
-  {% include "challenges/includes/challenge-open.html" %}
-  {% endif %}
-{% endblock %}
+      {% if object.event_dates %}
+      <h2>Event dates</h2>
+      <p>
+        {{ object.event_dates|linebreaksbr }}
+      </p>
+      {% endif %}
+
+      <h2>Entry mechanics</h2>
+      <p>
+        Entries will be published
+        {% if object.hide_entries %}
+        after the challenge has finished.
+        {% else %}
+        during the challenge.
+        {% endif %}
+      </p>
+
+      <h2>Participate</h2>
+      {% if object.is_external %}
+      <p>
+        <a href="{{ object.url }}" class="button" target="_blank">Participate in the challenge.</a>
+      </p>
+      {% else %}
+      {% include "challenges/includes/challenge-open.html" %}
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+<!-- /details -->
+
+<!-- extras -->
+{% if object.acknowledgments %}
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Acknowledgments</h2>
+      <p>
+        {{ object.acknowledgments|linebreaksbr }}
+      </p>
+    </div>
+  </div>
+</div>
+<!-- /extras -->
+{% endif %}
+
+{% endblock detail_content %}
+
+
+{% block sidebar_content %}
+
+{% if request.user.is_superuser  %}
+<h3 class="sidebar__heading">CHALLENGE ADMIN</h3>
+<ul class="no-bullet sidebar__list">
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_admin_url }}" class="sidebar__list__link row collapse">Edit challenge</a>
+  </li>
+</ul>
+{% endif %}
+
+{% include "includes/sidebar/contact.html" with object=object.owner %}
+
+{% include "includes/sidebar/organization.html" with object=object %}
+
+{% endblock sidebar_content %}
 
 
 
