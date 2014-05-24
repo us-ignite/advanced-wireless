@@ -1,106 +1,113 @@
-{% extends "base.html" %}{{% load apps_urls thumbnail common_markdown %}
+{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
 {% block title %}Event: {{ object.name }} on {{ object.start_datetime }} - {{ block.super }}{% endblock title %}
 
-{% block content %}
-<div class="row collapse">
-  <div class="small-12 columns">
-    <div class="row">
-      <div class="small-12 columns">
-        <h2 class="page-title">{{ object.name }} on {{ object.start_datetime }} {% if object.is_draft %}(Draft){% endif %}</h2>
-        <span class="listings__listing__tags">
-          {% include "includes/tag_list.html" with tag_type="search_events" tag_list=object.tags.all %}
-        </span>
-      </div>
+{% block tag_list %}
+{% include "includes/tag_list.html" with tag_type="search_events" tag_list=object.tags.all %}
+{% endblock tag_list %}
+
+{% block detail_content %}
+<!-- description -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>
+        {% if object.is_ignite %}
+        US Ignite event
+        {% else %}
+        Description
+        {% endif %}
+      </h2>
+      <p>{{ object.description|markdown }}</p>
     </div>
   </div>
 </div>
+<!-- /description -->
 
-<div class="row collapse l-listings space-top" data-equalizer>
-  <article class="large-8 medium-9 columns listings" data-equalizer-watch>
-    <ul data-orbit>
-      {% if object.image  %}
-      <li><img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/></li>
+
+<!-- event details -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% if object.is_ignite %}
       {% endif %}
-      {% if media_list %}
-      {% for media in media_list %}
-      {% include "apps/includes/media.html" with object=media %}
-      {% endfor%}
+
+      <h2>Date / Time</h2>
+      <p>Starts: {{ object.start_datetime }}</p>
+      {% if object.end_datetime %}
+      <p>Ends: {{ object.end_datetime }}</p>
       {% endif %}
-    </ul>
 
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-          <h2>Description</h2>
-          <p>{{ object.description|markdown }}</p>
-          {% if object.venue %}
-          <h2>Venue</h2>
-          <p>{{ object.venue }}</p>
-          {% endif %}
-        </div>
-      </div>
+      <p>
+        <a href="{{ object.get_ics_url }}" class="button">Download calendar invite</a>
+      </p>
+
+      {% if object.address %}
+      <h2>Address</h2>
+      <p>
+        {{ object.address|linebreaksbr }}
+      </p>
+      {% endif %}
+
+      <h2>Event Type</h2>
+      <p>{{ object.event_type }}</p>
+
+      <h2>Scope</h2>
+      <p>{{ object.get_scope_display }}</p>
+
+      {% if audience_list %}
+      <h2>Audience</h2>
+      <p>
+        {% for audience in audience_list %}
+        {{ audience }}{% if not forloop.last %}, {% endif %}
+        {% endfor%}.
+      </p>
+      {% endif %}
+
+      {% if object.tickets_url %}
+      <h2>Tickets</h2>
+      <p><a href="{{ object.tickets_url }}">Get tickets for this event.</a></p>
+      {% endif %}
+
     </div>
-
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-          <ul class="no-bullet">
-            {% if is_owner %}
-            <li><a href="{{ object.get_edit_url }}">Edit event</a></li>
-            {% endif %}
-            <li><a href="{{ object.website }}">Website</a></li>
-            {% if object.tickets_url %}<li><a href="{{ object.tickets_url }}">Tickets</a></li>{% endif %}
-            <li>Start: {{ object.start_datetime }}</li>
-            {% if object.end_datetime %}
-            <li>End: {{ object.end_datetime }}</li>
-            {% endif %}
-            <li>Event Type: {{ object.event_type }}</li>
-            <li>Scope: {{ object.get_scope_display }}</li>
-            {% if audience_list %}
-            <li>Audiences:
-              {% for audience in audience_list %}
-              {{ audience }}{% if not forloop.last %}, {% endif %}
-              {% endfor%}.
-            </li>
-            {% endif %}
-
-            <li>Created by {% include "includes/display_name.html" with user=object.user %} on {{ object.created }}</li>
-          </ul>
-          <p><a href="{{ object.get_ics_url }}" class="button">Download calendar invite</a></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-          {% if object.contact %}
-          <h2>Contact Details</h2>
-          <p>
-            {{ object.contact|linebreaksbr }}
-          </p>
-          {% endif %}
-
-          {% if hub_list %}
-          <h2>Ignite communities</h2>
-          <ul>
-            {% for hub in hub_list %}
-            <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-
-          {% if object.address %}
-          <h2>Address</h2>
-          <p>
-            {{ object.address|linebreaksbr }}
-          </p>
-          {% endif %}
-
-        </div>
-      </div>
-    </div>
-  </article>
+  </div>
 </div>
-{% endblock content %}
+<!-- /event details -->
+
+<!-- Extras -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% include "includes/hubs.html"  with hub_list=hub_list%}
+    </div>
+  </div>
+</div>
+<!-- /Extras -->
+
+{% endblock %}
+
+{% block sidebar_content %}
+
+{% if is_owner %}
+<h3 class="sidebar__heading">EVENT ADMIN</h3>
+<ul class="no-bullet sidebar__list">
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit event</a>
+  </li>
+</ul>
+{% endif %}
+
+{% include "includes/sidebar/contact.html" with object=object.owner %}
+
+{% if object.contact %}
+<h3 class="sidebar__heading">Organization</h3>
+<ul class="no-bullet sidebar__list">
+  <li class="sidebar__list__item">
+    <a href="{{ object.contact.get_absolute_url }}" class="sidebar__list__link row collapse">{{ object.contact.name }}</a>
+  </li>
+</ul>
+{% endif %}
+
+{% include "includes/links.html" with object=object url_list=url_list %}
+
+{% endblock sidebar_content %}

@@ -62,26 +62,6 @@
     </div>
     {% endblock detail_content %}
 
-    {% if object.venue or object.roadmap %}
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-
-          {% if object.venue %}
-          <h2>Venue</h2>
-          <p>{{ object.venue }}</p>
-          {% endif %}
-
-          {% if object.roadmap %}
-          <h2>Roadmap</h2>
-          <p>{{ object.roadmap }}</p>
-          {% endif %}
-
-        </div>
-      </div>
-    </div>
-    {% endif %}
-
     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
