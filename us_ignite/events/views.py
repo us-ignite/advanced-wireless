@@ -23,6 +23,7 @@ def event_detail(request, slug):
         'hub_list': event.hubs.all(),
         'is_owner': event.is_owner(request.user),
         'audience_list': audience_list,
+        'url_list': event.eventurl_set.all(),
     }
     return TemplateResponse(request, 'events/object_detail.html', context)
 
