@@ -113,12 +113,7 @@
 <p>{{ object.team_name }}</p>
 {% endif %}
 
-<h3 class="sidebar__heading">CONTACT</h3>
-<ul class="no-bullet sidebar__list">
-  <li class="sidebar__list__item">
-    {% include "includes/display_name_with_avatar.html" with user=object.owner %}
-  </li>
-</ul>
+{% include "includes/sidebar/contact.html" with object=object.owner %}
 
 {% if member_list %}
 <h3 class="sidebar__heading">TEAM</h3>
