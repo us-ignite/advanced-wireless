@@ -110,8 +110,11 @@ def event_list(request, timeframe='upcoming'):
         raise Http404('Unexisting timeframe')
     object_list = Event.published.filter(**TIMEFRAMES[timeframe])
     page = pagination.get_page(object_list, page_no)
+    featured_list = (Event.published
+                     .filter(is_featured=True, **TIMEFRAMES['upcoming']))
     context = {
         'page': page,
         'timeframe': timeframe,
+        'featured_list': featured_list,
     }
     return TemplateResponse(request, 'events/object_list.html', context)
