@@ -7,35 +7,6 @@
         </li>
       </ul>
 
-      {% if object.team_description %}
-      <h3 class="sidebar__heading">ABOUT THE TEAM</h3>
-      <p class="sidebar__copy">{{ object.team_description|markdown }}</p>
-      {% endif %}
-
-      {% if object.summary %}
-      <h3 class="sidebar__heading">DESCRIPTION</h3>
-      <p class="sidebar__copy">
-        {{ object.summary }}
-      </p>
-      {% endif %}
-
-      {% if not is_member and not is_owner and object.get_membership_url %}
-      <form method="post" action="{{ object.get_membership_url }}">
-        {% csrf_token %}<button type="submit" class="newsletter__submit button alert postfix">SUBSCRIBE TO THIS COMMUNITY</button>
-      </form>
-      {% endif %}
-
-      {% if member_list %}
-      <h3 class="sidebar__heading">SUPPORTERS</h3>
-      <ul class="no-bullet sidebar__list">
-        {% for member in member_list %}
-        <li class="sidebar__list__item">
-          {% include "includes/display_name_with_avatar.html" with user=member %}
-        </li>
-        {% endfor%}
-      </ul>
-      {% endif %}
-
       {% if object.owner %}
       <p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
       {% endif %}
