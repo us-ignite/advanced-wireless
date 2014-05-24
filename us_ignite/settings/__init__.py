@@ -34,14 +34,32 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = False
+USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-USE_L10N = False
+USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
+
+
+US_TIMEZONES = (
+    ('UCT', 'UCT'),
+    ('US/Alaska', 'US/Alaska'),
+    ('US/Aleutian', 'US/Aleutian'),
+    ('US/Arizona', 'US/Arizona'),
+    ('US/Central', 'US/Central'),
+    ('US/East-Indiana', 'US/East-Indiana'),
+    ('US/Eastern', 'US/Eastern'),
+    ('US/Hawaii', 'US/Hawaii'),
+    ('US/Indiana-Starke', 'US/Indiana-Starke'),
+    ('US/Michigan', 'US/Michigan'),
+    ('US/Mountain', 'US/Mountain'),
+    ('US/Pacific', 'US/Pacific'),
+    ('US/Pacific-New', 'US/Pacific-New'),
+    ('US/Samoa', 'US/Samoa'),
+)
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
