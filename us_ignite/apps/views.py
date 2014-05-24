@@ -67,13 +67,15 @@ def app_detail(request, slug):
     app = get_app_for_user(slug, request.user)
     award_list = (ApplicationAward.objects
                   .select_related('award').filter(application=app))
+    hub_queryset = app.hubappmembership_set.select_related('hub').all()
+    hub_list = [h.hub for h in hub_queryset]
     context = {
         'object': app,
         'url_list': app.applicationurl_set.all(),
         'media_list': app.applicationmedia_set.all(),
         'feature_list': app.features.all(),
         'member_list': app.members.select_related('profile').all(),
-        'hub_list': app.hubappmembership_set.select_related('hub').all(),
+        'hub_list': hub_list,
         'award_list': award_list,
         'version_list': app.applicationversion_set.all(),
         'can_edit': app.is_editable_by(request.user),
