@@ -106,7 +106,8 @@ def get_hub_list(user, viewer=None):
 
 def get_award_list(user, viewer=None):
     qs_kwargs = {'user': user}
-    return UserAward.objects.select_related('award').filter(**qs_kwargs)
+    award_qs = UserAward.objects.select_related('award').filter(**qs_kwargs)
+    return [a.award for a in award_qs]
 
 
 def get_post_list(limit=7):

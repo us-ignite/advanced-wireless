@@ -151,7 +151,9 @@
       <div class="large-12 columns" data-equalizer-watch>
 
         {% block sidebar %}
-        
+
+        {% include "includes/awards.html" with award_list=award_list %}
+
         <h3 class="sidebar__heading">CONTACT</h3>
 
         <ul class="sidebar__list sidebar__list--bullets">
