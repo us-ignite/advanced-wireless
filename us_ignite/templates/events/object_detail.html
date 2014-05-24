@@ -1,4 +1,5 @@
-{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
+{% extends "includes/lists/object_detail_base.html" %}
+{% load apps_urls common_markdown thumbnail tz %}
 
 {% block title %}Event: {{ object.name }} on {{ object.start_datetime }} - {{ block.super }}{% endblock title %}
 
@@ -32,11 +33,18 @@
       {% if object.is_ignite %}
       {% endif %}
 
+      {% timezone object.timezone %}
       <h2>Date / Time</h2>
-      <p>Starts: {{ object.start_datetime }}</p>
-      {% if object.end_datetime %}
-      <p>Ends: {{ object.end_datetime }}</p>
-      {% endif %}
+      <p>
+        Starts: {{ object.start_datetime }} ({{ object.timezone }}) <br>
+
+        {% if object.end_datetime %}
+        Ends: {{ object.end_datetime }} ({{ object.timezone }})
+        {% endif %}
+      </p>
+
+
+      {% endtimezone%}
 
       <p>
         <a href="{{ object.get_ics_url }}" class="button">Download calendar invite</a>
@@ -58,9 +66,7 @@
       {% if audience_list %}
       <h2>Audience</h2>
       <p>
-        {% for audience in audience_list %}
-        {{ audience }}{% if not forloop.last %}, {% endif %}
-        {% endfor%}.
+        {% for audience in audience_list %}{{ audience }}{% if not forloop.last %}, {% endif %}{% endfor%}.
       </p>
       {% endif %}
 
