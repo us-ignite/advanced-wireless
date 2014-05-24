@@ -1,4 +1,4 @@
-Tagged: 
+TAGS: 
 {% if tag_list %}
   {% for tag in tag_list %}
   <a href="{%if not tag_type %}{% url 'search' %}{% else %}{% url tag_type %}{% endif %}?q={{ tag|urlencode }}" class="listings__listing__tags__tag">{{ tag }}</a>{% if forloop.last %}{% else %},{% endif %}
