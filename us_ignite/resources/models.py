@@ -102,6 +102,10 @@ class Resource(models.Model):
     def is_draft(self):
         return self.status == self.DRAFT
 
+    @property
+    def website(self):
+        return self.url
+
 
 # Search:
 watson.register(
