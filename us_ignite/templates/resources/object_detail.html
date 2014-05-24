@@ -1,7 +1,63 @@
 {% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
-{% block title %}Resource {{ object.name }} - {{ block.super }}{% endblock title %}
+{% block title %}Resource: {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block tag_list %}
   {% include "includes/tag_list.html" with tag_type="search_resources" tag_list=object.tags.all %}
 {% endblock tag_list %}
+
+
+{% block detail_content %}
+<!-- description -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Description</h2>
+      <p>{{ object.description|markdown }}</p>
+    </div>
+  </div>
+</div>
+<!-- /description -->
+
+<!-- extras -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% if object.url %}
+      <h2>URL</h2>
+      <p><a href="{{ object.url }}" target="_blank">{{ object.url }}</a></p>
+      {% endif %}
+
+      {% if object.asset %}
+      <h2>Asset</h2>
+      <p><a href="{{ object.asset.url }}" target="_blank">{{ object.asset.url }}</a></p>
+      {% endif %}
+
+      <h2>Resource type</h2>
+      <p>{{ object.resource_type }}</p>
+
+      <h2>Sector</h2>
+      <p>{{ object.sector }}</p>
+    </div>
+  </div>
+</div>
+<!-- /extras -->
+
+<!-- author -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Author</h2>
+      <p>{{ object.author }}</p>
+    </div>
+  </div>
+</div>
+<!-- /author -->
+
+{% endblock %}
+
+{% block sidebar_content %}
+
+{% include "includes/sidebar/contact.html" with object=object.contact %}
+
+{% endblock sidebar_content %}
