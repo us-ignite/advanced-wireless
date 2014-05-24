@@ -1,16 +1,12 @@
-<aside class="large-4 medium-3 columns sidebar show-for-medium-up">{% load snippets_tags news_tags common_markdown %}
-  <div class="row">
-    <div class="large-12 columns" data-equalizer-watch>
-      
+{% load snippets_tags common_markdown %}
       <h3 class="sidebar__heading">CONTACT</h3>
 
       <ul class="no-bullet sidebar__list">
         <li class="sidebar__list__item">
-          {% include "includes/display_name_with_avatar.html" with user=object.owner %}       
+          {% include "includes/display_name_with_avatar.html" with user=object.owner %}
         </li>
       </ul>
 
-      
       {% if object.team_description %}
       <h3 class="sidebar__heading">ABOUT THE TEAM</h3>
       <p class="sidebar__copy">{{ object.team_description|markdown }}</p>
@@ -43,13 +39,3 @@
       {% if object.owner %}
       <p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
       {% endif %}
-
-      <h3 class="sidebar__heading">US Ignite News</h3>
-      {% latest_articles "blog/news_list.html" %}
-
-      <h3 class="sidebar__heading">Subscribe & Follow</h3>
-      {% include "mailinglist/sidebar.html" %}
-
-    </div>
-  </div>
-</aside>

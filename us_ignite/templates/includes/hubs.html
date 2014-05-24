@@ -1,0 +1,12 @@
+{% if hub_list %}
+<h2>Ignite communities</h2>
+<ul>
+  {% for hub_membership in hub_list %}
+  {% with hub=hub_membership.hub %}
+  <li>
+    <a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a>
+  </li>
+  {% endwith %}
+  {% endfor%}
+</ul>
+{% endif %}

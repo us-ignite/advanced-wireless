@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load apps_urls thumbnail common_markdown %}
+{% extends "base.html" %}{% load apps_urls thumbnail common_markdown news_tags %}
 
 {% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
 
@@ -11,7 +11,6 @@
         <h2 class="page-title">
           {% block content_title %}{{ object.name }} {% if object.is_draft %}(Draft){% endif %}{% endblock content_title %}
         </h2>
-
         <span class="listings__listing__tags">
           {% block tag_list %}{% endblock %}
         </span>
@@ -24,7 +23,7 @@
   <article class="large-8 medium-9 columns listings" data-equalizer-watch>
 
     <ul data-orbit>
-      {% if object.image  %}
+      {% if object.image %}
       <li><img src="{% thumbnail object.image 500x0 %}" alt="" title="{{ object.name }}"/></li>
       {% endif %}
 
@@ -34,71 +33,30 @@
       {% endfor%}
       {% endif %}
     </ul>
-    
+
+    {% block detail_content %}
     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
 
           <ul class="no-bullet">
             {% block intro %}
-              {% if object.stage %}<li>Stage: {{ object.get_stage_display }}</li>{% endif %}
-              {% if object.website %}<li>Website: <a href="{{ object.website }}">{{ object.website }}</a></li>{% endif %}
-              {% if can_edit %}<li><a href="{{ object.get_edit_url }}">Edit app</a></li>{% endif %}
-              {% if is_owner %}
-              <li><a href="{{ object.get_membership_url }}">Edit members</a></li>
-              <li><a href="{{ object.get_hub_membership_url }}">Edit hubs membership</a></li>
-              <li><a href="{{ object.get_export_url }}">Export application</a></li>
-              {% endif %}
             {% endblock intro %}
           </ul>
         </div>
       </div>
     </div>
+    {% endblock detail_content %}
 
-   
-   {% if object.impact_statement or object.domain or object.feature_list %}
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-          {% if object.impact_statement %}
-          <h2>Impact statement</h2>
-          <p>
-            {{ object.impact_statement }}
-          </p>
-          {% endif %}
-
-          {% if object.domain %}
-          <div class="row domains">
-            <div class="small-12 medium-2 columns">
-              <h5>CATEGORY</h5>
-            </div>
-            <div class="small-12 medium-10 columns">
-              <ul class="inline-list">
-                <li><a href="{% url 'app_list' %}" class="domains__link domains__link--active"><span class="domains__icon--{{ domain.slug }}"></span> {{ object.domain.name }}</a></li>
-              </ul>
-            </div>
-          </div>
-          {% endif %}
-
-          {% if feature_list %}
-          <h2>Features</h2>
-          <ul>
-            {% for feature in feature_list %}
-            <li>{{ feature.name }}</li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-    {% endif %}
-
+    {% if object.description or object.venue or object.roadmap %}
     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
 
+          {% if object.description %}
           <h2>Description</h2>
           <p>{{ object.description|markdown }}</p>
+          {% endif %}
 
           {% if object.venue %}
           <h2>Venue</h2>
@@ -113,75 +71,18 @@
         </div>
       </div>
     </div>
+    {% endif %}
 
     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
-
-          {% if object.assistance %}
-          <h2>The project needs assistance</h2>
-          <p>{{ object.assistance }}</p>
-          {% endif %}
-
-          {% if object.acknowledgments %}
-          <h2>Acknowledgements</h2>
-          <p>{{ object.acknowledgments }}</p>
-          {% endif %}
-
-          {% if url_list %}
-          <h2>Also available in</h2>
-          {% for url in url_list %}
-          <div class="">
-            <a href="{{ url.url }}">{{ url.name }}</a>
-            {{ url.url|render_as_widget }}
-          </div>
-          {% endfor%}
-          </ul>
-          {% endif %}
-
-
           {% if object.contact %}
           <h2>Contact Details</h2>
           <p>
             {{ object.contact|linebreaksbr }}
           </p>
           {% endif %}
-
-          {% if version_list %}
-          <h2>Previous versions</h2>
-          <ul>
-            {% for version in version_list %}
-            <li><a href="{{ version.get_absolute_url }}">{{ version.name }}</a> created on {{ version.created }}</li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-
-          {% if award_list %}
-          <h2>Awards</h2>
-          <ul>
-            {% for award in award_list %}
-            <li>
-              {% if award.image %}
-              <img src="{{ award.image.url }}" alt="{{ award.name }}" title="{{ award.name }}" />
-              {% else %}
-              {{ award.name }}
-              {% endif %}
-            </li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-
-          {% if hub_list %}
-          <h2>Ignite communities</h2>
-          <ul>
-            {% for hub in hub_list %}
-            <li><a href="{{ hub.get_absolute_url }}">{{ hub.name }}</a></li>
-            {% endfor%}
-          </ul>
-          {% endif %}
-
           {% block detail_extras %}{% endblock detail_extras %}
-
         </div>
       </div>
     </div>
@@ -191,7 +92,7 @@
 
     <!-- Need related content array, to use like the below -->
     <div class="row">
-    {% for object in page.object_list %}
+    {% for object in related_list %}
       <div class="columns small-12 medium-4 large-3{% if forloop.last %} end{% endif %}">
         {% include "apps/object_block.html" with object=object %}
       </div>
@@ -201,9 +102,25 @@
 
   </article>
 
-  {# Sidebar for all the areas of the blog #}
   {% block sidebar %}
-    {% include "includes/lists/sidebar.html" %}
+  <aside class="large-4 medium-3 columns sidebar show-for-medium-up">
+    <div class="row">
+      <div class="large-12 columns" data-equalizer-watch>
+
+        {% block sidebar_content %}
+        {% include "includes/lists/sidebar.html" %}
+        {% endblock sidebar_content %}
+
+        {# Default sidebar content #}
+
+        <h3 class="sidebar__heading">US Ignite News</h3>
+        {% latest_articles "blog/news_list.html" %}
+
+        <h3 class="sidebar__heading">Subscribe & Follow</h3>
+        {% include "mailinglist/sidebar.html" %}
+      </div>
+    </div>
+  </aside>
   {% endblock sidebar %}
 </div>
 

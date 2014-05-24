@@ -1,7 +1,190 @@
-{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
+{% extends "includes/lists/object_detail_base.html" %}
+{% load apps_urls thumbnail common_markdown snippets_tags %}
 
-{% block title %}Application {{ object.name }} - {{ block.super }}{% endblock title %}
+{% block title %}Application: {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block tag_list %}
   {% include "includes/tag_list.html" with tag_type="search_apps" tag_list=object.tags.all %}
 {% endblock tag_list %}
+
+
+{% block detail_content %}
+
+{% if object.summary %}
+<!-- Summary -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <p>
+        {{ object.summary }}
+      </p>
+    </div>
+  </div>
+</div>
+<!-- /Summary -->
+{% endif %}
+
+
+<!-- Stage -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Stage: {{ object.get_stage_display }}</h2>
+    </div>
+  </div>
+</div>
+<!-- /Stage -->
+
+<!-- Impact statement -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% if object.impact_statement %}
+      <h2>Impact statement</h2>
+      <p>
+        {{ object.impact_statement }}
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- /Impact statement -->
+
+<!-- Category -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% if object.domain %}
+      <div class="row domains">
+        <div class="small-12 medium-2 columns">
+          <h5>CATEGORY</h5>
+        </div>
+        <div class="small-12 medium-10 columns">
+          <ul class="inline-list">
+            <li><a href="{% url 'app_list' %}" class="domains__link domains__link--active"><span class="domains__icon--{{ domain.slug }}"></span> {{ object.domain.name }}</a></li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if feature_list %}
+      <h2>Features</h2>
+      <ul>
+        {% for feature in feature_list %}
+        <li>{{ feature.name }}</li>
+        {% endfor%}
+      </ul>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+<!-- /Category -->
+
+
+<!-- Extras -->
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+
+          {% if object.acknowledgments %}
+          <h2>Acknowledgements</h2>
+          <p>{{ object.acknowledgments }}</p>
+          {% endif %}
+
+          {% include "includes/hubs.html"  with hub_list=hub_list%}
+
+        </div>
+      </div>
+    </div>
+<!-- /Extras -->
+
+
+{% endblock detail_content %}
+
+
+{% block sidebar_content %}
+
+{% if can_edit or is_owner %}
+<!-- app admin -->
+<h3 class="sidebar__heading">APP ADMIN</h3>
+<ul class="no-bullet sidebar__list">
+  {% if can_edit %}
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit applicaton</a>
+  </li>
+  {% endif %}
+  {% if is_owner %}
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_membership_url }}" class="sidebar__list__link row collapse">Edit team members</a>
+  </li>
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_hub_membership_url }}" class="sidebar__list__link row collapse">Edit communities membership</a>
+  </li>
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_export_url }}" class="sidebar__list__link row collapse">Export application data</a>
+  </li>
+  {% endif %}
+</ul>
+<!-- /app admin -->
+{% endif %}
+
+{% include "includes/awards.html" %}
+
+{% if object.team_name %}
+<h3 class="sidebar__heading">TEAM NAME</h3>
+<p>{{ object.team_name }}</p>
+{% endif %}
+
+<h3 class="sidebar__heading">CONTACT</h3>
+<ul class="no-bullet sidebar__list">
+  <li class="sidebar__list__item">
+    {% include "includes/display_name_with_avatar.html" with user=object.owner %}
+  </li>
+</ul>
+
+{% if member_list %}
+<h3 class="sidebar__heading">TEAM</h3>
+<ul class="no-bullet sidebar__list">
+  {% for member in member_list %}
+  <li class="sidebar__list__item">
+    {% include "includes/display_name_with_avatar.html" with user=member %}
+  </li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+{% if object.team_description %}
+<h3 class="sidebar__heading">ABOUT THE TEAM</h3>
+<p class="sidebar__copy">{{ object.team_description|markdown }}</p>
+{% endif %}
+
+{% if object.assistance %}
+<h3 class="sidebar__heading">WE'RE LOOKING FOR</h3>
+<p class="sidebar__copy">{{ object.assistance }}</p>
+{% endif %}
+
+{# Make sure the app has an owner that can be contacted #}
+{% if object.owner %}
+<p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
+{% endif %}
+
+<!-- Links -->
+{% if object.website or url_list %}
+<h3 class="sidebar__heading">Links</h3>
+<ul class="no-bullet sidebar__list">
+  {% if object.website %}
+  <li class="sidebar__list__item">
+    <a href="{{ object.website }}" class="sidebar__list__link row collapse">Website</a>
+  </li>
+  {% endif %}
+  {% for url in url_list %}
+  <li class="sidebar__list__item">
+    <a href="{{ url.url }}" class="sidebar__list__link row collapse">{{ url.name }}</a>
+  </li>
+  {% endfor%}
+</ul>
+{% endif %}
+<!-- /Links -->
+
+{% endblock sidebar_content %}
