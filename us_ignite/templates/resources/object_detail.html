@@ -58,6 +58,16 @@
 
 {% block sidebar_content %}
 
+{% if is_owner %}
+<h3 class="sidebar__heading">RESOURCE ADMIN</h3>
+<ul class="no-bullet sidebar__list">
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit resource</a>
+  </li>
+</ul>
+{% endif %}
+
+
 {% include "includes/sidebar/contact.html" with object=object.contact %}
 
 {% endblock sidebar_content %}
