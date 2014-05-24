@@ -13,10 +13,14 @@ def organization_detail(request, slug):
     organization = get_object_or_404(Organization, slug__exact=slug)
     if not organization.is_visible_by(request.user):
         raise Http404
+    interest_list = [i.name for i in organization.interests.all()]
+    if organization.interests_other:
+        interest_list += [organization.interests_other]
     context = {
         'object': organization,
         'member_list': organization.members.all(),
         'is_member': organization.is_member(request.user),
+        'interest_list': interest_list,
     }
     return TemplateResponse(
         request, 'organizations/object_detail.html', context)
