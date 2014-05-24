@@ -28,7 +28,8 @@ class TestAppListView(TestCase):
     def test_application_context_is_valid(self):
         response = views.app_list(self.factory.get('/app/'))
         eq_(sorted(response.context_data.keys()),
-            ['domain_list', 'order', 'order_form', 'page'])
+            sorted(['domain_list', 'order', 'order_form', 'page',
+                    'featured_list']))
 
     def test_non_published_applications_are_not_shown(self):
         fixtures.get_application(

@@ -142,7 +142,8 @@ class TestEventListView(TestCase):
         response = views.event_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'events/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['page'])
+        eq_(sorted(response.context_data.keys()),
+            sorted(['page', 'timeframe', 'featured_list']))
         mock_filter.assert_called_once()
 
 

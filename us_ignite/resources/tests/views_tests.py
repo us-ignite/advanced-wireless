@@ -59,7 +59,8 @@ class TestResourceListView(TestCase):
         response = views.resource_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'resources/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['page'])
+        eq_(sorted(response.context_data.keys()),
+            sorted(['page', 'featured_list']))
 
 
 class TestResourceAddView(TestCase):
