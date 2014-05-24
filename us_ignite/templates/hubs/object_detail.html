@@ -104,6 +104,8 @@
 </ul>
 {% endif %}
 
+{% include "includes/awards.html" with award_list=award_list %}
+
 {% if not is_member %}
 <form method="post" action="{{ object.get_membership_url }}">
   {% csrf_token %}<button type="submit" class="newsletter__submit button alert postfix">SUBSCRIBE TO THIS COMMUNITY</button>
