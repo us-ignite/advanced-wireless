@@ -59,6 +59,9 @@ class Challenge(models.Model):
     def get_absolute_url(self):
         return reverse('challenge_detail', args=[self.slug])
 
+    def get_admin_url(self):
+        return reverse('admin:challenges_challenge_change', args=[self.id])
+
     def is_published(self):
         return self.status == self.PUBLISHED
 
