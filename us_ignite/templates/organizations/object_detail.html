@@ -1,35 +1,64 @@
 {% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
 
-{% block title %}Organization {{ object.name }} - {{ block.super }}{% endblock title %}
+{% block title %}Organization: {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block tag_list %}
 {% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_organizations" %}
 {% endblock tag_list %}
 
+{% block detail_content %}
 
-{% block intro %}
-  {% if is_member %}
-  <ul>
-    <li><a href="{{ object.get_edit_url }}">Edit Organization</a></li>
-  </ul>
-  {% endif %}
-{% endblock intro %}
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% if object.bio %}
+      <h2>Bio</h2>
+      <p>
+        {{ object.bio|linebreaks}}
+      </p>
+      {% endif %}
 
+      {% if interest_list %}
+      <h2>Interest</h2>
+      <ul>
+        {% for interest in interest_list %}<li>{{ interest}}</li>{% endfor%}
+      </ul>
+      {% endif %}
 
-{% block detail_extras %}
-{% if object.bio %}
-<h2>Bio</h2>
-{{ object.bio|linebreaks}}
+      {% if object.resources_available %}
+      <h2>{{ object.resources_available }}</h2>
+      <p>
+        {{ object.resources_available|linebreaks}}
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock detail_content %}
+
+{% block sidebar_content %}
+
+{% if is_member %}
+<h3 class="sidebar__heading">ORGANIZATION ADMIN</h3>
+<ul class="no-bullet sidebar__list">
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit organization</a>
+  </li>
+</ul>
 {% endif %}
 
 {% if member_list %}
-<h2>Members</h2>
-<ul>
+<h3 class="sidebar__heading">MEMBERS</h3>
+<ul class="no-bullet sidebar__list">
   {% for member in member_list %}
-  <li>{% include "includes/display_name.html" with user=object.owner %}</li>
+  <li class="sidebar__list__item">
+    {% include "includes/display_name_with_avatar.html" with user=member %}
+  </li>
   {% endfor%}
 </ul>
 {% endif %}
 
+{% include "includes/links.html" with object=object url_list=url_list %}
 
-{% endblock detail_extras %}
+{% endblock sidebar_content %}
