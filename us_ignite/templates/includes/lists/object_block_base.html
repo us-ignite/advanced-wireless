@@ -11,6 +11,7 @@
 
   <div class="small-10 medium-8 large-12 columns">
     <h4 class="featured__title">{{ object.name }}</h4>
+    {% if not hide_tags %}
     {% with object.tags.all as tag_list %}
     {% if tag_list %}
     <p class="featured__tags">
@@ -18,6 +19,7 @@
     </p>
     {% endif %}
     {% endwith %}
+    {% endif %}
 
     <p class="featured__desc show-only-on-hover">{% block object_detail %}{{ object.get_summary }}{% endblock object_detail %}</p>
     <div class="alert button small show-only-on-hover featured__cta">VIEW DETAILS</div>
