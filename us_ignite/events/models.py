@@ -1,6 +1,7 @@
 import watson
 
 from django.db import models
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from django_extensions.db.fields import (
@@ -56,6 +57,8 @@ class Event(models.Model):
     description = models.TextField(verbose_name=u'short description')
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField(blank=True, null=True)
+    timezone = models.CharField(
+        max_length=30, choices=settings.US_TIMEZONES, default='US/Eastern')
     address = models.TextField()
     contact = models.ForeignKey(
         'organizations.Organization', blank=True, null=True,
