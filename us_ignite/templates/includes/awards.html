@@ -2,8 +2,7 @@
 <!-- Awards -->
 <h3 class="sidebar__heading">Awards</h3>
 <ul class="no-bullet sidebar__list">
-  {% for award_membership in award_list %}
-  {% with award=award_membership.award %}
+  {% for award in award_list %}
   <li class="sidebar__list__item">
     {% if award.image %}
     <img src="{{ award.image.url }}" alt="{{ award.name }}" title="{{ award.name }}" />
@@ -11,7 +10,6 @@
     <p class="sidebar__list__link row collapse">{{ award.name }}</p>
     {% endif %}
   </li>
-  {% endwith %}
   {% endfor %}
 </ul>
 <!-- /Awards -->

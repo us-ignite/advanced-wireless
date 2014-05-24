@@ -106,7 +106,7 @@
 <!-- /app admin -->
 {% endif %}
 
-{% include "includes/awards.html" %}
+{% include "includes/awards.html" with award_list=award_list %}
 
 {% if object.team_name %}
 <h3 class="sidebar__heading">TEAM NAME</h3>

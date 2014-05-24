@@ -65,8 +65,9 @@ def get_app_for_user(slug, user):
 
 def app_detail(request, slug):
     app = get_app_for_user(slug, request.user)
-    award_list = (ApplicationAward.objects
-                  .select_related('award').filter(application=app))
+    award_queryset = (ApplicationAward.objects
+                      .select_related('award').filter(application=app))
+    award_list = [a.award for a in award_queryset]
     hub_queryset = app.hubappmembership_set.select_related('hub').all()
     hub_list = [h.hub for h in hub_queryset]
     context = {
