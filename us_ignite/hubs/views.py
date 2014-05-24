@@ -142,7 +142,7 @@ def get_users(hub):
     return [h.user for h in queryset]
 
 
-def get_user_dict(user_list):
+def get_user_list(user_list):
     new_user_list = []
     for user in user_list:
         profile = user.get_profile()
@@ -151,7 +151,7 @@ def get_user_dict(user_list):
     return new_user_list
 
 
-def get_organizations(user_list):
+def get_organization_list(user_list):
     new_org_list = []
     for user in user_list:
         org_list = (user.organizationmember_set
@@ -164,10 +164,12 @@ def get_organizations(user_list):
 
 def hub_locations_json(request, slug):
     hub = get_object_or_404(Hub.active, slug__exact=slug)
-    user_list = get_users(hub)
+    raw_user_list = get_users(hub)
     # Get events with location
     item_list = get_event_list(hub)
-    item_list += [get_location_dict(hub, 'community')]
-    item_list += get_user_dict(user_list)
-    item_list += get_organizations(user_list)
+    hub_dict = get_location_dict(hub, 'community')
+    if hub_dict:
+        item_list += [hub_dict]
+    item_list += get_user_list(raw_user_list)
+    item_list += get_organization_list(raw_user_list)
     return json_response(item_list, callback='map.render')

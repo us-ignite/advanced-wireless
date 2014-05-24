@@ -197,17 +197,23 @@ class TestHubListView(TestCase):
         response = views.hub_list(request)
         eq_(response.status_code, 200)
         eq_(response.template_name, 'hubs/object_list.html')
-        eq_(sorted(response.context_data.keys()), ['page'])
+        eq_(sorted(response.context_data.keys()),
+            sorted(['page', 'featured_list']))
         all_mock.assert_called_once_with()
 
 
 class TestHubLocationsJSON(TestCase):
 
+    @patch('us_ignite.hubs.views.get_users')
+    @patch('us_ignite.hubs.views.get_location_dict')
     @patch_get_object
     @patch('us_ignite.hubs.views.get_event_list')
-    def test_hub_locations_json(self, mock_list, mock_hub):
+    def test_hub_locations_json(
+            self, mock_list, mock_hub, mock_location, mock_user):
         mock_list.return_value = []
         mock_hub.return_value = 'foo'
+        mock_location.return_value = None
+        mock_user.return_value = []
         request = utils.get_request('get', '/hub/foo/')
         response = views.hub_locations_json(request, 'foo')
         eq_(response.status_code, 200)
