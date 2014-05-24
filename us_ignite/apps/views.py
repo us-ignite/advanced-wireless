@@ -41,8 +41,11 @@ def app_list(request, domain=None):
         status=Application.PUBLISHED, **extra_qs)
     if order_value:
         object_list = object_list.order_by(order_value)
+    featured_list = Application.objects.filter(
+        status=Application.PUBLISHED, is_featured=True, **extra_qs)[:3]
     page = pagination.get_page(object_list, page_no)
     context = {
+        'featured_list': featured_list,
         'page': page,
         'order': order_value,
         'order_form': order_form,
