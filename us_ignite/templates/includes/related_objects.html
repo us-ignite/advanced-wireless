@@ -1,0 +1,16 @@
+<!-- related content -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>
+        {% if related_title %}{{ related_title }}{% else %}Related{% endif %}
+      </h2>
+      {% for object in related_list %}
+      <div class="columns small-12 large-4{% if forloop.last %} end{% endif %}">
+        {% include "includes/lists/object_block_base.html" with object=object hide_tags=True %}
+      </div>
+      {% endfor%}
+    </div>
+  </div>
+</div>
+<!-- /related content -->

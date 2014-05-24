@@ -62,26 +62,9 @@
     </div>
     {% endblock detail_content %}
 
-    <div class="listings__listing">
-      <div class="row">
-        <div class="small-12 columns">
-          {% block detail_extras %}{% endblock detail_extras %}
-        </div>
-      </div>
-    </div>
-
     {% block related %}
+    {% include "includes/related_objects.html" with related_title="Related Apps" related_list=related_list %}
     {% endblock related %}
-
-    <!-- Need related content array, to use like the below -->
-    <div class="row">
-    {% for object in related_list %}
-      <div class="columns small-12 medium-4 large-3{% if forloop.last %} end{% endif %}">
-        {% include "apps/object_block.html" with object=object %}
-      </div>
-    {% endfor%}
-    </div>
-    <!-- /related content -->
 
   </article>
 

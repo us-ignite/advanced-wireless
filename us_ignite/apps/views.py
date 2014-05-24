@@ -71,7 +71,7 @@ def app_detail(request, slug):
     hub_queryset = app.hubappmembership_set.select_related('hub').all()
     hub_list = [h.hub for h in hub_queryset]
     related_list = (Application.active.filter(domain=app.domain)
-                    .order_by('?')[:4])
+                    .order_by('?')[:3])
     context = {
         'object': app,
         'url_list': app.applicationurl_set.all(),
