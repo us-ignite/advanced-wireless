@@ -34,6 +34,20 @@
       {% endif %}
     </ul>
 
+    {% if object.summary %}
+    <!-- Summary -->
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          <p>
+            {{ object.summary }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- /Summary -->
+    {% endif %}
+
     {% block detail_content %}
     <div class="listings__listing">
       <div class="row">
@@ -48,15 +62,10 @@
     </div>
     {% endblock detail_content %}
 
-    {% if object.description or object.venue or object.roadmap %}
+    {% if object.venue or object.roadmap %}
     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
-
-          {% if object.description %}
-          <h2>Description</h2>
-          <p>{{ object.description|markdown }}</p>
-          {% endif %}
 
           {% if object.venue %}
           <h2>Venue</h2>
@@ -76,12 +85,6 @@
     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
-          {% if object.contact %}
-          <h2>Contact Details</h2>
-          <p>
-            {{ object.contact|linebreaksbr }}
-          </p>
-          {% endif %}
           {% block detail_extras %}{% endblock detail_extras %}
         </div>
       </div>

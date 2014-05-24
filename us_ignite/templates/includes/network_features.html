@@ -1,0 +1,8 @@
+{% if feature_list %}
+<h2>Features</h2>
+<ul>
+  {% for feature in feature_list %}
+  <li>{{ feature.name }}</li>
+  {% endfor%}
+</ul>
+{% endif %}

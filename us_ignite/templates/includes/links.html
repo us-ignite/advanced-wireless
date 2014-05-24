@@ -1,0 +1,17 @@
+<!-- Links -->
+{% if object.website or url_list %}
+<h3 class="sidebar__heading">Links</h3>
+<ul class="no-bullet sidebar__list">
+  {% if object.website %}
+  <li class="sidebar__list__item">
+    <a href="{{ object.website }}" class="sidebar__list__link row collapse">Website</a>
+  </li>
+  {% endif %}
+  {% for url in url_list %}
+  <li class="sidebar__list__item">
+    <a href="{{ url.url }}" class="sidebar__list__link row collapse">{{ url.name }}</a>
+  </li>
+  {% endfor%}
+</ul>
+{% endif %}
+<!-- /Links -->

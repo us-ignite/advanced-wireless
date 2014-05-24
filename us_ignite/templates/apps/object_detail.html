@@ -9,22 +9,6 @@
 
 
 {% block detail_content %}
-
-{% if object.summary %}
-<!-- Summary -->
-<div class="listings__listing">
-  <div class="row">
-    <div class="small-12 columns">
-      <p>
-        {{ object.summary }}
-      </p>
-    </div>
-  </div>
-</div>
-<!-- /Summary -->
-{% endif %}
-
-
 <!-- Stage -->
 <div class="listings__listing">
   <div class="row">
@@ -67,14 +51,7 @@
       </div>
       {% endif %}
 
-      {% if feature_list %}
-      <h2>Features</h2>
-      <ul>
-        {% for feature in feature_list %}
-        <li>{{ feature.name }}</li>
-        {% endfor%}
-      </ul>
-      {% endif %}
+      {% include "includes/network_features.html" with feature_list=feature_list %}
 
     </div>
   </div>
@@ -169,22 +146,6 @@
 <p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
 {% endif %}
 
-<!-- Links -->
-{% if object.website or url_list %}
-<h3 class="sidebar__heading">Links</h3>
-<ul class="no-bullet sidebar__list">
-  {% if object.website %}
-  <li class="sidebar__list__item">
-    <a href="{{ object.website }}" class="sidebar__list__link row collapse">Website</a>
-  </li>
-  {% endif %}
-  {% for url in url_list %}
-  <li class="sidebar__list__item">
-    <a href="{{ url.url }}" class="sidebar__list__link row collapse">{{ url.name }}</a>
-  </li>
-  {% endfor%}
-</ul>
-{% endif %}
-<!-- /Links -->
+{% include "includes/links.html" with object=object url_list=url_list %}
 
 {% endblock sidebar_content %}
