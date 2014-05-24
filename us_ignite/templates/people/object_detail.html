@@ -208,16 +208,6 @@
         </ul>
         {% endif %}
 
-        {% if award_list %}
-        <h3 class="sidebar__heading">Awards</h3>
-        <ul class="sidebar__list sidebar__list--bullets">
-          {% for award in award_list %}
-          <li class="sidebar__list__item">{{ award.award.name }}</li>
-          {% endfor%}
-        </ul>
-        {% endif %}
-
-      
         <p><a class="button secondary expand" href="{{ object.get_contact_url }}">CONTACT MEMBER</a></p>
 
         {% endblock sidebar %}
