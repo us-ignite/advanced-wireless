@@ -108,8 +108,10 @@ def hub_list(request):
     page_no = pagination.get_page_no(request.GET)
     object_list = Hub.active.all()
     page = pagination.get_page(object_list, page_no)
+    featured_list = Hub.active.filter(is_featured=True)[:3]
     context = {
         'page': page,
+        'featured_list': featured_list,
     }
     return TemplateResponse(request, 'hubs/object_list.html', context)
 
