@@ -70,6 +70,8 @@ def app_detail(request, slug):
     award_list = [a.award for a in award_queryset]
     hub_queryset = app.hubappmembership_set.select_related('hub').all()
     hub_list = [h.hub for h in hub_queryset]
+    related_list = (Application.active.filter(domain=app.domain)
+                    .order_by('?')[:4])
     context = {
         'object': app,
         'url_list': app.applicationurl_set.all(),
@@ -77,8 +79,8 @@ def app_detail(request, slug):
         'feature_list': app.features.all(),
         'member_list': app.members.select_related('profile').all(),
         'hub_list': hub_list,
+        'related_list': related_list,
         'award_list': award_list,
-        'version_list': app.applicationversion_set.all(),
         'can_edit': app.is_editable_by(request.user),
         'is_owner': app.is_owned_by(request.user),
     }
