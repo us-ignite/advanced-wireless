@@ -21,8 +21,10 @@ class Challenge(models.Model):
     name = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='name', unique=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField()
+    start_datetime = models.DateTimeField(
+        help_text=u'Start date of the Challenge in UTC.')
+    end_datetime = models.DateTimeField(
+        help_text=u'End date of the Challenge in UTC.')
     url = models.URLField(blank=True)
     is_external = models.BooleanField(
         default=False, help_text=u'Determines if the challenge is to be '
