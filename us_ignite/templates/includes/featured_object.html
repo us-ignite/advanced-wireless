@@ -1,19 +1,14 @@
 {% load thumbnail %}
-<a href="{{ object.get_absolute_url }}" title="{{ object.name }}" >
-  {% if object.image %}
-  <img src="{% thumbnail object.image 216x108 crop %}" alt="{{ object.name }}" />
-  {% else %}
-  <img src="{{ STATIC_URL }}img/dummy/book.jpg" class="featured__image">
-  {% endif %}
-</a>
-<p class="featured__desc">{{ object.name }}</p>
-{% with object.tags.all as tag_list %}
-{% if tag_list %}
-<p class="featured__tags">
-  {% for tag in tag_list %}
-  <a href="{% url 'search' %}?q={{ tag|urlencode }}">{{ tag }}</a>
-  {% endfor%}
-  <a href="{{ object.get_absolute_url }}">More...</a>
-</p>
-{% endif %}
-{% endwith %}
+<div class="large-4 small-6 columns listing-featured__item{% if last %} show-for-large-up{% endif %}">
+  <a href="{{ object.get_absolute_url }}" class="listing-featured__link">
+    {% if object.image %}
+    <img src="{% thumbnail object.image 376x238 crop %}">
+    {% else %}
+    <img src="{{ STATIC_URL }}img/project-default.png">
+    {% endif %}
+    <span class="listing-featured__desc">
+      {% if object.title %}{{ object.title}}{% endif %}
+      {% if object.name  %}{{ object.name }}{% endif %}
+    </span>
+  </a>
+</div>

@@ -1,21 +1,5 @@
 {% extends "base.html" %}
 
-{% block featured %}
-  {% if featured_list %}
-    <div class="row collapse">
-      <div class="small-12 columns">
-        <div class="row listing-featured">
-        
-        {% for featured in featured_list %}
-        {% include "blog/featured_block.html" with object=object last=forloop.last %}
-        {% endfor%}
-
-        </div>
-      </div>
-    </div>
-  {% endif %}
-{% endblock %}
-
 {% block content %}
 <div class="row collapse">
   <div class="small-12 columns">
@@ -24,7 +8,25 @@
         <h2 class="page-title">{% block page_title %}Applications{% endblock page_title %}</h2>
       </div>
     </div>
-  
+  </div>
+</div>
+
+{% block featured %}
+  {% if featured_list %}
+    <div class="row collapse">
+      <div class="small-12 columns">
+        <div class="row listing-featured">
+          {% for featured in featured_list %}
+          {% include "includes/featured_object.html" with object=featured last=forloop.last %}
+          {% endfor%}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+<div class="row collapse">
+  <div class="small-12 columns">
     {% block top_panel %}
     <div class="row panel">
       <div class="small-12 columns">
