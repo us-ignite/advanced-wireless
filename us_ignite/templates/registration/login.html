@@ -16,7 +16,24 @@ Login
 <p>Or with a site account:</p>
 
 <form method="post" action=".">
-  {{ form.as_p }}
+  <p>{{ form.non_field_errors }}</p>
+
+  {% if form.username.errors %}
+  <p>{{ form.username.errors }}</p>
+  {% endif %}
+
+  <p>
+    <label for="{{ form.username.auto_id }}">Email address:</label>
+    {{ form.username }}
+  </p>
+
+  {% if form.password.errors %}
+  <p>{{ form.password.errors }}</p>
+  {% endif %}
+  <p>
+    {{ form.password.label_tag }}
+    {{ form.password }}
+  </p>
   <p>
     {% csrf_token %}
     <button type="submit">LOGIN</button>
