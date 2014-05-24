@@ -23,8 +23,10 @@ def resource_list(request):
     page_no = pagination.get_page_no(request.GET)
     object_list = Resource.published.all()
     page = pagination.get_page(object_list, page_no)
+    featured_list = Resource.published.filter(is_featured=True)[:3]
     context = {
         'page': page,
+        'featured_list': featured_list,
     }
     return TemplateResponse(request, 'resources/object_list.html', context)
 
