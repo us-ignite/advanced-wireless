@@ -17,7 +17,7 @@
       <div class="small-12 columns">
         <div class="row listing-featured">
           {% for featured in featured_list %}
-          {% include "includes/featured_object.html" with object=featured last=forloop.last %}
+          {% include "includes/lists/object_block_featured.html" with object=featured last=forloop.last %}
           {% endfor%}
         </div>
       </div>

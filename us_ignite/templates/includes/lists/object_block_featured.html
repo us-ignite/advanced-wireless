@@ -1,0 +1,14 @@
+{% load thumbnail %}
+<div class="large-4 small-6 columns listing-featured__item{% if last %} show-for-large-up{% endif %}">
+  <a href="{{ object.get_absolute_url }}" class="listing-featured__link">
+    {% if object.image %}
+    <img src="{% thumbnail object.image 376x238 crop %}">
+    {% else %}
+    <img src="{{ STATIC_URL }}img/project-default.png">
+    {% endif %}
+    <span class="listing-featured__desc">
+      {% if object.title %}{{ object.title}}{% endif %}
+      {% if object.name  %}{{ object.name }}{% endif %}
+    </span>
+  </a>
+</div>
