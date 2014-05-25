@@ -11,7 +11,10 @@ Contact user: {{ object.display_name }}
 
 <form method="post" action="{{ object.get_contact_url }}">
   {{ form.as_p }}
-  <p><button type="submit">Contact</button>{% csrf_token %}</p>
+  <p class="clearfix">
+    <a href="{{ object.get_absolute_url }}" class="left button secondary alert">Cancel</a>
+    <button type="submit" class="right">Contact</button>{% csrf_token %}
+  </p>
 </form>
 
 {% endblock section %}
