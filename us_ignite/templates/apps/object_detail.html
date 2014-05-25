@@ -82,7 +82,6 @@
 
 
 {% block sidebar_content %}
-
 {% if can_edit or is_owner %}
 <!-- app admin -->
 <h3 class="sidebar__heading">APP ADMIN</h3>
@@ -114,7 +113,8 @@
 <p>{{ object.team_name }}</p>
 {% endif %}
 
-{% include "includes/sidebar/contact.html" with object=object.owner %}
+
+{% include "includes/sidebar/contact.html" with user=object.owner %}
 
 {% if member_list %}
 <h3 class="sidebar__heading">TEAM</h3>
