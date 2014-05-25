@@ -21,3 +21,7 @@ Edit: {{ object.name }}
 </p>
 </form>
 {% endblock section %}
+
+{% block extra_scripts %}
+{{ form.media }}
+{% endblock extra_scripts %}
