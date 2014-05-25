@@ -103,7 +103,7 @@
 </ul>
 {% endif %}
 
-{% include "includes/sidebar/contact.html" with object=object.owner %}
+{% include "includes/sidebar/contact.html" with contact=object.user %}
 
 {% if object.contact %}
 <h3 class="sidebar__heading">Organization</h3>
