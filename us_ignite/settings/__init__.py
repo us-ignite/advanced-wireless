@@ -188,6 +188,7 @@ INSTALLED_APPS = (
     'us_ignite.news',
     'us_ignite.snippets',
     'us_ignite.mailinglist',
+    'us_ignite.visualize',
 )
 
 # A sample logging configuration. The only tangible logging
