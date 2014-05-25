@@ -1,6 +1,8 @@
+{% if contact %}
 <h3 class="sidebar__heading">CONTACT</h3>
 <ul class="no-bullet sidebar__list">
   <li class="sidebar__list__item">
-    {% include "includes/display_name_with_avatar.html" with user=user %}
+    {% include "includes/display_name_with_avatar.html" with user=contact %}
   </li>
 </ul>
+{% endif %}
