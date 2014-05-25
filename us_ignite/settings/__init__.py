@@ -45,7 +45,6 @@ USE_TZ = True
 
 
 US_TIMEZONES = (
-    ('UCT', 'UCT'),
     ('US/Alaska', 'US/Alaska'),
     ('US/Aleutian', 'US/Aleutian'),
     ('US/Arizona', 'US/Arizona'),
