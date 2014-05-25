@@ -55,21 +55,23 @@ class Event(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES, default=PUBLISHED)
     image = models.ImageField(upload_to="events", blank=True)
     description = models.TextField(verbose_name=u'short description')
-    start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField(blank=True, null=True)
+    start_datetime = models.DateTimeField(verbose_name=u'Start Date/Time')
+    end_datetime = models.DateTimeField(
+        blank=True, null=True, verbose_name=u'End Date/Time')
     timezone = models.CharField(
         max_length=30, choices=settings.US_TIMEZONES, default='US/Eastern')
     address = models.TextField()
     contact = models.ForeignKey(
         'organizations.Organization', blank=True, null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL, verbose_name=u'Organization')
     scope = models.IntegerField(choices=SCOPE_CHOICES, default=NATIONAL)
     audiences = models.ManyToManyField('events.Audience', blank=True)
     audience_other = models.CharField(blank=True, max_length=200)
     website = models.URLField(max_length=500, blank=True)
     event_type = models.ForeignKey(
         'events.EventType', blank=True, null=True, on_delete=models.SET_NULL)
-    tickets_url = models.URLField(max_length=500, blank=True)
+    tickets_url = models.URLField(
+        max_length=500, blank=True, verbose_name=u'Tickets URL')
     tags = TaggableManager(blank=True)
     hubs = models.ManyToManyField(
         'hubs.Hub', verbose_name=u'communities', blank=True)
@@ -134,7 +136,7 @@ class Event(models.Model):
 class EventURL(models.Model):
     event = models.ForeignKey('events.Event')
     name = models.CharField(max_length=200)
-    url = models.URLField(max_length=500)
+    url = models.URLField(max_length=500, verbose_name='URL')
 
     def __unicode__(self):
         return self.name

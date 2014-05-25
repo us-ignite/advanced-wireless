@@ -31,20 +31,27 @@ def _transform_date(aware_date, tz):
 
 class EventForm(forms.ModelForm):
     start_datetime = forms.DateTimeField(
-        input_formats=settings.DATETIME_INPUT_FORMATS, help_text=DATE_HELP_TEXT)
+        input_formats=settings.DATETIME_INPUT_FORMATS, help_text=DATE_HELP_TEXT,
+        label=u'Start Date/Time')
     end_datetime = forms.DateTimeField(
         input_formats=settings.DATETIME_INPUT_FORMATS, required=False,
-        help_text=DATE_HELP_TEXT)
+        help_text=DATE_HELP_TEXT, label=u'End Date/Time')
     status = forms.ChoiceField(
         choices=_get_status_choices(), initial=Event.DRAFT)
     hubs = forms.ModelMultipleChoiceField(
         queryset=Hub.objects.filter(status=Hub.PUBLISHED),
         required=False, widget=forms.CheckboxSelectMultiple)
     contact = forms.ModelChoiceField(
-        queryset=Organization.active.all(), required=False)
+        queryset=Organization.active.all(), required=False,
+        label='Organization')
     audiences = forms.ModelMultipleChoiceField(
         queryset=Audience.objects.all(), required=False,
         widget=forms.CheckboxSelectMultiple)
+
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+        if not self.fields['contact'].queryset:
+            del self.fields['contact']
 
     def clean_tags(self):
         if 'tags' in self.cleaned_data:
