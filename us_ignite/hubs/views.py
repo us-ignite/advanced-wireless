@@ -162,6 +162,10 @@ def get_organization_list(user_list):
     return new_org_list
 
 
+def get_app_list(hub):
+    return [get_location_dict(app, 'app') for app in hub.applications.all()]
+
+
 def hub_locations_json(request, slug):
     hub = get_object_or_404(Hub.active, slug__exact=slug)
     raw_user_list = get_users(hub)
@@ -172,4 +176,5 @@ def hub_locations_json(request, slug):
         item_list += [hub_dict]
     item_list += get_user_list(raw_user_list)
     item_list += get_organization_list(raw_user_list)
+    item_list += get_app_list(hub)
     return json_response(item_list, callback='map.render')
