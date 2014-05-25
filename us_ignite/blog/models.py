@@ -2,7 +2,7 @@ import watson
 
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils import timezone
+from django.utils import timezone, text
 
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
@@ -87,6 +87,10 @@ class Post(models.Model):
     @property
     def name(self):
         return self.title
+
+    @property
+    def short_excerpt(self):
+        return text.Truncator(self.excerpt).words(21)
 
 
 class PostAttachment(models.Model):
