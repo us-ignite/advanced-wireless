@@ -25,7 +25,8 @@ DATE_HELP_TEXT = 'Format: YYYY-MM-DD HH:MM'
 
 
 def _transform_date(aware_date, tz):
-    naive_date = timezone.make_naive(aware_date, timezone=pytz.UTC)
+    default_tz = timezone.get_default_timezone()
+    naive_date = timezone.make_naive(aware_date, timezone=default_tz)
     return timezone.make_aware(naive_date, timezone=pytz.timezone(tz))
 
 
