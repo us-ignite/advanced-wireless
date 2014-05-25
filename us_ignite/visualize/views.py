@@ -22,7 +22,8 @@ def get_app_stats():
     stage_list = []
     feature_list = []
     for app in app_list:
-        domain_list.append(app.domain.name)
+        if app.domain:
+            domain_list.append(app.domain.name)
         stage_list.append(app.get_stage_display())
         feature_list += [f.name for f in app.features.all()]
     stats = {
