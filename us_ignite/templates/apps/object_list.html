@@ -2,7 +2,7 @@
 
 {% block title %}Application list - {{ block.super }}{% endblock title %}
 
-{% block page_title %}Applications{% endblock page_title %}
+{% block page_title %}Applications{% if filter_name %}: {{ filter_name }}{% endif %}{% endblock page_title %}
 
 {% block top_panel %}
 <div class="row panel">
@@ -21,5 +21,10 @@
 </div>
 {% endblock top_panel %}
 
-{% block add_to_list %}
-{% endblock add_to_list %}
+
+{% block domain_list %}
+{{ block.super }}
+{% for stage_id, stage in stage_list %}
+<li><a href="{% url 'app_list_stage' stage_id %}" class="domains__link">{{ stage }}</a></li>
+{% endfor%}
+{% endblock domain_list %}

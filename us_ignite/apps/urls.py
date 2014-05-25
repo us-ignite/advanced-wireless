@@ -16,4 +16,5 @@ urlpatterns = patterns(
     url(r'^(?P<slug>[-\w]+)/membership/$', 'app_membership',
         name='app_membership'),
     url(r'^domain/(?P<domain>[-\w]+)/$', 'app_list', name='app_list_domain'),
+    url(r'^stage/(?P<stage>[\d]{1})/$', 'app_list', name='app_list_stage'),
 )

@@ -27,13 +27,26 @@ APPS_SORTING_CHOICES = (
 )
 
 
-def app_list(request, domain=None):
+def get_stage_or_404(stage):
+    for pk, name in Application.STAGE_CHOICES:
+        if pk == int(stage):
+            return (pk, name)
+    raise Http404('Invalid stage.')
+
+
+def app_list(request, domain=None, stage=None, filter_name=''):
     """Lists the published ``Applications``"""
+    extra_qs = {}
     if domain:
-        domain = get_object_or_404(Domain, slug=domain)
-    extra_qs = {'domain': domain} if domain else {}
+        # Validate domain is valid if provided:
+        extra_qs['domain'] = get_object_or_404(Domain, slug=domain)
+        filter_name = extra_qs['domain'].name
+    if stage:
+        # Validate stage is valid if provided:
+        pk, name = get_stage_or_404(stage)
+        extra_qs['stage'] = pk
+        filter_name = name
     page_no = pagination.get_page_no(request.GET)
-    # Validate the domain is valid if provided:
     order_form = forms.OrderForm(
         request.GET, order_choices=APPS_SORTING_CHOICES)
     order_value = order_form.cleaned_data['order'] if order_form.is_valid() else ''
@@ -50,6 +63,8 @@ def app_list(request, domain=None):
         'order': order_value,
         'order_form': order_form,
         'domain_list': Domain.objects.all(),
+        'stage_list': Application.STAGE_CHOICES,
+        'filter_name': filter_name,
     }
     return TemplateResponse(request, 'apps/object_list.html', context)
 
