@@ -1,3 +1,5 @@
+import pytz
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
@@ -90,6 +92,8 @@ def event_edit(request, slug):
                 request, 'The event "%s" has been updated.' % instance.name)
             return redirect(instance.get_absolute_url())
     else:
+        # Activate the current event timezone:
+        timezone.activate(pytz.timezone(event.timezone))
         form = EventForm(instance=event)
         formset = EventURLFormSet(instance=event)
     context = {

@@ -1,6 +1,9 @@
+import pytz
+
 from django import forms
 from django.conf import settings
 from django.forms.models import inlineformset_factory
+from django.utils import timezone
 
 from us_ignite.common import output
 from us_ignite.events.models import Audience, Event, EventURL
@@ -19,6 +22,11 @@ def _get_status_choices():
 
 
 DATE_HELP_TEXT = 'Format: YYYY-MM-DD HH:MM'
+
+
+def _transform_date(aware_date, tz):
+    naive_date = timezone.make_naive(aware_date, timezone=pytz.UTC)
+    return timezone.make_aware(naive_date, timezone=pytz.timezone(tz))
 
 
 class EventForm(forms.ModelForm):
@@ -41,6 +49,16 @@ class EventForm(forms.ModelForm):
     def clean_tags(self):
         if 'tags' in self.cleaned_data:
             return output.prepare_tags(self.cleaned_data['tags'])
+
+    def save(self, *args, **kwargs):
+        instance = super(EventForm, self).save(*args, **kwargs)
+        # Replace tz aware datetime with the instance timezone:
+        instance.start_datetime = _transform_date(
+            instance.start_datetime, instance.timezone)
+        instance.end_datetime = _transform_date(
+            instance.end_datetime, instance.timezone)
+        instance.save()
+        return instance
 
     class Meta:
         fields = (
