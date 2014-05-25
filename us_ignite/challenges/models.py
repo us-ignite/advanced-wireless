@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
@@ -22,9 +23,9 @@ class Challenge(models.Model):
     slug = AutoSlugField(populate_from='name', unique=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     start_datetime = models.DateTimeField(
-        help_text=u'Start date of the Challenge in UTC.')
+        help_text=u'Start date in %s timezone.' % settings.TIME_ZONE)
     end_datetime = models.DateTimeField(
-        help_text=u'End date of the Challenge in UTC.')
+        help_text=u'End date in %s timezone.' % settings.TIME_ZONE)
     url = models.URLField(blank=True)
     is_external = models.BooleanField(
         default=False, help_text=u'Determines if the challenge is to be '
