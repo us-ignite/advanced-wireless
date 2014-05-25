@@ -7,6 +7,7 @@ from django.db import models
 
 from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
+from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
@@ -117,6 +118,7 @@ class Application(ApplicationBase):
         'served by this application?')
     awards = models.TextField(blank=True, help_text=u'Recognition or Awards')
     tags = TaggableManager(blank=True)
+    position = GeopositionField(blank=True)
 
     # managers:
     objects = models.Manager()
@@ -198,7 +200,7 @@ class ApplicationMembership(models.Model):
 class ApplicationURL(models.Model):
     application = models.ForeignKey('apps.Application')
     name = models.CharField(max_length=255, blank=True)
-    url = models.URLField(max_length=500)
+    url = models.URLField(max_length=500, verbose_name=u'URL')
 
     def __unicode__(self):
         return self.url
@@ -208,7 +210,7 @@ class ApplicationMedia(models.Model):
     application = models.ForeignKey('apps.Application')
     name = models.CharField(max_length=255, blank=True)
     image = models.ImageField(upload_to='apps', max_length=500, blank=True)
-    url = models.URLField(blank=True)
+    url = models.URLField(blank=True, verbose_name=u'URL')
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 
