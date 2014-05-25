@@ -114,7 +114,7 @@
 
 {% include "includes/sidebar/organization.html" with object=object %}
 
-{% include "includes/sidebar/contact.html" with object=object.owner %}
+{% include "includes/sidebar/contact.html" with user=object.owner %}
 
 {% if member_list %}
 <h3 class="sidebar__heading">SUPPORTERS</h3>
