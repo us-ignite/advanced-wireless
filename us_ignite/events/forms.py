@@ -62,8 +62,9 @@ class EventForm(forms.ModelForm):
         # Replace tz aware datetime with the instance timezone:
         instance.start_datetime = _transform_date(
             instance.start_datetime, instance.timezone)
-        instance.end_datetime = _transform_date(
-            instance.end_datetime, instance.timezone)
+        if instance.end_datetime:
+            instance.end_datetime = _transform_date(
+                instance.end_datetime, instance.timezone)
         instance.save()
         return instance
 
