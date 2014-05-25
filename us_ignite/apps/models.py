@@ -11,7 +11,6 @@ from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
 from us_ignite.common.fields import AutoUUIDField
-from us_ignite.common.text import truncatewords
 from us_ignite.apps import managers, search
 
 
@@ -41,7 +40,7 @@ class ApplicationBase(models.Model):
     STAGE_CHOICES = (
         (IDEA, 'Idea Complete'),
         (TEAM, 'Started Coding'),
-        (ALPHA, 'Alpha version complete.'),
+        (ALPHA, 'Alpha version complete'),
         (BETA, 'Beta version complete'),
         (DEMO, '1.0 complete'),
     )
