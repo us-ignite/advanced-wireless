@@ -140,6 +140,20 @@ def buildwatson():
 
 @task
 @only_outside_vm
+def backupdb(snapshot=False):
+    """Downloads a backup from the remote DB."""
+    if snapshot:
+        print yellow('Generate DB snapshot.')
+        run_heroku('pgbackups:capture', env.app, env.slug)
+    print yellow('Downloading DB backup.')
+    url = run_heroku('pgbackups:url', env.app, env.slug)
+    filename = '%s.dump' % datetime.now().strftime('%Y%m%d-%H%M')
+    local('wget -O %s "%s"' % (filename, url))
+    print green('%s' % filename)
+
+
+@task
+@only_outside_vm
 @production_confirmation
 def deploy(confirmation):
     """Deploys the given build."""
