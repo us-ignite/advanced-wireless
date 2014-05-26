@@ -228,15 +228,37 @@ def test(apps=''):
 
 
 @only_inside_vm
-def drop_local_db():
+def drop_local_db(db_name=DB_STRING):
     """Removes the local development database."""
     print yellow('Droping and creating a new DB.')
-    local('PGPASSWORD=%(db)s dropdb %(db)s -U %(db)s -h localhost'
-          % {'db': DB_STRING})
-    local("PGPASSWORD=%(db)s createdb %(db)s -T template_postgis -E UTF-8 "
-          "-l en_US.UTF-8 -O %(db)s -U %(db)s -h localhost"
-          % {'db': DB_STRING})
+    local('PGPASSWORD=%(db)s dropdb %(db_name)s -U %(db)s -h localhost'
+          % {'db': DB_STRING, 'db_name': db_name})
+    local("PGPASSWORD=%(db)s createdb %(db_name)s -T template_postgis "
+          "-E UTF-8 -l en_US.UTF-8 -O %(db)s -U %(db)s -h localhost"
+          % {'db': DB_STRING, 'db_name': db_name})
 
+
+@task
+@only_inside_vm
+def loaddb(db_name):
+    message = red("This will irreversible destroy the database. Proceed?")
+    if not console.confirm(message):
+        print yellow('Phew, aborted.')
+        return exit(1)
+    with lcd(PROJECT_ROOT):
+        drop_local_db()
+        db_path = here(db_name)
+        db_name = '%s_remote' % DB_STRING
+        conn = ('PGPASSWORD=%(db)s pg_restore -n public --no-acl '
+                '--no-owner -h localhost -U %(db)s -d %(db_name)s'
+                % {'db': DB_STRING, 'db_name': db_name})
+        try:
+            local('%s %s' % (conn, db_path))
+        except Exception, e:
+            print red('Failure while importing the DB. Check the output from'
+                      ' the command.')
+            exit(2)
+    print green('Done')
 
 @task
 @only_inside_vm
