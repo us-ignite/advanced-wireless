@@ -12,6 +12,7 @@ from taggit.managers import TaggableManager
 
 
 class HubRequest(models.Model):
+    """User Requests to be a Ignite Community."""
     APPROVED = 1
     PENDING = 2
     REJECTED = 3
@@ -112,6 +113,9 @@ class Hub(models.Model):
     tags = TaggableManager(blank=True)
     notes = models.TextField(blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
+    is_homepage = models.BooleanField(
+        default=False, verbose_name='Show in the homepage?',
+        help_text=u'If marked this element will be shown in the homepage.')
     is_featured = models.BooleanField(default=False)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
@@ -125,6 +129,13 @@ class Hub(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        # Replace any previous homepage item when published:
+        if self.is_homepage and self.is_published():
+            self.__class__.objects.all().update(is_homepage=False)
+        return super(Hub, self).save(*args, **kwargs)
+
 
     def get_absolute_url(self):
         return reverse('hub_detail', args=[self.slug])
