@@ -1,4 +1,4 @@
-<!doctype html>{% load sections_tags %}
+<!doctype html>{% load compress sections_tags %}
 <html class="no-js" lang="en">
   <head>
     <meta charset="utf-8">
@@ -12,12 +12,16 @@
     <script src="{{ STATIC_URL }}bower_components/modernizr/modernizr.js"></script>
 
     <!--[if lt IE 9]>
+      {% compress css %}
       <link rel="stylesheet" href="{{ STATIC_URL }}css/ie.css" />
+      {% endcompress %}
       <![endif]-->
     <!--[if (gte IE 9) | (!IE)]><!-->
+      {% compress css %}
       <link rel="stylesheet" href="{{ STATIC_URL }}css/app.css" />
+      {% endcompress %}
     <!--<![endif]-->
-    
+
     {% block extra_styles %}{% endblock extra_styles %}
   </head>
   <body>
@@ -150,11 +154,16 @@
 
   {% if IS_PRODUCTION %}
     <!--[if (gte IE 9) | (!IE)]><!-->
+    {% compress js  %}
     <script src="{{ STATIC_URL }}js/lib/modern.js"></script>
+    {% endcompress %}
+
     <!--<![endif]-->
 
     <!--[if lt IE 9]>
+    {% compress js  %}
     <script src="{{ STATIC_URL }}js/lib/basic.js"></script>
+    {% endcompress %}
     <![endif]-->
   {% else %}
     <!--[if (gte IE 9) | (!IE)]><!-->
