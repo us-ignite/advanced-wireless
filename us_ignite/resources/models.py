@@ -63,6 +63,9 @@ class Resource(models.Model):
     resource_date = models.DateField(
         blank=True, null=True, help_text=u'Format: YYYY-MM-DD')
     is_featured = models.BooleanField(default=False)
+    is_homepage = models.BooleanField(
+        default=False, verbose_name='Show in the homepage?',
+        help_text=u'If marked this element will be shown in the homepage.')
     tags = TaggableManager(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
@@ -76,6 +79,12 @@ class Resource(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        # Replace any previous homepage item when published:
+        if self.is_homepage and self.is_published():
+            self.__class__.objects.all().update(is_homepage=False)
+        return super(Resource, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('resource_detail', args=[self.slug])

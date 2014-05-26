@@ -13,7 +13,7 @@ def home(request):
     context = {
         'application': Application.published.get_homepage(),
         'hub': Hub.active.get_homepage(),
-        'resource': Resource.published.get_featured(),
+        'resource': Resource.published.get_homepage(),
     }
     return TemplateResponse(request, 'home.html', context)
 
