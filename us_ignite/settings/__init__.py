@@ -330,4 +330,7 @@ TINYMCE_FILEBROWSER = False
 # Production flag:
 IS_PRODUCTION = True
 
+# Asset compressor
+COMPRESS_OUTPUT_DIR = ''
+
 GOOGLE_ANALYTICS_ID = 'UA-40470323-1'
