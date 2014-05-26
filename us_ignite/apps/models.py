@@ -118,6 +118,9 @@ class Application(ApplicationBase):
     awards = models.TextField(blank=True, help_text=u'Recognition or Awards')
     tags = TaggableManager(blank=True)
     position = GeopositionField(blank=True)
+    is_homepage = models.BooleanField(
+        default=False, verbose_name='Show in the homepage?',
+        help_text=u'If marked this element will be shown in the homepage.')
 
     # managers:
     objects = models.Manager()
@@ -129,6 +132,12 @@ class Application(ApplicationBase):
 
     def __unicode__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        # Replace any previous homepage application when published:
+        if self.is_homepage and self.is_public():
+            self.__class__.objects.all().update(is_homepage=False)
+        return super(Application, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('app_detail', args=[self.slug])

@@ -11,7 +11,7 @@ def home(request):
     List latest featured content.
     """
     context = {
-        'application': Application.published.get_featured(),
+        'application': Application.published.get_homepage(),
         'hub': Hub.active.get_featured(),
         'resource': Resource.published.get_featured(),
     }

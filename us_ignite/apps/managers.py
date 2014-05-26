@@ -21,6 +21,13 @@ class ApplicationPublishedManager(models.Manager):
         except IndexError:
             return None
 
+    def get_homepage(self):
+        try:
+            return (self.get_queryset().filter(is_homepage=True)
+                    .order_by('-is_featured', 'created')[0])
+        except IndexError:
+            return None
+
 
 class ApplicationVersionManager(models.Manager):
 
