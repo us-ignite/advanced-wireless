@@ -1,7 +1,6 @@
-{% load thumbnail %}<a href="{{ object.url }}" title="{{ object.name }}">
-  {% if object.image %}
+{% load thumbnail %}
+{% if object.image %}
+<a href="{{ object.url }}" title="{{ object.name }}">
   <img src="{% thumbnail object.image 317x317 crop%}" class="sidebar__advert">
-  {% else %}
-  <img src="http://placehold.it/317x317" class="sidebar__advert">
-  {% endif %}
 </a>
+{% endif %}
