@@ -10,7 +10,7 @@ from tinymce.widgets import TinyMCE
 
 class PostAdminForm(forms.ModelForm):
     author = forms.ModelChoiceField(
-        queryset=User.objects.filter(is_superuser=True), required=False)
+        queryset=User.objects.filter(is_staff=True), required=False)
 
     def clean_content(self):
         if 'content' in self.cleaned_data:
