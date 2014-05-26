@@ -1,12 +1,14 @@
 import logging
 
+from django.conf import settings
 from django.core.files.storage import get_storage_class
 
 from storages.backends.s3boto import S3BotoStorage
 
 logger = logging.getLogger('us_ignite.common.storage')
 
-STATIC_LOCATION = 'static'
+
+STATIC_LOCATION = 'static/%s' % settings.STATIC_FILES_VERSION
 
 
 class StaticS3Storage(S3BotoStorage):
