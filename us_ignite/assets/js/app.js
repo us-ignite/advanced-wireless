@@ -9,7 +9,7 @@ $(function() {
    }
 
    if ($('#id_tags').length) {
-    $.getJSON('/search/tags.json', function(availableTags) {
+     $.getJSON(__SITEURL__ + '/search/tags.json', function(availableTags) {
       $( "#id_tags" )
         // don't navigate away from the field on tab when selecting an item
         .bind( "keydown", function( event ) {
