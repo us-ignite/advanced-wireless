@@ -30,17 +30,13 @@
           {% endwith %}
         </span>
 
-        <a class="listings__listing__heading" href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+        <h1 class="listings__listing__heading">{{ object.title }}</h1>
 
         {% with profile=object.author.profile %}
         <span class="listings__listing__published">
           {{ object.publication_date|date:"F jS, Y" }} {% if object.author.profile %}| By <a href="{{ profile.get_absolute_url }}">{{ profile.display_name }}{% endif %}</a>
         </span>
         {% endwith %}
-
-        <div class="listings__listing__shares">
-          186 Shares
-        </div>
 
         <div class="listings__listing__desc">
           {% with object.postattachment_set.all as attachment_list %}
