@@ -1,7 +1,7 @@
-{% if request.user.is_authenticated and not request.user.profile %}
-<div class="row collapse">
-  <div class="small-12 columns">
+{% if request.user.is_authenticated and not request.user.first_name  %}
+<ul class="messages">
+  <li>
     Welcome, You have not yet created a profile, <a href="{% url 'user_profile' %}">click here</a> to create a profile.
-  </div>
-</div>
+  </li>
+</ul>
 {% endif %}
