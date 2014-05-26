@@ -1,7 +1,7 @@
 # Local settings for us_ignite
 import os
 
-from us_ignite.settings import *
+from us_ignite.settings.base import *
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 # Get absolute PATHS to the PROJECT ROOT:

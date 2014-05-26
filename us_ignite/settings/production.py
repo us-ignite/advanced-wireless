@@ -3,7 +3,7 @@ import datetime
 import os
 import urlparse
 
-from us_ignite.settings import *
+from us_ignite.settings.base import *
 
 # Sensitive values are saved as env variables:
 env = os.getenv

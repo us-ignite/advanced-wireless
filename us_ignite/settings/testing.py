@@ -1,5 +1,5 @@
 # Testing settings for us_ignite
-from us_ignite.settings import *
+from us_ignite.settings.base import *
 
 
 SECRET_KEY = 'c!lizso+53#4dhm*o2qyh9t(n14p#wr5!+%1bfjtrqa#vsc$@h'
