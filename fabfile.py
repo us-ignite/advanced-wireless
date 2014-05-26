@@ -118,8 +118,9 @@ def syncdb():
 def collectstatic():
     """Collects the remote environment static assets."""
     print yellow('Collecting static assets.')
+    # --ignore=admin --ignore=tiny_mce
     dj_heroku('collectstatic --noinput '
-              '--ignore=*.scss --ignore=admin --ignore=tiny_mce',
+              '--ignore=*.scss',
               env.app, env.slug)
 
 
