@@ -19,7 +19,7 @@ from us_ignite.blog.models import BlogLink, Post
 from us_ignite.challenges.models import Challenge, Entry, Question
 from us_ignite.dummy import text, images, locations
 from us_ignite.events.models import Event
-from us_ignite.hubs.models import Hub, HubMembership, NetworkSpeed
+from us_ignite.hubs.models import Hub, HubMembership
 from us_ignite.maps.models import Category, Location
 from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
@@ -162,10 +162,6 @@ def _create_hub():
         'summary': text.random_words(10),
         'connections': text.random_paragraphs(1),
         'organization': choice([None, _get_organization()]),
-        'network_speed': NetworkSpeed.objects.all().order_by('?')[0],
-        'is_advanced': choice([True, False]),
-        'experimentation': choice(Hub.EXPERIMENTATION_CHOICES)[0],
-        'estimated_passes': text.random_words(10),
         'description': text.random_paragraphs(3),
         'image': image_name,
         'website': _get_url(),
@@ -363,7 +359,7 @@ def _load_fixtures():
     call_command('snippets_load_fixtures')
     call_command('events_load_fixtures')
     call_command('resources_load_fixtures')
-    call_command('hubs_load_fixtures')
+    # call_command('testbeds_load_fixtures')
     call_command('sections_load_fixtures')
     call_command('blog_import')
 
