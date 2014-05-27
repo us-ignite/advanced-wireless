@@ -88,7 +88,7 @@ def hub_edit(request, slug):
     instance = get_object_or_404(
         Hub.objects, slug__exact=slug, contact=request.user)
     if request.method == 'POST':
-        form = forms.HubForm(request.POST, instance=instance)
+        form = forms.HubForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             instance = form.save()
             msg = '%s has been updated successfully' % instance.name
