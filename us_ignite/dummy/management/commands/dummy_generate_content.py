@@ -1,6 +1,6 @@
 from datetime import timedelta
 from optparse import make_option
-from random import choice, shuffle
+from random import choice, shuffle, randint
 
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -25,6 +25,7 @@ from us_ignite.news.models import Article
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
 from us_ignite.resources.models import Resource, ResourceType, Sector
+from us_ignite.testbeds.models import Testbed, NetworkSpeed
 from taggit.models import Tag
 
 
@@ -158,11 +159,9 @@ def _create_hub():
     image_name = images.random_image(u'%s.png' % text.random_words(1))
     data = {
         'name': text.random_words(3).title(),
-        'contact': choice([None, _get_user()]),
         'summary': text.random_words(10),
-        'connections': text.random_paragraphs(1),
-        'organization': choice([None, _get_organization()]),
         'description': text.random_paragraphs(3),
+        'contact': choice([None, _get_user()]),
         'image': image_name,
         'website': _get_url(),
         'status': choice(Hub.STATUS_CHOICES)[0],
@@ -173,7 +172,6 @@ def _create_hub():
     _create_hub_membership(hub)
     _add_tags(hub)
     _add_features(hub)
-    _add_applications(hub)
     return hub
 
 
@@ -351,6 +349,34 @@ def _add_applications(item, total=3):
     return [item.applications.add(a) for a in apps]
 
 
+def _create_testbed():
+    image_name = images.random_image(u'%s.png' % slugify(text.random_words(1)))
+    data = {
+        'name': text.random_words(3).title(),
+        'summary': text.random_words(10),
+        'description': text.random_paragraphs(2),
+        'contact': choice([None, _get_user()]),
+        'organization': choice([None, _get_organization()]),
+        'website': _get_url(),
+        'image': image_name,
+        'network_speed': NetworkSpeed.objects.all().order_by('?')[0],
+        'connections': text.random_paragraphs(1),
+        'experimentation': choice(Testbed.EXPERIMENTATION_CHOICES)[0],
+        'passes_homes': randint(0, 100),
+        'passes_business': randint(0, 100),
+        'passes_anchor': randint(0, 100),
+        'is_advanced': choice([True, False]),
+        'position': locations.get_location(),
+        'status': choice(Testbed.STATUS_CHOICES)[0],
+    }
+    testbed = Testbed.objects.create(**data)
+    _add_tags(testbed)
+    _add_features(testbed)
+    _add_applications(testbed)
+    return testbed
+
+
+
 def _load_fixtures():
     """Loads initial fixtures"""
     call_command('app_load_fixtures')
@@ -359,9 +385,9 @@ def _load_fixtures():
     call_command('snippets_load_fixtures')
     call_command('events_load_fixtures')
     call_command('resources_load_fixtures')
-    # call_command('testbeds_load_fixtures')
+    call_command('testbeds_load_fixtures')
     call_command('sections_load_fixtures')
-    call_command('blog_import')
+    # call_command('blog_import')
 
 
 class Command(BaseCommand):
@@ -401,6 +427,9 @@ class Command(BaseCommand):
         print u'Adding hubs.'
         for i in range(40):
             _create_hub()
+        print u'Adding testbeds.'
+        for i in range(40):
+            _create_testbed()
         print u'Adding events.'
         for i in range(30):
             _create_event()
