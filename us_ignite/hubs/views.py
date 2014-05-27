@@ -11,6 +11,7 @@ from us_ignite.common.response import json_response
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub, HubRequest, HubMembership
 from us_ignite.hubs import forms, mailer
+from us_ignite.maps.utils import get_location_dict
 
 
 @login_required
@@ -114,19 +115,6 @@ def hub_list(request):
         'featured_list': featured_list,
     }
     return TemplateResponse(request, 'hubs/object_list.html', context)
-
-
-def get_location_dict(item, location_type):
-    return {
-        'type': location_type,
-        'latitude': item.position.latitude,
-        'longitude': item.position.longitude,
-        'name': item.name,
-        'website': item.get_absolute_url(),
-        'category': '',
-        'image': '',
-        'content': item.name,
-    }
 
 
 def get_event_list(hub):
