@@ -15,36 +15,21 @@
       <h2>Description</h2>
       <p>{{ object.description|markdown }}</p>
       {% include "includes/network_features.html" with feature_list=feature_list %}
+
+      {% with feature_list=hub.features.all %}
+      {% if feature_list %}
+      <h2>Features</h2>
+      <ul>
+        {% for feature in feature_list %}
+        <li>{{ feature.name }}</li>
+        {% endfor%}
+      </ul>
+      {% endif %}
+      {% endwith %}
     </div>
   </div>
 </div>
 <!-- /description -->
-
-<!-- network -->
-<div class="listings__listing">
-  <div class="row">
-    <div class="small-12 columns">
-      {% if object.network_speed %}
-      <h2>Network Speed</h2>
-      <p>{{ object.network_speed.name }}.</p>
-      {% endif %}
-
-      <h2>Does the community have advanced characteristics?</h2>
-      <p> {{ object.is_advanced|yesno|title }}.</p>
-
-      {% if object.estimated_passes %}
-      <h2>Estimated Pases</h2>
-      <p>{{ object.estimated_passes }}</p>
-      {% endif %}
-
-      {% if object.connections %}
-      <h2>Connections to other networks</h2>
-      <p>{{ object.connections }}</p>
-      {% endif %}
-    </div>
-  </div>
-</div>
-<!-- /network -->
 
 {% if event_list %}
 <!-- event list -->
@@ -62,25 +47,6 @@
 </div>
 <!-- /event list -->
 {% endif %}
-
-{% with object.applications.all as app_list %}
-{% if app_list %}
-<!-- app list -->
-<div class="listings__listing">
-  <div class="row">
-    <div class="small-12 columns">
-      <h2>Piloted applications</h2>
-      <ul>
-        {% for app in app_list %}
-        <li><a href="{{ app.get_absolute_url }}">{{ app.name }}</a></li>
-        {% endfor%}
-      </ul>
-    </div>
-  </div>
-</div>
-<!-- /app list -->
-{% endif %}
-{% endwith %}
 
 {% endblock detail_content %}
 
