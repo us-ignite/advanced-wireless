@@ -20,6 +20,7 @@ urlpatterns = patterns(
     url(r'^people/', include('us_ignite.people.urls')),
     url(r'^apps/', include('us_ignite.apps.urls')),
     url(r'^hub/', include('us_ignite.hubs.urls')),
+    url(r'^testbed/', include('us_ignite.testbeds.urls')),
     url(r'^event/', include('us_ignite.events.urls')),
     url(r'^org/', include('us_ignite.organizations.urls')),
     url(r'^challenges/', include('us_ignite.challenges.urls')),

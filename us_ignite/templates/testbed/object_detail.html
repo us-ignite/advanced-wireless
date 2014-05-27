@@ -1,0 +1,126 @@
+{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
+
+{% block title %}Testbed: {{ object.name }} -  {{ block.super }}{% endblock title %}
+
+{% block tag_list %}
+{% include "includes/tag_list.html" with tag_list=object.tags.all %}
+{% endblock tag_list %}
+
+{% block detail_content %}
+<!-- description -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Description</h2>
+      <p>{{ object.description|markdown }}</p>
+      {% include "includes/network_features.html" with feature_list=feature_list %}
+
+      {% with feature_list=object.features.all %}
+      {% if feature_list %}
+      <h2>Features</h2>
+      <ul>
+        {% for feature in feature_list %}
+        <li>{{ feature.name }}</li>
+        {% endfor%}
+      </ul>
+      {% endif %}
+      {% endwith %}
+
+      {% if object.network_speed %}
+      <h2>Network Speed</h2>
+      <p>{{ object.network_speed.name }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- /description -->
+
+<!-- extras -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% if object.experimentation %}
+      <h2>Willingness to experiment?</h2>
+      <p>{{ object.get_experimentation_display }}</p>
+      {% endif %}
+
+      <h2>Estimated passes homes</h2>
+      <p>{{ object.passes_homes }}</p>
+
+      <h2>Estimated passes business</h2>
+      <p>{{ object.passes_business }}</p>
+
+      <h2>Estimated passes anchor</h2>
+      <p>{{ object.passes_anchor }}</p>
+
+      <h2>Does it have advanced characteristics?</h2>
+      <p>{{ object.is_advanced|yesno|title }}.</p>
+
+    </div>
+  </div>
+</div>
+<!-- /extras -->
+
+{% if object.connections %}
+<!-- connections -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Connections to other networks</h2>
+      <p>{{ object.connections }}</p>
+    </div>
+  </div>
+</div>
+<!-- /connections -->
+{% endif %}
+
+{% if app_list %}
+<!-- app list -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Applications being piloted</h2>
+      <ul>
+        {% for app in app_list %}
+        <li><a href="{{ app.get_absolute_url }}">{{ app.name }}</a></li>
+        {% endfor%}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- /app_list -->
+{% endif %}
+
+{% endblock detail_content %}
+
+{% block related %}
+{% include "includes/maps/canvas.html" %}
+{% endblock related %}
+
+{% block extra_scripts %}
+{% include "includes/maps/scripts.html" %}
+<script type="text/javascript" src="{% url 'testbed_locations_json' object.slug %}"></script>
+{% endblock extra_scripts %}
+
+
+{% block sidebar_content %}
+{% if is_editable %}
+<h3 class="sidebar__heading">TESTBED ADMIN</h3>
+<ul class="no-bullet sidebar__list">
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit testbed</a>
+  </li>
+</ul>
+{% endif %}
+
+{% include "includes/sidebar/organization.html" with object=object %}
+
+{% include "includes/sidebar/contact.html" with contact=object.contact %}
+
+{% if object.contact %}
+<p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
+{% endif %}
+
+{% include "includes/links.html" with object=object url_list=url_list %}
+
+{% endblock sidebar_content %}
