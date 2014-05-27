@@ -191,6 +191,7 @@ INSTALLED_APPS = (
     'us_ignite.snippets',
     'us_ignite.mailinglist',
     'us_ignite.visualize',
+    'us_ignite.testbeds',
 )
 
 # A sample logging configuration. The only tangible logging
