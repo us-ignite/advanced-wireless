@@ -33,7 +33,7 @@ urlpatterns = patterns(
     url(r'^about/', include('us_ignite.sections.urls')),
     url(r'^get-involved/', include('us_ignite.sections.urls_get_involved')),
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
-    url(r'^visualize/', include('us_ignite.visualize.urls')),
+    url(r'^overview/', include('us_ignite.visualize.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
 )
 
