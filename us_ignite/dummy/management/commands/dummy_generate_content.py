@@ -130,6 +130,7 @@ def _create_app():
     }
     application = Application.objects.create(**data)
     _add_tags(application)
+    _add_features(application)
     return application
 
 
@@ -387,7 +388,7 @@ def _load_fixtures():
     call_command('resources_load_fixtures')
     call_command('testbeds_load_fixtures')
     call_command('sections_load_fixtures')
-    # call_command('blog_import')
+    call_command('blog_import')
 
 
 class Command(BaseCommand):
