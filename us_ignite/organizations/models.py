@@ -8,6 +8,7 @@ from django_extensions.db.fields import (
 from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
+from us_ignite.common.fields import URL_HELP_TEXT
 from us_ignite.organizations import managers, search
 
 
@@ -27,7 +28,8 @@ class Organization(models.Model):
     image = models.ImageField(upload_to="org", blank=True)
     members = models.ManyToManyField(
         'auth.User', blank=True, through='organizations.OrganizationMember')
-    website = models.URLField(max_length=500, blank=True)
+    website = models.URLField(
+        max_length=500, blank=True, help_text=URL_HELP_TEXT)
     interest_ignite = models.TextField(
         blank=True, help_text=u'Why are you here?')
     interests = models.ManyToManyField('profiles.Interest', blank=True)

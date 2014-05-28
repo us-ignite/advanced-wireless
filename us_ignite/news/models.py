@@ -3,6 +3,7 @@ from django.db import models
 from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
 
+from us_ignite.common.fields import URL_HELP_TEXT
 from us_ignite.news import managers
 
 
@@ -18,7 +19,8 @@ class Article(models.Model):
 
     name = models.CharField(max_length=500)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    url = models.URLField(max_length=500)
+    url = models.URLField(
+        max_length=500, help_text=URL_HELP_TEXT, verbose_name=u'URL')
     is_featured = models.BooleanField(default=False)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()

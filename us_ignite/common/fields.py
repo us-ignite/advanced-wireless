@@ -5,6 +5,8 @@ from django.utils.encoding import force_unicode
 
 from south.modelsinspector import add_introspection_rules
 
+URL_HELP_TEXT = u'Please enter a URL starting with http or https'
+
 
 class AutoUUIDField(models.SlugField):
     """Generates an automatic short UUID field."""

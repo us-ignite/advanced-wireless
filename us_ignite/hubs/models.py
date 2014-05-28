@@ -3,6 +3,7 @@ import watson
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from us_ignite.common.fields import URL_HELP_TEXT
 from us_ignite.hubs import managers, search
 
 from geoposition.fields import GeopositionField
@@ -25,7 +26,8 @@ class HubRequest(models.Model):
     )
     name = models.CharField(max_length=255)
     hub = models.ForeignKey('hubs.Hub', blank=True, null=True)
-    website = models.URLField(max_length=500, blank=True)
+    website = models.URLField(
+        max_length=500, blank=True, help_text=URL_HELP_TEXT)
     summary = models.TextField(blank=True)
     description = models.TextField()
     user = models.ForeignKey('auth.User')
@@ -72,7 +74,8 @@ class Hub(models.Model):
     contact = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
     image = models.ImageField(blank=True, upload_to='hub', max_length=500)
-    website = models.URLField(max_length=500, blank=True)
+    website = models.URLField(
+        max_length=500, blank=True, help_text=URL_HELP_TEXT)
     features = models.ManyToManyField(
         'apps.Feature', blank=True, help_text=u'Existing NextGen features in '
         'this community.')
@@ -143,7 +146,9 @@ class HubActivity(models.Model):
     hub = models.ForeignKey('hubs.Hub')
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    url = models.URLField(max_length=500, blank=True)
+    url = models.URLField(
+        max_length=500, blank=True, verbose_name=u'URL',
+        help_text=URL_HELP_TEXT)
     user = models.ForeignKey('auth.User', blank=True, null=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()

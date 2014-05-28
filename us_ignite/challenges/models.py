@@ -7,6 +7,7 @@ from django.utils import timezone
 from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
 
+from us_ignite.common.fields import URL_HELP_TEXT
 from us_ignite.challenges import managers
 
 
@@ -26,7 +27,8 @@ class Challenge(models.Model):
         help_text=u'Start date in %s timezone.' % settings.TIME_ZONE)
     end_datetime = models.DateTimeField(
         help_text=u'End date in %s timezone.' % settings.TIME_ZONE)
-    url = models.URLField(blank=True)
+    url = models.URLField(
+        blank=True, help_text=URL_HELP_TEXT, verbose_name=u'URL')
     is_external = models.BooleanField(
         default=False, help_text=u'Determines if the challenge is to be '
         'held in a different Site.')

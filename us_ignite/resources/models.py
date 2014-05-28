@@ -3,7 +3,7 @@ import watson
 from django.core.urlresolvers import reverse
 from django.db import models
 
-from us_ignite.common.fields import AutoUUIDField
+from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
 from us_ignite.resources import managers, search
 
 from django_extensions.db.fields import (
@@ -42,7 +42,8 @@ class Resource(models.Model):
     name = models.CharField(max_length=255, verbose_name='name of resource')
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    url = models.URLField(max_length=500, blank=True)
+    url = models.URLField(
+        max_length=500, blank=True, help_text=URL_HELP_TEXT, verbose_name=u'URL')
     description = models.TextField()
     resource_type = models.ForeignKey(
         'resources.ResourceType', blank=True, null=True,

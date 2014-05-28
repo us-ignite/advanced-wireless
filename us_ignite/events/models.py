@@ -9,7 +9,7 @@ from django_extensions.db.fields import (
 from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
-from us_ignite.common.fields import AutoUUIDField
+from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
 from us_ignite.events import managers, exporter, search
 
 
@@ -67,11 +67,13 @@ class Event(models.Model):
     scope = models.IntegerField(choices=SCOPE_CHOICES, default=NATIONAL)
     audiences = models.ManyToManyField('events.Audience', blank=True)
     audience_other = models.CharField(blank=True, max_length=200)
-    website = models.URLField(max_length=500, blank=True)
+    website = models.URLField(
+        max_length=500, blank=True, help_text=URL_HELP_TEXT)
     event_type = models.ForeignKey(
         'events.EventType', blank=True, null=True, on_delete=models.SET_NULL)
     tickets_url = models.URLField(
-        max_length=500, blank=True, verbose_name=u'Tickets URL')
+        max_length=500, blank=True, verbose_name=u'Tickets URL',
+        help_text=URL_HELP_TEXT)
     tags = TaggableManager(blank=True)
     hubs = models.ManyToManyField(
         'hubs.Hub', verbose_name=u'communities', blank=True)
@@ -136,7 +138,8 @@ class Event(models.Model):
 class EventURL(models.Model):
     event = models.ForeignKey('events.Event')
     name = models.CharField(max_length=200)
-    url = models.URLField(max_length=500, verbose_name='URL')
+    url = models.URLField(
+        max_length=500, verbose_name=u'URL', help_text=URL_HELP_TEXT)
 
     def __unicode__(self):
         return self.name

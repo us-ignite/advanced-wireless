@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from us_ignite.common.fields import URL_HELP_TEXT
 from us_ignite.testbeds import managers
 
 from geoposition.fields import GeopositionField
@@ -42,7 +43,8 @@ class Testbed(models.Model):
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True,
         on_delete=models.SET_NULL)
-    website = models.URLField(max_length=500, blank=True)
+    website = models.URLField(
+        max_length=500, blank=True, help_text=URL_HELP_TEXT)
     image = models.ImageField(blank=True, upload_to='testbed', max_length=500)
     network_speed = models.ForeignKey(
         'testbeds.NetworkSpeed', blank=True, null=True,

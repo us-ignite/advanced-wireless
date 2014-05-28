@@ -10,7 +10,7 @@ from django_extensions.db.fields import (
 from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
-from us_ignite.common.fields import AutoUUIDField
+from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
 from us_ignite.apps import managers, search
 
 
@@ -49,7 +49,7 @@ class ApplicationBase(models.Model):
         choices=STAGE_CHOICES, default=IDEA,
         help_text=u'Please select the option that best reflects your '
         'current progress')
-    website = models.URLField(max_length=500, blank=True)
+    website = models.URLField(max_length=500, blank=True, help_text=URL_HELP_TEXT)
     image = models.ImageField(
         blank=True, upload_to='apps', max_length=500,
         help_text=u'E.g. logo, screenshot, application diagram, photo of demo')
@@ -208,7 +208,8 @@ class ApplicationMembership(models.Model):
 class ApplicationURL(models.Model):
     application = models.ForeignKey('apps.Application')
     name = models.CharField(max_length=255, blank=True)
-    url = models.URLField(max_length=500, verbose_name=u'URL')
+    url = models.URLField(
+        max_length=500, verbose_name=u'URL', help_text=URL_HELP_TEXT)
 
     def __unicode__(self):
         return self.url
@@ -218,7 +219,8 @@ class ApplicationMedia(models.Model):
     application = models.ForeignKey('apps.Application')
     name = models.CharField(max_length=255, blank=True)
     image = models.ImageField(upload_to='apps', max_length=500, blank=True)
-    url = models.URLField(blank=True, verbose_name=u'URL')
+    url = models.URLField(
+        blank=True, verbose_name=u'URL', help_text=URL_HELP_TEXT)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
 

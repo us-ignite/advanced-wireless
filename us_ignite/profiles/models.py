@@ -6,7 +6,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from us_ignite.profiles import communications, managers, search
-from us_ignite.common.fields import AutoUUIDField
+from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
 
 from django_browserid.signals import user_created
 from django_extensions.db.fields import (
@@ -54,7 +54,8 @@ class Profile(models.Model):
     )
     user = models.OneToOneField('auth.User', primary_key=True)
     slug = AutoUUIDField(unique=True, editable=True)
-    website = models.URLField(max_length=500, blank=True)
+    website = models.URLField(
+        max_length=500, blank=True, help_text=URL_HELP_TEXT)
     quote = models.TextField(
         blank=True, max_length=140, help_text=u'Short quote.')
     bio = models.TextField(blank=True)
@@ -129,7 +130,8 @@ class Profile(models.Model):
 class ProfileLink(models.Model):
     profile = models.ForeignKey('profiles.Profile')
     name = models.CharField(blank=True, max_length=255)
-    url = models.URLField(max_length=500)
+    url = models.URLField(
+        max_length=500, help_text=URL_HELP_TEXT, verbose_name=u'URL')
 
     def __unicode__(self):
         return u'Profile link.'
