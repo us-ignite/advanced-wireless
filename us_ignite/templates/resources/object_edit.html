@@ -8,8 +8,7 @@ Edit Resource: {{ object.name }}
 
 {% block section %}
 
-<form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data">
-  {{ form.as_p }}
+<form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data"{% include "resources/object_form.html" with form=form %}
   <p>
     <button type="submit">Update</button>
     {% csrf_token %}

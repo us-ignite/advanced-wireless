@@ -11,7 +11,7 @@ Submit Resource
   Please fill out the form below to include your resource in our searchable database. Once you have submitted your application and it has been approved, it will be available in our resource library. If you can manage all your submitted resources via your user profile page.
 </p>
 <form method="post" action="{% url 'resource_add' %}" enctype="multipart/form-data">
-  {% include "includes/form.html" with form=form %}
+  {% include "resources/object_form.html" with form=form %}
   <p>
     <button type="submit">SUBMIT</button>
     {% csrf_token %}
