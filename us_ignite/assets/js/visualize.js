@@ -4,7 +4,6 @@ var chart = {
       var chart = nv.models.pieChart()
         .x(function(d) { return d.label })
         .y(function(d) { return d.value })
-        .id(function(d) { return d.id })
         .showLabels(false);
       // Use integers in the values:
       chart.valueFormat(d3.format('d'));
@@ -33,4 +32,4 @@ var chart = {
       return chart;
     });
   }
-}
+};
