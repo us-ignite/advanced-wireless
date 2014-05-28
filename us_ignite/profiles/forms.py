@@ -37,11 +37,11 @@ class UserRegistrationForm(forms.Form):
             if not cleaned_data['password1'] == cleaned_data['password2']:
                 raise forms.ValidationError('Passwords are not the same')
             return cleaned_data
-        raise forms.ValidationError('Passwords are required.')
+        raise forms.ValidationError('Passwords are required')
 
 
 class ProfileForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=255, required=False)
+    first_name = forms.CharField(max_length=255)
     last_name = forms.CharField(max_length=255, required=False)
     interests = forms.ModelMultipleChoiceField(
         queryset=Interest.objects.all(), required=False,
@@ -49,20 +49,33 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('first_name', 'last_name', 'website', 'quote', 'bio',
-                  'skills', 'category', 'category_other', 'availability',
-                  'interests', 'interests_other', 'tags', 'is_public',
-                  'position')
+        fields = ('first_name', 'last_name', 'slug', 'website',
+                  'quote', 'bio', 'skills', 'category', 'category_other',
+                  'availability', 'interests', 'interests_other', 'tags',
+                  'is_public', 'position')
 
     def clean_tags(self):
         if 'tags' in self.cleaned_data:
             return output.prepare_tags(self.cleaned_data['tags'])
+
+    def clean_slug(self):
+        slug = self.cleaned_data.get('slug')
+        if slug:
+            username_qs = Profile.objects.filter(slug__exact=slug)
+            if self.instance:
+                username_qs = username_qs.exclude(pk=self.instance.pk)
+            if username_qs:
+                raise forms.ValidationError('Slug already taken.')
+            return self.cleaned_data['slug']
 
     def save(self, *args, **kwargs):
         profile = super(ProfileForm, self).save(*args, **kwargs)
         user = profile.user
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        # Profile slug is unique as well, it is safe to use as
+        # username
+        user.username = self.cleaned_data['slug']
         user.save()
         return profile
 

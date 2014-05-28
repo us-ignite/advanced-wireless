@@ -53,7 +53,8 @@ class Profile(models.Model):
         (HIGH_AVAILABILITY, u'Yes, I would love to join a project'),
     )
     user = models.OneToOneField('auth.User', primary_key=True)
-    slug = AutoUUIDField(unique=True, editable=True)
+    slug = AutoUUIDField(
+        unique=True, editable=True, help_text=u'Slug used for your profile')
     website = models.URLField(
         max_length=500, blank=True, help_text=URL_HELP_TEXT)
     quote = models.TextField(
