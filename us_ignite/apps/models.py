@@ -85,6 +85,13 @@ class ApplicationBase(models.Model):
         value = ''.join(['%s' % a for a in fields])
         return md5(value).hexdigest()
 
+    @classmethod
+    def get_stage_id(self, name):
+        for pk, stage in self.STAGE_CHOICES:
+            if stage == name:
+                return pk
+        return None
+
 
 class Application(ApplicationBase):
     """``Applications``add core
