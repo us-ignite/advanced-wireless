@@ -11,13 +11,21 @@
 
         <h2>Applications by completion stage</h2>
         <div id="chart__stage" class="chart"><svg></svg></div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="row collapse">
+  <div class="small-12 columns">
+    <div class="row">
+      <div class="small-12 medium-6 large-6 columns">
         <h2>Applications by domain</h2>
         <div id="chart__domain" class="chart"><svg></svg></div>
-
+      </div>
+      <div class="small-12 medium-6 large-6 columns">
         <h2>Applications by features</h2>
         <div id="chart__feature" class="chart"><svg></svg></div>
-
       </div>
     </div>
   </div>
@@ -30,6 +38,12 @@
   .chart svg{
     height:500px;
     width:100%;
+  }
+  .chart svg text {
+    font-size: 1.2em;
+  }
+  .nv-slice {
+    cursor: pointer;
   }
 </style>
 {% endblock extra_styles %}

@@ -4,7 +4,8 @@ var chart = {
       var chart = nv.models.pieChart()
         .x(function(d) { return d.label })
         .y(function(d) { return d.value })
-        .showLabels(true);
+        .id(function(d) { return d.id })
+        .showLabels(false);
       // Use integers in the values:
       chart.valueFormat(d3.format('d'));
 
@@ -22,6 +23,12 @@ var chart = {
         .datum(data.apps.feature)
         .transition().duration(350)
         .call(chart);
+
+      d3.selectAll('.nv-slice')
+        .on('click', function(d, i){
+          console.log(d.data.url)
+          window.location.href = d.data.url;
+      });
 
       return chart;
     });
