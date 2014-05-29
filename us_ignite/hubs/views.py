@@ -59,6 +59,7 @@ def hub_detail(request, slug):
     hub_award_list = (instance.hubaward_set
                       .select_related('award').all())
     award_list = [ha.award for ha in hub_award_list]
+    testbed_list = instance.testbed_set.all()
     context = {
         'object': instance,
         'feature_list': instance.features.all(),
@@ -68,6 +69,7 @@ def hub_detail(request, slug):
         'activity_list': activity_list,
         'event_list': event_list,
         'award_list': award_list,
+        'testbed_list': testbed_list,
     }
     return TemplateResponse(request, 'hubs/object_detail.html', context)
 

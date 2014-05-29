@@ -31,6 +31,30 @@
 </div>
 <!-- /description -->
 
+{% if testbed_list %}
+<!-- testbeds -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      <h2>Testbeds</h2>
+      {% for testbed in testbed_list %}
+      <h3>{{ testbed.name }} features:</h3>
+      {% with feature_list=testbed.features.all %}
+      {% if feature_list %}
+      <ul>
+        {% for feature in feature_list %}
+        <li>{{ feature.name }}</li>
+        {% endfor%}
+      </ul>
+      {% endif %}
+      {% endwith %}
+      {% endfor%}
+    </div>
+  </div>
+</div>
+<!-- /testbeds -->
+{% endif %}
+
 {% if event_list %}
 <!-- event list -->
 <div class="listings__listing">
