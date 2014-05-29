@@ -62,6 +62,8 @@ class Testbed(models.Model):
         default=0, verbose_name=u'Estimated passes # community anchor')
     is_advanced = models.BooleanField(
         default=False, help_text=u'Does it have advanced characteristics?')
+    hubs = models.ManyToManyField(
+        'hubs.Hub', blank=True, verbose_name=u'Communities')
     applications = models.ManyToManyField(
         'apps.Application', blank=True, verbose_name=u'Applications being '
         'piloted')
