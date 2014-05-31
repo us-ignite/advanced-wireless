@@ -6,6 +6,7 @@ from us_ignite.common import pagination
 from us_ignite.common.response import json_response
 from us_ignite.maps.utils import get_location_dict
 from us_ignite.testbeds.models import Testbed
+from us_ignite.testbeds.forms import TestbedFilterForm
 
 
 def testbed_detail(request, slug):
@@ -22,13 +23,32 @@ def testbed_detail(request, slug):
     return TemplateResponse(request, 'testbed/object_detail.html', context)
 
 
+def get_testbed_query(data):
+    """Transform cleaned data in Testbed."""
+    query = {}
+    for key, value in data.items():
+        if key.startswith('passes_'):
+            key = '%s__gte' % key
+        if value:
+            query[key] = value
+    return query
+
+
 def testbed_list(request):
     """List of all the testbeds."""
+    testbed_query = {}
+    if request.GET:
+        form = TestbedFilterForm(request.GET)
+        if form.is_valid():
+            testbed_query = get_testbed_query(form.cleaned_data)
+    else:
+        form = TestbedFilterForm()
     page_no = pagination.get_page_no(request.GET)
-    object_list = Testbed.active.all()
+    object_list = Testbed.active.filter(**testbed_query)
     page = pagination.get_page(object_list, page_no)
     context = {
         'page': page,
+        'form': form,
     }
     return TemplateResponse(request, 'testbed/object_list.html', context)
 

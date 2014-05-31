@@ -13,6 +13,10 @@
     <p>
       Set the minimum requirements needed to run your application:
     </p>
+    <form method="get" action=".">
+      {% include "testbed/object_filter_form.html" with form=form %}
+      <p><button type="submit">Search</button></p>
+    </form>
   </div>
 </div>
 

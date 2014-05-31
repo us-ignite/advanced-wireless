@@ -1,0 +1,14 @@
+<!-- filter form -->
+{{ form.non_field_errors }}
+<div class="row collapse">
+  <div class="columns small-12 medium-6 large-6">
+    {% include "testbed/object_field.html" with field=form.network_speed %}
+    {% include "testbed/object_field.html" with field=form.experimentation %}
+  </div>
+  <div class="columns small-12 medium-5 large-5">
+    {% include "testbed/object_field.html" with field=form.passes_homes %}
+    {% include "testbed/object_field.html" with field=form.passes_business %}
+    {% include "testbed/object_field.html" with field=form.passes_anchor %}
+  </div>
+</div>
+<!-- /filter form -->
