@@ -12,4 +12,5 @@ class TestSettingsAvailableContextProcessor(TestCase):
         request = utils.get_request('get', '/')
         context = context_processors.settings_available(request)
         eq_(sorted(context.keys()),
-            sorted(['SITE_URL', 'IS_PRODUCTION', 'ACCOUNT_ACTIVATION_DAYS']))
+            sorted(['ACCOUNT_ACTIVATION_DAYS', 'GOOGLE_ANALYTICS_ID',
+                    'IS_PRODUCTION', 'SITE_URL']))
