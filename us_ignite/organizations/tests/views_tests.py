@@ -36,6 +36,7 @@ class TestOrganizationDetailView(TestCase):
     @patch_get_object
     def test_organization_request_is_successful(self, mock_get):
         mock_instance = Mock(spec=Organization)()
+        mock_instance.interests.all.return_value = []
         mock_get.return_value = mock_instance
         mock_instance.is_visible_by.return_value = True
         request = utils.get_request(
@@ -44,7 +45,7 @@ class TestOrganizationDetailView(TestCase):
         eq_(response.status_code, 200)
         eq_(response.template_name, 'organizations/object_detail.html')
         eq_(sorted(response.context_data.keys()),
-            ['is_member', 'member_list', 'object'])
+            ['interest_list', 'is_member', 'member_list', 'object'])
 
 
 class TestOrganizationEditView(TestCase):
