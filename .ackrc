@@ -1,0 +1,7 @@
+--color
+--ignore-dir=node_modules/
+--ignore-dir=tiny_mce/
+--ignore-dir=bower_components/
+--type-add=css=.sass,.scss,.less
+--type-set=coffee=.coffee
+--type-set=json=.json
