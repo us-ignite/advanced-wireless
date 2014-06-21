@@ -67,10 +67,10 @@ class TestEditProfilePage(TestCase):
         response = self.client.get(url)
         fields = response.context['form'].fields.keys()
         eq_(sorted(fields),
-            sorted(['bio', 'is_public', 'tags', 'website',
-                    'position', 'availability', 'quote', 'interests_other',
-                    'first_name', 'last_name', 'interests', 'skills',
-                    'category', 'category_other', ]))
+            sorted(['availability', 'bio', 'category', 'category_other',
+                    'first_name', 'interests', 'interests_other',
+                    'is_public', 'last_name', 'position', 'quote',
+                    'skills', 'slug', 'tags', 'website']))
 
     def test_profile_form_update_is_successful(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
@@ -79,11 +79,12 @@ class TestEditProfilePage(TestCase):
             'first_name': 'John',
             'last_name': 'Donne',
             'availability': Profile.NO_AVAILABILITY,
+            'slug': 'john',
         }
         data.update(_get_profilelink_inline_payload(profile.pk))
         response = self.client.post(url, data)
         assert_redirects(response, '/accounts/profile/')
-        profile = Profile.objects.get(user__username='us-ignite')
+        profile = Profile.objects.get(user__username='john')
         eq_(profile.name, 'John Donne')
         eq_(profile.user.first_name, 'John')
         eq_(profile.user.last_name, 'Donne')
@@ -94,20 +95,23 @@ class TestEditProfilePage(TestCase):
         data = {
             'email': 'invalid@us-ignite.org',
             'availability': Profile.NO_AVAILABILITY,
+            'slug': 'john',
+            'first_name': 'john',
         }
         data.update(_get_profilelink_inline_payload(profile.pk))
         response = self.client.post(url, data)
         assert_redirects(response, '/accounts/profile/')
         values = (User.objects.values('email')
-                  .get(username='us-ignite'))
+                  .get(username='john'))
         eq_(values, {'email': 'user@us-ignite.org'})
 
     def test_profile_updates_inline_models(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
         url = '/accounts/profile/'
         data = {
-            'name': '',
             'availability': Profile.NO_AVAILABILITY,
+            'slug': 'john',
+            'first_name': 'john',
         }
         data_list = [{'name': 'Github', 'url': 'http://github.com/'}]
         data.update(_get_profilelink_inline_payload(
