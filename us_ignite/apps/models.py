@@ -33,16 +33,16 @@ class Domain(models.Model):
 class ApplicationBase(models.Model):
     """Abstract model for ``Application`` and ``ApplicationVersion`` fields."""
     IDEA = 1
-    TEAM = 2
-    ALPHA = 3
-    BETA = 4
-    DEMO = 5
+    PROTOTYPE = 2
+    DEVELOPMENT = 3
+    DEPLOYED = 4
+    COMMERCIALIZED = 5
     STAGE_CHOICES = (
-        (IDEA, 'Idea Complete'),
-        (TEAM, 'Started Coding'),
-        (ALPHA, 'Alpha version complete'),
-        (BETA, 'Beta version complete'),
-        (DEMO, '1.0 complete'),
+        (IDEA, u'Idea Complete'),
+        (PROTOTYPE, u'Prototype Complete'),
+        (DEVELOPMENT, u'In Development'),
+        (DEPLOYED, u'Deployed'),
+        (COMMERCIALIZED, u'Commercialized'),
     )
     name = models.CharField(max_length=255, verbose_name=u'application name')
     stage = models.IntegerField(
