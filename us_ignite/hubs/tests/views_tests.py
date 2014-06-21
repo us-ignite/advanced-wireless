@@ -82,8 +82,9 @@ class TestHubDetailView(TestCase):
         response = views.hub_detail(request, 'community')
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
-            sorted(['object', 'feature_list', 'member_list', 'is_member',
-                    'is_contact', 'activity_list', 'event_list', 'award_list'])
+            sorted(['activity_list', 'award_list', 'event_list',
+                    'feature_list', 'is_contact', 'is_member',
+                    'member_list', 'object', 'testbed_list'])
         )
 
     @raises(Http404)
@@ -101,8 +102,9 @@ class TestHubDetailView(TestCase):
         response = views.hub_detail(request, 'community')
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
-            sorted(['object', 'feature_list', 'member_list', 'is_member',
-                    'is_contact', 'activity_list', 'event_list', 'award_list'])
+            sorted(['activity_list', 'award_list', 'event_list',
+                    'feature_list', 'is_contact', 'is_member',
+                    'member_list', 'object', 'testbed_list'])
         )
 
 
@@ -204,16 +206,18 @@ class TestHubListView(TestCase):
 
 class TestHubLocationsJSON(TestCase):
 
+    @patch('us_ignite.hubs.views.get_app_member_list')
     @patch('us_ignite.hubs.views.get_users')
     @patch('us_ignite.hubs.views.get_location_dict')
     @patch_get_object
     @patch('us_ignite.hubs.views.get_event_list')
     def test_hub_locations_json(
-            self, mock_list, mock_hub, mock_location, mock_user):
+            self, mock_list, mock_hub, mock_location, mock_user, mock_member):
         mock_list.return_value = []
         mock_hub.return_value = 'foo'
         mock_location.return_value = None
         mock_user.return_value = []
+        mock_member.return_value = []
         request = utils.get_request('get', '/hub/foo/')
         response = views.hub_locations_json(request, 'foo')
         eq_(response.status_code, 200)
