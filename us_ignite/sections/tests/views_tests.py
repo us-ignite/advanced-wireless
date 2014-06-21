@@ -9,9 +9,9 @@ from us_ignite.sections import views
 
 class TestHomeView(TestCase):
 
-    @patch('us_ignite.resources.models.Resource.published.get_featured')
-    @patch('us_ignite.hubs.models.Hub.active.get_featured')
-    @patch('us_ignite.apps.models.Application.published.get_featured')
+    @patch('us_ignite.resources.models.Resource.published.get_homepage')
+    @patch('us_ignite.hubs.models.Hub.active.get_homepage')
+    @patch('us_ignite.apps.models.Application.published.get_homepage')
     def test_request_is_successful(self, app_mock, hub_mock, resource_mock):
         request = utils.get_request('get', '/')
         response = views.home(request)

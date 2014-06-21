@@ -80,14 +80,16 @@ class TestProfileForm(TestCase):
     def test_form_list_non_sensitive_values(self):
         form = ProfileForm()
         eq_(sorted(form.fields.keys()),
-            sorted(['bio', 'is_public', 'first_name', 'last_name',
-                    'tags', 'website', 'position', 'availability', 'quote',
-                    'skills', 'interests', 'interests_other', 'category',
-                    'category_other', ]))
+            sorted(['availability', 'bio', 'category', 'category_other',
+                    'first_name', 'interests', 'interests_other',
+                    'is_public', 'last_name', 'position', 'quote',
+                    'skills', 'slug', 'tags', 'website']))
 
     def test_form_accepts_default_payload(self):
         form = ProfileForm({
             'availability': Profile.NO_AVAILABILITY,
+            'first_name': 'someone',
+            'slug': 'foo',
         })
         ok_(form.is_valid())
 
@@ -97,15 +99,18 @@ class TestProfileForm(TestCase):
             'bio': '',
             'website': '',
             'availability': Profile.NO_AVAILABILITY,
+            'first_name': 'someone',
+            'slug': 'foo',
         })
         ok_(form.is_valid())
 
     def test_form_receives_valid_values(self):
         form = ProfileForm({
-            'name': 'John Donne',
             'bio': 'English poet, satirist and lawyer.',
             'website': 'http://en.wikipedia.org/wiki/John_Donne',
             'availability': Profile.NO_AVAILABILITY,
+            'first_name': 'someone',
+            'slug': 'foo',
         })
         ok_(form.is_valid())
 
