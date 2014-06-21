@@ -29,7 +29,7 @@ class TestAppListView(TestCase):
         response = views.app_list(self.factory.get('/app/'))
         eq_(sorted(response.context_data.keys()),
             sorted(['domain_list', 'order', 'order_form', 'page',
-                    'featured_list']))
+                    'featured_list', 'stage_list', 'filter_name']))
 
     def test_non_published_applications_are_not_shown(self):
         fixtures.get_application(
@@ -238,17 +238,21 @@ class TestAppDetailView(TestCase):
             views.app_detail(request, 'foo')
             get_mock.assert_once_called_with('foo', request.user)
 
+    @patch('us_ignite.apps.views.get_hub_list')
+    @patch('us_ignite.apps.views.get_award_list')
     @patch('us_ignite.apps.views.get_app_for_user')
-    def test_app_detail_is_valid(self, get_mock):
+    def test_app_detail_is_valid(self, get_mock, award_mock, hub_mock):
         request = self.factory.get('/apps/foo/')
         request.user = AnonymousUser()
         mock_app = Mock(spec=Application)()
         get_mock.return_value = mock_app
+        award_mock.return_value = []
+        hub_mock.return_value = []
         response = views.app_detail(request, 'foo')
         eq_(sorted(response.context_data.keys()),
             sorted(['award_list', 'can_edit', 'feature_list',
-                    'media_list', 'is_owner', 'member_list',
-                    'object', 'url_list', 'version_list', 'hub_list'])
+                    'hub_list', 'is_owner', 'media_list', 'member_list',
+                    'object', 'related_list', 'url_list'])
         )
         eq_(response.template_name, 'apps/object_detail.html')
         get_mock.assert_once_called_with('foo', request.user)

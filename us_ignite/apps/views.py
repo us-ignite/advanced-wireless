@@ -78,13 +78,21 @@ def get_app_for_user(slug, user):
     raise Http404
 
 
-def app_detail(request, slug):
-    app = get_app_for_user(slug, request.user)
+def get_award_list(app):
+    """Returns the list of awards for an app."""
     award_queryset = (ApplicationAward.objects
                       .select_related('award').filter(application=app))
-    award_list = [a.award for a in award_queryset]
+    return [a.award for a in award_queryset]
+
+
+def get_hub_list(app):
+    """Returns the list of hubs for an app."""
     hub_queryset = app.hubappmembership_set.select_related('hub').all()
-    hub_list = [h.hub for h in hub_queryset]
+    return [h.hub for h in hub_queryset]
+
+
+def app_detail(request, slug):
+    app = get_app_for_user(slug, request.user)
     related_list = (Application.active.filter(domain=app.domain)
                     .order_by('?')[:3])
     context = {
@@ -93,9 +101,9 @@ def app_detail(request, slug):
         'media_list': app.applicationmedia_set.all(),
         'feature_list': app.features.all(),
         'member_list': app.members.select_related('profile').all(),
-        'hub_list': hub_list,
+        'hub_list': get_hub_list(app),
         'related_list': related_list,
-        'award_list': award_list,
+        'award_list': get_award_list(app),
         'can_edit': app.is_editable_by(request.user),
         'is_owner': app.is_owned_by(request.user),
     }
