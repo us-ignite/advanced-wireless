@@ -49,7 +49,8 @@ class TestEventDetailView(TestCase):
         mock_instance.is_visible_by.assert_called_once_with(request.user)
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
-            sorted(['hub_list', 'is_owner', 'object', 'audience_list']))
+            sorted(['hub_list', 'is_owner', 'object',
+                    'audience_list', 'url_list']))
         eq_(response.template_name, 'events/object_detail.html')
 
 
@@ -75,7 +76,7 @@ class TestEventDetailICSView(TestCase):
             'get', '/event/abc/ics/', user=utils.get_anon_mock())
         response = views.event_detail_ics(request, 'abc')
         eq_(response.status_code, 200)
-        eq_(response['Content-Disposition'], 'attachment; filename="event.ics"')
+        ok_('attachment; filename="' in response['Content-Disposition'])
         eq_(response['Content-Type'], 'text/calendar')
         ok_(response.content)
 
@@ -119,6 +120,7 @@ class TestEventAddView(TestCase):
             'address': 'London UK',
             'scope': 1,
             'description': 'Gigabit event',
+            'timezone': 'US/Eastern',
         }
         formset_data = utils.get_inline_payload(EventURLFormSet)
         data.update(formset_data)
@@ -202,6 +204,7 @@ class TestEventEditView(TestCase):
             'address': 'London UK',
             'scope': 1,
             'description': 'Gigabit event',
+            'timezone': 'US/Eastern',
         }
         formset_data = utils.get_inline_payload(EventURLFormSet)
         data.update(formset_data)
