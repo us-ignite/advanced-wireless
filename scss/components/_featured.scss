@@ -1,15 +1,13 @@
 .featured {
   border:1px solid #ccc;
   background-color: #fff;
-  margin-bottom: 1em; 
-  
+  margin-bottom: 1em;
+
   &.featured--fixed-height {
     margin-bottom: 1.2em !important;
 
     @media #{$large-up} {
       height: 288px;
-      margin-top: 2em !important;
-      margin-bottom: 2em !important;
     }
   }
 

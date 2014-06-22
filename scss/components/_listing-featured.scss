@@ -1,7 +1,7 @@
 .listing-featured {
   background-color: $secondary-color;
-  padding-top:2em;
-  padding-bottom:2em;
+  padding-top: rem-calc(20);
+  padding-bottom: rem-calc(20);
 
   img {
     width: 376px;
