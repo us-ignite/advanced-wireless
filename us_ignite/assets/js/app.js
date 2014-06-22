@@ -43,6 +43,14 @@ $(function() {
         });
     });
    }
+
+  /* Hide and trigger ordering form. */
+  if ($('#listing-ordering').length) {
+    $('#listing-ordering').find('button').hide();
+    $('#id_order').change(function(){
+      $('#listing-ordering').submit();
+    });
+  }
  });
 
 $(window).load(function() {
