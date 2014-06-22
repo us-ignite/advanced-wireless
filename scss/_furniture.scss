@@ -120,6 +120,16 @@ a:hover {
 .top-bar-section {
   .right {
     margin-top: 35px;
+    background: #FFFFFF;
+  }
+
+  ul {
+    background: transparent;
+
+    li > a {
+      background: transparent;
+    }
+
   }
 
   @media #{$xlarge-up} {
