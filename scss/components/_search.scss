@@ -10,21 +10,21 @@
     content: "";
     display:block;
     position: absolute;
-    width:23px;
-    height:21px;
+    width: 18px;
+    height: 17px;
     top: 50%;
     right:7px;
-    margin-top: -11px;
-    padding:0 15px;
+    margin-top: -12px;
+    padding:0 12px;
     background: #fff url(../img/icons/search.png) right center no-repeat;
   }
 
   .search__field {
     position: relative;
-    top: -1px;
+    top: 4px;
     height:auto;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-    font-size: 0.875rem;
+    padding-top: rem-calc(10);
+    padding-bottom: rem-calc(10);
+    font-size: rem-calc(12);
   }
 }

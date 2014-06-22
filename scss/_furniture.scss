@@ -26,7 +26,7 @@ a:hover {
   background-color: $primary-color;
   min-height:0.438em;
 
-  @media #{$xlarge-up} { 
+  @media #{$xlarge-up} {
     .columns {
       padding-right: 0;
     }
@@ -39,7 +39,7 @@ a:hover {
     font-weight: $font-weight-black;
 
     @media #{$medium-up} {
-      font-size:0.875em;
+      font-size: rem-calc(12);
     }
   }
 
@@ -75,16 +75,16 @@ a:hover {
       }
 
       @media #{$medium-up} {
-        width: 232px;
-        height: 63px;
+        width: 185px;
+        height: 50px;
         margin-top: 25px;
         background-image: url(../img/furniture/logo.png);
       }
 
-      @media #{$xlarge-up} { 
+      @media #{$xlarge-up} {
         margin-left: 0;
       }
-      
+
       span {
         display:none;
       }
@@ -122,9 +122,9 @@ a:hover {
     margin-top: 35px;
   }
 
-  @media #{$xlarge-up} { 
+  @media #{$xlarge-up} {
     .has-form {
-      min-width:250px;
+      min-width: rem-calc(250);
       padding-right: 0;
     }
   }
@@ -155,18 +155,18 @@ a:hover {
 }
 
 
-@media #{$large-up} { 
+@media #{$large-up} {
   h1 {
-    font-size: rem-calc(44);
+    font-size: rem-calc(35);
   }
   h2 {
-    font-size: rem-calc(32);
+    font-size: rem-calc(25);
   }
   h3 {
-    font-size: rem-calc(24);
+    font-size: rem-calc(19);
   }
   h4 {
-    font-size: rem-calc(18);
+    font-size: rem-calc(14);
   }
 
   .button {

@@ -12,6 +12,6 @@
 
 	@media #{$medium-up} {
 		width:auto;
-		max-width: 380px;
+		max-width: rem-calc(380);
 	}
 }
