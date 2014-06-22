@@ -2,8 +2,8 @@
 	border:1px solid #ccc;
 
 	@media #{$medium-up} {
-		margin: 0 0 16px 16px;
-		float: right;
+	  margin: 0 16px 16px 0;
+		float: left;
 	}
 }
 
