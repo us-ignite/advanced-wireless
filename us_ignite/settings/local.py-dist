@@ -122,3 +122,11 @@ LOGGING = {
 # Twitter Application:
 TWITTER_API_KEY = ''
 TWITTER_API_SECRET = ''
+
+ALLOWED_HOSTS = [
+    'local-us-ignite.org',
+    '*',
+]
+
+COMPRESS_ENABLED = False
+COMPRESS_JS_FILTERS = []
