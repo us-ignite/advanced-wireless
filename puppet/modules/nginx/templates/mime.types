@@ -73,4 +73,5 @@ types {
     audio/webm                            weba;
     video/mp4                             mp4;
     audio/mpeg                            m4a;
+    image/svg+xml                         svg svgz;
 }
