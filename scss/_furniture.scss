@@ -34,12 +34,12 @@ a:hover {
 
   .quicklinks__link {
     margin-top: 4px;
-    font-size:0.65em;
+    font-size: rem-calc(14);
     color:#fff;
     font-weight: $font-weight-black;
 
     @media #{$medium-up} {
-      font-size: rem-calc(12);
+      font-size: rem-calc(14);
     }
   }
 
