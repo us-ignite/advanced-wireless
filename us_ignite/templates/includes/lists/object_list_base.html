@@ -55,7 +55,7 @@
     {% endblock tags %}
 
     {% block object_list %}
-    <div class="row">
+    <div class="row object--list">
     {% if page.object_list_top %}
     {% for object in page.object_list_top %}
       <div class="columns large-3{% if forloop.last %} end{% endif %}">
