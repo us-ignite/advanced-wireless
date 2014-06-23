@@ -24,7 +24,7 @@
 
     {% block extra_styles %}{% endblock extra_styles %}
   </head>
-  <body>
+  <body {% block body_attrs %}{% endblock body_attrs %}>
 
     <!-- quicklinks and social links -->
     <nav class="quicklinks">
