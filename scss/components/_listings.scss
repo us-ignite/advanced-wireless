@@ -51,6 +51,13 @@
   font-size: 0.875em;
 }
 
+.listings__listing__published {
+  padding-bottom: rem-calc(10);
+  display: block;
+}
+
+
+
 .listings__listing__tags__tag {
   &:link,
   &:visited {
