@@ -200,3 +200,18 @@ a:hover {
     }
   }
 }
+
+.object--list {
+  .column, .columns {
+    padding-left: rem-calc(10);
+    padding-right: rem-calc(10);
+  }
+}
+
+
+@media #{$large-up} {
+  .small-12 {
+    padding-left: rem-calc(30);
+    padding-right: rem-calc(30);
+  }
+}
