@@ -37,6 +37,11 @@
     background: #fff;
     color: $secondary-color;
   }
+
+  .sidebar__list__desc {
+    padding-left: rem-calc(10);
+  }
+
 }
 
 .sidebar__list--chevrons {
@@ -49,6 +54,7 @@
     &:hover {
       background: none;
     }
+
   }
 
   .sidebar__list__link--active {
