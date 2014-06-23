@@ -41,7 +41,7 @@
 
 .sidebar__list--chevrons {
   margin-left: 0;
-  padding: 12px;
+  padding: rem-calc(40) rem-calc(20);
 
   .sidebar__list__link {
     border-bottom: 1px solid #ccc;
