@@ -56,3 +56,18 @@ $(function() {
 $(window).load(function() {
   $(window).trigger('resize');
 });
+
+function parallax(){
+  var scrolled_1 = $(window).scrollTop();
+  var scrolled_2 = scrolled_1 - 1000;
+  var scrolled_3 = scrolled_2 - 700;
+  var scrolled_4 = scrolled_3 - 700;
+  $('.slide--one').css( 'background-position' , 'left -' + (scrolled_1 * 0.35) + 'px' );
+  $('.slide--two').css( 'background-position' , 'left -' + (scrolled_2 * 0.35) + 'px' );
+  $('.slide--three').css( 'background-position' , 'left -' + (scrolled_3 * 0.35) + 'px' );
+  $('.slide--four').css( 'background-position' , 'left -' + (scrolled_4 * 0.35) + 'px' );
+}
+
+$(window).scroll(function(e){
+  parallax();
+});
