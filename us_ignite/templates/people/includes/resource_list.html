@@ -5,12 +5,15 @@
       <div class="small-12 columns">
         <h4 class="listings__listing__heading listings__listing__heading--plain">FEATURED RESOURCES</h4>
 
-        {% for object in object_list %}
-        {% if forloop.counter <= 3 %}
-          {% include "blog/object_block.html" with object=object %}
+        {% if object_list %}
+          {% for object in object_list %}
+            {% if forloop.counter <= 3 %}
+              {% include "blog/object_block.html" with object=object %}
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {% include "includes/empty_object.html" with text="No featured resources available." %}
         {% endif %}
-        {% endfor %}
-       
       </div>
     </div>
   </article>
