@@ -124,6 +124,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django_browserid.context_processors.browserid',
     'us_ignite.common.context_processors.settings_available',
+    'us_ignite.apps.context_processors.applications_context',
 )
 
 ROOT_URLCONF = 'us_ignite.urls'
