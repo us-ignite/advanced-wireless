@@ -1,3 +1,14 @@
 <li{% if as_sidebar %} class="sidebar__list__item"{% endif %}><a {% if as_sidebar %} class="sidebar__list__link"{% endif %}href="{% url 'app_list' %}">APPLICATIONS INDEX</a></li>
 <li{% if as_sidebar %} class="sidebar__list__item"{% endif %}><a {% if as_sidebar %} class="sidebar__list__link"{% endif %}href="{% url 'app_add' %}">ADD AN APPLICATION</a></li>
 <li{% if as_sidebar %} class="sidebar__list__item"{% endif %}><a {% if as_sidebar %} class="sidebar__list__link"{% endif %}href="{% url 'visual_list' %}">OVERVIEW</a></li>
+{% if sub_dropdown %}
+<li class="has-dropdown">
+  <a href="#">CATEGORIES</a>
+  <ul class="dropdown">
+    {% for stage in APP_STAGES %}
+    <li><a href="{% url 'app_list_stage' stage.id %}">{{ stage.name|upper }}</a></li>
+    {% endfor%}
+  </ul>
+</li>
+{% endif %}
+
