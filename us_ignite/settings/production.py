@@ -15,6 +15,7 @@ SITE_URL = 'https://beta.us-ignite.org'
 
 ALLOWED_HOSTS = [
     'beta.us-ignite.org',
+    'us-ignite.herokuapp.com',
 ]
 
 # HTTPS configuration:
