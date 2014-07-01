@@ -24,8 +24,16 @@ EXCLUDED_APPS = (
     'south',
 )
 
-INSTALLED_APPS = filter(lambda a: a not in EXCLUDED_APPS, INSTALLED_APPS)
+INSTALLED_APPS = filter(
+    lambda a: a not in EXCLUDED_APPS, INSTALLED_APPS)
 
+
+EXCLUDED_MIDDLEWARE = (
+    'us_ignite.common.middleware.URLRedirectMiddleware',
+)
+
+MIDDLEWARE_CLASSES = filter(
+    lambda m: m not in EXCLUDED_MIDDLEWARE, MIDDLEWARE_CLASSES)
 
 NOSE_ARGS = [
     '-s',
