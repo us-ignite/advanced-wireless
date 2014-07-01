@@ -111,6 +111,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.BrokenLinkEmailsMiddleware',
     'djangosecure.middleware.SecurityMiddleware',
     'us_ignite.common.middleware.DoNotTrackMiddleware',
+    'us_ignite.common.middleware.URLRedirectMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
