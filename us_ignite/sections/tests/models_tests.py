@@ -2,7 +2,7 @@ from nose.tools import eq_, ok_
 
 from django.test import TestCase
 
-from us_ignite.sections.models import Sponsor
+from us_ignite.sections.models import Sponsor, SectionPage
 
 
 class TestSponsorModel(TestCase):
@@ -22,3 +22,19 @@ class TestSponsorModel(TestCase):
         eq_(instance.website, 'http://mozilla.org')
         eq_(instance.image, 'logo.png')
         eq_(instance.order, 0)
+
+
+class TestSectionPage(TestCase):
+
+    def test_section_page_is_created_successfully(self):
+        data = {
+            'title': 'Custom page',
+        }
+        instance = SectionPage.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.title, 'Custom page')
+        eq_(instance.slug, 'custom-page')
+        eq_(instance.body, '')
+        eq_(instance.status, SectionPage.PUBLISHED)
+        eq_(instance.template, '')
+        ok_(instance.created)
