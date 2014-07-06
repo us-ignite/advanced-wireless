@@ -2,7 +2,9 @@ from nose.tools import eq_, ok_
 
 from django.test import TestCase
 
+from us_ignite.common.tests import utils
 from us_ignite.sections.models import Sponsor, SectionPage
+from us_ignite.sections.tests import fixtures
 
 
 class TestSponsorModel(TestCase):
@@ -38,3 +40,24 @@ class TestSectionPage(TestCase):
         eq_(instance.status, SectionPage.PUBLISHED)
         eq_(instance.template, '')
         ok_(instance.created)
+
+    def test_section_page_is_published(self):
+        instance = fixtures.get_section_page(status=SectionPage.PUBLISHED)
+        eq_(instance.is_published(), True)
+
+    def test_section_page_is_visible_when_published(self):
+        instance = fixtures.get_section_page(status=SectionPage.PUBLISHED)
+        user = utils.get_anon_mock()
+        ok_(instance.is_visible_by(user))
+
+    def test_section_page_is_not_visible_when_not_published(self):
+        instance = fixtures.get_section_page(status=SectionPage.DRAFT)
+        user = utils.get_anon_mock()
+        eq_(instance.is_visible_by(user), False)
+
+    def test_non_published_page_is_visible_by_superuser(self):
+        instance = fixtures.get_section_page(status=SectionPage.DRAFT)
+        user = utils.get_user_mock()
+        user.is_superuser = True
+        ok_(instance.is_visible_by(user))
+

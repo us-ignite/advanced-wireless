@@ -38,3 +38,9 @@ class SectionPage(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def is_published(self):
+        return self.status == self.PUBLISHED
+
+    def is_visible_by(self, user):
+        return self.is_published() or user.is_superuser
