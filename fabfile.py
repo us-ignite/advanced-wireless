@@ -233,7 +233,7 @@ def drop_local_db(db_name=DB_STRING):
     print yellow('Droping and creating a new DB.')
     local('PGPASSWORD=%(db)s dropdb %(db_name)s -U %(db)s -h localhost'
           % {'db': DB_STRING, 'db_name': db_name})
-    local("PGPASSWORD=%(db)s createdb %(db_name)s -T template_postgis "
+    local("PGPASSWORD=%(db)s createdb %(db_name)s -T template0 "
           "-E UTF-8 -l en_US.UTF-8 -O %(db)s -U %(db)s -h localhost"
           % {'db': DB_STRING, 'db_name': db_name})
 
@@ -248,7 +248,7 @@ def loaddb(db_name):
     with lcd(PROJECT_ROOT):
         drop_local_db()
         db_path = here(db_name)
-        db_name = '%s_remote' % DB_STRING
+        db_name = '%s' % DB_STRING
         conn = ('PGPASSWORD=%(db)s pg_restore -n public --no-acl '
                 '--no-owner -h localhost -U %(db)s -d %(db_name)s'
                 % {'db': DB_STRING, 'db_name': db_name})
