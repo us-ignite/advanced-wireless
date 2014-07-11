@@ -39,7 +39,7 @@ class SectionPage(models.Model):
     body = models.TextField(blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PUBLISHED)
     section = models.SlugField(max_length=255, choices=SECTION_CHOICES)
-    template = models.CharField(max_length=500, blank=True)
+    template = models.CharField(max_length=500, blank=True, editable=False)
     created = CreationDateTimeField()
 
     def __unicode__(self):
