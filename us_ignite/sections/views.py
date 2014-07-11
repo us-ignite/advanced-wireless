@@ -30,7 +30,8 @@ def render_template(request, template, prefix='sections'):
     return TemplateResponse(request, template, context)
 
 
-def section_page_detail(request, section, slug, template='sections/base.html'):
+def section_page_detail(
+        request, section, slug, template='sections/object_detail.html'):
     instance = get_object_or_404(SectionPage, slug=slug, section=section)
     if not instance.is_visible_by(request.user):
         raise Http404
