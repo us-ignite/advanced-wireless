@@ -175,6 +175,7 @@ INSTALLED_APPS = (
     'watson',
     'tinymce',
     'south',
+    'raven.contrib.django.raven_compat',
     'us_ignite.common',
     'us_ignite.profiles',
     'us_ignite.people',
