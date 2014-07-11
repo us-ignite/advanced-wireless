@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from django_extensions.db.fields import AutoSlugField, CreationDateTimeField
@@ -29,18 +30,28 @@ class SectionPage(models.Model):
         (DRAFT, 'Draft'),
         (REMOVED, 'Removed'),
     )
+    SECTION_CHOICES = (
+        ('about', 'About'),
+        ('get-involved', 'Get involved'),
+    )
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', unique=True)
     body = models.TextField(blank=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PUBLISHED)
+    section = models.SlugField(max_length=255, choices=SECTION_CHOICES)
     template = models.CharField(max_length=500, blank=True)
     created = CreationDateTimeField()
 
     def __unicode__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse(
+            'section_page_detail', args=[self.section, self.slug])
+
     def is_published(self):
         return self.status == self.PUBLISHED
 
     def is_visible_by(self, user):
         return self.is_published() or user.is_superuser
+

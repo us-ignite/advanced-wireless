@@ -10,7 +10,7 @@ class SponsorAdmin(admin.ModelAdmin):
 class SectionPageAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug', 'status']
     search_fields = ['title', 'slug', 'body', 'status', 'template']
-    list_filter = ['status']
+    list_filter = ['status', 'section']
 
 admin.site.register(Sponsor, SponsorAdmin)
 admin.site.register(SectionPage, SectionPageAdmin)

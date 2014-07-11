@@ -30,11 +30,18 @@ urlpatterns = patterns(
     url(r'^search/', include('us_ignite.search.urls')),
     url(r'^map/', include('us_ignite.maps.urls')),
     url(r'^news/', include('us_ignite.news.urls')),
-    url(r'^about/', include('us_ignite.sections.urls')),
-    url(r'^get-involved/', include('us_ignite.sections.urls_get_involved')),
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
     url(r'^overview/', include('us_ignite.visualize.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
+)
+
+urlpatterns += patterns(
+    '',
+    url(r'^(?P<section>(about|get-involved))/(?P<slug>[-\w]+)/$',
+        'us_ignite.sections.views.section_page_detail',
+        name='section_page_detail'),
+    url(r'^about/', include('us_ignite.sections.urls')),
+    url(r'^get-involved/', include('us_ignite.sections.urls_get_involved')),
 )
 
 urlpatterns += patterns(

@@ -31,11 +31,13 @@ class TestSectionPage(TestCase):
     def test_section_page_is_created_successfully(self):
         data = {
             'title': 'Custom page',
+            'section': 'about',
         }
         instance = SectionPage.objects.create(**data)
         ok_(instance.id)
         eq_(instance.title, 'Custom page')
         eq_(instance.slug, 'custom-page')
+        eq_(instance.section, 'about')
         eq_(instance.body, '')
         eq_(instance.status, SectionPage.PUBLISHED)
         eq_(instance.template, '')
@@ -61,3 +63,6 @@ class TestSectionPage(TestCase):
         user.is_superuser = True
         ok_(instance.is_visible_by(user))
 
+    def test_get_absolute_url(self):
+        instance = fixtures.get_section_page(title='Custom title')
+        eq_(instance.get_absolute_url(), '/about/custom-title/')
