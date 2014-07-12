@@ -52,3 +52,30 @@
 	background-position: -160px 0;
 	width: 16px;
 }
+
+
+.app__stage {
+  width: 20%;
+  padding-top: 45px;
+  background-position: top center;
+  background-repeat: no-repeat;
+  float: left;
+}
+
+.app__stage__label {
+  font-size: rem-calc(11);
+  display: block;
+  text-align: center;
+}
+
+.app__stage--passed {
+  background-image: url(../img/icons/stage-full.png);
+}
+
+.app__stage--active {
+  background-image: url(../img/icons/stage-active.png);
+}
+
+.app__stage--innactive {
+  background-image: url(../img/icons/stage-innactive.png);
+}

@@ -19,7 +19,15 @@
 <div class="listings__listing">
   <div class="row">
     <div class="small-12 columns">
-      <h2>Stage: {{ object.get_stage_display }}</h2>
+      <h2>Project milestone</h2>
+      <p class="app__stage__title">{{ object.get_stage_display }}</p>
+      <div class="">
+        {% for stage_label, stage_class in object.get_stage_list %}
+        <div class="app__stage app__stage--{{ stage_class }}">
+          <span class="app__stage__label">{{ stage_label }}</span>
+        </div>
+        {% endfor%}
+      </div>
     </div>
   </div>
 </div>

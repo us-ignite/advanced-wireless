@@ -94,6 +94,21 @@ class ApplicationBase(models.Model):
                 return pk
         return None
 
+    def compare_stage(self, stage):
+        if self.stage > stage:
+            return 'passed'
+        if self.stage == stage:
+            return 'active'
+        if self.stage < stage:
+            return 'innactive'
+        return ''
+
+    def get_stage_list(self):
+        stages = []
+        for key, name in self.STAGE_CHOICES:
+            stages.append((name, self.compare_stage(key)))
+        return stages
+
 
 class Application(ApplicationBase):
     """``Applications``add core
