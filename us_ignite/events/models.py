@@ -9,6 +9,7 @@ from django_extensions.db.fields import (
 from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
+from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
 from us_ignite.events import managers, exporter, search
 
@@ -53,7 +54,8 @@ class Event(models.Model):
     name = models.CharField(max_length=500, verbose_name=u'event name')
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PUBLISHED)
-    image = models.ImageField(upload_to="events", blank=True)
+    image = models.ImageField(
+        upload_to="events", blank=True, help_text=IMAGE_HELP_TEXT)
     description = models.TextField(verbose_name=u'short description')
     start_datetime = models.DateTimeField(verbose_name=u'Start Date/Time')
     end_datetime = models.DateTimeField(

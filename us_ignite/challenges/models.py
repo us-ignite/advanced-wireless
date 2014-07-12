@@ -7,6 +7,7 @@ from django.utils import timezone
 from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
 
+from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT
 from us_ignite.challenges import managers
 
@@ -38,7 +39,8 @@ class Challenge(models.Model):
         blank=True, help_text=u'Important event dates.')
     acknowledgments = models.TextField(
         blank=True, help_text=u'Partners/Sponsors/Acknowledgements')
-    image = models.ImageField(upload_to="challenge", blank=True)
+    image = models.ImageField(
+        upload_to="challenge", blank=True, help_text=IMAGE_HELP_TEXT)
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True)
     hide_entries = models.BooleanField(

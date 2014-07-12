@@ -10,6 +10,7 @@ from django_extensions.db.fields import (
 from geoposition.fields import GeopositionField
 from taggit.managers import TaggableManager
 
+from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
 from us_ignite.apps import managers, search
 
@@ -52,7 +53,8 @@ class ApplicationBase(models.Model):
     website = models.URLField(max_length=500, blank=True, help_text=URL_HELP_TEXT)
     image = models.ImageField(
         blank=True, upload_to='apps', max_length=500,
-        help_text=u'E.g. logo, screenshot, application diagram, photo of demo')
+        help_text=u'E.g. logo, screenshot, application diagram, photo of demo. %s'
+        % IMAGE_HELP_TEXT)
     summary = models.TextField(
         blank=True, help_text=u'One sentence (tweet-length) pitch/summary of '
         'the application')
@@ -225,7 +227,8 @@ class ApplicationURL(models.Model):
 class ApplicationMedia(models.Model):
     application = models.ForeignKey('apps.Application')
     name = models.CharField(max_length=255, blank=True)
-    image = models.ImageField(upload_to='apps', max_length=500, blank=True)
+    image = models.ImageField(upload_to='apps', max_length=500, blank=True,
+                              help_text=IMAGE_HELP_TEXT)
     url = models.URLField(
         blank=True, verbose_name=u'URL', help_text=URL_HELP_TEXT)
     created = CreationDateTimeField()

@@ -3,6 +3,7 @@ import watson
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
 from us_ignite.resources import managers, search
 
@@ -59,7 +60,8 @@ class Resource(models.Model):
     organization = models.ForeignKey(
         'organizations.Organization', blank=True, null=True,
         on_delete=models.SET_NULL)
-    image = models.ImageField(upload_to="resource", blank=True)
+    image = models.ImageField(
+        upload_to="resource", blank=True, help_text=IMAGE_HELP_TEXT)
     asset = models.FileField(upload_to="resource", blank=True)
     resource_date = models.DateField(
         blank=True, null=True, help_text=u'Format: YYYY-MM-DD')

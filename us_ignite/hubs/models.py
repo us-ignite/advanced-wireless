@@ -3,6 +3,7 @@ import watson
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT
 from us_ignite.hubs import managers, search
 
@@ -73,7 +74,8 @@ class Hub(models.Model):
     description = models.TextField()
     contact = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
-    image = models.ImageField(blank=True, upload_to='hub', max_length=500)
+    image = models.ImageField(blank=True, upload_to='hub', max_length=500,
+                              help_text=IMAGE_HELP_TEXT)
     website = models.URLField(
         max_length=500, blank=True, help_text=URL_HELP_TEXT)
     features = models.ManyToManyField(
