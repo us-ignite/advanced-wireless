@@ -74,14 +74,6 @@
         {% block sidebar_content %}
         {% include "includes/lists/sidebar.html" %}
         {% endblock sidebar_content %}
-
-        {# Default sidebar content #}
-
-        <h3 class="sidebar__heading">US Ignite News</h3>
-        {% latest_articles "blog/news_list.html" %}
-
-        <h3 class="sidebar__heading">Subscribe & Follow</h3>
-        {% include "mailinglist/sidebar.html" %}
       </div>
     </div>
   </aside>
