@@ -2,7 +2,7 @@
   <div class="featured__image-container hide-on-hover show-for-medium-up medium-4 large-12 columns">
     {% load thumbnail %}
     {% if object.image %}
-    <img src="{% thumbnail object.image 216x108 crop %}" alt="{{ object.name }}" class="featured__image" />
+    <img src="{% thumbnail object.image 216x119 crop %}" alt="{{ object.name }}" class="featured__image" />
     {% else %}
     <img src="{{ STATIC_URL }}img/project-default.png" alt="{{ object.name }}" class="featured__image">
     {% endif %}
