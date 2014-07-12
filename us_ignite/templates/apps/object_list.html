@@ -25,6 +25,6 @@
 {% block domain_list %}
 {{ block.super }}
 {% for stage_id, stage in stage_list %}
-<li><a href="{% url 'app_list_stage' stage_id %}" class="domains__link">{{ stage }}</a></li>
+<li><a href="{% url 'app_list_stage' stage_id %}" class="domains__link {% if current_stage == stage_id %}domains__link--active{% endif %}">{{ stage }}</a></li>
 {% endfor%}
 {% endblock domain_list %}

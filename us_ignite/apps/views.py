@@ -65,6 +65,8 @@ def app_list(request, domain=None, stage=None, filter_name=''):
         'domain_list': Domain.objects.all(),
         'stage_list': Application.STAGE_CHOICES,
         'filter_name': filter_name,
+        'current_domain': domain,
+        'current_stage': int(stage) if stage else None,
     }
     return TemplateResponse(request, 'apps/object_list.html', context)
 

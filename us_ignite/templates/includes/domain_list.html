@@ -1,4 +1,4 @@
 <li><a href="{% url domain_all_link %}" class="domains__link">All</a></li>
 {% for domain in domain_list %}
-<li><a href="{% url domain_link domain.slug %}" class="domains__link"><span class="domains__icon--{{ domain.slug }}"></span> {{ domain.name }}</a></li>
+<li><a href="{% url domain_link domain.slug %}" class="domains__link {% if current_domain == domain.slug %}domains__link--active{% endif %}"><span class="domains__icon--{{ domain.slug }}"></span> {{ domain.name }}</a></li>
 {% endfor %}
