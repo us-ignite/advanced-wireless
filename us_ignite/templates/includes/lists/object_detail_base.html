@@ -24,7 +24,7 @@
 
     <ul data-orbit>
       {% if object.image %}
-      <li><img src="{% thumbnail object.image 500x500 crop %}" alt="" title="{{ object.name }}"/></li>
+      <li><img src="{% thumbnail object.image 500x500 %}" alt="" title="{{ object.name }}"/></li>
       {% endif %}
 
       {% if media_list %}
