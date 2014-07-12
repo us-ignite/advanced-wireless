@@ -47,7 +47,14 @@
         </ul>
       </div>
       <div class="small-12 medium-3 columns">
-        {% include "includes/order_form.html" %}
+        <ul>
+          {% include "includes/order_form.html" %}
+          <div class="row collapse">
+            <div class="small-12 columns search">
+              {% include "includes/search.html" %}
+            </div>
+          </div>
+        </ul>
       </div>
     </div>
     {% endblock tags %}
