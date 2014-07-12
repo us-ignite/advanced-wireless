@@ -3,6 +3,12 @@
 
 {% block title %}Application: {{ object.name }} - {{ block.super }}{% endblock title %}
 
+
+{% block content_title %}
+<span class="domains__icon--{{ domain.slug }}"></span>
+{{ object.name }} {% if object.is_draft %}(Draft){% endif %}
+{% endblock content_title %}
+
 {% block tag_list %}
   {% include "includes/tag_list.html" with tag_type="search_apps" tag_list=object.tags.all %}
 {% endblock tag_list %}
