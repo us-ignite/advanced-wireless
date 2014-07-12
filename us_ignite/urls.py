@@ -37,11 +37,11 @@ urlpatterns = patterns(
 
 urlpatterns += patterns(
     '',
+    url(r'^about/', include('us_ignite.sections.urls')),
+    url(r'^get-involved/', include('us_ignite.sections.urls_get_involved')),
     url(r'^(?P<section>(about|get-involved))/(?P<slug>[-\w]+)/$',
         'us_ignite.sections.views.section_page_detail',
         name='section_page_detail'),
-    url(r'^about/', include('us_ignite.sections.urls')),
-    url(r'^get-involved/', include('us_ignite.sections.urls_get_involved')),
 )
 
 urlpatterns += patterns(
