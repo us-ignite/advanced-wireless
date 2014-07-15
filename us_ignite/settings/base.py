@@ -7,7 +7,6 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Alfredo Aguirre', 'notifications@madewithbyt.es'),
-    ('US Ignite', 'info@us-ignite.org'),
 )
 
 MANAGERS = ADMINS
