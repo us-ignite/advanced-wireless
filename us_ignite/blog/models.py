@@ -119,7 +119,7 @@ class BlogLink(models.Model):
         ordering = ('order',)
 
     def __unicode__(self):
-        return self.title
+        return self.name
 
 
 # Search:
