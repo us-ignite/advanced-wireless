@@ -21,6 +21,10 @@ class dev {
     frontend: ;
   }
 
+  host { $server_name:
+    ip => '127.0.1.1',
+  }
+
   class { "memcached":
     require => Class[init],
   }
