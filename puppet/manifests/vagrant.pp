@@ -79,6 +79,10 @@ class dev {
     project_name => $project_name;
   }
 
+  class { "phantomjs":
+    require => Class[custom],
+  }
+
 }
 
 include dev
