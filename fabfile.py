@@ -5,6 +5,7 @@ from datetime import datetime
 from fabric.api import local, env, lcd, task
 from fabric.colors import yellow, red, green
 from fabric.contrib import console
+from django.conf import settings
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 here = lambda *x: os.path.join(PROJECT_ROOT, *x)
@@ -300,3 +301,86 @@ def dummy_data():
     if console.confirm(confirmation):
         dj_heroku('dummy_generate_content', env.app, env.slug)
     print green('Done.')
+
+
+ADMIN_APPS = {
+    'apps': ['application', 'domain', 'feature', 'page'],
+    'auth': ['user'],
+    'awards': ['applicationaward', 'award', 'hubaward', 'useraward'],
+    'blog': ['bloglink', 'post'],
+    'challenges': ['challenge', 'entry'],
+    'events': ['audience', 'event'],
+    'hubs': ['hubactivity', 'hubrequest', 'hub'],
+    'maps': ['category', 'location'],
+    'news': ['article'],
+    'organizations': ['organization'],
+    'profiles': ['profile'],
+    'resources': ['resourcetype', 'resource', 'sector'],
+    'sections': ['sectionpage', 'sponsor'],
+    'snippets': ['snippet'],
+    'taggit': ['tag'],
+    'testbeds': ['networkspeed', 'testbed'],
+    'uploads': ['image', 'upload'],
+}
+
+def _get_path_urls(app, model_list):
+    path_urls = []
+    for model in model_list:
+        prefix = '/admin/%s/%s' % (app, model)
+        for p in ['/', '/add/']:
+            path_urls.append('%s%s' % (prefix, p))
+    return path_urls
+
+
+def _get_admin_paths():
+    path_list = []
+    for app, model_list in ADMIN_APPS.items():
+        path_list += _get_path_urls(app, model_list)
+    return path_list
+
+
+def _snapshot_path(path):
+    path = '/home/' if path == '/' else path
+    return 'snapshots/%s.png' % path[1:-1].replace('/', '--')
+
+
+@task
+@only_inside_vm
+def generate_snapshots():
+    """Generate several snapshots"""
+    _url = lambda p: '%s%s' % (settings.SITE_URL, p)
+    path_list = [
+        '/',
+        '/admin/',
+        '/admin/auth/user/312/',
+        '/about/what-is-us-ignite/',
+        '/get-involved/involve-developers/',
+        '/apps/',
+        '/apps/add/',
+        '/apps/MI-2/',
+        '/apps/MI-2/edit/',
+        '/apps/MI-2/membership/',
+        '/apps/MI-2/hubs-membership/',
+        '/admin/apps/application/168/',
+        '/overview/',
+        '/apps/stage/1/',
+        '/hub/',
+        '/hub/apply/',
+        '/admin/hubs/hubrequest/4/',
+        '/admin/hubs/hubrequest/approve/4/',
+        '/testbed/',
+        '/event/',
+        '/challenges/',
+        '/org/',
+        '/resources/',
+        '/resources/add/',
+        '/blog/',
+        '/people/a3BKDCioVuC57TckDt8Rob/',
+        '/contact/a3BKDCioVuC57TckDt8Rob/',
+        '/dashboard/',
+        '/accounts/profile/',
+    ] + _get_admin_paths()
+    with lcd(here('.')):
+        for path in path_list:
+            local('phantomjs screenshots.js %s %s' %
+                  (_url(path), _snapshot_path(path)))
