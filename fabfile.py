@@ -5,7 +5,6 @@ from datetime import datetime
 from fabric.api import local, env, lcd, task
 from fabric.colors import yellow, red, green
 from fabric.contrib import console
-from django.conf import settings
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 here = lambda *x: os.path.join(PROJECT_ROOT, *x)
@@ -348,7 +347,8 @@ def _snapshot_path(path):
 @only_inside_vm
 def generate_snapshots():
     """Generate several snapshots"""
-    _url = lambda p: '%s%s' % (settings.SITE_URL, p)
+    SITE_URL = 'http://local-us-ignite.org'
+    _url = lambda p: '%s%s' % (SITE_URL, p)
     path_list = [
         '/',
         '/admin/',
