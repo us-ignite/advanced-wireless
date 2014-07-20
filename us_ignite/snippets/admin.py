@@ -16,7 +16,7 @@ class SnippetAdminForm(forms.ModelForm):
 
 
 class SnippetAdmin(admin.ModelAdmin):
-    list_display = ('name', )
+    list_display = ('name', 'slug')
     search_fields = ('name', 'url')
     list_filter = ('status', 'is_featured', 'created')
     date_hierarchy = 'created'
