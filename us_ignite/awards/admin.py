@@ -16,13 +16,13 @@ class ApplicationAwardAdmin(admin.ModelAdmin):
 class HubAwardAdmin(admin.ModelAdmin):
     list_display = ('award', 'hub', 'created')
     date_hierarchy = 'created'
-    list_filter = ('award__name',)
+    list_filter = ('award__name', )
 
 
 class UserAwardAdmin(admin.ModelAdmin):
     list_display = ('award', 'user', 'created')
     date_hierarchy = 'created'
-    list_filter = ('award__name', 'user')
+    list_filter = ('award__name', )
     raw_id_fields = ('user', )
 
 
