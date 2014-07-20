@@ -20,8 +20,8 @@ class ProfileLinkInline(admin.TabularInline):
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = (email, 'name', 'slug')
-    search_fields = ('user__first_name', 'slug', 'name')
+    list_display = (email, 'user', 'slug')
+    search_fields = ('user__first_name', 'slug', 'user__last_name')
     inlines = [ProfileLinkInline]
 
     def get_urls(self):
