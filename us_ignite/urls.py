@@ -7,6 +7,7 @@ from django.contrib import admin
 
 admin.autodiscover()
 
+
 # custom 404 and 500 handlers
 handler404 = 'us_ignite.common.views.custom_404'
 handler500 = 'us_ignite.common.views.custom_500'
@@ -76,4 +77,10 @@ if settings.DEBUG:
         '',
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.MEDIA_ROOT}),
+    )
+
+    import debug_toolbar
+    urlpatterns += patterns(
+        '',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
     )

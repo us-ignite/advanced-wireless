@@ -15,6 +15,6 @@ class URLRedirectMiddleware(object):
     def process_request(self, request):
         host = request.META.get('HTTP_HOST', '')
         parsed_url = urlparse.urlparse(settings.SITE_URL)
-        if not host == parsed_url.netloc:
+        if not settings.DEBUG and not host == parsed_url.netloc:
             new_url = settings.SITE_URL + request.path_info
             return HttpResponsePermanentRedirect(new_url)
