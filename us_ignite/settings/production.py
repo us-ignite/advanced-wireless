@@ -16,6 +16,8 @@ SITE_URL = 'https://beta.us-ignite.org'
 ALLOWED_HOSTS = [
     'beta.us-ignite.org',
     'us-ignite.herokuapp.com',
+    'www.us-ignite.org',
+    'us-ignite.org',
 ]
 
 # HTTPS configuration:
@@ -80,9 +82,6 @@ MAILCHIMP_LIST = env('MAILCHIMP_LIST')
 
 # Production flag:
 IS_PRODUCTION = True
-
-# TODO: Remove once in production:
-GOOGLE_ANALYTICS_ID = 'DUMMY'
 
 # Asset compressor:
 COMPRESS_ENABLED = True
