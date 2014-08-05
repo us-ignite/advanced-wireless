@@ -48,15 +48,17 @@ def get_application_list(owner, viewer=None):
 
 
 def get_similar_applications(application_list, total=4):
+    params = {
+        'status': Application.PUBLISHED,
+    }
     if application_list:
         application = application_list[0]
-        params = {
-            'status': Application.PUBLISHED,
-            'domain': application.domain,
-        }
-        return (Application.active.filter(**params)
-                .exclude(owner=application.owner).order_by('?')[:total])
-    return Application.objects.none()
+        params['domain'] = application.domain
+        object_list =  (Application.active.filter(**params)
+                        .exclude(owner=application.owner))
+    else:
+        object_list = Application.active.filter(**params)
+    return object_list.order_by('?')[:total]
 
 
 def get_event_list(user, viewer=None):
@@ -104,6 +106,11 @@ def get_hub_list(user, viewer=None):
     return list(set(hub_list))
 
 
+def get_featured_hub_list(limit=2):
+    return (Hub.objects.filter(status=Hub.PUBLISHED, is_featured=True)
+            .order_by('?')[:limit])
+
+
 def get_award_list(user, viewer=None):
     qs_kwargs = {'user': user}
     award_qs = UserAward.objects.select_related('award').filter(**qs_kwargs)
@@ -116,6 +123,11 @@ def get_post_list(limit=7):
 
 def get_featured_resources(limit=2):
     return Resource.published.filter(is_featured=True)[:limit]
+
+
+def get_featured_events(limit=2):
+    return (Event.published.filter(is_featured=True)
+            .order_by('?')[:limit])
 
 
 @login_required
@@ -159,6 +171,8 @@ def dashboard(request):
         'post_list': get_post_list(),
         'hub_list': hub_list[:7],
         'hub_event_list': Event.published.get_for_hubs(hub_id_list)[:6],
+        'featured_event_list': get_featured_events(),
+        'featured_hub_list': get_featured_hub_list(),
         'featured_resource_list': get_featured_resources(),
         'content_list': content_list,
         'hub_request_list': HubRequest.objects.filter(user=user)[:6],

@@ -411,5 +411,6 @@ class TestDashboardView(TestCase):
             sorted(['application_list', 'content_list',
                     'featured_resource_list', 'hub_event_list',
                     'hub_list', 'hub_request_list', 'object',
-                    'post_list', 'similar_applications']))
+                    'post_list', 'similar_applications',
+                    'featured_event_list', 'featured_hub_list']))
         mock_get_create.assert_called_once()
