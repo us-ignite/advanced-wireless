@@ -16,7 +16,7 @@ DB_STRING = 'us_ignite'
 def production():
     """Connection details for the ``production`` app"""
     env.slug = 'production'
-    env.url = 'https://beta.us-ignite.org/'
+    env.url = 'https://us-ignite.org/'
     env.app = 'us-ignite'
 
 
