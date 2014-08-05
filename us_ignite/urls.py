@@ -57,6 +57,8 @@ urlpatterns += patterns(
     url(r'^robots.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
     url(r'^kit/$', TemplateView.as_view(template_name='kit.html')),
+    #url(r'^about', 'django.views.generic.simple.direct_to_template', {'template': 'path/to/about_us.html'}),)
+    url(r'^globalcityteams/$', TemplateView.as_view(template_name='globalcityteams/index.html')),
 )
 
 # US Ignite legacy redirects:
