@@ -1,0 +1,38 @@
+.icon {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	fill: currentColor;
+}
+.icon-untitled {
+	/*fill: #ffffff;*/
+}
+.icon-untitled2 {
+	/*fill: #ffffff;*/
+	width: 30px;
+}
+.icon-untitled3 {
+	/*fill: #ffffff;*/
+	width: 18px;
+}
+.icon-arrow-left {
+	/*fill: #ffffff;*/
+}
+.icon-arrow-down {
+	/*fill: #ffffff;*/
+}
+.icon-arrow-up {
+	/*fill: #ffffff;*/
+}
+.icon-arrow-right {
+	/*fill: #ffffff;*/
+}
+.icon-arrow-left2 {
+	/*fill: #ffffff;*/
+}
+.icon-arrow-down2 {
+	/*fill: #ffffff;*/
+}
+.icon-arrow-up2 {
+	/*fill: #ffffff;*/
+}

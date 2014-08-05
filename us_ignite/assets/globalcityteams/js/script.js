@@ -849,8 +849,8 @@ $(document).foundation();
 		$('.carousel').slick({
 			 infinite: true,
 			speed: 600,
-			slidesToShow: 8,
-			slidesToScroll: 8,
+			slidesToShow: 6,
+			slidesToScroll: 6,
 			autoplay: true,
 			responsive: [
 				{

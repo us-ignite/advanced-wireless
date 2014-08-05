@@ -68,7 +68,7 @@ body {
 /* Intro Image */
 .intro-image {
 	min-height: 400px;
-	background:url(../images/skyline.jpg) no-repeat #333333;
+	background:url(../images/skyline-2.jpg) no-repeat #333333;
 
 }
 
@@ -125,10 +125,34 @@ body {
 .intro-image p {
 	font-size: 15px;
 	font-weight: 300;
-	line-height: 30px;
+	line-height: 32px;
+}
+
+.intro-image .image-source {
+	-webkit-transition: all 200ms ease-out;
+	-moz-transition: all 200ms ease-out;
+	transition: all 200ms ease-out;
+	opacity: 0;
+}
+
+.intro-image:hover .image-source {
+	opacity: 0.8;
+}
+
+.image-source {
+	float: none;
+	font-size: 10px;
+	padding: 10px;
+	color: #fff;
+	background-color: rgba(0,0,0,0.75);
+	margin: 0 15px 5px 15px;
+	text-align: left;
+	
+	
 }
 
 @media only screen and (min-width:48.063em) {
+
 .intro-image h1 {
 	font-size: 55px;
 }
@@ -292,8 +316,8 @@ footer p {
 }
 
 .copyright {
-	/*border-top: 1px solid rgb(100,100,100);
-	padding-top: 20px;*/
+	border-top: 1px solid rgb(100,100,100);
+	padding-top: 20px;
 }
 
 .carousel {
@@ -309,7 +333,7 @@ footer {
 }
 
 .copyright {
-	/*padding-top: 35px;*/
+	padding-top: 35px;
 }
 
 .carousel {
