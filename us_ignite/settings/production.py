@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 # settings is one directory up now
 here = lambda *x: os.path.join(PROJECT_ROOT, '..', *x)
 
-SITE_URL = 'https://beta.us-ignite.org'
+SITE_URL = 'https://us-ignite.org'
 
 ALLOWED_HOSTS = [
     'beta.us-ignite.org',
