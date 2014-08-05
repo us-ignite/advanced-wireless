@@ -107,7 +107,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'djangosecure.middleware.SecurityMiddleware',
     'us_ignite.common.middleware.DoNotTrackMiddleware',
