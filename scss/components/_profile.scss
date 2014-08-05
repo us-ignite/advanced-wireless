@@ -6,6 +6,14 @@
 	}	
 }
 
+.profile__section {
+	min-height: rem-calc(500);
+}
+
+.profile__section__short {
+	min-height: rem-calc(350);
+}
+
 .profile__avatar {
 	width:276px;
 }

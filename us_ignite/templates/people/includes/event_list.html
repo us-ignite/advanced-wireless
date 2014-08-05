@@ -1,6 +1,6 @@
   <!-- FULL ROW -->
   <div class="row collapse l-listings l-listings--full">
-    <article class="large-8 medium-9 small-12 columns listings profile">
+    <article class="large-8 medium-9 small-12 columns listings profile profile__section__short">
       <div class="row">
         <div class="small-12 columns">
           <h4 class="listings__listing__heading listings__listing__heading--plain">EVENT HIGHLIGHTS</h4>
@@ -31,10 +31,8 @@
           <ul class="no-bullet sidebar__list">
             <li class="sidebar__list__item">
 
-              {% for object in object_list %}
-              {% if forloop.counter > 2 %}
-                {% include "people/includes/object_headline_mini.html" with object=object %}
-              {% endif %}
+              {% for event in featured_event_list %}
+                {% include "people/includes/object_headline_mini.html" with object=event %}
               {% endfor %}
 
             </li>

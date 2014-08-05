@@ -1,6 +1,6 @@
 <!-- FULL ROW -->
 <div class="row collapse l-listings l-listings--full">
-  <article class="large-8 medium-9 small-12 columns listings profile">
+  <article class="large-8 medium-9 small-12 columns listings profile profile__section__short">
     <div class="row">
       <div class="small-12 columns">
         <h4 class="listings__listing__heading listings__listing__heading--plain">MY COMMUNITIES</h4>
@@ -27,16 +27,11 @@
       <div class="large-12 columns">
         <h3 class="sidebar__heading">CHECK OUT THESE COMMUNITIES</h3>
 
-        
         <ul class="no-bullet sidebar__list">
           <li class="sidebar__list__item">
-            
-            {% for object in object_list %}
-            {% if forloop.counter > 3 %}
-              {% include "people/includes/object_headline_mini.html" with object=object %}
-            {% endif %}
+            {% for hub in featured_hub_list %}
+              {% include "people/includes/object_headline_mini.html" with object=hub %}
             {% endfor %}
-
           </li>
         </ul>
 
