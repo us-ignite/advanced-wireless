@@ -308,7 +308,7 @@ THUMBNAIL_EXTENSION = 'png'
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
 # WP
-WP_URL = 'http://us-ignite.org'
+WP_URL = 'http://us-ignite-wp.herokuapp.com'
 WP_EMAIL = ''
 
 # MailChimp integration:
