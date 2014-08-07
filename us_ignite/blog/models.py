@@ -50,7 +50,7 @@ class Post(models.Model):
 
     class Meta:
         get_latest_by = 'publication_date'
-        ordering = ('is_featured', '-publication_date',)
+        ordering = ('-is_featured', '-publication_date',)
 
     def __unicode__(self):
         return self.title
