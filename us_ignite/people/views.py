@@ -118,12 +118,12 @@ def get_award_list(user, viewer=None):
 
 
 def get_post_list(limit=7):
-    return Post.objects.all()[:limit]
+    return (Post.published.all()
+            .order_by('-is_featured', '-publication_date')[:limit])
 
 
 def get_featured_resources(limit=2):
     return Resource.published.filter(is_featured=True)[:limit]
-
 
 def get_featured_events(limit=2):
     return (Event.published.filter(is_featured=True)
