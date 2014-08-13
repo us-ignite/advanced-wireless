@@ -341,4 +341,7 @@ COMPRESS_OUTPUT_DIR = ''
 
 GOOGLE_ANALYTICS_ID = 'UA-40470323-1'
 
-IGNITE_MANAGER = 'info@us-ignite.org'
+IGNITE_MANAGERS = [
+    'info@us-ignite.org',
+    'jennifer.mott@us-ignite.org',
+]

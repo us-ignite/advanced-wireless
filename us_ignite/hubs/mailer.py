@@ -14,5 +14,5 @@ def notify_request(hub_request):
     message = render_to_string('hubs/email/request_message.txt', context)
     email = mail.EmailMessage(
         subject, message, settings.DEFAULT_FROM_EMAIL,
-        [settings.IGNITE_MANAGER])
+        settings.IGNITE_MANAGERS)
     return email.send()
