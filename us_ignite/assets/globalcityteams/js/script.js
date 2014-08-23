@@ -874,8 +874,30 @@ $(document).foundation();
 			/* End submitHandler */
 		});
 		
+		showHideTopArrow();
+		
 		$(window).scroll(function(e){
 			parallax();
+			showHideTopArrow();
+		});
+		
+		$("#top-arrow").on("click", function (e) {
+			var faqTopicTop = $("#faq-topics").offset().top;
+			$("body").animate({
+				scrollTop : faqTopicTop - 20
+			});
+		});
+		
+		$("#faq-topics").on("click", function (e) {
+			if ($(e.target).is("strong"))
+			{
+				e.preventDefault();
+				var faq = $(e.target).parent().attr("href");
+				var newScrollTop = $(faq).offset().top;
+				$("body").animate({
+					scrollTop : newScrollTop
+				});
+			}
 		});
 	});
 	
@@ -884,12 +906,26 @@ $(document).foundation();
 		$("body").fadeIn(800);
 		
 	});
+	
+	
+	function showHideTopArrow () {
+		var faqTopicTop = $("#faq-topics").offset().top;
+		var bodyScrollTop = $("body").scrollTop();
+		if (	(bodyScrollTop + 20) >faqTopicTop)
+		{
+			$("#top-arrow").show();
+		}
+		else
+		{
+			$("#top-arrow").hide();
+		}
+	}
 
 })(jQuery);
 
 /* Add parallax effect to intro image */
 function parallax(){
-	var scrolled_1 = $('body').scrollTop();
+	var scrolled_1 = $(window).scrollTop();
 	$('.intro-image').css( 'background-position' , '0% -' + (scrolled_1 * 0.35) + 'px' );
 }
 

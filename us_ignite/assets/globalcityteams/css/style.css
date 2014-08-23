@@ -122,6 +122,12 @@ body {
 	font-weight: 400;
 	margin-bottom: 10px;
 }
+
+.faqs .intro-image h1 {
+	margin-top: 120px;
+	font-size: 24px;
+}
+
 .intro-image p {
 	font-size: 15px;
 	font-weight: 300;
@@ -148,7 +154,19 @@ body {
 	margin: 0 15px 5px 15px;
 	text-align: left;
 	
-	
+}
+
+.faqs .image-source {
+	position: absolute;
+	right: 0px;
+	bottom: 10px;
+	top: 350px;
+	display: block;
+	height: 40px;
+}
+
+.faq-list li {
+	margin-bottom: 20px;	
 }
 
 @media only screen and (min-width:48.063em) {
@@ -163,9 +181,22 @@ body {
 	
 }
 
+.faqs .intro-image h1 {
+	margin-top: 100px;
+	font-size: 55px;
+}
+
+.faqs .image-source {
+	height: 30px;
+}
+}
+
+p.list {
+	margin: 5px 0 5px 0;
 }
 
 /* Content */
+
 
 .form-top-border {
 	background-color: rgb(246,140,31);
@@ -302,8 +333,9 @@ form textarea {
 /* Footer */
 footer {
 	background-color: #282828;
-	padding: 1rem 0;
-	margin-top: 20px;
+	padding: 10px 0 5px 0;
+	
+	margin-top: 16px;
 }
 
 footer p {
@@ -317,7 +349,8 @@ footer p {
 
 .copyright {
 	border-top: 1px solid rgb(100,100,100);
-	padding-top: 20px;
+	padding-top: 8px;
+	font-size: 14px;
 }
 
 .carousel {
@@ -328,12 +361,12 @@ footer p {
 
 @media only screen and (min-width:48.063em) {
 footer {
-	padding: 2rem 0;
+	padding: 16px 0 12px 0;
 	margin-top: 30px;
 }
 
 .copyright {
-	padding-top: 35px;
+	padding-top: 16px;
 }
 
 .carousel {
@@ -342,6 +375,25 @@ footer {
 
 }
 
+#top-arrow {
+	position: fixed;
+	right: 15px;
+	bottom: 15px;
+	background-color: #fff;
+	z-index: 10;
+	border-radius: 100px;
+	-o-border-radius: 100px;
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+	color: #282828;
+	padding: 10px;
+	font-size: 40px;
+	-webkit-box-shadow:0 0 5px #999999;
+	-moz-box-shadow:0 0 5px #999999;
+	box-shadow:0 0 5px #999999;
+	cursor: pointer;
+	opacity: 0.7;
+}
 
 /* Tyopography */
 
