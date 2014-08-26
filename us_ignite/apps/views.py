@@ -99,6 +99,7 @@ def app_detail(request, slug):
                     .order_by('?')[:3])
     context = {
         'object': app,
+        'domain': app.domain,
         'url_list': app.applicationurl_set.all(),
         'media_list': app.applicationmedia_set.all(),
         'feature_list': app.features.all(),
