@@ -1,13 +1,16 @@
-{% if object %}{% load thumbnail %}
-<div class="large-4 small-6 columns listing-featured__item{% if object.last %} show-for-large-up{% endif %}">
-  <a href="{{ object.url }}" class="listing-featured__link" title="{{ object.name }}">
-  	{% if object.image %}
-    <img src="{% thumbnail object.image 376x238 crop %}" alt="{{ object.name }}">
-    {% endif %}
-
-    <span class="listing-featured__desc">
-      {{ object.name }}
-    </span>
-  </a>
+{% load thumbnail %}{% if object %}
+<div class="row" data-equalizer-watch>
+  <div class="small-12 columns">
+    {% if object.image %}<img src="{% thumbnail object.image 80x78 crop %}" alt="{{ object.name }}">{% endif %}
+    <h4 class="homepage-grid__heading homepage-grid__heading__plain">{{ object.name }}</h4>
+    {{ object.body|safe }}
+  </div>
 </div>
+{% if object.url and object.url_text %}
+<div class="row">
+  <div class="small-12 columns">
+    <a class="homepage-grid__button button expand alert" href="{{ object.url }}" >{{ object.url_text }}</a>
+  </div>
+</div>
+{% endif %}
 {% endif %}
