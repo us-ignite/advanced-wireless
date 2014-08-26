@@ -50,11 +50,11 @@ def app_list(request, domain=None, stage=None, filter_name=''):
     order_form = forms.OrderForm(
         request.GET, order_choices=APPS_SORTING_CHOICES)
     order_value = order_form.cleaned_data['order'] if order_form.is_valid() else ''
-    object_list = Application.objects.filter(
+    object_list = Application.objects.select_related('domain').filter(
         status=Application.PUBLISHED, **extra_qs)
     if order_value:
         object_list = object_list.order_by(order_value)
-    featured_list = Application.objects.filter(
+    featured_list = Application.objects.select_related('domain').filter(
         status=Application.PUBLISHED, is_featured=True, **extra_qs)[:3]
     page = pagination.get_page(object_list, page_no)
     context = {
