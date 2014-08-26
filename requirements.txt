@@ -1,5 +1,5 @@
 # Production
-Django == 1.6.5
+Django == 1.6.6
 dj-database-url == 0.2.2
 gevent == 1.0
 greenlet==0.4.2
