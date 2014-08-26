@@ -45,6 +45,17 @@
   }
 }
 
+.homepage-grid__col--last {
+  &:nth-child(odd) {
+    border-right: 0px;
+  }
+
+  @media #{$large-up} {
+    border-right: 0px;
+  }
+
+}
+
 .homepage-grid__col--devs {
   .homepage-grid__heading {
     background-image:url(../img/icons/keyboard.png);
