@@ -290,6 +290,13 @@ def reset_local_db():
 
 
 @task
+@only_inside_vm
+def build():
+    """Runs any Front end task required by the build."""
+    with lcd(here('.')):
+        local('grunt sass')
+
+@task
 @only_outside_vm
 def dummy_data():
     """Loads dummy data in the remote environment."""
