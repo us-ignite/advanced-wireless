@@ -6,7 +6,9 @@
     {% else %}
     <img src="{{ STATIC_URL }}img/project-default.png" alt="{{ object.name }}" class="featured__image">
     {% endif %}
+    {% if object.domain %}
     <span class="domains__icon--{{ object.domain.slug }} domains__icon--absolute-bottom-right"></span>
+    {% endif %}
   </div>
 
   <div class="small-10 medium-8 large-12 columns">

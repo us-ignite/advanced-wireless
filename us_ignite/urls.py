@@ -60,6 +60,7 @@ urlpatterns += patterns(
     #url(r'^about', 'django.views.generic.simple.direct_to_template', {'template': 'path/to/about_us.html'}),)
     url(r'^globalcityteams/$', TemplateView.as_view(template_name='globalcityteams/index.html')),
     url(r'^globalcityteams/faq$', TemplateView.as_view(template_name='globalcityteams/faqs.html')),
+    url(r'^globalcityteams/upload$', TemplateView.as_view(template_name='globalcityteams/document-upload.html'))
 )
 
 # US Ignite legacy redirects:

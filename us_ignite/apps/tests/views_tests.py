@@ -253,7 +253,7 @@ class TestAppDetailView(TestCase):
         eq_(sorted(response.context_data.keys()),
             sorted(['award_list', 'can_edit', 'feature_list',
                     'hub_list', 'is_owner', 'media_list', 'member_list',
-                    'object', 'related_list', 'url_list'])
+                    'object', 'related_list', 'url_list', 'domain'])
         )
         eq_(response.template_name, 'apps/object_detail.html')
         get_mock.assert_once_called_with('foo', request.user)
