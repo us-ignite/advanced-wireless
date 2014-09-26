@@ -1,0 +1,13 @@
+Hi there,
+
+The {{ object.user.email }} has applied to be a Ignite Community.
+
+The details of the application can be found at:
+
+{{ SITE_URL }}{{ object.get_admin_url }}
+
+You are being emailed because you are listed as a site administrator.
+
+Regards,
+
+The US Ignite team.

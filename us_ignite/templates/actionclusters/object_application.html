@@ -1,0 +1,42 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Add your community to our hub. - {{ block.super }}{% endblock title %}
+
+{% block section_title %}Add your community to our hub.{% endblock section_title %}
+
+{% block section %}
+{% if object_list %}
+<h3>Existing applications</h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Created</th>
+    <th>Status</th>
+    <th>Notes</th>
+  </tr>
+  {% for object in object_list %}
+  <tr>
+    <td>{{ object.name }}</td>
+    <td>{{ object.created }}</td>
+    <td>{{ object.get_status_display }}</td>
+    <td>{{ object.notes }}</td>
+  </tr>
+  {% endfor%}
+</table>
+{% endif %}
+
+<h3>Submit your community to the admin for approval</h3>
+
+<p>
+  Please fill out the form below to create your Community Hub.  Once you have submitted your information and your Hub has been approved, you’ll be able to manage your Hub via your profile page.
+</p>
+
+<form method="post" action=".">
+  {% include "includes/form.html" with form=form %}
+  <p>
+    {% csrf_token %}
+    <button type="submit">Apply</button>
+  </p>
+</form>
+
+{% endblock section %}

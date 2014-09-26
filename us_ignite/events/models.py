@@ -79,6 +79,8 @@ class Event(models.Model):
     tags = TaggableManager(blank=True)
     hubs = models.ManyToManyField(
         'hubs.Hub', verbose_name=u'communities', blank=True)
+    actionclusters = models.ManyToManyField(
+        'actionclusters.ActionCluster', verbose_name=u'communities', blank=True)
     position = GeopositionField(blank=True)
     user = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL)

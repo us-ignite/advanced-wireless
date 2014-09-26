@@ -1,0 +1,25 @@
+{% extends "includes/lists/object_list_base.html" %}
+
+{% block title %}Ignite communities - {{ block.super }}{% endblock title %}
+
+{% block page_title %}Ignite Communities{% endblock page_title %}
+
+{% block top_panel %}
+<div class="row panel">
+  <div class="small-12 columns">
+    <h2>Join a Community Hub</h2>
+    <p>Our online Hubs provide the perfect opportunity for you to get more involved in our community by learning and sharing relevant information about next-generation technologies. Our Hubs have been designed so members can share resources, expertise, events, applications and more. If you don’t see a community hub listed that meets your needs, go ahead and create your own in just a few simple steps.</p>
+  </div>
+</div>
+<div class="row newsletter newsletter--primary">
+  <div class="small-12 medium-8 columns newsletter__column">
+    <h4 class="newsletter__heading"><strong>WANT TO LIST YOUR COMMUNITY?</strong></h4>
+  </div>
+
+  <div class="small-12 medium-4 columns newsletter__column">
+    <a href="{% url 'hub_application'%}" class="button alert postfix">SUBMIT YOUR COMMUNITY</a>{% csrf_token %}
+  </div>
+</div>
+{% endblock top_panel %}
+
+{% block tags %}{% endblock tags %}

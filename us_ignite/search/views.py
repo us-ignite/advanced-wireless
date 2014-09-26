@@ -10,6 +10,7 @@ from us_ignite.apps.models import Application
 from us_ignite.common import pagination
 from us_ignite.events.models import Event
 from us_ignite.hubs.models import Hub
+from us_ignite.actionclusters.models import ActionCluster
 from us_ignite.organizations.models import Organization
 from us_ignite.resources.models import Resource
 from us_ignite.search.filters import tag_search
@@ -34,6 +35,9 @@ def search_events(request):
 def search_hubs(request):
     return tag_search(request, Hub.active, 'search/hub_list.html')
 
+@csrf_exempt
+def search_actionclusters(request):
+    return tag_search(request, ActionCluster.active, 'search/actioncluster_list.html')
 
 @csrf_exempt
 def search_organizations(request):

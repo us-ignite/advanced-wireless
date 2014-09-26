@@ -183,6 +183,7 @@ INSTALLED_APPS = (
     'us_ignite.apps',
     'us_ignite.awards',
     'us_ignite.hubs',
+    'us_ignite.actionclusters',
     'us_ignite.events',
     'us_ignite.organizations',
     'us_ignite.challenges',
