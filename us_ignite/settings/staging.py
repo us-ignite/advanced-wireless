@@ -5,6 +5,9 @@ import urlparse
 
 from us_ignite.settings.base import *
 
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
 # Sensitive values are saved as env variables:
 env = os.getenv
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
