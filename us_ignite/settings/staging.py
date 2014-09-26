@@ -5,8 +5,8 @@ import urlparse
 
 from us_ignite.settings.base import *
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+#DEBUG = True
+#TEMPLATE_DEBUG = DEBUG
 
 # Sensitive values are saved as env variables:
 env = os.getenv
@@ -102,32 +102,4 @@ STATIC_FILES_VERSION = 'v1'
 # Heroku does not have a filesystem, used to deploy the assets to S3:
 #COMPRESS_STORAGE = 'us_ignite.common.storage.CachedS3BotoStorage'
 
-USE_DEBUG_TOOLBAR = False
 
-if USE_DEBUG_TOOLBAR:
-    INSTALLED_APPS += ('debug_toolbar', )
-    MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    )
-    DEBUG_TOOLBAR_PATCH_SETTINGS = False
-    DEBUG_TOOLBAR_PANELS = [
-        'debug_toolbar.panels.versions.VersionsPanel',
-        'debug_toolbar.panels.timer.TimerPanel',
-        'debug_toolbar.panels.settings.SettingsPanel',
-        'debug_toolbar.panels.headers.HeadersPanel',
-        'debug_toolbar.panels.request.RequestPanel',
-        'debug_toolbar.panels.sql.SQLPanel',
-        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-        'debug_toolbar.panels.templates.TemplatesPanel',
-        'debug_toolbar.panels.cache.CachePanel',
-        'debug_toolbar.panels.signals.SignalsPanel',
-        'debug_toolbar.panels.logging.LoggingPanel',
-        'debug_toolbar.panels.redirects.RedirectsPanel',
-    ]
-    show_toolbar = lambda x: True
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-        'HIDE_DJANGO_SQL': False,
-        'SHOW_TEMPLATE_CONTEXT': True,
-        'SHOW_TOOLBAR_CALLBACK': "%s.show_toolbar" % __name__,
-    }
