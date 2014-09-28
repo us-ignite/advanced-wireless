@@ -2,22 +2,23 @@
 
 {% block title %}Ignite communities - {{ block.super }}{% endblock title %}
 
-{% block page_title %}Ignite Communities{% endblock page_title %}
+{% block page_title %}Action Clusters{% endblock page_title %}
 
 {% block top_panel %}
 <div class="row panel">
   <div class="small-12 columns">
-    <h2>Join a Community Hub</h2>
-    <p>Our online Hubs provide the perfect opportunity for you to get more involved in our community by learning and sharing relevant information about next-generation technologies. Our Hubs have been designed so members can share resources, expertise, events, applications and more. If you don’t see a community hub listed that meets your needs, go ahead and create your own in just a few simple steps.</p>
+    <h2>Join a Action Cluster</h2>
+    <p>Scroll through and explore these exciting  "action clusters" that are a part of the Global City Teams Challenge.   The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
+</p>
   </div>
 </div>
 <div class="row newsletter newsletter--primary">
   <div class="small-12 medium-8 columns newsletter__column">
-    <h4 class="newsletter__heading"><strong>WANT TO LIST YOUR COMMUNITY?</strong></h4>
+    <h4 class="newsletter__heading"><strong>WANT TO LIST YOUR ACTION CLUSTERS?</strong></h4>
   </div>
 
   <div class="small-12 medium-4 columns newsletter__column">
-    <a href="{% url 'hub_application'%}" class="button alert postfix">SUBMIT YOUR COMMUNITY</a>{% csrf_token %}
+    <a href="{% url 'actioncluster_application'%}" class="button alert postfix">SUBMIT YOUR ACTION CLUSTER</a>{% csrf_token %}
   </div>
 </div>
 {% endblock top_panel %}

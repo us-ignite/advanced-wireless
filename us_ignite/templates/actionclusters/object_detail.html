@@ -3,7 +3,7 @@
 {% block title %}Community: {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block tag_list %}
-{% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_hubs" %}
+{% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_actionclusters" %}
 {% endblock tag_list %}
 
 {% block detail_content %}
@@ -86,10 +86,10 @@
 {% block sidebar_content %}
 
 {% if is_contact %}
-<h3 class="sidebar__heading">COMMUNITY ADMIN</h3>
+<h3 class="sidebar__heading">ACTION CLUSTER ADMIN</h3>
 <ul class="no-bullet sidebar__list">
   <li class="sidebar__list__item">
-    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit community</a>
+    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit action cluster</a>
   </li>
 </ul>
 {% endif %}
@@ -98,7 +98,7 @@
 
 {% if not is_member %}
 <form method="post" action="{{ object.get_membership_url }}">
-  {% csrf_token %}<button type="submit" class="newsletter__submit button alert postfix">SUBSCRIBE TO THIS COMMUNITY</button>
+  {% csrf_token %}<button type="submit" class="newsletter__submit button alert postfix">SUBSCRIBE TO THIS ACTION CLUSTER</button>
 </form>
 {% endif %}
 

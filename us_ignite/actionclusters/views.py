@@ -9,12 +9,12 @@ from django.views.decorators.http import require_http_methods
 from us_ignite.common import pagination
 from us_ignite.common.response import json_response
 from us_ignite.events.models import Event
-from us_ignite.actionclusters.models import ActionCluster
-#from us_ignite.hubs import forms, mailer
+from us_ignite.actionclusters.models import ActionCluster, ActionClusterRequest, ActionClusterMembership
+from us_ignite.actionclusters import forms, mailer
 from us_ignite.maps.utils import get_location_dict
 
 
-@login_required
+#@login_required
 
 def actioncluster_list(request):
     """List al the available ``Hubs``."""
@@ -26,7 +26,7 @@ def actioncluster_list(request):
         'page': page,
         'featured_list': featured_list,
     }
-    return TemplateResponse(request, 'hubs/object_list.html', context)
+    return TemplateResponse(request, 'actionclusters/object_list.html', context)
 
 
 def actioncluster_detail(request, slug):
@@ -63,13 +63,37 @@ def actioncluster_detail(request, slug):
     }
     return TemplateResponse(request, 'actionclusters/object_detail.html', context)
 
+@login_required
+def actioncluster_application(request):
+    """View to submit a ``ActionCluster`` for consideration"""
+    object_list = ActionClusterRequest.objects.filter(
+        ~Q(status=ActionClusterRequest.REMOVED), user=request.user)
+    if request.method == 'POST':
+        form = forms.ActionClusterRequestForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.user = request.user
+            instance.save()
+            # Notify US Ignite about this request:
+            mailer.notify_request(instance)
+            msg = 'Your application "%s" has been sent.' % instance.name
+            messages.success(request, msg)
+            return redirect('home')
+    else:
+        form = forms.ActionClusterRequestForm()
+    context = {
+        'form': form,
+        'object_list': object_list,
+    }
+    return TemplateResponse(request, 'actionclusters/object_application.html', context)
+
 @require_http_methods(['POST'])
 @login_required
 def actioncluster_membership(request, slug):
     """Associates the user with the selected community"""
     instance = get_object_or_404(
         ActionCluster.objects, slug__exact=slug, status=ActionCluster.PUBLISHED)
-    ActionClusterMembership.objects.get_or_create(user=request.user, actioncluster=instance)
+    ActionClusterMembership.objects.get_or_create(user=request.user, hub=instance)
     messages.success(request, 'You are now part of %s.' % instance.name)
     return redirect(instance.get_absolute_url())
 

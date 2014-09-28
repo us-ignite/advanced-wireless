@@ -13,6 +13,52 @@ from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
 
+class ActionClusterRequest(models.Model):
+    """User Requests to be a Ignite Community."""
+    APPROVED = 1
+    PENDING = 2
+    REJECTED = 3
+    REMOVED = 4
+    STATUS_CHOICES = (
+        (APPROVED, 'Approved'),
+        (PENDING, 'Pending'),
+        (REJECTED, 'Rejected'),
+        (REMOVED, 'Removed'),
+    )
+    name = models.CharField(max_length=255)
+    hub = models.ForeignKey('actionclusters.ActionCluster', blank=True, null=True)
+    website = models.URLField(
+        max_length=500, blank=True, help_text=URL_HELP_TEXT)
+    summary = models.TextField(blank=True)
+    description = models.TextField()
+    user = models.ForeignKey('auth.User')
+    status = models.IntegerField(choices=STATUS_CHOICES, default=PENDING)
+    notes = models.TextField(
+        blank=True, help_text='These notes will be feedback to the applicant.')
+    created = CreationDateTimeField()
+    modified = ModificationDateTimeField()
+
+    def __unicode__(self):
+        return u'%s by %s' % (self.name, self.user)
+
+    class Meta:
+        ordering = ('created', )
+
+    def get_admin_url(self):
+        return reverse('admin:actionclusters_actionclusterrequest_change', args=[self.id])
+
+    def is_approved(self):
+        return self.status == self.APPROVED
+
+    def is_rejected(self):
+        return self.status == self.REJECTED
+
+    def is_removed(self):
+        return self.status == self.REMOVED
+
+    def is_pending(self):
+        return (self.status == self.PENDING) and not self.hub
+
 class ActionCluster(models.Model):
     PUBLISHED = 1
     DRAFT = 2
