@@ -103,14 +103,14 @@ def actioncluster_edit(request, slug):
     instance = get_object_or_404(
         ActionCluster.objects, slug__exact=slug, contact=request.user)
     if request.method == 'POST':
-        form = forms.HubForm(request.POST, request.FILES, instance=instance)
+        form = forms.ActionClusterForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             instance = form.save()
             msg = '%s has been updated successfully' % instance.name
             messages.success(request, msg)
             return redirect(instance.get_absolute_url())
     else:
-        form = forms.HubForm(instance=instance)
+        form = forms.ActionClusterForm(instance=instance)
     context = {
         'form': form,
         'object': instance,
