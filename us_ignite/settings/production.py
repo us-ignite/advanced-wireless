@@ -20,9 +20,9 @@ ALLOWED_HOSTS = [
     'us-ignite.org',
 ]
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
+USE_DEBUG_TOOLBAR = False
 # HTTPS configuration:
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
