@@ -1,0 +1,46 @@
+<!-- FULL ROW -->
+<div class="row collapse l-listings l-listings--full">
+  <article class="large-8 medium-9 small-12 columns listings profile profile__section">
+    <div class="row">
+      <div class="small-12 columns">
+        <h4 class="listings__listing__heading listings__listing__heading--plain">MY ACTION CLUSTERS</h4>
+
+        {% if object_list %}
+          {% for object in object_list %}
+            {% if forloop.counter <= 3 %}
+            <div class="columns large-4{% if forloop.last %} end{% endif %}">
+            {% include "includes/lists/object_block_base.html" with object=object %}
+            </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+            <div class="columns large-8 end">
+              <p>You haven't created an app yet.</p>
+              <a class="button primary expand space-top" href="{% url 'actioncluster_add' %}">CREATE ACTION CLUSTER</a>
+            </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </article>
+
+  <aside class="large-4 medium-3 show-for-medium-up columns sidebar">{% load snippets_tags news_tags common_markdown %}
+    <div class="row">
+      <div class="large-12 columns">
+        <h3 class="sidebar__heading">YOU MAY ALSO LIKE THESE ACTION CLUSTERS</h3>
+
+        <ul class="no-bullet sidebar__list">
+          <li class="sidebar__list__item">
+
+            {% for object in similar_list %}
+              {% include "people/includes/object_headline_mini.html" with object=object %}
+            {% endfor %}
+
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </aside>
+</div>
+<!-- /FULL ROW -->

@@ -48,6 +48,14 @@ def get_application_list(owner, viewer=None):
     return Application.active.filter(**qs_kwargs)
 
 
+def get_actioncluster_list(owner, viewer=None):
+    """Returns visible ``Action Cluster`` from the given ``viewer``."""
+    qs_kwargs = {'owner': owner}
+    if not viewer or not owner == viewer:
+        qs_kwargs.update({'status': ActionCluster.PUBLISHED})
+    return ActionCluster.active.filter(**qs_kwargs)
+
+
 def get_similar_applications(application_list, total=4):
     params = {
         'status': Application.PUBLISHED,
@@ -108,7 +116,7 @@ def get_hub_membership_list(user, viewer=None):
 
 def get_hub_list(user, viewer=None):
     hub_list = list(get_hub_owned_list(user, viewer=viewer))
-    hub_list += list(get_actioncluster_owned_list(user, viewer=viewer))
+    #hub_list += list(get_appl_owned_list(user, viewer=viewer))
     hub_list += get_hub_membership_list(user, viewer=viewer)
     return list(set(hub_list))
 
@@ -169,6 +177,7 @@ def dashboard(request):
     profile, is_new = Profile.objects.get_or_create(user=request.user)
     user = profile.user
     application_list = list(get_application_list(user, viewer=request.user))
+    actioncluster_list = list(get_actioncluster_list(user, viewer=request.user))
     similar_applications = get_similar_applications(application_list)
     event_list = get_event_list(user, viewer=request.user)
     resource_list = get_resource_list(user, viewer=request.user)
@@ -178,6 +187,7 @@ def dashboard(request):
     context = {
         'object': profile,
         'application_list': application_list[:3],
+        'actioncluster_list': actioncluster_list[:3],
         'similar_applications': similar_applications,
         'post_list': get_post_list(),
         'hub_list': hub_list[:7],
