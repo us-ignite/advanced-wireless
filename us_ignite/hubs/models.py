@@ -181,6 +181,14 @@ class HubAppMembership(models.Model):
     class Meta:
         ordering = ('-created', )
 
+class HubActionClusterMembership(models.Model):
+    hub = models.ForeignKey('hubs.Hub')
+    actioncluster = models.ForeignKey('actionclusters.ActionCluster')
+    is_featured = models.BooleanField(default=False)
+    created = CreationDateTimeField()
+
+    class Meta:
+        ordering = ('-created', )
 
 # Search:
 watson.register(

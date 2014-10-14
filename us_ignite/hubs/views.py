@@ -155,6 +155,8 @@ def get_organization_list(user_list):
 def get_app_member_list(hub):
     hub_queryset = (hub.hubappmembership_set
                     .select_related('application').all())
+    hub_queryset = (hub.hubappmembership_set
+                    .select_related('application').all())
     apps_member_list = []
     for membership in hub_queryset:
         app = membership.application

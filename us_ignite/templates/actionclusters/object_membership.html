@@ -1,0 +1,25 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Edit membership to {{ object.name }} - {{ block.super }}{% endblock title %}
+
+{% block section_title %}
+Edit users membership to {{ object.name }}
+{% endblock section_title %}
+
+{% block section %}
+<form method="post" action="{{ object.get_membership_url }}">
+  {{ form.as_p }}
+  <h2>Existing members:</h2>
+  {% for form in formset %}
+  <h3>{{ form.instance.user.profile.display_name }} ({{ form.instance.user.email }}):</h3>
+  <p>
+    <label for="{{ form.can_edit.id_for_label }}">{{ form.can_edit }} Can edit action cluster.</label>
+    <label for="{{ form.DELETE.id_for_label }}">{{ form.DELETE }} Mark for removal.</label>
+    {{ form.id }}
+  </p>
+  {% endfor%}
+
+  {{ formset.management_form }}
+  <p>{% csrf_token %}<button type="submit">Update membership</button></p>
+</form>
+{% endblock section %}

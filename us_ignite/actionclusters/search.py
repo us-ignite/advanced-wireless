@@ -12,9 +12,15 @@ class ActionClusterSearchAdapter(watson.SearchAdapter):
         return obj.summary
 
     def get_content(self, obj):
+        domain = obj.domain.name if obj.domain else ''
         fields = [
-            obj.description,
-            ', '.join([f.name for f in obj.features.all()]),
+            obj.summary,
+            obj.impact_statement,
+            obj.assistance,
+            obj.team_description,
+            obj.acknowledgments,
             ', '.join([t.name for t in obj.tags.all()]),
+            domain,
+            ', '.join([f.name for f in obj.features.all()]),
         ]
         return render.render_fields(fields)

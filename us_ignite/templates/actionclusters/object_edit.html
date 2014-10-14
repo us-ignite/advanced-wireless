@@ -1,18 +1,27 @@
 {% extends "registration/base.html" %}
 
-{% block title %}Edit {{ object.name }} - {{ block.super }}{% endblock title %}
+{% block title %}Edit: {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block section_title %}
-Edit {{ object.name }}
+Edit: {{ object.name }}
 {% endblock section_title %}
 
 {% block section %}
-
 <form method="post" action="{{ object.get_edit_url }}" enctype="multipart/form-data">
-  {% include "includes/form.html" with form=form %}
-  <p>
-    {% csrf_token %}
-    <button type="submit">Update</button>
-  </p>
+{% include "apps/object_form.html" with form=form %}
+<h2>Additional media</h2>
+{% include "apps/object_form_images.html" with formset=image_formset %}
+<h2>Additional URLs</h2>
+<p>
+  Add any relevant URLS where the progress of this action cluster can be shown (e.g. Project website, Blog, Github, Twitter, demonstration video).
+</p>
+{% include "actionclusters/object_form_links.html" with formset=link_formset %}
+<p>
+  <button type="submit">Update</button>
+</p>
 </form>
 {% endblock section %}
+
+{% block extra_scripts %}
+{{ form.media }}
+{% endblock extra_scripts %}

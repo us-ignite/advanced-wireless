@@ -1,113 +1,137 @@
-{% extends "includes/lists/object_detail_base.html" %}{% load apps_urls thumbnail common_markdown %}
+{% extends "includes/lists/object_detail_base.html" %}
+{% load apps_urls thumbnail common_markdown snippets_tags %}
 
-{% block title %}Community: {{ object.name }} - {{ block.super }}{% endblock title %}
+{% block title %}Action Cluster: {{ object.name }} - {{ block.super }}{% endblock title %}
+
+
+{% block content_title %}
+<span class="domains__icon--{{ domain.slug }}"></span>
+{{ object.name }} {% if object.is_draft %}(Draft){% endif %}
+{% endblock content_title %}
 
 {% block tag_list %}
-{% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_actionclusters" %}
+  {% include "includes/tag_list.html" with tag_type="search_apps" tag_list=object.tags.all %}
 {% endblock tag_list %}
 
-{% block detail_content %}
 
-<!-- description -->
+{% block detail_content %}
+<!-- Stage -->
 <div class="listings__listing">
   <div class="row">
     <div class="small-12 columns">
-      <h2>Description</h2>
-      <p>{{ object.description|markdown }}</p>
+      <h2>Project milestone</h2>
+      <p class="app__stage__title">{{ object.get_stage_display }}</p>
+      <div class="">
+        {% for stage_label, stage_class in object.get_stage_list %}
+        <div class="app__stage app__stage--{{ stage_class }}">
+          <span class="app__stage__label">{{ stage_label }}</span>
+        </div>
+        {% endfor%}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Stage -->
+
+<!-- Impact statement -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% if object.impact_statement %}
+      <h2>Impact statement</h2>
+      <p>
+        {{ object.impact_statement }}
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- /Impact statement -->
+
+<!-- Category -->
+<div class="listings__listing">
+  <div class="row">
+    <div class="small-12 columns">
+      {% if object.domain %}
+      <div class="row domains">
+        <div class="small-12 medium-2 columns">
+          <h5>CATEGORY</h5>
+        </div>
+        <div class="small-12 medium-10 columns">
+          <ul class="inline-list">
+            <li><a href="{% url 'actioncluster_list' %}" class="domains__link domains__link--active"><span class="domains__icon--{{ domain.slug }}"></span> {{ object.domain.name }}</a></li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
       {% include "includes/network_features.html" with feature_list=feature_list %}
 
-      {% with feature_list=hub.features.all %}
-      {% if feature_list %}
-      <h2>Features</h2>
-      <ul>
-        {% for feature in feature_list %}
-        <li>{{ feature.name }}</li>
-        {% endfor%}
-      </ul>
-      {% endif %}
-      {% endwith %}
     </div>
   </div>
 </div>
-<!-- /description -->
+<!-- /Category -->
 
-{% if testbed_list %}
-<!-- testbeds -->
-<div class="listings__listing">
-  <div class="row">
-    <div class="small-12 columns">
-      <h2>Testbeds</h2>
-      {% for testbed in testbed_list %}
-      <h3>{{ testbed.name }} features:</h3>
-      {% with feature_list=testbed.features.all %}
-      {% if feature_list %}
-      <ul>
-        {% for feature in feature_list %}
-        <li>{{ feature.name }}</li>
-        {% endfor%}
-      </ul>
-      {% endif %}
-      {% endwith %}
-      {% endfor%}
-    </div>
-  </div>
-</div>
-<!-- /testbeds -->
-{% endif %}
 
-{% if event_list %}
-<!-- event list -->
-<div class="listings__listing">
-  <div class="row">
-    <div class="small-12 columns">
-      <h2>Upcoming events</h2>
-      <ul>
-        {% for event in event_list %}
-        <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a> on {{ event.start_datetime }}</li>
-        {% endfor%}
-      </ul>
+<!-- Extras -->
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+
+          {% if object.acknowledgments %}
+          <h2>Acknowledgements</h2>
+          <p>{{ object.acknowledgments }}</p>
+          {% endif %}
+
+          {% include "includes/hubs.html"  with hub_list=hub_list%}
+
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<!-- /event list -->
-{% endif %}
+<!-- /Extras -->
+
+{% include "includes/related_objects.html" with related_title="Related Apps" related_list=related_list %}
 
 {% endblock detail_content %}
 
-{% block related %}
-{% include "includes/maps/canvas.html" %}
-{% endblock related %}
-
-{% block extra_scripts %}
-{% include "includes/maps/scripts.html" %}
-<script type="text/javascript" src="{% url 'actioncluster_locations_json' object.slug %}"></script>
-{% endblock extra_scripts %}
 
 {% block sidebar_content %}
-
-{% if is_contact %}
-<h3 class="sidebar__heading">ACTION CLUSTER ADMIN</h3>
+{% if can_edit or is_owner %}
+<!-- app admin -->
+<h3 class="sidebar__heading">APP ADMIN</h3>
 <ul class="no-bullet sidebar__list">
+  {% if can_edit %}
   <li class="sidebar__list__item">
-    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit action cluster</a>
+    <a href="{{ object.get_edit_url }}" class="sidebar__list__link row collapse">Edit applicaton</a>
   </li>
+  {% endif %}
+  {% if is_owner %}
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_membership_url }}" class="sidebar__list__link row collapse">Edit team members</a>
+  </li>
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_hub_membership_url }}" class="sidebar__list__link row collapse">Edit communities membership</a>
+  </li>
+  <li class="sidebar__list__item">
+    <a href="{{ object.get_export_url }}" class="sidebar__list__link row collapse">Export application data</a>
+  </li>
+  {% endif %}
 </ul>
+<!-- /app admin -->
 {% endif %}
 
 {% include "includes/awards.html" with award_list=award_list %}
 
-{% if not is_member %}
-<form method="post" action="{{ object.get_membership_url }}">
-  {% csrf_token %}<button type="submit" class="newsletter__submit button alert postfix">SUBSCRIBE TO THIS ACTION CLUSTER</button>
-</form>
+{% if object.team_name %}
+<h3 class="sidebar__heading">TEAM NAME</h3>
+<p>{{ object.team_name }}</p>
 {% endif %}
 
-{% include "includes/sidebar/organization.html" with object=object %}
 
-{% include "includes/sidebar/contact.html" with contact=object.contact %}
+{% include "includes/sidebar/contact.html" with contact=object.owner %}
 
 {% if member_list %}
-<h3 class="sidebar__heading">SUPPORTERS</h3>
+<h3 class="sidebar__heading">TEAM</h3>
 <ul class="no-bullet sidebar__list">
   {% for member in member_list %}
   <li class="sidebar__list__item">
@@ -117,7 +141,18 @@
 </ul>
 {% endif %}
 
-{% if object.contact %}
+{% if object.team_description %}
+<h3 class="sidebar__heading">ABOUT THE TEAM</h3>
+<p class="sidebar__copy">{{ object.team_description|markdown }}</p>
+{% endif %}
+
+{% if object.assistance %}
+<h3 class="sidebar__heading">WE'RE LOOKING FOR</h3>
+<p class="sidebar__copy">{{ object.assistance }}</p>
+{% endif %}
+
+{# Make sure the app has an owner that can be contacted #}
+{% if object.owner %}
 <p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
 {% endif %}
 
