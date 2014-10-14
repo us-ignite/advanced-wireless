@@ -20,7 +20,7 @@ ALLOWED_HOSTS = [
     'us-ignite.org',
 ]
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 # HTTPS configuration:
