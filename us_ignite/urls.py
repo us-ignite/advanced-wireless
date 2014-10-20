@@ -84,8 +84,9 @@ if settings.DEBUG:
             {'document_root': settings.MEDIA_ROOT}),
     )
 
-    #import debug_toolbar
-    #urlpatterns += patterns(
-    #    '',
-    #    url(r'^__debug__/', include(debug_toolbar.urls)),
-    #)
+    # Used by the debug toolbar when DEBUG is on:
+    import debug_toolbar
+    urlpatterns += patterns(
+        '',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )
