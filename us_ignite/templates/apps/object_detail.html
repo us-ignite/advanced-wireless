@@ -40,7 +40,7 @@
       {% if object.impact_statement %}
       <h2>Impact statement</h2>
       <p>
-        {{ object.impact_statement }}
+        {{ object.impact_statement|linebreaksbr }}
       </p>
       {% endif %}
     </div>
@@ -80,7 +80,7 @@
 
           {% if object.acknowledgments %}
           <h2>Acknowledgements</h2>
-          <p>{{ object.acknowledgments }}</p>
+          <p>{{ object.acknowledgments|linebreaksbr }}</p>
           {% endif %}
 
           {% include "includes/hubs.html"  with hub_list=hub_list%}
@@ -148,7 +148,7 @@
 
 {% if object.assistance %}
 <h3 class="sidebar__heading">WE'RE LOOKING FOR</h3>
-<p class="sidebar__copy">{{ object.assistance }}</p>
+<p class="sidebar__copy">{{ object.assistance|linebreaksbr }}</p>
 {% endif %}
 
 {# Make sure the app has an owner that can be contacted #}
