@@ -357,6 +357,9 @@ class TestDashboardView(TestCase):
         self.app_list_mock = patch(
             'us_ignite.people.views.get_application_list')
         self.app_list_mock.start()
+        self.actioncluster_list_mock = patch(
+            'us_ignite.people.views.get_actioncluster_list')
+        self.actioncluster_list_mock.start()
         self.similar_apps_mock = patch(
             'us_ignite.people.views.get_similar_applications')
         self.similar_apps_mock.start()
@@ -382,6 +385,7 @@ class TestDashboardView(TestCase):
 
     def tearDown(self):
         self.app_list_mock.stop()
+        self.actioncluster_list_mock.stop()
         self.similar_apps_mock.stop()
         self.event_list_mock.stop()
         self.resource_list_mock.stop()
@@ -412,5 +416,6 @@ class TestDashboardView(TestCase):
                     'featured_resource_list', 'hub_event_list',
                     'hub_list', 'hub_request_list', 'object',
                     'post_list', 'similar_applications',
-                    'featured_event_list', 'featured_hub_list']))
+                    'featured_event_list', 'featured_hub_list',
+                    'actioncluster_list']))
         mock_get_create.assert_called_once()
