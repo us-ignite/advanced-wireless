@@ -63,7 +63,7 @@
       display: block;
       position: absolute;
       top:0;
-      right:-38px;
+      right: -($column-gutter / 2) + -(rem-calc(20)); // Vars found in Foundations _grid.scss and above
       border-top: 20px solid transparent;
       border-bottom: 20px solid transparent;
       border-right:20px solid #fff;

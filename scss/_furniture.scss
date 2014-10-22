@@ -1,3 +1,9 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
 h1 { font-size: $h1-font-size; }
 h2 { font-size: $h2-font-size; }
 h3 { font-size: $h3-font-size; }
@@ -193,8 +199,8 @@ a:hover {
 
 @media #{$xlarge-up} {
   body > .row {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: $column-gutter;
+    padding-right: $column-gutter;
 
     &.collapse {
       padding-left:0;
