@@ -14,7 +14,7 @@ class TestEventForm(TestCase):
                     'description', 'end_datetime', 'event_type',
                     'hubs', 'image', 'name', 'position', 'scope',
                     'start_datetime', 'status', 'tags', 'tickets_url',
-                    'timezone', 'website'])
+                    'timezone', 'website', 'actionclusters'])
         )
 
     def test_empty_payload_fails(self):
