@@ -68,6 +68,11 @@ function parallax(){
   $('.slide--four').css( 'background-position' , 'left -' + (scrolled_4 * 0.35) + 'px' );
 }
 
-$(window).scroll(function(e){
-  parallax();
-});
+
+function attachScrollListener () {
+	$(window).scroll(function(e){
+		parallax();
+	});
+}
+
+// attachScrollListener();

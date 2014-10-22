@@ -193,8 +193,8 @@ a:hover {
 
 @media #{$xlarge-up} {
   body > .row {
-    padding-left:60px;
-    padding-right:60px;
+    padding-left: 40px;
+    padding-right: 40px;
 
     &.collapse {
       padding-left:0;
