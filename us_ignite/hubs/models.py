@@ -42,7 +42,7 @@ class HubRequest(models.Model):
         return u'%s by %s' % (self.name, self.user)
 
     class Meta:
-        ordering = ('created', )
+        ordering = ('-created', )
 
     def get_admin_url(self):
         return reverse('admin:hubs_hubrequest_change', args=[self.id])
@@ -97,7 +97,7 @@ class Hub(models.Model):
     active = managers.HubActiveManager()
 
     class Meta:
-        ordering = ('-is_featured', 'created')
+        ordering = ('-is_featured', '-created')
 
     def __unicode__(self):
         return self.name
@@ -107,7 +107,6 @@ class Hub(models.Model):
         if self.is_homepage and self.is_published():
             self.__class__.objects.all().update(is_homepage=False)
         return super(Hub, self).save(*args, **kwargs)
-
 
     def get_absolute_url(self):
         return reverse('hub_detail', args=[self.slug])
