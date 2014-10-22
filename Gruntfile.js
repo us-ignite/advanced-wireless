@@ -62,7 +62,8 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          outputStyle: 'compressed'
+          outputStyle: 'compressed',
+          debugInfo: true
         },
         files: {
           'us_ignite/assets/css/app.css': 'scss/app.scss',
