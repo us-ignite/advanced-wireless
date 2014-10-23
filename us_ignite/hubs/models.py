@@ -143,6 +143,16 @@ class Hub(models.Model):
         return self.contact
 
 
+class HubURL(models.Model):
+    hub = models.ForeignKey('hubs.Hub')
+    name = models.CharField(max_length=255, blank=True)
+    url = models.URLField(
+        max_length=500, verbose_name=u'URL', help_text=URL_HELP_TEXT)
+
+    def __unicode__(self):
+        return self.url
+
+
 class HubActivity(models.Model):
     hub = models.ForeignKey('hubs.Hub')
     name = models.CharField(max_length=255)
@@ -179,6 +189,7 @@ class HubAppMembership(models.Model):
 
     class Meta:
         ordering = ('-created', )
+
 
 class HubActionClusterMembership(models.Model):
     hub = models.ForeignKey('hubs.Hub')
