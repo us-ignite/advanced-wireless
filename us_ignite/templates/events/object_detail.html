@@ -4,7 +4,7 @@
 {% block title %}Event: {{ object.name }} on {{ object.start_datetime }} - {{ block.super }}{% endblock title %}
 
 {% block tag_list %}
-{% include "includes/tag_list.html" with tag_type="search_events" tag_list=object.tags.all %}
+{{ object.printable_date }}
 {% endblock tag_list %}
 
 {% block detail_content %}

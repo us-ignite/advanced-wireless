@@ -152,7 +152,7 @@ class ActionCluster(ActionClusterBase):
     published = managers.ActionClusterPublishedManager()
 
     class Meta:
-        ordering = ('-is_featured', 'created')
+        ordering = ('-is_featured', '-created')
 
     def __unicode__(self):
         return self.name

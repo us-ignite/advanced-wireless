@@ -5,7 +5,7 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 
 from us_ignite.hubs.forms import HubApprovalRequestForm
-from us_ignite.hubs.models import Hub, HubActivity, HubRequest
+from us_ignite.hubs.models import Hub, HubRequest, HubURL
 
 
 def get_hub_from_request(instance):
@@ -67,12 +67,17 @@ class HubRequestAdmin(admin.ModelAdmin):
             request, 'admin/hubs/request_approval.html', context)
 
 
+class HubURLInline(admin.TabularInline):
+    model = HubURL
+
+
 class HubAdmin(admin.ModelAdmin):
     raw_id_fields = ('contact', )
     list_display = ('name', 'slug', 'status', 'created')
     search_fields = ('name', 'slug', 'description', 'summary')
     date_hierarchy = 'created'
     list_filter = ('status', 'created')
+    inlines = [HubURLInline]
 
 admin.site.register(Hub, HubAdmin)
 admin.site.register(HubRequest, HubRequestAdmin)
