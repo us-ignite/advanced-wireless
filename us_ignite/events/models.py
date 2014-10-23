@@ -138,6 +138,17 @@ class Event(models.Model):
             'content': self.name,
         }
 
+    @property
+    def printable_date(self):
+        start_date = self.start_datetime.strftime('%b %d')
+        output = [start_date]
+        if self.end_datetime:
+            end_date = self.end_datetime.strftime('%b %d')
+            if not start_date == end_date:
+                output += ['-', end_date]
+        output += [self.start_datetime.strftime('%Y')]
+        return u' '.join(output)
+
 
 class EventURL(models.Model):
     event = models.ForeignKey('events.Event')
