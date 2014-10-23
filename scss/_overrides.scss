@@ -100,9 +100,29 @@
 
 
 
+
 /* _callout */
 .callout {
+	border: none;
+	text-align: center;
 
+	@media #{$medium-up} {
+		float: none;
+	}
+
+	@media only screen and (min-width: 1080px) {
+		float: left;
+	}
+}
+
+.callout__image {
+	border: 1px solid #ccc;
+	width: 100%;
+	max-width: rem-calc(380);
+
+	@media only screen and (min-width: 1080px) {
+		width: auto;
+	}
 }
 
 
