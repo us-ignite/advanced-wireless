@@ -17,7 +17,7 @@
 .slide--one {
   background-image:url(../img/slides/slide1.jpg);
 
-  @media #{$large-up} { 
+  @media #{$large-up} {
     .slide__panel {
       margin-top:115px;
     }
@@ -27,7 +27,7 @@
 .slide--two {
   background-image:url(../img/slides/slide2.jpg);
 
-  @media #{$large-up} { 
+  @media #{$large-up} {
     .slide__panel {
       margin-top:135px;
     }
@@ -37,7 +37,7 @@
 .slide--three {
   background-image:url(../img/slides/slide3.jpg);
 
-  @media #{$large-up} { 
+  @media #{$large-up} {
     .slide__panel {
       margin-top:150px;
     }
@@ -47,7 +47,7 @@
 .slide--four {
   background-image:url(../img/slides/slide4.jpg);
 
-  @media #{$large-up} { 
+  @media #{$large-up} {
     .slide__panel {
       margin-top:150px;
     }

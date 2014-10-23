@@ -92,6 +92,8 @@ $large-only: "#{$screen} and (min-width:#{lower-bound($large-range)}) and (max-w
 $xlarge-up: "#{$screen} and (min-width:#{lower-bound($xlarge-range)})";
 $xlarge-only: "#{$screen} and (min-width:#{lower-bound($xlarge-range)}) and (max-width:#{upper-bound($xlarge-range)})";
 
+$nav-breakpoint: "#{$screen} and (min-width:1080px)";
+
 // $xxlarge-up: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)})";
 // $xxlarge-only: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)}) and (max-width:#{upper-bound($xxlarge-range)})";
 
@@ -1180,7 +1182,7 @@ $topbar-menu-icon-color-toggled: #888;
 $topbar-transition-speed: 0s;
 // Using rem-calc for the below breakpoint causes issues with top bar
 $topbar-breakpoint: #{lower-bound($large-range)}; // Change to 9999px for always mobile layout
-$topbar-media-query: $large-up !default;
+$topbar-media-query: $nav-breakpoint !default;
 
 
 // Divider Styles

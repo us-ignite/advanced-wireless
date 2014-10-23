@@ -1,0 +1,178 @@
+/**
+ * OVERRIDES
+ *
+ * This file will contain a bunch of overrides in order to improve the
+ * current front end presentation.
+ *
+ * The purpose of this file is to leave everything how it was before
+ * in case things need to be reverted.
+ *
+ * The work set up of the CSS on this project is built on top of a Framework
+ * therefore making changes very restricted.
+ * SCSS files are contained in multiple folders, making it highlighly unmanageable.
+ *
+ * Ideally the whole front end needs a re-structure.
+ * There needs to be more consistent rules used across the markup.
+ *
+ * I would suggest putting together a custom styleguide.
+ * I would rely on Foundation only for the grid and nothing else.
+ *
+ *
+ * @author Pedro Duarte
+ */
+
+
+
+ html, input, button {
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+ }
+
+
+/* _slides */
+.slide__panel {
+ 	background:rgba(255, 255, 255, .9);
+
+	.slide__heading {
+		margin-bottom: 0;
+	}
+
+	.slide__desc {
+		margin-bottom: 0;
+	}
+
+	.button {
+		margin-top: 2rem;
+	}
+}
+
+
+
+/* _furniture */
+.quicklinks .quicklinks__link {
+	margin-bottom: 2px;
+}
+
+@media #{$xlarge-up} {
+  body > .row {
+    padding-left: $column-gutter / 2;
+    padding-right: $column-gutter / 2;
+  }
+}
+
+.top-bar-section {
+  .has-form {
+  	padding-right: 1.78571rem;
+  }
+}
+
+.top-bar {
+  .toggle-topbar.menu-icon a {
+  	&:after {
+  		right: 10px;
+  	}
+  }
+}
+
+.top-bar-section {
+  .right {
+    margin-top: 39px;
+  }
+
+  ul {
+    li > a {
+      border-bottom: 1px solid #e1e1e1;
+
+      @media #{$nav-breakpoint} {
+      	border: none;
+      }
+    }
+
+    li:first-child > a {
+    	border-top: 1px solid #e1e1e1;
+
+    	@media #{$nav-breakpoint} {
+    		border: none;
+    	}
+    }
+  }
+}
+
+
+
+/* _callout */
+.callout {
+
+}
+
+
+/* _homepage-grid */
+.homepage-grid__col {
+  &:nth-child(odd) {
+    border-width: 3px;
+  }
+
+  @media #{$large-up} {
+    border-width: 3px;
+  }
+}
+
+.homepage-grid__desc {
+	@media #{$medium-up} {
+		min-height: 80px;
+	}
+}
+
+.homepage-grid__button {
+	margin-top: 1rem;
+	margin-bottom: 0;
+}
+
+
+
+/* _newsletter */
+.newsletter__heading {
+	font-size: 1.2rem;
+	display: block;
+}
+
+
+
+/* _footer */
+.footer {
+  a:link,
+  a:visited {
+    font-size: 1rem;
+  }
+}
+
+
+
+/* _domains */
+.domains-full-list {
+	font-size: 1rem;
+}
+
+
+
+/* File unknown */
+.top-bar-section .has-dropdown.hover>.dropdown,
+.top-bar-section .has-dropdown.not-click:hover>.dropdown {
+	border: 1px solid #e1e1e1;
+}
+
+
+.small-12 {
+	@media #{$medium-up} {
+		> p {
+			max-width: 80%;
+		}
+	}
+}
+
+.top-bar .toggle-topbar.menu-icon {
+	width: 60%;
+	@media #{$medium-up} {
+		margin-top: -8px;
+	}
+}
