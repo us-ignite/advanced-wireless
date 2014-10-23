@@ -6,6 +6,9 @@ from django.db import models
 
 
 class Migration(SchemaMigration):
+    depends_on = (
+        ("actionclusters", "0001_initial"),
+    )
 
     def forwards(self, orm):
         # Adding M2M table for field actionclusters on 'Event'
