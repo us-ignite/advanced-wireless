@@ -8,7 +8,7 @@ from django.db import models
 class Migration(SchemaMigration):
 
     depends_on = (
-        ("actionclusters", "0001_initial"),
+        ("actionclusters", "0002_auto__del_field_pageactioncluster_application__add_field_pageactionclu"),
     )
 
     def forwards(self, orm):
