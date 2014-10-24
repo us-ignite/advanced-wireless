@@ -41,9 +41,16 @@
       <div class="small-12 medium-9 columns">
         <h5>CATEGORIES</h5>
         <ul class="inline-list">
-          {% block domain_list %}
-          {% include "includes/domain_list.html" with domain_all_link='app_list' domain_link='app_list_domain' %}
-          {% endblock domain_list %}
+                 {% block domain_list %}
+
+          {% if appname %}
+              {% include "includes/domain_list.html" with domain_all_link='actioncluster_list' domain_link='actioncluster_list_domain' %}
+            {% else %}
+
+              {% include "includes/domain_list.html" with domain_all_link='app_list' domain_link='app_list_domain' %}
+
+            {% endif %}
+                          {% endblock domain_list %}
         </ul>
       </div>
       <div class="small-12 medium-3 columns">

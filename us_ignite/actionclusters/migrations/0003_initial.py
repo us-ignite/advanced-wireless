@@ -8,30 +8,174 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-	    models = {}
-        # Deleting field 'PageActionCluster.application'
-        #db.delete_column(u'actionclusters_pageactioncluster', 'application_id')
+        # Adding model 'Feature'
+        db.create_table(u'actionclusters_feature', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('slug', self.gf('django_extensions.db.fields.AutoSlugField')(allow_duplicates=False, max_length=50, separator=u'-', blank=True, unique=True, populate_from='name', overwrite=False)),
+        ))
+        db.send_create_signal(u'actionclusters', ['Feature'])
 
-        # Adding field 'PageActionCluster.actioncluster'
-        #db.add_column(u'actionclusters_pageactioncluster', 'actioncluster',self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['actionclusters.ActionCluster']),keep_default=False)
+        # Adding model 'Domain'
+        db.create_table(u'actionclusters_domain', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('slug', self.gf('django_extensions.db.fields.AutoSlugField')(allow_duplicates=False, max_length=50, separator=u'-', blank=True, unique=True, populate_from='name', overwrite=False)),
+        ))
+        db.send_create_signal(u'actionclusters', ['Domain'])
+
+        # Adding model 'ActionCluster'
+        db.create_table(u'actionclusters_actioncluster', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('stage', self.gf('django.db.models.fields.IntegerField')(default=1)),
+            ('website', self.gf('django.db.models.fields.URLField')(max_length=500, blank=True)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=500, blank=True)),
+            ('summary', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('impact_statement', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('assistance', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('team_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('team_description', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('acknowledgments', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('notes', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('slug', self.gf('us_ignite.common.fields.AutoUUIDField')(unique=True, max_length=50, blank=True)),
+            ('status', self.gf('django.db.models.fields.IntegerField')(default=2)),
+            ('is_featured', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('owner', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='ownership_set_for_actioncluster', null=True, on_delete=models.SET_NULL, to=orm['auth.User'])),
+            ('features_other', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('domain', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.Domain'], null=True, blank=True)),
+            ('awards', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('position', self.gf('geoposition.fields.GeopositionField')(default='0,0', max_length=42, blank=True)),
+            ('is_homepage', self.gf('django.db.models.fields.BooleanField')(default=False)),
+        ))
+        db.send_create_signal(u'actionclusters', ['ActionCluster'])
+
+        # Adding M2M table for field features on 'ActionCluster'
+        m2m_table_name = db.shorten_name(u'actionclusters_actioncluster_features')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('actioncluster', models.ForeignKey(orm[u'actionclusters.actioncluster'], null=False)),
+            ('feature', models.ForeignKey(orm[u'actionclusters.feature'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['actioncluster_id', 'feature_id'])
+
+        # Adding model 'ActionClusterMembership'
+        db.create_table(u'actionclusters_actionclustermembership', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('actioncluster', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.ActionCluster'])),
+            ('can_edit', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+        ))
+        db.send_create_signal(u'actionclusters', ['ActionClusterMembership'])
+
+        # Adding unique constraint on 'ActionClusterMembership', fields ['user', 'actioncluster']
+        db.create_unique(u'actionclusters_actionclustermembership', ['user_id', 'actioncluster_id'])
+
+        # Adding model 'ActionClusterURL'
+        db.create_table(u'actionclusters_actionclusterurl', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('actioncluster', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.ActionCluster'])),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('url', self.gf('django.db.models.fields.URLField')(max_length=500)),
+        ))
+        db.send_create_signal(u'actionclusters', ['ActionClusterURL'])
+
+        # Adding model 'ActionClusterMedia'
+        db.create_table(u'actionclusters_actionclustermedia', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('actioncluster', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.ActionCluster'])),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=500, blank=True)),
+            ('url', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+        ))
+        db.send_create_signal(u'actionclusters', ['ActionClusterMedia'])
+
+        # Adding model 'ActionClusterVersion'
+        db.create_table(u'actionclusters_actionclusterversion', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('stage', self.gf('django.db.models.fields.IntegerField')(default=1)),
+            ('website', self.gf('django.db.models.fields.URLField')(max_length=500, blank=True)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=500, blank=True)),
+            ('summary', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('impact_statement', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('assistance', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('team_name', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
+            ('team_description', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('acknowledgments', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('notes', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('actioncluster', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.ActionCluster'])),
+            ('slug', self.gf('us_ignite.common.fields.AutoUUIDField')(unique=True, max_length=50, blank=True)),
+        ))
+        db.send_create_signal(u'actionclusters', ['ActionClusterVersion'])
+
+        # Adding model 'Page'
+        db.create_table(u'actionclusters_page', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('slug', self.gf('django_extensions.db.fields.AutoSlugField')(allow_duplicates=False, max_length=50, separator=u'-', blank=True, populate_from='name', overwrite=False)),
+            ('status', self.gf('django.db.models.fields.IntegerField')(default=2)),
+            ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+            ('modified', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now, blank=True)),
+        ))
+        db.send_create_signal(u'actionclusters', ['Page'])
+
+        # Adding model 'PageActionCluster'
+        db.create_table(u'actionclusters_pageactioncluster', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('page', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.Page'])),
+            ('actioncluster', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.ActionCluster'])),
+            ('order', self.gf('django.db.models.fields.IntegerField')(default=0)),
+        ))
+        db.send_create_signal(u'actionclusters', ['PageActionCluster'])
 
 
     def backwards(self, orm):
-        # User chose to not deal with backwards NULL issues for 'PageActionCluster.application'
-        raise RuntimeError("Cannot reverse this migration. 'PageActionCluster.application' and its values cannot be restored.")
+        # Removing unique constraint on 'ActionClusterMembership', fields ['user', 'actioncluster']
+        db.delete_unique(u'actionclusters_actionclustermembership', ['user_id', 'actioncluster_id'])
 
-        # The following code is provided here to aid in writing a correct migration        # Adding field 'PageActionCluster.application'
-        db.add_column(u'actionclusters_pageactioncluster', 'application',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.ActionCluster']),
-                      keep_default=False)
+        # Deleting model 'Feature'
+        db.delete_table(u'actionclusters_feature')
 
-        # Deleting field 'PageActionCluster.actioncluster'
-        db.delete_column(u'actionclusters_pageactioncluster', 'actioncluster_id')
+        # Deleting model 'Domain'
+        db.delete_table(u'actionclusters_domain')
+
+        # Deleting model 'ActionCluster'
+        db.delete_table(u'actionclusters_actioncluster')
+
+        # Removing M2M table for field features on 'ActionCluster'
+        db.delete_table(db.shorten_name(u'actionclusters_actioncluster_features'))
+
+        # Deleting model 'ActionClusterMembership'
+        db.delete_table(u'actionclusters_actionclustermembership')
+
+        # Deleting model 'ActionClusterURL'
+        db.delete_table(u'actionclusters_actionclusterurl')
+
+        # Deleting model 'ActionClusterMedia'
+        db.delete_table(u'actionclusters_actionclustermedia')
+
+        # Deleting model 'ActionClusterVersion'
+        db.delete_table(u'actionclusters_actionclusterversion')
+
+        # Deleting model 'Page'
+        db.delete_table(u'actionclusters_page')
+
+        # Deleting model 'PageActionCluster'
+        db.delete_table(u'actionclusters_pageactioncluster')
 
 
     models = {
         u'actionclusters.actioncluster': {
-            'Meta': {'ordering': "('-is_featured', 'created')", 'object_name': 'ActionCluster'},
+            'Meta': {'ordering': "('-is_featured', '-created')", 'object_name': 'ActionCluster'},
             'acknowledgments': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'assistance': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'awards': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
