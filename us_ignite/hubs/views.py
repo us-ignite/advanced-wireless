@@ -58,8 +58,6 @@ def hub_detail(request, slug):
     event_list = Event.published.get_upcoming(hubs=instance)[:5]
     hub_award_list = (instance.hubaward_set
                       .select_related('award').all())
-    award_list = [ha.award for ha in hub_award_list]
-    testbed_list = instance.testbed_set.all()
     context = {
         'object': instance,
         'feature_list': instance.features.all(),
@@ -68,8 +66,9 @@ def hub_detail(request, slug):
         'is_contact': instance.is_contact(request.user),
         'activity_list': activity_list,
         'event_list': event_list,
-        'award_list': award_list,
-        'testbed_list': testbed_list,
+        'award_list': [ha.award for ha in hub_award_list],
+        'testbed_list': instance.testbed_set.all(),
+        'url_list': instance.huburl_set.all()
     }
     return TemplateResponse(request, 'hubs/object_detail.html', context)
 

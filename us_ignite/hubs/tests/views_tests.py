@@ -84,7 +84,7 @@ class TestHubDetailView(TestCase):
         eq_(sorted(response.context_data.keys()),
             sorted(['activity_list', 'award_list', 'event_list',
                     'feature_list', 'is_contact', 'is_member',
-                    'member_list', 'object', 'testbed_list'])
+                    'member_list', 'object', 'testbed_list', 'url_list'])
         )
 
     @raises(Http404)
@@ -104,7 +104,7 @@ class TestHubDetailView(TestCase):
         eq_(sorted(response.context_data.keys()),
             sorted(['activity_list', 'award_list', 'event_list',
                     'feature_list', 'is_contact', 'is_member',
-                    'member_list', 'object', 'testbed_list'])
+                    'member_list', 'object', 'testbed_list', 'url_list'])
         )
 
 

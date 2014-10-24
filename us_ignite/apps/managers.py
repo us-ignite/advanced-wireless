@@ -17,14 +17,14 @@ class ApplicationPublishedManager(models.Manager):
     def get_featured(self):
         try:
             return (self.get_queryset().filter(is_featured=True)
-                    .order_by('-is_featured', 'created')[0])
+                    .order_by('-is_featured', '-created')[0])
         except IndexError:
             return None
 
     def get_homepage(self):
         try:
             return (self.get_queryset().filter(is_homepage=True)
-                    .order_by('-is_featured', 'created')[0])
+                    .order_by('-is_featured', '-created')[0])
         except IndexError:
             return None
 

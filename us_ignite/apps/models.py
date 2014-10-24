@@ -152,7 +152,7 @@ class Application(ApplicationBase):
     published = managers.ApplicationPublishedManager()
 
     class Meta:
-        ordering = ('-is_featured', 'created')
+        ordering = ('-is_featured', '-created')
 
     def __unicode__(self):
         return self.name

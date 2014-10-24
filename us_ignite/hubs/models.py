@@ -42,7 +42,7 @@ class HubRequest(models.Model):
         return u'%s by %s' % (self.name, self.user)
 
     class Meta:
-        ordering = ('created', )
+        ordering = ('-created', )
 
     def get_admin_url(self):
         return reverse('admin:hubs_hubrequest_change', args=[self.id])
@@ -97,7 +97,7 @@ class Hub(models.Model):
     active = managers.HubActiveManager()
 
     class Meta:
-        ordering = ('-is_featured', 'created')
+        ordering = ('-is_featured', '-created')
 
     def __unicode__(self):
         return self.name
@@ -107,7 +107,6 @@ class Hub(models.Model):
         if self.is_homepage and self.is_published():
             self.__class__.objects.all().update(is_homepage=False)
         return super(Hub, self).save(*args, **kwargs)
-
 
     def get_absolute_url(self):
         return reverse('hub_detail', args=[self.slug])
@@ -142,6 +141,16 @@ class Hub(models.Model):
     @property
     def owner(self):
         return self.contact
+
+
+class HubURL(models.Model):
+    hub = models.ForeignKey('hubs.Hub')
+    name = models.CharField(max_length=255, blank=True)
+    url = models.URLField(
+        max_length=500, verbose_name=u'URL', help_text=URL_HELP_TEXT)
+
+    def __unicode__(self):
+        return self.url
 
 
 class HubActivity(models.Model):
@@ -180,6 +189,7 @@ class HubAppMembership(models.Model):
 
     class Meta:
         ordering = ('-created', )
+
 
 class HubActionClusterMembership(models.Model):
     hub = models.ForeignKey('hubs.Hub')

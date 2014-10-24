@@ -54,7 +54,7 @@ class TestAppListView(TestCase):
             name='alpha app', status=Application.PUBLISHED, owner=owner)
         app_b = fixtures.get_application(
             name='beta app', status=Application.PUBLISHED, owner=owner)
-        response = views.app_list(self.factory.get('/app/', {'order': 'name'}))
+        response = views.app_list(self.factory.get('/app/', {'order': 'created'}))
         eq_(list(response.context_data['page'].object_list), [app_a, app_b])
         _teardown_apps()
 
