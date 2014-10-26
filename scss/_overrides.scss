@@ -31,10 +31,10 @@
 
 /* _slides */
 .slide__panel {
- 	background:rgba(255, 255, 255, .9);
+ 	background: rgba(255, 255, 255, .9);
 
 	.slide__heading {
-		margin-bottom: 0;
+		margin-bottom: 10px;
 	}
 
 	.slide__desc {
@@ -43,6 +43,10 @@
 
 	.button {
 		margin-top: 2rem;
+	}
+
+	&.slide__panel--dark {
+		background-color: rgba($dark-color, .9);
 	}
 }
 
@@ -95,6 +99,20 @@
     		border: none;
     	}
     }
+  }
+
+	// Make it clear this is a back button and not another nav link
+  .dropdown li.title h5 a {
+  	border-bottom: 1px solid #e1e1e1;
+  	text-transform: uppercase;
+  	font-size: .8rem;
+
+  	&:before {
+  		@extend .arrow-left;
+  		display: inline-block;
+  		content: "";
+  		margin-right: 5px;
+  	}
   }
 }
 
@@ -158,6 +176,20 @@
 
 
 
+/* _buttons */
+.button {
+	text-transform: uppercase;
+
+
+	// a bit of breathing space on narrow buttons
+	&.expand {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}
+
+
+
 /* _footer */
 .footer {
   a:link,
@@ -175,20 +207,12 @@
 
 
 
-/* File unknown */
+/* File unknown (?) */
 .top-bar-section .has-dropdown.hover>.dropdown,
 .top-bar-section .has-dropdown.not-click:hover>.dropdown {
 	border: 1px solid #e1e1e1;
 }
 
-
-.small-12 {
-	@media #{$medium-up} {
-		> p {
-			max-width: 80%;
-		}
-	}
-}
 
 .top-bar .toggle-topbar.menu-icon {
 	width: 60%;
