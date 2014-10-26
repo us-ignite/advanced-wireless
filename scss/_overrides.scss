@@ -164,6 +164,11 @@
 		}
 	}
 
+	.featured__tags {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+
 }
 
 
@@ -270,4 +275,12 @@
 	@media #{$medium-up} {
 		margin-top: -8px;
 	}
+}
+
+ul.pagination {
+	border: 1px solid #e1e1e1;
+	border-left: none;
+	border-right: none;
+	padding: 20px 0;
+	height: auto;
 }
