@@ -75,4 +75,4 @@ function attachScrollListener () {
 	});
 }
 
-// attachScrollListener();
+attachScrollListener();
