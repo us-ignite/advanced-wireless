@@ -8,18 +8,20 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-	    models = {}
         # Deleting field 'PageActionCluster.application'
-        #db.delete_column(u'actionclusters_pageactioncluster', 'application_id')
+        db.delete_column(u'actionclusters_pageactioncluster', 'application_id')
 
         # Adding field 'PageActionCluster.actioncluster'
-        #db.add_column(u'actionclusters_pageactioncluster', 'actioncluster',self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['actionclusters.ActionCluster']),keep_default=False)
+        db.add_column(u'actionclusters_pageactioncluster', 'actioncluster',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['actionclusters.ActionCluster']),
+                      keep_default=False)
 
 
     def backwards(self, orm):
+
         # User chose to not deal with backwards NULL issues for 'PageActionCluster.application'
         raise RuntimeError("Cannot reverse this migration. 'PageActionCluster.application' and its values cannot be restored.")
-
+        
         # The following code is provided here to aid in writing a correct migration        # Adding field 'PageActionCluster.application'
         db.add_column(u'actionclusters_pageactioncluster', 'application',
                       self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.ActionCluster']),
