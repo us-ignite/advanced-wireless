@@ -115,6 +115,12 @@ def syncdb():
 
 @task
 @only_outside_vm
+def list_migrations():
+    dj_heroku('migrate --list', env.app, env.slug,)
+
+
+@task
+@only_outside_vm
 def collectstatic():
     """Collects the remote environment static assets."""
     print yellow('Collecting static assets.')
