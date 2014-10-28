@@ -140,6 +140,27 @@ class TestHubMembershipView(TestCase):
         ok_(models.HubMembership.objects.get(user=member, hub=hub))
 
 
+def _get_hub_inline_payload(pk, data_list=None, **kwargs):
+    data_list = data_list if data_list else [{}]
+    prefix = 'huburl_set-'
+    default = {
+        '%sTOTAL_FORMS' % prefix: len(data_list),
+        '%sINITIAL_FORMS' % prefix: 0,
+        '%sMAX_NUM_FORMS' % prefix: 3,
+    }
+    _inline_tuple = lambda i, k, v: ('%s%s-%s' % (prefix, i, k), v)
+    for i, inline in enumerate(data_list):
+        inline_default = {
+            '%s%s-DELETE' % (prefix, i): '',
+            '%s%s-application' % (prefix, i): pk,
+        }
+        inline_item = dict(_inline_tuple(i, k, v) for k, v in inline.items())
+        inline_default.update(inline_item)
+        default.update(inline_default)
+    default.update(kwargs)
+    return default
+
+
 class TestHubEditView(TestCase):
 
     def tearDown(self):
@@ -169,17 +190,19 @@ class TestHubEditView(TestCase):
         response = views.hub_edit(request, 'community')
         eq_(response.status_code, 200)
         eq_(response.template_name, 'hubs/object_edit.html')
-        eq_(sorted(response.context_data.keys()), sorted(['form', 'object']))
+        eq_(sorted(response.context_data.keys()),
+            sorted(['form', 'object', 'link_formset']))
         eq_(response.context_data['object'], hub)
 
     def test_contact_update_is_successful(self):
         contact = get_user('contact')
         hub = fixtures.get_hub(
-            name='community', status=models.Hub.PUBLISHED, contact=contact)
+        name='community', status=models.Hub.PUBLISHED, contact=contact)
         data = {
             'name': 'New name!',
             'description': 'New description.'
         }
+        data.update(_get_hub_inline_payload(hub.pk))
         request = utils.get_request(
             'post', '/hub/community/edit/', data=data, user=contact)
         request._messages = utils.TestMessagesBackend(request)
