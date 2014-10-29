@@ -114,6 +114,9 @@ class Hub(models.Model):
     def get_membership_url(self):
         return reverse('hub_membership', args=[self.slug])
 
+    def get_membership_remove_url(self):
+        return reverse('hub_membership_remove', args=[self.slug])
+
     def get_edit_url(self):
         return reverse('hub_edit', args=[self.slug])
 

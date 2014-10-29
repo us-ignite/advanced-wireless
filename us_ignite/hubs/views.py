@@ -84,6 +84,23 @@ def hub_membership(request, slug):
     return redirect(instance.get_absolute_url())
 
 
+@require_http_methods(['POST'])
+@login_required
+def hub_membership_remove(request, slug):
+    """Remove the user membership of a community."""
+    instance = get_object_or_404(
+        Hub.objects, slug__exact=slug, status=Hub.PUBLISHED)
+    try:
+        membership = HubMembership.objects.get(user=request.user, hub=instance)
+    except HubMembership.DoesNotExist:
+        membership = None
+        messages.success(request, 'You are not a member.')
+    if membership:
+        membership.delete()
+        messages.success(request, 'You have unfollowed: %s.' % instance.name)
+    return redirect(instance.get_absolute_url())
+
+
 @login_required
 def hub_edit(request, slug):
     """Allows ``contacts`` to edit a ``Hub``. """
