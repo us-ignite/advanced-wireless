@@ -119,7 +119,7 @@ def user_profile(request):
         if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
-            messages.success(request, 'Profile has been updated successfully.')
+            messages.success(request, 'Thank you for updating your Profile.')
             return redirect('user_profile')
     else:
         form = forms.ProfileForm(instance=profile, initial={
