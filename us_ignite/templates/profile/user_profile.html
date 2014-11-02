@@ -18,6 +18,7 @@ Profile
 <form method="post" action="{% url 'user_profile' %}">
   {% include "includes/form.html" with form=form %}
   <h2>Extra URLs</h2>
+  <p>Such as LinkedIn, Twitter, Institutional profile, etc.</p>
   {{ formset.as_p }}
   <p>
     {% csrf_token %}
