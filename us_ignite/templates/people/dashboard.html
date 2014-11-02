@@ -6,7 +6,11 @@
 
   <div class="row collapse listing-featured">
     <div class="small-12 medium-4 columns text-center">
+      {% if object.avatar  %}
+      <img src="{% thumbnail object.avatar 330x330 crop %}" alt="" />
+      {% else %}
       <img src="{{ object.get_gravatar_url }}" alt="Avatar" class="profile__avatar" />
+      {% endif %}
     </div>
 
     <div class="small-12 medium-8 columns">
