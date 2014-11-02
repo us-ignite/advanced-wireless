@@ -1,3 +1,5 @@
+import watson
+
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -9,7 +11,7 @@ from taggit.managers import TaggableManager
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT
-from us_ignite.challenges import managers
+from us_ignite.challenges import managers, search
 
 
 class Challenge(models.Model):
@@ -193,3 +195,9 @@ class EntryAnswer(models.Model):
             answer.answer = answer_text
             answer.save()
         return answer
+
+    # Search:
+watson.register(
+    Challenge.active.all(),
+    search.ChallengesSearchAdapter
+)
