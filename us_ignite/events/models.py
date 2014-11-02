@@ -47,9 +47,11 @@ class Event(models.Model):
     )
     NATIONAL = 1
     REGIONAL = 2
+    GLOBAL = 3
     SCOPE_CHOICES = (
         (NATIONAL, 'National'),
         (REGIONAL, 'Regional'),
+        (GLOBAL, 'Global'),
     )
     name = models.CharField(max_length=500, verbose_name=u'event name')
     slug = AutoUUIDField(unique=True, editable=True)
