@@ -6,6 +6,23 @@
   {% include "includes/tag_list.html" with tag_type="search_resources" tag_list=object.tags.all %}
 {% endblock tag_list %}
 
+{% block content_media %}
+<ul data-orbit>
+  {% if object.image %}
+  <li>
+    <a target="_blank" href="{{ object.get_resource_url }}">
+      <img src="{% thumbnail object.image 500x500 %}" alt="" title="{{ object.name }}"/>
+    </a>
+  </li>
+  {% endif %}
+
+  {% if media_list %}
+  {% for media in media_list %}
+  {% include "apps/includes/media.html" with object=media %}
+  {% endfor%}
+  {% endif %}
+</ul>
+{% endblock content_media %}
 
 {% block detail_content %}
 <!-- description -->
