@@ -148,7 +148,7 @@
 
 {% if object.assistance %}
 <h3 class="sidebar__heading">WE'RE LOOKING FOR</h3>
-<p class="sidebar__copy">{{ object.assistance }}</p>
+<p class="sidebar__copy">{{ object.assistance|linebreaksbr }}</p>
 {% endif %}
 
 {# Make sure the app has an owner that can be contacted #}
