@@ -50,12 +50,13 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
     order_form = forms.OrderForm(
         request.GET, order_choices=APPS_SORTING_CHOICES)
     order_value = order_form.cleaned_data['order'] if order_form.is_valid() else ''
-    object_list = ActionCluster.objects.select_related('domain').filter(
-	    status=ActionCluster.PUBLISHED, **extra_qs)
+    object_list = (ActionCluster.objects.select_related('domain')
+                   .filter(status=ActionCluster.PUBLISHED, **extra_qs))
     if order_value:
-	    object_list = object_list.order_by(order_value)
-    featured_list = ActionCluster.objects.select_related('domain').filter(
-	    status=ActionCluster.PUBLISHED, is_featured=True, **extra_qs)[:3]
+        object_list = object_list.order_by(order_value)
+    featured_list = (ActionCluster.objects.select_related('domain')
+                     .filter(status=ActionCluster.PUBLISHED,
+                             is_featured=True, **extra_qs)[:3])
     page = pagination.get_page(object_list, page_no)
     context = {
         'featured_list': featured_list,
@@ -164,44 +165,6 @@ def actioncluster_edit(request, slug):
         'image_formset': image_formset,
     }
     return TemplateResponse(request, 'actionclusters/object_edit.html', context)
-
-
-@require_http_methods(["POST"])
-@login_required
-def actioncluster_version_add(request, slug):
-    actioncluster = get_object_or_404(ActionCluster.active, slug__exact=slug)
-    if not actioncluster.is_editable_by(request.user):
-        raise Http404
-    previous = ActionClusterVersion.objects.get_latest_version(actioncluster)
-    app_signature = app.get_signature()
-    old_signature = previous.get_signature() if previous else None
-    # Apps have the same content.
-    if old_signature == app_signature:
-        messages.success(request, 'Latest changes have been versioned already.')
-    else:
-        ActionClusterVersion.objects.create_version(actioncluster)
-        messages.success(request, 'Application has been versioned.')
-    return redirect(actioncluster.get_absolute_url())
-
-
-def actioncluster_version_detail(request, slug, version_slug):
-    actioncluster = get_actioncluster_for_user(slug, request.user)
-    # Determine if the slug provided is a valid version:
-    version = None
-    version_list = []
-    for version_obj in actioncluster.actionclusterversion_set.all():
-        if version_obj.slug == version_slug:
-            version = version_obj
-        else:
-            version_list.append(version_obj)
-    if not version:
-        raise Http404
-    context = {
-        'object': version,
-        'version_list': version_list,
-        'actioncluster': actioncluster,
-    }
-    return TemplateResponse(request, 'actionclusters/object_version_detail.html', context)
 
 
 def create_member(actioncluster, user):
