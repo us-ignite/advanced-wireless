@@ -1,5 +1,11 @@
 from django.contrib import admin
-from us_ignite.awards.models import Award, ApplicationAward, HubAward, UserAward
+from us_ignite.awards.models import (
+    Award,
+    ApplicationAward,
+    HubAward,
+    UserAward,
+    OrganizationAward,
+)
 
 
 class AwardAdmin(admin.ModelAdmin):
@@ -26,7 +32,15 @@ class UserAwardAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', )
 
 
+class OrganizationAwardAdmin(admin.ModelAdmin):
+    list_display = ('award', 'organization', 'created')
+    date_hierarchy = 'created'
+    list_filter = ('award__name', )
+    raw_id_fields = ('organization', )
+
+
 admin.site.register(Award, AwardAdmin)
 admin.site.register(ApplicationAward, ApplicationAwardAdmin)
 admin.site.register(HubAward, HubAwardAdmin)
 admin.site.register(UserAward, UserAwardAdmin)
+admin.site.register(OrganizationAward, OrganizationAwardAdmin)

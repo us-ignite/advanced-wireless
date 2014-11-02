@@ -4,9 +4,17 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 
+from us_ignite.awards.models import OrganizationAward
 from us_ignite.common import pagination
 from us_ignite.organizations.forms import OrganizationForm
 from us_ignite.organizations.models import Organization
+
+
+def get_award_list(organization):
+    award_queryset = (OrganizationAward.objects
+                      .select_related('award')
+                      .filter(organization=organization))
+    return [a.award for a in award_queryset]
 
 
 def organization_detail(request, slug):
@@ -21,6 +29,7 @@ def organization_detail(request, slug):
         'member_list': organization.members.all(),
         'is_member': organization.is_member(request.user),
         'interest_list': interest_list,
+        'award_list': get_award_list(organization),
     }
     return TemplateResponse(
         request, 'organizations/object_detail.html', context)

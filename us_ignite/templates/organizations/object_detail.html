@@ -59,6 +59,8 @@
 </ul>
 {% endif %}
 
+{% include "includes/awards.html" with award_list=award_list %}
+
 {% include "includes/links.html" with object=object url_list=url_list %}
 
 {% endblock sidebar_content %}
