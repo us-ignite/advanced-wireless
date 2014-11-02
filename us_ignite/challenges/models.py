@@ -3,9 +3,9 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-
 from django_extensions.db.fields import (
     AutoSlugField, CreationDateTimeField, ModificationDateTimeField)
+from taggit.managers import TaggableManager
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT
@@ -49,6 +49,7 @@ class Challenge(models.Model):
     user = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL,
         help_text=u'User responsible for this Challenge.')
+    tags = TaggableManager(blank=True)
     notes = models.TextField(blank=True)
     created = CreationDateTimeField()
     modified = ModificationDateTimeField()
