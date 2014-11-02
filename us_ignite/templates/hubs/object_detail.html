@@ -122,6 +122,17 @@
 </ul>
 {% endif %}
 
+{% if application_list %}
+<h3 class="sidebar__heading">Applications</h3>
+<ul class="no-bullet sidebar__list">
+  {% for application in application_list %}
+  <li class="sidebar__list__item">
+    {% include "includes/sidebar/applications.html" with object=application %}
+  </li>
+  {% endfor%}
+</ul>
+{% endif %}
+
 {% if object.contact %}
 <p><a class="button secondary expand" href="{{ object.owner.profile.get_contact_url }}">CONTACT TO LEARN MORE</a></p>
 {% endif %}

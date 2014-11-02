@@ -51,6 +51,9 @@ def hub_detail(request, slug):
         raise Http404
     membership_list = instance.hubmembership_set.select_related('profile').all()
     member_list = [m.user for m in membership_list]
+    app_membership_list = (instance.hubappmembership_set
+                           .select_related('application').all())
+    app_list = [m.application for m in app_membership_list]
     # Determine if the user is a member of this ``Hub``:
     is_member = request.user in member_list
     activity_list = (instance.hubactivity_set
@@ -68,7 +71,8 @@ def hub_detail(request, slug):
         'event_list': event_list,
         'award_list': [ha.award for ha in hub_award_list],
         'testbed_list': instance.testbed_set.all(),
-        'url_list': instance.huburl_set.all()
+        'url_list': instance.huburl_set.all(),
+        'application_list': app_list,
     }
     return TemplateResponse(request, 'hubs/object_detail.html', context)
 
@@ -173,8 +177,6 @@ def get_organization_list(user_list):
 
 
 def get_app_member_list(hub):
-    hub_queryset = (hub.hubappmembership_set
-                    .select_related('application').all())
     hub_queryset = (hub.hubappmembership_set
                     .select_related('application').all())
     apps_member_list = []
