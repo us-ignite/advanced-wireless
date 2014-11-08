@@ -2,7 +2,7 @@ import json
 import watson
 
 from django.template.response import TemplateResponse
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.utils.http import urlencode
 from django.views.decorators.csrf import csrf_exempt
 
@@ -54,12 +54,29 @@ def search_resources(request):
         request, Resource.published, 'search/resource_list.html')
 
 
+SEARCH_PARAMS = {
+    'default': (),
+    'globalcities': (ActionCluster, ),
+}
+
+
+def get_search_results(query, slug):
+    if slug not in SEARCH_PARAMS:
+        raise Http404('Invalid search slug.')
+    models = SEARCH_PARAMS[slug]
+    object_list = list(watson.search(query, models=models))
+    # Perform the search with the rest of the models:
+    if models:
+        object_list += list(watson.search(query, exclude=models))
+    return object_list
+
+
 @csrf_exempt
-def search(request):
+def search(request, slug='default'):
     form = SearchForm(request.GET) if 'q' in request.GET else SearchForm()
     page_no = pagination.get_page_no(request.GET)
     if form.is_valid():
-        object_list = watson.search(form.cleaned_data['q'])
+        object_list = get_search_results(form.cleaned_data['q'], slug)
         pagination_qs = '&%s' % urlencode({'q': form.cleaned_data['q']})
     else:
         object_list = []
