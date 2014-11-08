@@ -83,7 +83,7 @@ class TestProfileForm(TestCase):
             sorted(['availability', 'bio', 'category', 'category_other',
                     'first_name', 'interests', 'interests_other',
                     'is_public', 'last_name', 'position', 'quote',
-                    'skills', 'slug', 'tags', 'website']))
+                    'skills', 'slug', 'tags', 'website', 'avatar']))
 
     def test_form_accepts_default_payload(self):
         form = ProfileForm({

@@ -70,7 +70,7 @@ class TestEditProfilePage(TestCase):
             sorted(['availability', 'bio', 'category', 'category_other',
                     'first_name', 'interests', 'interests_other',
                     'is_public', 'last_name', 'position', 'quote',
-                    'skills', 'slug', 'tags', 'website']))
+                    'skills', 'slug', 'tags', 'website', 'avatar']))
 
     def test_profile_form_update_is_successful(self):
         profile, is_new = Profile.objects.get_or_create(user=self.user)
