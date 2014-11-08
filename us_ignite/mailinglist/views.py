@@ -12,7 +12,14 @@ from us_ignite.mailinglist.forms import EmailForm
 logger = logging.getLogger('us_ignite.mailinglist.views')
 
 
-def subscribe_email(email):
+MAILING_LISTS = {
+    'default': settings.MAILCHIMP_LIST,
+}
+
+
+def subscribe_email(email, slug):
+    if not slug in MAILING_LISTS:
+        raise mailchimp.ValidationError('Error while subscribing.')
     master = mailchimp.Mailchimp(settings.MAILCHIMP_API_KEY)
     mailing_list = mailchimp.Lists(master)
     uid = hashlib.md5(email).hexdigest()
@@ -31,7 +38,7 @@ def mailing_subscribe(request):
         form = EmailForm(request.POST)
         if form.is_valid():
             try:
-                subscribe_email(form.cleaned_data['email'])
+                subscribe_email(form.cleaned_data['email'], 'default')
                 messages.success(request, 'Successfully subscribed.')
                 redirect_to = 'home'
             except mailchimp.ListAlreadySubscribedError:
