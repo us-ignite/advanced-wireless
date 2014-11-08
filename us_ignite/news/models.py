@@ -18,13 +18,13 @@ class Article(models.Model):
     )
     DEFAULT = 1
     GLOBALCITIES = 2
-    TYPE_CHOICES = (
+    SECTION_CHOICES = (
         (DEFAULT, u'Default'),
         (GLOBALCITIES, u'Global Cities'),
     )
     name = models.CharField(max_length=500)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    article_type = models.IntegerField(choices=TYPE_CHOICES, default=DEFAULT)
+    section = models.IntegerField(choices=SECTION_CHOICES, default=DEFAULT)
     url = models.URLField(
         max_length=500, help_text=URL_HELP_TEXT, verbose_name=u'URL')
     is_featured = models.BooleanField(default=False)

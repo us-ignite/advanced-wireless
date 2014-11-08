@@ -20,7 +20,7 @@ class ArticleAdmin(admin.ModelAdmin):
     def queryset(self, request):
         """Return DEFAULT ``News`` only."""
         return (super(ArticleAdmin, self).queryset(request)
-                .filter(article_type=self.model.DEFAULT))
+                .filter(section=self.model.DEFAULT))
 
 
 admin.site.register(Article, ArticleAdmin)
