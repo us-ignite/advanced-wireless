@@ -35,9 +35,12 @@ def search_events(request):
 def search_hubs(request):
     return tag_search(request, Hub.active, 'search/hub_list.html')
 
+
 @csrf_exempt
 def search_actionclusters(request):
-    return tag_search(request, ActionCluster.active, 'search/actioncluster_list.html')
+    return tag_search(
+        request, ActionCluster.active, 'search/actioncluster_list.html')
+
 
 @csrf_exempt
 def search_organizations(request):

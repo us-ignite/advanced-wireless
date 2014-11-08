@@ -32,7 +32,7 @@ class Domain(models.Model):
 
 
 class ActionClusterBase(models.Model):
-    """Abstract model for ``ActionCluster`` and ``ActionClusterVersion`` fields."""
+    """Abstract model for ``ActionCluster`` fields."""
     IDEA = 1
     PROTOTYPE = 2
     DEVELOPMENT = 3
@@ -127,8 +127,8 @@ class ActionCluster(ActionClusterBase):
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     is_featured = models.BooleanField(default=False)
     owner = models.ForeignKey(
-        'auth.User', related_name='ownership_set_for_actioncluster', blank=True, null=True,
-        on_delete=models.SET_NULL)
+        'auth.User', related_name='ownership_set_for_actioncluster',
+        blank=True, null=True, on_delete=models.SET_NULL)
     members = models.ManyToManyField(
         'auth.User', through='actionclusters.ActionClusterMembership',
         related_name='membership_set_for_actioncluster')
@@ -242,8 +242,9 @@ class ActionClusterURL(models.Model):
 class ActionClusterMedia(models.Model):
     actioncluster = models.ForeignKey('actionclusters.ActionCluster')
     name = models.CharField(max_length=255, blank=True)
-    image = models.ImageField(upload_to='actionclusters', max_length=500, blank=True,
-                              help_text=IMAGE_HELP_TEXT)
+    image = models.ImageField(
+        upload_to='actionclusters', max_length=500, blank=True,
+        help_text=IMAGE_HELP_TEXT)
     url = models.URLField(
         blank=True, verbose_name=u'URL', help_text=URL_HELP_TEXT)
     created = CreationDateTimeField()
@@ -267,8 +268,8 @@ class ActionClusterVersion(ActionClusterBase):
         return u'Version %s of action cluster' % self.actioncluster
 
     def get_absolute_url(self):
-        return reverse(
-            'actioncluster_version_detail', args=[self.actioncluster.slug, self.slug])
+        return reverse('actioncluster_version_detail',
+                       args=[self.actioncluster.slug, self.slug])
 
 
 class Page(models.Model):
