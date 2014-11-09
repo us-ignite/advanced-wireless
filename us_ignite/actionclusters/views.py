@@ -4,14 +4,21 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
-from django.views.decorators.http import require_http_methods
 from django.utils import timezone
 
-from us_ignite.actionclusters.forms import (ActionClusterForm, ActionClusterLinkFormSet,
-                                  MembershipForm, ActionClusterMediaFormSet,
-                                  ActionClusterMembershipFormSet)
-from us_ignite.actionclusters.models import (ActionCluster, ActionClusterMembership,
-                                   ActionClusterVersion, Domain, Page)
+from us_ignite.actionclusters.forms import (
+    ActionClusterForm,
+    ActionClusterLinkFormSet,
+    MembershipForm,
+    ActionClusterMediaFormSet,
+    ActionClusterMembershipFormSet
+)
+from us_ignite.actionclusters.models import (
+    ActionCluster,
+    ActionClusterMembership,
+    Domain,
+    Page
+)
 from us_ignite.awards.models import ActionClusterAward
 from us_ignite.common import pagination, forms
 from us_ignite.hubs.forms import HubActionClusterMembershipForm
@@ -142,8 +149,10 @@ def actioncluster_edit(request, slug):
     if not actioncluster.is_editable_by(request.user):
         raise Http404
     if request.method == 'POST':
-        form = ActionClusterForm(request.POST, request.FILES, instance=actioncluster)
-        link_formset = ActionClusterLinkFormSet(request.POST, instance=actioncluster)
+        form = ActionClusterForm(
+            request.POST, request.FILES, instance=actioncluster)
+        link_formset = ActionClusterLinkFormSet(
+            request.POST, instance=actioncluster)
         image_formset = ActionClusterMediaFormSet(
             request.POST, request.FILES, instance=actioncluster)
         if (form.is_valid() and link_formset.is_valid()
@@ -152,7 +161,8 @@ def actioncluster_edit(request, slug):
             link_formset.save()
             image_formset.save()
             messages.success(
-                request, 'The action cluster "%s" has been updated.' % instance.name)
+                request, 'The action cluster "%s" has been updated.'
+                % instance.name)
             return redirect(instance.get_absolute_url())
     else:
         form = ActionClusterForm(instance=actioncluster)
@@ -183,7 +193,8 @@ def actioncluster_membership(request, slug):
         raise Http404
     if request.method == 'POST':
         form = MembershipForm(request.POST)
-        formset = ActionClusterMembershipFormSet(request.POST, instance=actioncluster)
+        formset = ActionClusterMembershipFormSet(
+            request.POST, instance=actioncluster)
         if form.is_valid() and formset.is_valid():
             for member in form.cleaned_data['collaborators']:
                 create_member(actioncluster, member)
@@ -198,16 +209,17 @@ def actioncluster_membership(request, slug):
         'form': form,
         'formset': formset,
     }
-    return TemplateResponse(request, 'actionclusters/object_membership.html', context)
+    return TemplateResponse(
+        request, 'actionclusters/object_membership.html', context)
 
 
 def actionclusters_featured(request):
     """Shows the featured application page."""
     page = get_object_or_404(Page, status=Page.FEATURED)
-    actioncluster_list = [a.actioncluster for a in page.pageactioncluster_set.all()]
+    object_list = [a.actioncluster for a in page.pageactioncluster_set.all()]
     context = {
         'object': page,
-        'actioncluster_list': actioncluster_list,
+        'actioncluster_list': object_list,
     }
     return TemplateResponse(request, 'actionclusters/featured.html', context)
 
@@ -285,7 +297,8 @@ def actioncluster_hub_membership(request, slug):
     if not actioncluster.is_editable_by(request.user):
         raise Http404
     # Determine existing membership:
-    actioncluster_hubs = actioncluster.hubactionclustermembership_set.select_related('hub').all()
+    actioncluster_hubs = (actioncluster.hubactionclustermembership_set
+                          .select_related('hub').all())
     if request.method == 'POST':
         form = HubActionClusterMembershipForm(request.POST)
         if form.is_valid():
