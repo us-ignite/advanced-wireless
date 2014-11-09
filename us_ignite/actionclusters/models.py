@@ -175,6 +175,12 @@ class ActionCluster(ActionClusterBase):
     def get_hub_membership_url(self):
         return reverse('actioncluster_hub_membership', args=[self.slug])
 
+    def get_domain_url(self):
+        if self.domain:
+            return reverse(
+                'actioncluster_list_domain', args=[self.domain.slug])
+        return''
+
     def get_export_url(self):
         return reverse('actioncluster_export', args=[self.slug])
 

@@ -176,7 +176,9 @@ class Application(ApplicationBase):
         return reverse('app_hub_membership', args=[self.slug])
 
     def get_domain_url(self):
-        return reverse('app_list_domain', args=[self.domain.slug])
+        if self.domain:
+            return reverse('app_list_domain', args=[self.domain.slug])
+        return u''
 
     def get_export_url(self):
         return reverse('app_export', args=[self.slug])

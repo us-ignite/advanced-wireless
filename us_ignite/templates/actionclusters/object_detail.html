@@ -59,7 +59,7 @@
         </div>
         <div class="small-12 medium-10 columns">
           <ul class="inline-list">
-            <li><a href="{% url 'actioncluster_list' %}" class="domains__link domains__link--active"><span class="domains__icon--{{ domain.slug }}"></span> {{ object.domain.name }}</a></li>
+            <li><a href="{{ object.get_domain_url }}" class="domains__link domains__link--active"><span class="domains__icon--{{ domain.slug }}"></span> {{ object.domain.name }}</a></li>
           </ul>
         </div>
       </div>
