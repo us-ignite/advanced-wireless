@@ -35,6 +35,7 @@ urlpatterns = patterns(
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
     url(r'^overview/', include('us_ignite.visualize.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
+    url(r'^globalcityteams/', include('us_ignite.globalcityteams.urls')),
 )
 
 urlpatterns += patterns(
@@ -58,10 +59,6 @@ urlpatterns += patterns(
     url(r'^robots.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
     url(r'^kit/$', TemplateView.as_view(template_name='kit.html')),
-    #url(r'^about', 'django.views.generic.simple.direct_to_template', {'template': 'path/to/about_us.html'}),)
-    url(r'^globalcityteams/$', TemplateView.as_view(template_name='globalcityteams/index.html')),
-    url(r'^globalcityteams/faq$', TemplateView.as_view(template_name='globalcityteams/faqs.html')),
-    url(r'^globalcityteams/upload$', TemplateView.as_view(template_name='globalcityteams/document-upload.html'))
 )
 
 # US Ignite legacy redirects:
