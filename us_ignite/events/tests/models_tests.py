@@ -3,7 +3,6 @@ import pytz
 
 from nose.tools import eq_, ok_
 
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils import timezone
 
@@ -23,10 +22,6 @@ class TestAudienceModel(TestCase):
 
 
 class TestEventModel(TestCase):
-
-    def tearDown(self):
-        for model in [models.Event, User]:
-            model.objects.all().delete()
 
     def test_event_is_created_successfully(self):
         user = get_user('us-ignite')
@@ -52,6 +47,7 @@ class TestEventModel(TestCase):
         eq_(list(instance.audiences.all()), [])
         eq_(instance.website, '')
         eq_(instance.tickets_url, '')
+        eq_(instance.section, models.Event.DEFAULT)
         eq_(list(instance.tags.all()), [])
         eq_(list(instance.hubs.all()), [])
         eq_(instance.user, user)
@@ -150,10 +146,6 @@ class TestEventModel(TestCase):
 
 class TestEventURLModel(TestCase):
 
-    def tearDown(self):
-        for model in [models.EventURL, models.Event, User]:
-            model.objects.all().delete()
-
     def test_event_url_is_created_successfully(self):
         user = get_user('us-ignite')
         event = fixtures.get_event(user=user)
@@ -177,4 +169,3 @@ class TestEventTypeModel(TestCase):
         ok_(instance.id)
         eq_(instance.name, 'Networking')
         eq_(instance.slug, 'networking')
-

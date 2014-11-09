@@ -53,6 +53,12 @@ class Event(models.Model):
         (REGIONAL, 'Regional'),
         (GLOBAL, 'Global'),
     )
+    DEFAULT = 1
+    GLOBALCITIES = 2
+    SECTION_CHOICES = (
+        (DEFAULT, u'Default'),
+        (GLOBALCITIES, u'Global Cities'),
+    )
     name = models.CharField(max_length=500, verbose_name=u'event name')
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=PUBLISHED)
@@ -75,6 +81,7 @@ class Event(models.Model):
         max_length=500, blank=True, help_text=URL_HELP_TEXT)
     event_type = models.ForeignKey(
         'events.EventType', blank=True, null=True, on_delete=models.SET_NULL)
+    section = models.IntegerField(choices=SECTION_CHOICES, default=DEFAULT)
     tickets_url = models.URLField(
         max_length=500, blank=True, verbose_name=u'Tickets URL',
         help_text=URL_HELP_TEXT)

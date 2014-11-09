@@ -14,9 +14,9 @@ from us_ignite.events.forms import EventForm, EventURLFormSet
 from us_ignite.events.models import Event
 
 
-def event_detail(request, slug):
+def event_detail(request, slug, section=Event.DEFAULT):
     """Detail of an ``Event``."""
-    event = get_object_or_404(Event, slug__exact=slug)
+    event = get_object_or_404(Event, slug__exact=slug, section=section)
     if not event.is_visible_by(request.user):
         raise Http404
     audience_list = [a for a in event.audiences.all()]
@@ -122,7 +122,7 @@ def event_edit(request, slug):
     return TemplateResponse(request, 'events/object_edit.html', context)
 
 
-def event_list(request, timeframe='upcoming'):
+def event_list(request, timeframe='upcoming', section=Event.DEFAULT):
     page_no = pagination.get_page_no(request.GET)
     now = timezone.now()
     TIMEFRAMES = {
@@ -131,7 +131,8 @@ def event_list(request, timeframe='upcoming'):
     }
     if not timeframe in TIMEFRAMES:
         raise Http404('Unexisting timeframe')
-    object_list = Event.published.filter(**TIMEFRAMES[timeframe])
+    object_list = Event.published.filter(
+        section=section, **TIMEFRAMES[timeframe])
     page = pagination.get_page(object_list, page_no)
     featured_list = (Event.published
                      .filter(is_featured=True, **TIMEFRAMES['upcoming']))
