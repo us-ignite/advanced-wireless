@@ -263,21 +263,6 @@ class ActionClusterMedia(models.Model):
         ordering = ('created', )
 
 
-class ActionClusterVersion(ActionClusterBase):
-    """Version of the ``Application``."""
-    actioncluster = models.ForeignKey('actionclusters.ActionCluster')
-    slug = AutoUUIDField(unique=True, editable=True)
-    # managers:
-    objects = managers.ActionClusterActiveManager()
-
-    def __unicode__(self):
-        return u'Version %s of action cluster' % self.actioncluster
-
-    def get_absolute_url(self):
-        return reverse('actioncluster_version_detail',
-                       args=[self.actioncluster.slug, self.slug])
-
-
 class Page(models.Model):
     """Group of applications listed in a ``Page``."""
     PUBLISHED = 1
