@@ -18,6 +18,7 @@ def production():
     env.slug = 'production'
     env.url = 'https://us-ignite.org/'
     env.app = 'us-ignite'
+    env.branch = 'master'
 
 
 @task
@@ -26,6 +27,7 @@ def staging():
     env.slug = 'staging'
     env.url = 'https://us-ignite-staging.herokuapp.com/'
     env.app = 'us-ignite-staging'
+    env.branch = 'develop'
 
 
 def is_vm():
@@ -169,7 +171,7 @@ def deploy(confirmation):
         print yellow('Pushing changes to %s in Heroku.' % SLUG)
         # Make sure the remote and Heroku are in sync:
         _validate_pushed_commits()
-        local('git push %s master' % env.slug)
+        local('git push %s %s' % (env.slug, env.branch))
         # Sync database:
         syncdb()
         # Collect any static assets:
@@ -265,6 +267,7 @@ def loaddb(db_name):
                       ' the command.')
             exit(2)
     print green('Done')
+
 
 @task
 @only_inside_vm
