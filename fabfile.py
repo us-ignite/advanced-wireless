@@ -93,10 +93,10 @@ def production_confirmation(function):
     return wrapper
 
 
-def _validate_pushed_commits():
+def _validate_pushed_commits(branch):
     with lcd(PROJECT_ROOT):
-        result = local('git log --pretty=format:"%h %s" origin/master..HEAD',
-                       capture=True)
+        result = local('git log --pretty=format:"%h %s" '
+                       'origin/{}..HEAD'.format(branch), capture=True)
         if not result:
             return True
         print red('FAILURE: There are unpushed commits to origin/master.')
@@ -170,7 +170,7 @@ def deploy(confirmation):
     with lcd(PROJECT_ROOT):
         print yellow('Pushing changes to %s in Heroku.' % SLUG)
         # Make sure the remote and Heroku are in sync:
-        _validate_pushed_commits()
+        _validate_pushed_commits(env.branch)
         local('git push %s %s' % (env.slug, env.branch))
         # Sync database:
         syncdb()
