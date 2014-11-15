@@ -171,7 +171,8 @@ def deploy(confirmation):
         print yellow('Pushing changes to %s in Heroku.' % SLUG)
         # Make sure the remote and Heroku are in sync:
         _validate_pushed_commits(env.branch)
-        local('git push %s %s' % (env.slug, env.branch))
+        branch = 'master' if env.branch == 'master' else '%s:master' % env.branch
+        local('git push %s %s' % (env.slug, branch))
         # Sync database:
         syncdb()
         # Collect any static assets:
