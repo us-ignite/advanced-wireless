@@ -96,6 +96,8 @@ MAILCHIMP_LIST = env('MAILCHIMP_LIST')
 
 GOOGLE_ANALYTICS_ID = 'DUMMY'
 
+# Production flag:
+IS_PRODUCTION = True
 
 # Asset compressor:
 COMPRESS_ENABLED = True
