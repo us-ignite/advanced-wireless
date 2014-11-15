@@ -96,10 +96,9 @@ MAILCHIMP_LIST = env('MAILCHIMP_LIST')
 
 GOOGLE_ANALYTICS_ID = 'DUMMY'
 
+
 # Asset compressor:
 COMPRESS_ENABLED = True
 STATIC_FILES_VERSION = 'v1'
 # Heroku does not have a filesystem, used to deploy the assets to S3:
-#COMPRESS_STORAGE = 'us_ignite.common.storage.CachedS3BotoStorage'
-
-
+COMPRESS_STORAGE = 'us_ignite.common.storage.CachedS3BotoStorage'
