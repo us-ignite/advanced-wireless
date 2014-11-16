@@ -14,9 +14,9 @@ from us_ignite.events.forms import EventForm, EventURLFormSet
 from us_ignite.events.models import Event
 
 
-def event_detail(request, slug, section=Event.DEFAULT):
+def event_detail(request, slug):
     """Detail of an ``Event``."""
-    event = get_object_or_404(Event, slug__exact=slug, section=section)
+    event = get_object_or_404(Event, slug__exact=slug)
     if not event.is_visible_by(request.user):
         raise Http404
     audience_list = [a for a in event.audiences.all()]
@@ -122,8 +122,7 @@ def event_edit(request, slug):
     return TemplateResponse(request, 'events/object_edit.html', context)
 
 
-def event_list(request, timeframe='upcoming', section=Event.DEFAULT):
-    page_no = pagination.get_page_no(request.GET)
+def get_timeframe_kwargs(timeframe):
     now = timezone.now()
     TIMEFRAMES = {
         'upcoming': {'start_datetime__gte': now},
@@ -131,11 +130,18 @@ def event_list(request, timeframe='upcoming', section=Event.DEFAULT):
     }
     if not timeframe in TIMEFRAMES:
         raise Http404('Unexisting timeframe')
-    object_list = Event.published.filter(
-        section=section, **TIMEFRAMES[timeframe])
+    return TIMEFRAMES[timeframe]
+
+
+def event_list(request, timeframe='upcoming', section=None):
+    page_no = pagination.get_page_no(request.GET)
+    query_kwargs = get_timeframe_kwargs(timeframe)
+    if section:
+        query_kwargs['section'] = section
+    object_list = Event.published.filter(**query_kwargs)
     page = pagination.get_page(object_list, page_no)
-    featured_list = (Event.published
-                     .filter(is_featured=True, **TIMEFRAMES['upcoming']))
+    featured_list = Event.published.filter(
+        is_featured=True, **get_timeframe_kwargs('upcoming'))
     context = {
         'page': page,
         'timeframe': timeframe,
