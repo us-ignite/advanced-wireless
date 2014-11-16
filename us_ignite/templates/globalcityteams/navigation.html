@@ -1,7 +1,7 @@
 <h3>About</h3>
 <ul>
   <li><a href="{% url 'globalcityteams:about' %}">About</a></li>
-  <li><a href="">FAQ</a></li>
+  <li><a href="{% url 'globalcityteams:faq' %}">FAQ</a></li>
 </ul>
 
 <h3>Action Cluster</h3>
@@ -15,5 +15,5 @@
 <h3>News/Events</h3>
 <ul>
   <li><a href="">News</a></li>
-  <li><a href="">Events</a></li>
+  <li><a href="{% url 'globalcityteams:event_list' %}">Events</a></li>
 </ul>
