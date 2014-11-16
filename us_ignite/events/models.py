@@ -57,7 +57,7 @@ class Event(models.Model):
     GLOBALCITIES = 2
     SECTION_CHOICES = (
         (DEFAULT, u'Default'),
-        (GLOBALCITIES, u'Global Cities'),
+        (GLOBALCITIES, u'Global City Teams'),
     )
     name = models.CharField(max_length=500, verbose_name=u'event name')
     slug = AutoUUIDField(unique=True, editable=True)
@@ -81,7 +81,9 @@ class Event(models.Model):
         max_length=500, blank=True, help_text=URL_HELP_TEXT)
     event_type = models.ForeignKey(
         'events.EventType', blank=True, null=True, on_delete=models.SET_NULL)
-    section = models.IntegerField(choices=SECTION_CHOICES, default=DEFAULT)
+    section = models.IntegerField(
+        choices=SECTION_CHOICES, default=DEFAULT, help_text=u'Section where '
+        'this event will be listed. Default is the main section.')
     tickets_url = models.URLField(
         max_length=500, blank=True, verbose_name=u'Tickets URL',
         help_text=URL_HELP_TEXT)
