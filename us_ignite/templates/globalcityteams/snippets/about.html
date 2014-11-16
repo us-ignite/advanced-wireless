@@ -1,0 +1,7 @@
+<h1>{{ object.title }}</h1>
+
+{% if object.image %}
+<img src="{{ object.image.url }}" alt="" />
+{% endif %}
+
+{{ object.body|safe }}
