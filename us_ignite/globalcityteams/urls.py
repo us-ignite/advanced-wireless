@@ -8,6 +8,6 @@ urlpatterns = patterns(
     '',
     url(r'^$', to_template('globalcityteams/index.html')),
     url(r'^faq/$', to_template('globalcityteams/faqs.html')),
-    url(r'^about/$', to_template('globalcityteams/about.html')),
+    url(r'^about/$', to_template('globalcityteams/about.html'), name='about'),
     url(r'^upload/$', to_template('globalcityteams/document-upload.html')),
 )
