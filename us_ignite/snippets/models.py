@@ -45,3 +45,7 @@ class Snippet(models.Model):
         if self.body:
             self.body = sanitizer.sanitize(self.body)
         return super(Snippet, self).save(*args, **kwargs)
+
+    @property
+    def title(self):
+        return self.name

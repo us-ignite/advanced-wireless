@@ -3,7 +3,7 @@ from nose.tools import eq_, ok_
 from django.test import TestCase
 
 from us_ignite.snippets.models import Snippet
-
+from us_ignite.snippets.tests import fixtures
 
 class TestSnippetModel(TestCase):
 
@@ -32,3 +32,7 @@ class TestSnippetModel(TestCase):
         eq_(instance.slug, 'featured')
         ok_(instance.id)
         eq_(instance.notes, '')
+
+    def test_instance_name_is_used_as_title(self):
+        instance = fixtures.get_snippet(name='About page')
+        eq_(instance.title, 'About page')
