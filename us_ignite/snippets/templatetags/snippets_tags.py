@@ -29,7 +29,7 @@ def render_snippets_box(parser, token):
 
     Usage:
 
-    {% snippets KEY TEMPLATE_PATH %}
+    {% snippet KEY TEMPLATE_PATH %}
 
     Where:
     - ``KEY`` is the slug of the ``Snippet``
