@@ -1,0 +1,31 @@
+{% extends "globalcityteams/index.html" %}{% load thumbnail %}
+
+{% block title %}News- {{ block.super }}{% endblock title %}
+
+{% block content %}
+<h1>News</h1>
+
+{% for object in page.object_list %}
+
+<a  href="{{ object.get_absolute_url }}" title="{{ object.name }}">
+  {% if object.image %}
+  <img src="{% thumbnail object.image 216x119 crop %}" alt="{{ object.name }}" />
+  {% else %}
+  <img src="{{ STATIC_URL }}img/project-default.png" alt="{{ object.name }}" />
+  {% endif %}
+</a>
+
+<h2>{{ object.name }}</h2>
+{% with object.tags.all as tag_list %}
+{% if tag_list %}
+<p>
+  {% for tag in tag_list %}{{ tag|upper }}{% if not forloop.last %},{% endif%} {% endfor%}
+</p>
+{% endif %}
+{% endwith %}
+{{ object.get_summary }}
+{% endfor%}
+
+{% include "includes/pagination.html" %}
+
+{% endblock content %}
