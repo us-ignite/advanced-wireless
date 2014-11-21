@@ -1,0 +1,160 @@
+<!doctype html>{% load cache compress sections_tags %}
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}US Ignite{% endblock title %}</title>
+    {% block meta %}
+    <meta name="description" content="{% block meta_description %}Developing Gigabit-ready digital experiences and applications.Developing Gigabit-ready digital experiences and applications.{% endblock meta_description %}">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico" />
+    {% endblock meta %}
+    <script type="text/javascript">__SITEURL__ = "{{ SITE_URL }}";</script>
+    <script src="{{ STATIC_URL }}bower_components/modernizr/modernizr.js"></script>
+
+    <!--[if lt IE 9]>
+      {% compress css %}
+      <link rel="stylesheet" href="{{ STATIC_URL }}css/ie.css" />
+      {% endcompress %}
+      <![endif]-->
+    <!--[if (gte IE 9) | (!IE)]><!-->
+      {% compress css %}
+      <link rel="stylesheet" href="{{ STATIC_URL }}css/app.css" />
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/jquery.dataTables.css"/>
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/dataTables.responsive.css"/>
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/icons-style.css"/>
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/slick.css"/>
+     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/style.css"/>
+      {% endcompress %}
+    <!--<![endif]-->
+
+    {% block extra_styles %}{% endblock extra_styles %}
+  </head>
+  <body {% block body_attrs %}{% endblock body_attrs %}>
+
+    <!-- quicklinks and social links -->
+    <nav class="quicklinks">
+      <div class="row ">
+        <div class="large-12 columns right">
+          {% include "includes/status_bar.html" %}
+        </div>
+      </div>
+    </nav>
+    <!-- /quicklinks -->
+
+    <!-- top-bar -->
+    <div class="contain-to-grid border-bottom">
+      <nav role="banner" class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1>
+              <a href="{% if request.user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'home' %}{% endif %}" class="top-bar__logo">
+                <span>US Ignite</span>
+                 +
+                <span class="smart-america-logo"></span>
+              </a>
+            </h1>
+          </li>
+          <li class="toggle-topbar menu-icon"><a href="#">Main Menu</a></li>
+        </ul>
+
+        <section class="top-bar-section">
+          {% include "includes/navigation.html" %}
+          <ul class="left">
+          </ul>
+
+        </section>
+      </nav>
+    </div>
+    <!-- /top-bar -->
+    {# User notification when profile is missing. #}
+    {% include "includes/profile_notification.html" %}
+    {# Mesages are used to display any user notification. #}
+    {% include "includes/messages.html" %}
+
+    {% block content %}{% endblock content %}
+
+    <!-- footer -->
+    <!-- {-% cache 600 footer %-} -->
+    <footer class="footer">
+      <p class="center sponsors-partners">Partners</p>
+          
+          <div class="carousel">
+               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/arm.png" /></div>
+               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/cisco.png" /></div>
+               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/extreme-networks.png" /></div>
+               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/ibm.png" /></div>
+               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/intel.png" /></div>
+               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/juniper.png" /></div>
+               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/qualcomm.png" /></div>
+               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/ge.png" /></div>
+          </div>
+          
+      <p class="copyright center">© Copyright 2014 US Ignite. All Rights Reserved</p>
+    </footer>
+<!-- /footer -->
+<!-- {-% endcache %-} -->
+
+
+  {% if IS_PRODUCTION %}
+    <!--[if (gte IE 9) | (!IE)]><!-->
+    {% compress js  %}
+    <script src="{{ STATIC_URL }}js/lib/modern.js"></script>
+    {% endcompress %}
+
+    <!--<![endif]-->
+
+    <!--[if lt IE 9]>
+    {% compress js  %}
+    <script src="{{ STATIC_URL }}js/lib/basic.js"></script>
+    {% endcompress %}
+    <![endif]-->
+  {% else %}
+    <!--[if (gte IE 9) | (!IE)]><!-->
+      <script src="{{ STATIC_URL }}bower_components/jquery/dist/jquery.min.js"></script>
+      <script src="{{ STATIC_URL }}bower_components/fastclick/lib/fastclick.js"></script>
+    <!--<![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="{{ STATIC_URL }}bower_components/jquery-1.9.1/index.js"></script>
+
+      <script src="{{ STATIC_URL }}js/vendor/html5shiv.js"></script>
+      <script src="{{ STATIC_URL }}js/vendor/nwmatcher-1.2.5-min.js"></script>
+      <script src="{{ STATIC_URL }}js/vendor/selectivizr-1.0.3b.js"></script>
+      <script src="{{ STATIC_URL }}js/vendor/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.dropdown.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.orbit.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.topbar.js"></script>
+    <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.dropdown.js"></script>
+    <script src="{{ STATIC_URL }}js/vendor/jquery-ui-1.10.4.custom.js"></script>
+    <script src="{{ STATIC_URL }}js/app.js"></script>
+    <script src="{{ STATIC_URL }}globalcityteams/js/slick.min.js"></script>
+     <script src="{{ STATIC_URL }}globalcityteams/js/jquery.validate.min.js"></script>
+     <script src="{{ STATIC_URL }}globalcityteams/js/jquery.dataTables.min.js"></script>
+     <script src="{{ STATIC_URL }}globalcityteams/js/dataTables.responsive.min.js"></script>
+     <script src="{{ STATIC_URL }}globalcityteams/js/gctc.js"></script>
+  {% endif %}
+
+
+  <script type="text/javascript">
+    WebFontConfig = {
+    google: { families: [ 'Lato:400,700,900:latin' ] }
+    };
+    (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+    })();
+  </script>
+
+
+  {% block extra_scripts  %}{% endblock extra_scripts  %}
+  {% include "includes/google_analytics.html" %}
+</body>
+</html>

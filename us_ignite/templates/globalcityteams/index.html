@@ -1,587 +1,175 @@
-<!DOCTYPE HTML>
-<html class="splash">
-<head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-     
-     <title>{% block title %}US Ignite - Global City Teams Challenge{% endblock title %}</title>
-     <meta name="description" content="Global City Teams Challenge">
-     <link rel="shortcut icon" href="{{ STATIC_URL }}globalcityteams/images/favicon.ico" />
-    
-     
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,700,900&amp;subset=latin">
-     <script src="{{ STATIC_URL }}globalcityteams/js/modernizr.js"></script>
-     
-     <!-- DEVELOPMENT 
-     <link rel="stylesheet" type="text/css" href="css/foundation.min.css"/>
-     <link rel="stylesheet" type="text/css" href="css/icons-style.css"/>
-     <link rel="stylesheet" type="text/css" href="css/slick.css"/>
-     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-     -->
-     <!-- PRODUCTION -->
-    
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/style.min.css"/>
-    
-</head>
+{% extends "microsite_base.html" %}{% load snippets_tags thumbnail %}
 
-<body>
-  <header class="header center">
-     	<span class="us-ignite-logo"></span>
-          +
-          <span class="smart-america-logo"></span>
-  </header>
-     {% include "globalcityteams/status_bar.html" %}
-     {% include "globalcityteams/navigation.html" %}
-     <div class="intro-image center">
-     	<div class="row">
-          	<div class="medium-12 columns">
-                    <h1 class="intro-title white">Join A Global City Team Today</h1>
-                    <p class="twitter orange">#globalcityteams</p>
-                    <p class="white">
-                         US Ignite and the National Institute of Standards and Technology (NIST) have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), International Trade Administration (ITA), Department of Health and Human Services (HHS) and Department of Energy (DoE) to create the Global City Teams Challenge, an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment.
-                    </p>
-                    
-                    <div class="down-button"><span class="icon-arrow-down2"></span></div>
-                    <div class="row">
-                    	<div class="medium-6 columns">
-                         	&nbsp;
-                         </div>
-                         <div class="medium-6 columns">
-                         	<div class="image-source">Creative Commons:  "The New York City skyline just before sunrise December 17, 2011" by Anthony Quintano is licensed under CC BY 2.0</div>
-                         </div>
-                    </div>	
-               </div>
+{% block title %}Global City Teams Challenge - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<!-- slide-one -->
+<div class="row slide slide--one">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-7 columns">
+        <div class="slide__panel">
+          <h2 class="slide__heading">US Ignite and the National Institute of Standards and Technology (NIST) have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), International Trade Administration (ITA), Department of Health and Human Services (HHS) and Department of Energy (DoE) to create the Global City Teams Challenge, an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment.</h2>
+          <br>
+          <a class="primary button expand" href="{% url 'what-we-do' %}">WHAT WE DO</a>
+        </div>
+      </div>
+
+      <div class="small-12 medium-4 large-4 large-offset-1 columns">
+       
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- slide-one -->
+
+<!-- homepage-grid -->
+<div class="row homepage-grid" data-equalizer>
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--devs">
+
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">DEVELOPERS</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Build gigabit apps that can transform how we live, work and play.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="homepage-grid__button button expand alert" href="{% url 'involve-developers' %}" >GET INVOLVED</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--partners">
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">PARTNERS</h4>
+        <p class="homepage-grid__desc show-for-medium-up">We work with forward thinking partners who understand that the future is here.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="homepage-grid__button button expand alert" href="{% url 'involve-partners' %}">SUPPORT US IGNITE</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--communities">
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">COMMUNITY LEADERS</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Showcase advanced networks and apps in your community.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="homepage-grid__button button expand alert" href="{% url 'involve-communities' %}" >BECOME A US IGNITE CITY</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--last">
+    {% snippet "featured" "snippets/featured.html" %}
+  </div>
+
+</div>
+<!-- /homepage-grid -->
+
+<!-- slide two -->
+<div class="row slide slide--two">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns right">
+        <div class="slide__panel">
+          <div class="row collapse">
+            <div class="small-12 medium-6 columns">
+              <h2 class="slide__heading">Applications</h2>
+              <p class="slide__desc">See ultra high speed networks are fostering ideas to solve problems  and reinvent everything, from education to healthcare in
+                neighborhoods across the country.</p>
+
+              <a href="{% url 'app_list' %}" class="primary button expand">VIEW APPLICATIONS</a>
+
+            </div>
+
+            <div class="small-6 medium-6 columns show-for-medium-up">
+              <aside class="featured featured--nudge-right">
+                <h4 class="featured__heading">FEATURED APP</h4>
+                {% include "includes/featured_object.html" with object=application %}
+              </aside>
+            </div>
           </div>
-     </div>
-     <!-- End .intro-image -->
-     
-     <div id="content">
-       {% block content %}
-     	<div class="row">
-               <div class="medium-6 columns">
-                    
-                    <div class="updates-form-container">
-                         <div class="form-top-border"></div>	
-                         
-                        	<div class="ss-form">
-                         	
-                              <form action="https://docs.google.com/a/fissionstrategy.com/forms/d/1jGppEIAe85acMHSuwrXbbsBRInmxRtFL4556H8D2qg0/formResponse?embedded=true" method="POST" id="ss-form" target="_self" onsubmit="">
-                              	<p class="orange">To receive updates about the Global City Teams Challenge, please complete the form below</p>
-                              
-                                   <div class="form-title">Global City Teams Challenge</div>
-                                   
-                                   <label class="required">*Required</label>
-                                   <br>
-                                   <ol role="list" class="ss-question-list" style="padding-left: 0">
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_1652802356">
-                                                       <div class="ss-q-title">First and Last Name <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.1652802356" value="" class="ss-q-short" id="entry_1652802356" dir="auto" aria-label="First and Last Name" aria-required="true" required title="">
-                                                       <div class="error-message" id="1617650099_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_694879497">
-                                                       <div class="ss-q-title">Title <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.694879497" value="" class="ss-q-short" id="entry_694879497" dir="auto" aria-label="Title  " aria-required="true" required title="">
-                                                       <div class="error-message" id="1553678132_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_1572683614">
-                                                       <div class="ss-q-title">Organization <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.1572683614" value="" class="ss-q-short" id="entry_1572683614" dir="auto" aria-label="Organization  " aria-required="true" required title="">
-                                                       <div class="error-message" id="895827452_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-select">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_427862890">
-                                                       <div class="ss-q-title">What Best Describes Your Organization <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <select name="entry.427862890" id="entry_427862890" aria-label="What Best Describes Your Organization  " aria-required="true" required="">
-                                                            <option value="NonProfit">NonProfit</option>
-                                                            <option value="For Profit">For Profit</option>
-                                                            <option value="Academia">Academia</option>
-                                                            <option value="Government">Government</option>
-                                                            <option value="Other">Other</option>
-                                                       </select>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_225589123">
-                                                       <div class="ss-q-title">Country <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.225589123" value="" class="ss-q-short" id="entry_225589123" dir="auto" aria-label="Country  " aria-required="true" required title="">
-                                                       <div class="error-message" id="1787166944_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_1884253514">
-                                                       <div class="ss-q-title">Email <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.1884253514" value="" class="ss-q-short required email" id="entry_1884253514" dir="auto" aria-label="Email  " aria-required="true" required title="">
-                                                       <div class="error-message" id="801837053_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item  ss-paragraph-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_1013650841">
-                                                       <div class="ss-q-title">What smart projects are you working on? </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <textarea name="entry.1013650841" rows="8" cols="0" class="ss-q-long" id="entry_1013650841" dir="auto" aria-label="What smart projects are you working on?   "></textarea>
-                                                       <div class="error-message" id="576152908_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item  ss-paragraph-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_101597606">
-                                                       <div class="ss-q-title">Please describe the type of partner organization(s) that would help you advance your existing or desired smart project(s) </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <textarea name="entry.101597606" rows="8" cols="0" class="ss-q-long" id="entry_101597606" dir="auto" aria-label="Please describe the type of partner organization(s) that would help you advance your existing or desired Smart project(s)  "></textarea>
-                                                       <div class="error-message" id="316488984_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <input type="hidden" name="draftResponse" value="[,,&quot;-1516599637107862897&quot;]
-                         ">
-                                        <input type="hidden" name="pageHistory" value="0">
-                                        <input type="hidden" name="fbzx" value="-1516599637107862897">
-                                        <div class="ss-item ss-navigate">
-                                             <input class="button" type="submit" name="submit" value="Submit" id="ss-submit">
-                                        </div>
-                                   </ol>
-                              </form>
-                         </div>
-					
-                         <!--
-                         <form action="/" method="post" id="updates-form">
-                              <p class="orange">To receive updates about the Global City Teams Challenge, please complete the form below</p>
-                              
-                              <div class="form-title">Global City Teams Challenge</div>
-                              
-                              <label class="required">*Required</label>
-                              <br><br>
-                              <label>First and Last Name <span class="required">*</span></label>
-                              <input type="text" class="required" name="" id="" />
-                              
-                              <label>Title <span class="required">*</span></label>
-                              <input type="text" class="required" name="" id8="" />
-                              
-                              <label>Organization <span class="required">*</span></label>
-                              <input type="text" class="required" name="" id="" />
-                              
-                              <label>What Best Describes Your Organization <span class="required">*</span></label>
-                              <select class="required" id="" name="">
-                              </select>
-                              
-                              <label>Country <span class="required">*</span></label>
-                              <input type="text" class="required" name="" id="" />
-                              
-                              <label>Email <span class="required">*</span></label>
-                              <input type="text" class="required email" name="" id="" />
-                              
-                              <label>What smart projects are you working on? </label>
-                              <textarea name="" id=""></textarea>
-                              
-                              <label>Please describe the type of partner organization(s) that would help you advance your existing or desired Smart project(s).</label>
-                              <textarea name="" id=""></textarea>
-                              
-                              <button type="submit"> Submit Form</button>
-                              
-                              <img src="images/google-forms-brand.png" alt="" />
-                         </form>
-                         -->
-                    </div>
-               </div>
-               <div class="medium-6 columns right-column">
-                    <p>
-                         <span class="bold">Why join a Global City Team?</span><br>
-     The Challenge is an opportunity for forward-looking communities to partner with public and private organizations to accelerate the deployment of IoT technologies designed to address some of the most pressing challenges facing cities. The Global City Teams Challenge also benefits innovative companies and non-profits by giving them a chance to implement and/or assess their solutions in valuable municipal testbeds, and provides them with exposure to scores of potential new customers. To see a list of current Action Clusters, please <a href="#nist-table">click here</a>.
-                    </p>
-                    <br>
-                    
-                    <p class="bold">The Global City Teams Challenge includes: </p>
-                    
-                    <ul class="challenge-list">
-                         <li>Match making between innovators and communities</li>
-                         <li>Networking opportunities</li>
-                         <li>Collaboration designed to foster interconnected IoT technologies with greater impact</li>
-                         <li>Access to testbeds</li>
-                         <li>Opportunities to showcase leadership in the development and implementation of IoT</li>
-                    </ul>
-                    
-                    <p class="bold">How will the Global City Teams Challenge Work?</p>
-                    <p>
-                         
-     NIST and US Ignite will help organize "action clusters," composed of representatives of innovative local governments, non-profits and private companies. These teams volunteer to work collaboratively to build, deploy or test transformative IoT applications. The Global City Teams Challenge builds upon the success of NIST’s 2013-2014 SmartAmerica initiative in which more than 100 organizations participated forming 24 teams.
-                    
-                    </p>
-                    
-                    <p>The Global City Teams Challenge kick-off event on September 29-30, 2014, at NIST was a great success with more than 350 on-site and remote attendees. The agenda, presentations and materials produced at the event can be found <a target="_blank" href="https://s3.amazonaws.com/us-ignite-org/static/globalcityteams/downloads/Global+City+Teams+Preliminary+Agenda+V6.pdf">here</a>.</p>
-                    
-                    <p>
-                    Still have questions? Please visit our <a href="https://us-ignite.org/globalcityteams/faq"> FAQ page</a> to learn more.
-                    </p>
-                    
-                    <p>
-                    	If you are ready to submit a one-page summary of your contributions to a potential global city teams project, please visit our <a href="https://us-ignite.org/globalcityteams/upload"> submission page</a>.
-                    </p>
-                    
-                    <p>If you would like to learn more about one of the Action Clusters listed below or if you are interested in becoming associated with one of the projects, please email <a href="mailto:sokwoo.rhee@nist.gov">sokwoo.rhee@nist.gov</a> and <a href="mailto:william.maguire@us-ignite.org">william.maguire@us-ignite.org</a>. Learn more about <a target="_blank" title="US Ignite" href="http://us-ignite.org/">US Ignite</a> and <a target="_blank" title="NIST" href="http://www.nist.gov/cps/sagc.cfm">NIST</a>.</p>
-     
-               </div>
-               <!-- End .right-column -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide two -->
+
+<!-- slide three -->
+<div class="row slide slide--three">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns">
+        <div class="slide__panel">
+          <div class="row collapse">
+            <div class="small-12 medium-6 columns">
+              <h2 class="slide__heading">Communities</h2>
+              <p class="slide__desc">Communities nationwide are using advanced networks to help transform themselves into innovation and technology-driven economies to compete in the 21st century.</p>
+
+              <a class="primary button expand" href="{% url 'hub_list' %}">VIEW OUR COMMUNITIES</a>
+            </div>
+            <div class="small-6 medium-6 columns show-for-medium-up">
+              <aside class="featured featured--nudge-right">
+                <h4 class="featured__heading">FEATURED COMMUNITY</h4>
+                {% include "includes/featured_object.html" with object=hub %}
+              </aside>
+            </div>
           </div>
-          <!-- .row -->
-          
-          <div class="row">
-          	<div class="medium-12 columns">
-               	<table id="nist-table" class="tdisplay responsive" cellspacing="0" width="100%">
-                         <thead>
-                             <tr>
-                                 <th class="all">ProjectID</th>
-                                 <th class="all">Project Title</th>
-                                 <th class="desktop">Team Reporter</th>
-                                 <th class="desktop">Descriptions</th>
-                                 <th class="desktop">Organizations Involved</th>
-                               
-                             </tr>
-                         </thead>
-      
-                         <tbody>
-                             <tr>
-                                 <td>1</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/wh4UdMNC7g2iGvMmtdTEqT/">Modular Micro Grid Model (NY)</a></td>
-                                 <td>William Hadala</td>
-                                 <td>Create energy supply and demand model for a storm-resilient microgrid in NY testbed, an physically construct the microgrid</td>
-                                 <td>IWire365</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>2</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/Mke9c7feveuDyEM2pUJH3A/">Next Generation of Emergency Medical Services in San Francisco</a></td>
-                                 <td>William Hadala</td>
-                                 <td>We aim to increase emergency response times by mobilizing community medical resources by integrating CAD, AVL and dispatch systems</td>
-                                 <td>IWire365</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>3</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/xhycLkjZh9z5JdzJqgETxg/">Columbus, OH: Rickenbacker Awesome Project (RAP)</a></td>
-                                 <td>Paul Carlson</td>
-                                 <td>Use citizen participation to help track multimodal transportation patterns in the Rickenbacker area to help design new green alternatives.</td>
-                                 <td>Columbus, OH</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>4</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/VRsvZ3UKoeR6RLbuL4Jhd9/">Human Population Mapping for Enhanced Community Resilience (Annapolis Team)</a></td>
-                                 <td>Michael Dunaway</td>
-                                 <td>To improve disaster preparedness, develop a process to map layers of social, governmental, and private sector resources with physical infra.</td>
-                                 <td>The Aethena Group</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>5</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/sy3orLMemi9xTUqKv4YGF/">Project X: GigaBit SMART City Project</a></td>
-                                 <td>William Hadala</td>
-                                 <td>Tie electric, water & gas smart meters systems into local existing fiber networks to enable automated services and management dashboards.</td>
-                                 <td>IWire365</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>6</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/KKmM7WVEyM8v6yZnWrftUg/">Remotely Caring for Our Most Vulnerable Citizens In-Place During A Pandemic</a></td>
-                                 <td>Julian Goldman</td>
-                                 <td>Automate detection, triage, and treatment of severe contagious disease outbreaks with a focus on enabling remote support of local treatment.</td>
-                                 <td>Mass General </td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>7</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/iP8vMr4BWcteoFzprEujvm/">Study of Impact of Data in Smart Cities on the Social Contract</a></td>
-                                 <td>Kari Keefe</td>
-                                 <td>Explore user preferences in data design and sharing architecture for public and third party entities with regards to privacy concerns..</td>
-                                 <td>Mozilla Foundation</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>8</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/GiefEkG6yDgeoXQ2TQ4rNN/">Energy Optimization Through Demand Reduction</a></td>
-                                 <td>Michael Pickett</td>
-                                 <td>Bring together utilities, municipalities and other stakeholders to develop an action plan to invest in distributive energy resources.</td>
-                                 <td>Lucid Desgn Group</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>9</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/zp8ZBNYZnJKEqkCMP99sCf/">SmartCities Utility Infrastructure</a></td>
-                                 <td>Ed Davalos, Mike Alexander </td>
-                                 <td>Use wireless network and sensory inputs to create a mgt dashboard to address water sustainability and protect the water system from threats</td>
-                                 <td>AT&T, IBM</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>10</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/GeusuJhSDth9GSXeZN7sM8/">Chattanooga GASP: Geolocated Allergen Sensing Platform</a></td>
-                                 <td>Nate Hill</td>
-                                 <td>Deploy a sensor network on building and residences that monitors allergens with data streaming live to a central public repository for devs</td>
-                                 <td>Chattanooga Library</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>11</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/JMSnLY5Vb4xzEShcdLDiLP/">PA 2040 (DC)</a></td>
-                                 <td>John Baekelmans</td>
-                                 <td>Integrate Smart Street infrastructure on Pennsylvania Avenue, DC, including lights, CCTV, Parking, Signage, Env. Sensing and more.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>12</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/xD6TMDJtrQrcefjd9DAmDa/">Connected, Intelligent Transit (Portland)</a></td>
-                                 <td>Skip Newberry</td>
-                                 <td>Reduce congestion through a multi-modal transporation initiative leveraging sensors in a dense urban neighborhood with fiber connectivity</td>
-                                 <td>&nbsp;</td>
-                             </tr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide three -->
 
-                             <tr>
-                                 <td>13</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/ECuFRL3KjMZ2WDVe8WDZYK/">ARIBO: Applied Robotics for Installations and Base Operations</a></td>
-                                 <td>Corey Clothier</td>
-                                 <td>Autonomous vehicle taxi deployments in enclosed environments like army bases, campuses, or dedicated roadways.</td>
-                                 <td>Comet Consulting</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>14</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/Mnubwt5vKp5qQHdxW6qPpF/">SCALE: Safe Community Alert Network</a></td>
-                                 <td>Dan Hoffman</td>
-                                 <td>Remote monitoring through sensors/cameras and automated emergency alert system.</td>
-                                 <td>Montgomery Country, MD</td>
-                             </tr>
-						
-                             <tr>
-                                 <td>15</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/icUg9SkzFDxjkKVJM6byx9/">Smart Emergency Response System (SERS Team)</a></td>
-                                 <td>Justyna Zander, Pieter Mosterman</td>
-                            <td>Mission center that optimizes and deploys available first-responder resources, such as rescue dogs, robots, drones, and autonomous vehicles.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
 
-                             <tr>
-                                 <td>16</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/k5jJcH5zCHMu8rhYNTwecV/">Kumbh Mela: Solving the Problems of Millions</a></td>
-                                 <td>Ramesh Rasker</td>
-                            <td>Enhancing the experience of the 30 million person Hindu Kumbh Melah pilgrimage using proximity sensors for crowd management and more.
-</td>
-                                 <td>MIT Media Lab</td>
-                             </tr>
+<!-- newsletter -->
+{% include "mailinglist/object_block.html" %}
+<!-- /newsletter -->
 
-                             <tr>
-                                 <td>17</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/h86FFkoqYEaRCpv4pKJUTH/">Transactive Energy Management of Distributed Energy Resources</a></td>
-                                 <td>Ron Ambrosio</td>
-                            <td>With a network of energy-producing residences, combine signaling methods with weather data to decide when to reduce central power supply.
-</td>
-                                 <td>IBM, Smart Energy Research</td>
-                             </tr>
+<!-- slide four -->
+<div class="row slide slide--four">
+  <div class="small-12 columns slide__container">
 
-                             <tr>
-                                 <td>18</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/3xhL68PYKna6rgJxNeL4Zd/">Cyber Attack-Defense Exercise for System Planners and First Responders (Iowa)</a></td>
-                                 <td>Manimaran Govindarasu, Doug Jacobson</td>
-                            <td>Cyber security planning and training for connected infrastructure systems like power grid, Internet, water distribution and transportation.
-</td>
-                                 <td>&nbsp;</td>
-                             </tr>
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns right">
+        <div class="slide__panel">
+          <div class="row collapse">
+            <div class="small-12 medium-6 columns">
+              <h2 class="slide__heading">Resources</h2>
+              <p class="slide__desc">Learn how to build next-
+                generation applications, and how these powerful new technologies are transforming communities for the better.</p>
 
-                             <tr>
-                                 <td>19</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/bRAyH96RNrKpZXGdK3FmXQ/">Greenville A-Taxi Shuttle Project</a></td>
-                                 <td>Fred Payne</td>
-                            <td>Multi-modal transportation project demonstrating business case for a Personal Rapid Transit option through Autonomous Vehicle Taxi in 5-mi corridor from downtown Greenville to suburb.
-"</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-                            
-                             <tr>
-                                 <td>20</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/LEB8K7wacNWtDAzXJbtXdf/">Traffic Incident Management Solution (AGT and Cisco)</a></td>
-                                 <td>Cisco, AGT</td>
-                                 <td>Traffic monitoring and incident detection and management using integration of internet-connected street sensors and video analytics.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-
-                             <tr>
-                                 <td>21</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/SpJUiCwAjDBXS8dtyTjL5E/">Bus Tracking & Intelligent Transportation</a></td>
-                                 <td>Sharon Johnson</td>
-                                 <td>Improve public transport ops using connected GPS sensors and traffic mgt software to correct for unexpected events and scheduling issues.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-
-                             <tr>
-                                 <td>22</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/higQp66SB4V4dndVzF99nh/">Intelligent Connectivity & Water Resource Management</a></td>
-                                 <td>Steve Crout</td>
-                                 <td>Systematically evaluate the risk to its water quality from source to tap.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-
-                             <tr>
-                                 <td>23</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/43uNdVPYKdogvxt5ok6mD8/">Project Healthy Smart City</a></td>
-                                 <td>Ellena Schubert</td>
-                                 <td>Create a holistic view of urban health to enable an integrated view of requirements and provides a scalable framework to evaluate solutions.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-
-                             <tr>
-                                 <td>24</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/RRyiEaLDtxXKxFD7MwxgwY/">Nudging Behavior with Smart Data</a></td>
-                                 <td>John Kim</td>
-                                 <td>Creating better user interfaces to educate and engage with the quantified city.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>25</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/QPngRfmvubTGGpr8Gq7gDD/">Real-Time Geospatial Collaboration Platform for First Responders</a></td>
-                                 <td>Mahesh Punyamurthula</td>
-                                 <td>Combine real-time geospatial collaboration with mobile touch devices to improve situational awareness of first responders in an emergency.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>26</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/sGnog9XEXdsV3AP7mjK9TA/">Technology Enabling Human Networks in Emergency Response</a></td>
-                                 <td>Pieter Mosterman</td>
-                                 <td>Smart emergency response preparedness due to enhanced situation awareness in extreme disaster scenario.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-                             
-                             <tr>
-                                 <td>27</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/ea6hXoMToKc7ZQY7jqSzbT/">5D Smart Physical Infrastructure</a></td>
-                                 <td>Michael Jansen</td>
-                                 <td>A live, actionable virtual model of underground Chicago, including water pipes, gas lines, power systems, subway structures and cabling.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-
-                             <tr>
-                                 <td>28</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/WcwMtDH8LAfxLdG96E5dEa/">Lower Manhattan’s Smart Neighborhood Pilot</a></td>
-                                 <td>Sander Dolder, NYCEDC</td>
-                                 <td>Deploy a sensor network that enables real-time analysis of how Downtown Manhattan, and its population, is changing over time.</td>
-                                 <td>NYCEDC, Alliance for Downtown New York</td>
-                             </tr>
-
-                             <tr>
-                                 <td>29</td>
-                                 <td><a href="https://us-ignite.org/actioncluster/grJYMWvw7CCRNF3X2Ne2KU/">Bringing Internet of Things Know-How to High School Students</a></td>
-                                 <td>Greg Toth, Internet of Things Dev Labs</td>
-                                 <td>Jump-starting high school students' knowledge about the Internet of Things in a globally connected world.</td>
-                                 <td>Arlington County, Virginia Tech - National Capital Region, Internet of Things DC, IoT Dev Labs</td>
-                             </tr>
-                             
-                        </tbody>
-				</table>
-               </div>
+              <a href="{% url 'resource_list' %}" class="primary button expand">VIEW RESOURCES</a>
+            </div>
+            <div class="small-6 medium-6 columns show-for-medium-up">
+              <aside class="featured featured--nudge-right">
+                <h4 class="featured__heading">FEATURED RESOURCE</h4>
+                {% include "includes/featured_object.html" with object=resource %}
+              </aside>
+            </div>
           </div>
-          
-          <div class="row">
-          	<div class="medium-12 columns">
-                    <div class="separator"></div>
-                    <p class="center">Tell others about the Global City Teams Challenge! <span class="bold">Share this page:</span></p>
-                    
-                    <div class="social-links center">
-                         <a href="https://www.facebook.com/USIgnite" target="_blank" title="Facebook">&nbsp;<span class="icon-uniE607"></span>&nbsp;</a>
-                         <a href="mailto:info@us-ingite.org" target="_blank" title="Email"><span class="icon-uniE609"></span></a>
-                         <a href="https://twitter.com/US_Ignite" target="_blank" title="Twitter"><span class="icon-uniE608"></span></a>
-                    </div>
-                    
-                    <p class="center light-blue">#globalcityteams</a>
-                    
-               </div>
-         </div>
-     {% endblock content %}
-     </div>
-     <!-- End #content -->
-     
-     <footer class="footer">
-     	<p class="center sponsors-partners">Partners</p>
-          
-          <div class="carousel">
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/arm.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/cisco.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/extreme-networks.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/ibm.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/intel.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/juniper.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/qualcomm.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/ge.png" /></div>
-          </div>
-          
-          <p class="copyright center">© Copyright 2014 US Ignite. All Rights Reserved</p>
-     </footer>
-     
-     <!-- PRODUCTION -->
-     <script src="{{ STATIC_URL }}globalcityteams/js/script.min.js"></script> 
-    
-     
-      <!-- DEVELOPMENT 
-	<script src="js/jquery-1.11.1.min.js"></script>
-     <script src="js/fastclick.js"></script>
-     <script src="js/foundation.min.js"></script>
-     <script src="js/slick.min.js"></script>
-     <script src="js/jquery.validate.min.js"></script>
-     <script src="js/app.js"></script>   
-     -->                   
-</body>
-</html>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide four -->
+{% endblock content %}
