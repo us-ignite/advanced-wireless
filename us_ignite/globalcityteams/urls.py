@@ -6,7 +6,7 @@ to_template = lambda t: TemplateView.as_view(template_name=t)
 
 urlpatterns = patterns(
     'us_ignite.globalcityteams.views',
-    url(r'^$', to_template('globalcityteams/index.html')),
+    url(r'^$', to_template('globalcityteams/index.html'), name='globalcityteams'),
     url(r'^faq/$', to_template('globalcityteams/faqs.html'), name='faq'),
     url(r'^about/$', to_template('globalcityteams/about.html'), name='about'),
     url(r'^upload/$', to_template('globalcityteams/document-upload.html')),

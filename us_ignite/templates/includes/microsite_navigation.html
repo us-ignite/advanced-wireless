@@ -1,0 +1,40 @@
+<!-- Right Nav Section -->
+<ul class="right">
+
+  <li class="has-dropdown">
+    <a href="{% url 'globalcityteams' %}">ABOUT</a>
+    <ul class="dropdown">
+      <li><a href="globalcityteams/about">GLOBAL CITY TEAMS CHALLENGE</a></li>
+      <li><a href="globalcityteams/faqs">FAQS</a></li>
+      <li><a href="globalcityteams/faqs">PARTNERS</a></li>
+      <li><a href="globalcityteams/faqs">SECTORS</a></li>
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="{% url 'hub_list' %}">COMMUNITIES</a>
+    <ul class="dropdown">
+      {% include "includes/navigation/communities.html" %}
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="{%url 'resource_list' %}">RESOURCES</a>
+    <ul class="dropdown">
+      {% include "includes/navigation/resources.html" %}
+    </ul>
+  </li>
+
+  {% block search %}
+  <li class="has-form">
+    <div class="row collapse">
+      <div class="small-12 columns search">
+        {% include "includes/search.html" %}
+      </div>
+    </div>
+  </li>
+  {% endblock search %}
+
+</ul>
+
+

@@ -74,7 +74,18 @@
   </div>
 
   <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--last">
-    {% snippet "featured" "snippets/featured.html" %}
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">COMMUNITY LEADERS</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Showcase advanced networks and apps in your community.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="homepage-grid__button button expand alert" href="{% url 'involve-communities' %}" >BECOME A US IGNITE CITY</a>
+      </div>
+    </div>
   </div>
 
 </div>
