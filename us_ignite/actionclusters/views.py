@@ -33,7 +33,10 @@ def get_stage_or_404(stage):
 
 def actioncluster_list(request, domain=None, stage=None, filter_name=''):
     """List al the available ``ActionCluster``."""
-    extra_qs = {}
+    extra_qs = {
+        'is_approved': True,
+        'status': ActionCluster.PUBLISHED,
+    }
     if domain:
         # Validate domain is valid if provided:
         extra_qs['domain'] = get_object_or_404(Domain, slug=domain)
@@ -46,11 +49,9 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
     page_no = pagination.get_page_no(request.GET)
     object_list = (
         ActionCluster.objects.select_related('domain')
-        .filter(status=ActionCluster.PUBLISHED, **extra_qs)
-        .order_by('needs_partner'))
+        .filter(**extra_qs).order_by('needs_partner'))
     featured_list = (ActionCluster.objects.select_related('domain')
-                     .filter(status=ActionCluster.PUBLISHED,
-                             is_featured=True, **extra_qs)[:3])
+                     .filter(is_featured=True, **extra_qs)[:3])
     page = pagination.get_page(object_list, page_no)
     context = {
         'featured_list': featured_list,

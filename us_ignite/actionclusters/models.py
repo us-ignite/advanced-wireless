@@ -188,7 +188,7 @@ class ActionCluster(ActionClusterBase):
 
     def is_public(self):
         """Verify if the ``Application`` is accessible by anyone."""
-        return self.status == self.PUBLISHED
+        return (self.status == self.PUBLISHED) and self.is_approved
 
     def is_draft(self):
         """Verify if the ``Application`` is a draft."""

@@ -12,7 +12,7 @@ class ActionClusterPublishedManager(models.Manager):
 
     def get_query_set(self):
         return (super(ActionClusterPublishedManager, self).get_query_set()
-                .filter(status=self.model.PUBLISHED))
+                .filter(status=self.model.PUBLISHED, is_approved=True))
 
     def get_featured(self):
         try:
