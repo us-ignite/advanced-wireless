@@ -33,6 +33,9 @@
   </header>
      {% include "globalcityteams/status_bar.html" %}
      {% include "globalcityteams/navigation.html" %}
+  {% block search_form %}
+  {% include "globalcityteams/search_form.html" %}
+  {% endblock search_form %}
 
      <div id="content">
        {% block content %}
