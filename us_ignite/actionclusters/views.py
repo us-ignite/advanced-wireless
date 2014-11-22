@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.utils import timezone
 
+from us_ignite.actionclusters import mailer
 from us_ignite.actionclusters.forms import (
     ActionClusterForm,
     ActionClusterLinkFormSet,
@@ -118,6 +119,7 @@ def actioncluster_add(request):
             instance.owner = request.user
             instance.save()
             form.save_m2m()
+            mailer.notify_request(instance)
             messages.success(
                 request, 'The action cluster "%s" has been added.' % instance.name)
             return redirect(instance.get_absolute_url())

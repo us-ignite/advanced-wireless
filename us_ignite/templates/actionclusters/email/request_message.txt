@@ -1,10 +1,12 @@
 Hi there,
 
-The {{ object.user.email }} has applied to be a Ignite Community.
+{{ object.owner.email }} has submit an Action Cluster for review.
 
 The details of the application can be found at:
 
 {{ SITE_URL }}{{ object.get_admin_url }}
+
+To publish it mark it as ``is approved``.
 
 You are being emailed because you are listed as a site administrator.
 
