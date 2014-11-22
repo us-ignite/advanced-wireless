@@ -13,4 +13,4 @@ class TestSettingsAvailableContextProcessor(TestCase):
         context = context_processors.settings_available(request)
         eq_(sorted(context.keys()),
             sorted(['ACCOUNT_ACTIVATION_DAYS', 'GOOGLE_ANALYTICS_ID',
-                    'IS_PRODUCTION', 'SITE_URL']))
+                    'IS_PRODUCTION', 'SITE_URL', 'MICROSITE_SLUG']))
