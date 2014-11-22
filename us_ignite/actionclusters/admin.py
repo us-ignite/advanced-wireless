@@ -1,8 +1,12 @@
 from django.contrib import admin
 
-from us_ignite.actionclusters.models import (ActionCluster, ActionClusterURL,
-                                   ActionClusterMedia, Domain, Feature,
-                                   Page, PageActionCluster)
+from us_ignite.actionclusters.models import (
+    ActionCluster,
+    ActionClusterURL,
+    ActionClusterMedia,
+    Domain,
+    Feature
+)
 
 
 class ActionClusterURLInline(admin.TabularInline):
@@ -31,18 +35,6 @@ class FeatureAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
 
 
-class PageActionClusterInline(admin.TabularInline):
-    raw_id_fields = ('actioncluster', )
-    model = PageActionCluster
-
-
-class PageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'status', 'created', )
-    list_filter = ('status', 'created', )
-    date_hierarchy = 'created'
-    inlines = [PageActionClusterInline]
-
 admin.site.register(ActionCluster, ActionClusterAdmin)
 admin.site.register(Domain, DomainAdmin)
 admin.site.register(Feature, FeatureAdmin)
-admin.site.register(Page, PageAdmin)

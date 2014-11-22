@@ -16,8 +16,7 @@ from us_ignite.actionclusters.forms import (
 from us_ignite.actionclusters.models import (
     ActionCluster,
     ActionClusterMembership,
-    Domain,
-    Page
+    Domain
 )
 from us_ignite.awards.models import ActionClusterAward
 from us_ignite.common import pagination, forms
@@ -211,27 +210,6 @@ def actioncluster_membership(request, slug):
     }
     return TemplateResponse(
         request, 'actionclusters/object_membership.html', context)
-
-
-def actionclusters_featured(request):
-    """Shows the featured application page."""
-    page = get_object_or_404(Page, status=Page.FEATURED)
-    object_list = [a.actioncluster for a in page.pageactioncluster_set.all()]
-    context = {
-        'object': page,
-        'actioncluster_list': object_list,
-    }
-    return TemplateResponse(request, 'actionclusters/featured.html', context)
-
-
-def actionclusters_featured_archive(request, slug):
-    page = get_object_or_404(Page, status=Page.PUBLISHED, slug__exact=slug)
-    application_list = [a.application for a in page.pageapplication_set.all()]
-    context = {
-        'object': page,
-        'application_list': application_list,
-    }
-    return TemplateResponse(request, 'actionclusters/featured.html', context)
 
 
 @login_required

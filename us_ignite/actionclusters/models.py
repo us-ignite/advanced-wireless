@@ -262,55 +262,6 @@ class ActionClusterMedia(models.Model):
     class Meta:
         ordering = ('created', )
 
-
-class Page(models.Model):
-    """Group of applications listed in a ``Page``."""
-    PUBLISHED = 1
-    DRAFT = 2
-    FEATURED = 3
-    STATUS_CHOICES = (
-        (FEATURED, 'Featured'),
-        (PUBLISHED, 'Published'),
-        (DRAFT, 'Draft'),
-    )
-    name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
-    status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    description = models.TextField(blank=True)
-    created = CreationDateTimeField()
-    modified = ModificationDateTimeField()
-
-    def save(self, *args, **kwargs):
-        if self.status == self.FEATURED:
-            # Move any ``FEATURED`` page to ``PUBLISHED``,
-            # only a single FEATURED page can be shown:
-            (self.__class__.objects.filter(status=self.FEATURED)
-             .update(status=self.PUBLISHED))
-        return super(Page, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return self.name
-
-    def is_featured(self):
-        return self.status == self.FEATURED
-
-    def get_absolute_url(self):
-        if self.is_featured():
-            return reverse('actionclusters_featured')
-        return reverse('actionclusters_featured_archive', args=[self.slug])
-
-
-class PageActionCluster(models.Model):
-    page = models.ForeignKey('actionclusters.Page')
-    actioncluster = models.ForeignKey('actionclusters.ActionCluster')
-    order = models.IntegerField(default=0)
-
-    class Meta:
-        ordering = ('order', )
-
-    def __unicode__(self):
-        return u'%s for page %s' % (self.actioncluster, self.page)
-
 # Search:
 watson.register(
     ActionCluster.active.all(),
