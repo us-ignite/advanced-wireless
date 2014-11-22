@@ -63,7 +63,7 @@ SEARCH_PARAMS = {
 }
 
 
-def get_search_results(query, slug, include_all_models=False):
+def get_search_results(query, slug, include_all_models=True):
     if slug not in SEARCH_PARAMS:
         raise Http404('Invalid search slug.')
     models = SEARCH_PARAMS[slug]
