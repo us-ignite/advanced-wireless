@@ -19,18 +19,9 @@ from us_ignite.actionclusters.models import (
     Domain
 )
 from us_ignite.awards.models import ActionClusterAward
-from us_ignite.common import pagination, forms
+from us_ignite.common import pagination
 from us_ignite.hubs.forms import HubActionClusterMembershipForm
 from us_ignite.hubs.models import HubActionClusterMembership
-
-
-APPS_SORTING_CHOICES = (
-    ('', 'Select ordering'),
-    ('created', 'Created (Oldest first)'),
-    ('-created', 'Created (Recent first)'),
-    ('stage', 'Stage (Ideas first)'),
-    ('-stage', 'Stage (Completed first)'),
-)
 
 
 def get_stage_or_404(stage):
@@ -53,13 +44,10 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
         extra_qs['stage'] = pk
         filter_name = name
     page_no = pagination.get_page_no(request.GET)
-    order_form = forms.OrderForm(
-        request.GET, order_choices=APPS_SORTING_CHOICES)
-    order_value = order_form.cleaned_data['order'] if order_form.is_valid() else ''
-    object_list = (ActionCluster.objects.select_related('domain')
-                   .filter(status=ActionCluster.PUBLISHED, **extra_qs))
-    if order_value:
-        object_list = object_list.order_by(order_value)
+    object_list = (
+        ActionCluster.objects.select_related('domain')
+        .filter(status=ActionCluster.PUBLISHED, **extra_qs)
+        .order_by('needs_partner'))
     featured_list = (ActionCluster.objects.select_related('domain')
                      .filter(status=ActionCluster.PUBLISHED,
                              is_featured=True, **extra_qs)[:3])
@@ -67,8 +55,6 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
     context = {
         'featured_list': featured_list,
         'page': page,
-        'order': order_value,
-        'order_form': order_form,
         'domain_list': Domain.objects.all(),
         'stage_list': ActionCluster.STAGE_CHOICES,
         'filter_name': filter_name,
