@@ -21,5 +21,4 @@ def article_list(request):
 
 def search(request):
     response = search_source(request, 'globalcities')
-    response.template_name = 'globalcityteams/search.html'
     return response
