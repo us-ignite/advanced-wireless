@@ -1,40 +1,30 @@
-{% extends "globalcityteams/index.html" %}
+{% extends "includes/lists/object_list_base.html" %}
 
 {% block title %}Action Cluster list - {{ block.super }}{% endblock title %}
 
-{% block content %}
-Action Cluster{% if filter_name %}: {{ filter_name }}{% endif %}
+{% block page_title %}Action Cluster{% if filter_name %}: {{ filter_name }}{% endif %}{% endblock page_title %}
 
-<h2>Join a Action Cluster</h2>
-<p>Scroll through and explore these exciting  "action clusters" that are a part of the Global City Teams Challenge.   The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
+{% block top_panel %}
+<div class="row panel">
+  <div class="small-12 columns">
+    <h2>Join a Action Cluster</h2>
+    <p>Scroll through and explore these exciting  "action clusters" that are a part of the Global City Teams Challenge.   The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
+  </div>
+</div>
+<div class="row newsletter newsletter--primary">
+  <div class="small-12 medium-8 columns newsletter__column">
+    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN ACTION CLUSTER?</strong> TELL US ABOUT IT...</h4>
+  </div>
+  <div class="small-12 medium-4 columns newsletter__column">
+    <a href="{% url 'actioncluster_add' %}" class="button alert postfix">SUBMIT YOUR ACTION CLUSTER</a>{% csrf_token %}
+  </div>
+</div>
+{% endblock top_panel %}
 
-  <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN ACTION CLUSTER?</strong> TELL US ABOUT IT...</h4>
-  <a href="{% url 'actioncluster_add' %}" class="button alert postfix">SUBMIT YOUR ACTION CLUSTER</a>
 
-  <h2>Categories</h2>
-  <ul>
-    <li><a href="{% url 'actioncluster_list' %}">All</a></li>
-
-    {% for domain in domain_list %}
-    <li><a href="{% url 'actioncluster_list_domain' domain.slug %}">{{ domain.name }}</a></li>
-    {% endfor %}
-
-    {% for stage_id, stage in stage_list %}
-    <li><a href="{% url 'actioncluster_list_stage' stage_id %}">{{ stage }}</a></li>
-    {% endfor%}
-  </ul>
-
-  <h2>Featured Action Clusters</h2>
-  {% for featured in featured_list %}
-  {% include "actionclusters/object_block_featured.html" with object=featured last=forloop.last %}
-  {% endfor%}
-
-  <h2>Action clusters</h2>
-
-  {% for object in page.object_list %}
-  {% include "actionclusters/object_block.html" %}
-  {% endfor %}
-
-  {% include "includes/pagination.html" %}
-
-{% endblock content %}
+{% block domain_list %}
+{{ block.super }}
+{% for stage_id, stage in stage_list %}
+<li><a href="{% url 'actioncluster_list_stage' stage_id %}" class="domains__link {% if current_stage == stage_id %}domains__link--active{% endif %}">{{ stage }}</a></li>
+{% endfor%}
+{% endblock domain_list %}
