@@ -143,7 +143,7 @@ class ActionCluster(ActionClusterBase):
         default=False, verbose_name="Looking for a partner?")
     awards = models.TextField(blank=True, help_text=u'Recognition or Awards')
     tags = TaggableManager(blank=True)
-    position = GeopositionField(blank=True)
+    position = GeopositionField(blank=True, editable=False)
     is_homepage = models.BooleanField(
         default=False, verbose_name='Show in the homepage?',
         help_text=u'If marked this element will be shown in the homepage.')
