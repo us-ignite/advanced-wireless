@@ -36,7 +36,7 @@ class ActionClusterForm(forms.ModelForm):
     class Meta:
         model = ActionCluster
         fields = ('name', 'summary', 'impact_statement',
-                  'image', 'domain', 'features', 'stage',
+                  'image', 'domain', 'features', 'stage', 'needs_partner',
                   'assistance', 'team_name', 'team_description',
                   'awards', 'acknowledgments', 'tags', 'status',)
         widgets = {
