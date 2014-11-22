@@ -63,13 +63,13 @@ SEARCH_PARAMS = {
 }
 
 
-def get_search_results(query, slug, include_all_models=True):
+def get_search_results(query, slug):
     if slug not in SEARCH_PARAMS:
         raise Http404('Invalid search slug.')
     models = SEARCH_PARAMS[slug]
     object_list = list(watson.search(query, models=models))
     # Perform the search with the rest of the models:
-    if include_all_models:
+    if models:
         object_list += list(watson.search(query, exclude=models))
     return object_list
 
