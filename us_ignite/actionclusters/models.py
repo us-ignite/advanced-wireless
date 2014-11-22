@@ -147,6 +147,7 @@ class ActionCluster(ActionClusterBase):
     is_homepage = models.BooleanField(
         default=False, verbose_name='Show in the homepage?',
         help_text=u'If marked this element will be shown in the homepage.')
+    is_approved = models.BooleanField(default=False)
     # managers:
     objects = models.Manager()
     active = managers.ActionClusterActiveManager()
