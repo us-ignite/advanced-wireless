@@ -139,13 +139,14 @@ class ActionCluster(ActionClusterBase):
         'actionclusters.Domain', blank=True, null=True,
         help_text='What is the primary public benefit priority area '
         'served by this action cluster?')
+    needs_partner = models.BooleanField(
+        default=False, verbose_name="Looking for a partner?")
     awards = models.TextField(blank=True, help_text=u'Recognition or Awards')
     tags = TaggableManager(blank=True)
     position = GeopositionField(blank=True)
     is_homepage = models.BooleanField(
         default=False, verbose_name='Show in the homepage?',
         help_text=u'If marked this element will be shown in the homepage.')
-
     # managers:
     objects = models.Manager()
     active = managers.ActionClusterActiveManager()
