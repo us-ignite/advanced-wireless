@@ -1,0 +1,18 @@
+<div class="row newsletter">
+  <form method="post" action="{% url 'mailing_subscribe' %}">
+  <div class="small-12 medium-5 columns newsletter__column">
+    <h4 class="newsletter__heading">SIGN UP TO RECEIVE UPDATES ON THE GLOBAL CITY TEAMS CHALLENGE</h4>
+  </div>
+
+  <div class="small-12 medium-7 columns newsletter__column">
+    <div class="row collapse">
+      <div class="medium-10 small-9 columns">
+        <input type="email" name="email" id="mailing_email" placeholder="Enter your email address..."/>
+      </div>
+      <div class="medium-2 small-3 columns">
+        <button type="submit" id="mailing_email_button" class="button alert postfix">SUBMIT</button>{% csrf_token %}
+      </div>
+    </div>
+  </div>
+  </form>
+</div>

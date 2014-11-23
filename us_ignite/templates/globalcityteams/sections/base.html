@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="row collapse l-listings" data-equalizer>
+  {% block sidebar %}
+    {% include "sections/includes/sidebar.html" %}
+  {% endblock sidebar %}
+
+  <article class="large-8 medium-9 columns listings" data-equalizer-watch>
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+          {% block section %}
+          {% endblock section %}
+        </div>
+      </div>
+    </div>
+
+
+    {% block related %}
+    {% endblock related %}
+
+  </article>
+</div>
+{% endblock content %}

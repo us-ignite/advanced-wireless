@@ -1,0 +1,24 @@
+{% extends "sections/base.html" %}
+
+{% block title %}Contact us - {{ block.super }}{% endblock title %}
+
+{% block section %}
+<h2 class="header">Please join US Ignite as a developer, sponsor, or partner</h2>
+
+<p>To find out more information and learn how you can participate as a:</p>
+<ul>
+	<li>Developer of next-generation applications and digital experiences—we will be posting dates for prize competitions and open innovation challenge grants.</li>
+	<li>Board member or sponsor, with the ability to shape US Ignite strategies and priorities.</li>
+	<li>Partner, with the ability to provide in-kind contributions of equipment, engineering assistance, bandwidth, mentorship of entrepreneurs and researchers, and/or incubator space.</li>
+
+</ul>
+
+<h3 class="subheader"><a href="{% url 'contact_ignite' %}">Contact us</a> for further details regarding other activities include upcoming conferences, contests, workshops, and developer days.</h3>
+
+<p>
+1200 18th Street, NW <br>
+Suite 700, <br>
+Washington, DC 20036
+</p>
+
+{% endblock section %}

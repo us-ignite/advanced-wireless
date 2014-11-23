@@ -1,10 +1,14 @@
 'use strict';
 
-$(document).foundation();
-
 (function ($) {
 	
 	$(function () {
+
+		$(".no-link").click(function (e) {
+
+			e.preventDefault();
+		});
+
 		/* Scroll to content when clicking arrow in intro image */
 		$(".down-button").on("click", function (e) {
 			var contentTop = $("#content").offset().top;
@@ -52,24 +56,14 @@ $(document).foundation();
 		});
 		
 		$("#top-arrow").on("click", function (e) {
-			var faqTopicTop = $("#faq-topics").offset().top;
+			var pageTop = $("body").offset().top;
 			$("body").animate({
-				scrollTop : faqTopicTop - 20
+				scrollTop : pageTop
 			});
 		});
 		
-		$("#faq-topics").on("click", function (e) {
-			if ($(e.target).is("strong"))
-			{
-				e.preventDefault();
-				var faq = $(e.target).parent().attr("href");
-				var newScrollTop = $(faq).offset().top;
-				$("body").animate({
-					scrollTop : newScrollTop
-				});
-			}
-		});
 		
+		faqScroll();
 		uploadForm();
 		
 		if (getUrlVars()['upload'])
@@ -85,6 +79,28 @@ $(document).foundation();
 		
 	});
 	
+	function faqScroll () {
+		$("#faq-topics a").each(function (i, el) {
+			$(this).attr("href", "#" + i);
+		});
+
+		$(".faq-list li").each(function (i, el) {
+			$(this).attr("id", i);
+		});
+
+		$("#faq-topics").on("click", function (e) {
+			if ($(e.target).is("strong"))
+			{
+				e.preventDefault();
+				var faq = $(e.target).parent().attr("href");
+				var newScrollTop = $(faq).offset().top;
+				$("body").animate({
+					scrollTop : newScrollTop
+				});
+			}
+		});
+	}
+
 	/* Show/hide back to top arrow on scroll */
 	function showHideTopArrow () {
 		if ($("#faq-topics").length < 1)

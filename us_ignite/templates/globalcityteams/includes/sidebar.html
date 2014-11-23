@@ -1,0 +1,33 @@
+<aside class="large-4 medium-3 columns sidebar show-for-medium-up">{% load snippets_tags news_tags %}
+  <div class="row">
+    <div class="large-12 columns" data-equalizer-watch>
+      
+      <ul class="no-bullet sidebar__list sidebar__list--chevrons">
+        
+        <li class="sidebar__list__item">
+          <a class="sidebar__list__link {% if slug == 'globalcityteams_about' %} sidebar__list__link--active{% endif %}" href="{% url 'globalcityteams_about' %}">ABOUT</a>
+
+        </li>
+        <li>
+          <a class="sidebar__list__link {% if slug == 'globalcityteams_faq' %} sidebar__list__link--active{% endif %}" href="{% url 'globalcityteams_faq' %}">FAQ</a>
+        </li>
+        <li>
+          <a class="sidebar__list__link {% if slug == 'globalcityteams_partners' %} sidebar__list__link--active{% endif %}" href="{% url 'globalcityteams_partners' %}">PARTNERS</a>
+        </li>
+        <li>
+          <a class="sidebar__list__link {% if slug == 'globalcityteams_sectors' %} sidebar__list__link--active{% endif %}" href="{% url 'globalcityteams_sectors' %}">SECTORS</a>
+        </li>
+        <li>
+          <a class="sidebar__list__link no-link" href="#">SUBSCRIBE AND FOLLOW:</a>
+        </li>
+
+        
+      </ul>
+      <div class="sidebar-social">
+        <a target="_blank" href="https://www.facebook.com/USIgnite"> <span class="icon-uniE607"></span> </a>
+        <a target="_blank" href="https://twitter.com/US_Ignite"><span class="icon-uniE608"></span></a>
+        <a target="_blank" href="https://plus.google.com/115026873083967953743/posts"><span class="icon-googleplus"></span></a>
+      </div>
+    </div>
+  </div>
+</aside>

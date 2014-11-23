@@ -2,34 +2,35 @@
 <ul class="right">
 
   <li class="has-dropdown">
-    <a href="{% url 'globalcityteams' %}">ABOUT</a>
+    <a href="{% url 'globalcityteams_about' %}">ABOUT</a>
     <ul class="dropdown">
-      <li><a href="globalcityteams/about">GLOBAL CITY TEAMS CHALLENGE</a></li>
-      <li><a href="globalcityteams/faqs">FAQS</a></li>
-      <li><a href="globalcityteams/faqs">PARTNERS</a></li>
-      <li><a href="globalcityteams/faqs">SECTORS</a></li>
+      <li><a href="{% url 'globalcityteams_about' %}">GLOBAL CITY TEAMS CHALLENGE</a></li>
+      <li><a href="{% url 'globalcityteams_faq' %}">FAQ</a></li>
+      <li><a href="{% url 'globalcityteams_partners' %}">PARTNERS</a></li>
+      <li><a href="{% url 'globalcityteams_sectors' %}">SECTORS</a></li>
     </ul>
   </li>
 
   <li class="has-dropdown">
-    <a href="{% url 'hub_list' %}">COMMUNITIES</a>
+    <a href="{% url 'actioncluster_list' %}">ACTION CLUSTERS</a>
     <ul class="dropdown">
-      {% include "includes/navigation/communities.html" %}
+      <li><a href="{% url 'actioncluster_list' %}">ACTION CLUSTERS</a></li>
+      <li><a href="{% url 'actioncluster_add' %}">ADD AN ACTION CLUSTER</a></li>
+      <li><a href="">LOOKING FOR PARTNERS</a></li>
+      <li><a href="">WIKI</a></li>
     </ul>
   </li>
 
-  <li class="has-dropdown">
-    <a href="{%url 'resource_list' %}">RESOURCES</a>
-    <ul class="dropdown">
-      {% include "includes/navigation/resources.html" %}
-    </ul>
-  </li>
+ 
+ <li><a href="">NEWS</a></li>
+ <li><a href="">EVENTS</a></li>
+ 
 
   {% block search %}
   <li class="has-form">
     <div class="row collapse">
       <div class="small-12 columns search">
-        {% include "includes/search.html" %}
+        {% include "includes/microsite_search.html" %}
       </div>
     </div>
   </li>

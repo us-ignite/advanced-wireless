@@ -12,7 +12,7 @@
         <div class="slide__panel">
           <h2 class="slide__heading">US Ignite and the National Institute of Standards and Technology (NIST) have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), International Trade Administration (ITA), Department of Health and Human Services (HHS) and Department of Energy (DoE) to create the Global City Teams Challenge, an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment.</h2>
           <br>
-          <a class="primary button expand" href="{% url 'what-we-do' %}">WHAT WE DO</a>
+          <a class="primary button expand" href="{% url 'what-we-do' %}">LEARN MORE</a>
         </div>
       </div>
 
@@ -31,14 +31,14 @@
 
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
-        <h4 class="homepage-grid__heading">DEVELOPERS</h4>
-        <p class="homepage-grid__desc show-for-medium-up">Build gigabit apps that can transform how we live, work and play.</p>
+        <h4 class="homepage-grid__heading">EXPLORE ACTION CLUSTERS</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Showcasing advanced IoT projects.</p>
       </div>
     </div>
 
     <div class="row">
       <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" href="{% url 'involve-developers' %}" >GET INVOLVED</a>
+        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_list' %}" >VIEW ACTION CLUSTERS</a>
       </div>
     </div>
   </div>
@@ -46,14 +46,14 @@
   <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--partners">
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
-        <h4 class="homepage-grid__heading">PARTNERS</h4>
-        <p class="homepage-grid__desc show-for-medium-up">We work with forward thinking partners who understand that the future is here.</p>
+        <h4 class="homepage-grid__heading">SUBMIT AN ACTION CLUSTER</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Deploy and assess your IoT solutions.</p>
       </div>
     </div>
 
     <div class="row">
       <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" href="{% url 'involve-partners' %}">SUPPORT US IGNITE</a>
+        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_add' %}">JOIN THE GCTC</a>
       </div>
     </div>
   </div>
@@ -61,31 +61,27 @@
   <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--communities">
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
-        <h4 class="homepage-grid__heading">COMMUNITY LEADERS</h4>
-        <p class="homepage-grid__desc show-for-medium-up">Showcase advanced networks and apps in your community.</p>
+        <h4 class="homepage-grid__heading">LOOKING FOR PARTNERS</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Join a team working on IoT projects.</p>
       </div>
     </div>
 
     <div class="row">
       <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" href="{% url 'involve-communities' %}" >BECOME A US IGNITE CITY</a>
+        <a class="homepage-grid__button button expand alert" href="{% url 'globalcityteams_looking_for_partners' %}" >GET INVOLVED</a>
       </div>
     </div>
   </div>
 
-  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--last">
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--news">
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
-        <h4 class="homepage-grid__heading">COMMUNITY LEADERS</h4>
-        <p class="homepage-grid__desc show-for-medium-up">Showcase advanced networks and apps in your community.</p>
+        <h4 class="homepage-grid__heading">WELCOME TO OUR NEW SITE!</h4>
+        <p class="homepage-grid__desc ">Welcome to our new site. Please take a look around and if you have any questions/comments please email XXXX@usignite.org .</p>
       </div>
     </div>
 
-    <div class="row">
-      <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" href="{% url 'involve-communities' %}" >BECOME A US IGNITE CITY</a>
-      </div>
-    </div>
+  
   </div>
 
 </div>
@@ -99,21 +95,15 @@
       <div class="small-12 medium-8 large-6 columns right">
         <div class="slide__panel">
           <div class="row collapse">
-            <div class="small-12 medium-6 columns">
-              <h2 class="slide__heading">Applications</h2>
-              <p class="slide__desc">See ultra high speed networks are fostering ideas to solve problems  and reinvent everything, from education to healthcare in
-                neighborhoods across the country.</p>
 
-              <a href="{% url 'app_list' %}" class="primary button expand">VIEW APPLICATIONS</a>
+            <div class="small-12 columns">
+              <h2 class="slide__heading">Explore Action Clusters</h2>
+              <p class="slide__desc">Explore Action Clusters designed to accelerate the  deployment of IoT technologies designed to address some of the most pressing challenges facing cities. </p>
+
+              <a href="{% url 'actioncluster_list' %}" class="primary button expand">VIEW ACTION CLUSTERS</a>
 
             </div>
 
-            <div class="small-6 medium-6 columns show-for-medium-up">
-              <aside class="featured featured--nudge-right">
-                <h4 class="featured__heading">FEATURED APP</h4>
-                {% include "includes/featured_object.html" with object=application %}
-              </aside>
-            </div>
           </div>
         </div>
       </div>
@@ -130,18 +120,15 @@
       <div class="small-12 medium-8 large-6 columns">
         <div class="slide__panel">
           <div class="row collapse">
-            <div class="small-12 medium-6 columns">
-              <h2 class="slide__heading">Communities</h2>
-              <p class="slide__desc">Communities nationwide are using advanced networks to help transform themselves into innovation and technology-driven economies to compete in the 21st century.</p>
+            
+            <div class="small-12 columns">
+              <h2 class="slide__heading">Submit an Action Cluster Idea</h2>
+              <p class="slide__desc">Explore Action Clusters designed to accelerate the  deployment of IoT technologies designed to address some of the most pressing challenges facing cities. </p>
 
-              <a class="primary button expand" href="{% url 'hub_list' %}">VIEW OUR COMMUNITIES</a>
+              <a href="{% url 'actioncluster_add' %}" class="primary button expand">SUBMIT YOUR IDEA</a>
+
             </div>
-            <div class="small-6 medium-6 columns show-for-medium-up">
-              <aside class="featured featured--nudge-right">
-                <h4 class="featured__heading">FEATURED COMMUNITY</h4>
-                {% include "includes/featured_object.html" with object=hub %}
-              </aside>
-            </div>
+
           </div>
         </div>
       </div>
@@ -152,7 +139,7 @@
 
 
 <!-- newsletter -->
-{% include "mailinglist/object_block.html" %}
+{% include "mailinglist/microsite_object_block.html" %}
 <!-- /newsletter -->
 
 <!-- slide four -->
@@ -163,19 +150,15 @@
       <div class="small-12 medium-8 large-6 columns right">
         <div class="slide__panel">
           <div class="row collapse">
-            <div class="small-12 medium-6 columns">
-              <h2 class="slide__heading">Resources</h2>
-              <p class="slide__desc">Learn how to build next-
-                generation applications, and how these powerful new technologies are transforming communities for the better.</p>
+            
+            <div class="small-12 columns">
+              <h2 class="slide__heading">Projects Looking for Partners</h2>
+              <p class="slide__desc">Collaborate with leading developers of IoT technologies and create interconnected IoT solutions with greater utility to potential customers.</p>
 
-              <a href="{% url 'resource_list' %}" class="primary button expand">VIEW RESOURCES</a>
+              <a href="{% url 'globalcityteams_looking_for_partners' %}" class="primary button expand">SEARCH OPPORTUNITIES</a>
+
             </div>
-            <div class="small-6 medium-6 columns show-for-medium-up">
-              <aside class="featured featured--nudge-right">
-                <h4 class="featured__heading">FEATURED RESOURCE</h4>
-                {% include "includes/featured_object.html" with object=resource %}
-              </aside>
-            </div>
+
           </div>
         </div>
       </div>
