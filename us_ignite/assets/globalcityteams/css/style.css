@@ -1333,4 +1333,19 @@ button, .button {
 	background-image: url(images/slide4.png);
 }
 
+.quicklinks__list .socialicon {
+	text-align: center;
+	line-height: 0;
+}
 
+.quicklinks__list .socialicon.facebook{
+	color: #024687;
+}
+
+.quicklinks__list .socialicon.twitter{
+	color: #3098d5;
+}
+
+.quicklinks__list .socialicon.google-plus{
+	color: #cf4900;
+}

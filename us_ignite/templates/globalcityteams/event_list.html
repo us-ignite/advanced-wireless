@@ -1,31 +1,70 @@
-{% extends "globalcityteams/index.html" %}{% load thumbnail %}
+{% extends "microsite_base.html" %}{% load thumbnail %}
 
-{% block title %}Events - {{ block.super }}{% endblock title %}
+{% block title %}News- {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>Event list</h1>
+<div class="row collapse">
+  <div class="small-12 columns">
+    <div class="row">
+      <div class="small-12 columns">
+        <h2 class="page-title">Upcoming Events</h2>
+      </div>
+    </div>
+  </div>
+</div>
 
-{% for object in page.object_list %}
 
-<a  href="{{ object.get_absolute_url }}" title="{{ object.name }}">
-  {% if object.image %}
-  <img src="{% thumbnail object.image 216x119 crop %}" alt="{{ object.name }}" />
-  {% else %}
-  <img src="{{ STATIC_URL }}img/project-default.png" alt="{{ object.name }}" />
-  {% endif %}
-</a>
+<div class="row collapse">
+  <div class="small-12 columns">
+	<div class="row panel">
+	  <div class="small-12 columns">
+	    <h2>Event List</h2>
+	    <p>
+	      Register today, for one of these great events! Attending a local or national event is the perfect way to get more involved with our community. You’ll get a chance to network with leading technology experts, learn and share relevant information on next-generation technologies, and bring home new ideas and skills to share with your friends and colleagues. Many of these events fill up quickly, so don’t delay in registering for the events you are interested in attending. If you have questions or would like to learn more about an event be sure to contact the event host directly.
+	    </p>
+	    <p>
+	      {% if timeframe == 'upcoming' %}
+	      <a href="{% url 'event_list_past' %}" class="button">View Past Events</a>
+	      {% endif %}
+	      {% if timeframe == 'past' %}
+	      <a href="{% url 'event_list' %}" class="button">View Future Events</a>
+	      {% endif %}
+	    </p>
+	  </div>
+	</div>
 
-<h2>{{ object.name }}</h2>
-{% with object.tags.all as tag_list %}
-{% if tag_list %}
-<p>
-  {% for tag in tag_list %}{{ tag|upper }}{% if not forloop.last %},{% endif%} {% endfor%}
-</p>
-{% endif %}
-{% endwith %}
-{{ object.get_summary }}
-{% endfor%}
+	<div class="row newsletter newsletter--primary">
+	  <div class="small-12 medium-8 columns newsletter__column">
+	    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN EVENT?</strong> TELL US ABOUT IT...</h4>
+	  </div>
 
-{% include "includes/pagination.html" %}
+	  <div class="small-12 medium-4 columns newsletter__column">
+	    <a href="{% url 'event_add' %}" class="button alert postfix">ADD YOUR EVENT</a>{% csrf_token %}
+	  </div>
+	</div>
 
+	{% for object in page.object_list %}
+
+	<a  href="{{ object.get_absolute_url }}" title="{{ object.name }}">
+	  {% if object.image %}
+	  <img src="{% thumbnail object.image 216x119 crop %}" alt="{{ object.name }}" />
+	  {% else %}
+	  <img src="{{ STATIC_URL }}img/project-default.png" alt="{{ object.name }}" />
+	  {% endif %}
+	</a>
+
+	<h2>{{ object.name }}</h2>
+	{% with object.tags.all as tag_list %}
+	{% if tag_list %}
+	<p>
+	  {% for tag in tag_list %}{{ tag|upper }}{% if not forloop.last %},{% endif%} {% endfor%}
+	</p>
+	{% endif %}
+	{% endwith %}
+	{{ object.get_summary }}
+	{% endfor%}
+
+	{% include "includes/pagination.html" %}
+	</div>
+</div>
 {% endblock content %}
