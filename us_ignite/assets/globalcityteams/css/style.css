@@ -1338,6 +1338,10 @@ button, .button {
 	line-height: 0;
 }
 
+.quicklinks__list li {
+	font-size: 1.125rem;
+}
+
 .quicklinks__list .socialicon.facebook{
 	color: #024687;
 }
@@ -1348,4 +1352,17 @@ button, .button {
 
 .quicklinks__list .socialicon.google-plus{
 	color: #cf4900;
+}
+
+ul, ol, dl {
+	font-size: 17px;
+}
+
+.sector-icon {
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.row .sector-row {
+	margin-bottom: 30px;
 }
