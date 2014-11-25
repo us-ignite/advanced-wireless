@@ -34,10 +34,8 @@ urlpatterns = patterns(
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
     url(r'^overview/', include('us_ignite.visualize.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
-<<<<<<< HEAD
     url(r'^globalcityteams/', include('us_ignite.globalcityteams.urls')),
-=======
->>>>>>> 423d107e0c07f82b4df78be7092cf31ef921a3ae
+
 )
 
 # Global city teams:
