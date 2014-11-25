@@ -11,6 +11,5 @@ urlpatterns = patterns(
     url(r'^about/$', to_template('globalcityteams/about.html'), name='about'),
     url(r'^upload/$', to_template('globalcityteams/document-upload.html')),
     url(r'^events/$', 'event_list', name='event_list'),
-    url(r'^news/$', 'article_list', name='article_list'),
     url(r'^search/$', 'search', name='search'),
 )

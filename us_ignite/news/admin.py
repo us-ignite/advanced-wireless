@@ -6,7 +6,7 @@ from us_ignite.news.models import Article
 
 class ArticleAdminForm(forms.ModelForm):
     class Meta:
-        fields = ('name', 'status', 'url', 'section', 'is_featured')
+        fields = ('name', 'status', 'url', 'is_featured')
         model = Article
 
 

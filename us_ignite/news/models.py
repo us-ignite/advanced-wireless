@@ -17,16 +17,13 @@ class Article(models.Model):
         (REMOVED, u'Removed'),
     )
     DEFAULT = 1
-    GLOBALCITIES = 2
     SECTION_CHOICES = (
         (DEFAULT, u'Default'),
-        (GLOBALCITIES, u'Global City Teams'),
     )
     name = models.CharField(max_length=500)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     section = models.IntegerField(
-        choices=SECTION_CHOICES, default=DEFAULT, help_text=u'Section where '
-        'this article will be listed. Default is the main section.')
+        choices=SECTION_CHOICES, default=DEFAULT, editable=False)
     url = models.URLField(
         max_length=500, help_text=URL_HELP_TEXT, verbose_name=u'URL')
     is_featured = models.BooleanField(default=False)
