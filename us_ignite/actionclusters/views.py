@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.utils import timezone
 
+from us_ignite.actionclusters import mailer
 from us_ignite.actionclusters.forms import (
     ActionClusterForm,
     ActionClusterLinkFormSet,
@@ -16,22 +17,12 @@ from us_ignite.actionclusters.forms import (
 from us_ignite.actionclusters.models import (
     ActionCluster,
     ActionClusterMembership,
-    Domain,
-    Page
+    Domain
 )
 from us_ignite.awards.models import ActionClusterAward
-from us_ignite.common import pagination, forms
+from us_ignite.common import pagination
 from us_ignite.hubs.forms import HubActionClusterMembershipForm
 from us_ignite.hubs.models import HubActionClusterMembership
-
-
-APPS_SORTING_CHOICES = (
-    ('', 'Select ordering'),
-    ('created', 'Created (Oldest first)'),
-    ('-created', 'Created (Recent first)'),
-    ('stage', 'Stage (Ideas first)'),
-    ('-stage', 'Stage (Completed first)'),
-)
 
 
 def get_stage_or_404(stage):
@@ -43,7 +34,10 @@ def get_stage_or_404(stage):
 
 def actioncluster_list(request, domain=None, stage=None, filter_name=''):
     """List al the available ``ActionCluster``."""
-    extra_qs = {}
+    extra_qs = {
+        'is_approved': True,
+        'status': ActionCluster.PUBLISHED,
+    }
     if domain:
         # Validate domain is valid if provided:
         extra_qs['domain'] = get_object_or_404(Domain, slug=domain)
@@ -54,22 +48,15 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
         extra_qs['stage'] = pk
         filter_name = name
     page_no = pagination.get_page_no(request.GET)
-    order_form = forms.OrderForm(
-        request.GET, order_choices=APPS_SORTING_CHOICES)
-    order_value = order_form.cleaned_data['order'] if order_form.is_valid() else ''
-    object_list = (ActionCluster.objects.select_related('domain')
-                   .filter(status=ActionCluster.PUBLISHED, **extra_qs))
-    if order_value:
-        object_list = object_list.order_by(order_value)
+    object_list = (
+        ActionCluster.objects.select_related('domain')
+        .filter(**extra_qs).order_by('needs_partner'))
     featured_list = (ActionCluster.objects.select_related('domain')
-                     .filter(status=ActionCluster.PUBLISHED,
-                             is_featured=True, **extra_qs)[:3])
+                     .filter(is_featured=True, **extra_qs)[:3])
     page = pagination.get_page(object_list, page_no)
     context = {
         'featured_list': featured_list,
         'page': page,
-        'order': order_value,
-        'order_form': order_form,
         'domain_list': Domain.objects.all(),
         'stage_list': ActionCluster.STAGE_CHOICES,
         'filter_name': filter_name,
@@ -132,6 +119,7 @@ def actioncluster_add(request):
             instance.owner = request.user
             instance.save()
             form.save_m2m()
+            mailer.notify_request(instance)
             messages.success(
                 request, 'The action cluster "%s" has been added.' % instance.name)
             return redirect(instance.get_absolute_url())
@@ -211,27 +199,6 @@ def actioncluster_membership(request, slug):
     }
     return TemplateResponse(
         request, 'actionclusters/object_membership.html', context)
-
-
-def actionclusters_featured(request):
-    """Shows the featured application page."""
-    page = get_object_or_404(Page, status=Page.FEATURED)
-    object_list = [a.actioncluster for a in page.pageactioncluster_set.all()]
-    context = {
-        'object': page,
-        'actioncluster_list': object_list,
-    }
-    return TemplateResponse(request, 'actionclusters/featured.html', context)
-
-
-def actionclusters_featured_archive(request, slug):
-    page = get_object_or_404(Page, status=Page.PUBLISHED, slug__exact=slug)
-    application_list = [a.application for a in page.pageapplication_set.all()]
-    context = {
-        'object': page,
-        'application_list': application_list,
-    }
-    return TemplateResponse(request, 'actionclusters/featured.html', context)
 
 
 @login_required

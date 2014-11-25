@@ -17,6 +17,7 @@ Add an Action Cluster
 {% include "actionclusters/object_form.html" with form=form %}
 <p>
   <button type="submit">CREATE</button>
+  {% csrf_token %}
 </p>
 </form>
 {% endblock section %}

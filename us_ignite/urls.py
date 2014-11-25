@@ -21,7 +21,6 @@ urlpatterns = patterns(
     url(r'^people/', include('us_ignite.people.urls')),
     url(r'^apps/', include('us_ignite.apps.urls')),
     url(r'^hub/', include('us_ignite.hubs.urls')),
-    url(r'^actioncluster/', include('us_ignite.actionclusters.urls')),
     url(r'^testbed/', include('us_ignite.testbeds.urls')),
     url(r'^event/', include('us_ignite.events.urls')),
     url(r'^org/', include('us_ignite.organizations.urls')),
@@ -35,8 +34,21 @@ urlpatterns = patterns(
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
     url(r'^overview/', include('us_ignite.visualize.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
+<<<<<<< HEAD
     url(r'^globalcityteams/', include('us_ignite.globalcityteams.urls')),
+=======
+>>>>>>> 423d107e0c07f82b4df78be7092cf31ef921a3ae
 )
+
+# Global city teams:
+urlpatterns += patterns(
+    '',
+    url(r'^globalcityteams/actioncluster/',
+        include('us_ignite.actionclusters.urls')),
+    url(r'^globalcityteams/',
+        include('us_ignite.globalcityteams.urls', namespace='globalcityteams')),
+)
+
 
 urlpatterns += patterns(
     '',

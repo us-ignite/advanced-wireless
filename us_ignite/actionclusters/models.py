@@ -139,13 +139,15 @@ class ActionCluster(ActionClusterBase):
         'actionclusters.Domain', blank=True, null=True,
         help_text='What is the primary public benefit priority area '
         'served by this action cluster?')
+    needs_partner = models.BooleanField(
+        default=False, verbose_name="Looking for a partner?")
     awards = models.TextField(blank=True, help_text=u'Recognition or Awards')
     tags = TaggableManager(blank=True)
-    position = GeopositionField(blank=True)
+    position = GeopositionField(blank=True, editable=False)
     is_homepage = models.BooleanField(
         default=False, verbose_name='Show in the homepage?',
         help_text=u'If marked this element will be shown in the homepage.')
-
+    is_approved = models.BooleanField(default=False)
     # managers:
     objects = models.Manager()
     active = managers.ActionClusterActiveManager()
@@ -175,6 +177,10 @@ class ActionCluster(ActionClusterBase):
     def get_hub_membership_url(self):
         return reverse('actioncluster_hub_membership', args=[self.slug])
 
+    def get_admin_url(self):
+        return reverse(
+            'admin:actionclusters_actioncluster_change', args=[self.id])
+
     def get_domain_url(self):
         if self.domain:
             return reverse(
@@ -186,7 +192,7 @@ class ActionCluster(ActionClusterBase):
 
     def is_public(self):
         """Verify if the ``Application`` is accessible by anyone."""
-        return self.status == self.PUBLISHED
+        return (self.status == self.PUBLISHED) and self.is_approved
 
     def is_draft(self):
         """Verify if the ``Application`` is a draft."""
@@ -261,55 +267,6 @@ class ActionClusterMedia(models.Model):
 
     class Meta:
         ordering = ('created', )
-
-
-class Page(models.Model):
-    """Group of applications listed in a ``Page``."""
-    PUBLISHED = 1
-    DRAFT = 2
-    FEATURED = 3
-    STATUS_CHOICES = (
-        (FEATURED, 'Featured'),
-        (PUBLISHED, 'Published'),
-        (DRAFT, 'Draft'),
-    )
-    name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
-    status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
-    description = models.TextField(blank=True)
-    created = CreationDateTimeField()
-    modified = ModificationDateTimeField()
-
-    def save(self, *args, **kwargs):
-        if self.status == self.FEATURED:
-            # Move any ``FEATURED`` page to ``PUBLISHED``,
-            # only a single FEATURED page can be shown:
-            (self.__class__.objects.filter(status=self.FEATURED)
-             .update(status=self.PUBLISHED))
-        return super(Page, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return self.name
-
-    def is_featured(self):
-        return self.status == self.FEATURED
-
-    def get_absolute_url(self):
-        if self.is_featured():
-            return reverse('actionclusters_featured')
-        return reverse('actionclusters_featured_archive', args=[self.slug])
-
-
-class PageActionCluster(models.Model):
-    page = models.ForeignKey('actionclusters.Page')
-    actioncluster = models.ForeignKey('actionclusters.ActionCluster')
-    order = models.IntegerField(default=0)
-
-    class Meta:
-        ordering = ('order', )
-
-    def __unicode__(self):
-        return u'%s for page %s' % (self.actioncluster, self.page)
 
 # Search:
 watson.register(

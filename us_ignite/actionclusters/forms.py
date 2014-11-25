@@ -6,8 +6,12 @@ from django.core.validators import validate_email
 from django.forms.models import inlineformset_factory
 from django.utils import html
 
-from us_ignite.actionclusters.models import (ActionCluster, ActionClusterURL,
-                                             ActionClusterMedia, ActionClusterMembership)
+from us_ignite.actionclusters.models import (
+    ActionCluster,
+    ActionClusterURL,
+    ActionClusterMedia,
+    ActionClusterMembership,
+)
 from us_ignite.common import output
 
 
@@ -32,9 +36,9 @@ class ActionClusterForm(forms.ModelForm):
     class Meta:
         model = ActionCluster
         fields = ('name', 'summary', 'impact_statement',
-                  'image', 'domain', 'features', 'stage',
+                  'image', 'domain', 'features', 'stage', 'needs_partner',
                   'assistance', 'team_name', 'team_description',
-                  'awards', 'acknowledgments', 'position', 'tags', 'status',)
+                  'awards', 'acknowledgments', 'tags', 'status',)
         widgets = {
             'features': forms.CheckboxSelectMultiple(),
         }

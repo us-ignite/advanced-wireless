@@ -157,5 +157,6 @@
 {% endif %}
 
 {% include "includes/links.html" with object=object url_list=url_list %}
-
 {% endblock sidebar_content %}
+
+{% block related %}{% include "includes/disqus.html" %}{% endblock related %}

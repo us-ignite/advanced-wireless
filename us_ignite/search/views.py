@@ -56,7 +56,10 @@ def search_resources(request):
 
 SEARCH_PARAMS = {
     'default': (),
-    'globalcities': (ActionCluster, ),
+    'globalcities': (
+        ActionCluster,
+        Event.published.filter(section=Event.GLOBALCITIES),
+    ),
 }
 
 
