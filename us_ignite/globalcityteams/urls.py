@@ -16,4 +16,5 @@ urlpatterns = patterns(
     url(r'^news/$', 'post_list', name='news_list'),
     url(r'^news/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
         'post_detail', name='news_detail'),
+    url(r'^subscribe/$', 'mailing_subscribe', name='subscribe'),
 )

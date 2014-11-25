@@ -8,6 +8,10 @@ from us_ignite.events.views import (
     event_list as event_list_source,
     event_detail as event_detail_source,
 )
+from us_ignite.mailinglist.forms import EmailForm
+from us_ignite.mailinglist.views import (
+    mailing_subscribe as mailing_subscribe_source,
+)
 from us_ignite.search.views import search as search_source
 
 
@@ -43,4 +47,10 @@ def post_detail(request, year, month, slug):
     response = post_detail_source(
         request, year, month, slug, section=Post.GLOBALCITIES)
     response.template_name = 'globalcityteams/news_detail.html'
+    return response
+
+
+def mailing_subscribe(request):
+    response = mailing_subscribe_source(request, slug='globalcityteams')
+    response.template_name = 'globalcityteams/mailinglist.html'
     return response

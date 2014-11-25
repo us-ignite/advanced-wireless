@@ -14,6 +14,7 @@ logger = logging.getLogger('us_ignite.mailinglist.views')
 
 MAILING_LISTS = {
     'default': settings.MAILCHIMP_LIST,
+    'globalcityteams': settings.MAILCHIMP_LIST,
 }
 
 
@@ -32,7 +33,7 @@ def subscribe_email(email, slug):
         settings.MAILCHIMP_LIST, email_data)
 
 
-def mailing_subscribe(request):
+def mailing_subscribe(request, slug='default'):
     """Handles MailChimp email registration."""
     if request.method == 'POST':
         form = EmailForm(request.POST)
