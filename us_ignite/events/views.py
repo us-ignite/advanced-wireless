@@ -14,9 +14,10 @@ from us_ignite.events.forms import EventForm, EventURLFormSet
 from us_ignite.events.models import Event
 
 
-def event_detail(request, slug):
+def event_detail(request, slug, section=None):
     """Detail of an ``Event``."""
-    event = get_object_or_404(Event, slug__exact=slug)
+    query_kwargs = {'section': section} if section else {}
+    event = get_object_or_404(Event, slug__exact=slug, **query_kwargs)
     if not event.is_visible_by(request.user):
         raise Http404
     audience_list = [a for a in event.audiences.all()]
