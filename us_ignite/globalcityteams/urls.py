@@ -12,4 +12,7 @@ urlpatterns = patterns(
     url(r'^upload/$', to_template('globalcityteams/document-upload.html')),
     url(r'^events/$', 'event_list', name='event_list'),
     url(r'^search/$', 'search', name='search'),
+    url(r'^news/$', 'post_list', name='news_list'),
+    url(r'^news/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
+        'post_detail', name='news_detail'),
 )
