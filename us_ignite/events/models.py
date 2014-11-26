@@ -112,7 +112,14 @@ class Event(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('event_detail', args=[self.slug])
+        url_dict = {
+            self.GLOBALCITIES: 'globalcityteams:event_detail'
+        }
+        if self.section in url_dict:
+            url_name = url_dict[self.section]
+        else:
+            url_name = 'event_detail'
+        return reverse(url_name, args=[self.slug])
 
     def is_published(self):
         return self.status == self.PUBLISHED

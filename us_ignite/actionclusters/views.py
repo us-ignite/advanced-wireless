@@ -67,6 +67,29 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
     return TemplateResponse(request, 'actionclusters/object_list.html', context)
 
 
+def actioncluster_list_partner(request):
+    """List action clusters looking for a partner."""
+    extra_qs = {
+        'is_approved': True,
+        'status': ActionCluster.PUBLISHED,
+        'needs_partner': True
+    }
+    page_no = pagination.get_page_no(request.GET)
+    object_list = (
+        ActionCluster.objects.select_related('domain').filter(**extra_qs))
+    featured_list = (ActionCluster.objects.select_related('domain')
+                     .filter(is_featured=True, **extra_qs)[:3])
+    page = pagination.get_page(object_list, page_no)
+    context = {
+        'featured_list': featured_list,
+        'page': page,
+        'domain_list': Domain.objects.all(),
+        'stage_list': ActionCluster.STAGE_CHOICES,
+        'appname': 'actionclusters',
+    }
+    return TemplateResponse(request, 'actionclusters/object_list.html', context)
+
+
 def get_actioncluster_for_user(slug, user):
     """Validates the user can access the given app."""
     actioncluster = get_object_or_404(ActionCluster.active, slug__exact=slug)

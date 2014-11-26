@@ -68,7 +68,7 @@
 
     <div class="row">
       <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" href="{% url 'globalcityteams_looking_for_partners' %}" >GET INVOLVED</a>
+        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_list_partner' %}" >GET INVOLVED</a>
       </div>
     </div>
   </div>
@@ -139,7 +139,24 @@
 
 
 <!-- newsletter -->
-{% include "mailinglist/microsite_object_block.html" %}
+<div class="row newsletter">
+  <form method="post" action="{% url 'globalcityteams:subscribe' %}">
+  <div class="small-12 medium-5 columns newsletter__column">
+    <h4 class="newsletter__heading">SIGN UP TO RECEIVE UPDATES ON THE GLOBAL CITY TEAMS CHALLENGE</h4>
+  </div>
+
+  <div class="small-12 medium-7 columns newsletter__column">
+    <div class="row collapse">
+      <div class="medium-10 small-9 columns">
+        <input type="email" name="email" id="mailing_email" placeholder="Enter your email address..."/>
+      </div>
+      <div class="medium-2 small-3 columns">
+        <button type="submit" id="mailing_email_button" class="button alert postfix">SUBMIT</button>{% csrf_token %}
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
 <!-- /newsletter -->
 
 <!-- slide four -->
@@ -155,7 +172,7 @@
               <h2 class="slide__heading">Projects Looking for Partners</h2>
               <p class="slide__desc">Collaborate with leading developers of IoT technologies and create interconnected IoT solutions with greater utility to potential customers.</p>
 
-              <a href="{% url 'globalcityteams_looking_for_partners' %}" class="primary button expand">SEARCH OPPORTUNITIES</a>
+              <a href="{% url 'actioncluster_list_partner' %}" class="primary button expand">SEARCH OPPORTUNITIES</a>
 
             </div>
 

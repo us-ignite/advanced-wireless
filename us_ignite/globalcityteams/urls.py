@@ -11,10 +11,12 @@ urlpatterns = patterns(
     url(r'^partners/$', to_template('globalcityteams/partners.html'), name='globalcityteams_partners'),
     url(r'^sectors/$', to_template('globalcityteams/sectors.html'), name='globalcityteams_sectors'),
     url(r'^about/$', to_template('globalcityteams/about.html'), name='globalcityteams_about'),
-    url(r'^looking-for-partners/$', to_template('globalcityteams/looking_for_partners.html'), name='globalcityteams_looking_for_partners'),
     url(r'^upload/$', to_template('globalcityteams/document-upload.html')),
     url(r'^events/$', 'event_list', name='event_list'),
-    url(r'^news/$', 'article_list', name='article_list'),
+    url(r'^events/(?P<slug>[-\w]+)/$', 'event_detail', name='event_detail'),
     url(r'^search/$', 'search', name='search'),
-
+    url(r'^news/$', 'post_list', name='news_list'),
+    url(r'^news/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
+        'post_detail', name='news_detail'),
+    url(r'^subscribe/$', 'mailing_subscribe', name='subscribe'),
 )

@@ -89,6 +89,16 @@ def get_tag_list(category_list):
     return [c['title'] for c in category_list if c.get('title')]
 
 
+def get_post_section(tag_list):
+    post_section = {
+        'globalcityteams': Post.GLOBALCITIES,
+    }
+    for key, value in post_section.items():
+        if key in tag_list:
+            return value
+    return Post.DEFAULT
+
+
 def import_post(data):
     wp_id = data['id']
     try:
@@ -115,8 +125,9 @@ def import_post(data):
     post.excerpt_html = post.excerpt
     post.publication_date = parse_date(data['date'])
     post.update_date = parse_date(data['modified'])
-    post.save()
     tag_list = get_tag_list(data['categories'])
+    post.section = get_post_section(tag_list)
+    post.save()
     if tag_list:
         post.tags.add(*tag_list)
     for attachment_data in data.get('attachments', []):
