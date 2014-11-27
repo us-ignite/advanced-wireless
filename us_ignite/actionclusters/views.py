@@ -32,14 +32,11 @@ def get_stage_or_404(stage):
     raise Http404('Invalid stage.')
 
 
-def actioncluster_list(
-        request, domain=None, stage=None, filter_name='',
-        category=ActionCluster.ACTION_CLUSTER):
+def actioncluster_list(request, domain=None, stage=None, filter_name=''):
     """List al the available ``ActionCluster``."""
     extra_qs = {
         'is_approved': True,
         'status': ActionCluster.PUBLISHED,
-        'category': category,
     }
     if domain:
         # Validate domain is valid if provided:
@@ -68,11 +65,6 @@ def actioncluster_list(
         'appname': 'actionclusters',
     }
     return TemplateResponse(request, 'actionclusters/object_list.html', context)
-
-
-def actioncluster_list_ideas(request):
-    """View to list action cluster ideas."""
-    return actioncluster_list(request, category=ActionCluster.IDEA)
 
 
 def actioncluster_list_partner(request):
@@ -110,15 +102,13 @@ def get_actioncluster_for_user(slug, user):
 def get_award_list(actioncluster):
     """Returns the list of awards for an app."""
     award_queryset = (ActionClusterAward.objects
-                      .select_related('award')
-                      .filter(actioncluster=actioncluster))
+                      .select_related('award').filter(actioncluster=actioncluster))
     return [a.award for a in award_queryset]
 
 
 def get_hub_list(actioncluster):
     """Returns the list of hubs for an app."""
-    hub_queryset = (actioncluster.hubactionclustermembership_set
-                    .select_related('hub').all())
+    hub_queryset = actioncluster.hubactionclustermembership_set.select_related('hub').all()
     return [h.hub for h in hub_queryset]
 
 

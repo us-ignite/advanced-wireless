@@ -123,12 +123,6 @@ class ActionCluster(ActionClusterBase):
         (DRAFT, 'Draft'),
         (REMOVED, 'Removed'),
     )
-    ACTION_CLUSTER = 1
-    IDEA = 2
-    CATEGORY_CHOICES = (
-        (ACTION_CLUSTER, 'Action Cluster'),
-        (IDEA, 'Idea'),
-    )
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     is_featured = models.BooleanField(default=False)
@@ -143,12 +137,8 @@ class ActionCluster(ActionClusterBase):
     features_other = models.CharField(blank=True, max_length=255)
     domain = models.ForeignKey(
         'actionclusters.Domain', blank=True, null=True,
-        help_text=u'What is the primary public benefit priority area '
+        help_text='What is the primary public benefit priority area '
         'served by this action cluster?')
-    category = models.IntegerField(
-        choices=CATEGORY_CHOICES, default=IDEA,
-        help_text=u'Determine if this Action Cluster is a simple '
-        'project idea.')
     needs_partner = models.BooleanField(
         default=False, verbose_name="Looking for a partner?")
     awards = models.TextField(blank=True, help_text=u'Recognition or Awards')

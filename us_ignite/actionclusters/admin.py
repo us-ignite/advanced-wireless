@@ -22,8 +22,7 @@ class ActionClusterAdmin(admin.ModelAdmin):
     search_fields = ['name', 'slug', 'summary', 'impact_statement',
                      'assistance', 'team_description', 'notes',
                      'acknowledgments']
-    list_filter = ['stage', 'domain__name', 'status', 'created', 'is_approved',
-                   'category']
+    list_filter = ['stage', 'domain__name', 'status', 'created', 'is_approved']
     date_hierarchy = 'created'
     inlines = [ActionClusterURLInline, ActionClusterMediaInline]
 
