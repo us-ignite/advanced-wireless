@@ -312,8 +312,8 @@ body {
 	background-size: 115px 32px;
 }
 
-.smart-america-logo {
-	background: url(../images/smart-america-logo.png) no-repeat;
+.gctc-logo {
+	background: url(../images/GCTC_logo_400x80.png) no-repeat;
 	width: 85px;
 	height: 40px;
 	background-size: 85px 40px;
@@ -321,7 +321,9 @@ body {
 }
 
 .backgroundsize .top-bar .name .top-bar__logo {
+	
 	background-image: url(../images/us-ignite-smart-america.jpg);
+	background-image: url(../images/us-ignite-gctc.png);
 	height: 45px;
 	width: 220px;
 
@@ -329,7 +331,7 @@ body {
 @media only screen and (min-width:48.063em) {
 .backgroundsize .top-bar .name .top-bar__logo {
 	height: 60px;
-	width: 300px;
+	width: 420px;
 
 }
 .header {
