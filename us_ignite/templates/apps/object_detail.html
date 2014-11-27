@@ -1,5 +1,5 @@
 {% extends "includes/lists/object_detail_base.html" %}
-{% load apps_urls thumbnail common_markdown snippets_tags %}
+{% load apps_urls common_markdown snippets_tags %}
 
 {% block title %}Application: {{ object.name }} - {{ block.super }}{% endblock title %}
 
@@ -40,7 +40,7 @@
       {% if object.impact_statement %}
       <h2>Impact statement</h2>
       <p>
-        {{ object.impact_statement }}
+        {{ object.impact_statement|linebreaksbr }}
       </p>
       {% endif %}
     </div>
@@ -59,7 +59,7 @@
         </div>
         <div class="small-12 medium-10 columns">
           <ul class="inline-list">
-            <li><a href="{% url 'app_list' %}" class="domains__link domains__link--active"><span class="domains__icon--{{ domain.slug }}"></span> {{ object.domain.name }}</a></li>
+            <li><a href="{{ object.get_domain_url }}" class="domains__link domains__link--active"><span class="domains__icon--{{ domain.slug }}"></span> {{ object.domain.name }}</a></li>
           </ul>
         </div>
       </div>
@@ -80,7 +80,7 @@
 
           {% if object.acknowledgments %}
           <h2>Acknowledgements</h2>
-          <p>{{ object.acknowledgments }}</p>
+          <p>{{ object.acknowledgments|linebreaksbr }}</p>
           {% endif %}
 
           {% include "includes/hubs.html"  with hub_list=hub_list%}
@@ -148,7 +148,7 @@
 
 {% if object.assistance %}
 <h3 class="sidebar__heading">WE'RE LOOKING FOR</h3>
-<p class="sidebar__copy">{{ object.assistance }}</p>
+<p class="sidebar__copy">{{ object.assistance|linebreaksbr }}</p>
 {% endif %}
 
 {# Make sure the app has an owner that can be contacted #}

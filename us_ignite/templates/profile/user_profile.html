@@ -15,9 +15,10 @@ Profile
   <li><a href="{{ request.user.profile.get_absolute_url }}">View my profile</a></li>
 </ul>
 
-<form method="post" action="{% url 'user_profile' %}">
+<form method="post" action="{% url 'user_profile' %}" enctype="multipart/form-data">
   {% include "includes/form.html" with form=form %}
   <h2>Extra URLs</h2>
+  <p>Such as LinkedIn, Twitter, Institutional profile, etc.</p>
   {{ formset.as_p }}
   <p>
     {% csrf_token %}

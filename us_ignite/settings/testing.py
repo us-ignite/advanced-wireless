@@ -43,6 +43,7 @@ NOSE_ARGS = [
     '--failure-detail',
     '--with-progressive',
     '--logging-filter=-south',
+    '--with-blockage',
 ]
 
 
@@ -80,3 +81,6 @@ AWS_STORAGE_BUCKET_NAME = 'testing-us-ignite-dot-org'
 
 # WP
 WP_URL = 'http://us-ignite.org'
+
+MAILCHIMP_API_KEY='0000000000-000'
+MAILCHIMP_LIST='00000'

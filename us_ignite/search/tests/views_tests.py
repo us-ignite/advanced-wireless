@@ -103,7 +103,7 @@ class TestSearchView(TestCase):
             ['form', 'page', 'pagination_qs'])
         eq_(response.context_data['page'].object_list, [])
         eq_(response.context_data['pagination_qs'], '&q=gigabit')
-        mock_watson.assert_called_once_with('gigabit')
+        mock_watson.assert_called_once_with('gigabit', models=())
 
 
 class TestTagListView(TestCase):

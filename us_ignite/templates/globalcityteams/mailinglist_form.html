@@ -1,0 +1,5 @@
+<h2>Subscribe to the mailing list</h2>
+<form method="post" action="{% url 'globalcityteams:subscribe' %}">
+  <p><label for="id_email">Email:</label> <input id="id_email" name="email" type="email" /></p>
+  <p><button type="submit">Submit</button>{% csrf_token %}</p>
+</form>

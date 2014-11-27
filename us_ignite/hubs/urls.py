@@ -10,5 +10,7 @@ urlpatterns = patterns(
         name='hub_locations_json'),
     url(r'^(?P<slug>[-\w]+)/membership/$', 'hub_membership',
         name='hub_membership'),
+    url(r'^(?P<slug>[-\w]+)/membership/remove/$', 'hub_membership_remove',
+        name='hub_membership_remove'),
     url(r'^(?P<slug>[-\w]+)/edit/$', 'hub_edit', name='hub_edit'),
 )

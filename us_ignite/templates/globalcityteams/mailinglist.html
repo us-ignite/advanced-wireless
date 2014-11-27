@@ -1,0 +1,8 @@
+{% extends "mailinglist/form.html" %}
+
+{% block section %}
+<form method="post" action="{% url 'globalcityteams:subscribe' %}">
+  {{ form.as_p }}
+  <p><button type="submit">Submit</button>{% csrf_token %}</p>
+</form>
+{% endblock section %}

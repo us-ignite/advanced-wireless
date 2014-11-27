@@ -23,6 +23,16 @@ class ApplicationAward(models.Model):
         return u'Award %s for %s' % (self.award, self.application)
 
 
+class ActionClusterAward(models.Model):
+    """An award given to an actioncluster."""
+    award = models.ForeignKey('awards.Award')
+    actioncluster = models.ForeignKey('actionclusters.ActionCluster')
+    created = CreationDateTimeField()
+
+    def __unicode__(self):
+        return u'Award %s for %s' % (self.award, self.actioncluster)
+
+
 class HubAward(models.Model):
     """An award given to an application."""
     award = models.ForeignKey('awards.Award')
@@ -40,3 +50,12 @@ class UserAward(models.Model):
 
     def __unicode__(self):
         return u'Award %s for %s' % (self.award, self.user)
+
+
+class OrganizationAward(models.Model):
+    award = models.ForeignKey('awards.Award')
+    organization = models.ForeignKey('organizations.Organization')
+    created = CreationDateTimeField()
+
+    def __unicode__(self):
+        return u'Award %s for %s' % (self.award, self.organization)

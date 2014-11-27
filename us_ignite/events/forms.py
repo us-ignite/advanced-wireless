@@ -74,7 +74,7 @@ class EventForm(forms.ModelForm):
             'name', 'status', 'description', 'website', 'tickets_url',
             'image', 'start_datetime', 'end_datetime', 'timezone',
             'event_type', 'audiences', 'audience_other', 'scope', 'address',
-            'position', 'contact', 'hubs', 'tags'
+            'position', 'contact', 'hubs', 'tags', 'actionclusters'
         )
         model = Event
 

@@ -49,10 +49,12 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('first_name', 'last_name', 'slug', 'website',
-                  'quote', 'bio', 'skills', 'category', 'category_other',
-                  'availability', 'interests', 'interests_other', 'tags',
-                  'is_public', 'position')
+        fields = (
+            'first_name', 'last_name', 'slug', 'avatar',
+            'website', 'quote', 'bio', 'skills', 'category',
+            'category_other', 'availability', 'interests',
+            'interests_other', 'tags', 'is_public', 'position'
+        )
 
     def clean_tags(self):
         if 'tags' in self.cleaned_data:

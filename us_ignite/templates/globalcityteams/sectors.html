@@ -1,0 +1,235 @@
+{% extends "microsite_base.html" %}{% load thumbnail %}
+
+{% block title %}Global City Teams Challenge  - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="row collapse">
+  <div class="small-12 columns">
+    <div class="row">
+      <div class="small-12 columns">
+        <h2 class="page-title">Action Clusters by Sector</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row collapse">
+  <div class="small-12 columns">
+	<div class="row panel">
+	  <div class="small-12 columns">
+	    <p>
+	      Browse the Active Action Clusters to explore the projects accelerating the deployment of IoT technologies in cities around the world. 
+
+	    </p>
+	    <br>
+	    <br>
+	    <br>
+
+	    <div class="row sector-row">
+	    	<div class="small-12 medium-2 columns">
+	    		<div class="sector-icon"><img src="{{ STATIC_URL }}globalcityteams/images/public-safety.png" alt="" /></div>
+	    	</div>
+	    	<div class="small-12 medium-10 columns">
+	    		<h2>Public Safety</h2>
+	    		<ul>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/3xhL68PYKna6rgJxNeL4Zd/">
+		    				Cyber Attack- Defense for System Planners and First Responders
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/VRsvZ3UKoeR6RLbuL4Jhd9/">
+		    				Human Population Mapping for Enhanced Community Resilience
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/QPngRfmvubTGGpr8Gq7gDD/">
+		    				Real-Time Geospatial Collaboration Platform for First Responders
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/icUg9SkzFDxjkKVJM6byx9/">
+		    				Smart Emergency Response Systems (SERS)
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/sGnog9XEXdsV3AP7mjK9TA/">
+		    				Technology Enabling Human Networks in Emergency Response
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/Mnubwt5vKp5qQHdxW6qPpF/">
+		    				SCALE: Safe Community Alert Network
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/Mke9c7feveuDyEM2pUJH3A/">
+		    				Next Generation of Emergency Medical Services in San Francisco
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/KKmM7WVEyM8v6yZnWrftUg/">
+		    				Remotely Caring for Our Most Vulnerable Citizens In-Place During A Pandemic
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/GeusuJhSDth9GSXeZN7sM8/">
+		    				Chattanooga: Geospatial Allergen Sensing Platform (GASP)
+		    			</a>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/dGw9HH3pSv7ZdqXxcQSQTm/">
+		    				Smarter Sockets: Indoor Emergency Response Locators
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/Kwp8WLLiYTbnweFMjkUWMT/">
+		    				Information Sharing Platform for Disaster Resilience (University of Louisiana)
+		    			</a>
+		    		</li>
+	    		</ul>
+	    	</div>
+	    </div>
+
+	    <div class="row sector-row">
+	    	<div class="small-12 medium-2 columns">
+	    	<div class="sector-icon"><img src="{{ STATIC_URL }}globalcityteams/images/energy.png" alt="" /></div>
+	    	</div>
+	    	<div class="small-12 medium-10 columns">
+	    		<h2>Energy</h2>
+	    		<ul>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/GiefEkG6yDgeoXQ2TQ4rNN/">
+		    				Energy Optimization Through Demand Reduction
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/wh4UdMNC7g2iGvMmtdTEqT/">
+		    				Modular Micro Grid Model (NY)
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/h86FFkoqYEaRCpv4pKJUTH/">
+		    				Transactive Energy Management of Distributed Energy Resources 
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/ea6hXoMToKc7ZQY7jqSzbT/">
+		    				5D Smart Physical Infrastructure
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/higQp66SB4V4dndVzF99nh/">
+		    				Intelligent Connectivity & Water Resource Management
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/sy3orLMemi9xTUqKv4YGF/">
+		    				Project X: GigaBit SMART City Project
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/zp8ZBNYZnJKEqkCMP99sCf/">
+		    				SmartCities Utility Infrastructure 
+		    			</a>
+		    		</li>
+		    		
+	    		</ul>
+	    	</div>
+	    </div>
+
+	    <div class="row sector-row">
+	    	<div class="small-12 medium-2 columns">
+	    		<div class="sector-icon"><img src="{{ STATIC_URL }}globalcityteams/images/transportation.png" alt="" /></div>
+	    	</div>
+	    	<div class="small-12 medium-10 columns">
+	    		<h2>Transportation</h2>
+	    		<ul>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/ECuFRL3KjMZ2WDVe8WDZYK/">
+		    				ARIBO: Applied Robotics for Installations and Base Operations
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/SpJUiCwAjDBXS8dtyTjL5E/">
+		    				Bus Tracking & Intelligent Transportation
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/xhycLkjZh9z5JdzJqgETxg/">
+		    				Columbus, OH: Rickenbacker Awesome Project (RAP)
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="Connected, Intelligent Transit (Portland)">
+		    				Connected, Intelligent Transit (Portland)
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/bRAyH96RNrKpZXGdK3FmXQ/">
+		    				Greenville A-Taxi Shuttle Project
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/JMSnLY5Vb4xzEShcdLDiLP/">
+		    				PA 2040 (DC)
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/LEB8K7wacNWtDAzXJbtXdf/">
+		    				Traffic Incident Management Solution 
+		    			</a>
+		    		</li>
+		    		
+	    		</ul>
+	    	</div>
+	    </div>
+
+	    <div class="row sector-row">
+	    	<div class="small-12 medium-2 columns">
+	    		<div class="sector-icon"><img src="{{ STATIC_URL }}globalcityteams/images/general.png" alt="" /></div>
+	    	</div>
+	    	<div class="small-12 medium-10 columns">
+	    		<h2>General/Platform</h2>
+	    		<ul>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/iP8vMr4BWcteoFzprEujvm/">
+		    				Impact on the Social Contract of Data in Smart Cities 
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/43uNdVPYKdogvxt5ok6mD8/">
+		    				Project Healthy Smart City
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/RRyiEaLDtxXKxFD7MwxgwY/">
+		    				Nudging Behavior with Smart Data
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/WcwMtDH8LAfxLdG96E5dEa/">
+		    				Lower Manhattan’s Smart Neighborhood Pilot
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/grJYMWvw7CCRNF3X2Ne2KU/">
+		    				Bringing Internet of Things Know-How to High School Students
+		    			</a>
+		    		</li>
+		    		<li>
+		    			<a href="https://us-ignite.org/actioncluster/k5jJcH5zCHMu8rhYNTwecV/">
+		    				Kumbh Mela: Solving the Problems of Millions
+		    			</a>
+		    		</li>
+	    		</ul>
+	    	</div>
+	    </div>
+
+	  </div>
+	</div>
+
+	
+	</div>
+</div>
+{% endblock content %}

@@ -3,7 +3,6 @@ import pytz
 
 from nose.tools import eq_, ok_
 
-from django.contrib.auth.models import User
 from django.test import TestCase
 from django.utils import timezone
 
@@ -23,10 +22,6 @@ class TestAudienceModel(TestCase):
 
 
 class TestEventModel(TestCase):
-
-    def tearDown(self):
-        for model in [models.Event, User]:
-            model.objects.all().delete()
 
     def test_event_is_created_successfully(self):
         user = get_user('us-ignite')
@@ -52,6 +47,7 @@ class TestEventModel(TestCase):
         eq_(list(instance.audiences.all()), [])
         eq_(instance.website, '')
         eq_(instance.tickets_url, '')
+        eq_(instance.section, models.Event.DEFAULT)
         eq_(list(instance.tags.all()), [])
         eq_(list(instance.hubs.all()), [])
         eq_(instance.user, user)
@@ -129,12 +125,26 @@ class TestEventModel(TestCase):
             sorted(['type', 'latitude', 'longitude', 'name', 'website',
                     'content', 'category', 'image']))
 
+    def test_same_day_event_date_is_displayed(self):
+        user = get_user('us-ignite')
+        ny_tz = pytz.timezone("America/New_York")
+        start = ny_tz.localize(datetime.datetime(2013, 12, 2, 12, 00))
+        end = ny_tz.localize(datetime.datetime(2013, 12, 2, 13, 00))
+        event = fixtures.get_event(
+            user=user, start_datetime=start, end_datetime=end)
+        eq_(event.printable_date, 'Dec 02 2013')
+
+    def test_different_day_event_date_is_displayed(self):
+        user = get_user('us-ignite')
+        ny_tz = pytz.timezone("America/New_York")
+        start = ny_tz.localize(datetime.datetime(2014, 1, 30, 12, 00))
+        end = ny_tz.localize(datetime.datetime(2014, 2, 2, 13, 00))
+        event = fixtures.get_event(
+            user=user, start_datetime=start, end_datetime=end)
+        eq_(event.printable_date, 'Jan 30 - Feb 02 2014')
+
 
 class TestEventURLModel(TestCase):
-
-    def tearDown(self):
-        for model in [models.EventURL, models.Event, User]:
-            model.objects.all().delete()
 
     def test_event_url_is_created_successfully(self):
         user = get_user('us-ignite')
@@ -159,4 +169,3 @@ class TestEventTypeModel(TestCase):
         ok_(instance.id)
         eq_(instance.name, 'Networking')
         eq_(instance.slug, 'networking')
-

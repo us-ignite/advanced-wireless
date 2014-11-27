@@ -1,23 +1,17 @@
 from mock import patch
 from nose.tools import eq_, ok_
 
-from django.contrib.auth.models import User
 from django.test import TestCase
 
-from us_ignite.apps.models import Application
 from us_ignite.apps.tests.fixtures import get_application
 from us_ignite.common.tests import utils
 from us_ignite.hubs.models import (Hub, HubActivity, HubMembership, HubRequest,
-                                   HubAppMembership)
+                                   HubAppMembership, HubURL)
 from us_ignite.hubs.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
 
 class TestHubRequestModel(TestCase):
-
-    def tearDown(self):
-        for model in [HubRequest, User]:
-            model.objects.all().delete()
 
     def test_model_can_be_created_successfully(self):
         user = get_user('us-ignite')
@@ -70,10 +64,6 @@ class TestHubRequestModel(TestCase):
 
 
 class TestHubModel(TestCase):
-
-    def tearDown(self):
-        for model in [Hub, User]:
-            model.objects.all().delete()
 
     def test_model_can_be_created_successfully(self):
         data = {
@@ -139,11 +129,24 @@ class TestHubModel(TestCase):
         mock_create.assert_called_once_with(hub=instance, name='Hello')
 
 
-class TestHubActivityModel(TestCase):
+class TestHubnURLModel(TestCase):
 
-    def tearDown(self):
-        for model in [Hub]:
-            model.objects.all().delete()
+    def test_hub_url_creation(self):
+        contact = get_user('contact')
+        hub = fixtures.get_hub(contact=contact)
+        data = {
+            'hub': hub,
+            'name': 'URL',
+            'url': 'https://us-ignite.org',
+        }
+        instance = HubURL.objects.create(**data)
+        ok_(instance.id)
+        eq_(instance.hub, hub)
+        eq_(instance.name, 'URL')
+        eq_(instance.url, 'https://us-ignite.org')
+
+
+class TestHubActivityModel(TestCase):
 
     def create_hub_activity_is_successful(self):
         hub = fixtures.create_hub('Gigabit hub')
@@ -151,7 +154,7 @@ class TestHubActivityModel(TestCase):
             'hub': hub,
             'title': 'New app added!',
         }
-        instance = HubActivity.objects.craete(**data)
+        instance = HubActivity.objects.create(**data)
         ok_(instance.id)
         eq_(instance.hub, hub)
         eq_(instance.title, 'New app added!')
@@ -163,10 +166,6 @@ class TestHubActivityModel(TestCase):
 
 
 class TestHubMembershipModel(TestCase):
-
-    def tearDown(self):
-        for model in [Hub, User]:
-            model.objects.all().delete()
 
     def test_create_membership(self):
         user = get_user('member')
@@ -183,10 +182,6 @@ class TestHubMembershipModel(TestCase):
 
 
 class TestHubAppMembershipModel(TestCase):
-
-    def tearDown(self):
-        for model in [Hub, Application, User]:
-            model.objects.all().delete()
 
     def test_membership_is_create_successful(self):
         user = get_user('owner')

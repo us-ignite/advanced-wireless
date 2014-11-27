@@ -1,0 +1,16 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Edit associations of {{ object.name }} - {{ block.super }}{% endblock title %}
+
+{% block section_title %}
+Associations of {{ object.name }}
+{% endblock section_title %}
+
+{% block section %}
+
+<form method="post" action=".">
+  {% include "includes/form.html" with form=form %}
+  <p>{% csrf_token %}<button type="submit">Update</button></p>
+</form>
+
+{% endblock section %}

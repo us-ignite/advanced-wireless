@@ -3,7 +3,7 @@
 {% block title %}Challenge: {{ object.name }} - {{ block.super }}{% endblock title %}
 
 {% block tag_list %}
-{% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search_hubs" %}
+{% include "includes/tag_list.html" with tag_list=object.tags.all tag_type="search" %}
 {% endblock tag_list %}
 
 {% block detail_content %}

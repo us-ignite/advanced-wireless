@@ -1,0 +1,27 @@
+{% extends "sections/base.html" %}
+
+{% block title %}Next-Gen Technologies - {{ block.super }}{% endblock title %}
+
+{% block section %}
+  <h2 class="header">Next-Gen Technologies</h2>
+
+  <div class="callout">
+    <img class="callout__image" src="{{ STATIC_URL }}img/static/technologies.jpg" alt="">
+  </div>
+
+  <p>US Ignite is fostering the development of next-generation application and digital experiences that will transform how we receive everything from weather reports to healthcare, to how we use the library, guide transportation in our cities and more.</p>
+
+  <blockquote>US Ignite helps maintain US global leadership in innovation by  leveraging the combined resources and capabilities of industry, government, and academia.
+  </blockquote>
+
+  <p>To bring these apps to life, developers leverage the unique capabilities of next-generation networks, including:</p>
+
+  <ul>
+    <li>100 Mbps+ and low latency, permitting for example, multiple bi-directional streams of uncompressed video.</li>
+    <li>Software-defined networks (e.g.,OpenFlow), promising dramatically-improved control over network routing and optimization.</li>
+    <li>Networks with capabilities such as virtual network “slices” matched to application requirements and distributed programmable resources throughout the network.</li>
+    <li>Integrated wireless networks to facilitate, for example, sensor networks and continuous remote monitoring.</li>
+    <li>Applications built to be open, shared, and extendable.</li>
+  </ul>
+
+{% endblock section %}

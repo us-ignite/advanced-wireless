@@ -1,0 +1,14 @@
+FEATERD
+{% load thumbnail %}
+  <a href="{{ object.get_absolute_url }}">
+    {% if object.image %}
+    <img src="{% thumbnail object.image 376x238 crop %}">
+    {% else %}
+    <img src="{{ STATIC_URL }}img/project-default.png">
+    {% endif %}
+    <span>
+      {% if object.title %}{{ object.title}}{% endif %}
+      {% if object.name  %}{{ object.name }}{% endif %}
+    </span>
+  </a>
+</div>

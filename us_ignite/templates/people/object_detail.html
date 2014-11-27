@@ -25,7 +25,11 @@
     <div class="listings__listing listing-featured listing--collapse">
       <div class="row">
         <div class="small-12 medium-4 columns text-center">
+          {% if object.avatar  %}
+          <img src="{% thumbnail object.avatar 276x276 crop %}" alt="Avatar" class="profile__avatar" />
+          {% else %}
           <img src="{{ object.get_gravatar_url }}" alt="Avatar" class="profile__avatar" />
+          {% endif %}
         </div> 
 
         <div class="small-12 medium-8 columns">
@@ -127,7 +131,7 @@
     <div class="listings__listing">
       <div class="row">
         <div class="small-12 columns">
-          <h4 class="listings__listing__heading listings__listing__heading--plain">COMMUNITIES I MANAGE</h4>
+          <h4 class="listings__listing__heading listings__listing__heading--plain">COMMUNITIES / ACTION CLUSTERS I MANAGE</h4>
 
           <div class="row">
           {% for hub in hub_list %}

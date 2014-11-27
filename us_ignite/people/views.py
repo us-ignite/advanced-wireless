@@ -7,6 +7,7 @@ from us_ignite.awards.models import UserAward
 from us_ignite.blog.models import Post
 from us_ignite.common import pagination, forms
 from us_ignite.events.models import Event
+from us_ignite.actionclusters.models import ActionCluster
 from us_ignite.hubs.models import Hub, HubMembership, HubRequest
 from us_ignite.organizations.models import Organization, OrganizationMember
 from us_ignite.profiles.models import Profile
@@ -47,6 +48,14 @@ def get_application_list(owner, viewer=None):
     return Application.active.filter(**qs_kwargs)
 
 
+def get_actioncluster_list(owner, viewer=None):
+    """Returns visible ``Action Cluster`` from the given ``viewer``."""
+    qs_kwargs = {'owner': owner}
+    if not viewer or not owner == viewer:
+        qs_kwargs.update({'status': ActionCluster.PUBLISHED})
+    return ActionCluster.active.filter(**qs_kwargs)
+
+
 def get_similar_applications(application_list, total=4):
     params = {
         'status': Application.PUBLISHED,
@@ -82,6 +91,11 @@ def get_hub_owned_list(contact, viewer=None):
         qs_kwargs.update({'status': Hub.PUBLISHED})
     return Hub.objects.filter(**qs_kwargs)
 
+def get_actioncluster_owned_list(contact, viewer=None):
+    qs_kwargs = {'contact': contact}
+    if not contact or not contact == viewer:
+        qs_kwargs.update({'status': ActionCluster.PUBLISHED})
+    return ActionCluster.objects.filter(**qs_kwargs)
 
 def get_organization_list(user, viewer=None):
     qs_kwargs = {'user': user}
@@ -102,6 +116,7 @@ def get_hub_membership_list(user, viewer=None):
 
 def get_hub_list(user, viewer=None):
     hub_list = list(get_hub_owned_list(user, viewer=viewer))
+    #hub_list += list(get_appl_owned_list(user, viewer=viewer))
     hub_list += get_hub_membership_list(user, viewer=viewer)
     return list(set(hub_list))
 
@@ -139,6 +154,10 @@ def profile_detail(request, slug):
     is_owner = profile.user == request.user
     # Content available when the ``User`` owns this ``Profile``:
     hub_request_list = HubRequest.objects.filter(user=user) if is_owner else []
+
+    get_hub_list(user, viewer=request.user)
+
+
     context = {
         'object': profile,
         'is_owner': is_owner,
@@ -158,6 +177,7 @@ def dashboard(request):
     profile, is_new = Profile.objects.get_or_create(user=request.user)
     user = profile.user
     application_list = list(get_application_list(user, viewer=request.user))
+    actioncluster_list = list(get_actioncluster_list(user, viewer=request.user))
     similar_applications = get_similar_applications(application_list)
     event_list = get_event_list(user, viewer=request.user)
     resource_list = get_resource_list(user, viewer=request.user)
@@ -167,6 +187,7 @@ def dashboard(request):
     context = {
         'object': profile,
         'application_list': application_list[:3],
+        'actioncluster_list': actioncluster_list[:3],
         'similar_applications': similar_applications,
         'post_list': get_post_list(),
         'hub_list': hub_list[:7],

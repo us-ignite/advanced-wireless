@@ -1,0 +1,15 @@
+<h3>Top navigation</h3>
+<ul>
+  {% if request.user.is_authenticated %}
+  <li><a href="{{ request.user.profile.get_absolute_url }}">Profile</a></li>
+  <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+  {% else %}
+  <li><a href="{% url 'registration_register' %}">Register</a></li>
+  <li><a href="{% url 'auth_login' %}">Login</a></li>
+  {% endif %}
+  <li><a href="https://www.facebook.com/USIgnite">Facebook</a></li>
+  <li><a href="https://twitter.com/US_Ignite">Twitter</a></li>
+  <li><a href="https://plus.google.com/115026873083967953743/posts">Google+</a></li>
+  <li><a href="http://www.youtube.com/user/USIgnite1">YouTube</a></li>
+  <li><a href="{% url 'contact-us' %}">Contact Us</a></li>
+</ul>

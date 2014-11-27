@@ -5,6 +5,9 @@ import urlparse
 
 from us_ignite.settings.base import *
 
+DEBUG = False
+TEMPLATE_DEBUG = DEBUG
+
 # Sensitive values are saved as env variables:
 env = os.getenv
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -92,3 +95,12 @@ MAILCHIMP_API_KEY = env('MAILCHIMP_API_KEY')
 MAILCHIMP_LIST = env('MAILCHIMP_LIST')
 
 GOOGLE_ANALYTICS_ID = 'DUMMY'
+
+# Production flag:
+IS_PRODUCTION = True
+
+# Asset compressor:
+COMPRESS_ENABLED = True
+STATIC_FILES_VERSION = 'v1'
+# Heroku does not have a filesystem, used to deploy the assets to S3:
+COMPRESS_STORAGE = 'us_ignite.common.storage.CachedS3BotoStorage'

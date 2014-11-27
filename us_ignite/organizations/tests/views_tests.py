@@ -12,6 +12,7 @@ from us_ignite.organizations.tests import fixtures
 from us_ignite.profiles.tests.fixtures import get_user
 
 patch_get_object = patch('us_ignite.organizations.views.get_object_or_404')
+patch_get_awards = patch('us_ignite.organizations.views.get_award_list')
 
 
 class TestOrganizationDetailView(TestCase):
@@ -33,19 +34,22 @@ class TestOrganizationDetailView(TestCase):
         assert_raises(Http404, views.organization_detail, request, 'foo')
         mock_instance.is_visible_by.assert_called_once_with(request.user)
 
+    @patch_get_awards
     @patch_get_object
-    def test_organization_request_is_successful(self, mock_get):
+    def test_organization_request_is_successful(self, mock_get, mock_awards):
         mock_instance = Mock(spec=Organization)()
         mock_instance.interests.all.return_value = []
         mock_get.return_value = mock_instance
         mock_instance.is_visible_by.return_value = True
+        mock_awards.return_value = []
         request = utils.get_request(
             'get', '/org/foo/', user=utils.get_anon_mock())
         response = views.organization_detail(request, 'foo')
         eq_(response.status_code, 200)
         eq_(response.template_name, 'organizations/object_detail.html')
         eq_(sorted(response.context_data.keys()),
-            ['interest_list', 'is_member', 'member_list', 'object'])
+            sorted(['interest_list', 'is_member', 'member_list', 'object',
+                    'award_list']))
 
 
 class TestOrganizationEditView(TestCase):

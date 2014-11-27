@@ -20,12 +20,21 @@ class Post(models.Model):
         (DRAFT, 'Draft'),
         (REMOVED, 'Removed'),
     )
+    DEFAULT = 1
+    GLOBALCITIES = 2
+    SECTION_CHOICES = (
+        (DEFAULT, u'Default'),
+        (GLOBALCITIES, u'Global City Teams'),
+    )
     status = models.IntegerField(choices=CHOICE_STATUS, default=DRAFT)
     wp_id = models.CharField(blank=True, max_length=255, editable=False)
     wp_type = models.CharField(blank=True, max_length=255, editable=False)
     wp_url = models.URLField(blank=True)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
+    section = models.IntegerField(
+        choices=SECTION_CHOICES, default=DEFAULT, help_text=u'Section where '
+        'this event will be listed. Default is the main section.')
     content = models.TextField(blank=True)
     content_html = models.TextField(blank=True, editable=False)
     excerpt = models.TextField(blank=True)
@@ -56,7 +65,14 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog_post_detail', args=[
+        url_dict = {
+            self.GLOBALCITIES: 'globalcityteams:news_detail'
+        }
+        if self.section in url_dict:
+            url_name = url_dict[self.section]
+        else:
+            url_name = 'blog_post_detail'
+        return reverse(url_name, args=[
             int(self.publication_date.strftime('%Y')),
             int(self.publication_date.strftime('%m')),
             self.slug

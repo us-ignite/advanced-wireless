@@ -1,0 +1,14 @@
+<ul class="inline-list quicklinks__list right">
+  
+  {% if request.user.is_authenticated %}
+  <li><a href="{{ request.user.profile.get_absolute_url }}" class="quicklinks__link">PROFILE</a></li>
+  <li><a href="{% url 'auth_logout' %}" class="quicklinks__link">LOGOUT</a></li>
+  {% else %}
+  <li><a href="{% url 'registration_register' %}" class="quicklinks__link">REGISTER</a></li>
+  <li><a href="{% url 'auth_login' %}" class="quicklinks__link">LOGIN</a></li>
+  {% endif %}
+
+  <li class="show-for-medium-up"><a href="https://www.facebook.com/USIgnite" class="socialicon facebook"><span class="icon-uniE607"></span></a></li>
+  <li class="squeeze show-for-medium-up"><a href="https://twitter.com/US_Ignite" class="socialicon twitter"><span class="icon-uniE608"></span></a></li>
+  <li class="squeeze show-for-medium-up"><a href="https://plus.google.com/115026873083967953743/posts" class="socialicon google-plus"><span class="icon-googleplus"></span></a></li>
+</ul>

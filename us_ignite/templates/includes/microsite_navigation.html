@@ -1,0 +1,41 @@
+<!-- Right Nav Section -->
+<ul class="right">
+
+  <li class="has-dropdown">
+    <a href="{% url 'globalcityteams_about' %}">ABOUT</a>
+    <ul class="dropdown">
+      <li><a href="{% url 'globalcityteams_about' %}">GLOBAL CITY TEAMS CHALLENGE</a></li>
+      <li><a href="{% url 'globalcityteams_faq' %}">FAQ</a></li>
+      <li><a href="{% url 'globalcityteams_partners' %}">PARTNERS</a></li>
+      <li><a href="{% url 'globalcityteams_sectors' %}">SECTORS</a></li>
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="{% url 'actioncluster_list' %}">ACTION CLUSTERS</a>
+    <ul class="dropdown">
+      <li><a href="{% url 'actioncluster_list' %}">ACTION CLUSTERS</a></li>
+      <li><a href="{% url 'actioncluster_add' %}">ADD AN ACTION CLUSTER</a></li>
+      <li><a href="{% url 'actioncluster_list_partner' %}">LOOKING FOR PARTNERS</a></li>
+      <li><a href="">WIKI</a></li>
+    </ul>
+  </li>
+
+ 
+ <li><a href="{% url 'news_list' %}">NEWS</a></li>
+ <li><a href="{% url 'event_list' %}">EVENTS</a></li>
+ 
+
+  {% block search %}
+  <li class="has-form">
+    <div class="row collapse">
+      <div class="small-12 columns search">
+        {% include "includes/microsite_search.html" %}
+      </div>
+    </div>
+  </li>
+  {% endblock search %}
+
+</ul>
+
+

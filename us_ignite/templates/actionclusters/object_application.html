@@ -1,0 +1,24 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Add your action cluster to our hub. - {{ block.super }}{% endblock title %}
+
+{% block section_title %}Add your action cluster to our hub.{% endblock section_title %}
+
+{% block section %}
+
+
+<h3>Submit your action cluster to the admin for approval</h3>
+
+<p>
+  Please fill out the form below to create your Action Cluster. Once you have submitted your information and your cluster has been approved, you’ll be able to manage your Hub via your profile page.
+</p>
+
+<form method="post" action=".">
+  {% include "includes/form.html" with form=form %}
+  <p>
+    {% csrf_token %}
+    <button type="submit">Apply</button>
+  </p>
+</form>
+
+{% endblock section %}

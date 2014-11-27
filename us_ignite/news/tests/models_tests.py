@@ -7,9 +7,6 @@ from us_ignite.news.models import Article
 
 class TestArticleModel(TestCase):
 
-    def tearDown(self):
-        Article.objects.all().delete()
-
     def test_instance_is_created_successfully(self):
         data = {
             'name': 'Gigabit news',
@@ -23,6 +20,7 @@ class TestArticleModel(TestCase):
         eq_(instance.is_featured, False)
         ok_(instance.created)
         ok_(instance.modified)
+        eq_(instance.section, Article.DEFAULT)
 
     def test_get_get_absolute_url_is_url(self):
         data = {

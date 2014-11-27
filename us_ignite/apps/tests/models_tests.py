@@ -1,6 +1,6 @@
 from nose.tools import eq_, ok_
 
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase
 
 from us_ignite.apps import models
@@ -9,10 +9,6 @@ from us_ignite.profiles.tests.fixtures import get_user
 
 
 class TestApplicationModel(TestCase):
-
-    def tearDown(self):
-        for model in [User, models.Application]:
-            model.objects.all().delete()
 
     def test_application_creation_is_successful(self):
         user = get_user('us-ignite')
@@ -67,6 +63,13 @@ class TestApplicationModel(TestCase):
         application = fixtures.get_application(owner=user)
         eq_(application.get_hub_membership_url(),
             u'/apps/%s/hubs-membership/' % application.slug)
+
+    def test_domain_url(self):
+        user = get_user('app-owner')
+        domain = fixtures.get_domain(slug='healthcare')
+        application = fixtures.get_application(owner=user, domain=domain)
+        eq_(application.get_domain_url(),
+            u'/apps/domain/healthcare/')
 
     def test_application_export_url(self):
         user = get_user('app-owner')
@@ -187,10 +190,6 @@ class TestApplicationModel(TestCase):
 
 class TestApplicationMembership(TestCase):
 
-    def tearDown(self):
-        for model in [User, models.Application, models.ApplicationMembership]:
-            model.objects.all().delete()
-
     def test_application_membership_creation(self):
         user = get_user('app-owner')
         member = get_user('member')
@@ -208,10 +207,6 @@ class TestApplicationMembership(TestCase):
 
 class TestApplicationURL(TestCase):
 
-    def tearDown(self):
-        for model in [User, models.Application, models.ApplicationURL]:
-            model.objects.all().delete()
-
     def test_application_url_creation(self):
         user = get_user('app-owner')
         application = fixtures.get_application(owner=user)
@@ -227,10 +222,6 @@ class TestApplicationURL(TestCase):
 
 
 class TestApplicationVersionModel(TestCase):
-
-    def tearDown(self):
-        for model in [User, models.Application, models.ApplicationVersion]:
-            model.objects.all().delete()
 
     def test_application_creation_is_successful(self):
         user = get_user('us-ignite')
@@ -259,10 +250,6 @@ class TestApplicationVersionModel(TestCase):
 
 class TestFeatureModel(TestCase):
 
-    def tearDown(self):
-        for model in [models.Feature]:
-            model.objects.all().delete()
-
     def test_feature_creation_is_successful(self):
         instance = models.Feature.objects.create(**{
             'name': 'OpenFlow',
@@ -273,10 +260,6 @@ class TestFeatureModel(TestCase):
 
 
 class TestPageModel(TestCase):
-
-    def tearDown(self):
-        for model in [models.Page]:
-            model.objects.all().delete()
 
     def test_page_creation_is_successful(self):
         data = {
@@ -316,10 +299,6 @@ class TestPageModel(TestCase):
 
 
 class TestPageApplication(TestCase):
-
-    def tearDown(self):
-        for model in [models.Application, models.Page]:
-            model.objects.all().delete()
 
     def test_page_item_is_created_successfully(self):
         user = get_user('app-maker')

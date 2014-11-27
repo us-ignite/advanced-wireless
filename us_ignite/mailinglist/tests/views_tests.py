@@ -1,7 +1,7 @@
 import mailchimp
 
 from mock import patch
-from nose.tools import eq_, ok_
+from nose.tools import eq_, ok_, assert_raises
 
 from django.test import TestCase
 
@@ -32,7 +32,7 @@ class TestMailingSubscribeView(TestCase):
         response = views.mailing_subscribe(request)
         eq_(response.status_code, 302)
         eq_(response['Location'], '/')
-        mock_subscribe.assert_called_once_with('user@us-ignite.org')
+        mock_subscribe.assert_called_once_with('user@us-ignite.org', 'default')
 
     @patch('us_ignite.mailinglist.views.subscribe_email')
     def test_subscribed_email_returns_error(self, mock_subscribe):
@@ -43,4 +43,19 @@ class TestMailingSubscribeView(TestCase):
         response = views.mailing_subscribe(request)
         eq_(response.status_code, 302)
         eq_(response['Location'], '/subscribe/')
-        mock_subscribe.assert_called_once_with('user@us-ignite.org')
+        mock_subscribe.assert_called_once_with('user@us-ignite.org', 'default')
+
+
+class TestSubscribeEmailFunction(TestCase):
+
+    def test_missing_slug_raises_exception(self):
+        assert_raises(
+            mailchimp.ValidationError,
+            views.subscribe_email, 'info@us-ignite.com', 'unknown')
+
+    @patch('mailchimp.Lists')
+    def test_subscribe_email_is_valid(self, mock_mail):
+        mock_mail.return_value.subscribe.return_value = 'ok'
+        result = views.subscribe_email('alfredo@us-ignite.com', 'default')
+        eq_(result, 'ok')
+        eq_(mock_mail.return_value.subscribe.call_count, 1)

@@ -23,8 +23,7 @@ class TestPostListView(TestCase):
         eq_(response.status_code, 200)
         eq_(response.template_name, 'blog/object_list.html')
         eq_(sorted(response.context_data.keys()), ['featured_list', 'page'])
-        related_mock.return_value.filter.assert_called_once_with(is_featured=True)
-        related_mock.return_value.all.assert_called_once_with()
+        eq_(related_mock.return_value.filter.call_count, 2)
 
 
 class TestPostDetailView(TestCase):

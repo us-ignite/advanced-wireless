@@ -1,0 +1,27 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Add action cluster - {{ block.super }}{% endblock title %}
+
+{% block section_title %}
+Add an Action Cluster
+{% endblock section_title %}
+
+{% block section %}
+<p>
+  Please fill out the form below to have your action cluster added to our searchable database. Once you have submitted your application and it has been approved, it will be included on our Action Clusters page.
+</p>
+<p>
+  If you need to make changes to your action cluster description it can be accessed via your user profile.
+</p>
+<form method="post" action="{% url "actioncluster_add" %}" enctype="multipart/form-data">
+{% include "actionclusters/object_form.html" with form=form %}
+<p>
+  <button type="submit">CREATE</button>
+  {% csrf_token %}
+</p>
+</form>
+{% endblock section %}
+
+{% block extra_scripts %}
+{{ form.media }}
+{% endblock extra_scripts %}

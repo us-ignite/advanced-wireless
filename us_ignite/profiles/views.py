@@ -114,12 +114,12 @@ def user_profile(request):
     # Make sure the user has a profile:
     profile, is_new = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        form = forms.ProfileForm(request.POST, instance=profile)
+        form = forms.ProfileForm(request.POST, request.FILES, instance=profile)
         formset = forms.ProfileLinkFormSet(request.POST, instance=profile)
         if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
-            messages.success(request, 'Profile has been updated successfully.')
+            messages.success(request, 'Thank you for updating your Profile.')
             return redirect('user_profile')
     else:
         form = forms.ProfileForm(instance=profile, initial={

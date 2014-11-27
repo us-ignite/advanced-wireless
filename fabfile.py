@@ -18,6 +18,7 @@ def production():
     env.slug = 'production'
     env.url = 'https://us-ignite.org/'
     env.app = 'us-ignite'
+    env.branch = 'master'
 
 
 @task
@@ -26,6 +27,7 @@ def staging():
     env.slug = 'staging'
     env.url = 'https://us-ignite-staging.herokuapp.com/'
     env.app = 'us-ignite-staging'
+    env.branch = 'develop'
 
 
 def is_vm():
@@ -91,10 +93,10 @@ def production_confirmation(function):
     return wrapper
 
 
-def _validate_pushed_commits():
+def _validate_pushed_commits(branch):
     with lcd(PROJECT_ROOT):
-        result = local('git log --pretty=format:"%h %s" origin/master..HEAD',
-                       capture=True)
+        result = local('git log --pretty=format:"%h %s" '
+                       'origin/{}..HEAD'.format(branch), capture=True)
         if not result:
             return True
         print red('FAILURE: There are unpushed commits to origin/master.')
@@ -111,6 +113,12 @@ def syncdb():
     print yellow('Syncing %s database.' % env.slug.upper())
     dj_heroku('syncdb --noinput', env.app, env.slug)
     dj_heroku('migrate --noinput', env.app, env.slug)
+
+
+@task
+@only_outside_vm
+def list_migrations():
+    dj_heroku('migrate --list', env.app, env.slug,)
 
 
 @task
@@ -162,8 +170,9 @@ def deploy(confirmation):
     with lcd(PROJECT_ROOT):
         print yellow('Pushing changes to %s in Heroku.' % SLUG)
         # Make sure the remote and Heroku are in sync:
-        _validate_pushed_commits()
-        local('git push %s master' % env.slug)
+        _validate_pushed_commits(env.branch)
+        branch = 'master' if env.branch == 'master' else '%s:master' % env.branch
+        local('git push %s %s' % (env.slug, branch))
         # Sync database:
         syncdb()
         # Collect any static assets:
@@ -259,6 +268,7 @@ def loaddb(db_name):
                       ' the command.')
             exit(2)
     print green('Done')
+
 
 @task
 @only_inside_vm

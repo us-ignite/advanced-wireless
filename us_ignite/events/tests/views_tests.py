@@ -22,7 +22,8 @@ class TestEventDetailView(TestCase):
         request = utils.get_request(
             'get', '/event/abc/', user=utils.get_anon_mock())
         assert_raises(Http404, views.event_detail, request, 'abc')
-        mock_get.assert_called_once_with(Event, slug__exact='abc')
+        mock_get.assert_called_once_with(
+            Event, slug__exact='abc')
 
     @patch('us_ignite.events.views.get_object_or_404')
     def test_not_visible_event_raises_404(self, mock_get):
@@ -32,7 +33,8 @@ class TestEventDetailView(TestCase):
         request = utils.get_request(
             'get', '/event/abc/', user=utils.get_anon_mock())
         assert_raises(Http404, views.event_detail, request, 'abc')
-        mock_get.assert_called_once_with(Event, slug__exact='abc')
+        mock_get.assert_called_once_with(
+            Event, slug__exact='abc')
         mock_instance.is_visible_by.assert_called_once()
 
     @patch('us_ignite.events.views.get_object_or_404')
@@ -45,7 +47,8 @@ class TestEventDetailView(TestCase):
         request = utils.get_request(
             'get', '/event/abc/', user=utils.get_anon_mock())
         response = views.event_detail(request, 'abc')
-        mock_get.assert_called_once_with(Event, slug__exact='abc')
+        mock_get.assert_called_once_with(
+            Event, slug__exact='abc')
         mock_instance.is_visible_by.assert_called_once_with(request.user)
         eq_(response.status_code, 200)
         eq_(sorted(response.context_data.keys()),
@@ -55,10 +58,6 @@ class TestEventDetailView(TestCase):
 
 
 class TestEventDetailICSView(TestCase):
-
-    def _tear_down(self):
-        for model in [Event, User]:
-            model.objects.all().delete()
 
     @patch('us_ignite.events.views.get_object_or_404')
     def test_missing_event_raises_404(self, mock_get):

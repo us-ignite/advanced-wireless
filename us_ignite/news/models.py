@@ -12,13 +12,18 @@ class Article(models.Model):
     DRAFT = 2
     REMOVED = 3
     STATUS_CHOICES = (
-        (PUBLISHED, 'Published'),
-        (DRAFT, 'Draft'),
-        (REMOVED, 'Removed'),
+        (PUBLISHED, u'Published'),
+        (DRAFT, u'Draft'),
+        (REMOVED, u'Removed'),
     )
-
+    DEFAULT = 1
+    SECTION_CHOICES = (
+        (DEFAULT, u'Default'),
+    )
     name = models.CharField(max_length=500)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
+    section = models.IntegerField(
+        choices=SECTION_CHOICES, default=DEFAULT, editable=False)
     url = models.URLField(
         max_length=500, help_text=URL_HELP_TEXT, verbose_name=u'URL')
     is_featured = models.BooleanField(default=False)

@@ -152,7 +152,7 @@ class Application(ApplicationBase):
     published = managers.ApplicationPublishedManager()
 
     class Meta:
-        ordering = ('-is_featured', 'created')
+        ordering = ('-is_featured', '-created')
 
     def __unicode__(self):
         return self.name
@@ -174,6 +174,11 @@ class Application(ApplicationBase):
 
     def get_hub_membership_url(self):
         return reverse('app_hub_membership', args=[self.slug])
+
+    def get_domain_url(self):
+        if self.domain:
+            return reverse('app_list_domain', args=[self.domain.slug])
+        return u''
 
     def get_export_url(self):
         return reverse('app_export', args=[self.slug])

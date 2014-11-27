@@ -51,6 +51,9 @@ def hub_detail(request, slug):
         raise Http404
     membership_list = instance.hubmembership_set.select_related('profile').all()
     member_list = [m.user for m in membership_list]
+    app_membership_list = (instance.hubappmembership_set
+                           .select_related('application').all())
+    app_list = [m.application for m in app_membership_list]
     # Determine if the user is a member of this ``Hub``:
     is_member = request.user in member_list
     activity_list = (instance.hubactivity_set
@@ -58,8 +61,6 @@ def hub_detail(request, slug):
     event_list = Event.published.get_upcoming(hubs=instance)[:5]
     hub_award_list = (instance.hubaward_set
                       .select_related('award').all())
-    award_list = [ha.award for ha in hub_award_list]
-    testbed_list = instance.testbed_set.all()
     context = {
         'object': instance,
         'feature_list': instance.features.all(),
@@ -68,8 +69,10 @@ def hub_detail(request, slug):
         'is_contact': instance.is_contact(request.user),
         'activity_list': activity_list,
         'event_list': event_list,
-        'award_list': award_list,
-        'testbed_list': testbed_list,
+        'award_list': [ha.award for ha in hub_award_list],
+        'testbed_list': instance.testbed_set.all(),
+        'url_list': instance.huburl_set.all(),
+        'application_list': app_list,
     }
     return TemplateResponse(request, 'hubs/object_detail.html', context)
 
@@ -85,6 +88,23 @@ def hub_membership(request, slug):
     return redirect(instance.get_absolute_url())
 
 
+@require_http_methods(['POST'])
+@login_required
+def hub_membership_remove(request, slug):
+    """Remove the user membership of a community."""
+    instance = get_object_or_404(
+        Hub.objects, slug__exact=slug, status=Hub.PUBLISHED)
+    try:
+        membership = HubMembership.objects.get(user=request.user, hub=instance)
+    except HubMembership.DoesNotExist:
+        membership = None
+        messages.success(request, 'You are not a member.')
+    if membership:
+        membership.delete()
+        messages.success(request, 'You have unfollowed: %s.' % instance.name)
+    return redirect(instance.get_absolute_url())
+
+
 @login_required
 def hub_edit(request, slug):
     """Allows ``contacts`` to edit a ``Hub``. """
@@ -92,16 +112,20 @@ def hub_edit(request, slug):
         Hub.objects, slug__exact=slug, contact=request.user)
     if request.method == 'POST':
         form = forms.HubForm(request.POST, request.FILES, instance=instance)
-        if form.is_valid():
+        link_formset = forms.HubURLFormSet(request.POST, instance=instance)
+        if form.is_valid() and link_formset.is_valid():
             instance = form.save()
+            link_formset.save()
             msg = '%s has been updated successfully' % instance.name
             messages.success(request, msg)
             return redirect(instance.get_absolute_url())
     else:
         form = forms.HubForm(instance=instance)
+        link_formset = forms.HubURLFormSet(instance=instance)
     context = {
         'form': form,
         'object': instance,
+        'link_formset': link_formset,
     }
     return TemplateResponse(request, 'hubs/object_edit.html', context)
 

@@ -1,9 +1,13 @@
-{% with profile=user.profile %}
+{% load thumbnail %}{% with profile=user.profile %}
 {% if profile %}
 <a href="{{ profile.get_absolute_url }}" title="Contact {{ profile.display_name }}" class="sidebar__list__link row collapse">
 
   <div class="medium-4 large-2 columns">
-    <img src="{{ profile.get_gravatar_url }}" alt="{{ profile.display_name }}" class="sidebar__list__image">
+    {% if object.avatar  %}
+    <img src="{% thumbnail object.avatar 276x276 crop %}" alt="Avatar" class="sidebar__list__image" />
+    {% else %}
+    <img src="{{ object.get_gravatar_url }}" alt="Avatar" class="sidebar__list__image" />
+    {% endif %}
   </div>
 
   <div class="medium-8 large-10 columns">

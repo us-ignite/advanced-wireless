@@ -1,327 +1,186 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-     
-     <title>US Ignite - Global City Teams Challenge</title>
-     <meta name="description" content="Global City Teams Challenge">
-     <link rel="shortcut icon" href="{{ STATIC_URL }}globalcityteams/images/favicon.ico" />
-    
-     
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,700,900&amp;subset=latin">
-     <script src="{{ STATIC_URL }}globalcityteams/js/modernizr.js"></script>
-     
-     <!-- DEVELOPMENT 
-     <link rel="stylesheet" type="text/css" href="css/foundation.min.css"/>
-     <link rel="stylesheet" type="text/css" href="css/icons-style.css"/>
-     <link rel="stylesheet" type="text/css" href="css/slick.css"/>
-     <link rel="stylesheet" type="text/css" href="css/style.css"/>
-     -->
-     <!-- PRODUCTION -->
-    
-     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/style.min.css"/>
-    
-</head>
+{% extends "microsite_base.html" %}{% load snippets_tags thumbnail %}
 
-<body>
-	<header class="header center">
-     	<span class="us-ignite-logo"></span>
-          +
-          <span class="smart-america-logo"></span>
-     </header>
-     
-     <div class="intro-image center">
-     	<div class="row">
-          	<div class="medium-12 columns">
-                    <h1 class="intro-title white">Join A Global City Team Today</h1>
-                    <p class="twitter orange">#globalcityteams</p>
-                    <p class="white">
-                         US Ignite and the National Institute of Standards and Technology (NIST) have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), and Health and Human Services (HHS) to create the Global City Teams Challenge, an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment.
-                    </p>
-                    
-                    <div class="down-button"><span class="icon-arrow-down2"></span></div>
-                    <div class="row">
-                    	<div class="medium-6 columns">
-                         	&nbsp;
-                         </div>
-                         <div class="medium-6 columns">
-                         	<div class="image-source">Creative Commons:  "The New York City skyline just before sunrise December 17, 2011" by Anthony Quintano is licensed under CC BY 2.0</div>
-                         </div>
-                    </div>	
-               </div>
+{% block title %}Global City Teams Challenge - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<!-- slide-one -->
+<div class="row slide slide--one">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-7 columns">
+        <div class="slide__panel">
+          <h2 class="slide__heading">US Ignite and the National Institute of Standards and Technology (NIST) have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), International Trade Administration (ITA), Department of Health and Human Services (HHS) and Department of Energy (DoE) to create the Global City Teams Challenge, an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment.</h2>
+          <br>
+          <a class="primary button expand" href="{% url 'what-we-do' %}">LEARN MORE</a>
+        </div>
+      </div>
+
+      <div class="small-12 medium-4 large-4 large-offset-1 columns">
+       
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- slide-one -->
+
+<!-- homepage-grid -->
+<div class="row homepage-grid" data-equalizer>
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--devs">
+
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">EXPLORE ACTION CLUSTERS</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Showcasing advanced IoT projects.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_list' %}" >VIEW ACTION CLUSTERS</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--partners">
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">SUBMIT AN ACTION CLUSTER</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Deploy and assess your IoT solutions.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_add' %}">JOIN THE GCTC</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--communities">
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">LOOKING FOR PARTNERS</h4>
+        <p class="homepage-grid__desc show-for-medium-up">Join a team working on IoT projects.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 columns">
+        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_list_partner' %}" >GET INVOLVED</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--news">
+    <div class="row" data-equalizer-watch>
+      <div class="small-12 columns">
+        <h4 class="homepage-grid__heading">WELCOME TO OUR NEW SITE!</h4>
+        <p class="homepage-grid__desc ">Welcome to our new site. Please take a look around and if you have any questions/comments please email XXXX@usignite.org .</p>
+      </div>
+    </div>
+
+  
+  </div>
+
+</div>
+<!-- /homepage-grid -->
+
+<!-- slide two -->
+<div class="row slide slide--two">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns right">
+        <div class="slide__panel">
+          <div class="row collapse">
+
+            <div class="small-12 columns">
+              <h2 class="slide__heading">Explore Action Clusters</h2>
+              <p class="slide__desc">Explore Action Clusters designed to accelerate the  deployment of IoT technologies designed to address some of the most pressing challenges facing cities. </p>
+
+              <a href="{% url 'actioncluster_list' %}" class="primary button expand">VIEW ACTION CLUSTERS</a>
+
+            </div>
+
           </div>
-     </div>
-     <!-- End .intro-image -->
-     
-     <div id="content">
-     	<div class="row">
-               <div class="medium-6 columns">
-                    
-                    <div class="updates-form-container">
-                         <div class="form-top-border"></div>	
-                         
-                        	<div class="ss-form">
-                         	
-                              <form action="https://docs.google.com/a/fissionstrategy.com/forms/d/1jGppEIAe85acMHSuwrXbbsBRInmxRtFL4556H8D2qg0/formResponse?embedded=true" method="POST" id="ss-form" target="_self" onsubmit="">
-                              	<p class="orange">To receive updates about the Global City Teams Challenge, please complete the form below</p>
-                              
-                                   <div class="form-title">Global City Teams Challenge</div>
-                                   
-                                   <label class="required">*Required</label>
-                                   <br>
-                                   <ol role="list" class="ss-question-list" style="padding-left: 0">
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_1652802356">
-                                                       <div class="ss-q-title">First and Last Name <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.1652802356" value="" class="ss-q-short" id="entry_1652802356" dir="auto" aria-label="First and Last Name" aria-required="true" required title="">
-                                                       <div class="error-message" id="1617650099_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_694879497">
-                                                       <div class="ss-q-title">Title <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.694879497" value="" class="ss-q-short" id="entry_694879497" dir="auto" aria-label="Title  " aria-required="true" required title="">
-                                                       <div class="error-message" id="1553678132_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_1572683614">
-                                                       <div class="ss-q-title">Organization <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.1572683614" value="" class="ss-q-short" id="entry_1572683614" dir="auto" aria-label="Organization  " aria-required="true" required title="">
-                                                       <div class="error-message" id="895827452_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-select">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_427862890">
-                                                       <div class="ss-q-title">What Best Describes Your Organization <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <select name="entry.427862890" id="entry_427862890" aria-label="What Best Describes Your Organization  " aria-required="true" required="">
-                                                            <option value="NonProfit">NonProfit</option>
-                                                            <option value="For Profit">For Profit</option>
-                                                            <option value="Academia">Academia</option>
-                                                            <option value="Government">Government</option>
-                                                            <option value="Other">Other</option>
-                                                       </select>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_225589123">
-                                                       <div class="ss-q-title">Country <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.225589123" value="" class="ss-q-short" id="entry_225589123" dir="auto" aria-label="Country  " aria-required="true" required title="">
-                                                       <div class="error-message" id="1787166944_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item ss-item-required ss-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_1884253514">
-                                                       <div class="ss-q-title">Email <span class="required">*</span>
-                                                            <label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
-                                                            </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <input type="text" name="entry.1884253514" value="" class="ss-q-short required email" id="entry_1884253514" dir="auto" aria-label="Email  " aria-required="true" required title="">
-                                                       <div class="error-message" id="801837053_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item  ss-paragraph-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_1013650841">
-                                                       <div class="ss-q-title">What smart projects are you working on? </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <textarea name="entry.1013650841" rows="8" cols="0" class="ss-q-long" id="entry_1013650841" dir="auto" aria-label="What smart projects are you working on?   "></textarea>
-                                                       <div class="error-message" id="576152908_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="ss-form-question errorbox-good" role="listitem">
-                                             <div dir="ltr" class="ss-item  ss-paragraph-text">
-                                                  <div class="ss-form-entry">
-                                                       <label class="ss-q-item-label" for="entry_101597606">
-                                                       <div class="ss-q-title">Please describe the type of partner organization(s) that would help you advance your existing or desired smart project(s) </div>
-                                                       <div class="ss-q-help ss-secondary-text" dir="ltr"></div>
-                                                       </label>
-                                                       <textarea name="entry.101597606" rows="8" cols="0" class="ss-q-long" id="entry_101597606" dir="auto" aria-label="Please describe the type of partner organization(s) that would help you advance your existing or desired Smart project(s)  "></textarea>
-                                                       <div class="error-message" id="316488984_errorMessage"></div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <input type="hidden" name="draftResponse" value="[,,&quot;-1516599637107862897&quot;]
-                         ">
-                                        <input type="hidden" name="pageHistory" value="0">
-                                        <input type="hidden" name="fbzx" value="-1516599637107862897">
-                                        <div class="ss-item ss-navigate">
-                                             <input class="button" type="submit" name="submit" value="Submit" id="ss-submit">
-                                        </div>
-                                   </ol>
-                              </form>
-                         </div>
-					
-                         <!--
-                         <form action="/" method="post" id="updates-form">
-                              <p class="orange">To receive updates about the Global City Teams Challenge, please complete the form below</p>
-                              
-                              <div class="form-title">Global City Teams Challenge</div>
-                              
-                              <label class="required">*Required</label>
-                              <br><br>
-                              <label>First and Last Name <span class="required">*</span></label>
-                              <input type="text" class="required" name="" id="" />
-                              
-                              <label>Title <span class="required">*</span></label>
-                              <input type="text" class="required" name="" id8="" />
-                              
-                              <label>Organization <span class="required">*</span></label>
-                              <input type="text" class="required" name="" id="" />
-                              
-                              <label>What Best Describes Your Organization <span class="required">*</span></label>
-                              <select class="required" id="" name="">
-                              </select>
-                              
-                              <label>Country <span class="required">*</span></label>
-                              <input type="text" class="required" name="" id="" />
-                              
-                              <label>Email <span class="required">*</span></label>
-                              <input type="text" class="required email" name="" id="" />
-                              
-                              <label>What smart projects are you working on? </label>
-                              <textarea name="" id=""></textarea>
-                              
-                              <label>Please describe the type of partner organization(s) that would help you advance your existing or desired Smart project(s).</label>
-                              <textarea name="" id=""></textarea>
-                              
-                              <button type="submit"> Submit Form</button>
-                              
-                              <img src="images/google-forms-brand.png" alt="" />
-                         </form>
-                         -->
-                    </div>
-               </div>
-               <div class="medium-6 columns right-column">
-                    <p>
-                         <span class="bold">Why join a Global City Team?</span><br>
-     The Challenge is an opportunity for forward-looking communities to partner with public and private organizations to accelerate the deployment of IoT technologies designed to address some of the most pressing challenges facing cities. The Global City Teams Challenge also benefits innovative companies and non-profits by giving them a chance to implement and/or assess their solutions in valuable municipal testbeds, and provides them with exposure to scores of potential new customers.
-                    </p>
-                    <br>
-                    
-                    <p class="bold">The Global City Teams Challenge includes: </p>
-                    
-                    <ul class="challenge-list">
-                         <li>Match making between innovators and communities</li>
-                         <li>Networking opportunities</li>
-                         <li>Collaboration designed to foster interconnected IoT technologies with greater impact</li>
-                         <li>Access to testbeds</li>
-                         <li>Opportunities to showcase leadership in the development and implementation of IoT</li>
-                    </ul>
-                    
-                    <p class="bold">How will the Global City Teams Challenge Work?</p>
-                    <p>
-                         
-     NIST and US Ignite will help organize "action clusters," composed of representatives of innovative local governments, non-profits and private companies. These teams volunteer to work collaboratively to build, deploy or test transformative IoT applications. The Global City Teams Challenge builds upon the success of NIST’s 2013-2014 SmartAmerica initiative in which more than 100 organizations participated forming 24 teams.
-                    
-                    </p>
-                    
-                    <p>To register for the Global City Teams kick-off event September 29-30, 2014 at NIST in Washington, DC, please visit <a target="_blank" title="NIST" href="http://www.nist.gov/cps/global-city-teams-challenge-workshop.cfm">http://www.nist.gov/cps/global-city-teams-challenge-workshop.cfm</a> to complete your registration form.</p>
-                    
-                    <p>
-                    Still have questions? Please visit our <a href="https://us-ignite.org/globalcityteams/faq"> FAQ page</a> to learn more.
-                    </p>
-                    
-                    <p>
-                    	If you are ready to submit a one-page summary of your contributions to a potential global city teams project, please visit our <a href="https://us-ignite.org/globalcityteams/upload"> submission page</a>.
-                    </p>
-                    
-                    <p>Learn more about <a target="_blank" title="US Ignite" href="http://us-ignite.org/">US Ignite</a> and <a target="_blank" title="NIST" href="http://www.nist.gov/cps/sagc.cfm">NIST</a>.</p>
-     
-               </div>
-               <!-- End .right-column -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide two -->
+
+<!-- slide three -->
+<div class="row slide slide--three">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns">
+        <div class="slide__panel">
+          <div class="row collapse">
+            
+            <div class="small-12 columns">
+              <h2 class="slide__heading">Submit an Action Cluster Idea</h2>
+              <p class="slide__desc">Explore Action Clusters designed to accelerate the  deployment of IoT technologies designed to address some of the most pressing challenges facing cities. </p>
+
+              <a href="{% url 'actioncluster_add' %}" class="primary button expand">SUBMIT YOUR IDEA</a>
+
+            </div>
+
           </div>
-          <!-- .row -->
-          
-          <div class="row">
-          	<div class="medium-12 columns">
-                    <div class="separator"></div>
-                    <p class="center">Tell others about the Global City Teams Challenge! <span class="bold">Share this page:</span></p>
-                    
-                    <div class="social-links center">
-                         <a href="https://www.facebook.com/USIgnite" target="_blank" title="Facebook">&nbsp;<span class="icon-uniE607"></span>&nbsp;</a>
-                         <a href="mailto:info@us-ingite.org" target="_blank" title="Email"><span class="icon-uniE609"></span></a>
-                         <a href="https://twitter.com/US_Ignite" target="_blank" title="Twitter"><span class="icon-uniE608"></span></a>
-                    </div>
-                    
-                    <p class="center light-blue">#globalcityteams</a>
-                    
-               </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide three -->
+
+
+<!-- newsletter -->
+<div class="row newsletter">
+  <form method="post" action="{% url 'globalcityteams:subscribe' %}">
+  <div class="small-12 medium-5 columns newsletter__column">
+    <h4 class="newsletter__heading">SIGN UP TO RECEIVE UPDATES ON THE GLOBAL CITY TEAMS CHALLENGE</h4>
+  </div>
+
+  <div class="small-12 medium-7 columns newsletter__column">
+    <div class="row collapse">
+      <div class="medium-10 small-9 columns">
+        <input type="email" name="email" id="mailing_email" placeholder="Enter your email address..."/>
+      </div>
+      <div class="medium-2 small-3 columns">
+        <button type="submit" id="mailing_email_button" class="button alert postfix">SUBMIT</button>{% csrf_token %}
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<!-- /newsletter -->
+
+<!-- slide four -->
+<div class="row slide slide--four">
+  <div class="small-12 columns slide__container">
+
+    <div class="row collapse">
+      <div class="small-12 medium-8 large-6 columns right">
+        <div class="slide__panel">
+          <div class="row collapse">
+            
+            <div class="small-12 columns">
+              <h2 class="slide__heading">Projects Looking for Partners</h2>
+              <p class="slide__desc">Collaborate with leading developers of IoT technologies and create interconnected IoT solutions with greater utility to potential customers.</p>
+
+              <a href="{% url 'actioncluster_list_partner' %}" class="primary button expand">SEARCH OPPORTUNITIES</a>
+
+            </div>
+
           </div>
-     </div>
-     <!-- End #content -->
-     
-     <footer class="footer">
-     	<p class="center sponsors-partners">Partners</p>
-          
-          <div class="carousel">
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/arm.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/cisco.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/extreme-networks.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/ibm.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/intel.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/juniper.png" /></div>
-               <div><img src="{{ STATIC_URL }}globalcityteams/images/footer-logos/qualcomm.png" /></div>
-          </div>
-          
-          <p class="copyright center">© Copyright 2014 US Ignite. All Rights Reserved</p>
-     </footer>
-     
-     <!-- PRODUCTION -->
-     <script src="{{ STATIC_URL }}globalcityteams/js/script.min.js"></script> 
-    
-     
-      <!-- DEVELOPMENT 
-	<script src="js/jquery-1.11.1.min.js"></script>
-     <script src="js/fastclick.js"></script>
-     <script src="js/foundation.min.js"></script>
-     <script src="js/slick.min.js"></script>
-     <script src="js/jquery.validate.min.js"></script>
-     <script src="js/app.js"></script>   
-     -->                   
-</body>
-</html>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /slide four -->
+{% endblock content %}

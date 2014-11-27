@@ -1,0 +1,53 @@
+{% extends "microsite_base.html" %}{% load thumbnail %}
+
+{% block title %}News- {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="row collapse">
+  <div class="small-12 columns">
+    <div class="row">
+      <div class="small-12 columns">
+        <h2 class="page-title">News</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row collapse">
+  <div class="small-12 columns">
+	<div class="row panel">
+	  <div class="small-12 columns">
+	    <h2>News Articles</h2>
+	    <p>
+	      Ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla turpis, interdum ac mi et, volutpat semper est. Nulla imperdiet turpis ac massa ornare pulvinar. Maecenas vulputate ligula sollicitudin orci ultricies sollicitudin. Sed euismod enim sit amet auctor elementum. Aenean et eros quis leo elementum tristique ut eu justo. Nullam ante enim, dapibus ut lectus fringilla, facilisis placerat elit. Vestibulum id congue lacus, sit amet molestie tellus. Nam eget erat facilisis.
+	    </p>
+	  </div>
+	</div>
+
+
+	{% for object in page.object_list %}
+
+	<a  href="{{ object.get_absolute_url }}" title="{{ object.name }}">
+	  {% if object.image %}
+	  <img src="{% thumbnail object.image 216x119 crop %}" alt="{{ object.name }}" />
+	  {% else %}
+	  <img src="{{ STATIC_URL }}img/project-default.png" alt="{{ object.name }}" />
+	  {% endif %}
+	</a>
+
+	<h2>{{ object.name }}</h2>
+	{% with object.tags.all as tag_list %}
+	{% if tag_list %}
+	<p>
+	  {% for tag in tag_list %}{{ tag|upper }}{% if not forloop.last %},{% endif%} {% endfor%}
+	</p>
+	{% endif %}
+	{% endwith %}
+	{{ object.get_summary }}
+	{% endfor%}
+
+	{% include "includes/pagination.html" %}
+	</div>
+</div>
+{% endblock content %}

@@ -47,9 +47,17 @@ class Event(models.Model):
     )
     NATIONAL = 1
     REGIONAL = 2
+    GLOBAL = 3
     SCOPE_CHOICES = (
         (NATIONAL, 'National'),
         (REGIONAL, 'Regional'),
+        (GLOBAL, 'Global'),
+    )
+    DEFAULT = 1
+    GLOBALCITIES = 2
+    SECTION_CHOICES = (
+        (DEFAULT, u'Default'),
+        (GLOBALCITIES, u'Global City Teams'),
     )
     name = models.CharField(max_length=500, verbose_name=u'event name')
     slug = AutoUUIDField(unique=True, editable=True)
@@ -73,12 +81,17 @@ class Event(models.Model):
         max_length=500, blank=True, help_text=URL_HELP_TEXT)
     event_type = models.ForeignKey(
         'events.EventType', blank=True, null=True, on_delete=models.SET_NULL)
+    section = models.IntegerField(
+        choices=SECTION_CHOICES, default=DEFAULT, help_text=u'Section where '
+        'this event will be listed. Default is the main section.')
     tickets_url = models.URLField(
         max_length=500, blank=True, verbose_name=u'Tickets URL',
         help_text=URL_HELP_TEXT)
     tags = TaggableManager(blank=True)
     hubs = models.ManyToManyField(
         'hubs.Hub', verbose_name=u'communities', blank=True)
+    actionclusters = models.ManyToManyField(
+        'actionclusters.ActionCluster', verbose_name=u'communities', blank=True)
     position = GeopositionField(blank=True)
     user = models.ForeignKey(
         'auth.User', blank=True, null=True, on_delete=models.SET_NULL)
@@ -99,7 +112,14 @@ class Event(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('event_detail', args=[self.slug])
+        url_dict = {
+            self.GLOBALCITIES: 'globalcityteams:event_detail'
+        }
+        if self.section in url_dict:
+            url_name = url_dict[self.section]
+        else:
+            url_name = 'event_detail'
+        return reverse(url_name, args=[self.slug])
 
     def is_published(self):
         return self.status == self.PUBLISHED
@@ -135,6 +155,17 @@ class Event(models.Model):
             'image': '',
             'content': self.name,
         }
+
+    @property
+    def printable_date(self):
+        start_date = self.start_datetime.strftime('%b %d')
+        output = [start_date]
+        if self.end_datetime:
+            end_date = self.end_datetime.strftime('%b %d')
+            if not start_date == end_date:
+                output += ['-', end_date]
+        output += [self.start_datetime.strftime('%Y')]
+        return u' '.join(output)
 
 
 class EventURL(models.Model):

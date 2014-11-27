@@ -1,0 +1,5 @@
+<ul class="small-block-grid-3 large-block-grid-6">
+  {% for object in object_list %}{% if object.image %}
+  <li><img src="{{ object.image.url }}" alt="{{ object.name }}" title="{{ object.name }}"/></li>
+  {% endif %}{% endfor%}
+</ul>

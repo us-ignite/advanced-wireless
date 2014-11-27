@@ -96,7 +96,12 @@
 
 {% include "includes/awards.html" with award_list=award_list %}
 
-{% if not is_member %}
+
+{% if is_member %}
+<form method="post" action="{{ object.get_membership_remove_url }}">
+  {% csrf_token %}<button type="submit" class="newsletter__submit button alert postfix">UNFOLLOW THIS COMMUNITY</button>
+</form>
+{% else %}
 <form method="post" action="{{ object.get_membership_url }}">
   {% csrf_token %}<button type="submit" class="newsletter__submit button alert postfix">SUBSCRIBE TO THIS COMMUNITY</button>
 </form>
@@ -112,6 +117,17 @@
   {% for member in member_list %}
   <li class="sidebar__list__item">
     {% include "includes/display_name_with_avatar.html" with user=member %}
+  </li>
+  {% endfor%}
+</ul>
+{% endif %}
+
+{% if application_list %}
+<h3 class="sidebar__heading">Applications</h3>
+<ul class="no-bullet sidebar__list">
+  {% for application in application_list %}
+  <li class="sidebar__list__item">
+    {% include "includes/sidebar/applications.html" with object=application %}
   </li>
   {% endfor%}
 </ul>
