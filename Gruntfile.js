@@ -26,6 +26,41 @@ module.exports = function(grunt) {
         'us_ignite/assets/js/vendor/selectivizr-1.0.3b.js',
         'us_ignite/assets/js/vendor/respond.min.js',
         'us_ignite/assets/js/app.js'
+        ],
+      modern_microsite: [
+        'us_ignite/assets/bower_components/jquery/dist/jquery.min.js',
+        'us_ignite/assets/bower_components/fastclick/lib/fastclick.js',
+        'us_ignite/assets/bower_components/foundation/js/foundation/foundation.js',
+        'us_ignite/assets/bower_components/foundation/js/foundation/foundation.dropdown.js',
+        'us_ignite/assets/bower_components/foundation/js/foundation/foundation.orbit.js',
+        'us_ignite/assets/bower_components/foundation/js/foundation/foundation.topbar.js',
+        'us_ignite/assets/js/vendor/jquery-ui-1.10.4.custom.js',
+        'us_ignite/assets/js/app.js',
+        'us_ignite/assets/globalcityteams/js/slick.min.js',
+        'us_ignite/assets/globalcityteams/js/jquery.validate.min.js',
+        'us_ignite/assets/globalcityteams/js/jquery.dataTables.min.js',
+        'us_ignite/assets/globalcityteams/js/dataTables.responsive.min.js',
+        'us_ignite/assets/globalcityteams/js/jquery.matchHeight-min.js',
+        'us_ignite/assets/globalcityteams/js/gctc.js'
+        ],
+      basic_microsite: [
+        'us_ignite/assets/bower_components/jquery-1.9.1/index.js',
+        'us_ignite/assets/bower_components/foundation/js/foundation/foundation.js',
+        'us_ignite/assets/bower_components/foundation/js/foundation/foundation.dropdown.js',
+        'us_ignite/assets/bower_components/foundation/js/foundation/foundation.orbit.js',
+        'us_ignite/assets/bower_components/foundation/js/foundation/foundation.topbar.js',
+        'us_ignite/assets/js/vendor/jquery-ui-1.10.4.custom.js',
+        'us_ignite/assets/js/vendor/html5shiv.js',
+        'us_ignite/assets/js/vendor/nwmatcher-1.2.5-min.js',
+        'us_ignite/assets/js/vendor/selectivizr-1.0.3b.js',
+        'us_ignite/assets/js/vendor/respond.min.js',
+        'us_ignite/assets/js/app.js',
+        'us_ignite/assets/globalcityteams/js/slick.min.js',
+        'us_ignite/assets/globalcityteams/js/jquery.validate.min.js',
+        'us_ignite/assets/globalcityteams/js/jquery.dataTables.min.js',
+        'us_ignite/assets/globalcityteams/js/dataTables.responsive.min.js',
+        'us_ignite/assets/globalcityteams/js/jquery.matchHeight-min.js',
+        'us_ignite/assets/globalcityteams/js/gctc.js'
         ]
     },
 
@@ -37,7 +72,9 @@ module.exports = function(grunt) {
       all: {
         files: {
           'us_ignite/assets/js/lib/modern.js': ['<%= meta.modern %>'],
-          'us_ignite/assets/js/lib/basic.js': ['<%= meta.basic %>']
+          'us_ignite/assets/js/lib/basic.js': ['<%= meta.basic %>'],
+          'us_ignite/assets/js/lib/modern_microsite.js': ['<%= meta.modern_microsite %>'],
+          'us_ignite/assets/js/lib/basic_microsite.js': ['<%= meta.basic_microsite %>']
         }
       }
     },
@@ -51,7 +88,9 @@ module.exports = function(grunt) {
       all: {
         files: {
           'us_ignite/assets/js/lib/modern.js': 'us_ignite/assets/js/lib/modern.js',
-          'us_ignite/assets/js/lib/basic.js': 'us_ignite/assets/js/lib/basic.js'
+          'us_ignite/assets/js/lib/basic.js': 'us_ignite/assets/js/lib/basic.js',
+          'us_ignite/assets/js/lib/modern_microsite.js': 'us_ignite/assets/js/lib/modern_microsite.js',
+          'us_ignite/assets/js/lib/basic_microsite.js': 'us_ignite/assets/js/lib/basic_microsite.js'
         }
       }
     },
