@@ -24,3 +24,4 @@ certs/
 *.dump
 *.psd
 snapshots/
+.idea

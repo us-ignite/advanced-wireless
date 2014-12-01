@@ -120,14 +120,14 @@
   {% if IS_PRODUCTION %}
     <!--[if (gte IE 9) | (!IE)]><!-->
     {% compress js  %}
-    <script src="{{ STATIC_URL }}js/lib/modern.js"></script>
+    <script src="{{ STATIC_URL }}js/lib/modern_microsite.js"></script>
     {% endcompress %}
 
     <!--<![endif]-->
 
     <!--[if lt IE 9]>
     {% compress js  %}
-    <script src="{{ STATIC_URL }}js/lib/basic.js"></script>
+    <script src="{{ STATIC_URL }}js/lib/basic_microsite.js"></script>
     {% endcompress %}
     <![endif]-->
   {% else %}
