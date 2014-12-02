@@ -1,5 +1,11 @@
 {% load thumbnail %}
-<div class="large-4 small-6 columns listing-featured__item{% if last %} show-for-large-up{% endif %}">
+
+{% if MICROSITE_SLUG == 'globalcityteams' %}
+ <div class="large-6 small-6 columns listing-featured__item{% if last %} show-for-large-up{% endif %}">ews
+{% else %}
+  <div class="large-4 small-6 columns listing-featured__item{% if last %} show-for-large-up{% endif %}">
+{% endif %}
+
   <a href="{{ object.get_absolute_url }}" class="listing-featured__link">
     {% if object.image %}
     <img src="{% thumbnail object.image 376x238 crop %}">

@@ -2,43 +2,47 @@
   <div class="row">
     <div class="large-12 columns" data-equalizer-watch>
       {% snippet "blog-sidebar" "blog/snippet-sidebar.html" %}
-      <h3 class="sidebar__heading">In case you missed it</h3>
 
-      <ul class="no-bullet sidebar__list">
-        {% for object in featured_list %}
-        <li class="sidebar__list__item">
-          <a href="{{ object.get_absolute_url }}" class="sidebar__list__link row collapse">
-              <div class="medium-4 large-2 columns">
-                {% if object.image %}
-                <img src="{% thumbnail object.image 51x51 crop %}" class="sidebar__list__image">
-                {% else %}
-                <img src="{{ STATIC_URL }}img/default-square.png" class="sidebar__list__image">
-                {% endif %}
-              </div>
+      {% if MICROSITE_SLUG != 'globalcityteams' %}
+        <h3 class="sidebar__heading">In case you missed it</h3>
 
-              <div class="medium-8 large-10 columns">
-                <span class="sidebar__list__desc">
-                  {{ object.name }}
-                </span>
-              </div>
-          </a>
-        </li>
-        {% endfor%}
-      </ul>
+        <ul class="no-bullet sidebar__list">
+          {% for object in featured_list %}
+          <li class="sidebar__list__item">
+            <a href="{{ object.get_absolute_url }}" class="sidebar__list__link row collapse">
+                <div class="medium-4 large-2 columns">
+                  {% if object.image %}
+                  <img src="{% thumbnail object.image 51x51 crop %}" class="sidebar__list__image">
+                  {% else %}
+                  <img src="{{ STATIC_URL }}img/default-square.png" class="sidebar__list__image">
+                  {% endif %}
+                </div>
+
+                <div class="medium-8 large-10 columns">
+                  <span class="sidebar__list__desc">
+                    {{ object.name }}
+                  </span>
+                </div>
+            </a>
+          </li>
+          {% endfor%}
+        </ul>
 
 
-      <h3 class="sidebar__heading">More from the US Ignite Community</h3>
-      {% latest_blog_links "blog/links_short_list.html" %}
+        <h3 class="sidebar__heading">More from the US Ignite Community</h3>
+        {% latest_blog_links "blog/links_short_list.html" %}
 
-      <h3 class="sidebar__heading">US Ignite News</h3>
-      {% latest_articles "blog/news_list.html" %}
+        <h3 class="sidebar__heading">US Ignite News</h3>
+        {% latest_articles "blog/news_list.html" %}
+      {% endif %}
 
       <h3 class="sidebar__heading">Subscribe & Follow</h3>
       {% include "mailinglist/sidebar.html" %}
 
-      <a class="twitter-timeline" href="https://twitter.com/US_Ignite" data-widget-id="440812138123116544">Tweets by @US_Ignite</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
+      {% if MICROSITE_SLUG != 'globalcityteams' %}
+        <a class="twitter-timeline" href="https://twitter.com/US_Ignite" data-widget-id="440812138123116544">Tweets by @US_Ignite</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      {% endif %}
 
 
 

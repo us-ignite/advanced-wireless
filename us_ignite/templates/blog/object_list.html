@@ -1,6 +1,16 @@
 {% extends "blog/base.html" %}
 
-{% block title %}Blog - {{ block.super }}{% endblock title %}
+
+  {% block title %}  
+  {% if MICROSITE_SLUG == 'globalcityteams' %}
+    News
+  {% else %}
+    Blog
+  {% endif %}
+  - 
+  {{ block.super }}
+  {% endblock title %}
+
 
 {% block featured %}
   {% if featured_list %}
@@ -42,7 +52,11 @@
       {% include "blog/object_block.html" with object=object %}
     {% endfor%}
   {% else %}
-    <p>No posts available.</p>
+    {% if MICROSITE_SLUG == 'globalcityteams' %}
+      <p>No news available.</p> 
+    {% else %}
+      <p>No posts available.</p> 
+    {% endif %}
   {% endif %}
 
   {% include "includes/pagination.html" %}
