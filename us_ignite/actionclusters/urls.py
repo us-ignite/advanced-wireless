@@ -6,6 +6,8 @@ urlpatterns = patterns(
     url(r'^$', 'actioncluster_list', name='actioncluster_list'),
     url(r'^needs-partner/$', 'actioncluster_list_partner',
         name='actioncluster_list_partner'),
+    url(r'^iot-project-ideas/$', 'actioncluster_list_iot',
+        name='actioncluster_list_iot'),
     url(r'^add/$', 'actioncluster_add', name='actioncluster_add'),
     url(r'^(?P<slug>[-\w]+)/$', 'actioncluster_detail',
         name='actioncluster_detail'),

@@ -86,9 +86,32 @@ def actioncluster_list_partner(request):
         'domain_list': Domain.objects.all(),
         'stage_list': ActionCluster.STAGE_CHOICES,
         'appname': 'actionclusters',
+        'category': 'partner'
     }
     return TemplateResponse(request, 'actionclusters/object_list.html', context)
 
+def actioncluster_list_iot(request):
+    """List IOT project ideas."""
+    extra_qs = {
+        'is_approved': True,
+        'status': ActionCluster.PUBLISHED,
+        'needs_partner': True
+    }
+    page_no = pagination.get_page_no(request.GET)
+    object_list = (
+        ActionCluster.objects.select_related('domain').filter(**extra_qs))
+    featured_list = (ActionCluster.objects.select_related('domain')
+                     .filter(is_featured=True, **extra_qs)[:3])
+    page = pagination.get_page(object_list, page_no)
+    context = {
+        'featured_list': featured_list,
+        'page': page,
+        'domain_list': Domain.objects.all(),
+        'stage_list': ActionCluster.STAGE_CHOICES,
+        'appname': 'actionclusters',
+        'category': 'iot'
+    }
+    return TemplateResponse(request, 'actionclusters/object_list.html', context)
 
 def get_actioncluster_for_user(slug, user):
     """Validates the user can access the given app."""

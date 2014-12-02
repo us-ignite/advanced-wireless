@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends BASE_TEMPLATE %}
 
 {% block content %}
 <div class="row collapse">
@@ -36,35 +36,38 @@
     </div>
     {% endblock top_panel %}
 
-    {% block tags %}
-    <div class="row domains pad-top-20">
-      <div class="small-12 medium-9 columns">
-        <h5>CATEGORIES</h5>
-        <ul class="inline-list">
-                 {% block domain_list %}
+    {% if category != 'iot' and category != 'partner' %}
+      {% block tags %}
+      <div class="row domains pad-top-20">
+        <div class="small-12 medium-9 columns">
+          <h5>CATEGORIES</h5>
+          <ul class="inline-list">
+            {% block domain_list %}
 
-          {% if appname %}
-              {% include "includes/domain_list.html" with domain_all_link='actioncluster_list' domain_link='actioncluster_list_domain' %}
-            {% else %}
+              {% if appname %}
+                {% include "includes/domain_list.html" with domain_all_link='actioncluster_list' domain_link='actioncluster_list_domain' %}
+              {% else %}
 
-              {% include "includes/domain_list.html" with domain_all_link='app_list' domain_link='app_list_domain' %}
+                {% include "includes/domain_list.html" with domain_all_link='app_list' domain_link='app_list_domain' %}
 
-            {% endif %}
-                          {% endblock domain_list %}
-        </ul>
-      </div>
-      <div class="small-12 medium-3 columns">
-        <ul>
-          {% include "includes/order_form.html" %}
-          <div class="row collapse">
-            <div class="small-12 columns search">
-              {% include "includes/search.html" %}
+              {% endif %}
+
+            {% endblock domain_list %}
+          </ul>
+        </div>
+        <div class="small-12 medium-3 columns">
+          <ul>
+            {% include "includes/order_form.html" %}
+            <div class="row collapse">
+              <div class="small-12 columns search">
+                {% include "includes/search.html" %}
+              </div>
             </div>
-          </div>
-        </ul>
+          </ul>
+        </div>
       </div>
-    </div>
-    {% endblock tags %}
+      {% endblock tags %}
+    {% endif %}
 
     {% block object_list %}
     <div class="row object--list">
