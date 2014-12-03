@@ -94,7 +94,8 @@
 }
 
 .featured__tags {
-  height: 30px;
+  /* height: 30px; */
+  max-height: 60px;
 }
 
 .featured__desc {

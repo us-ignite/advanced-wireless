@@ -69,6 +69,9 @@
 		{
 			uploadSuccess();
 		}
+
+		//$('.homepage-grid .homepage-grid__heading').matchHeight();
+		$('.homepage-grid .homepage-grid__desc ').matchHeight();
 	});
 	/* end jQuery ready */
 	
