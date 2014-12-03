@@ -3,7 +3,7 @@
   <article class="large-8 medium-9 small-12 columns listings profile profile__section">
     <div class="row">
       <div class="small-12 columns">
-        <h4 class="listings__listing__heading listings__listing__heading--plain">MY ACTION CLUSTERS</h4>
+        <h4 class="listings__listing__heading listings__listing__heading--plain"><a href="{% url 'actioncluster_list' %}">MY ACTION CLUSTERS</a></h4>
 
         {% if object_list %}
           {% for object in object_list %}
