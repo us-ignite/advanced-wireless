@@ -314,8 +314,8 @@ WP_URL = 'http://us-ignite-wp.herokuapp.com'
 WP_EMAIL = ''
 
 # MailChimp integration:
-MAILCHIMP_API_KEY = ''
-MAILCHIMP_LIST = ''
+MAILCHIMP_API_KEY = '6038666a8a911c457a0aad57eb2de7fb-us2'
+MAILCHIMP_LIST = '1962dd3b2b'
 
 # TinyMCE configuration:
 TINYMCE_DEFAULT_CONFIG = {
