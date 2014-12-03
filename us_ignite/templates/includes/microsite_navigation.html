@@ -2,12 +2,12 @@
 <ul class="right">
 
   <li class="has-dropdown">
-    <a href="{% url 'globalcityteams_about' %}">ABOUT</a>
+    <a href="{% url 'globalcityteams:globalcityteams_about' %}">ABOUT</a>
     <ul class="dropdown">
-      <li><a href="{% url 'globalcityteams_about' %}">GLOBAL CITY TEAMS CHALLENGE</a></li>
-      <li><a href="{% url 'globalcityteams_faq' %}">FAQ</a></li>
-      <li><a href="{% url 'globalcityteams_partners' %}">PARTNERS</a></li>
-      <li><a href="{% url 'globalcityteams_sectors' %}">SECTORS</a></li>
+      <li><a href="{% url 'globalcityteams:globalcityteams_about' %}">GLOBAL CITY TEAMS CHALLENGE</a></li>
+      <li><a href="{% url 'globalcityteams:globalcityteams_faq' %}">FAQ</a></li>
+      <li><a href="{% url 'globalcityteams:globalcityteams_partners' %}">PARTNERS</a></li>
+      <li><a href="{% url 'globalcityteams:globalcityteams_sectors' %}">SECTORS</a></li>
     </ul>
   </li>
 
@@ -23,8 +23,8 @@
   </li>
 
  
- <li><a href="{% url 'news_list' %}">NEWS</a></li>
- <li><a href="{% url 'event_list' %}">EVENTS</a></li>
+ <li><a href="{% url 'globalcityteams:news_list' %}">NEWS</a></li>
+ <li><a href="{% url 'globalcityteams:event_list' %}">EVENTS</a></li>
  
 
   {% block search %}
