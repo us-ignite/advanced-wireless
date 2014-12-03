@@ -154,6 +154,7 @@ def profile_detail(request, slug):
     is_owner = profile.user == request.user
     # Content available when the ``User`` owns this ``Profile``:
     hub_request_list = HubRequest.objects.filter(user=user) if is_owner else []
+    actioncluster_list = list(get_actioncluster_list(user, viewer=request.user))
     get_hub_list(user, viewer=request.user)
     context = {
         'object': profile,
@@ -165,6 +166,7 @@ def profile_detail(request, slug):
         'hub_request_list': hub_request_list,
         'organization_list': get_organization_list(user, viewer=request.user),
         'award_list': get_award_list(user, viewer=request.user),
+        'actioncluster_list': actioncluster_list[:3],
     }
     return TemplateResponse(request, 'people/object_detail.html', context)
 
