@@ -2,14 +2,15 @@
 	padding: 4px 2px 2px 2px;
 	background-color: #fff;
 	border-radius: 24px;
-	width: 19px;
-	height: 19px;
+	width: 24px;
+	height: 24px;
 
 	&.dark {
 		background-color: #696969;
 	}
 }
 
+/*
 [class*="socialicon-"] {
 	display: inline-block;
 	position: relative;
@@ -28,6 +29,12 @@
 	}
 
 }
+
+.quicklinks__list li {
+	font-size: 1.125rem;
+}
+
+
 .socialicon-google-plus {
 	background-position: 0 0;
 	width: 16px;
@@ -52,7 +59,7 @@
 	background-position: -160px 0;
 	width: 16px;
 }
-
+*/
 
 .app__stage {
   width: 20%;
@@ -78,4 +85,45 @@
 
 .app__stage--innactive {
   background-image: url(../img/icons/stage-innactive.png);
+}
+
+.sidebar-social {
+	padding-left: 15px;
+	margin-bottom: 30px;
+}
+
+.sidebar-social a  {
+	color: #707070;
+	display: inline-block;
+	margin-right: 15px;
+	font-size: 28px;
+}
+
+.sidebar-social a:hover {
+	color: rgb(38, 198, 231);
+	text-decoration: none;
+
+}
+
+
+.quicklinks__list .socialicon {
+	text-align: center;
+	line-height: 0;
+	font-size: rem-calc(24);
+}
+
+.quicklinks__list .socialicon.facebook{
+	color: #024687;
+}
+
+.quicklinks__list .socialicon.twitter{
+	color: #3098d5;
+}
+
+.quicklinks__list .socialicon.google-plus{
+	color: #cf4900;
+}
+
+.quicklinks__list .socialicon.youtube{
+	color: red;
 }

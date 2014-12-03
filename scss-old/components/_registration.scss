@@ -1,0 +1,22 @@
+.registration {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.registration__header {
+	background: $secondary-color;
+}
+
+.registration__heading {
+	color: #fff;
+}
+
+.registration__header,
+.registration__content {
+	padding:0.5em 3em;
+}
+
+.registration__content {
+	padding-top: 1.5em;
+	background: #fff;
+}

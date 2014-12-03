@@ -14,3 +14,39 @@
 	  font-size: 0.875em;
 	}
 }
+
+@media #{$small-up} {
+	.button {
+	  font-size: rem-calc(24);
+
+	}
+
+	.homepage-grid__button{
+	  font-size: 0.8em;
+	}
+
+}
+
+@media #{$medium-up} {
+	.button {
+	  font-size: rem-calc(20);
+	}
+
+
+}
+
+@media #{$large-up} {
+	.button {
+	  font-size: rem-calc(24);
+	}
+
+	.homepage-grid__button{
+	  font-size: rem-calc(22);
+	}
+}
+
+.newsletter__column .button {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	height: auto;
+}

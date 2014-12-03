@@ -36,12 +36,12 @@ a:hover {
 
   .quicklinks__link {
     margin-top: 4px;
-    font-size: rem-calc(14);
+    font-size: rem-calc(18);
     color:#fff;
     font-weight: $font-weight-black;
 
     @media #{$medium-up} {
-      font-size: rem-calc(14);
+      font-size: rem-calc(18);
     }
   }
 
@@ -166,23 +166,41 @@ a:hover {
   }
 }
 
+/* Headings */
+
+@media #{$small-up} {
+ 
+  h2 {
+    font-size: rem-calc(30);
+    line-height: rem-calc(45);
+  }
+}
+
+@media #{$medium-up} {
+ 
+  h2 {
+    font-size: rem-calc(25);
+    line-height: rem-calc(35);
+  }
+}
 
 @media #{$large-up} {
   h1 {
     font-size: rem-calc(35);
   }
   h2 {
-    font-size: rem-calc(25);
+    font-size: rem-calc(30);
+    line-height: rem-calc(45);
   }
   h3 {
-    font-size: rem-calc(19);
+    font-size: rem-calc(25);
   }
   h4 {
-    font-size: rem-calc(14);
+    font-size: rem-calc(20);
   }
 
   .button {
-    font-size:1.125rem;
+    
     font-weight: $font-weight-black;
 
     &.expand {
@@ -217,3 +235,122 @@ a:hover {
     padding-right: rem-calc(30);
   }
 }
+
+
+/* Paragraphs */
+
+@media #{$small-up} {
+  p {
+    font-size: rem-calc(24);
+
+  }
+
+  .homepage-grid__button{
+    font-size: 0.8em;
+  }
+
+}
+
+@media #{$medium-up} {
+  p {
+    font-size: rem-calc(20);
+  }
+
+
+}
+
+@media #{$large-up} {
+  p {
+    font-size: rem-calc(22);
+  }
+
+}
+
+/* GCTC home slide heading */
+
+@media #{$small-up} {
+  h2.slide__heading {
+    font-size: rem-calc(40);
+  }
+}
+
+@media #{$medium-up} {
+  h2.slide__heading {
+    font-size: rem-calc(30);
+  }
+}
+
+@media #{$large-up} {
+  h2.slide__heading {
+    font-size: rem-calc(40);
+  }
+}
+
+.slide__panel .button {
+  margin-top: 15px;
+}
+
+/* Homepage newsletter signup */
+
+
+@media #{$small-up} {
+  .newsletter__heading {
+    font-size: rem-calc(25);
+  }
+
+  #mailing_email {
+    margin-top: 10px;
+    font-size: rem-calc(24);
+    height: rem-calc(60);
+  }
+
+  #mailing_email_button {
+    margin-top: 10px;
+    font-size: rem-calc(20);
+    height: rem-calc(60);
+
+  }
+  
+}
+
+@media #{$medium-up} {
+  .newsletter__heading {
+    font-size: rem-calc(20);
+  }
+
+  #mailing_email {
+    margin-top: 0;
+    font-size: rem-calc(18);
+    height: rem-calc(65);
+    margin-bottom: 0;
+  }
+
+  #mailing_email_button {
+    margin-top: 0;
+    font-size: rem-calc(20);
+    height: rem-calc(65);
+    margin-bottom: 0;
+
+  }
+  
+}
+
+@media #{$large-up} {
+  .newsletter__heading {
+    font-size: rem-calc(30);
+  }
+
+  #mailing_email {
+    font-size: rem-calc(22);
+    height: rem-calc(70);
+    margin-bottom: 10px;
+  }
+
+  #mailing_email_button {
+    font-size: rem-calc(24);
+    height: rem-calc(70);
+    margin-bottom: 10px;
+
+  }
+}
+

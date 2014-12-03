@@ -10,8 +10,8 @@
     content: "";
     display:block;
     position: absolute;
-    width: 18px;
-    height: 17px;
+    width: 25px;
+    height: 24px;
     top: 50%;
     right:7px;
     margin-top: -12px;
@@ -23,8 +23,9 @@
     position: relative;
     top: 4px;
     height:auto;
-    padding-top: rem-calc(10);
-    padding-bottom: rem-calc(10);
-    font-size: rem-calc(12);
+    padding-left: rem-calc(15);
+    padding-top: rem-calc(15);
+    padding-bottom: rem-calc(15);
+    font-size: rem-calc(18);
   }
 }
