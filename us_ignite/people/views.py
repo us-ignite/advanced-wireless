@@ -154,10 +154,7 @@ def profile_detail(request, slug):
     is_owner = profile.user == request.user
     # Content available when the ``User`` owns this ``Profile``:
     hub_request_list = HubRequest.objects.filter(user=user) if is_owner else []
-
     get_hub_list(user, viewer=request.user)
-
-
     context = {
         'object': profile,
         'is_owner': is_owner,

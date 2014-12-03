@@ -23,5 +23,4 @@ urlpatterns = patterns(
         name='actioncluster_list_domain'),
     url(r'^stage/(?P<stage>[\d]{1})/$', 'actioncluster_list',
         name='actioncluster_list_stage'),
-    
 )
