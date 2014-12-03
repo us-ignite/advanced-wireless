@@ -1,4 +1,4 @@
-{% extends "base.html" %}{% load apps_urls thumbnail common_markdown %}
+{% extends "base.html" %}{% load apps_urls thumbnail snippets_tags news_tags common_markdown %}
 
 {% block title %}Profile for {{ object.full_name }} - {{ block.super }}{% endblock title %}
 
@@ -150,7 +150,7 @@
 
   </article>
 
-  <aside class="large-4 medium-3 columns sidebar">{% load snippets_tags news_tags common_markdown %}
+  <aside class="large-4 medium-3 columns sidebar">
     <div class="row">
       <div class="large-12 columns" data-equalizer-watch>
 
@@ -213,6 +213,8 @@
         {% endif %}
 
         <p><a class="button secondary expand" href="{{ object.get_contact_url }}">CONTACT MEMBER</a></p>
+
+        {% snippet "globalcityteams-sidebar" "globalcityteams/snippets/sidebar.html" %}
 
         {% endblock sidebar %}
 

@@ -1,0 +1,7 @@
+<div>
+  {% if object.image %}
+  <img src="{{ object.image.url }}" alt="" />
+  {% endif %}
+  {{ object.body|safe }}
+  <p><a class="button expand" href="{{ object.url }}">{{ object.url_text }}</a></p>
+</div>
