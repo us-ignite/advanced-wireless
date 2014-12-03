@@ -1,0 +1,31 @@
+.footer {
+  background-color: $dark-color;
+  padding:2rem 0;
+
+  .row {
+    padding:2rem 0;
+  }
+
+  .footer__intro {
+    padding:0;
+  }
+
+  a:link,
+  a:visited {
+    font-size: 1.15rem;
+    color:#636363;
+  }
+}
+
+.footer__heading {
+  color:#636363;
+  font-weight: $font-weight-bold;
+}
+
+.footer-col--strong {
+  font-weight: $font-weight-bold;
+}
+
+.footer__outro {
+  text-align: center;
+}

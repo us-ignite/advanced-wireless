@@ -1,0 +1,81 @@
+.socialicon {
+	padding: 4px 2px 2px 2px;
+	background-color: #fff;
+	border-radius: 24px;
+	width: 19px;
+	height: 19px;
+
+	&.dark {
+		background-color: #696969;
+	}
+}
+
+[class*="socialicon-"] {
+	display: inline-block;
+	position: relative;
+	top: -3px;
+	width: 16px;
+	height: 16px;
+	background-image: url(../img/icons/social.svg);
+	background-repeat: no-repeat;
+
+	.dark & {
+		// background-image: url(../img/icons/social-light.svg);
+	}
+
+	.no-svg & {
+		background-image: url(../img/icons/social.png);
+	}
+
+}
+.socialicon-google-plus {
+	background-position: 0 0;
+	width: 16px;
+}
+.socialicon-twitter {
+	background-position: -32px 0;
+	width: 16px;
+}
+.socialicon-facebook {
+	background-position: -64px 0;
+	width: 16px;
+}
+.socialicon-youtube {
+	background-position: -96px 0;
+	width: 16px;
+}
+.socialicon-feed {
+	background-position: -128px 0;
+	width: 16px;
+}
+.socialicon-vimeo {
+	background-position: -160px 0;
+	width: 16px;
+}
+
+
+.app__stage {
+  width: 20%;
+  padding-top: 45px;
+  background-position: top center;
+  background-repeat: no-repeat;
+  float: left;
+}
+
+.app__stage__label {
+  font-size: rem-calc(11);
+  display: block;
+  text-align: center;
+}
+
+.app__stage--passed {
+  background-image: url(../img/icons/stage-full.png);
+}
+
+.app__stage--active {
+  background-image: url(../img/icons/stage-active.png);
+}
+
+.app__stage--innactive {
+  background-image: url(../img/icons/stage-innactive.png);
+}

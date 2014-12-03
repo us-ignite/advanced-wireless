@@ -10,7 +10,7 @@
     <div class="row collapse">
       <div class="small-12 medium-8 large-7 columns">
         <div class="slide__panel">
-          <h2 class="slide__heading">US Ignite and the National Institute of Standards and Technology (NIST) have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), International Trade Administration (ITA), Department of Health and Human Services (HHS) and Department of Energy (DoE) to create the Global City Teams Challenge, an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment.</h2>
+          <h2 class="">The Global City Teams Challenge is an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment. The National Institute of Standards and Technology (NIST) and US Ignite, have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), International Trade Administration (ITA), Department of Health and Human Services (HHS) and Department of Energy (DoE) to support this Challenge.</h2>
           <br>
           <a class="primary button expand" href="{% url 'globalcityteams_about' %}">LEARN MORE</a>
         </div>
@@ -32,7 +32,7 @@
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
         <h4 class="homepage-grid__heading">EXPLORE ACTION CLUSTERS</h4>
-        <p class="homepage-grid__desc show-for-medium-up">Showcasing advanced IoT projects.</p>
+        <p class="homepage-grid__desc show-for-medium-up">Find the latest on IoT smart city projects.</p>
       </div>
     </div>
 
@@ -77,7 +77,7 @@
     <div class="row" data-equalizer-watch>
       <div class="small-12 columns">
         <h4 class="homepage-grid__heading">WELCOME TO OUR NEW SITE!</h4>
-        <p class="homepage-grid__desc ">Welcome to our new site. Please take a look around and if you have any questions/comments please email XXXX@usignite.org .</p>
+        <p class="homepage-grid__desc ">Please take a look around and if you have any questions/comments please email <a style="color: #fff; font-weight: 700;" href="mailto:info@us-ignite.org">info@us-ignite.org</a> .</p>
       </div>
     </div>
 
@@ -123,7 +123,7 @@
             
             <div class="small-12 columns">
               <h2 class="slide__heading">Submit an Action Cluster Idea</h2>
-              <p class="slide__desc">Explore Action Clusters designed to accelerate the  deployment of IoT technologies designed to address some of the most pressing challenges facing cities. </p>
+              <p class="slide__desc">If you don’t find an existing Action Cluster that fits your Smart City application idea, please add your project idea to the network and we’ll help you refine it and find partners. </p>
 
               <a href="{% url 'actioncluster_add' %}" class="primary button expand">SUBMIT YOUR IDEA</a>
 
@@ -147,10 +147,10 @@
 
   <div class="small-12 medium-7 columns newsletter__column">
     <div class="row collapse">
-      <div class="medium-10 small-9 columns">
+      <div class="medium-8 small-9 columns">
         <input type="email" name="email" id="mailing_email" placeholder="Enter your email address..."/>
       </div>
-      <div class="medium-2 small-3 columns">
+      <div class="medium-4 small-3 columns">
         <button type="submit" id="mailing_email_button" class="button alert postfix">SUBMIT</button>{% csrf_token %}
       </div>
     </div>

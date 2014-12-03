@@ -1,0 +1,35 @@
+.newsletter {
+  background-color: $secondary-color;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  &.newsletter--primary {
+    background: $primary-color url(../img/furniture/bg-signup.png) 0 0 no-repeat;
+  }
+
+  &.newsletter--side {
+  	background-color: $dark-color;
+    margin-bottom: 2em;
+  	
+    @media #{$large-up} {
+      padding: 12px;
+    }
+  }
+}
+
+.newsletter--side {
+	.newsletter__submit {
+		background-color: $secondary-color;
+	}
+}
+
+.newsletter__heading {
+  color:#fff;
+}
+
+
+@media #{$large-up} {
+  .newsletter__column {
+    padding-top:20px;
+  }
+}

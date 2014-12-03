@@ -1,0 +1,17 @@
+.callout {
+	border:1px solid #ccc;
+
+	@media #{$medium-up} {
+	  margin: 0 16px 16px 0;
+		float: left;
+	}
+}
+
+.callout__image {
+	width: 100%;
+
+	@media #{$medium-up} {
+		width:auto;
+		max-width: rem-calc(380);
+	}
+}

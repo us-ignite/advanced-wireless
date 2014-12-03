@@ -31,7 +31,7 @@ $base-font-size: 12px;
 // $include-html-grid-classes: $include-html-classes;
 // $include-xl-html-grid-classes: false;
 
-$row-width: rem-calc(1320);
+$row-width: rem-calc(1830);
 $column-gutter: rem-calc(50);
 // $total-columns: 12;
 
@@ -69,9 +69,9 @@ $dark-color: #282828;
 // $shiny-edge-active-color: rgba(#000, .2);
 
 // Media Query Ranges
-$small-range: (0em, 48.000em);
-$medium-range: (48.063em, 56.25em);
-$large-range: (56.3125em, 82.500em);
+$small-range: (0em, rem-calc(640));
+$medium-range: (rem-calc(641), rem-calc(768));
+$large-range: (rem-calc(769), rem-calc(1320));
 $xlarge-range: (82.563em);
 // $xxlarge-range: (120.063em);
 
@@ -1127,7 +1127,7 @@ $panel-font-color-alt: #fff;
 // Background color for the top bar
 $topbar-bg-color: #fff;
 $topbar-bg: $topbar-bg-color;
-$topbar-height: 36px;
+$topbar-height: 50px;
 
 // Height and margin
 // $topbar-height: 100px;
@@ -1152,7 +1152,7 @@ $topbar-link-color-hover: #616264;
 $topbar-link-color-active: #616264;
 $topbar-link-color-active-hover: #616264;
 $topbar-link-weight: $font-weight-black;
-$topbar-link-font-size: rem-calc(14);
+$topbar-link-font-size: rem-calc(18);
 $topbar-link-hover-lightness: -10%; // Darken by 10%
 $topbar-link-bg-hover: #fff;
 // $topbar-link-bg-active: $primary-color;
@@ -1169,18 +1169,19 @@ $topbar-dropdown-label-bg: #333;
 
 // Top menu icon styles
 $topbar-menu-link-transform: uppercase;
-$topbar-menu-link-font-size: rem-calc(15);
+$topbar-menu-link-font-size: rem-calc(18);
 $topbar-menu-link-weight: bold;
 $topbar-menu-link-color: #616264;
 $topbar-menu-icon-color: #616264;
 $topbar-menu-link-color-toggled: #888;
 $topbar-menu-icon-color-toggled: #888;
 
+$menu-breakpoint-query: "#{$screen} and (min-width: 1080px)";
 // Transitions and breakpoint styles
 $topbar-transition-speed: 0s;
 // Using rem-calc for the below breakpoint causes issues with top bar
-$topbar-breakpoint: #{lower-bound($large-range)}; // Change to 9999px for always mobile layout
-$topbar-media-query: $large-up !default;
+$topbar-breakpoint: #{lower-bound($menu-breakpoint-query)}; // Change to 9999px for always mobile layout
+$topbar-media-query: $menu-breakpoint-query !default;
 
 
 // Divider Styles

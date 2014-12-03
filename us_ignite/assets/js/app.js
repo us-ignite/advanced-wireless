@@ -51,6 +51,8 @@ $(function() {
       $('#listing-ordering').submit();
     });
   }
+
+  
  });
 
 $(window).load(function() {

@@ -51,7 +51,6 @@
 		showHideTopArrow();
 		
 		$(window).scroll(function(e){
-			parallax();
 			showHideTopArrow();
 		});
 		
@@ -70,6 +69,9 @@
 		{
 			uploadSuccess();
 		}
+
+		//$('.homepage-grid .homepage-grid__heading').matchHeight();
+		$('.homepage-grid .homepage-grid__desc ').matchHeight();
 	});
 	/* end jQuery ready */
 	
@@ -196,12 +198,6 @@
 
 
 })(jQuery);
-
-/* Add parallax effect to intro image */
-function parallax(){
-	var scrolled_1 = $(window).scrollTop();
-	$('.intro-image').css( 'background-position' , '0% -' + (scrolled_1 * 0.35) + 'px' );
-}
 
 
 

@@ -1,0 +1,30 @@
+.search {
+  padding: 0 15px;
+  height: 45px;
+
+  &.search--push {
+    margin-bottom: 1.5em;
+  }
+
+  &:after {
+    content: "";
+    display:block;
+    position: absolute;
+    width: 18px;
+    height: 17px;
+    top: 50%;
+    right:7px;
+    margin-top: -12px;
+    padding:0 12px;
+    background: #fff url(../img/icons/search.png) right center no-repeat;
+  }
+
+  .search__field {
+    position: relative;
+    top: 4px;
+    height:auto;
+    padding-top: rem-calc(10);
+    padding-bottom: rem-calc(10);
+    font-size: rem-calc(12);
+  }
+}

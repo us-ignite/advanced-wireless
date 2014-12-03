@@ -1,0 +1,118 @@
+.domains {
+	margin-top: 25px;
+}
+
+.domains__link {
+	&:link,
+	&:visited {
+		background-color: #fff;
+		color: $dark-color;
+		padding: 2px 10px;
+		margin-bottom: 10px;
+		font-size: 0.75em;
+		border-radius: $global-radius;
+		min-height: 35px;
+		line-height: 35px;
+	}
+
+	&:hover,
+	&:active,
+	&:focus,
+	&.domains__link--active {
+		background-color: #616264;
+		color: #fff;
+        text-decoration: none;
+	}
+}
+
+[class*="domains__icon--"] {
+	display: inline-block;
+	position: relative;
+	float: left;
+	top: 4px;
+	margin-right: 5px;
+	background: url(../img/icons/domains-solid-26.png) 0 0 no-repeat;
+	width:26px;
+	height:26px;
+
+	&.domains__icon--absolute-bottom-right {
+		position: absolute;
+		top: auto;
+		bottom: 6px;
+		right: 6px;
+	}
+}
+
+.page-title [class*="domains__icon--"] {
+	top: 0px;
+}
+
+
+.domains__icon--education-workforce {
+	background-position: 0 0;
+}
+
+.domains__icon--energy {
+	background-position: -43px 0;
+}
+
+.domains__icon--healthcare {
+	background-position: -86px 0;
+}
+
+.domains__icon--public-safety {
+	background-position: 0 -32px;
+}
+
+.domains__icon--transportation {
+	background-position: -43px -31px;
+}
+
+.domains__icon--advanced-manufacturing {
+	background-position: -86px -31px;
+}
+
+.domains-full-list {
+	text-align: center;
+	font-weight: $font-weight-bold;
+	font-size: 0.75rem;
+
+	@media #{$medium-up} {
+		font-size:1rem;
+	}
+}
+
+
+[class*="domains-full__icon--"] {
+	display: block;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	background: url(../img/icons/domains.png) 0 0 no-repeat;
+	width:89px;
+	height:89px;
+}
+
+.domains-full__icon--education {
+	background-position: 0 0;
+}
+
+.domains-full__icon--energy {
+	background-position: -203px 0;
+}
+
+.domains-full__icon--health {
+	background-position: -398px -6px;
+}
+
+.domains-full__icon--safety {
+	background-position: 0 -127px;
+}
+
+.domains-full__icon--transport {
+	background-position: -205px -117px;
+}
+
+.domains-full__icon--manufacturing {
+	background-position: -410px -131px;
+}
