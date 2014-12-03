@@ -1144,7 +1144,11 @@ button, .button {
 	border-right: none;
 }
 
-@media only screen and (max-width: 56.3125em) {
+@media only screen and (max-width: 40.0625rem) {
+	
+}
+
+@media only screen and (max-width: 48.063em) {
 	body > .row .homepage-grid__col {
 		margin: 0;
 		padding-top: 20px;
@@ -1155,9 +1159,6 @@ button, .button {
 	.homepage-grid__col:nth-child(3), .homepage-grid__col:nth-child(4) {
 		border-top: 5px solid #f26722;
 	}
-}
-
-@media only screen and (max-width: 48.063em) {
 	.homepage-grid__heading {
 		font-size: 1.4rem;
 	}
