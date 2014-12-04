@@ -882,6 +882,7 @@ a:hover {
 	font-weight: 700;
 }
 /* Forms */
+/*
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
 	-webkit-appearance:none;
 	background-color:#ffffff;
@@ -937,10 +938,7 @@ input[type="checkbox"]+label, input[type="radio"]+label {
 	margin-bottom:0;
 	vertical-align:baseline;
 }
-input[type="file"] {
-	/*width:100%;*/
-}
-
+*/
 /*Buttons */
 /*
 button, .button {
@@ -1309,4 +1307,18 @@ ul, ol, dl {
 
 .row .sector-row {
 	margin-bottom: 30px;
+}
+
+.partner-grid > a{
+	margin-bottom: 15px;
+
+}
+
+.partner-grid > a img{
+	min-width: 100%;
+
+}
+
+.row .partner-grid {
+	margin-bottom: 200px;
 }

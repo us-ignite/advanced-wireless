@@ -47,7 +47,7 @@
         <ul class="title-area">
           <li class="name">
             <h1>
-              <a href="{% if request.user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'globalcityteams' %}{% endif %}" class="top-bar__logo">
+              <a href="{% if request.user.is_authenticated %}{% url 'dashboard' %}{% else %}{{ '/globalcityteams' }} {% endif %}" class="top-bar__logo">
                
               </a>
             </h1>

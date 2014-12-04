@@ -33,3 +33,11 @@
     padding-top:20px;
   }
 }
+
+
+@media #{$medium-up} {
+  .newsletter {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}

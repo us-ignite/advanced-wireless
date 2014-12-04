@@ -173,14 +173,16 @@ a:hover {
   h2 {
     font-size: rem-calc(30);
     line-height: rem-calc(45);
+    color: #282828;
   }
 }
 
 @media #{$medium-up} {
  
   h2 {
-    font-size: rem-calc(25);
-    line-height: rem-calc(35);
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 24px;
   }
 }
 
@@ -189,7 +191,9 @@ a:hover {
     font-size: rem-calc(35);
   }
   h2 {
+    /*
     font-size: rem-calc(30);
+    */
     line-height: rem-calc(45);
   }
   h3 {
@@ -352,5 +356,41 @@ a:hover {
     margin-bottom: 10px;
 
   }
+}
+
+
+.domains .inline-list {
+  margin-top: rem-calc(25);
+  margin-bottom: rem-calc(25);
+}
+
+h2.page-title {
+  font-size: rem-calc(36) !important;
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+@media #{$small-up} {
+  h2.page-title {
+    font-size: rem-calc(36);
+  }
+}
+
+@media #{$medium-up} {
+  h2.page-title {
+    font-size: rem-calc(30);
+  }
+}
+
+@media #{$large-up} {
+  h2.page-title {
+    font-size: rem-calc(40);
+  }
+}
+
+
+.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6 {
+  line-height: rem-calc(40);
+  margin-bottom: 0.725rem;
 }
 

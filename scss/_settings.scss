@@ -146,8 +146,7 @@ $subheader-bottom-margin: 1.5rem;
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
 // $paragraph-font-weight: normal;
-$paragraph-font-size: 1.125rem;
-// $paragraph-line-height: 1.6;
+$paragraph-line-height: 1.5;
 // $paragraph-margin-bottom: rem-calc(20);
 // $paragraph-aside-font-size: rem-calc(14);
 // $paragraph-aside-line-height: 1.35;
@@ -478,14 +477,14 @@ $list-side-margin: 3.1rem;
 
 // We use these to style the labels in different ways
 // $form-label-pointer: pointer;
-// $form-label-font-size: rem-calc(14);
+$form-label-font-size: rem-calc(22);
 // $form-label-font-weight: normal;
 // $form-label-line-height: 1.5;
 // $form-label-font-color: scale-color(#000, $lightness: 30%);
 // $form-label-bottom-margin: 0;
 // $input-font-family: inherit;
 // $input-font-color: rgba(0,0,0,0.75);
-$input-font-size: rem-calc(16);
+$input-font-size: rem-calc(26);
 // $input-bg-color: #fff;
 // $input-focus-bg-color: scale-color(#fff, $lightness: -2%);
 // $input-border-color: scale-color(#fff, $lightness: -20%);
@@ -739,7 +738,7 @@ $inline-list-bottom-margin: rem-calc(5);
 // $pagination-li-float: $default-float;
 // $pagination-li-height: rem-calc(24);
 // $pagination-li-font-color: #222;
-// $pagination-li-font-size: rem-calc(14);
+$pagination-li-font-size: rem-calc(20);
 // $pagination-li-margin: rem-calc(5);
 
 // We use these for the pagination anchor links
