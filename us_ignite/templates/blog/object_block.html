@@ -32,7 +32,13 @@
       <div class="listings__listing__desc show-for-medium-up">
         
         <p>{{ object.short_excerpt }}</p>
+
       </div>
+
+      <span class='st_facebook_vcount' st_url="{{ object.get_absolute_url }}" st_title="{{ object.name }}"  displayText='Facebook'></span>
+        <span class='st_twitter_vcount' displayText='Tweet'></span>
+        <span class='st_googleplus_vcount' displayText='Google +'></span>
+        <span class='st_email_vcount' displayText='Email'></span>
     </div>
   </div>
 </div>
