@@ -8,7 +8,11 @@
     <div class="row">
       <div class="small-12 columns back-btn">
         <div class="arrow-left back-btn__arrow"></div>
-        <a href="{% url 'blog_post_list' %}" class="back-btn__link">Back to Listing</a>
+        {% if MICROSITE_SLUG != 'globalcityteams' %}
+          <a href="{% url 'blog_post_list' %}" class="back-btn__link">Back to Listing</a>
+        {% else %}
+          <a href="{% url 'globalcityteams:news_list' %}" class="back-btn__link">Back to Listing</a>
+        {% endif %}
       </div>
     </div>
   </div>

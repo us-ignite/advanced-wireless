@@ -24,11 +24,20 @@
 .listings__listing__heading {
   display:block;
   font-size: $h2-font-size;
+  line-height: 22px;
   color: $secondary-color;
   margin: rem-calc(20) 0;
 
   &.listings__listing__heading--plain {
     color: $dark-color;
+  }
+}
+
+@media #{$medium-up} {
+  .listings__listing__heading {
+  
+    font-size: 24px;
+    line-height: 30px;
   }
 }
 
@@ -51,17 +60,23 @@
   font-size: 0.875em;
 }
 
+@media #{$medium-up} {
+  .listings__listing__tags,
+  .listings__listing__published {
+    font-size: 14px;
+  }
+}
+
+
 .listings__listing__published {
   padding-bottom: rem-calc(10);
   display: block;
 }
 
-
-
 .listings__listing__tags__tag {
   &:link,
   &:visited {
-    color: $primary-color;
+    color: #f68c1f;
   }
 }
 
