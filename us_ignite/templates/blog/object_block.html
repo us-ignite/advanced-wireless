@@ -35,10 +35,10 @@
 
       </div>
 
-      <span class='st_facebook_vcount' st_url="{{ object.get_absolute_url }}" st_title="{{ object.name }}"  displayText='Facebook'></span>
-        <span class='st_twitter_vcount' st_url="{{ object.get_absolute_url }}" st_title="{{ object.name }}" displayText='Tweet'></span>
-        <span class='st_googleplus_vcount' st_url="{{ object.get_absolute_url }}" st_title="{{ object.name }}" displayText='Google +'></span>
-        <span class='st_email_vcount' st_url="{{ object.get_absolute_url }}" st_title="{{ object.name }}" displayText='Email'></span>
+      <span class='st_facebook_vcount' st_url="{{ SITE_URL }}{{ object.get_absolute_url }}" st_title="{{ object.name }}"  displayText='Facebook'></span>
+        <span class='st_twitter_vcount' st_url="{{ SITE_URL }}{{ object.get_absolute_url }}" st_title="{{ object.name }}" displayText='Tweet'></span>
+        <span class='st_googleplus_vcount' st_url="{{ SITE_URL }}{{ object.get_absolute_url }}" st_title="{{ object.name }}" displayText='Google +'></span>
+        <span class='st_email_vcount' st_url="{{ SITE_URL }}{{ object.get_absolute_url }}" st_title="{{ object.name }}" displayText='Email'></span>
     </div>
   </div>
 </div>
