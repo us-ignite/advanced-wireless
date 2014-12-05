@@ -90,12 +90,12 @@ def actioncluster_list_partner(request):
     }
     return TemplateResponse(request, 'actionclusters/object_list.html', context)
 
+
 def actioncluster_list_iot(request):
     """List IOT project ideas."""
     extra_qs = {
-        'is_approved': True,
+        'is_approved': False,
         'status': ActionCluster.PUBLISHED,
-        'needs_partner': True
     }
     page_no = pagination.get_page_no(request.GET)
     object_list = (
@@ -112,6 +112,7 @@ def actioncluster_list_iot(request):
         'category': 'iot'
     }
     return TemplateResponse(request, 'actionclusters/object_list.html', context)
+
 
 def get_actioncluster_for_user(slug, user):
     """Validates the user can access the given app."""
