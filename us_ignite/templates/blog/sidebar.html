@@ -36,8 +36,16 @@
         {% latest_articles "blog/news_list.html" %}
       {% endif %}
 
-      <h3 class="sidebar__heading">Subscribe & Follow</h3>
+      
       {% include "mailinglist/sidebar.html" %}
+      <h3 class="sidebar__heading" style="padding-bottom: 10px;">Subscribe & Follow</h3>
+      <div class="sidebar-social" style="margin-top: 10px;">
+        <a target="_blank" href="https://www.facebook.com/USIgnite"> <span class="icon-uniE607"></span> </a>
+        <a target="_blank" href="https://twitter.com/US_Ignite"><span class="icon-uniE608"></span></a>
+        <a target="_blank" href="https://plus.google.com/115026873083967953743/posts"><span class="icon-googleplus"></span></a>
+      </div>
+
+
 
       {% if MICROSITE_SLUG != 'globalcityteams' %}
         <a class="twitter-timeline" href="https://twitter.com/US_Ignite" data-widget-id="440812138123116544">Tweets by @US_Ignite</a>
