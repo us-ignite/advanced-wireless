@@ -1142,8 +1142,18 @@ button, .button {
 	border-right: none;
 }
 
-@media only screen and (max-width: 40.0625rem) {
+@media only screen and (max-width: 360px) {
+	.row .homepage-grid__col {
+		width: 100%;
+		float: none;
+		border-top: 5px solid #f26722;
+		border-right: none;
 	
+	}
+
+	.row .homepage-grid__col:first-child {
+		border-top: none
+	}
 }
 
 @media only screen and (max-width: 48.063em) {
@@ -1321,4 +1331,21 @@ ul, ol, dl {
 
 .row .partner-grid {
 	margin-bottom: 200px;
+}
+
+@media only screen and (max-width: 480px) {
+  .top-bar .toggle-topbar.menu-icon a {
+    font-size: 10px;
+    padding-right: 20px;
+    padding-left: 8px;
+  }
+  .top-bar .toggle-topbar.menu-icon {
+
+    top: 15px;
+    right: 15px;
+  }
+
+  .backgroundsize .top-bar .name .top-bar__logo {
+    width: 180px;
+  }
 }
