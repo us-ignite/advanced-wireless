@@ -85,16 +85,18 @@ def import_attachment(post, data):
     return attachment
 
 
-def get_tag_list(category_list):
-    return [c['title'] for c in category_list if c.get('title')]
+def get_tag_list(tag_list):
+    return [t['title'] for t in tag_list if t.get('title')]
 
 
 def get_post_section(tag_list):
     post_section = {
         'globalcityteams': Post.GLOBALCITIES,
+        'global city teams': Post.GLOBALCITIES,
     }
+    lower_tag_list = [t.lower() for t in tag_list]
     for key, value in post_section.items():
-        if key in tag_list:
+        if key in lower_tag_list:
             return value
     return Post.DEFAULT
 
@@ -125,7 +127,7 @@ def import_post(data):
     post.excerpt_html = post.excerpt
     post.publication_date = parse_date(data['date'])
     post.update_date = parse_date(data['modified'])
-    tag_list = get_tag_list(data['categories'])
+    tag_list = get_tag_list(data['tags'])
     post.section = get_post_section(tag_list)
     post.save()
     if tag_list:
