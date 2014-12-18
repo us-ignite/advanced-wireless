@@ -1,7 +1,11 @@
-{% with profile=user.profile %}
+{% load thumbnail %}{% with profile=user.profile %}
 {% if profile %}
 <a href="{{ profile.get_absolute_url }}" title="Contact {{ profile.display_name }}">
+  {% if profile.avatar  %}
+  <img src="{% thumbnail profile.avatar 100x100 crop %}" alt="" />
+  {% else %}
   <img src="{{ profile.get_gravatar_url }}" alt="{{ profile.display_name }}" />
+  {% endif %}
 </a>
 {% else %}
 US ignite user

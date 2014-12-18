@@ -3,10 +3,10 @@
 <a href="{{ profile.get_absolute_url }}" title="Contact {{ profile.display_name }}" class="sidebar__list__link row collapse">
 
   <div class="medium-4 large-2 columns">
-    {% if object.avatar  %}
-    <img src="{% thumbnail object.avatar 276x276 crop %}" alt="Avatar" class="sidebar__list__image" />
+    {% if profile.avatar  %}
+    <img src="{% thumbnail profile.avatar 276x276 crop %}" alt="Avatar" class="sidebar__list__image" />
     {% else %}
-    <img src="{{ object.get_gravatar_url }}" alt="Avatar" class="sidebar__list__image" />
+    <img src="{{ profile.get_gravatar_url }}" alt="Avatar" class="sidebar__list__image" />
     {% endif %}
   </div>
 
