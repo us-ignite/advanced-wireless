@@ -1,6 +1,10 @@
-<a class="row collapse featured featured--fixed-height featured__link" href="{{ object.get_absolute_url }}" title="{{ object.display_name }}">
+{% load thumbnail %}<a class="row collapse featured featured--fixed-height featured__link" href="{{ object.get_absolute_url }}" title="{{ object.display_name }}">
   <div class="featured__image-container hide-on-hover show-for-medium-up medium-4 large-12 columns">
+    {% if object.avatar  %}
+    <img src="{% thumbnail object.avatar 100x100 crop %}" alt="" />
+    {% else %}
     <img src="{{ object.get_gravatar_url }}" alt="{{ object.display_name }}" class="featured__image" />
+    {% endif %}
   </div>
 
   <div class="small-10 medium-8 large-12 columns">
