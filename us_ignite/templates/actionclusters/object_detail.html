@@ -5,6 +5,14 @@
 
 
 {% block content_title %}
+<div class="row collapse">
+  <div class="large-8 medium-9 columns">
+     <a class="button back-button show-for-medium-up" href="{% url 'actioncluster_list' %}">&#10094; &nbsp; BACK</a>
+     <a class="button back-button show-for-small-only small"  href="{% url 'actioncluster_list' %}">&#10094; &nbsp; BACK</a>
+  </div>
+  <div class="large-4 medium-3 columns"></div>
+</div>
+  
 <span class="domains__icon--{{ domain.slug }}"></span>
 {{ object.name }} {% if object.is_draft %}(Draft){% endif %}
 {% endblock content_title %}

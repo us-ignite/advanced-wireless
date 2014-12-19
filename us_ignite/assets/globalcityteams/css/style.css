@@ -323,15 +323,18 @@ body {
 .backgroundsize .top-bar .name .top-bar__logo {
 	
 	background-image: url(../images/us-ignite-smart-america.jpg);
-	background-image: url(../images/us-ignite-gctc.png);
+	background-image: url(../images/nist-gctc-logo.png);
 	height: 45px;
 	width: 220px;
 
 }
+
 @media only screen and (min-width:40.0625rem) {
 .backgroundsize .top-bar .name .top-bar__logo {
 	height: 60px;
 	width: 420px;
+	background-image: url(../images/nist-usignite-gctc-logo.png);
+	margin-top: 35px;
 
 }
 .header {
@@ -1349,3 +1352,4 @@ ul, ol, dl {
     width: 180px;
   }
 }
+

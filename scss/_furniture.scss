@@ -437,3 +437,28 @@ h2.page-title {
     margin-top: 5px;
   }
 }
+
+.back-button {
+  display: none !important;
+  width: auto;
+}
+
+.back-button.small {
+  display: block !important;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+@media #{$medium-up} {
+  .back-button {
+    display: inline-block !important;
+    width: auto;
+    float: right;
+  }
+
+  .back-button.small {
+    display: none !important;
+    width: auto;
+  }
+
+}
