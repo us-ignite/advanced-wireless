@@ -61,7 +61,7 @@ $(function() {
 	/* Open social app summit share buttons in popup windows */
 	$('.share-button').on('click', function(e) {
 		e.preventDefault();
-		window.open($(this).attr('href'), 'sharer', "toolbar=no, width=550, height=550");          
+		window.open($(this).attr('data-href'), 'sharer', "toolbar=no, width=550, height=550");          
 	});
 
 });
