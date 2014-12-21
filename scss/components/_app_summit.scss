@@ -1,0 +1,38 @@
+/* 2015 App Summit */
+
+body.app-summit {
+	background: url(../img/appsummit-background.jpg) top center no-repeat #f4f3f1;
+}
+
+a:hover {
+	text-decoration: none;
+}
+.summit-container {
+	width: 100%;
+	max-width: 660px;
+	margin: 50px auto 50px auto;
+	background-color: white;
+}
+
+.app-summit {
+	.quicklinks, footer, .contain-to-grid {
+		display: none;
+	}
+}
+
+.summit-top-bar {
+	background-color: rgb(255, 129, 0);
+	color: rgb(99, 99, 99);
+	display: block !important;
+	font-family: Lato, 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	height: 32.5px;
+	line-height: 12px;
+	min-height: 5.25600004196167px;
+
+	.inline-list {
+		margin-right: 10px;
+	}
+}

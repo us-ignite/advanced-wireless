@@ -67,6 +67,8 @@ urlpatterns += patterns(
     url(r'^robots.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
     url(r'^kit/$', TemplateView.as_view(template_name='kit.html')),
+    url(r'^appsummit2015/$', TemplateView.as_view(template_name='appsummit2015.html')),
+
 )
 
 # US Ignite legacy redirects:
