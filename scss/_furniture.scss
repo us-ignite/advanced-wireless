@@ -419,3 +419,46 @@ h2.page-title {
   }
 }
 
+.newsletter--side {
+  text-align: center;
+}
+.newsletter--side input[type="text"]{
+  font-size: 15px;
+  padding: 15px;
+  height: auto
+}
+
+@media #{$medium-up} {
+  .newsletter--side button {
+    width: auto;
+    display: inline-block;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    margin-top: 5px;
+  }
+}
+
+.back-button {
+  display: none !important;
+  width: auto;
+}
+
+.back-button.small {
+  display: block !important;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+@media #{$medium-up} {
+  .back-button {
+    display: inline-block !important;
+    width: auto;
+    float: right;
+  }
+
+  .back-button.small {
+    display: none !important;
+    width: auto;
+  }
+
+}
