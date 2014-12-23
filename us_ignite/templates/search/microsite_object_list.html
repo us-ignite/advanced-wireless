@@ -1,0 +1,22 @@
+{% extends "includes/lists/object_list_base.html" %}
+
+{% block title %}Seach Results - {{ block.super }}{% endblock title %}
+
+{% block page_title %}Search Results{% endblock page_title %}
+
+{% block top_panel %}
+<div class="row">
+  <div class="large-4 medium-6 small-12 columns">
+  <form method="get" action="{% url 'globalcityteams:search' %}">
+    {{ form }}
+    <input type="submit" value="Submit" />
+  </form>
+  </div>
+</div>
+{% endblock top_panel %}
+
+{% block tags %}
+{% endblock tags %}
+
+{% block add_to_list %}
+{% endblock add_to_list %}
