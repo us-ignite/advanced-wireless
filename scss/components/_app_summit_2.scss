@@ -27,11 +27,8 @@ body.march-2015 {
 	}
 
 	.header-image {
-		background: url(../img/appsummit-background.jpg)  no-repeat center center fixed #f4f3f1;
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-		background-size: cover;
+		background: url(../img/appsummit-background.jpg)  0 0 no-repeat fixed #f4f3f1;
+		
 		height: 450px;
 	}
 
@@ -336,6 +333,9 @@ body.march-2015 {
 		margin-top: 30px;
 	}
 
+	.responsive-video {
+		margin: 0 !important;
+	}
 	
 }
 /* end .march-2015-splash */

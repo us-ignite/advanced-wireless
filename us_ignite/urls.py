@@ -68,7 +68,7 @@ urlpatterns += patterns(
         template_name='robots.txt', content_type='text/plain')),
     url(r'^kit/$', TemplateView.as_view(template_name='kit.html')),
     url(r'^march2015/$', TemplateView.as_view(template_name='march2015.html')),
-    url(r'^march2015_2/$', TemplateView.as_view(template_name='march2015_2.html')),
+    url(r'^smartfuture2015/$', TemplateView.as_view(template_name='march2015_2.html')),
 
 )
 

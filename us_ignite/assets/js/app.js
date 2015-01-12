@@ -72,6 +72,8 @@ $(function() {
 	});
 
 	initTabs();
+	renderMobileTabs();
+	responsiveVideos();
 
 });
 
@@ -88,6 +90,9 @@ function parallax(){
 	$('.slide--two').css( 'background-position' , 'left -' + (scrolled_2 * 0.35) + 'px' );
 	$('.slide--three').css( 'background-position' , 'left -' + (scrolled_3 * 0.35) + 'px' );
 	$('.slide--four').css( 'background-position' , 'left -' + (scrolled_4 * 0.35) + 'px' );
+
+	var scrolled_1 = $(window).scrollTop();
+	$('.march-2015 .header-image').css( 'background-position' , 'left -' + (scrolled_1 * 0.35) + 'px' );
 }
 
 function initTabs () {
@@ -113,6 +118,37 @@ function renderMobileTabs () {
 		var $tabsContainer = $(this);
 
 	});
+}
+
+
+function responsiveVideos() {
+	 var $allVideos = $(".responsive-video > iframe"),
+    $fluidEl = $("figure.responsive-video");
+	    	
+	$allVideos.each(function() {
+	
+	  $(this)
+	    // jQuery .data does not work on object/embed elements
+	    .attr('data-aspectRatio', this.height / this.width)
+	    .removeAttr('height')
+	    .removeAttr('width');
+	
+	});
+	
+	$(window).resize(function() {
+	
+	  var newWidth = $fluidEl.width();
+	  $allVideos.each(function() {
+	  
+	    var $el = $(this);
+	    $el
+	        .width(newWidth)
+	        .height(newWidth * $el.attr('data-aspectRatio'));
+	  
+	  });
+	
+	}).resize();
+
 }
 
 $(window).scroll(function(e){
