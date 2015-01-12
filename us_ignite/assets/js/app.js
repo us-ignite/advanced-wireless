@@ -91,16 +91,27 @@ function parallax(){
 }
 
 function initTabs () {
-	$(".tab-bar > a").on("click", function (e) {
-		e.preventDefault();
+	$(".tabs-container").each(function () {
+		var $tabsContainer = $(this);
 
-		if ($(this).hasClass("active"))
-			return;
-		$(".tab-bar > a").removeClass("active");
-		$(this).addClass("active");
-		var section = $(this).data("section");
-		$(".tab-content > div").removeClass("active");
-		$("[data-section-name='" + section + "']").addClass("active");
+		$tabsContainer.find(".tab-bar > a").on("click", function (e) {
+			e.preventDefault();
+
+			if ($(this).hasClass("active"))
+				return;
+			$tabsContainer.find(".tab-bar > a").removeClass("active");
+			$(this).addClass("active");
+			var section = $(this).data("section");
+			$tabsContainer.find(".tab-content > div").removeClass("active");
+			$tabsContainer.find("[data-section-name='" + section + "']").addClass("active");
+		});
+	});
+}
+
+function renderMobileTabs () {
+	$(".tabs-container").each(function () {
+		var $tabsContainer = $(this);
+
 	});
 }
 

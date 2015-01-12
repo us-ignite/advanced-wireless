@@ -153,17 +153,17 @@ body.march-2015 {
 			position: relative;
 		}
 
-		.tab-bar > a:after {
+		.tab-bar > a:before {
 			content: "";
 			width: 2px;
 			position: absolute;
 			height: 100%;
 			background-color: #fff;
-			right: 0;
+			left: 0;
 
 		}
 
-		.tab-bar > a:last-child:after {
+		.tab-bar > a:first-child:before {
 			content: "";
 			width: 0px;
 			
@@ -178,7 +178,7 @@ body.march-2015 {
 		.tab-content {
 
 			>div {
-				margin: 30px;
+				margin: 40px;
 				padding-top: 10px;
 				padding-bottom: 10px;
 				display: none;
@@ -205,16 +205,72 @@ body.march-2015 {
 					font-size: 24px;
 				}
 			}
-		}
-		
-	}
 
-	@media only screen and (max-width: 850px) {
+			.agenda-table {
+				border: none;
+				padding: 0;
+				border-spacing: 0;
+				border: 1px solid #d7d7d7;
+
+				td {
+					padding: 15px 20px;
+					font-size: 17px;
+					background-color: transparent;
+					color: #636365;
+					border: 1px solid #d7d7d7;
+					width: 50%;
+					line-height: 24px;
+				}
+
+				tr {
+					background-color: transparent;
+				}
+			}
+
+			.partners-grid {
+				margin-top: 40px;
+
+				>a > img {
+					max-width: 250px;
+					width: 100%;
+					display: block;
+					margin-left: auto;
+					margin-right: auto;
+					margin-bottom: 50px;
+				}
+			}
+
+			.partners-grid:after {
+				content: "";
+				display: block;
+				position: relative;
+				clear: both;
+			}
+		}
+		/* end .tab-content */
+		
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+		max-width: 1050px;
+	}
+	/* end .tabs-container */
+
+	@media only screen and (max-width: 870px) {
 		.tabs-container {
 			display: none !important;
 		}
 	}
 
+	.mobile-tabs-container {
+		display: none;
+	}
+
+	@media only screen and (max-width: 870px) {
+		.mobile-tabs-container{
+			display: block !important;
+		}
+	}
 	
 	.share-buttons {
 		text-align: center;
@@ -265,6 +321,7 @@ body.march-2015 {
 			border-color: #ff8100;
 		} 
 	}
+	/* end .share-buttons */
 
 	.copyright {
 		text-align: center;
@@ -281,6 +338,7 @@ body.march-2015 {
 
 	
 }
+/* end .march-2015-splash */
 
 .march-2015 {
 	.quicklinks, .contain-to-grid {
