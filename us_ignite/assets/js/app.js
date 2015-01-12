@@ -58,11 +58,20 @@ $(function() {
 		$("body").fadeIn(200);
 	}
 
+	if ($(".march-2015-splash").length > 0) {
+		$("body").addClass("march-2015");
+		$("body").fadeIn(200);
+	}
+
+
+
 	/* Open social app summit share buttons in popup windows */
 	$('.share-button').on('click', function(e) {
 		e.preventDefault();
 		window.open($(this).attr('href'), 'sharer', "toolbar=no, width=550, height=550");          
 	});
+
+	initTabs();
 
 });
 
@@ -79,6 +88,20 @@ function parallax(){
 	$('.slide--two').css( 'background-position' , 'left -' + (scrolled_2 * 0.35) + 'px' );
 	$('.slide--three').css( 'background-position' , 'left -' + (scrolled_3 * 0.35) + 'px' );
 	$('.slide--four').css( 'background-position' , 'left -' + (scrolled_4 * 0.35) + 'px' );
+}
+
+function initTabs () {
+	$(".tab-bar > a").on("click", function (e) {
+		e.preventDefault();
+
+		if ($(this).hasClass("active"))
+			return;
+		$(".tab-bar > a").removeClass("active");
+		$(this).addClass("active");
+		var section = $(this).data("section");
+		$(".tab-content > div").removeClass("active");
+		$("[data-section-name='" + section + "']").addClass("active");
+	});
 }
 
 $(window).scroll(function(e){
