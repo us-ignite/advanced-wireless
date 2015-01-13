@@ -73,7 +73,7 @@ $(function() {
 
 	initTabs();
 	renderMobileTabs();
-	responsiveVideos();
+	setTimeout(function () { responsiveVideos(); }, 3000);
 
 });
 
@@ -109,37 +109,91 @@ function initTabs () {
 			var section = $(this).data("section");
 			$tabsContainer.find(".tab-content > div").removeClass("active");
 			$tabsContainer.find("[data-section-name='" + section + "']").addClass("active");
+
+			responsiveVideos();
 		});
 	});
 }
 
 function renderMobileTabs () {
+	
+	// Create mobile tabs using markup from desktop tabs
 	$(".tabs-container").each(function () {
 		var $tabsContainer = $(this);
+		var mobileTabHtml = '<div class="row"><div class="columns small-12 small-centered "><div class="mobile-tabs-container"><div class="tabs">';
+
+		$tabsContainer.find(".tab-bar > a").each(function () {
+			var tabName = $(this).html();
+			var section = $(this).data("section");
+			var tabContent = $tabsContainer.find("[data-section-name='" + section + "']").html();
+
+			mobileTabHtml += '<div><a href="#" class="handle">' + tabName + ' <div class="close">&#215;</div></a>';
+			mobileTabHtml += '<div class="tab-content">' + tabContent + '</div>';
+			mobileTabHtml += '</div>';
+		});
+
+		mobileTabHtml += '</div></div></div></div>';
+
+		$(mobileTabHtml).insertAfter($tabsContainer);
 
 	});
+
+	
+	// Make mobile tabs functional
+	$(".mobile-tabs-container").each(function () {
+		var $tabsContainer = $(this);
+
+		$tabsContainer.find(".handle").on("click", function (e) {
+
+			$thisHandle = $(this);
+			e.preventDefault();
+
+			if ($thisHandle.hasClass("active"))
+			{
+				$thisHandle.next(".tab-content").slideUp(300, function () {
+					$thisHandle.removeClass("active");
+				});
+			}
+			else
+			{
+
+				$thisHandle.next(".tab-content").slideDown(300, function () {
+					$thisHandle.addClass("active");
+					responsiveVideos();
+				});
+			}
+		});
+	});
+
+
 }
 
 
 function responsiveVideos() {
-	 var $allVideos = $(".responsive-video > iframe"),
-    $fluidEl = $("figure.responsive-video");
+	 var $allVideos = $(".responsive-video > iframe");
+    
 	    	
 	$allVideos.each(function() {
 	
 	  $(this)
 	    // jQuery .data does not work on object/embed elements
-	    .attr('data-aspectRatio', this.height / this.width)
-	    .removeAttr('height')
-	    .removeAttr('width');
+	    .attr('data-aspectRatio', this.height / this.width);
+	   // .removeAttr('height')
+	    //.removeAttr('width');
+
+	    var newWidth = $(this).closest("figure").width();
+	    var $el = $(this);
+	    $el
+	        .width(newWidth)
+	        .height(newWidth * $el.attr('data-aspectRatio'));
 	
 	});
 	
 	$(window).resize(function() {
 	
-	  var newWidth = $fluidEl.width();
-	  $allVideos.each(function() {
 	  
+	  $allVideos.each(function() {
+	  	var newWidth = $(this).closest("figure").width();
 	    var $el = $(this);
 	    $el
 	        .width(newWidth)

@@ -76,17 +76,18 @@
   			<div class="columns small-12 small-centered ">
   				<div class="tabs-container row show-for-medium-up">
   					<div class="tab-bar">
-  						<a href="#" class=" columns small-2" data-section="description">Description</a>
+  						<a href="#" class="active columns small-2" data-section="description">Description</a>
   						<a href="#" class=" columns small-2" data-section="agenda">Agenda</a>
   						<a href="#" class="columns small-2" data-section="hotels">Hotel</a>
   						<a href="#" class=" columns small-2" data-section="partners">Partners</a>
   						<a href="#" class="columns small-2" data-section="speakers">Speakers</a>
-  						<a href="#" class="active columns small-2" data-section="demos">Demos</a>
+  						<a href="#" class=" columns small-2" data-section="demos">Demos</a>
   					</div>
   					<!-- end .tab-bar -->
   					<div class="tab-content">
-  						<div data-section-name="description">
+  						<div data-section-name="description" class="active">
   							<h3>Lorem ipusum dolor sit amet, consectetur adipisicing elit, sed od eiusmod tempor incididunt ut laore et dolore magna laiqua.</h3>
+  							<br>
   							<p>
 			  					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales malesuada justo, quis pretium diam efficitur non. Aliquam commodo felis at iaculis faucibus. Vivamus nunc lectus, pretium congue diam vitae, faucibus blandit neque. <a href="#">Nam luctus nunc</a> at felis congue, non mattis eros tempus. Donec vel diam quam. Donec non laoreet ipsum. Mauris vel ipsum vel metus blandit auctor ut quis augue. Nam tristique commodo dolor ut pretium. Nam sit amet nisl non enim lacinia rutrum nec ac risus. Cras mattis fermentum augue, sit amet hendrerit lectus posuere id. Vivamus molestie tortor nec blandit tincidunt.
 			  				</p>
@@ -117,7 +118,7 @@
 
   						<div data-section-name="agenda" >
   							<h3>Agenda</h3>
-
+  							<br>
   							<p>
 			  					Mauris vel ipsum vel metus blandit auctor ut quis augue. Nam tristique commodo dolor ut pretium. Nam sit amet nisl non enim lacinia rutrum nec ac risus. Cras mattis fermentum augue, sit amet hendrerit lectus posuere id. Vivamus molestie tortor nec blandit tincidunt.
 			  				</p>
@@ -286,14 +287,15 @@
 
 								<a href="http://trade.gov/" target="_blank" class="medium-4 small-6 columns"><img title="ita" src="{{ STATIC_URL }}globalcityteams/images/partner-logos/ita.png" alt="" ></a>
 
-								<a href="http://www.juniper.net/us/en/homepage-campaign.page" target="_blank" class="medium-4 small-6 columns"><img title="juniper networks" src="{{ STATIC_URL }}globalcityteams/images/partner-logos/juniper.png" alt=""></a>
+								<a href="http://www.juniper.net/us/en/homepage-campaign.page" target="_blank" class="medium-4 small-6 columns end"><img title="juniper networks" src="{{ STATIC_URL }}globalcityteams/images/partner-logos/juniper.png" alt=""></a>
 							</div>
 
   						</div>
   						<!-- end [data-section-name] -->
 
   						<div data-section-name="speakers">
-  						<h3>Speakers</h3>
+  							<h3>Speakers</h3>
+  							<br>
   							<p>
 			  					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales malesuada justo, quis pretium diam efficitur non. Aliquam commodo felis at iaculis faucibus. Vivamus nunc lectus, pretium congue diam vitae, faucibus blandit neque. <a href="#">Nam luctus nunc</a> at felis congue, non mattis eros tempus. Donec vel diam quam. Donec non laoreet ipsum. Mauris vel ipsum vel metus blandit auctor ut quis augue. Nam tristique commodo dolor ut pretium. Nam sit amet nisl non enim lacinia rutrum nec ac risus. Cras mattis fermentum augue, sit amet hendrerit lectus posuere id. Vivamus molestie tortor nec blandit tincidunt.
 			  				</p>
@@ -324,7 +326,7 @@
   						</div>
   						<!-- end [data-section-name] -->
 
-  						<div data-section-name="demos" class="active">
+  						<div data-section-name="demos" >
   							<h3>Lorem ipusum dolor sit amet, consectetur adipisicing elit, sed od eiusmod tempor incididunt ut laore et dolore magna laiqua.</h3>
   							<br>
   							<p>
@@ -345,6 +347,23 @@
   			</div>
   		</div>
   		<!-- end .row -->
+
+  		<!-- TEMPLATE MARKUP FOR MOBILE TABS
+  		<div class="row">
+  			<div class="columns small-12 small-centered ">
+  				<div class="mobile-tabs-container">
+  					<div class="tabs">
+  						<div>
+  							<a href="#" class="handle" data-section="description">Description <div class="close">&#215;</div></a>
+  							<div data-section-name="description" class="tab-content active">
+  								TAB CONTENT HERE
+  							</div>
+  						</div>
+  						
+  				</div>
+  			</div>
+  		</div>
+		-->
 
   		<div class="row">
 	  		<div class="share-buttons">

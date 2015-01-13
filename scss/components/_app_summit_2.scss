@@ -125,6 +125,15 @@ body.march-2015 {
 		p {
 			font-size: 20px;
 		}
+
+		ul li {
+			font-size: 20px;
+			line-height: 32px;
+		}
+
+		ul {
+			margin-left: 20px;
+		}
 	}
 
 	.tabs-container {
@@ -252,6 +261,137 @@ body.march-2015 {
 		max-width: 1050px;
 	}
 	/* end .tabs-container */
+
+
+	.mobile-tabs-container {
+		border: 2px solid #d7d7d7;
+		margin-top: 25px;
+		margin-bottom: 35px;
+
+
+		.tabs {
+
+			>div {
+				margin: 0px;
+			}
+
+			.handle {
+				color: #fff;
+				font-size: 22px;
+				text-transform: uppercase;
+				text-align: center;
+				background-color: $tabGray;
+				line-height: 60px;
+				position: relative;
+				display: block;
+				border-bottom: 2px solid #fff;
+
+				&.active {
+					color: $darkGray;
+					background-color: #fff
+				}
+
+				.close {
+					position: absolute;
+					right: 15px;
+					top: 15px;
+					color: #d7d7d7;
+					line-height: 20px;
+					font-size: 30px;
+					font-weight: 200;
+					display: none;
+				}
+
+				&.active .close {
+					display: block;
+				}
+			}
+
+			>div:last-child a.handle {
+				border-bottom: none;
+			}
+
+			.tab-content {
+				display: none;
+				margin: 20px 30px;
+			}
+
+			.tab-content.active {
+				border-bottom:  2px solid #d7d7d7;
+			}
+
+
+			h3 {
+				font-size: 24px;
+				line-height: 35px;
+				text-align: left;
+			}
+
+			h4 {
+				color: $purple;
+				font-size: 17px;
+				margin-top: 25px;
+			}
+
+			@media only screen and (max-width: 600px) {
+				h4 {
+					font-size: 24px;
+				}
+
+				h3 {
+
+				}
+			}
+
+			.agenda-table {
+				border: none;
+				padding: 0;
+				border-spacing: 0;
+				border: 1px solid #d7d7d7;
+
+				td {
+					padding: 15px 20px;
+					font-size: 17px;
+					background-color: transparent;
+					color: #636365;
+					border: 1px solid #d7d7d7;
+					width: 50%;
+					line-height: 24px;
+				}
+
+				tr {
+					background-color: transparent;
+				}
+			}
+
+			.partners-grid {
+				margin-top: 40px;
+
+				>a > img {
+					max-width: 250px;
+					width: 100%;
+					display: block;
+					margin-left: auto;
+					margin-right: auto;
+					margin-bottom: 50px;
+				}
+			}
+
+			.partners-grid:after {
+				content: "";
+				display: block;
+				position: relative;
+				clear: both;
+			}
+		}
+		/* end .tab-content */
+		
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+		max-width: 1050px;
+	}
+	/* end .mobile-tabs-container */
 
 	@media only screen and (max-width: 870px) {
 		.tabs-container {
