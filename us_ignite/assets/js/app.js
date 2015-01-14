@@ -58,11 +58,22 @@ $(function() {
 		$("body").fadeIn(200);
 	}
 
+	if ($(".march-2015-splash").length > 0) {
+		$("body").addClass("march-2015");
+		$("body").fadeIn(200);
+	}
+
+
+
 	/* Open social app summit share buttons in popup windows */
 	$('.share-button').on('click', function(e) {
 		e.preventDefault();
 		window.open($(this).attr('href'), 'sharer', "toolbar=no, width=550, height=550");          
 	});
+
+	initTabs();
+	renderMobileTabs();
+	setTimeout(function () { responsiveVideos(); }, 3000);
 
 });
 
@@ -79,6 +90,119 @@ function parallax(){
 	$('.slide--two').css( 'background-position' , 'left -' + (scrolled_2 * 0.35) + 'px' );
 	$('.slide--three').css( 'background-position' , 'left -' + (scrolled_3 * 0.35) + 'px' );
 	$('.slide--four').css( 'background-position' , 'left -' + (scrolled_4 * 0.35) + 'px' );
+
+	var scrolled_1 = $(window).scrollTop();
+	$('.march-2015 .header-image').css( 'background-position' , 'left -' + (scrolled_1 * 0.35) + 'px' );
+}
+
+function initTabs () {
+	$(".tabs-container").each(function () {
+		var $tabsContainer = $(this);
+
+		$tabsContainer.find(".tab-bar > a").on("click", function (e) {
+			e.preventDefault();
+
+			if ($(this).hasClass("active"))
+				return;
+			$tabsContainer.find(".tab-bar > a").removeClass("active");
+			$(this).addClass("active");
+			var section = $(this).data("section");
+			$tabsContainer.find(".tab-content > div").removeClass("active");
+			$tabsContainer.find("[data-section-name='" + section + "']").addClass("active");
+
+			responsiveVideos();
+		});
+	});
+}
+
+function renderMobileTabs () {
+	
+	// Create mobile tabs using markup from desktop tabs
+	$(".tabs-container").each(function () {
+		var $tabsContainer = $(this);
+		var mobileTabHtml = '<div class="row"><div class="columns small-12 small-centered "><div class="mobile-tabs-container"><div class="tabs">';
+
+		$tabsContainer.find(".tab-bar > a").each(function () {
+			var tabName = $(this).html();
+			var section = $(this).data("section");
+			var tabContent = $tabsContainer.find("[data-section-name='" + section + "']").html();
+
+			mobileTabHtml += '<div><a href="#" class="handle">' + tabName + ' <div class="close">&#215;</div></a>';
+			mobileTabHtml += '<div class="tab-content">' + tabContent + '</div>';
+			mobileTabHtml += '</div>';
+		});
+
+		mobileTabHtml += '</div></div></div></div>';
+
+		$(mobileTabHtml).insertAfter($tabsContainer);
+
+	});
+
+	
+	// Make mobile tabs functional
+	$(".mobile-tabs-container").each(function () {
+		var $tabsContainer = $(this);
+
+		$tabsContainer.find(".handle").on("click", function (e) {
+
+			$thisHandle = $(this);
+			e.preventDefault();
+
+			if ($thisHandle.hasClass("active"))
+			{
+				$thisHandle.next(".tab-content").slideUp(300, function () {
+					$thisHandle.removeClass("active");
+				});
+			}
+			else
+			{
+
+				$thisHandle.next(".tab-content").slideDown(300, function () {
+					$thisHandle.addClass("active");
+					responsiveVideos();
+				});
+			}
+		});
+	});
+
+
+}
+
+
+function responsiveVideos() {
+	 var $allVideos = $(".responsive-video > iframe");
+    
+	    	
+	$allVideos.each(function() {
+	
+	  $(this)
+	    // jQuery .data does not work on object/embed elements
+	    .attr('data-aspectRatio', this.height / this.width);
+	   // .removeAttr('height')
+	    //.removeAttr('width');
+
+	    var newWidth = $(this).closest("figure").width();
+	    var $el = $(this);
+	    $el
+	        .width(newWidth)
+	        .height(newWidth * $el.attr('data-aspectRatio'));
+	
+	});
+	
+	$(window).resize(function() {
+	
+	  
+	  $allVideos.each(function() {
+	  	var newWidth = $(this).closest("figure").width();
+	    var $el = $(this);
+	    $el
+	        .width(newWidth)
+	        .height(newWidth * $el.attr('data-aspectRatio'));
+	  
+	  });
+	
+	}).resize();
+
 }
 
 $(window).scroll(function(e){
