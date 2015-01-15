@@ -17,6 +17,9 @@ body.march-2015 {
 	max-width: 100%;
 	background-color: white;
 
+	.responsive-video {
+		opacity: 0;
+	}
 	.center {
 		text-align: center;
 	}
@@ -476,6 +479,25 @@ body.march-2015 {
 	.responsive-video {
 		margin: 0 !important;
 	}
+
+	.callout {
+		margin: 10px 0 10px 0;
+	}
+
+	@media only screen and (min-width: 640px) {
+		.callout {
+			margin: 0 16px 16px 0;
+		}
+
+		.speaker:after {
+			content: "";
+			clear: both;
+			display: block;
+			position: relative;
+		}
+	}
+
+	
 	
 }
 /* end .march-2015-splash */
