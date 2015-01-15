@@ -73,7 +73,10 @@ $(function() {
 
 	initTabs();
 	renderMobileTabs();
-	setTimeout(function () { responsiveVideos(); }, 3000);
+	setTimeout(function () { 
+		responsiveVideos(); 
+		$(".responsive-video").fadeTo(400, 1);
+	}, 2000);
 
 });
 
