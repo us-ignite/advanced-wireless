@@ -73,6 +73,8 @@ $(function() {
 
 	initTabs();
 	renderMobileTabs();
+	$('.march-2015-splash .partners-grid a ').matchHeight();
+	centerPartnerImages();
 	march2015Parallax();
 	setTimeout(function () { 
 		responsiveVideos(); 
@@ -89,6 +91,7 @@ $(window).load(function() {
 $(window).resize(function() {
 	
 	march2015Parallax();
+	centerPartnerImages();
 });
 
 function parallax(){
@@ -114,7 +117,6 @@ function march2015Parallax () {
 	else
 		difference = 2000;
 	var headerImageLeft = ( difference - $("body").width()) / 2;
-	console.log(headerImageLeft);
 	$('.march-2015 .header-image').css( 'background-position' , "-" + headerImageLeft + 'px -' + ((scrolled_1 * 0.35) + 220) + 'px' );
 	$('.march-2015 .header-image').fadeTo(300, 1);
 }
@@ -227,6 +229,13 @@ function responsiveVideos() {
 	
 	}).resize();
 
+}
+
+function centerPartnerImages () {
+	var desktopHeight = $('.march-2015-splash .tabs-container .partners-grid a:first ').height();
+	$('.march-2015-splash .tabs-container .partners-grid a').css("line-height", desktopHeight + "px");
+	var mobileHeight = $('.march-2015-splash .mobile-tabs-container .partners-grid a:first ').height();
+	$('.march-2015-splash .mobile-tabs-container .partners-grid a').css("line-height", mobileHeight + "px");
 }
 
 $(window).scroll(function(e){
