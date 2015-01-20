@@ -73,6 +73,7 @@ $(function() {
 
 	initTabs();
 	renderMobileTabs();
+	march2015Parallax();
 	setTimeout(function () { 
 		responsiveVideos(); 
 		$(".responsive-video").fadeTo(400, 1);
@@ -81,7 +82,13 @@ $(function() {
 });
 
 $(window).load(function() {
+	
 	$(window).trigger('resize');
+});
+
+$(window).resize(function() {
+	
+	march2015Parallax();
 });
 
 function parallax(){
@@ -94,8 +101,22 @@ function parallax(){
 	$('.slide--three').css( 'background-position' , 'left -' + (scrolled_3 * 0.35) + 'px' );
 	$('.slide--four').css( 'background-position' , 'left -' + (scrolled_4 * 0.35) + 'px' );
 
-	var scrolled_1 = $(window).scrollTop();
-	$('.march-2015 .header-image').css( 'background-position' , 'left -' + (scrolled_1 * 0.35) + 'px' );
+
+}
+
+function march2015Parallax () {
+	var scrolled_1 = $(window).scrollTop() - 50;
+
+	var difference;
+
+	if ($("body").width() > 600)
+		difference = 2000;
+	else
+		difference = 2000;
+	var headerImageLeft = ( difference - $("body").width()) / 2;
+	console.log(headerImageLeft);
+	$('.march-2015 .header-image').css( 'background-position' , "-" + headerImageLeft + 'px -' + ((scrolled_1 * 0.35) + 220) + 'px' );
+	$('.march-2015 .header-image').fadeTo(300, 1);
 }
 
 function initTabs () {
@@ -210,6 +231,7 @@ function responsiveVideos() {
 
 $(window).scroll(function(e){
 	parallax();
+	march2015Parallax();
 });
 
 
