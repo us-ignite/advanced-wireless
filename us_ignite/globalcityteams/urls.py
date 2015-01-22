@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
 
 to_template = lambda t: TemplateView.as_view(template_name=t)
@@ -24,4 +25,7 @@ urlpatterns = patterns(
     url(r'^news/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
         'post_detail', name='news_detail'),
     url(r'^subscribe/$', 'mailing_subscribe', name='subscribe'),
+    url(r'^TechJam2015?/$', RedirectView.as_view(
+        url='https://s3.amazonaws.com/us-ignite-org/static/pdf/20150120+Global+City+Teams+TECH+JAM+Prelim+Agenda+V5+Short+SR.pdf'), 
+        name='tech_jam_2015_pdf'),
 )
