@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
 from django.contrib import admin
 
@@ -67,7 +68,7 @@ urlpatterns += patterns(
     url(r'^robots.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
     url(r'^kit/$', TemplateView.as_view(template_name='kit.html')),
-    url(r'^march2015/$', TemplateView.as_view(template_name='march2015.html')),
+    url(r'^march2015/$', RedirectView.as_view(url='/smartfuture2015')),
     url(r'^smartfuture2015/$', TemplateView.as_view(template_name='march2015_2.html')),
 
 )
