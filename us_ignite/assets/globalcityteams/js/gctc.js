@@ -188,6 +188,11 @@
 		$(this).find("td:eq(5)").remove();
 		$(this).find("th:eq(5)").remove();	
 	});
+
+	$("#nist-table tbody > tr").each(function (i, el) {
+		$(this).find("td:first").html(i + 1);
+		
+	});
 	
 	/* Initialize datatables */
 	$("#nist-table").DataTable({
