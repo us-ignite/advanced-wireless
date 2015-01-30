@@ -12,6 +12,31 @@ div.dataTables_info {
 	font-size: 16px;
 }
 
+#nist-table td ul.organizations-list, #nist-table td ul.organizations-list li {
+	font-size: 13px;
+}
+
+#nist-table td ul.organizations-list {
+	margin-left: 10px;
+}
+
+#nist-table td ul.organizations-list {
+	list-style-type: disc;
+}
+
+@media only screen and (max-width: 1024px) {
+	#nist-table td ul.organizations-list, #nist-table td ul.organizations-list li {
+		font-size: 17px;
+	}
+
+	#nist-table td ul.organizations-list li {
+		padding: 10px 0 0 0;
+	}
+
+	table.dataTable tr.child span.dtr-title {
+		display: block;
+	}
+}
 
 #nist-table_wrapper {
 	margin-top: 25px;

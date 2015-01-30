@@ -5,188 +5,195 @@
 {% block content %}
 <!-- slide-one -->
 <div class="row slide slide--one">
-  <div class="small-12 columns slide__container">
+	<div class="small-12 columns slide__container">
 
-    <div class="row collapse">
-      <div class="small-12 medium-8 large-7 columns">
-        <div class="slide__panel">
-          <h1 style="margin-bottom: 20px;">Global City Teams Challenge</h1>
-          <h2 class="">The Global City Teams Challenge is an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment. {# The National Institute of Standards and Technology (NIST) and US Ignite, have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), International Trade Administration (ITA), Department of Health and Human Services (HHS) and Department of Energy (DoE) to support this Challenge. #}</h2>
-          <br>
-          <a class="primary button expand" href="{% url 'globalcityteams:globalcityteams_about' %}">LEARN MORE</a>
-        </div>
-      </div>
+		<div class="row collapse">
+			<div class="small-12 medium-8 large-7 columns">
+				<div class="slide__panel">
+					<h1 style="margin-bottom: 20px;">Global City Teams Challenge</h1>
+					<h2 class="">The Global City Teams Challenge is an initiative designed to advance the deployment of Internet of Things (IoT) technologies within a smart city / smart community environment. {# The National Institute of Standards and Technology (NIST) and US Ignite, have teamed-up with the Department of Transportation (DoT), National Science Foundation (NSF), International Trade Administration (ITA), Department of Health and Human Services (HHS) and Department of Energy (DoE) to support this Challenge. #}</h2>
+					<br>
+					<a class="primary button expand" href="{% url 'globalcityteams:globalcityteams_about' %}">LEARN MORE</a>
+				</div>
+			</div>
 
-      <div class="small-12 medium-4 large-4 large-offset-1 columns">
-       
-      </div>
-    </div>
+			<div class="small-12 medium-4 large-4 large-offset-1 columns">
+				<div class="slide__panel slide__panel--dark">
+					<div>
+						<h3>Global City Teams Challenge Tech Jam - February 12-13</h3>
+						<p>During Tech Jam, attendees will see presentations from over 20 existing Action Clusters, hear from national and international thought leaders, and have an opportunity to network with both new and current GCTC participants and organizations.</p>
+						<a class="secondary button expand" href="http://www.nist.gov/cps/global-city-teams-challenge-tech-jam.cfm">Register Today</a>
+					</div>
 
-  </div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>
 <!-- slide-one -->
 
 <!-- homepage-grid -->
 <div class="row homepage-grid" data-equalizer>
-  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--devs">
+	<div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--devs">
 
-    <div class="row" data-equalizer-watch>
-      <div class="small-12 columns">
-        <h4 class="homepage-grid__heading">EXPLORE ACTION CLUSTERS</h4>
-        <p class="homepage-grid__desc ">Find the latest on IoT smart city projects.</p>
-      </div>
-    </div>
+		<div class="row" data-equalizer-watch>
+			<div class="small-12 columns">
+				<h4 class="homepage-grid__heading">EXPLORE ACTION CLUSTERS</h4>
+				<p class="homepage-grid__desc ">Find the latest on IoT smart city projects.</p>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_list' %}" >VIEW ACTION CLUSTERS</a>
-      </div>
-    </div>
-  </div>
+		<div class="row">
+			<div class="small-12 columns">
+				<a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_list' %}" >VIEW ACTION CLUSTERS</a>
+			</div>
+		</div>
+	</div>
 
-  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--partners">
-    <div class="row" data-equalizer-watch>
-      <div class="small-12 columns">
-        <h4 class="homepage-grid__heading">SUBMIT AN ACTION CLUSTER</h4>
-        <p class="homepage-grid__desc ">Deploy and assess your IoT solutions.</p>
-      </div>
-    </div>
+	<div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--partners">
+		<div class="row" data-equalizer-watch>
+			<div class="small-12 columns">
+				<h4 class="homepage-grid__heading">SUBMIT AN ACTION CLUSTER</h4>
+				<p class="homepage-grid__desc ">Deploy and assess your IoT solutions.</p>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_add' %}">JOIN THE GCTC</a>
-      </div>
-    </div>
-  </div>
+		<div class="row">
+			<div class="small-12 columns">
+				<a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_add' %}">JOIN THE GCTC</a>
+			</div>
+		</div>
+	</div>
 
-  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--communities">
-    <div class="row" data-equalizer-watch>
-      <div class="small-12 columns">
-        <h4 class="homepage-grid__heading">LOOKING FOR PARTNERS</h4>
-        <p class="homepage-grid__desc ">Join a team working on IoT projects.</p>
-      </div>
-    </div>
+	<div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--communities">
+		<div class="row" data-equalizer-watch>
+			<div class="small-12 columns">
+				<h4 class="homepage-grid__heading">LOOKING FOR PARTNERS</h4>
+				<p class="homepage-grid__desc ">Join a team working on IoT projects.</p>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_list_partner' %}" >GET INVOLVED</a>
-      </div>
-    </div>
-  </div>
+		<div class="row">
+			<div class="small-12 columns">
+				<a class="homepage-grid__button button expand alert" href="{% url 'actioncluster_list_partner' %}" >GET INVOLVED</a>
+			</div>
+		</div>
+	</div>
 
-  <div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--techjam">
-    <div class="row" data-equalizer-watch>
-      <div class="small-12 columns">
-        <h4 class="homepage-grid__heading">REGISTRATION IS NOW OPEN</h4>
-        <p class="homepage-grid__desc ">Join us for Tech Jam, Feb 12-13 in Washington, DC</p>
-      </div>
-    </div>
+	<div class="small-6 medium-6 large-3 columns homepage-grid__col homepage-grid__col--techjam">
+		<div class="row" data-equalizer-watch>
+			<div class="small-12 columns">
+				<h4 class="homepage-grid__heading">REGISTRATION IS NOW OPEN</h4>
+				<p class="homepage-grid__desc ">Join us for Tech Jam, Feb 12-13 in Washington, DC</p>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="small-12 columns">
-        <a class="homepage-grid__button button expand alert" target="_blank" href="http://www.nist.gov/cps/global-city-teams-challenge-tech-jam.cfm" >LEARN MORE</a>
-      </div>
-    </div>
-  
-  </div>
+		<div class="row">
+			<div class="small-12 columns">
+				<a class="homepage-grid__button button expand alert" target="_blank" href="http://www.nist.gov/cps/global-city-teams-challenge-tech-jam.cfm" >LEARN MORE</a>
+			</div>
+		</div>
+
+	</div>
 
 </div>
 <!-- /homepage-grid -->
 
 <!-- slide two -->
 <div class="row slide slide--two">
-  <div class="small-12 columns slide__container">
+	<div class="small-12 columns slide__container">
 
-    <div class="row collapse">
-      <div class="small-12 medium-8 large-6 columns right">
-        <div class="slide__panel">
-          <div class="row collapse">
+		<div class="row collapse">
+			<div class="small-12 medium-8 large-6 columns right">
+				<div class="slide__panel">
+					<div class="row collapse">
 
-            <div class="small-12 columns">
-              <h2 class="slide__heading">Explore Action Clusters</h2>
-              <p class="slide__desc">Explore Action Clusters designed to accelerate the  deployment of IoT technologies designed to address some of the most pressing challenges facing cities. </p>
+						<div class="small-12 columns">
+							<h2 class="slide__heading">Explore Action Clusters</h2>
+							<p class="slide__desc">Explore Action Clusters designed to accelerate the  deployment of IoT technologies designed to address some of the most pressing challenges facing cities. </p>
 
-              <a href="{% url 'actioncluster_list' %}" class="primary button expand">VIEW ACTION CLUSTERS</a>
+							<a href="{% url 'actioncluster_list' %}" class="primary button expand">VIEW ACTION CLUSTERS</a>
 
-            </div>
+						</div>
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- /slide two -->
 
 <!-- slide three -->
 <div class="row slide slide--three">
-  <div class="small-12 columns slide__container">
+	<div class="small-12 columns slide__container">
 
-    <div class="row collapse">
-      <div class="small-12 medium-8 large-6 columns">
-        <div class="slide__panel">
-          <div class="row collapse">
-            
-            <div class="small-12 columns">
-              <h2 class="slide__heading">Submit an Action Cluster Idea</h2>
-              <p class="slide__desc">If you don’t find an existing Action Cluster that fits your Smart City application idea, please add your project idea to the network and we’ll help you refine it and find partners. </p>
+		<div class="row collapse">
+			<div class="small-12 medium-8 large-6 columns">
+				<div class="slide__panel">
+					<div class="row collapse">
 
-              <a href="{% url 'actioncluster_add' %}" class="primary button expand">SUBMIT YOUR IDEA</a>
+						<div class="small-12 columns">
+							<h2 class="slide__heading">Submit an Action Cluster Idea</h2>
+							<p class="slide__desc">If you don’t find an existing Action Cluster that fits your Smart City application idea, please add your project idea to the network and we’ll help you refine it and find partners. </p>
 
-            </div>
+							<a href="{% url 'actioncluster_add' %}" class="primary button expand">SUBMIT YOUR IDEA</a>
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- /slide three -->
 
 
 <!-- newsletter -->
 <div class="row newsletter">
-  <form method="post" action="{% url 'globalcityteams:subscribe' %}">
-  <div class="small-12 medium-5 columns newsletter__column">
-    <h4 class="newsletter__heading">SIGN UP TO RECEIVE UPDATES ON THE GLOBAL CITY TEAMS CHALLENGE</h4>
-  </div>
+	<form method="post" action="{% url 'globalcityteams:subscribe' %}">
+		<div class="small-12 medium-5 columns newsletter__column">
+			<h4 class="newsletter__heading">SIGN UP TO RECEIVE UPDATES ON THE GLOBAL CITY TEAMS CHALLENGE</h4>
+		</div>
 
-  <div class="small-12 medium-7 columns newsletter__column">
-    <div class="row collapse">
-      <div class="medium-8 small-9 columns">
-        <input type="email" name="email" id="mailing_email" placeholder="Enter your email address..."/>
-      </div>
-      <div class="medium-4 small-3 columns">
-        <button type="submit" id="mailing_email_button" class="button alert postfix">SUBMIT</button>{% csrf_token %}
-      </div>
-    </div>
-  </div>
-  </form>
+		<div class="small-12 medium-7 columns newsletter__column">
+			<div class="row collapse">
+				<div class="medium-8 small-9 columns">
+					<input type="email" name="email" id="mailing_email" placeholder="Enter your email address..."/>
+				</div>
+				<div class="medium-4 small-3 columns">
+					<button type="submit" id="mailing_email_button" class="button alert postfix">SUBMIT</button>{% csrf_token %}
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 <!-- /newsletter -->
 
 <!-- slide four -->
 <div class="row slide slide--four">
-  <div class="small-12 columns slide__container">
+	<div class="small-12 columns slide__container">
 
-    <div class="row collapse">
-      <div class="small-12 medium-8 large-6 columns right">
-        <div class="slide__panel">
-          <div class="row collapse">
-            
-            <div class="small-12 columns">
-              <h2 class="slide__heading">Projects Looking for Partners</h2>
-              <p class="slide__desc">Collaborate with leading developers of IoT technologies and create interconnected IoT solutions with greater utility to potential customers.</p>
+		<div class="row collapse">
+			<div class="small-12 medium-8 large-6 columns right">
+				<div class="slide__panel">
+					<div class="row collapse">
 
-              <a href="{% url 'actioncluster_list_partner' %}" class="primary button expand">SEARCH OPPORTUNITIES</a>
+						<div class="small-12 columns">
+							<h2 class="slide__heading">Projects Looking for Partners</h2>
+							<p class="slide__desc">Collaborate with leading developers of IoT technologies and create interconnected IoT solutions with greater utility to potential customers.</p>
 
-            </div>
+							<a href="{% url 'actioncluster_list_partner' %}" class="primary button expand">SEARCH OPPORTUNITIES</a>
 
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- /slide four -->
 {% endblock content %}
