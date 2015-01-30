@@ -184,6 +184,7 @@
 		});
 		return vars;
 	}
+	
 	$("#nist-table tr").each(function () {
 		$(this).find("td:eq(5)").remove();
 		$(this).find("th:eq(5)").remove();	
