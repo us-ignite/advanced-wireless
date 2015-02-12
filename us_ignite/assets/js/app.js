@@ -239,7 +239,6 @@ function centerPartnerImages () {
 }
 
 $(window).scroll(function(e){
-	parallax();
 	march2015Parallax();
 });
 
