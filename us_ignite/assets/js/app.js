@@ -73,7 +73,11 @@ $(function() {
 
 	initTabs();
 	renderMobileTabs();
-	$('.march-2015-splash .partners-grid a ').matchHeight();
+	if ($(".march-2015-splash").length > 0)
+	{
+		$('.march-2015-splash .partners-grid a ').matchHeight();
+	}
+	
 	centerPartnerImages();
 	march2015Parallax();
 	setTimeout(function () { 
