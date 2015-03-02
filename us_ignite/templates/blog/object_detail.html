@@ -56,8 +56,9 @@
           {% endfor %}
           </ul>
           {% endwith %}
-
-          {{ object.content|safe }}
+          <div class="listings__listing__content">
+            {{ object.content|safe }}
+          </div>
         </div>
       </div>
     </div>
@@ -74,5 +75,6 @@
   {% include "blog/object_block.html" with object=featured %}
   {% endfor %}
   <!-- /related -->
+
 
 {% endblock section %}

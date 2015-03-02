@@ -80,7 +80,7 @@ AWS_SECRET_ACCESS_KEY = ''
 AWS_STORAGE_BUCKET_NAME = 'testing-us-ignite-dot-org'
 
 # WP
-WP_URL = 'http://us-ignite.org'
+WP_URL = 'http://wptest.org'
 
 MAILCHIMP_API_KEY='0000000000-000'
 MAILCHIMP_LIST='00000'
