@@ -19,6 +19,7 @@
     <!--[if (gte IE 9) | (!IE)]><!-->
       {% compress css %}
       <link rel="stylesheet" href="{{ STATIC_URL }}css/app.css" />
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/slick.css"/>
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/icons-style.css"/>
       {% endcompress %}
     <!--<![endif]-->
@@ -73,9 +74,9 @@
       </div>
 
       <div class="row border-bottom border-bottom--dark partner-logos">
-        <div class="columns">
+        
           {% render_sponsors "sections/sponsor_list.html" %}
-        </div>
+        
       </div>
 
       <div class="row show-for-medium-up">
@@ -191,6 +192,7 @@
     <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.topbar.js"></script>
     <script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.dropdown.js"></script>
     <script src="{{ STATIC_URL }}js/vendor/jquery-ui-1.10.4.custom.js"></script>
+    <script src="{{ STATIC_URL }}globalcityteams/js/slick.min.js"></script>
     <script src="{{ STATIC_URL }}js/app.js"></script>
   {% endif %}
 
