@@ -65,7 +65,9 @@
     {% block content %}{% endblock content %}
 
     <!-- footer -->
-    {% cache 600 footer %}
+    {% comment "Disabling footer cache" %}
+      {% cache 600 footer %}
+    {% endcomment %}
     <footer class="footer">
       <div class="row footer__intro">
         <div class="large-12 columns">
@@ -153,7 +155,9 @@
       </div>
     </footer>
 <!-- /footer -->
-{% endcache %}
+{% comment "Disabling footer cache" %}
+  {% endcache %}
+{% endcomment %}
 
   <script type="text/javascript">var switchTo5x=true;</script>
   <script type="text/javascript" src="//ws.sharethis.com/button/buttons.js"></script>
