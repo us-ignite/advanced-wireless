@@ -65,8 +65,9 @@ def _get_key_from_url(url, prefix='blog'):
 
 
 def import_attachment(post, data):
-    if 'inline-display' in data['title']:
-	     return
+    if 'inline-display' in clean_stream(data['title']):
+
+        return
     wp_id = clean_stream(data['id'])
     try:
         return PostAttachment.objects.get(post=post, wp_id__exact=wp_id)
