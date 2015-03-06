@@ -63,7 +63,24 @@ $(function() {
 		$("body").fadeIn(200);
 	}
 
-
+	$('.main-carousel').slick({
+		infinite: true,
+		speed: 600,
+		slidesToShow: 6,
+		slidesToScroll: 6,
+		autoplay: true,
+		responsive: [
+			{
+				breakpoint: 640,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					infinite: true,
+					dots: false
+				}
+			}
+		]
+	});
 
 	/* Open social app summit share buttons in popup windows */
 	$('.share-button').on('click', function(e) {

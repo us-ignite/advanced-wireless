@@ -29,3 +29,18 @@
 .footer__outro {
   text-align: center;
 }
+
+.main-carousel {
+  min-height: 50px;
+  position: relative; 
+  margin: 0 auto 0 auto;
+
+}
+
+@media only screen and (min-width:48.063em) {
+
+  .main-carousel {
+    min-height: 30px;
+  }
+
+}
