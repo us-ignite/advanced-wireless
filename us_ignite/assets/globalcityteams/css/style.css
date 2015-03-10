@@ -1,4 +1,12 @@
+ul.list >li {
+	margin-bottom: 10px;
+}
 
+@media only screen and (min-width: 640px) {
+	.march-2015-splash .callout {
+	  margin: 0 16px 8px 0;
+	}
+}
 
 div.dataTables_wrapper {
 	margin-bottom: 1.25em;
