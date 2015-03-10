@@ -26,9 +26,10 @@ ALLOWED_TAGS = [
 	'tr',
 	'th',
 	'td',
-	#'img',
+	'img',
 ]
 
+check_img = 0
 
 def filter_img_src(name, value):
 
@@ -40,44 +41,44 @@ ALLOWED_ATTRIBUTES = {
 	'a': ['href', 'title'],
 	'abbr': ['title'],
 	'acronym': ['title'],
-#	'img': ['src', 'rel', 'alt', 'title', 'style', 'class'],
+	'img': ['src', 'rel', 'alt', 'title', 'style', 'class', 'width', 'height'],
 }
 
 ALLOWED_STYLES = []
 
-# class MyHTMLParser(HTMLParser):
-# 	def __init__(self, *args, **kwargs):
-# 		HTMLParser.__init__(self, *args, **kwargs)
-# 		self._text = []
-# 		#self._tags_to_drop = set(tags_to_drop)
-#
-# 	def clear_text(self):
-# 		self._text = []
-#
-# 	def get_text(self):
-# 		return ''.join(self._text)
-#
-# 	def handle_starttag(self, tag, attrs):
-# 		if tag == 'img':
-# 			#print "Start tag:", tag
-# 			for attr in attrs:
-# 				if attr[0] == 'class':
-# 					classes = attr[1].split()
-# 					if 'inline-display' in classes:
-#						self._text.append(self.get_starttag_text())
-#		else:
-#			self._text.append(self.get_starttag_text())
+class MyHTMLParser(HTMLParser):
+	"""
+		Check if <img> tag has "inline-display" class included, if yes, then keep the img, otherwise, strip it.
+	"""
+	def __init__(self, *args, **kwargs):
+		HTMLParser.__init__(self, *args, **kwargs)
+		self._text = []
+		#self._tags_to_drop = set(tags_to_drop)
 
-#	def handle_endtag(self, tag):
-#		self._text.append('</{0}>'.format(tag))
+	def clear_text(self):
+		self._text = []
 
-#	def handle_data(self, data):
-#		self._text.append(data)
+	def get_text(self):
+		return ''.join(self._text)
 
-#def texta(text):
-#	p = re.compile(text, r'<img.*?/>')
-#	print p.sub
-#	return p.sub
+	def handle_starttag(self, tag, attrs):
+		if tag == 'img':
+			#print "Start tag:", tag
+			for attr in attrs:
+				if attr[0] == 'alt':
+					alt = attr[1].split()
+					if 'inline-display' in alt:
+						self._text.append(self.get_starttag_text())
+						check_img = 1
+		else:
+			self._text.append(self.get_starttag_text())
+
+	def handle_endtag(self, tag):
+		self._text.append('</{0}>'.format(tag))
+
+	def handle_data(self, data):
+		self._text.append(data)
+
 
 def sanitize(text):
 	"""Cleans the HTML received."""
@@ -85,9 +86,11 @@ def sanitize(text):
 	cleaned_text = bleach.clean(
 		text, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
 		styles=ALLOWED_STYLES, strip=True)
-	#parser = MyHTMLParser()
-	#parser.feed(cleaned_text)
-	#print parser.get_text()
-	#re.comp
-	#cleaned_text = texta(cleaned_text)
-	return cleaned_text
+	parser = MyHTMLParser()
+	parser.feed(cleaned_text)
+
+	return parser.get_text()
+
+def check_attachment(text):
+	sanitized_text = sanitize(text)
+	return check_img
