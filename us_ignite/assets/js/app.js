@@ -63,6 +63,11 @@ $(function() {
 		$("body").fadeIn(200);
 	}
 
+	if ($(".smart-cities-festival-splash").length > 0) {
+		$("body").addClass("smart-cities-festival");
+		$("body").fadeIn(200);
+	}
+
 	$('.main-carousel').slick({
 		infinite: true,
 		speed: 600,
@@ -90,13 +95,20 @@ $(function() {
 
 	initTabs();
 	renderMobileTabs();
+
 	if ($(".march-2015-splash").length > 0)
 	{
 		$('.march-2015-splash .partners-grid a ').matchHeight();
 	}
+
+	if ($(".smart-cities-festival-splash").length > 0)
+	{
+		$('.smart-cities-festival-splash .partners-grid a ').matchHeight();
+	}
 	
 	centerPartnerImages();
 	march2015Parallax();
+	smartCitiesParallax();
 	setTimeout(function () { 
 		responsiveVideos(); 
 		$(".responsive-video").fadeTo(400, 1);
@@ -112,6 +124,7 @@ $(window).load(function() {
 $(window).resize(function() {
 	
 	march2015Parallax();
+	smartCitiesParallax();
 	centerPartnerImages();
 });
 
@@ -140,6 +153,20 @@ function march2015Parallax () {
 	var headerImageLeft = ( difference - $("body").width()) / 2;
 	$('.march-2015 .header-image').css( 'background-position' , "-" + headerImageLeft + 'px -' + ((scrolled_1 * 0.35) + 220) + 'px' );
 	$('.march-2015 .header-image').fadeTo(300, 1);
+}
+
+function smartCitiesParallax () {
+	var scrolled_1 = $(window).scrollTop() - 50;
+
+	var difference;
+
+	if ($("body").width() > 600)
+		difference = 2000;
+	else
+		difference = 2000;
+	var headerImageLeft = ( difference - $("body").width()) / 2;
+	$('.smart-cities-festival .header-image').css( 'background-position' , "-" + headerImageLeft + 'px -' + ((scrolled_1 * 0.35) + 220) + 'px' );
+	$('.smart-cities-festival .header-image').fadeTo(300, 1);
 }
 
 function initTabs () {
@@ -257,10 +284,16 @@ function centerPartnerImages () {
 	$('.march-2015-splash .tabs-container .partners-grid a').css("line-height", desktopHeight + "px");
 	var mobileHeight = $('.march-2015-splash .mobile-tabs-container .partners-grid a:first ').height();
 	$('.march-2015-splash .mobile-tabs-container .partners-grid a').css("line-height", mobileHeight + "px");
+
+	desktopHeight = $('.smart-cities-festival-splash .tabs-container .partners-grid a:first ').height();
+	$('.smart-cities-festival-splash .tabs-container .partners-grid a').css("line-height", desktopHeight + "px");
+	mobileHeight = $('.smart-cities-festival-splash .mobile-tabs-container .partners-grid a:first ').height();
+	$('.smart-cities-festival-splash .mobile-tabs-container .partners-grid a').css("line-height", mobileHeight + "px");
 }
 
 $(window).scroll(function(e){
 	march2015Parallax();
+	smartCitiesParallax();
 });
 
 
