@@ -1,0 +1,538 @@
+/* 2015 App Summit 2*/
+
+$purple: #4e39d4;
+$tabGray: #6c6d71;
+$darkGray: #282828;
+
+body.gctc-festival {
+	background: #fff;
+
+	a:hover {
+		text-decoration: none;
+	}
+}
+
+.gctc-festival-splash {
+	width: 100%;
+	max-width: 100%;
+	background-color: white;
+
+	.logos-bar {
+		margin: 15px 0 15px 0;
+	}
+	.inline-list > li {
+		margin-left: 0.6rem;
+	}
+
+	.responsive-video {
+		opacity: 0;
+	}
+	.center {
+		text-align: center;
+	}
+
+	.social-bar {
+		background-color: #ff8100;
+
+	}
+
+	.header-image {
+		background: url(../img/festival-background.jpg) no-repeat fixed #f4f3f1;
+		opacity: 0;
+		height: 450px;
+	}
+
+	@media only screen and (max-width: 600px) {
+		.header-image {
+			height: 220px;
+			background-size: auto 800px ;
+		}
+	}
+
+	.logo-bar {
+		background: #fff;
+		height: 140px;
+		div {
+			background-image: url(../img/us-ignite-logo-large.png);
+			background-size: auto 90px;
+			background-repeat: no-repeat;
+			margin: auto auto auto auto;
+			height: 90px;
+			width: 345px;
+			position: relative;
+			top: 25px;
+		}
+	}
+
+	@media only screen and (max-width: 600px) {
+		.logo-bar {
+			height: 110px;
+			div {
+				background-size: auto 70px;
+				height: 70px;
+				width: 270px;
+				top: 20px;
+
+			}
+		}
+	}
+
+	.event-title {
+		color: $purple;
+		text-align: center;
+		font-size: 52px;
+		font-weight: 300;
+		margin-top: 40px;
+	}
+
+	.event-subtitle {
+		color: #000;
+		text-align: center;
+		font-weight: 400;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		line-height: 44px;
+		font-size: 30px;
+	}
+
+	.register.button {
+		background-color: $purple;
+		margin-top: 20px;
+		text-transform: uppercase;
+		line-height: 36px;
+		padding-left: 100px;
+		padding-right: 100px;
+		display: inline-block;
+	}
+
+	.register.button:hover {
+		background-color: lighten( $purple, 10% );
+
+	}
+
+	@media only screen and (max-width: 600px) {
+		.register.button {
+			width: 100%;
+			display: block;
+			font-size: 20px;
+			line-height: 64px;
+			padding: 0;
+		}
+	}
+
+	p {
+		font-size: 18px;
+		color: #636365;
+		line-height: 28px;
+	}
+
+	ul li {
+		font-size: 16px;
+		color: #636365;
+		line-height: 28px;
+	}
+
+	@media only screen and (max-width: 600px) {
+		p {
+			font-size: 20px;
+		}
+
+		ul li {
+			font-size: 20px;
+			line-height: 32px;
+		}
+
+		ul {
+			margin-left: 20px;
+		}
+	}
+
+	.tabs-container {
+		border: 2px solid #d7d7d7;
+		margin-top: 25px;
+		margin-bottom: 35px;
+
+
+		.tab-bar:after {
+			content: "";
+			display: block;
+			clear: both;
+			position: relative;
+		}
+
+		.tab-bar > a {
+			color: #fff;
+			font-size: 18px;
+			text-transform: uppercase;
+			text-align: center;
+			background-color: $tabGray;
+			line-height: 60px;
+			position: relative;
+			width: 20% !important;
+		}
+
+		.tab-bar > a:before {
+			content: "";
+			width: 2px;
+			position: absolute;
+			height: 100%;
+			background-color: #fff;
+			left: 0;
+
+		}
+
+		.tab-bar > a:first-child:before {
+			content: "";
+			width: 0px;
+			
+		}
+
+		.tab-bar > a.active {
+			color: #fff;
+			background-color: #fff;
+			color: $darkGray;
+		}
+
+		.tab-content {
+
+			>div {
+				margin: 40px;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				display: none;
+			}
+
+			>div.active {
+				display: block;
+			}
+
+			h3 {
+				font-size: 24px;
+				line-height: 35px;
+				text-align: left;
+			}
+
+			h4 {
+				color: $purple;
+				font-size: 19px;
+				margin-top: 25px;
+			}
+
+			@media only screen and (max-width: 600px) {
+				h4 {
+					font-size: 24px;
+				}
+			}
+
+			.agenda-table {
+				border: none;
+				padding: 0;
+				border-spacing: 0;
+				border: 1px solid #d7d7d7;
+
+				td {
+					padding: 15px 20px;
+					font-size: 17px;
+					background-color: transparent;
+					color: #636365;
+					border: 1px solid #d7d7d7;
+					width: 50%;
+					line-height: 24px;
+				}
+
+				tr {
+					background-color: transparent;
+				}
+			}
+
+			.partners-grid {
+				margin-top: 40px;
+
+				>a > img {
+					max-width: 250px;
+					width: 100%;
+					display: inline-block;
+					margin-left: auto;
+					margin-right: auto;
+					margin-bottom: 50px;
+				}
+			}
+
+			.partners-grid:after {
+				content: "";
+				display: block;
+				position: relative;
+				clear: both;
+			}
+		}
+		/* end .tab-content */
+		
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+		max-width: 1050px;
+	}
+	/* end .tabs-container */
+
+
+	.mobile-tabs-container {
+		border: 2px solid #d7d7d7;
+		margin-top: 25px;
+		margin-bottom: 35px;
+
+
+		.tabs {
+
+			>div {
+				margin: 0px;
+			}
+
+			.handle {
+				color: #fff;
+				font-size: 22px;
+				text-transform: uppercase;
+				text-align: center;
+				background-color: $tabGray;
+				line-height: 60px;
+				position: relative;
+				display: block;
+				border-bottom: 2px solid #fff;
+
+				&.active {
+					color: $darkGray;
+					background-color: #fff
+				}
+
+				.close {
+					position: absolute;
+					right: 15px;
+					top: 15px;
+					color: #d7d7d7;
+					line-height: 20px;
+					font-size: 30px;
+					font-weight: 200;
+					display: none;
+				}
+
+				&.active .close {
+					display: block;
+				}
+			}
+
+			>div:last-child a.handle {
+				border-bottom: none;
+			}
+
+			.tab-content {
+				display: none;
+				margin: 20px 30px;
+			}
+
+			.tab-content.active {
+				border-bottom:  2px solid #d7d7d7;
+			}
+
+
+			h3 {
+				font-size: 24px;
+				line-height: 35px;
+				text-align: left;
+			}
+
+			h4 {
+				color: $purple;
+				font-size: 17px;
+				margin-top: 25px;
+			}
+
+			@media only screen and (max-width: 600px) {
+				h4 {
+					font-size: 24px;
+				}
+
+				h3 {
+
+				}
+			}
+
+			.agenda-table {
+				border: none;
+				padding: 0;
+				border-spacing: 0;
+				border: 1px solid #d7d7d7;
+
+				td {
+					padding: 15px 20px;
+					font-size: 17px;
+					background-color: transparent;
+					color: #636365;
+					border: 1px solid #d7d7d7;
+					width: 50%;
+					line-height: 24px;
+				}
+
+				tr {
+					background-color: transparent;
+				}
+			}
+
+			.partners-grid {
+				margin-top: 40px;
+
+				>a > img {
+					max-width: 250px;
+					width: 100%;
+					display: inline-block;
+					margin-left: auto;
+					margin-right: auto;
+					margin-bottom: 20px;
+				}
+			}
+
+			.partners-grid:after {
+				content: "";
+				display: block;
+				position: relative;
+				clear: both;
+			}
+		}
+		/* end .tab-content */
+		
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+		max-width: 1050px;
+	}
+	/* end .mobile-tabs-container */
+
+	@media only screen and (max-width: 870px) {
+		.tabs-container {
+			display: none !important;
+		}
+	}
+
+	.mobile-tabs-container {
+		display: none;
+	}
+
+	@media only screen and (max-width: 870px) {
+		.mobile-tabs-container{
+			display: block !important;
+		}
+	}
+	
+	.share-buttons {
+		text-align: center;
+		margin-top: 20px;
+		margin-bottom: 60px;
+
+		>h2 {
+			color: #000000;
+			text-align: center;
+			font-weight: 400;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			line-height: 44px;
+			font-size: 30px;
+		}
+
+		>a {
+			border-radius: 50px;
+			border: 2px solid;
+			width: 80px;
+			height: 80px;
+			font-size: 30px;
+			text-align: center;
+			display: inline-block;
+			margin-right: 15px;
+			line-height: 80px;
+
+		}
+
+		>a:hover {
+			
+			opacity: 1;
+		}
+
+		.twitter {
+			color: #00c2e4;
+			border-color: #00c2e4;
+
+			&:hover {
+				color: #fff;
+				background-color: #00c2e4;
+			}
+
+		} 
+
+		.facebook {
+			color: #2e4da7;
+			border-color: #2e4da7;
+
+			&:hover {
+				color: #fff;
+				background-color: #2e4da7;
+			}
+		} 
+
+		.google {
+			color: #ff8100;
+			border-color: #ff8100;
+
+			&:hover {
+				color: #fff;
+				background-color:  #ff8100;
+			}
+		} 
+	}
+	/* end .share-buttons */
+
+	.copyright {
+		text-align: center;
+		line-height: 20px;
+		margin-top: 40px;
+		font-size: 14px;
+		margin-bottom: 20px;
+	}
+
+	.share-row {
+		text-align: center;
+		margin-top: 30px;
+	}
+
+	.responsive-video {
+		margin: 0 !important;
+	}
+
+	.callout {
+		margin: 10px 0 10px 0;
+	}
+
+	@media only screen and (min-width: 640px) {
+		.callout {
+			margin: 0 16px 16px 0;
+		}
+
+		.speaker:after {
+			content: "";
+			clear: both;
+			display: block;
+			position: relative;
+		}
+	}
+
+	
+	
+}
+/* end .gctc-festival-splash */
+
+.gctc-festival {
+	.quicklinks, .contain-to-grid {
+		display: none;
+	}
+
+	.quicklinks.splash {
+		display: block;
+	}
+}
+
