@@ -13,6 +13,10 @@ body.gctc-festival {
 }
 
 .gctc-festival-splash {
+
+	a:not(.button) {
+		color: #20c2e2;
+	}
 	width: 100%;
 	max-width: 100%;
 	background-color: white;
@@ -224,11 +228,23 @@ body.gctc-festival {
 				}
 			}
 
+			.agenda-table-container {
+				>h4 {
+					text-transform: uppercase;
+					line-height: 30px;
+
+				}
+
+			}
+
 			.agenda-table {
 				border: none;
 				padding: 0;
 				border-spacing: 0;
 				border: 1px solid #d7d7d7;
+				width: 100%;
+				margin-top: 25px;
+
 
 				td {
 					padding: 15px 20px;
@@ -238,6 +254,35 @@ body.gctc-festival {
 					border: 1px solid #d7d7d7;
 					width: 50%;
 					line-height: 24px;
+
+					@media only screen and (max-width: 870px) {
+						display: block;
+						width: 100%;
+					}
+
+					&.first {
+						width: 10%;
+					}
+
+					.event {
+						font-weight: 600;
+					}
+
+					.venue {
+						float: right;
+						font-style: italic;
+					}
+
+					ul {
+						margin-top: 15px;
+						li {
+							padding-left: 20px;
+						}
+					}
+
+					>div {
+						margin-top: 10px;
+					}
 				}
 
 				tr {
@@ -355,25 +400,87 @@ body.gctc-festival {
 				}
 			}
 
+			.tab-content-title {
+				display: none;
+			}
+
+			.agenda-table-container {
+				>h4 {
+					text-align: center;
+					text-transform: uppercase;
+					font-size: 18px;
+					margin: 0 15px 30px 15px;
+					line-height: 28px;
+
+				}
+
+				margin: 0 -30px 0 -30px
+			}
+			
 			.agenda-table {
 				border: none;
 				padding: 0;
 				border-spacing: 0;
-				border: 1px solid #d7d7d7;
+				border: 0 solid #d7d7d7;
+				border-top: 1px solid #d7d7d7;
+				width: 100%;
 
 				td {
 					padding: 15px 20px;
-					font-size: 17px;
+					font-size: 16px;
 					background-color: transparent;
 					color: #636365;
-					border: 1px solid #d7d7d7;
+					border-bottom: 1px solid #d7d7d7;
 					width: 50%;
 					line-height: 24px;
+					text-align: center;
+
+					@media only screen and (max-width: 870px) {
+						display: block;
+						width: 100%;
+					}
+
+					.event {
+						font-weight: 600;
+						display: block;
+
+						&.no-venue {
+							margin-bottom: 10px;
+						}
+					}
+
+					.venue {
+						float: none;
+						font-style: italic;
+						display: block;
+						margin-bottom: 15px;
+					}
+
+					&.first {
+						border-bottom: 0 solid #d7d7d7;
+						padding-bottom: 0;
+						margin-bottom: -15px;
+					}
 				}
 
 				tr {
 					background-color: transparent;
 				}
+
+				ul {
+					list-style-type: none;
+					li {
+						font-size: 16px;
+						line-height: 25px;
+						margin-bottom: 10px;
+
+						.event {
+
+						}
+					}
+				}
+
+				
 			}
 
 			.partners-grid {
