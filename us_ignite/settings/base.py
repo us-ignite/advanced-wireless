@@ -111,7 +111,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'djangosecure.middleware.SecurityMiddleware',
     'us_ignite.common.middleware.DoNotTrackMiddleware',
-    'us_ignite.common.middleware.URLRedirectMiddleware',
+    # 'us_ignite.common.middleware.URLRedirectMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
