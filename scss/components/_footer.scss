@@ -15,6 +15,18 @@
     font-size: 1.15rem;
     color:#636363;
   }
+
+  .socialicon {
+    color: #282828;
+    padding-top: 3px;
+    &:hover {
+      text-decoration: none;
+    }
+    text-align: center;
+    span {
+      color: #282828;
+    }
+  }
 }
 
 .footer__heading {
