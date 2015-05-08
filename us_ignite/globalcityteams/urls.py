@@ -26,7 +26,5 @@ urlpatterns = patterns(
         'post_detail', name='news_detail'),
     url(r'^subscribe/$', 'mailing_subscribe', name='subscribe'),
     url(r'^TechJam2015?/$', RedirectView.as_view(
-        url='https://s3.amazonaws.com/us-ignite-org/static/pdf/Global+City+Teams+TECH+JAM+Prelim+Agenda.pdf'), 
-    
-        name='tech_jam_2015_pdf'),
+        url='https://s3.amazonaws.com/us-ignite-org/static/pdf/Global+City+Teams+TECH+JAM+Prelim+Agenda.pdf'), name='tech_jam_2015_pdf'),
 )
