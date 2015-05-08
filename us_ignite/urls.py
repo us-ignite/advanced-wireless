@@ -70,7 +70,7 @@ urlpatterns += patterns(
     url(r'^kit/$', TemplateView.as_view(template_name='kit.html')),
     url(r'^march2015/$', RedirectView.as_view(url='/smartfuture2015')),
     url(r'^smartfuture2015/$', TemplateView.as_view(template_name='march2015_2.html')),
-    url(r'^globalcityteamsfestival/$', TemplateView.as_view(template_name='gctc-festival.html')),
+    url(r'^globalcityteamsexpo/$', TemplateView.as_view(template_name='gctc-expo.html')),
 
 )
 
