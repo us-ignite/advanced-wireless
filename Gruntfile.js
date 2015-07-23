@@ -12,6 +12,7 @@ module.exports = function(grunt) {
         'us_ignite/assets/bower_components/foundation/js/foundation/foundation.orbit.js',
         'us_ignite/assets/bower_components/foundation/js/foundation/foundation.topbar.js',
         'us_ignite/assets/js/vendor/jquery-ui-1.10.4.custom.js',
+        'us_ignite/assets/globalcityteams/js/slick.min.js',
         'us_ignite/assets/js/app.js'
         ],
       basic: [
@@ -25,6 +26,7 @@ module.exports = function(grunt) {
         'us_ignite/assets/js/vendor/nwmatcher-1.2.5-min.js',
         'us_ignite/assets/js/vendor/selectivizr-1.0.3b.js',
         'us_ignite/assets/js/vendor/respond.min.js',
+        'us_ignite/assets/globalcityteams/js/slick.min.js',
         'us_ignite/assets/js/app.js'
         ],
       modern_microsite: [
@@ -97,11 +99,13 @@ module.exports = function(grunt) {
 
     sass: {
       options: {
-        includePaths: ['us_ignite/assets/bower_components/foundation/scss']
+        includePaths: ['us_ignite/assets/bower_components/foundation/scss'],
+        sourceComments: true
       },
       dist: {
         options: {
-          outputStyle: 'compressed'
+          outputStyle: 'compressed',
+          sourceComments: true
         },
         files: {
           'us_ignite/assets/css/app.css': 'scss/app.scss',
