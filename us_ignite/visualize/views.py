@@ -42,8 +42,11 @@ def get_chart_data(counter, name):
     return chart_data
 
 
-def get_app_stats():
-    app_list = Application.objects.select_related('domain').all()
+def get_app_stats(display = 0):
+    if display == 0:
+        app_list = Application.objects.select_related('domain').all()
+    else:
+        app_list = Application.objects.select_related('domain').filter(status=display)
     domain_list = []
     stage_list = []
     feature_list = []
@@ -67,7 +70,7 @@ def get_hub_stats():
 
 def visual_list(request):
     context = {
-        'apps': get_app_stats(),
+        'apps': get_app_stats(1),
         'hubs': get_hub_stats(),
     }
     return TemplateResponse(request, 'visualize/object_list.html', context)
@@ -75,6 +78,6 @@ def visual_list(request):
 
 def visual_json(request):
     context = {
-        'apps': get_app_stats(),
+        'apps': get_app_stats(1),
     }
     return json_response(context, callback='chart.render')
