@@ -105,27 +105,49 @@ def visual_list(request):
 
 
 def visual_json(request):
-    apps = get_app_stats(1)
-    acs = get_actioncluster_stats(1)
-    stages = list(chain(apps.get('stage'), acs.get('stage')))
-    new_stages = []
-    stage_label = []
-    for stage in stages:
-        if stage['label'] not in stage_label:
-            stage_label.append(stage['label'])
-
     def in_dictlist((key, value), my_dictlist):
         for this in my_dictlist:
             if this[key] == value:
                 return this
         return {}
-    for sl in stage_label:
-        new_stages.append(in_dictlist(('label', sl), stages))
+
+    apps = get_app_stats(1)
+    acs = get_actioncluster_stats(1)
+    stages = list(chain(apps.get('stage'), acs.get('stage')))
+    domains = list(chain(apps.get('domain'), acs.get('domain')))
+    features = list(chain(apps.get('feature'), acs.get('feature')))
+    new_stages = []
+    new_domains = []
+    new_features = []
+
+    stage_label = []
+    for stage in stages:
+        if stage['label'] not in stage_label:
+            stage_label.append(stage['label'])
+
+    domain_label = []
+    for domain in domains:
+        if domain['label'] not in domain_label:
+            domain_label.append(domain['label'])
+
+    feature_label = []
+    for feature in features:
+        if feature['label'] not in feature_label:
+            feature_label.append(feature['label'])
+
+    for label in stage_label:
+        new_stages.append(in_dictlist(('label', label), stages))
+
+    for label in domain_label:
+        new_domains.append(in_dictlist(('label', label), domains))
+
+    for label in feature_label:
+        new_features.append(in_dictlist(('label', label), features))
 
     get_status = {
-        'domain': list(chain(apps.get('domain'), acs.get('domain'))),
+        'domain': new_domains,
         'total': apps.get('total') + acs.get('total'),
-        'feature': list(chain(apps.get('feature'), acs.get('feature'))),
+        'feature': new_features,
         'stage': new_stages
     }
 
