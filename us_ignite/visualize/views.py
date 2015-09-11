@@ -1,5 +1,5 @@
 from collections import Counter
-from itertools import chain
+from itertools import chain, combinations
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -105,20 +105,30 @@ def visual_list(request):
 
 
 def visual_json(request):
-    get_status = list(chain(get_app_stats(1), get_actioncluster_stats(1)))
     apps = get_app_stats(1)
     acs = get_actioncluster_stats(1)
+    stages = list(chain(apps.get('stage'), acs.get('stage')))
+    new_stages = []
+    stage_label = []
+    for stage in stages:
+        if stage['label'] not in stage_label:
+            stage_label.append(stage['label'])
+
+    def in_dictlist((key, value), my_dictlist):
+        for this in my_dictlist:
+            if this[key] == value:
+                return this
+        return {}
+    for sl in stage_label:
+        new_stages.append(in_dictlist(('label', sl), stages))
+
     get_status = {
         'domain': list(chain(apps.get('domain'), acs.get('domain'))),
         'total': apps.get('total') + acs.get('total'),
         'feature': list(chain(apps.get('feature'), acs.get('feature'))),
-        'stage': list(chain(apps.get('stage'), acs.get('stage')))
+        'stage': new_stages
     }
 
-    context = {
-        'apps': get_app_stats(1),
-        'ac': get_actioncluster_stats(1),
-    }
     context = {
         'apps': get_status
     }
