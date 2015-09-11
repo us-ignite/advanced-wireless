@@ -6,6 +6,7 @@ from django.utils.http import urlquote
 from django.template.response import TemplateResponse
 
 from us_ignite.apps.models import Application, Domain
+from us_ignite.actionclusters.models import ActionCluster, Domain as ACDomain
 from us_ignite.common.response import json_response
 
 
@@ -13,10 +14,15 @@ def _get_domain(label):
     domain = Domain.objects.get(name__exact=label)
     return domain.slug
 
+def _get_ac_domain(label):
+    domain = ACDomain.objects.get(name__exact=label)
+    return domain.slug
 
 URLS = {
-    'stage': ('app_list_stage', Application.get_stage_id),
-    'domain': ('app_list_domain', _get_domain)
+    'app_stage': ('app_list_stage', Application.get_stage_id),
+    'app_domain': ('app_list_domain', _get_domain),
+    'ac_stage': ('actioncluster_list_stage', ActionCluster.get_stage_id),
+    'ac_domain': ('actioncluster_list_domain', _get_ac_domain)
 }
 
 
@@ -44,9 +50,9 @@ def get_chart_data(counter, name):
 
 def get_app_stats(display = 0):
     if display == 0:
-        app_list = Application.objects.select_related('domain').all()
+        app_list = Application.objects.select_related('app_domain').all()
     else:
-        app_list = Application.objects.select_related('domain').filter(status=display)
+        app_list = Application.objects.select_related('app_domain').filter(status=display)
     domain_list = []
     stage_list = []
     feature_list = []
@@ -57,8 +63,29 @@ def get_app_stats(display = 0):
         feature_list += [f.name for f in app.features.all()]
     stats = {
         'total': len(app_list),
-        'domain': get_chart_data(Counter(domain_list), 'domain'),
-        'stage': get_chart_data(Counter(stage_list), 'stage'),
+        'domain': get_chart_data(Counter(domain_list), 'app_domain'),
+        'stage': get_chart_data(Counter(stage_list), 'app_stage'),
+        'feature': get_chart_data(Counter(feature_list), 'feature'),
+    }
+    return stats
+
+def get_actioncluster_stats(display = 0):
+    if display == 0:
+        ac_list = ActionCluster.objects.select_related('ac_domain').all()
+    else:
+        ac_list = ActionCluster.objects.select_related('ac_domain').filter(status=display)
+    domain_list = []
+    stage_list = []
+    feature_list = []
+    for ac in ac_list:
+        if ac.domain:
+            domain_list.append(ac.domain.name)
+        stage_list.append(ac.get_stage_display())
+        feature_list += [f.name for f in ac.features.all()]
+    stats = {
+        'total': len(ac_list),
+        'domain': get_chart_data(Counter(domain_list), 'ac_domain'),
+        'stage': get_chart_data(Counter(stage_list), 'ac_stage'),
         'feature': get_chart_data(Counter(feature_list), 'feature'),
     }
     return stats
@@ -79,5 +106,7 @@ def visual_list(request):
 def visual_json(request):
     context = {
         'apps': get_app_stats(1),
+        'ac': get_actioncluster_stats(1),
     }
+
     return json_response(context, callback='chart.render')
