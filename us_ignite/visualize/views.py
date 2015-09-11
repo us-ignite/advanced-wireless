@@ -1,4 +1,5 @@
 from collections import Counter
+from itertools import chain
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -104,9 +105,22 @@ def visual_list(request):
 
 
 def visual_json(request):
+    get_status = list(chain(get_app_stats(1), get_actioncluster_stats(1)))
+    apps = get_app_stats(1)
+    acs = get_actioncluster_stats(1)
+    get_status = {
+        'domain': list(chain(apps.get('domain'), acs.get('domain'))),
+        'total': apps.get('total') + acs.get('total'),
+        'feature': list(chain(apps.get('feature'), acs.get('feature'))),
+        'stage': list(chain(apps.get('stage'), acs.get('stage')))
+    }
+
     context = {
         'apps': get_app_stats(1),
         'ac': get_actioncluster_stats(1),
+    }
+    context = {
+        'apps': get_status
     }
 
     return json_response(context, callback='chart.render')

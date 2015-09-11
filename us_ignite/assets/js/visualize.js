@@ -13,17 +13,17 @@ var chart = {
             chart.valueFormat(d3.format('d'));
 
             d3.select("#chart__stage svg")
-                .datum(data.apps.stage.concat(data.ac.stage))
+                .datum(data.apps.stage)
                 .transition().duration(350)
                 .call(chart);
-console.log(data.ac.domain);
+
             d3.select("#chart__domain svg")
-                .datum(data.apps.domain.concat(data.ac.domain))
+                .datum(data.apps.domain)
                 .transition().duration(350)
                 .call(chart);
 
             d3.select("#chart__feature svg")
-                .datum(data.apps.feature.concat(data.ac.feature))
+                .datum(data.apps.feature)
                 .transition().duration(350)
                 .call(chart);
 
