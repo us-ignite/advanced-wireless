@@ -41,7 +41,7 @@ AWS_STORAGE_BUCKET_NAME = 'us-ignite-org'
 
 expire_date = datetime.date.today() + datetime.timedelta(days=365)
 expire_seconds = 30 * 24 * 60 * 60
-AWS_HEADERS = {
+AWS_HEADERS = {\
     'Expires': expire_date.strftime('%a, %d %b %Y 00:00:00 GMT'),
     'Cache-Control': 'max-age=%s' % expire_seconds,
 }
@@ -88,3 +88,7 @@ COMPRESS_ENABLED = True
 STATIC_FILES_VERSION = 'v1'
 # Heroku does not have a filesystem, used to deploy the assets to S3:
 COMPRESS_STORAGE = 'us_ignite.common.storage.CachedS3BotoStorage'
+
+# TinyMCE configuration:
+TINYMCE_JS_URL = 'https://www.us-ignite.org/static/js/tiny_mce/tinymce.min.js'
+TINYMCE_JS_ROOT = "https://www.us-ignite.org/static/js/tiny_mce"
