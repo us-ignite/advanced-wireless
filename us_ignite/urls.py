@@ -77,11 +77,17 @@ urlpatterns += patterns(
 
 )
 
+
 # US Ignite legacy redirects:
 urlpatterns += patterns(
     '',
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
         'us_ignite.blog.views.legacy_redirect', name='legacy_post'),
+)
+
+urlpatterns += patterns(
+    '',
+    url(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve', {'document_root': 'us_ignite/assets/js/tiny_mce/'})
 )
 
 if settings.DEBUG:
