@@ -46,9 +46,12 @@ def mailing_subscribe(request, slug='default'):
         form = EmailForm(request.POST)
         if form.is_valid():
             try:
-                subscribe_email(form.cleaned_data['email'], 'default')
+                subscribe_email(form.cleaned_data['email'], slug)
                 messages.success(request, 'Successfully subscribed.')
-                redirect_to = 'home'
+                if slug == 'globalcityteams':
+                    redirect_to = 'globalcityteams'
+                else:
+                    redirect_to = 'home'
             except mailchimp.ListAlreadySubscribedError:
                 messages.error(request, 'Already subscribed.')
                 redirect_to = 'mailing_subscribe'
