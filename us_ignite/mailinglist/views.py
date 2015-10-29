@@ -49,7 +49,7 @@ def mailing_subscribe(request, slug='default'):
                 subscribe_email(form.cleaned_data['email'], slug)
                 messages.success(request, 'Successfully subscribed.')
                 if slug == 'globalcityteams':
-                    redirect_to = 'home'
+                    redirect_to = 'https://www.us-ignite.org/globalcityteams/'
                 else:
                     redirect_to = 'home'
             except mailchimp.ListAlreadySubscribedError:
