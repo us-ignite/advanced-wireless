@@ -5,7 +5,7 @@ import urlparse
 
 from us_ignite.settings.base import *
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # Sensitive values are saved as env variables:
