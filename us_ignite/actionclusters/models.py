@@ -30,6 +30,24 @@ class Domain(models.Model):
     def __unicode__(self):
         return self.name
 
+class Year(models.Model):
+    year = models.CharField(max_length=4, unique=True)
+    default_year = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if self.default_year:
+            try:
+                temp = Year.objects.get(default_year=True)
+                if self != temp:
+                    temp.default_year = False
+                    temp.save()
+            except Year.DoesNotExist:
+                pass
+        super(Year, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.year
+
 
 class ActionClusterBase(models.Model):
     """Abstract model for ``ActionCluster`` fields."""
@@ -125,6 +143,9 @@ class ActionCluster(ActionClusterBase):
     )
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
+    year = models.ForeignKey(
+        'actionclusters.Year', blank=False, default=lambda: Year.objects.get(default_year=True), help_text='What year does this action cluster belong to?'
+    )
     is_featured = models.BooleanField(default=False)
     owner = models.ForeignKey(
         'auth.User', related_name='ownership_set_for_actioncluster',

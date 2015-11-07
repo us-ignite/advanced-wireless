@@ -317,6 +317,9 @@ WP_EMAIL = ''
 MAILCHIMP_API_KEY = '6038666a8a911c457a0aad57eb2de7fb-us2'
 MAILCHIMP_LIST = '1962dd3b2b'
 
+MAILCHIMP_GCTC_API_KEY = '6038666a8a911c457a0aad57eb2de7fb-us2'
+MAILCHIMP_GCTC_LIST = '1962dd3b2b'
+
 # TinyMCE configuration:
 TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
