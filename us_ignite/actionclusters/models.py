@@ -144,7 +144,7 @@ class ActionCluster(ActionClusterBase):
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
     year = models.ForeignKey(
-        'actionclusters.Year', blank=False, default=lambda: Year.objects.get(default_year=True), help_text='What year does this action cluster belong to?'
+        'actionclusters.Year', blank=True, default=lambda: Year.objects.get(default_year=True), help_text='What year does this action cluster belong to?'
     )
     is_featured = models.BooleanField(default=False)
     owner = models.ForeignKey(
