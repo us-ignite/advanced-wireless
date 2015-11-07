@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'ActionCluster.year'
         db.add_column(u'actionclusters_actioncluster', 'year',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.Year'], blank=False),
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['actionclusters.Year'], blank=False, null=True),
                       keep_default=False)
 
 
@@ -49,7 +49,7 @@ class Migration(SchemaMigration):
             'team_description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'team_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'website': ('django.db.models.fields.URLField', [], {'max_length': '500', 'blank': 'True'}),
-            'year': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['actionclusters.Year']", 'blank': 'False'})
+            'year': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['actionclusters.Year']", 'blank': 'False', 'null': 'True'})
         },
         u'actionclusters.actionclustermedia': {
             'Meta': {'ordering': "('created',)", 'object_name': 'ActionClusterMedia'},
