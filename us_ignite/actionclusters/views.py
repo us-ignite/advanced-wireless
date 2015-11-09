@@ -55,7 +55,7 @@ def actioncluster_list(request, current=True, domain=None, stage=None, year=None
     else:
         if current:
             extra_qs['year'] = get_object_or_404(Year, default_year=True)
-            filter_name = 'Current Year'
+            filter_name = 'Current Year (' + extra_qs['year'].year + ')'
             description = extra_qs['year'].description
         else:
             extra_qs['year'] = get_object_or_404(Year, default_year=False)
