@@ -73,7 +73,8 @@ urlpatterns += patterns(
     url(r'^(?i)globalcityteamsexpo/$', TemplateView.as_view(template_name='gctc-expo.html')),
     url(r'^(?i)gctcexpowebcast/$', TemplateView.as_view(template_name='gctc-expo_webcast.html')),
     url(r'^(?i)globalcityteamsfestival?/$', RedirectView.as_view(url='http://us-ignite.org/globalcityteamsexpo'), name='global-city-teams-expo'),
-    url(r'^(?i)GCTCstrategyworkshop/$', TemplateView.as_view(template_name='gctc-strategy-workshop.html'))
+    url(r'^(?i)GCTCstrategyworkshop/$', TemplateView.as_view(template_name='gctc-strategy-workshop.html')),
+    url(r'^(?i)GCTC2016Kickoff/$', TemplateView.as_view(template_name='gctc-2016-kickoff.html'))
 
 )
 
