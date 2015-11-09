@@ -11,8 +11,8 @@
     {% if category == "iot" %}
 
       <h2>GCTC 2015 IOT Project Ideas</h2>
-      <p>Scroll through and explore these exciting "action clusters" that are a part of the 2015 Global City Teams Challenge.  The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
 
+      <p>Scroll through and explore these exciting "action clusters" that are a part of the 2015 Global City Teams Challenge.  The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
     {% elif category == "partner" %}
 
       <h2>Looking for Partners</h2>
@@ -21,7 +21,11 @@
     {% else %}
 
       <h2>Explore Current Action Clusters</h2>
+      {% if description %}
+      <p>{{description}}</p>
+      {% else %}
       <p>Scroll through and explore these exciting  "action clusters" that are a part of the Global City Teams Challenge.   The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
+      {% endif %}
 
     {% endif %}
   </div>

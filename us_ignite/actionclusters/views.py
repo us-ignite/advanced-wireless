@@ -33,7 +33,7 @@ def get_stage_or_404(stage):
     raise Http404('Invalid stage.')
 
 
-def actioncluster_list(request, current=True, domain=None, stage=None, year=None, filter_name=''):
+def actioncluster_list(request, current=True, domain=None, stage=None, year=None, filter_name='', description=''):
     """List all the available ``ActionCluster``."""
     extra_qs = {
         'is_approved': True,
@@ -51,13 +51,16 @@ def actioncluster_list(request, current=True, domain=None, stage=None, year=None
     if year:
         extra_qs['year'] = get_object_or_404(Year, year=year)
         filter_name = extra_qs['year'].year
+        description = extra_qs['year'].description
     else:
         if current:
             extra_qs['year'] = get_object_or_404(Year, default_year=True)
             filter_name = 'Current Year'
+            description = extra_qs['year'].description
         else:
             extra_qs['year'] = get_object_or_404(Year, default_year=False)
             filter_name = 'Archive'
+
 
 
 
@@ -74,6 +77,7 @@ def actioncluster_list(request, current=True, domain=None, stage=None, year=None
         'domain_list': Domain.objects.all(),
         'stage_list': ActionCluster.STAGE_CHOICES,
         'filter_name': filter_name,
+        'description': description,
         'current_domain': domain,
         'current_stage': int(stage) if stage else None,
         'appname': 'actionclusters',
