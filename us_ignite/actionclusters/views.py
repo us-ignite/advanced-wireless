@@ -17,7 +17,8 @@ from us_ignite.actionclusters.forms import (
 from us_ignite.actionclusters.models import (
     ActionCluster,
     ActionClusterMembership,
-    Domain
+    Domain,
+    Year
 )
 from us_ignite.awards.models import ActionClusterAward
 from us_ignite.common import pagination
@@ -32,8 +33,8 @@ def get_stage_or_404(stage):
     raise Http404('Invalid stage.')
 
 
-def actioncluster_list(request, domain=None, stage=None, filter_name=''):
-    """List al the available ``ActionCluster``."""
+def actioncluster_list(request, current=True, domain=None, stage=None, year=None, filter_name=''):
+    """List all the available ``ActionCluster``."""
     extra_qs = {
         'is_approved': True,
         'status': ActionCluster.PUBLISHED,
@@ -47,6 +48,19 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
         pk, name = get_stage_or_404(stage)
         extra_qs['stage'] = pk
         filter_name = name
+    if year:
+        extra_qs['year'] = get_object_or_404(Year, year=year)
+        filter_name = extra_qs['year'].year
+    else:
+        if current:
+            extra_qs['year'] = get_object_or_404(Year, default_year=True)
+            filter_name = 'Current Year'
+        else:
+            extra_qs['year'] = get_object_or_404(Year, default_year=False)
+            filter_name = 'Archive'
+
+
+
     page_no = pagination.get_page_no(request.GET)
     object_list = (
         ActionCluster.objects.select_related('domain')

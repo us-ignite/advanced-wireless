@@ -5,7 +5,8 @@ from us_ignite.actionclusters.models import (
     ActionClusterURL,
     ActionClusterMedia,
     Domain,
-    Feature
+    Feature,
+    Year
 )
 
 
@@ -22,7 +23,7 @@ class ActionClusterAdmin(admin.ModelAdmin):
     search_fields = ['name', 'slug', 'summary', 'impact_statement',
                      'assistance', 'team_description', 'notes',
                      'acknowledgments']
-    list_filter = ['stage', 'domain__name', 'status', 'created', 'is_approved']
+    list_filter = ['stage', 'domain__name', 'status', 'created', 'is_approved', 'year']
     date_hierarchy = 'created'
     inlines = [ActionClusterURLInline, ActionClusterMediaInline]
 
@@ -34,7 +35,10 @@ class DomainAdmin(admin.ModelAdmin):
 class FeatureAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
 
+class YearAdmin(admin.ModelAdmin):
+    list_display = ('year', 'default_year')
 
 admin.site.register(ActionCluster, ActionClusterAdmin)
 admin.site.register(Domain, DomainAdmin)
 admin.site.register(Feature, FeatureAdmin)
+admin.site.register(Year, YearAdmin)
