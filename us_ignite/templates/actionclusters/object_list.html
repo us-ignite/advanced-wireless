@@ -20,7 +20,7 @@
 
     {% else %}
 
-      <h2>Explore 2015 Action Clusters</h2>
+      <h2>Explore {% if filter_name == 'Archive 2015' %} 2015 {% else %} Current {% endif %} Action Clusters</h2>
       {% if description %}
       <p>{{description|safe}}</p>
       {% else %}
