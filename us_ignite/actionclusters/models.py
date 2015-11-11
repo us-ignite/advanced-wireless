@@ -147,6 +147,7 @@ class ActionCluster(ActionClusterBase):
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
 
     # fetch the id for the default year for the current year submission
+    # in migration, set blank=True, default=1
     default_year = Year.objects.get(default_year=True)
     year = models.ForeignKey(
         'actionclusters.Year', blank=False, default=default_year.id, help_text='What year does this action cluster belong to?'

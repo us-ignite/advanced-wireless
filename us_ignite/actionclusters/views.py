@@ -59,7 +59,7 @@ def actioncluster_list(request, current=True, domain=None, stage=None, year=None
             description = extra_qs['year'].description
         else:
             extra_qs['year'] = get_object_or_404(Year, default_year=False)
-            filter_name = 'Archive'
+            filter_name = 'Archive 2015'
 
 
 
