@@ -2,7 +2,7 @@
 
 {% block title %}Action Cluster list - {{ block.super }}{% endblock title %}
 
-{% block page_title %}Action Cluster{% if filter_name %}: {{ filter_name }} {% endif %}{% endblock page_title %}
+{% block page_title %}Action Cluster{% if filter_name %}: {{ filter_name }}{% endif %}{% endblock page_title %}
 
 {% block top_panel %}
 <div class="row panel">
@@ -20,11 +20,11 @@
 
     {% else %}
 
-      <h2>Explore 2015 Action Clusters</h2>
+      <h2>Explore Current Action Clusters</h2>
       {% if description %}
       <p>{{description|safe}}</p>
       {% else %}
-      <p>Scroll through and explore these exciting  "action clusters" that were a part of the 2015 Global City Teams Challenge.   The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. 
+      <p>Scroll through and explore these exciting  "action clusters" that are a part of the Global City Teams Challenge.   The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
       {% endif %}
 
     {% endif %}
@@ -32,7 +32,7 @@
 </div>
 <div class="row newsletter newsletter--primary" {% if category == "iot"  or category == "partner"%} style="margin-bottom: 50px;" {% endif %}>
   <div class="small-12 medium-8 columns newsletter__column">
-    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR A NEW ACTION CLUSTER?</strong> TELL US ABOUT IT...</h4>
+    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN ACTION CLUSTER?</strong> TELL US ABOUT IT...</h4>
   </div>
   <div class="small-12 medium-4 columns newsletter__column">
     <a href="{% url 'actioncluster_add' %}" class="button alert banner_button">SUBMIT YOUR ACTION CLUSTER</a>{% csrf_token %}
