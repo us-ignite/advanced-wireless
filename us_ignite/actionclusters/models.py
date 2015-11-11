@@ -30,9 +30,11 @@ class Domain(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Year(models.Model):
     year = models.CharField(max_length=4, unique=True)
     default_year = models.BooleanField(default=False)
+    description = models.TextField(blank=True, default='')
 
     def save(self, *args, **kwargs):
         if self.default_year:
@@ -143,8 +145,11 @@ class ActionCluster(ActionClusterBase):
     )
     slug = AutoUUIDField(unique=True, editable=True)
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
+
+    # fetch the id for the default year for the current year submission
+    default_year = Year.objects.get(default_year=True)
     year = models.ForeignKey(
-        'actionclusters.Year', blank=False, default=lambda: Year.objects.get(default_year=True), help_text='What year does this action cluster belong to?'
+        'actionclusters.Year', blank=False, default=default_year.id, help_text='What year does this action cluster belong to?'
     )
     is_featured = models.BooleanField(default=False)
     owner = models.ForeignKey(
