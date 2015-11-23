@@ -174,7 +174,7 @@ def actioncluster_detail(request, slug):
     return TemplateResponse(request, 'actionclusters/object_detail.html', context)
 
 
-@login_required
+# @login_required
 def actioncluster_add(request):
     """View for adding an ``Application``."""
     if request.method == 'POST':
