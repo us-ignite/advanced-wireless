@@ -1,6 +1,6 @@
 {% extends "microsite_base.html" %}{% load thumbnail %}
 
-{% block title %}News- {{ block.super }}{% endblock title %}
+{% block title %}Upcoming Events- {{ block.super }}{% endblock title %}
 
 {% block content %}
 <div class="row collapse">
@@ -42,27 +42,37 @@
 	    <a href="{% url 'event_add' %}" class="button alert banner_button">ADD YOUR EVENT</a>{% csrf_token %}
 	  </div>
 	</div>
+	<br>
+	<br>
 
+	<div class="row object--list">
 	{% for object in page.object_list %}
 
-	<a  href="{{ object.get_absolute_url }}" title="{{ object.name }}">
-	  {% if object.image %}
-	  <img src="{% thumbnail object.image 216x119 crop %}" alt="{{ object.name }}" />
-	  {% else %}
-	  <img src="{{ STATIC_URL }}img/project-default.png" alt="{{ object.name }}" />
-	  {% endif %}
-	</a>
+		<div class="columns large-3{% if forloop.last %} end{% endif %}">
+			{% include "includes/lists/object_block_base.html" with object=object %}
+		</div>
+		{% comment %}
+		<a  href="{{ object.get_absolute_url }}" title="{{ object.name }}">
+		  {% if object.image %}
+		  <img src="{% thumbnail object.image 216x119 crop %}" alt="{{ object.name }}" />
+		  {% else %}
+		  <img src="{{ STATIC_URL }}img/project-default.png" alt="{{ object.name }}" />
+		  {% endif %}
+		</a>
 
-	<h2>{{ object.name }}</h2>
-	{% with object.tags.all as tag_list %}
-	{% if tag_list %}
-	<p>
-	  {% for tag in tag_list %}{{ tag|upper }}{% if not forloop.last %},{% endif%} {% endfor%}
-	</p>
-	{% endif %}
-	{% endwith %}
-	{{ object.get_summary }}
+		<h2>{{ object.name }}</h2>
+		{% with object.tags.all as tag_list %}
+		{% if tag_list %}
+		<p>
+		  {% for tag in tag_list %}{{ tag|upper }}{% if not forloop.last %},{% endif%} {% endfor%}
+		</p>
+		{% endif %}
+		{% endwith %}
+		{{ object.get_summary }}
+		{% endcomment %}
 	{% endfor%}
+	</div>
+	<!-- end events list -->
 
 	{% include "includes/pagination.html" %}
 	</div>
