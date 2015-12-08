@@ -87,15 +87,17 @@
         
             <br>
 
+            {% comment "" %}
             <hr>
 
             <br>
+            
             <h2>List of GCTC 2015 Action Clusters</h2>
             <br>
 
-            <p>To establish a new Action Cluster, a project must possess the following:</p>
-            <p>
-	         	<ul>
+            <p >To establish a new Action Cluster, a project must possess the following:</p>
+            <p >
+	         	<ul class="hide">
 	         		<li>
 						A plan to deploy an emerging technology within a cyberphsyical system by <strong>June 2015</strong>
 
@@ -111,7 +113,7 @@
 				</ul>
 			</p>
 
-            <table id="nist-table" class="tdisplay responsive" cellspacing="0" width="100%">
+            <table id="nist-table" class="tdisplay responsive hide" cellspacing="0" width="100%">
                          <thead>
                              <tr>
                                  <th class="all">ProjectID</th>
@@ -269,16 +271,7 @@
                              </tr>
 
                            
-                            {% comment "" %}
-                             <tr>
-                                 <td>17</td>
-                                 <td><a href="https://us-ignite.org/globalcityteams/actioncluster/h86FFkoqYEaRCpv4pKJUTH/">Transactive Energy Management of Distributed Energy Resources</a></td>
-                                 <td>Ron Ambrosio, IBM</td>
-                                 <td>With a network of energy-producing residences, combine signaling methods with weather data to decide when to reduce central power supply.
-</td>
-                                 <td>IBM, Smart Energy Research</td>
-                             </tr>
-                             {% endcomment %}
+        
                              
                              <tr>
                                  <td>18</td>
@@ -304,15 +297,7 @@
                                 </td>
                              </tr>
 
-                             {% comment "" %}
-                             <tr>
-                                 <td>21</td>
-                                 <td><a href="https://us-ignite.org/globalcityteams/actioncluster/SpJUiCwAjDBXS8dtyTjL5E/">Bus Tracking & Intelligent Transportation</a></td>
-                                 <td>Sharon Johnson, IBM</td>
-                                 <td>Improve public transport ops using connected GPS sensors and traffic mgt software to correct for unexpected events and scheduling issues.</td>
-                                 <td>&nbsp;</td>
-                             </tr>
-                             {% endcomment %}
+                            
                              <tr>
                                  <td>22</td>
                                  <td><a href="https://us-ignite.org/globalcityteams/actioncluster/higQp66SB4V4dndVzF99nh/">Intelligent Connectivity & Water Resource Management</a></td>
@@ -739,7 +724,7 @@
 
                         </tbody>
 				</table>
-     
+        {% endcomment %}
         </div>
       </div>
     </div>
