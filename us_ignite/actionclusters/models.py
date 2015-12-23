@@ -148,9 +148,9 @@ class ActionCluster(ActionClusterBase):
 
     # fetch the id for the default year for the current year submission
     # in migration, set blank=True, default=1
-    #default_year = Year.objects.get(default_year=True)
+    default_year = Year.objects.get(default_year=True)
     year = models.ForeignKey(
-        'actionclusters.Year', blank=True, default=1, help_text='What year does this action cluster belong to?'
+        'actionclusters.Year', blank=False, default=default_year.id, help_text='What year does this action cluster belong to?'
     )
     is_featured = models.BooleanField(default=False)
     owner = models.ForeignKey(
