@@ -23,6 +23,8 @@ urlpatterns = patterns(
         name='actioncluster_membership'),
     url(r'^domain/(?P<domain>[-\w]+)/$', 'actioncluster_list',
         name='actioncluster_list_domain'),
+    # url(r'^domain/(?P<domain>[-\w]+)/(?P<year>\d{4}/$', 'actioncluster_list',
+    #     name='actioncluster_list_domain_by_year'),
     url(r'^stage/(?P<stage>[\d]{1})/$', 'actioncluster_list',
         name='actioncluster_list_stage'),
     url(r'^year/(?P<year>\d{4})/$', 'actioncluster_list',

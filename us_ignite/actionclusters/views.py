@@ -43,12 +43,12 @@ def actioncluster_list(request, current=True, domain=None, stage=None, year=None
         # Validate domain is valid if provided:
         extra_qs['domain'] = get_object_or_404(Domain, slug=domain)
         filter_name = extra_qs['domain'].name
-    if stage:
+    elif stage:
         # Validate stage is valid if provided:
         pk, name = get_stage_or_404(stage)
         extra_qs['stage'] = pk
         filter_name = name
-    if year:
+    elif year:
         extra_qs['year'] = get_object_or_404(Year, year=year)
         filter_name = extra_qs['year'].year
         description = extra_qs['year'].description
