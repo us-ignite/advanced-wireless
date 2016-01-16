@@ -51,6 +51,14 @@ class Year(models.Model):
         return self.year
 
 
+class Community(models.Model):
+    community = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='community', unique=True)
+
+    def __unicode__(self):
+        return self.community
+
+
 class ActionClusterBase(models.Model):
     """Abstract model for ``ActionCluster`` fields."""
     IDEA = 1
@@ -151,6 +159,9 @@ class ActionCluster(ActionClusterBase):
     default_year = Year.objects.get(default_year=True)
     year = models.ForeignKey(
         'actionclusters.Year', blank=True, null=True, help_text='What year does this action cluster belong to?'
+    )
+    community = models.ForeignKey(
+        'actionclusters.Community', blank=True, null=True, help_text='What is the name of the city/community?'
     )
     is_featured = models.BooleanField(default=False)
     owner = models.ForeignKey(
