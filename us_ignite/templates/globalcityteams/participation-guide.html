@@ -1,0 +1,147 @@
+{% extends "microsite_base.html" %}{% load snippets_tags thumbnail %}
+
+{% block title %}Global City Teams Challenge - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="row collapse l-listings" data-equalizer>
+  {% block sidebar %}
+    {% include "globalcityteams/includes/sidebar.html" %}
+  {% endblock sidebar %}
+
+  <article class="large-8 medium-9 columns listings" data-equalizer-watch>
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+            <h1>GCTC 2016 – Participation Guide</h1>
+            <br>
+         	<p>
+                Thank you for your interest in joining the Global City Teams Challenge (GCTC). There are a few different ways to participate in GCTC. 
+
+         	</p>
+            <ol>
+                <li>  Register one or more action clusters (i.e. teams) to present and demonstrate in the upcoming events (Tech Jam and GCTC Expo)</li>
+                <li> <a href="https://www.us-ignite.org/globalcityteams/partners/">Become a Partner of GCTC</a></li>
+                <li><a href="https://www.us-ignite.org/globalcityteams/">Participate as audience</a></li>
+            </ol>
+         	<br>
+            <p>
+                This page explains how to register action clusters. Each action cluster must complete and submit a project worksheet. <strong>2015 GCTC action clusters continuing into the 2016 program must update and submit their previous project worksheet</strong>. GCTC organizers will then review the worksheet and send feedback to the team lead. When GCTC and the team lead agree on a final worksheet, the action cluster will be officially created. Each action cluster will be given:
+
+            </p>
+            <ol>
+                <li>a dedicated speaking slot at the Tech Jam (late March 2016)</li>
+                <li> a free exhibition/demonstration space at the Expo (June 2016) and a speaking slot. The priorities of the speaking slot will be given to the teams that show working demonstrations and/or pilot deployments at the Expo as part of the exhibition</li>
+                <li>opportunities for substantial media coverage at the Expo</li>
+                <li>opportunities to collaborate with additional cities and smart city leaders in government, industry, and academia</li>
+            </ol>
+            <br>
+            <p>
+                The requirements to form a team are:
+
+            </p>
+            <ol>
+                <li>Each team needs to have more than 1 entity.</li>
+                <li>Each team should have at least one municipal government participant which will deploy the solution. (At least one city official should actively participate in the team.)</li>
+                <li>At the Expo in June 2016, the municipal government partner should participate and be part of the team presentation.</li>
+                <li>Each team should plan to deploy and report the project’s measurable/quantifiable impact to the residents by June 2017 and demonstrate the result at the 2017 Expo.</li>
+                <li>Optional: Teams are encouraged to have multiple municipal partners deploying the same project.</li>
+            </ol>
+            <p>
+                The worksheet template can be downloaded from <a href="https://www.us-ignite.org/globalcityteams/actioncluster/add/">here</a>. A fictitious sample worksheet is <a href="https://s3.amazonaws.com/us-ignite-org/uploads/20160119+GCTC+2016+Project+Worksheet+rev+4+EXAMPLE.docx">here</a>.
+            </p>
+            <br>
+            <h3>GCTC 2016 Action Cluster Deadlines</h3>
+            <br>
+            <p>
+                <strong>Due February 26, 2016 (to be considered for Tech Jam presentation)</strong><br>
+                To be considered for a March Tech Jam presentation, the project worksheet must be received by February 26, 2016.
+                
+            </p>
+            <ul>
+                <li>Contact leads or <a href="mailto:Mariya.Cherk@us-ignite.org">Mariya.Cherk@us-ignite.org</a> to join an existing <a href="https://goog.gl/kXyfNV">Action Cluster</a> (project team), or form a new Action Cluster by submitting a <a href="https://goo.gl/fQ39KG ">project worksheet</a> to <a href="William.Maguire@us-ignite.org">William.Maguire@us-ignite.org</a> and <a href="Sokwoo.Rhee@nist.gov ">Sokwoo.Rhee@nist.gov</a> </li>
+            </ul>
+            <br>
+            <p>
+                <strong>Due April 29, 2016 (to be considered for 2016 Expo presentation and exhibition)</strong><br>
+                
+            </p>
+            <ul>
+                <li>Final project worksheets for all clusters to be considered for the Expo</li>
+                <li>
+                    Project plan, which includes:
+                    <ol style="margin-left: 30px;">
+                        <li>list of all Action Cluster participants and contact information</li>
+                        <li>details on all municipal partner(s)</li>
+                        <li>Key Performance Indicators (KPIs) for each project, detailing how success of the project will be measured</li>
+                        <li>Project timeline</li>
+                        <li>Demonstrated commitment of resources required for project</li>
+                    </ol>
+                </li>
+            </ul>
+            <br>
+            <h3>Potential Funding Opportunity:</h3>
+            <br>
+            <p>
+                <strong>Application deadline April 1, 2016</strong>: The National Science Foundation has established a <a href="http://www.nsf.gov/pubs/2016/nsf16036/nsf16036.jsp">grant program</a> for U.S. participants in a GCTC action cluster.  
+            </p>
+            <h2 class="center">Phase I: Team Building, November 2015 – June 2016</h2>
+            <br>
+            <p>
+                <strong>GCTC Kick-off Conference</strong> (November 12-13, 2015)
+            </p>
+             <ul>
+                <li><a href="http://goo.gl/87KyMP">Webcast replay</a></li>
+                <li><a href="http://goo.gl/2nrijM">Additional presentations</a></li>
+                <li>IBM is hosting <a href="https://goog.gl/Aeo5IF">GCTC local kick-off events</a> through February 2016 </li>
+            </ul>
+            <p>
+                <strong>Tech Jam (late-March, Washington, D.C)</strong>
+            </p>
+            <ul>
+                <li>Action Clusters present their initial plans, identify additional partners, and receive feedback</li>
+                <li>If possible, city official(s) from each cluster should participate in the Tech Jam</li>
+                <li> <a href="http://nist.gov/cps/upload/Agenda.pdf">2015 Tech Jam</a> overview</li>
+            </ul>
+            <p>
+                <strong>Phase I Expo / Phase II Kick-off (June 2016, United States)</strong>
+            </p>
+            <ul>
+                <li>Featuring exhibitions and project presentations from Action Clusters</li>
+                <li>Opportunities to engage with other Action Clusters and Smart City leaders from industry, government, and academia</li>
+                <li>The city official(s) in each cluster should join the Expo and participate in the cluster presentation</li>
+            </ul>
+            <h2 class="center">Phase II: Implementation, June 2016 – June 2017</h2>
+            <p>
+                <strong>Q3 2016</strong>
+            </p>
+            <ul>
+                <li>Projects should be deployed, and Action Clusters are encouraged to identify additional municipal partners to join the Cluster</li>
+            </ul>
+            <p>
+                <strong>Tech Jam (Q4 2016, tentative)</strong>
+            </p>
+            <ul>
+                <li>Action Clusters meet again to discuss the transition to project deployment phase and best practices for creating replicable, scalable, and sustainable Smart City models</li>
+            </ul>
+            <p>
+                <strong>April 2017</strong>
+            </p>
+            <ul>
+                <li>Action Clusters must substantially complete project implementation and measure success according to KPIs</li>
+                <li>Prepare demonstration for Expo</li>
+            </ul>
+            <p>
+                <strong>Phase II Expo (June 2017)</strong>
+            </p>
+            <ul>
+                <li>Action Clusters meet with Smart City leaders to demonstrate projects and promote replication elsewhere</li>
+                <li> Exceptional Action Clusters will receive special recognition</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+
+{% endblock content %}

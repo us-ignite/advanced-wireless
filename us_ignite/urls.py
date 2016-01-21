@@ -44,6 +44,7 @@ urlpatterns += patterns(
         include('us_ignite.actionclusters.urls')),
     url(r'^globalcityteams/',
         include('us_ignite.globalcityteams.urls', namespace='globalcityteams')),
+    url(r'^globalcityteams/participation-guide', TemplateView.as_view(template_name='globalcityteams/participation-guide.html'))
 )
 
 
@@ -75,6 +76,7 @@ urlpatterns += patterns(
     url(r'^(?i)globalcityteamsfestival?/$', RedirectView.as_view(url='http://us-ignite.org/globalcityteamsexpo'), name='global-city-teams-expo'),
     url(r'^(?i)GCTCstrategyworkshop/$', TemplateView.as_view(template_name='gctc-strategy-workshop.html')),
     url(r'^(?i)GCTC2016Kickoff/$', TemplateView.as_view(template_name='gctc-2016-kickoff.html'))
+
 
 )
 
