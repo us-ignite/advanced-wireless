@@ -161,6 +161,7 @@ def actioncluster_detail(request, slug):
     context = {
         'object': actioncluster,
         'domain': actioncluster.domain,
+        'community' : actioncluster.community,
         'url_list': actioncluster.actionclusterurl_set.all(),
         'media_list': actioncluster.actionclustermedia_set.all(),
         'feature_list': actioncluster.features.all(),

@@ -135,7 +135,7 @@
 <p>{{ object.team_name }}</p>
 {% endif %}
 
-
+{% include "includes/sidebar/community.html" with community=community.community %}
 {% include "includes/sidebar/contact.html" with contact=object.owner %}
 
 {% if member_list %}
