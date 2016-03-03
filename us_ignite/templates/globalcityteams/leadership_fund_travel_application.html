@@ -1,0 +1,49 @@
+{% extends "microsite_base.html" %}{% load snippets_tags thumbnail %}
+
+{% block title %}Global City Teams Challenge - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="row collapse l-listings" data-equalizer>
+  {% block sidebar %}
+    {% include "globalcityteams/includes/sidebar.html" %}
+  {% endblock sidebar %}
+
+  <article class="large-8 medium-9 columns listings" data-equalizer-watch>
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+            <h1>GCTC Leadership Fund</h1>
+            <h2>Application for a Travel Award</h2>
+            <br>
+            <p>
+                On behalf of the GCTC Partners IBM, Intel and GE, US Ignite is pleased to award funding to defray the cost of travelling to the GCTC Expo in June 2016.
+            </p>
+            <ul>
+                <li>The  Leadership Fund’s travel awards are available to private companies, local governments, non-profit organizations, and educational institutions, regardless of their geographic location.</li>
+                <li>The travel awards for individual participants will range from $500 to $5000.</li>
+                <li>Because funds are limited, a fixed stipend will be awarded to travelers, meaning that the  reimbursement may not cover all expenses related to traveling to the GCTC Expo.</li>
+                <li>Applications to the available funding are due <strong>April 15th, 2016</strong>. Travel awards will be announced by <strong>April 30th, 2016</strong>. <strong><i>Please note:</i></strong> distribution of the awarded funds will be made <strong><i>after</i></strong> the GCTC Expo.</li>
+            </ul>
+            <br>
+            <p>Applicants interested in travel awards must provide the following information:</p>
+            <ul>
+                <li>Name of your Action Cluster</li>
+                <li>Name, organization and title of the person(s) traveling to the GCTC Expo</li>
+                <li>Estimated travel expenses related to your Action Cluster’s proposed participation in the GCTC Expo</li>
+                <li>Description of the objectives related to the Action Cluster(s) in which the applicant is participating that will be advanced by the applicant’s in-person participation at the GCTC Expo (250 word limit)</li>
+                <li>Summary of your Action Cluster’s work to date (250 word limit)</li>
+                <li>Summary of the specific contributions that you, the applicant, have made to your Action Cluster’s overall progress (250 word limit)</li>
+            </ul>
+            <a class="primary button expand" href="http://goo.gl/forms/YpBeiI8Lvq" target="_blank">CLICK HERE FOR THE FORM</a>
+            <br>
+            <p>
+                 A committee, composed of representatives from the GCTC Partners, will score applications based on the strength of the GCTC project in which they are a participant (40%), the applicant’s demonstrated commitment to GCTC (30%) and the applicant’s perceived need for the GCTC Leadership Fund’s limited travel support (30%).  A preference will be given to individuals traveling internationally to attend the Expo.
+            </p>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+
+{% endblock content %}

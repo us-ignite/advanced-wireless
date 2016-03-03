@@ -17,6 +17,11 @@ urlpatterns = patterns(
         name='globalcityteams_sectors'),
     url(r'^about/$', to_template('globalcityteams/about.html'),
         name='globalcityteams_about'),
+
+    url(r'^leadership-fund/$', to_template('globalcityteams/leadership_fund.html'), name='globalcityteams_leadership_fund'),
+    url(r'^leadership-fund/travel-application/$', to_template('globalcityteams/leadership_fund_travel_application.html'), name='globalcityteams_leadership_fund_travel_application'),
+    url(r'^leadership-fund/leadership-application/$', to_template('globalcityteams/leadership_fund_leadership_application.html'), name='globalcityteams_leadership_fund_leadership_application'),
+
     url(r'^upload/$', to_template('globalcityteams/document-upload.html')),
     url(r'^events/$', 'event_list', name='event_list'),
     url(r'^events/(?P<slug>[-\w]+)/$', 'event_detail', name='event_detail'),
