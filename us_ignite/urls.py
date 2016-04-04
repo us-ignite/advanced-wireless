@@ -44,6 +44,7 @@ urlpatterns += patterns(
         include('us_ignite.actionclusters.urls')),
     url(r'^globalcityteams/',
         include('us_ignite.globalcityteams.urls', namespace='globalcityteams')),
+    url(r'^globalcityteams/participation-guide', TemplateView.as_view(template_name='globalcityteams/participation-guide.html'))
 )
 
 
@@ -70,14 +71,26 @@ urlpatterns += patterns(
     url(r'^kit/$', TemplateView.as_view(template_name='kit.html')),
     url(r'^march2015/$', RedirectView.as_view(url='/smartfuture2015')),
     url(r'^smartfuture2015/$', TemplateView.as_view(template_name='march2015_2.html')),
+    url(r'^(?i)gctcexpo/$', TemplateView.as_view(template_name='gctc-expo2016.html')),
+    url(r'^(?i)gctcexpowebcast/$', TemplateView.as_view(template_name='gctc-expo_webcast.html')),
+    url(r'^(?i)globalcityteamsfestival?/$', RedirectView.as_view(url='http://us-ignite.org/globalcityteamsexpo'), name='global-city-teams-expo'),
+    url(r'^(?i)GCTCstrategyworkshop/$', TemplateView.as_view(template_name='gctc-strategy-workshop.html')),
+    url(r'^(?i)GCTC2016Kickoff/$', TemplateView.as_view(template_name='gctc-2016-kickoff.html'))
+
 
 )
+
 
 # US Ignite legacy redirects:
 urlpatterns += patterns(
     '',
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
         'us_ignite.blog.views.legacy_redirect', name='legacy_post'),
+)
+
+urlpatterns += patterns(
+    '',
+    url(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve', {'document_root': 'us_ignite/assets/js/tiny_mce/'})
 )
 
 if settings.DEBUG:

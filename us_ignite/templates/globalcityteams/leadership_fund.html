@@ -1,0 +1,68 @@
+{% extends "microsite_base.html" %}{% load snippets_tags thumbnail %}
+
+{% block title %}Global City Teams Challenge - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="row collapse l-listings" data-equalizer>
+  {% block sidebar %}
+    {% include "globalcityteams/includes/sidebar.html" %}
+  {% endblock sidebar %}
+
+  <article class="large-8 medium-9 columns listings" data-equalizer-watch>
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+            <h1>GCTC Leadership Fund</h1>
+            <br>
+            <p>
+                US Ignite is pleased to announce the GCTC Leadership Fund.  This fund will make awards to defray travel costs to the GCTC Expo,  and it will also provide cash awards to exceptional Action Clusters that advance their project’s objective as a part of the Global City Teams Challenge.
+            </p>
+            <br>
+            <p>
+                The GCTC Leadership Fund is available to private companies, local governments, non-profit organizations, and educational institutions, participating in the GCTC Action Clusters, regardless of their geographic location.
+            </p>
+            <br>
+            <p class="bold">The Leadership Fund has two funding priorities:</p>
+            <ul>
+                <li>
+                    Travel Assistance Awards to assist GCTC Action Cluster teams for their travel expense to the GCTC Expo
+                </li>
+                <li>
+                    Leadership Award for notable projects deploying technologically replicable, scalable, and measurable IoT projects in the Smart City sphere
+                </li>
+            </ul>
+            <br>
+            <p class="bold">
+                Key Dates and Deadlines:
+            </p>
+            <ul>
+                <li>
+                    The applications deadline for both awards is <strong>April 15th, 2016</strong>.</li>
+                <li>
+                    We encourage the interested parties to schedule a time to meet with representatives of the Leadership Fund either at the <a href="http://www.nist.gov/cps/gctc-tech-jam-and-iot-enabled-smart-city-framework-workshop.cfm" target="_blank">Tech Jam</a> and/or set-up a video call before the <strong>April 15th</strong> deadline.
+                </li>
+                <li>
+                    Travel Assistance Award announcement will be made by <strong>April 30th, 2016</strong>.
+                </li>
+                <li>
+                    Organizations receiving GCTC Leadership Awards will be announced at the GCTC Expo.
+                </li>
+            </ul>
+            <br>
+            <p class="bold">
+                Applicants interested in GCTC Leadership Fund must complete a brief application:
+            </p>
+            <p>
+                Application for Travel Assistance Award can be found <a href="{% url 'globalcityteams:globalcityteams_leadership_fund_travel_application' %}">here</a>
+                <br>
+                Application for GCTC Leadership Awards can be found <a href="{% url 'globalcityteams:globalcityteams_leadership_fund_leadership_application' %}">here</a>
+
+            </p>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+
+{% endblock content %}

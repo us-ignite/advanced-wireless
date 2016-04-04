@@ -10,9 +10,9 @@
   <div class="small-12 columns">
     {% if category == "iot" %}
 
-      <h2>IOT Project Ideas</h2>
-      <p>Scroll through and explore these exciting  "action clusters" that are a part of the Global City Teams Challenge.   The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
+      <h2>GCTC 2015 IOT Project Ideas</h2>
 
+      <p>Scroll through and explore these exciting "action clusters" that are a part of the 2015 Global City Teams Challenge.  The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
     {% elif category == "partner" %}
 
       <h2>Looking for Partners</h2>
@@ -20,15 +20,27 @@
 
     {% else %}
 
-      <h2>Explore Current Action Clusters</h2>
-      <p>Scroll through and explore these exciting  "action clusters" that are a part of the Global City Teams Challenge.   The action clusters are composed of representatives from innovative local governments, nonprofit and private companies, working collaboratively over the next year, to build, deploy, and/or test transformative IoT applications.  Through the online action cluster member can share resources, expertise, applications and more. If you don't see an action cluster that meets your needs, go ahead and create your own in a few simple steps.
+      <h2>Explore {% if filter_name == 'Archive 2015' %} 2015 {% else %} Current {% endif %} Action Clusters</h2>
+      {% if description %}
+      <p>{{description|safe}}</p>
+      {% else %}
+      <p>Scroll through snapshots of the GCTC action clusters that are the core of the Global City Teams Challenge. Composed of representatives from local governments, non-profit organizations, academia and industry, these teams work collaboratively to build, deploy, and/or test transformative IoT applications. Action cluster project pages allow teams to share resources and expertise, identify needs, and showcase a team’s progress.</p>
+
+      <p>
+      Interested in participating in the GCTC but you don't see an action cluster aligned with your interests or needs? <a href="{{ SITE_URL}}/globalcityteams/actioncluster/add/"> Use this worksheet</a> to propose a new GCTC project in a few simple steps.
+      </p>
+
+      <p>
+      You can also view the action clusters from the 2015 GCTC Challenge <a href="{{ SITE_URL}}/globalcityteams/actioncluster/archive/">here</a>.
+      </p>
+      {% endif %}
 
     {% endif %}
   </div>
 </div>
 <div class="row newsletter newsletter--primary" {% if category == "iot"  or category == "partner"%} style="margin-bottom: 50px;" {% endif %}>
   <div class="small-12 medium-8 columns newsletter__column">
-    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN ACTION CLUSTER?</strong> TELL US ABOUT IT...</h4>
+    <h4 class="newsletter__heading"><strong>GOT A GREAT IDEA FOR AN NEW ACTION CLUSTER?</strong> TELL US ABOUT IT...</h4>
   </div>
   <div class="small-12 medium-4 columns newsletter__column">
     <a href="{% url 'actioncluster_add' %}" class="button alert banner_button">SUBMIT YOUR ACTION CLUSTER</a>{% csrf_token %}

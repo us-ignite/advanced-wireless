@@ -12,11 +12,14 @@ from us_ignite.apps.forms import (ApplicationForm, ApplicationLinkFormSet,
                                   ApplicationMembershipFormSet)
 from us_ignite.apps.models import (Application, ApplicationMembership,
                                    ApplicationVersion, Domain, Page)
+from us_ignite.actionclusters.models import (ActionCluster, ActionClusterMembership,
+                                   Domain as ACDomain)
 from us_ignite.awards.models import ApplicationAward
 from us_ignite.common import pagination, forms
 from us_ignite.hubs.forms import HubAppMembershipForm
 from us_ignite.hubs.models import HubAppMembership
 
+from itertools import chain
 
 APPS_SORTING_CHOICES = (
     ('', 'Select ordering'),
@@ -50,12 +53,18 @@ def app_list(request, domain=None, stage=None, filter_name=''):
     order_form = forms.OrderForm(
         request.GET, order_choices=APPS_SORTING_CHOICES)
     order_value = order_form.cleaned_data['order'] if order_form.is_valid() else ''
-    object_list = Application.objects.select_related('domain').filter(
+    object_list_app = Application.objects.select_related('domain').filter(
         status=Application.PUBLISHED, **extra_qs)
+    object_list_ac = ActionCluster.objects.select_related('domain').filter(
+        status=ActionCluster.PUBLISHED, **extra_qs)
+    object_list = list(chain(object_list_app, object_list_ac))
     if order_value:
         object_list = object_list.order_by(order_value)
-    featured_list = Application.objects.select_related('domain').filter(
+    featured_list_app = Application.objects.select_related('domain').filter(
         status=Application.PUBLISHED, is_featured=True, **extra_qs)[:3]
+    featured_list_ac = ActionCluster.objects.select_related('domain').filter(
+        status=ActionCluster.PUBLISHED, is_featured=True, **extra_qs)[:3]
+    featured_list = list(chain(featured_list_app, featured_list_ac))[:3]
     page = pagination.get_page(object_list, page_no)
     context = {
         'featured_list': featured_list,

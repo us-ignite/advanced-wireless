@@ -22,8 +22,12 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   if CONF['gui'] == true
-    config.vm.boot_mode = :gui
+    # config.vm.boot_mode = :gui
+    config.vm.provider "virtualbox" do |vb|
+      vb.gui = true
+    end
   end
+
 
   config.vm.synced_folder ".", MOUNT_POINT, id: "project-root"
 

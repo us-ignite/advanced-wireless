@@ -86,7 +86,7 @@
 			$(this).attr("href", "#" + i);
 		});
 
-		$(".faq-list li").each(function (i, el) {
+		$(".faq-list > li").each(function (i, el) {
 			$(this).attr("id", i);
 		});
 

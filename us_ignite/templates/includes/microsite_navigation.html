@@ -6,6 +6,7 @@
     <ul class="dropdown">
       <li><a href="{% url 'globalcityteams:globalcityteams_about' %}">GLOBAL CITY TEAMS CHALLENGE</a></li>
       <li><a href="{% url 'globalcityteams:globalcityteams_faq' %}">FAQ</a></li>
+      <li><a href="{{ SITE_URL }}/globalcityteams/participation-guide">PARTICIPATION GUIDE</a></li>
       <li><a href="{% url 'globalcityteams:globalcityteams_partners' %}">PARTNERS</a></li>
       <li><a href="{% url 'globalcityteams:globalcityteams_sectors' %}">SECTORS</a></li>
     </ul>
@@ -14,7 +15,8 @@
   <li class="has-dropdown">
     <a href="{% url 'actioncluster_list' %}">ACTION CLUSTERS</a>
     <ul class="dropdown">
-      <li><a href="{% url 'actioncluster_list' %}">ACTION CLUSTERS</a></li>
+      <li><a href="{% url 'actioncluster_list' %}">CURRENT ACTION CLUSTERS</a></li>
+        <li><a href="{% url 'actioncluster_list_archive' %}">ACTION CLUSTERS 2015</a></li>
       <li><a href="{% url 'actioncluster_add' %}">ADD AN ACTION CLUSTER</a></li>
       <li><a href="{% url 'actioncluster_list_partner' %}">LOOKING FOR PARTNERS</a></li>
       <li><a href="{% url 'actioncluster_list_iot' %}">IOT PROJECT IDEAS</a></li>

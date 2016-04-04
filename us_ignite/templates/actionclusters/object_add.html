@@ -8,8 +8,9 @@ Add an Action Cluster
 
 {% block section %}
 <p>
-	Please submit <a href="https://s3.amazonaws.com/us-ignite-org/uploads/Emailing_20141014_Worksheet_Global_City_Teams_V3_1.docx">this completed Action Cluster Worksheet</a> to <a href="mailto:william.maguire@us-ignite.org">william.maguire@us-ignite.org</a> for review before creating a new Action Cluster.
+	Please visit the <a href="{{ SITE_URL}}/globalcityteams/participation-guide">GCTC Participation Guide</a> for the requirements to form an Action Cluster and submit the completed <a href="https://s3.amazonaws.com/us-ignite-org/uploads/20160303+GCTC+2016+Project+Worksheet+rev+5.docx">Worksheet</a> to <a href="mailto:sokwoo.rhee@nist.gov">sokwoo.rhee@nist.gov</a> and <a href="mailto:william.maguire@us-ignite.org">william.maguire@us-ignite.org</a> for review.
 </p>
+{% comment %}
 <p>
   Please fill out the form below to have your action cluster added to our searchable database. Once you have submitted your application and it has been approved, it will be included on our Action Clusters page.
 </p>
@@ -23,6 +24,7 @@ Add an Action Cluster
   {% csrf_token %}
 </p>
 </form>
+{% endcomment %}
 {% endblock section %}
 
 {% block extra_scripts %}

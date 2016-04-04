@@ -17,7 +17,8 @@ from us_ignite.actionclusters.forms import (
 from us_ignite.actionclusters.models import (
     ActionCluster,
     ActionClusterMembership,
-    Domain
+    Domain,
+    Year
 )
 from us_ignite.awards.models import ActionClusterAward
 from us_ignite.common import pagination
@@ -32,8 +33,8 @@ def get_stage_or_404(stage):
     raise Http404('Invalid stage.')
 
 
-def actioncluster_list(request, domain=None, stage=None, filter_name=''):
-    """List al the available ``ActionCluster``."""
+def actioncluster_list(request, current=True, domain=None, stage=None, year=None, filter_name='', description=''):
+    """List all the available ``ActionCluster``."""
     extra_qs = {
         'is_approved': True,
         'status': ActionCluster.PUBLISHED,
@@ -42,11 +43,27 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
         # Validate domain is valid if provided:
         extra_qs['domain'] = get_object_or_404(Domain, slug=domain)
         filter_name = extra_qs['domain'].name
-    if stage:
+    elif stage:
         # Validate stage is valid if provided:
         pk, name = get_stage_or_404(stage)
         extra_qs['stage'] = pk
         filter_name = name
+    elif year:
+        extra_qs['year'] = get_object_or_404(Year, year=year)
+        filter_name = extra_qs['year'].year
+        description = extra_qs['year'].description
+    else:
+        if current:
+            extra_qs['year'] = get_object_or_404(Year, default_year=True)
+            filter_name = 'Current Year (' + extra_qs['year'].year + ')'
+            description = extra_qs['year'].description
+        else:
+            extra_qs['year'] = get_object_or_404(Year, default_year=False)
+            filter_name = 'Archive 2015'
+
+
+
+
     page_no = pagination.get_page_no(request.GET)
     object_list = (
         ActionCluster.objects.select_related('domain')
@@ -60,6 +77,7 @@ def actioncluster_list(request, domain=None, stage=None, filter_name=''):
         'domain_list': Domain.objects.all(),
         'stage_list': ActionCluster.STAGE_CHOICES,
         'filter_name': filter_name,
+        'description': description,
         'current_domain': domain,
         'current_stage': int(stage) if stage else None,
         'appname': 'actionclusters',
@@ -143,6 +161,7 @@ def actioncluster_detail(request, slug):
     context = {
         'object': actioncluster,
         'domain': actioncluster.domain,
+        'community' : actioncluster.community,
         'url_list': actioncluster.actionclusterurl_set.all(),
         'media_list': actioncluster.actionclustermedia_set.all(),
         'feature_list': actioncluster.features.all(),
@@ -156,7 +175,7 @@ def actioncluster_detail(request, slug):
     return TemplateResponse(request, 'actionclusters/object_detail.html', context)
 
 
-@login_required
+# @login_required
 def actioncluster_add(request):
     """View for adding an ``Application``."""
     if request.method == 'POST':

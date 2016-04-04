@@ -1,0 +1,51 @@
+{% extends "microsite_base.html" %}{% load snippets_tags thumbnail %}
+
+{% block title %}Global City Teams Challenge - {{ block.super }}{% endblock title %}
+
+{% block content %}
+<div class="row collapse l-listings" data-equalizer>
+  {% block sidebar %}
+    {% include "globalcityteams/includes/sidebar.html" %}
+  {% endblock sidebar %}
+
+  <article class="large-8 medium-9 columns listings" data-equalizer-watch>
+    <div class="listings__listing">
+      <div class="row">
+        <div class="small-12 columns">
+            <h1>GCTC Leadership Fund</h1>
+            <h2>Application for GCTC Leadership Awards</h2>
+            <br>
+            <p>
+                US Ignite will make cash awards to exceptional Action Clusters, enabling selected Action Clusters to advance their project’s objectives and, in so doing, the objectives of the Global City Teams Challenge.
+            </p>
+            <ul>
+                <li>Team Leads from GCTC Action Clusters, including private companies, local governments, non-profit organizations, and educational institutions, regardless of their geographic location, are eligible to apply for GCTC Leadership Awards.</li>
+                <li>Applications for the Leadership Award are due <strong>April 15th, 2016</strong>.  Finalists for the GCTC Leadership Awards will be announced at the GCTC Expo. <strong><i>Please note:</i></strong> distribution of the awarded funds will be made <strong><i>after</i></strong> the GCTC Expo.</li>
+                <li>US Ignite will award a single “GCTC Leadership Award” of $20,000 to the top action cluster selected by the judges, and up to three (3) $10,000 “Honorable Mention” awards to exceptional applications.</li>
+            </ul>
+            <br>
+            <p>
+                Any teams wishing to be considered for an award must attend and demonstrate at the GCTC Expo, currently scheduled for June.
+            </p>
+            <p>
+                Eligible applications for GCTC Leadership prizes will be reviewed by a committee and evaluated on the project’s progress deploying replicable, scalable and measurable IoT projects in a Smart City environment.  More specifically, the committee will evaluate applications based on the strength of their accepted GCTC project (40%), the demonstrated progress made by the Action Cluster (25%), the manner the Action Cluster proposes to use GCTC Leadership award (25%) and the composition of their GCTC Action Cluster team (10%).
+            </p>
+            <p>
+                Additionally, applicants must provide the following information:
+            </p>
+            <ul>
+                <li>Name of the Action Cluster applying for the award</li>
+                <li>List all organizations participating in the Action Cluster’s work</li>
+                <li>Indicate how your Action Cluster intends to utilize the GCTC Leadership Funds, if awarded (250 word limit)</li>
+                <li>Indicate how your Action Cluster’s objectives would be advanced by the GCTC Leadership Award Funding (250 word limit)</li>
+                <li>Summary of your Action Cluster’s work to date (300 word limit)</li>
+            </ul>
+            <a class="primary button expand" href="http://goo.gl/forms/4FzR3JNQVl" target="_blank">CLICK HERE TO APPLY</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+
+{% endblock content %}

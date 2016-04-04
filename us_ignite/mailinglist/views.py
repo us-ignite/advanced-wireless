@@ -14,14 +14,19 @@ logger = logging.getLogger('us_ignite.mailinglist.views')
 
 MAILING_LISTS = {
     'default': settings.MAILCHIMP_LIST,
-    'globalcityteams': settings.MAILCHIMP_LIST,
+    'globalcityteams': settings.MAILCHIMP_GCTC_LIST,
 }
 
 
 def subscribe_email(email, slug):
     if not slug in MAILING_LISTS:
         raise mailchimp.ValidationError('Error while subscribing.')
-    master = mailchimp.Mailchimp(settings.MAILCHIMP_API_KEY)
+
+    if slug == 'globalcityteams':
+        master = mailchimp.Mailchimp(settings.MAILCHIMP_GCTC_API_KEY)
+    else:
+        master = mailchimp.Mailchimp(settings.MAILCHIMP_API_KEY)
+
     mailing_list = mailchimp.Lists(master)
     uid = hashlib.md5(email).hexdigest()
     email_data = {
@@ -29,8 +34,10 @@ def subscribe_email(email, slug):
         'euid': uid,
         'leid': uid,
     }
-    return mailing_list.subscribe(
-        settings.MAILCHIMP_LIST, email_data)
+    if slug == 'globalcityteams':
+        return mailing_list.subscribe(settings.MAILCHIMP_GCTC_LIST, email_data)
+    else:
+        return mailing_list.subscribe(settings.MAILCHIMP_LIST, email_data)
 
 
 def mailing_subscribe(request, slug='default'):
@@ -39,9 +46,12 @@ def mailing_subscribe(request, slug='default'):
         form = EmailForm(request.POST)
         if form.is_valid():
             try:
-                subscribe_email(form.cleaned_data['email'], 'default')
+                subscribe_email(form.cleaned_data['email'], slug)
                 messages.success(request, 'Successfully subscribed.')
-                redirect_to = 'home'
+                if slug == 'globalcityteams':
+                    redirect_to = 'https://www.us-ignite.org/globalcityteams/'
+                else:
+                    redirect_to = 'home'
             except mailchimp.ListAlreadySubscribedError:
                 messages.error(request, 'Already subscribed.')
                 redirect_to = 'mailing_subscribe'
