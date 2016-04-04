@@ -22,6 +22,7 @@ module.exports = function(grunt) {
         'us_ignite/assets/bower_components/foundation/js/foundation/foundation.orbit.js',
         'us_ignite/assets/bower_components/foundation/js/foundation/foundation.topbar.js',
         'us_ignite/assets/js/vendor/jquery-ui-1.10.4.custom.js',
+        'us_ignite/assets/globalcityteams/js/slick.min.js',
         'us_ignite/assets/js/vendor/html5shiv.js',
         'us_ignite/assets/js/vendor/nwmatcher-1.2.5-min.js',
         'us_ignite/assets/js/vendor/selectivizr-1.0.3b.js',
