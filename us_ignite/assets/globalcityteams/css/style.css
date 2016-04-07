@@ -1440,3 +1440,43 @@ ul, ol, dl {
 		width: 100%;
 	}
 }
+
+.smart-community-week .event-title {
+	font-size: 41px;
+	color: #00c2e4;
+	font-weight: 300;
+}
+
+.smart-community-week .event-subtitle {
+	font-style: italic;
+	font-size: 23px;
+	color: #555;
+	text-align: left;
+}
+
+.smart-community-week .row .left {
+	float: left;
+	margin: 20px 20px 0 0;
+	width: 80px;
+	left: 80px;
+}
+
+.smart-community-week .row .right-column {
+	padding: 0 0 0 100px;
+}
+
+.smart-community-week .row .clear {
+	clear: both;
+}
+
+.smart-community-week .row p {
+	margin-bottom: 20px;
+}
+
+.smart-community-week .row p span {
+	color: #ff8100;
+}
+
+.smart-community-week .header-image {
+	background: none;
+}
