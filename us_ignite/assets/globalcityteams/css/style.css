@@ -1442,14 +1442,15 @@ ul, ol, dl {
 }
 
 .smart-community-week .event-title {
-	font-size: 41px;
+	font-size: 36px;
 	color: #00c2e4;
 	font-weight: 300;
+	text-align: left;
 }
 
 .smart-community-week .event-subtitle {
 	font-style: italic;
-	font-size: 23px;
+	font-size: 18px;
 	color: #555;
 	text-align: left;
 }
@@ -1477,6 +1478,13 @@ ul, ol, dl {
 	color: #ff8100;
 }
 
-.smart-community-week .header-image {
-	background: none;
+.smart-community-week .header-image-sm {
+	background: url(../../img/smartcommunityweek/smart-community-week-banner-1600.jpg) no-repeat ;
+	background-size: cover;
+	width: 100%;
+	height: 450px;
+	margin-left: auto;
+	margin-right: auto;
+	background-position: center center !important;
+	max-width: 1600px;
 }
