@@ -1450,9 +1450,10 @@ ul, ol, dl {
 
 .smart-community-week .event-subtitle {
 	font-style: italic;
-	font-size: 18px;
+	font-size: 1.9rem;
 	color: #555;
 	text-align: left;
+	line-height: 3.5rem;
 }
 
 .smart-community-week .row .left {
@@ -1479,12 +1480,63 @@ ul, ol, dl {
 }
 
 .smart-community-week .header-image-sm {
-	background: url(../../img/smartcommunityweek/smart-community-week-banner-1600.jpg) no-repeat ;
+	background: url(../../img/USI-SplashPage-SmartCities-Hero-Image.jpg) no-repeat ;
 	background-size: cover;
 	width: 100%;
-	height: 450px;
+	min-height: 450px;
 	margin-left: auto;
 	margin-right: auto;
 	background-position: center center !important;
-	max-width: 1600px;
+	display: block;
+	display: flex;
+	align-items: center;
+  	justify-content: center;
+
 }
+
+.smart-community-week .header-image-sm h1 {
+	color: #fff;
+	text-align: center;
+	font-size: 6rem;
+	font-weight: 300;
+	line-height: 1.2;
+
+}
+
+.smart-community-week .header-image-sm h1 small{
+	color: #fff;
+	text-align: center;
+	font-size: 4rem;
+}
+
+
+@media only screen and (max-width: 639px) {
+
+.smart-community-week .header-image-sm h1 {
+
+	font-size: 5rem;
+	line-height: 1.2;
+
+}
+
+.smart-community-week .header-image-sm h1 small{
+	font-size: 3rem;
+}
+
+}
+
+
+.smart-community-week h2.event-title {
+	font-size: 3.3rem;
+	line-height: 1.5;
+	text-align: center;
+}
+
+
+@media only screen and (max-width: 639px) {
+
+.smart-community-week h2.event-title {
+	font-size: 2.7rem;
+}
+}
+
