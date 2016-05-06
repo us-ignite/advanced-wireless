@@ -1480,7 +1480,7 @@ ul, ol, dl {
 }
 
 .smart-community-week .header-image-sm {
-	background: url(../../img/USI-SplashPage-SmartCities-Hero-Image.jpg) no-repeat ;
+	background: url(../../img/USI-SplashPage-SmartCities-Hero-Image.jpg) no-repeat;
 	background-size: cover;
 	width: 100%;
 	min-height: 450px;
@@ -1499,7 +1499,7 @@ ul, ol, dl {
 	content: "";
 	position: absolute;
 	z-index: 0;
-	background-color: rgba(0,0,0,0.4);
+	background-color: rgba(0,0,0,0.45);
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -1510,10 +1510,12 @@ ul, ol, dl {
 	color: #fff;
 	text-align: center;
 	font-size: 5rem;
-	font-weight: 300;
+	font-weight: 400;
 	line-height: 1.2;
 	text-shadow: 2px 2px #000;
 	z-index: 2;
+	margin-left: 15px;
+	margin-right: 15px;
 
 }
 
@@ -1528,7 +1530,7 @@ ul, ol, dl {
 
 .smart-community-week .header-image-sm h1 {
 
-	font-size: 5rem;
+	font-size: 4rem;
 	line-height: 1.2;
 
 }
