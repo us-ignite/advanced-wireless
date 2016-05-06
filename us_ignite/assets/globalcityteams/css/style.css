@@ -1491,15 +1491,29 @@ ul, ol, dl {
 	display: flex;
 	align-items: center;
   	justify-content: center;
+  	position: relative;
 
+}
+
+.smart-community-week .header-image-sm:before {
+	content: "";
+	position: absolute;
+	z-index: 0;
+	background-color: rgba(0,0,0,0.4);
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .smart-community-week .header-image-sm h1 {
 	color: #fff;
 	text-align: center;
-	font-size: 6rem;
+	font-size: 5rem;
 	font-weight: 300;
 	line-height: 1.2;
+	text-shadow: 2px 2px #000;
+	z-index: 2;
 
 }
 

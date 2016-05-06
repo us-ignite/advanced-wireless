@@ -77,6 +77,7 @@ urlpatterns += patterns(
     url(r'^(?i)GCTCstrategyworkshop/$', TemplateView.as_view(template_name='gctc-strategy-workshop.html')),
     url(r'^(?i)GCTC2016Kickoff/$', TemplateView.as_view(template_name='gctc-2016-kickoff.html')),
     url(r'^(?i)smartcommunityweek/$', TemplateView.as_view(template_name='smartcommunityweek2016.html')),
+    url(r'^(?i)smartcommunityweekstudent/$', TemplateView.as_view(template_name='smartcommunityweekstudent.html')),
 
 )
 
