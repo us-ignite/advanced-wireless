@@ -21,6 +21,42 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}globalcityteams/css/style.css"/>
 <!--<![endif]-->
 
+<style>
+.gctc-festival-splash .tabs-container .tab-bar.expo>a {
+    width: 50% !important;
+}
+
+.partner-header {
+    text-transform: uppercase;
+    color: #20c2e2 !important;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+@media screen and (min-width: 600px) {
+.sponsor-row {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;   
+    -webkit-align-items: center;
+    -ms-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+}
+}
+
+
+
+.sponsor-row a {
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+
+}
+
+</style>
 </head>
 <body class="gctc-festival">
 
@@ -82,61 +118,146 @@
                     For more information about the event and to register for the GCTC Expo, please visit <a
                         href="https://www.gctcexpo.org" target="_blank">www.gctcexpo.org</a>.
                 </p>
-                <p class="center">
-                    <b>Note:</b> The GCTC Expo will be co-located with two other events that will take place at Austin Convention Center June 13-15.  Co-locating the 2016 GCTC Expo with the Smart City Innovation Summit and the US Ignite Application Summit will encourage more attendees and participants to travel to Austin and will result in more exposure for GCTC Action Clusters.
-                </p>
-                <p class="center">
-                    Although the GCTC Expo is co-located with US Ignite’s Application Summit and the Smart Cities Innovation Summit, the GCTC Expo is a separate and distinct event.  The GCTC Expo will have its own exhibition space and its own process for registration.</p>
-
-                <p class="center">2016 GCTC Action Clusters will receive an exhibition space in the GCTC Expo and a speaking slot at no charge, subject to space availability and contingent upon the Action Cluster fulfilling the requirements listed in the GCTC participating guide.  Please review (<a
-                        href="https://www.us-ignite.org/globalcityteams/participation-guide" target="_blank">https://www.us-ignite.org/globalcityteams/participation-guide</a>) for more information.</p>
-
-                <p class="center">Acceptance as a speaker or exhibitor by the US Ignite Application Summit or the Smart Cities Innovation Summit events does not entitle an organization to speak or exhibit at the GCTC Expo.</p>
-
-                <p class="center">If you have questions about the 2016 GCTC Expo, please contact Mariya Cherk at mariya.cherk@us-ignite.org or Sokwoo Rhee at
-                    <a href="mailto:sokwoo.rhee@nist.gov">sokwoo.rhee@nist.gov</a>.</p>
-
-                </p>
+               
             </div>
         </div>
 
-<!-- end .row -->
+        <div class="row">
+            <div class="columns small-12 small-centered ">
+                <div class="tabs-container row show-for-medium-up">
+                    <div class="tab-bar expo">
+                        <a href="#" style="width: 50%;" class="active columns small-2 w50" data-section="overview">Overview</a>
+                        <a href="#" style="width: 50%;" class="columns small-2 w50" data-section="sponsors">Sponsors</a>
+                    </div>
+                    <!-- end .tab-bar -->
 
-<!-- TEMPLATE MARKUP FOR MOBILE TABS
-<div class="row">
-<div class="columns small-12 small-centered ">
-<div class="mobile-tabs-container">
-<div class="tabs">
-<div>
-	<a href="#" class="handle" data-section="description">Description <div class="close">&#215;</div></a>
-	<div data-section-name="description" class="tab-content active">
-		TAB CONTENT HERE
-	</div>
-</div>
+                    <div class="tab-content">
+                        <div data-section-name="overview" class="active">
+                             <p>
+                                The GCTC Expo will be co-located with two other events that will take place at Austin Convention Center June 13-15.  Co-locating the 2016 GCTC Expo with the Smart City Innovation Summit and the US Ignite Application Summit will encourage more attendees and participants to travel to Austin and will result in more exposure for GCTC Action Clusters.
+                            </p>
+                            <p>
+                                Although the GCTC Expo is co-located with US Ignite’s Application Summit and the Smart Cities Innovation Summit, the GCTC Expo is a separate and distinct event.  The GCTC Expo will have its own exhibition space and its own process for registration.</p>
 
-</div>
-</div>
-</div>
--->
+                            <p >2016 GCTC Action Clusters will receive an exhibition space in the GCTC Expo and a speaking slot at no charge, subject to space availability and contingent upon the Action Cluster fulfilling the requirements listed in the GCTC participating guide.  Please review (<a
+                                    href="https://www.us-ignite.org/globalcityteams/participation-guide" target="_blank">https://www.us-ignite.org/globalcityteams/participation-guide</a>) for more information.</p>
 
-<div class="row">
-    <div class="share-buttons">
-        <h2 class="center">Share This Event</h2>
-        <a href="http://twitter.com/intent/tweet?text=2016 Global City Teams Challenge Expo&url={{ SITE_URL }}/gctcexpo&utm_source=TWSH" class="share-button twitter">
-            <span class="icon-uniE608"></span>
-        </a>
-        <a href="http://www.facebook.com/sharer.php?u={{ SITE_URL }}/gctcexpo&utm_source=FBSH" class="share-button facebook">
-            <span class="icon-uniE607"></span>
-        </a>
-        <a href="https://plus.google.com/share?url={{ SITE_URL }}/gctcexpo&utm_source%3DGPSH" class="share-button google">
-            <span class="icon-googleplus"></span>
-        </a>
+                            <p>Acceptance as a speaker or exhibitor by the US Ignite Application Summit or the Smart Cities Innovation Summit events does not entitle an organization to speak or exhibit at the GCTC Expo.</p>
+
+                            <p>If you have questions about the 2016 GCTC Expo, please contact Mariya Cherk at mariya.cherk@us-ignite.org or Sokwoo Rhee at
+                                <a href="mailto:sokwoo.rhee@nist.gov">sokwoo.rhee@nist.gov</a>.</p>
+
+                            </p>
+                           
+
+                        </div>
+
+                        <div data-section-name="sponsors">
+                           <h4 class="partner-header center"> Agency Partners </h4>
+
+                           <div class="row sponsor-row">
+                               <a href="http://www.nsf.gov/" target="_blank" class="medium-3 small-12 columns"><img src="{{ STATIC_URL }}globalcityteams/images/partner-logos/NSF.png" alt="nsf"  height="100"></a>
+
+                               <a href="http://www.state.gov/" target="_blank" class="medium-3 small-12 columns"><img src="{{ STATIC_URL }}img/department-of-state.png" alt="dos"  height="100"></a>
+
+                               <a href="http://www.gsa.gov/portal/category/100000" target="_blank" class="medium-3 small-12 columns"><img title="GSA" src="{{ STATIC_URL }}img/gsa.png" alt="gsa"  height="100"></a>
+
+                               <a href="https://www.transportation.gov/" target="_blank" class="medium-3 small-12 columns"><img title="dot" src="{{ STATIC_URL }}img/department-of-transportation.png" alt="dot" height="100"></a>
+
+                           </div>
+
+                           <div class="row sponsor-row">
+
+                                <a href="http://www.census.gov/" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/us-census.png" alt="us-census" height="100"></a>
+
+                                <a href="https://www.ntia.doc.gov/" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/ntaia.png" alt="ntaia" height="100"></a>
+
+                                <a href="http://trade.gov/" target="_blank" class="medium-3 small-12 columns end"><img src="{{ STATIC_URL }}globalcityteams/images/partner-logos/ita.png" alt="ita" height="100"></a>
+
+                           </div>
+
+                           <h4 class="partner-header center"> Supporting Organizations </h4>
+
+                           <div class="row sponsor-row">
+                                <a href="https://www.fiware.org/" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/fi-ware.png" alt="fi-ware" height="100"></a>
+
+                                <a href="http://www.we-gov.org/" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/wego.png" alt="wego" height="100"></a>
+
+                                <a href="http://regions20.org/" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/regions-of-climate-action.png" alt="roca" height="100"></a>
+
+                                <a href="http://www.iiconsortium.org/" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/industrial-internet-consortium.png" alt="iic" height="100"></a>
+
+                           </div>
+
+                           <div class="row sponsor-row">
+                                <a href="http://metrolab.heinz.cmu.edu//" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/metrolab.png" alt="metrolab" height="100"></a>
+
+                                <a href="http://icma.org/en/icma/home" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/icma.png" alt="icma" height="100"></a>
+
+                                <a href="http://www.usgbc.org/" target="_blank" class="medium-3 small-12 columns end"><img  src="{{ STATIC_URL }}img/usgbc.png" alt="usgbc" height="100"></a>
+                           </div>
+
+                           <h4 class="partner-header center"> Corporate Partners </h4>
+                           
+                           <div class="row sponsor-row">
+                                <a href="http://www.att.com/" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/att.png" alt="att" height="100"></a>
+
+                                <a href="http://ibm.com" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}globalcityteams/images/partner-logos/ibm.png" alt="ibm" height="100"></a>
+
+                                <a href="http://www.intel.com" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}globalcityteams/images/partner-logos/intel.png" alt="usgbc" height="100"></a>
+
+                                 <a href="http://www.currentbyge.com/" target="_blank" class="medium-3 small-12 columns"><img  src="{{ STATIC_URL }}img/current.png" alt="current" height="100"></a>
+                           </div>
+
+                        </div>  
+                        <!-- end [data-section-name] -->
+
+        
+                    </div>
+                    <!-- end .tab-content -->
+                </div>
+                <!-- .tabs-container -->
+            </div>
+        </div>
+        <!-- end .row -->
+
+        <!-- end .row -->
+
+        <!-- TEMPLATE MARKUP FOR MOBILE TABS
+        <div class="row">
+        <div class="columns small-12 small-centered ">
+        <div class="mobile-tabs-container">
+        <div class="tabs">
+        <div>
+        	<a href="#" class="handle" data-section="description">Description <div class="close">&#215;</div></a>
+        	<div data-section-name="description" class="tab-content active">
+        		TAB CONTENT HERE
+        	</div>
+        </div>
+
+        </div>
+        </div>
+        </div>
+        -->
+
+        <div class="row">
+            <div class="share-buttons">
+                <h2 class="center">Share This Event</h2>
+                <a href="http://twitter.com/intent/tweet?text=2016 Global City Teams Challenge Expo&url={{ SITE_URL }}/gctcexpo&utm_source=TWSH" class="share-button twitter">
+                    <span class="icon-uniE608"></span>
+                </a>
+                <a href="http://www.facebook.com/sharer.php?u={{ SITE_URL }}/gctcexpo&utm_source=FBSH" class="share-button facebook">
+                    <span class="icon-uniE607"></span>
+                </a>
+                <a href="https://plus.google.com/share?url={{ SITE_URL }}/gctcexpo&utm_source%3DGPSH" class="share-button google">
+                    <span class="icon-googleplus"></span>
+                </a>
+            </div>
+        </div>
+        <!-- end .row -->
+
     </div>
-</div>
-<!-- end .row -->
-
-</div>
-<!-- end .gctc-festival-splash -->
+    <!-- end .gctc-festival-splash -->
 
 
 

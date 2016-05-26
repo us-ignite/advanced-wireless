@@ -1441,9 +1441,10 @@ ul, ol, dl {
 	}
 }
 
+/* Smart Community Week 2016 */
 .smart-community-week .event-title {
 	font-size: 36px;
-	color: #00c2e4;
+	color: #1577bc;
 	font-weight: 300;
 	text-align: left;
 }
@@ -1480,13 +1481,14 @@ ul, ol, dl {
 }
 
 .smart-community-week .header-image-sm {
-	background: url(../../img/USI-SplashPage-SmartCities-Hero-Image.jpg) no-repeat;
-	background-size: cover;
+	background: url(../../img/USI_WebsiteHeadr1900x450.jpg) no-repeat;
+	
 	width: 100%;
 	min-height: 450px;
 	margin-left: auto;
 	margin-right: auto;
 	background-position: center center !important;
+	background-size: auto 100%;
 	display: block;
 	display: flex;
 	align-items: center;
@@ -1495,6 +1497,13 @@ ul, ol, dl {
 
 }
 
+@media only screen and (max-width: 639px) {
+	.smart-community-week .header-image-sm {
+		min-height: 350px;
+	}
+}
+
+/*
 .smart-community-week .header-image-sm:before {
 	content: "";
 	position: absolute;
@@ -1505,7 +1514,7 @@ ul, ol, dl {
 	width: 100%;
 	height: 100%;
 }
-
+*/
 .smart-community-week .header-image-sm h1 {
 	color: #fff;
 	text-align: center;
@@ -1552,6 +1561,123 @@ ul, ol, dl {
 @media only screen and (max-width: 639px) {
 
 .smart-community-week h2.event-title {
+	font-size: 2.7rem;
+}
+}
+
+/* Smart Community Week Student 2016 */
+
+.smart-community-week-student .event-title {
+	font-size: 36px;
+	color: #00c2e4;
+	font-weight: 300;
+	text-align: left;
+}
+
+.smart-community-week-student .event-subtitle {
+	font-style: italic;
+	font-size: 1.9rem;
+	color: #555;
+	text-align: left;
+	line-height: 3.5rem;
+}
+
+.smart-community-week-student .row .left {
+	float: left;
+	margin: 20px 20px 0 0;
+	width: 80px;
+	left: 80px;
+}
+
+.smart-community-week-student .row .right-column {
+	padding: 0 0 0 100px;
+}
+
+.smart-community-week-student .row .clear {
+	clear: both;
+}
+
+.smart-community-week-student .row p {
+	margin-bottom: 20px;
+}
+
+.smart-community-week-student .row p span {
+	color: #ff8100;
+}
+
+.smart-community-week-student .header-image-sm {
+	background: url(../../img/USI-SplashPage-SmartCities-Hero-Image.jpg) no-repeat;
+	background-size: cover;
+	width: 100%;
+	min-height: 450px;
+	margin-left: auto;
+	margin-right: auto;
+	background-position: center center !important;
+	display: block;
+	display: flex;
+	align-items: center;
+  	justify-content: center;
+  	position: relative;
+
+}
+
+.smart-community-week-student .header-image-sm:before {
+	content: "";
+	position: absolute;
+	z-index: 0;
+	background-color: rgba(0,0,0,0.45);
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.smart-community-week-student .header-image-sm h1 {
+	color: #fff;
+	text-align: center;
+	font-size: 5rem;
+	font-weight: 400;
+	line-height: 1.2;
+	text-shadow: 2px 2px #000;
+	z-index: 2;
+	margin-left: 15px;
+	margin-right: 15px;
+
+}
+
+.smart-community-week-student .header-image-sm h1 small{
+	color: #fff;
+	text-align: center;
+	font-size: 4rem;
+}
+
+
+@media only screen and (max-width: 639px) {
+
+.smart-community-week-student .header-image-sm h1 {
+
+	font-size: 4rem;
+	line-height: 1.2;
+
+}
+
+.smart-community-week-student .header-image-sm h1 small{
+	font-size: 3rem;
+}
+
+}
+
+
+.smart-community-week-student h2.event-title {
+	font-size: 3.3rem;
+	line-height: 1.5;
+	text-align: center;
+}
+
+
+@media only screen and (max-width: 639px) {
+
+.smart-community-week-student-student h2.event-title {
 	font-size: 2.7rem;
 }
 }
