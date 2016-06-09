@@ -1,0 +1,74 @@
+/**************** 3-6-2016 *******************/
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700,900);
+
+/*
+font-family: 'Lato', sans-serif;
+Light 300
+Normal 400
+Bold 700
+Ultra-Bold 900
+*/
+
+body{ padding:0; margin:0; font-size:12px; color:#000; font-family: 'Lato', sans-serif;}
+a {outline:none !important; text-decoration:none;
+-webkit-transition: all .6s ease-in-out; -moz-transition: all .6s ease-in-out; -o-transition: all .6s ease-in-out; -ms-transition: all .6s ease-in-out; transition:all .6s ease-in-out;}
+a:hover, a:focus, select:focus, button:focus { outline:none; text-decoration:none;}
+* { margin:0; padding:0;}
+img { border:none; vertical-align:middle; max-width:100%;}
+li{ list-style:none;}
+h1, h2, h3, h4, h5, h6, input, select, textarea, button{ outline:none !important; font-family: 'Lato', sans-serif;}
+input, textarea, select{ -moz-appearance: none; -webkit-appearance: none;}
+
+.container{ width:96%; max-width:1078px; margin:0 auto; padding:0;}
+
+/***********  Top Part  ************/
+#wrapper{ width:100%; float:left; padding:0; margin:0;}
+.left_info{ width:50%; float:left; padding:0 20px 0 0; margin:0; position:relative; top:0; z-index:9999;}
+.left_info_inn{ width:100%; max-width:540px; float:right; padding:0; margin:0;}
+.logo{ width:100%; float:left; padding:70px 0 0 20px; margin:0; position:relative;}
+.logo h1{ width:100%; float:left; padding:0; margin:0 0 35px 0; font-size:46px; color:#000000; font-weight:900; line-height:55px;}
+.logo i{ width:100%; float:left; padding:0; margin:0; text-align:center;}
+
+/*********** Nav Sec ************/
+.nav_sec{ width:100%; float:left; padding:0; margin:20px 0 0 0; position:relative; z-index:9999; -webkit-transition: all 0.4s ease; transition: all 0.4s ease;}
+.nav_sec .navbar-brand{ height:63px; padding:12px 0 0 73px; margin:0 0 0 0; position:relative; opacity:0; -webkit-transition: all 0.4s ease; transition: all 0.4s ease;}
+.nav_sec .navbar-brand i{ width:63px; height:63px; float:left; padding:0; margin:0; position:absolute; left:0; top:0;}
+.nav_sec .navbar-brand h1{ font-size:18px; color:#000000; font-weight:900; padding:0; margin:0;}
+.nav_sec .navbar-default{ background:none; border:none; margin:0; min-height:inherit;}
+.nav_sec .navbar-nav{ float:right;}
+.nav_sec .nav > li{ clear:both; float:right;}
+.nav_sec .navbar-default .navbar-nav > li > a{ padding:6px 25px; margin:5px 0; font-size:24px; color:#000000; font-weight:700; border-right:3px solid transparent;}
+.nav_sec .navbar-default .navbar-nav > li > a:hover, .nav_sec .navbar-default .navbar-nav > li > a:focus{ color:#ee2e24; border-color:#ee2e24; background:none;}
+.nav_sec .navbar-default .navbar-nav > .active > a, .nav_sec .navbar-default .navbar-nav > .active > a:hover, .nav_sec .navbar-default .navbar-nav > .active > a:focus{ color:#ee2e24; border-color:#ee2e24; background:none;}
+
+.nav_sec.sticky { width:100%; max-width:540px; position:fixed; background:#fff; padding:15px 0; margin:0; top:0;}
+.nav_sec.sticky .navbar-brand{ opacity:1;}
+
+/************ Right Info *************/
+.right_info{ width:50%; float:right; padding:78px 0 0 0; margin:0;}
+.right_container{ width:100%; max-width:540px; float:left; padding:0; margin:0;}
+.right_info .detail_1{ width:100%; float:left; padding:0 40px 180px 40px; margin:0; font-size:28px; color:#000000; font-weight:700; line-height:40px;}
+.right_info .detail_1 span{ color:#f37428;}
+
+.right_info .detail_2{ width:100%; float:left; padding:140px 40px; margin:0; background:#f4f4f4;}
+.right_info .detail_2 h2{ width:100%; float:left; padding:0; margin:0 0 20px 0; font-size:28px; color:#ee2e24; font-weight:700;}
+.right_info .detail_2 p{ width:100%; float:left; padding:0; margin:0; font-size:16px; color:#000000; line-height:24px;}
+
+.right_info .detail_3{ width:100%; float:left; padding:55px 40px; margin:0; background:#ee2e24;}
+.right_info .detail_3 h2{ width:100%; float:left; padding:0; margin:0 0 50px 0; font-size:24px; color:#ffffff; font-weight:900;}
+.right_info .detail_3 .block{ width:100%; min-height:67px; float:left; padding:5px 0 0 103px; margin:0 0 30px 0; position:relative;}
+.right_info .detail_3 .block i{ width:66px; float:left; padding:0; margin:0; position:absolute; left:0; top:0;}
+.right_info .detail_3 .block h3{ width:100%; float:left; padding:0; margin:0 0 5px 0; font-size:18px; color:#ffffff; font-weight:900;}
+.right_info .detail_3 .block p{ width:100%; float:left; padding:0; margin:0; font-size:16px; color:#ffffff; line-height:23px;}
+
+.right_info .partner_sec{ width:100%; float:left; padding:70px 0 0 0; margin:0;}
+.right_info .partner_sec h2{ width:100%; float:left; padding:0 20px 0 40px ; margin:0 0 35px 0; font-size:28px; color:#ee2e24; font-weight:700;}
+.right_info .partner_sec ul{ width:100%; float:left; padding:0; margin:0 0 30px 0; text-align:center;}
+.right_info .partner_sec ul li{ width:50%; min-height:151px; float:left; padding:10px; margin:0;}
+
+.right_info .involed_sec{ width:100%; float:left; padding:70px 40px 100px 40px; margin:0; background:#000000;}
+.right_info .involed_sec h3{ width:100%; float:left; padding:0; margin:0 0 30px 0; font-size:28px; color:#ffffff; font-weight:700;}
+.right_info .involed_sec p{ width:100%; float:left; padding:0; margin:0 0 40px 0; font-size:16px; color:#ffffff; line-height:24px;}
+.right_info .involed_sec .call_btn{ height:56px; float:left; padding:0 45px; margin:0 0 40px 0; clear:both; font-size:20px; color:#ffffff; font-weight:900; border-radius:30px; border:none; background:#ee2e24;}
+.right_info .involed_sec .call_btn:hover{ background:#fc251a;}
+.about_main_sec{ width:100%; float:left; padding:0; margin:0;}
