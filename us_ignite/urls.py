@@ -78,6 +78,8 @@ urlpatterns += patterns(
     url(r'^(?i)GCTC2016Kickoff/$', TemplateView.as_view(template_name='gctc-2016-kickoff.html')),
     url(r'^(?i)smartcommunityweek/$', TemplateView.as_view(template_name='smartcommunityweek2016.html')),
     url(r'^(?i)smartcommunityweekstudent/$', TemplateView.as_view(template_name='smartcommunityweekstudent.html')),
+    url(r'^(?i)smartcityworks/$', TemplateView.as_view(template_name='smartcityworks.html')),
+    url(r'^(?i)awt/$', TemplateView.as_view(template_name='awtmicrosite.html')),
 
 )
 
