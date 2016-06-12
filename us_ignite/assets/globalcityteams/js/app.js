@@ -96,7 +96,7 @@ $(document).foundation();
 /* Add parallax effect to intro image */
 function parallax(){
 	var scrolled_1 = $(window).scrollTop();
-	$('.intro-image').css( 'background-position' , '0% -' + (scrolled_1 * 0.35) + 'px' );
+	//$('.intro-image').css( 'background-position' , '0% -' + (scrolled_1 * 0.35) + 'px' );
 }
 
 

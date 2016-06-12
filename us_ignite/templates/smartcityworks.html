@@ -56,6 +56,34 @@
 
 }
 
+.logos-bar img {
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gctc-festival-splash .header-image {
+     background: url("{{ STATIC_URL }}images/CC BY Anthony Quintano - M.jpg") no-repeat fixed #f4f3f1;
+}
+
+.logos-bar img.desktop {
+    display: block;
+}
+
+.logos-bar img.mobile {
+    display: none;   
+}
+@media screen and (max-width: 768px) {
+
+    .logos-bar img.desktop {
+        display: none;
+    }
+
+    .logos-bar img.mobile {
+        display: block;
+    }
+}
 </style>
 </head>
 <body class="gctc-festival ">
@@ -79,7 +107,8 @@
         <div class="logos-bar">
             <div class="row">
                 <div class="small-10 columns small-centered columns medium-6">
-                    <img src="{{ STATIC_URL }}images/nist-usignite-gctc-logo.png" />
+                    <img class="mobile" src="{{ STATIC_URL }}images/nist-usignite-gctc-logo-stacked-72949.jpg" />
+                    <img class="desktop" src="{{ STATIC_URL }}images/nist-usignite-gctc-logo-bkdhp.jpg" />
                 </div>
             </div>
         </div>
