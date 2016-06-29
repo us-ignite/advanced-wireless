@@ -313,7 +313,6 @@ THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 WP_URL = 'http://us-ignite-wp.herokuapp.com'
 WP_EMAIL = ''
 
-
 # TinyMCE configuration:
 TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
