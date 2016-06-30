@@ -343,3 +343,11 @@ IGNITE_MANAGERS = [
     'info@us-ignite.org',
     'jennifer.mott@us-ignite.org',
 ]
+
+"""
+MAILCHIMP_API_KEY = 'set in local.py and production.py'
+MAILCHIMP_LIST = 'set in local.py and production.py'
+
+MAILCHIMP_GCTC_API_KEY = 'set in local.py and production.py'
+MAILCHIMP_GCTC_LIST = 'set in local.py and production.py'
+"""
