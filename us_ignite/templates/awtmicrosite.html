@@ -60,7 +60,7 @@
         <!-- Detail 1 -->
         <div class="detail_1">
             <div class="right_container">
-                <span>US Ignite</span> is working with the <span>National Science Foundation</span> and other public agencies to convene a public-private partnership to advance development of next-generation wireless technologies and services, some of which promise up to 1000x improvements in throughput over current wireless networks. 
+                <a target="_blank" class="default" href="http://usignite.org"><span>US Ignite</span></a> is working with the <a target="_blank" class="default" href="http://nsf.gov"><span>National Science Foundation</span></a> and other public agencies to convene a public-private partnership to advance development of next-generation wireless technologies and services, some of which promise up to 1000x improvements in throughput over current wireless networks. 
             </div>
         </div>
         
@@ -70,6 +70,9 @@
             <div class="right_container">
                 <h2>What is it?</h2>
                 <p>This public-private partnership will offer the benefit of addressing pre-competitive research challenges on at-scale research platforms, increasing education about wireless technologies and data networking, increasing industry-academic cooperative partnerships, and enabling technology commercialization and transfer from academia to industry. Participating companies will benefit by: helping to sustain U.S. industry leadership; shaping design of research platforms; assisting in selection of platform participants; and securing cutting-edge research returns well in excess of initial investment; helping to maintain U.S. industry leadership.</p>
+
+                <h2 style="margin-top: 30px;">How does it work?</h2>
+                <p><img src="{{ STATIC_URL }}awt/images/Governance Process.png" /></p>
             </div>
         </div>
         
@@ -80,7 +83,7 @@
             
             <!-- Block -->
             <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_1.png" alt=""></i>
+                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_1.png" alt="Testbed A"></i>
                 <h3>Testbed A: Mm-Wave</h3>
                 <p>Mm-Wave to enable R&D and systems testing at the millimeter-wave bands that are above 26 GHz, with a target of 100 Gbps in data rates for small-cell networks that cover a few city blocks.</p>
             </div>
@@ -135,14 +138,26 @@
             <div class="right_container">
                 <h2>Partners</h2>
                 <ul>
-                    <li><img src="{{ STATIC_URL }}awt/images/partner_logo_1.png" alt=""></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/partner_logo_2.png" alt=""></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/partner_logo_3.png" alt=""></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/partner_logo_4.png" alt=""></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/partner_logo_1.png" alt=""></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/partner_logo_2.png" alt=""></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/partner_logo_3.png" alt=""></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/partner_logo_4.png" alt=""></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/01_NSF.png" alt="NSF"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/02_nokia bell labs.jpg" alt="Nokia Bell Labs"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/03_samsung.png" alt="Samsung"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/04_Keysight.png" alt="Keysight"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/05_juniper.png" alt="Juniper"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/06_interdigital_logo.jpg" alt="Interdigital"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/07_national instruments.png" alt="National Instruments"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/08_qualcomm.png" alt="Qualcomm"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/09_viavi.png" alt="Viavi Solutions"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/10_sprint.png" alt="Sprint"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/11_ctia.jpg" alt="CTIA"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/12_att.png" alt="AT&T"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/13_intel.png" alt="Intel"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/14_verizon.png" alt="Verizon"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/15_tmobile.png" alt="T-Mobile"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/16_htc.png" alt="HTC America"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/17_carlson.png" alt="Carlson Wireless"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/18_ssc.gif" alt="Shared Spectrum"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/19_brocade.png" alt="Brocade"></li>
+                    <li><img src="{{ STATIC_URL }}awt/images/20_ruckus.png" alt="Ruckus Wireless"></li>
                 </ul>
             </div>
         </div>
@@ -225,7 +240,7 @@ $(window).scroll(function() {
             }
         });
 
-$('a').click(function(){
+$('a:not(.default)').click(function(){
     $('html, body').animate({
         scrollTop: $( $.attr(this, 'href') ).offset().top
     }, 500);
