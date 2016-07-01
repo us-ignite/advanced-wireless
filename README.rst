@@ -74,3 +74,14 @@ Reset the local db and install fixtures (inside the VM)::
 Incorporate new objects to the full-text search (inside the VM)::
 
     dj buildwatson
+
+MailChimp settings::
+
+    in us_ignite/settings/local.py
+    set up::
+
+    MAILCHIMP_API_KEY = 'Find Key in Herokuapp'
+    MAILCHIMP_LIST = 'Find list in Herokuapp'
+    MAILCHIMP_GCTC_API_KEY = 'Find Key in Herokuapp'
+    MAILCHIMP_GCTC_LIST = 'Find list in Herokuapp'
+
