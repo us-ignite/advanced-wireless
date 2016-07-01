@@ -46,7 +46,7 @@ input, textarea, select{ -moz-appearance: none; -webkit-appearance: none;}
 
 /************ Right Info *************/
 .right_info{ width:50%; float:right; padding:78px 0 0 0; margin:0;}
-.right_container{ width:100%; max-width:540px; float:left; padding:0; margin:0;}
+.right_container{ width:100%; max-width:600px; float:left; padding:0; margin:0;}
 .right_info .detail_1{ width:100%; float:left; padding:0 40px 180px 40px; margin:0; font-size:28px; color:#000000; font-weight:700; line-height:40px;}
 .right_info .detail_1 span{ color:#f37428;}
 
