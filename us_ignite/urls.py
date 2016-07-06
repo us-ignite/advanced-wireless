@@ -79,7 +79,7 @@ urlpatterns += patterns(
     url(r'^(?i)smartcommunityweek/$', TemplateView.as_view(template_name='smartcommunityweek2016.html')),
     url(r'^(?i)smartcommunityweekstudent/$', TemplateView.as_view(template_name='smartcommunityweekstudent.html')),
     url(r'^(?i)smartcityworks/$', TemplateView.as_view(template_name='smartcityworks.html')),
-    url(r'^(?i)awt/$', TemplateView.as_view(template_name='awtmicrosite.html')),
+    url(r'^(?i)awt/$', include('us_ignite.advanced_wireless_testbed.urls')),
 
 )
 

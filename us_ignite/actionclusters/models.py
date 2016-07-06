@@ -13,6 +13,7 @@ from taggit.managers import TaggableManager
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT, AutoUUIDField
 from us_ignite.actionclusters import managers, search
+from datetime import date
 
 
 class Feature(models.Model):
@@ -155,13 +156,15 @@ class ActionCluster(ActionClusterBase):
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
 
     # fetch the id for the default year for the current year submission
-    # in migration, set blank=True, default=1
-    default_year = Year.objects.get(default_year=True)
+    try:
+        default_year = Year.objects.get(default_year=True)
+    except:
+        default_year = None
     year = models.ForeignKey(
-        'actionclusters.Year', blank=True, null=True, help_text='What year does this action cluster belong to?'
+        Year, blank=True, null=True, help_text='What year does this action cluster belong to?'
     )
     community = models.ForeignKey(
-        'actionclusters.Community', blank=True, null=True, help_text='What is the name of the city/community?'
+        Community, blank=True, null=True, help_text='What is the name of the city/community?'
     )
     is_featured = models.BooleanField(default=False)
     owner = models.ForeignKey(
