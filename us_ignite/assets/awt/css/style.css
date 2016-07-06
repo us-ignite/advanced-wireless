@@ -23,7 +23,7 @@ input, textarea, select{ -moz-appearance: none; -webkit-appearance: none;}
 
 /***********  Top Part  ************/
 #wrapper{ width:100%; float:left; padding:0; margin:0;}
-.left_info{ width:50%; float:left; padding:0 20px 0 0; margin:0; position:relative; top:0; z-index:9999;}
+.left_info{ width:35%; float:left; padding:0 20px 0 0; margin:0; position:relative; top:0; z-index:9999;}
 .left_info_inn{ width:100%; max-width:540px; float:right; padding:0; margin:0;}
 .logo{ width:100%; float:left; padding:70px 0 0 20px; margin:0; position:relative;}
 .logo h1{ width:100%; float:left; padding:0; margin:0 0 35px 0; font-size:46px; color:#000000; font-weight:900; line-height:55px;}
@@ -31,7 +31,7 @@ input, textarea, select{ -moz-appearance: none; -webkit-appearance: none;}
 
 /*********** Nav Sec ************/
 .nav_sec{ width:100%; float:left; padding:0; margin:20px 0 0 0; position:relative; z-index:9999; -webkit-transition: all 0.4s ease; transition: all 0.4s ease;}
-.nav_sec .navbar-brand{ height:63px; padding:12px 0 0 73px; margin:0 0 0 0; position:relative; opacity:0; -webkit-transition: all 0.4s ease; transition: all 0.4s ease;}
+.nav_sec .navbar-brand{ height:90px; padding:12px 0 0 73px; margin:0 0 0 0; position:relative; opacity:0; -webkit-transition: all 0.4s ease; transition: all 0.4s ease;}
 .nav_sec .navbar-brand i{ width:63px; height:63px; float:left; padding:0; margin:0; position:absolute; left:0; top:0;}
 .nav_sec .navbar-brand h1{ font-size:18px; color:#000000; font-weight:900; padding:0; margin:0;}
 .nav_sec .navbar-default{ background:none; border:none; margin:0; min-height:inherit;}
@@ -45,8 +45,8 @@ input, textarea, select{ -moz-appearance: none; -webkit-appearance: none;}
 .nav_sec.sticky .navbar-brand{ opacity:1;}
 
 /************ Right Info *************/
-.right_info{ width:50%; float:right; padding:78px 0 0 0; margin:0;}
-.right_container{ width:100%; max-width:600px; float:left; padding:0; margin:0;}
+.right_info{ width:65%; float:right; padding:78px 0 0 0; margin:0;}
+.right_container{ width:100%; max-width:1100px; float:left; padding:0; margin:0;}
 .right_info .detail_1{ width:100%; float:left; padding:0 40px 180px 40px; margin:0; font-size:28px; color:#000000; font-weight:700; line-height:40px;}
 .right_info .detail_1 span{ color:#f37428;}
 
@@ -64,11 +64,54 @@ input, textarea, select{ -moz-appearance: none; -webkit-appearance: none;}
 .right_info .partner_sec{ width:100%; float:left; padding:70px 0 0 0; margin:0;}
 .right_info .partner_sec h2{ width:100%; float:left; padding:0 20px 0 40px ; margin:0 0 35px 0; font-size:28px; color:#ee2e24; font-weight:700;}
 .right_info .partner_sec ul{ width:100%; float:left; padding:0; margin:0 0 30px 0; text-align:center;}
-.right_info .partner_sec ul li{ width:50%; min-height:151px; float:left; padding:10px; margin:0;}
+.right_info .partner_sec ul li{ width:33.33%; min-height:151px; float:left; padding:10px; margin:0;}
+
+@media screen and (max-width: 767px) {
+	.right_info .partner_sec ul li{ width:50%; min-height:151px; float:left; padding:10px; margin:0;}
+}
 
 .right_info .involed_sec{ width:100%; float:left; padding:70px 40px 100px 40px; margin:0; background:#000000;}
 .right_info .involed_sec h3{ width:100%; float:left; padding:0; margin:0 0 30px 0; font-size:28px; color:#ffffff; font-weight:700;}
 .right_info .involed_sec p{ width:100%; float:left; padding:0; margin:0 0 40px 0; font-size:16px; color:#ffffff; line-height:24px;}
-.right_info .involed_sec .call_btn{ height:56px; float:left; padding:0 45px; margin:0 0 40px 0; clear:both; font-size:20px; color:#ffffff; font-weight:900; border-radius:30px; border:none; background:#ee2e24;}
+.right_info .involed_sec .call_btn{ height:56px; float:none; padding:0 45px; margin: 20px 0 40px 0; clear:both; font-size:20px; color:#ffffff; font-weight:900; border-radius:30px; border:none; background:#ee2e24;}
 .right_info .involed_sec .call_btn:hover{ background:#fc251a;}
 .about_main_sec{ width:100%; float:left; padding:0; margin:0;}
+
+::-webkit-input-placeholder {
+   color: darkgrey;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: darkgrey;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: darkgrey;  
+}
+
+:-ms-input-placeholder {  
+   color: darkgrey;  
+}
+
+form input {
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #fff;
+	box-shadow: none;
+	font-size: 20px;
+	padding: 5px 0 5px 0;
+	color: #fff;
+	width: 100%;
+}
+
+.messages {
+	margin-bottom: 20px;
+
+}
+.messages .success {
+	font-size: 20px;
+	padding: 10px;
+	position: relative;
+	text-align: right;
+	color: #ee2e24;
+}

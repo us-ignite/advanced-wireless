@@ -19,15 +19,15 @@
 <body>
 
 <div id="wrapper">
-    {# Mesages are used to display any user notification. #}
-    {% include "includes/messages.html" %}
+
     <!-- Left -->
     <div class="left_info">
         <div class="left_info_inn">
             <!-- Logo -->
             <div class="logo">
-                <h1>Advanced Wireless<br>Testbed Partnership</h1>
-                <i><img src="{{ STATIC_URL }}awt/images/awt_logo.png" alt=""></i>            </div>
+                <h1>Platforms Enabling <br>Advanced Wireless Research (PAWRs)</h1>
+                <i><img src="{{ STATIC_URL }}awt/images/awt_logo.png" alt=""></i>            
+            </div>
             
             <!-- Nav Sec -->
             <div class="nav_sec">
@@ -37,12 +37,15 @@
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>                        </button>
+                            <span class="icon-bar"></span>                        
+                        </button>
                         <div class="navbar-brand">
                             <a href="#">
                             <i><img src="{{ STATIC_URL }}awt/images/awt_logo_small.png" alt=""></i>
-                            <h1>Advanced Wireless<br>Testbed Partnership</h1>
-                            </a>                        </div>
+                            <h1>Platforms Enabling Advanced <br> Wireless Research (PAWRs)</h1>
+                            <h1 class="xsmall">Platforms Enabling <br>Advanced Wireless <br>Research (PAWRs)</h1>
+                            </a>                        
+                        </div>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
@@ -62,7 +65,9 @@
         <!-- Detail 1 -->
         <div class="detail_1">
             <div class="right_container">
-                <a target="_blank" class="default" href="http://usignite.org"><span>US Ignite</span></a> is working with the <a target="_blank" class="default" href="http://nsf.gov"><span>National Science Foundation</span></a> and other public agencies to convene a public-private partnership to advance development of next-generation wireless technologies and services, some of which promise up to 1000x improvements in throughput over current wireless networks. 
+                {# Mesages are used to display any user notification. #}
+                {% include "includes/messages.html" %}
+                <a target="_blank" class="default" href="http://usignite.org"><span>US Ignite</span></a> is working with the <a target="_blank" class="default" href="http://www.nsf.gov/pubs/2016/nsf16096/nsf16096.jsp"><span>National Science Foundation</span></a> and other public agencies to convene a public-private partnership to advance development of next-generation wireless technologies and services, some of which promise up to 1000x improvements in throughput over current wireless networks. 
             </div>
         </div>
         
@@ -88,49 +93,49 @@
             
             <!-- Block -->
             <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_1.png" alt="Testbed A"></i>
-                <h3>Testbed A: Mm-Wave</h3>
-                <p>Mm-Wave to enable R&D and systems testing at the millimeter-wave bands that are above 26 GHz, with a target of 100 Gbps in data rates for small-cell networks that cover a few city blocks.</p>
+                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_1.png" alt="mmWave"></i>
+                <h3>mmWave</h3>
+                <p>mmWave to enable R&D and systems testing at the millimeter-wave bands that are above 26 GHz, with a target of 100 Gbps in data rates for small-cell networks that cover a few city blocks.</p>
             </div>
             
             <!-- Block -->
             <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_2.png" alt=""></i>
-                <h3>Testbed B: Dynamic Spectrum</h3>
+                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_2.png" alt="Dynamic Spectrum"></i>
+                <h3>Dynamic Spectrum</h3>
                 <p>Dynamic Spectrum to focus on the spectral bands that are sub-6GHz, and aim to identify spectral opportunities in existing networks and establish usage models for novel spectrum-driven applications, while also studying co-existence and protection issues.</p>
             </div>
             
             <!-- Block -->
             <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_3.png" alt=""></i>
-                <h3>Testbed C: Architecture</h3>
+                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_3.png" alt="Architecture"></i>
+                <h3>Architecture</h3>
                 <p>Architecture to test data network architectures for next-generation networks that operate with a wireless edge. </p>
             </div>
             
             <!-- Block -->
             <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_4.png" alt=""></i>
-                <h3>Testbed D: Mobility-at-Scale</h3>
+                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_4.png" alt="Mobility-at-Scale"></i>
+                <h3>Mobility-at-Scale</h3>
                 <p>Mobility-at-Scale to address larger issues with network-mobility from the transport to MAC layers, including evaluation of large-scale, dense, heterogeneous wireless networks, including issues such as connection management, load balancing, and mobility management.</p>
             </div>
             
             <!-- Block -->
             <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_5.png" alt=""></i>
-                <h3>Testbed E: Wide-area Whitespace</h3>
+                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_5.png" alt="Wide-area Whitespace"></i>
+                <h3>Wide-area Whitespace</h3>
                 <p>Wide-area Whitespace to utilize novel whitespace-based wireless networks to design, build and demonstrate 1Gbps connectivity to remote locations via long-range wireless mesh connections.</p>
             </div>
             
             <!-- Block -->
             <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_6.png" alt=""></i>
-                <h3>Testbed F: Network Metrology</h3>
+                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_6.png" alt="Network Metrology"></i>
+                <h3>Network Metrology</h3>
                 <p>Network Metrology to advance capabilities to measure and monitor wireless network performance and support research on methods to improve the security, reliability and performance of wireless networks.</p>
             </div>
             
             <!-- Block -->
             <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_7.png" alt=""></i>
+                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_7.png" alt="City-scale Testbed"></i>
                 <h3>City-scale Testbed</h3>
                 <p>CityNet to serve as an integration platform and application demonstrator for various wireless technologies (5G and beyond). The platform will serve as an example for a Smart and Connected Community network that will serve various scientific communities including Cyber-Physical Systems, Cyber-Security, Internet of Things, Robotics, Smart and Connected Health, and Big Data.</p>
             </div>
@@ -143,26 +148,26 @@
             <div class="right_container">
                 <h2>Partners</h2>
                 <ul>
-                    <li><a href=""><img src="{{ STATIC_URL }}awt/images/01_NSF.png" alt="NSF"></a></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/02_nokia bell labs.jpg" alt="Nokia Bell Labs"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/03_samsung.png" alt="Samsung"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/04_Keysight.png" alt="Keysight"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/05_juniper.png" alt="Juniper"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/06_interdigital_logo.jpg" alt="Interdigital"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/07_national instruments.png" alt="National Instruments"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/08_qualcomm.png" alt="Qualcomm"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/09_viavi.png" alt="Viavi Solutions"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/10_sprint.png" alt="Sprint"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/11_ctia.jpg" alt="CTIA"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/12_att.png" alt="AT&T"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/13_intel.png" alt="Intel"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/14_verizon.png" alt="Verizon"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/15_tmobile.png" alt="T-Mobile"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/16_htc.png" alt="HTC America"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/17_carlson.png" alt="Carlson Wireless"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/18_ssc.gif" alt="Shared Spectrum"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/19_brocade.png" alt="Brocade"></li>
-                    <li><img src="{{ STATIC_URL }}awt/images/20_ruckus.png" alt="Ruckus Wireless"></li>
+                    <li><a href="http://www.nsf.gov/pubs/2016/nsf16096/nsf16096.jsp"><img src="{{ STATIC_URL }}awt/images/01_NSF.png" alt="NSF"></a></li>
+                    <li><a href="https://www.bell-labs.com/"><img src="{{ STATIC_URL }}awt/images/02_nokia bell labs.jpg" alt="Nokia Bell Labs"></a></li>
+                    <li><a href="http://www.samsung.com/us/experience/go/?cid=ppc-"><img src="{{ STATIC_URL }}awt/images/03_samsung.png" alt="Samsung"></a></li>
+                    <li><a href="http://www.keysight.com/main/home.jspx?cc=US&amp;lc=eng"><img src="{{ STATIC_URL }}awt/images/04_Keysight.png" alt="Keysight"></a></li>
+                    <li><a href="http://www.juniper.net/us/en/"><img src="{{ STATIC_URL }}awt/images/05_juniper.png" alt="Juniper"></a></li>
+                    <li><a href="http://www.interdigital.com/"><img src="{{ STATIC_URL }}awt/images/06_interdigital_logo.jpg" alt="Interdigital"></a></li>
+                    <li><a href="http://www.ni.com/en-us.html"><img src="{{ STATIC_URL }}awt/images/07_national instruments.png" alt="National Instruments"></a></li>
+                    <li><a href="https://www.qualcomm.com/"><img src="{{ STATIC_URL }}awt/images/08_qualcomm.png" alt="Qualcomm"></a></li>
+                    <li><a href="http://www.viavisolutions.com/en-us"><img src="{{ STATIC_URL }}awt/images/09_viavi.png" alt="Viavi Solutions"></a></li>
+                    <li><a href="https://www.sprint.com/"><img src="{{ STATIC_URL }}awt/images/10_sprint.png" alt="Sprint"></a></li>
+                    <li><a href="http://www.ctia.org/"><img src="{{ STATIC_URL }}awt/images/11_ctia.jpg" alt="CTIA"></a></li>
+                    <li><a href="https://www.att.com/"><img src="{{ STATIC_URL }}awt/images/12_att.png" alt="AT&T"></a></li>
+                    <li><a href="http://www.intel.com/content/www/us/en/homepage.html"><img src="{{ STATIC_URL }}awt/images/13_intel.png" alt="Intel"></a></li>
+                    <li><a href="http://www.verizon.com/home/verizonglobalhome/ghp_landing.aspx"><img src="{{ STATIC_URL }}awt/images/14_verizon.png" alt="Verizon"></a></li>
+                    <li><a href="http://www.t-mobile.com/"><img src="{{ STATIC_URL }}awt/images/15_tmobile.png" alt="T-Mobile"></a></li>
+                    <li><a href="http://www.htc.com/us/"><img src="{{ STATIC_URL }}awt/images/16_htc.png" alt="HTC America"></a></li>
+                    <li><a href="http://www.carlsonwireless.com/"><img src="{{ STATIC_URL }}awt/images/17_carlson.png" alt="Carlson Wireless"></a></li>
+                    <li><a href="http://www.sharedspectrum.com/"><img src="{{ STATIC_URL }}awt/images/18_ssc.gif" alt="Shared Spectrum"></a></li>
+                    <li><a href="http://www.brocade.com/en.html"><img src="{{ STATIC_URL }}awt/images/19_brocade.png" alt="Brocade"></a></li>
+                    <li><a href="https://www.ruckuswireless.com/"><img src="{{ STATIC_URL }}awt/images/20_ruckus.png" alt="Ruckus Wireless"></a></li>
                 </ul>
             </div>
         </div>
@@ -174,10 +179,16 @@
                 <p>Wireless solutions have and will continue to provide essential services, supporting the emerging Internet of Things and the Smart and Connected Communities of the future.</p>
                 <p>The platforms for advanced wireless research will drive new opportunities for innovation, high-skilled jobs, high-growth startups, and smart, connected community services.</p>
                 <form method="post" action="{% url 'awt_frontpage' %}">
-                  {{ form.as_p }}
-                  <p><button type="submit">Submit</button>{% csrf_token %}</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                             {% comment %} {{ form.as_p }} {% endcomment %}
+                             <input id="id_email" name="email" type="email" required placeholder="Enter your email address">
+                             <br>
+                             <button class="call_btn">SUBMIT</button>
+                        </div>
+                    </div>
+                    {% csrf_token %}
                 </form>
-                <button class="call_btn">GET INVOLVED TODAY</button>
             </div>
         </div>
         
