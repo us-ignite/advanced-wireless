@@ -11,6 +11,10 @@ class procfile ($project_path, $project_name) {
     provider => 'gem',
   }
 
+  package { [ 'ruby1.9.1', 'ruby1.9.1-dev']:
+    ensure => installed
+  }
+
   file { "/etc/gunicorn":
     ensure => "directory",
     owner  => "root",

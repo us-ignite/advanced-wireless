@@ -19,6 +19,8 @@
 <body>
 
 <div id="wrapper">
+    {# Mesages are used to display any user notification. #}
+    {% include "includes/messages.html" %}
     <!-- Left -->
     <div class="left_info">
         <div class="left_info_inn">
@@ -171,7 +173,10 @@
                 <h3>Get Involved</h3>
                 <p>Wireless solutions have and will continue to provide essential services, supporting the emerging Internet of Things and the Smart and Connected Communities of the future.</p>
                 <p>The platforms for advanced wireless research will drive new opportunities for innovation, high-skilled jobs, high-growth startups, and smart, connected community services.</p>
-                
+                <form method="post" action="{% url 'awt_frontpage' %}">
+                  {{ form.as_p }}
+                  <p><button type="submit">Submit</button>{% csrf_token %}</p>
+                </form>
                 <button class="call_btn">GET INVOLVED TODAY</button>
             </div>
         </div>
