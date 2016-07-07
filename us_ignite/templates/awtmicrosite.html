@@ -25,7 +25,7 @@
         <div class="left_info_inn">
             <!-- Logo -->
             <div class="logo">
-                <h1>Platforms Enabling <br>Advanced Wireless Research (PAWRs)</h1>
+                <h1>Platforms Enabling <br>Advanced Wireless Research (PAWR)</h1>
                 <i><img src="{{ STATIC_URL }}awt/images/awt_logo.png" alt=""></i>            
             </div>
             
@@ -42,8 +42,8 @@
                         <div class="navbar-brand">
                             <a href="#">
                             <i><img src="{{ STATIC_URL }}awt/images/awt_logo_small.png" alt=""></i>
-                            <h1>Platforms Enabling Advanced <br> Wireless Research (PAWRs)</h1>
-                            <h1 class="xsmall">Platforms Enabling <br>Advanced Wireless <br>Research (PAWRs)</h1>
+                            <h1>Platforms Enabling Advanced <br> Wireless Research (PAWR)</h1>
+                            <h1 class="xsmall">Platforms Enabling <br>Advanced Wireless <br>Research (PAWR)</h1>
                             </a>                        
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                 {% comment %}
                 <h2 style="margin-top: 30px;">How does it work?</h2>
                 {% endcomment %}
-                <p style="margin-top: 50px;" ><a href="{{ STATIC_URL }}awt/images/How does it Work_.png" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/How does it Work_.png" alt="How Does It Work?"/></a></p>
+                <p style="margin-top: 50px;" ><a href="{{ STATIC_URL }}awt/images/How does it Work_.png" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/How does it Work_ (1).png" alt="How Does It Work?"/></a></p>
                 <p style="margin-top: 50px;"><a href="{{ STATIC_URL }}awt/images/Governance Process-nchyw.png" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/Governance Process-nchyw.png" alt="Governance Process"/></a></p>
             </div>
         </div>
@@ -180,13 +180,24 @@
                 <p>The platforms for advanced wireless research will drive new opportunities for innovation, high-skilled jobs, high-growth startups, and smart, connected community services.</p>
                 <form method="post" action="{% url 'awt_frontpage' %}">
                     <div class="row">
-                        <div class="col-md-12">
-                             {{ form.as_p }}
-                             <input id="id_email" name="email" type="email" required placeholder="Enter your email address">
-                             <br>
-                             <button class="call_btn">SUBMIT</button>
+                        <div class="col-md-6">
+                            {{ form.firstname }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.lastname }}
                         </div>
                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                             {{ form.email }}
+                        </div>
+                        <div class="col-md-6">
+                             {{ form.organization }}
+                        </div>
+                    </div>
+                    <br>
+                    <button class="call_btn">SUBMIT</button>
+                      
                     {% csrf_token %}
                 </form>
             </div>

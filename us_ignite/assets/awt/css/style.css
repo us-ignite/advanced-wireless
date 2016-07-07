@@ -64,7 +64,7 @@ input, textarea, select{ -moz-appearance: none; -webkit-appearance: none;}
 .right_info .partner_sec{ width:100%; float:left; padding:70px 0 0 0; margin:0;}
 .right_info .partner_sec h2{ width:100%; float:left; padding:0 20px 0 40px ; margin:0 0 35px 0; font-size:28px; color:#ee2e24; font-weight:700;}
 .right_info .partner_sec ul{ width:100%; float:left; padding:0; margin:0 0 30px 0; text-align:center;}
-.right_info .partner_sec ul li{ width:33.33%; min-height:151px; float:left; padding:10px; margin:0;}
+.right_info .partner_sec ul li{ width:25%; min-height:151px; float:left; padding:10px; margin:0;}
 
 @media screen and (max-width: 767px) {
 	.right_info .partner_sec ul li{ width:50%; min-height:151px; float:left; padding:10px; margin:0;}
@@ -102,6 +102,7 @@ form input {
 	padding: 5px 0 5px 0;
 	color: #fff;
 	width: 100%;
+	margin-bottom: 10px;
 }
 
 .messages {
