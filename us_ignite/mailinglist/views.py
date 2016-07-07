@@ -19,26 +19,32 @@ MAILING_LISTS = {
 }
 
 
-def subscribe_email(email, slug):
+def subscribe_email(form_data, slug):
     if not slug in MAILING_LISTS:
         raise mailchimp.ValidationError('Error while subscribing.')
 
     master = mailchimp.Mailchimp(settings.MAILCHIMP_API_KEY)
 
     mailing_list = mailchimp.Lists(master)
-    uid = hashlib.md5(email).hexdigest()
+    uid = hashlib.md5(form_data['email']).hexdigest()
     email_data = {
-        'email': email,
+        'email': form_data['email'],
         'euid': uid,
         'leid': uid,
     }
+
+    awt_merge_vars = {
+        'FNAME': form_data.get('firstname'),
+        'LNAME': form_data.get('lastname'),
+        'ORGANIZATI': form_data.get('organization')
+    }
+
     if slug == 'globalcityteams':
         return mailing_list.subscribe(settings.MAILCHIMP_GCTC_LIST, email_data)
     elif slug == 'awt':
-        return mailing_list.subscribe(settings.MAILCHIMP_AWT_LIST, email_data)
+        return mailing_list.subscribe(settings.MAILCHIMP_AWT_LIST, email_data, awt_merge_vars)
     else:
         return mailing_list.subscribe(settings.MAILCHIMP_LIST, email_data)
-
 
 def mailing_subscribe(request, slug='default'):
     """Handles MailChimp email registration."""
@@ -46,7 +52,7 @@ def mailing_subscribe(request, slug='default'):
         form = EmailForm(request.POST)
         if form.is_valid():
             try:
-                subscribe_email(form.cleaned_data['email'], slug)
+                subscribe_email(form.cleaned_data, slug)
                 messages.success(request, 'Successfully subscribed.')
                 if slug == 'globalcityteams':
                     redirect_to = 'https://www.us-ignite.org/globalcityteams/'
