@@ -181,7 +181,7 @@
                 <form method="post" action="{% url 'awt_frontpage' %}">
                     <div class="row">
                         <div class="col-md-12">
-                             {% comment %} {{ form.as_p }} {% endcomment %}
+                             {{ form.as_p }}
                              <input id="id_email" name="email" type="email" required placeholder="Enter your email address">
                              <br>
                              <button class="call_btn">SUBMIT</button>
