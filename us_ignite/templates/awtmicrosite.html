@@ -60,7 +60,7 @@
         </div>
     </div>
     
-<!-- Right -->
+    <!-- Right -->
     <div class="right_info" id="sec_one">
         <!-- Detail 1 -->
         <div class="detail_1">
@@ -76,20 +76,20 @@
         <div class="detail_2">
             <div class="right_container">
                 <h2>What is it?</h2>
-                <p>This public-private partnership will offer the benefit of addressing pre-competitive research challenges on at-scale research platforms, increasing education about wireless technologies and data networking, increasing industry-academic cooperative partnerships, and enabling technology commercialization and transfer from academia to industry. Participating companies will benefit by: helping to sustain U.S. industry leadership; shaping design of research platforms; assisting in selection of platform participants; and securing cutting-edge research returns well in excess of initial investment; helping to maintain U.S. industry leadership.</p>
+                <p>This public-private partnership will offer the benefit of addressing pre-competitive research challenges on at-scale research platforms, increasing education about wireless technologies and data networking, increasing industry-academic cooperative partnerships, and enabling technology commercialization and transfer from academia to industry. Participating companies will benefit by: helping to sustain U.S. industry leadership; shaping design of research platforms; assisting in selection of platform participants; and securing cutting-edge research returns well in excess of initial investment.</p>
 
                 {% comment %}
                 <h2 style="margin-top: 30px;">How does it work?</h2>
                 {% endcomment %}
                 <p style="margin-top: 50px;" ><a href="{{ STATIC_URL }}awt/images/How does it Work_.png" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/How does it Work_ (1).png" alt="How Does It Work?"/></a></p>
-                <p style="margin-top: 50px;"><a href="{{ STATIC_URL }}awt/images/Governance Process-nchyw.png" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/Governance Process-nchyw.png" alt="Governance Process"/></a></p>
+                <p style="margin-top: 50px;"><a href="{{ STATIC_URL }}awt/images/Governance-Process-v2.gif" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/Governance-Process-v2.gif" alt="Governance Process"/></a></p>
             </div>
         </div>
         
         <!-- Detail 3 -->
         <div class="detail_3">
         <div class="right_container">
-            <h2>TESTBEDS CURRENTLY BEING CONSIDERED FOR THE 2017-2022 PERIOD:</h2>
+            <h2>INITIAL TOPIC AREAS TO BE ENABLED BY RESEARCH PLATFORMS</h2>
             
             <!-- Block -->
             <div class="block">
@@ -178,7 +178,9 @@
                 <h3>Get Involved</h3>
                 <p>Wireless solutions have and will continue to provide essential services, supporting the emerging Internet of Things and the Smart and Connected Communities of the future.</p>
                 <p>The platforms for advanced wireless research will drive new opportunities for innovation, high-skilled jobs, high-growth startups, and smart, connected community services.</p>
+                <p>If you are a company and are interested in joining this effort, fill out this information, and we will get in touch with you.</p>
                 <form method="post" action="{% url 'awt_frontpage' %}">
+                    <input type="hidden" id="id_email_list" name="email_list" value="awt" />
                     <div class="row">
                         <div class="col-md-6">
                             {{ form.firstname }}
@@ -193,6 +195,22 @@
                         </div>
                         <div class="col-md-6">
                              {{ form.organization }}
+                        </div>
+                    </div>
+                    <br>
+                    <button class="call_btn">SUBMIT</button>
+                      
+                    {% csrf_token %}
+                </form>
+                <br><br>
+                <h3>Stay In Touch</h3>
+                <p> If you want to get updates on the activities surrounding this effort, join our announcements list.</p>
+
+                <form method="post" action="{% url 'awt_default_subscribe' %}">
+                    <input type="hidden" id="id_email_list" name="email_list" value="default" />
+                    <div class="row">
+                        <div class="col-md-12">
+                             {{ pawr_form.pawr_email }}
                         </div>
                     </div>
                     <br>
