@@ -109,7 +109,7 @@ form input {
 	margin-bottom: 20px;
 
 }
-.messages .success {
+.messages li {
 	font-size: 20px;
 	padding: 10px;
 	position: relative;

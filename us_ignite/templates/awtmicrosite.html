@@ -180,7 +180,7 @@
                 <p>The platforms for advanced wireless research will drive new opportunities for innovation, high-skilled jobs, high-growth startups, and smart, connected community services.</p>
                 <p>If you are a company and are interested in joining this effort, fill out this information, and we will get in touch with you.</p>
                 <form method="post" action="{% url 'awt_frontpage' %}">
-                    <input type="hidden" id="id_email_list" name="email_list" value="awt" />
+                    {{ form.email_list }}
                     <div class="row">
                         <div class="col-md-6">
                             {{ form.firstname }}
@@ -207,7 +207,7 @@
                 <p> If you want to get updates on the activities surrounding this effort, join our announcements list.</p>
 
                 <form method="post" action="{% url 'awt_default_subscribe' %}">
-                    <input type="hidden" id="id_email_list" name="email_list" value="default" />
+                     {{ pawr_form.email_list }}
                     <div class="row">
                         <div class="col-md-12">
                              {{ pawr_form.pawr_email }}
