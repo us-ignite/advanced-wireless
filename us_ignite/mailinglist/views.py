@@ -15,7 +15,6 @@ logger = logging.getLogger('us_ignite.mailinglist.views')
 MAILING_LISTS = {
     'default': settings.MAILCHIMP_LIST,
     'globalcityteams': settings.MAILCHIMP_GCTC_LIST,
-    'awt': settings.MAILCHIMP_AWT_LIST,
 }
 
 
@@ -32,17 +31,8 @@ def subscribe_email(form_data, slug):
         'euid': uid,
         'leid': uid,
     }
-
-    awt_merge_vars = {
-        'FNAME': form_data.get('firstname'),
-        'LNAME': form_data.get('lastname'),
-        'ORGANIZATI': form_data.get('organization')
-    }
-
     if slug == 'globalcityteams':
         return mailing_list.subscribe(settings.MAILCHIMP_GCTC_LIST, email_data)
-    elif slug == 'awt':
-        return mailing_list.subscribe(settings.MAILCHIMP_AWT_LIST, email_data, awt_merge_vars)
     else:
         return mailing_list.subscribe(settings.MAILCHIMP_LIST, email_data)
 
@@ -56,8 +46,6 @@ def mailing_subscribe(request, slug='default'):
                 messages.success(request, 'Successfully subscribed.')
                 if slug == 'globalcityteams':
                     redirect_to = 'https://www.us-ignite.org/globalcityteams/'
-                elif slug == 'awt':
-                    redirect_to = 'awt_frontpage'
                 else:
                     redirect_to = 'home'
             except mailchimp.ListAlreadySubscribedError:
