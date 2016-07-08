@@ -68,6 +68,7 @@ def awt_frontpage(request):
 
     return TemplateResponse(request, 'awtmicrosite.html', context)
 
+
 def awt_default_subscribe(request):
     if request.method == 'POST':
         pawr_form = PawrEmailForm(request.POST)
