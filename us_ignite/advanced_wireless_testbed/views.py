@@ -22,9 +22,9 @@ def subscribe_email(form_data):
         uid = hashlib.md5(form_data['pawr_email']).hexdigest()
         email_address = form_data['pawr_email']
     else:
-    	uid = hashlib.md5(form_data['email']).hexdigest()
-    	email_address = form_data['email']
-    	awt_merge_vars = {
+        uid = hashlib.md5(form_data['email']).hexdigest()
+        email_address = form_data['email']
+        awt_merge_vars = {
             'FNAME': form_data['firstname'],
             'LNAME': form_data['lastname'],
             'ORGANIZATI': form_data['organization']
@@ -35,8 +35,6 @@ def subscribe_email(form_data):
         'euid': uid,
         'leid': uid,
     }
-
-    
 
     if form_data['email_list'] == 'default':
         return mailing_list.subscribe(settings.MAILCHIMP_PAWR_LIST, email_data)
@@ -56,6 +54,9 @@ def awt_frontpage(request):
                 messages.error(request, 'Already subscribed.')
                 redirect_to = 'awt_frontpage'
             except mailchimp.ValidationError, e:
+                messages.error(request, 'ERROR: %s' % e.args[0])
+                redirect_to = 'awt_frontpage'
+            except Exception, e:
                 messages.error(request, 'ERROR: %s' % e.args[0])
                 redirect_to = 'awt_frontpage'
             return redirect(redirect_to)
@@ -83,6 +84,9 @@ def awt_default_subscribe(request):
                 messages.error(request, 'Already subscribed.')
                 redirect_to = 'awt_frontpage'
             except mailchimp.ValidationError, e:
+                messages.error(request, 'ERROR: %s' % e.args[0])
+                redirect_to = 'awt_frontpage'
+            except Exception, e:
                 messages.error(request, 'ERROR: %s' % e.args[0])
                 redirect_to = 'awt_frontpage'
             return redirect(redirect_to)
