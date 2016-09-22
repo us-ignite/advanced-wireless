@@ -6,7 +6,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Alfredo Aguirre', 'notifications@madewithbyt.es'),
+    ('Walter Lau', 'walter@fissionstrategy.com'),
 )
 
 MANAGERS = ADMINS
@@ -123,7 +123,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
-    'django_browserid.context_processors.browserid',
+    # 'django_browserid.context_processors.browserid',
     'us_ignite.common.context_processors.settings_available',
     'us_ignite.apps.context_processors.applications_context',
 )
@@ -141,7 +141,7 @@ TEMPLATE_DIRS = (
 AUTHENTICATION_BACKENDS = (
     'us_ignite.profiles.backends.authentication.EmailModelBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'django_browserid.auth.BrowserIDBackend',
+    # 'django_browserid.auth.BrowserIDBackend',
 )
 
 
@@ -157,7 +157,7 @@ PASSWORD_HASHERS = (
 
 INSTALLED_APPS = (
     'django.contrib.auth',
-    'django_browserid',
+    # 'django_browserid',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -175,7 +175,6 @@ INSTALLED_APPS = (
     'embed_video',
     'watson',
     'tinymce',
-    'south',
     'raven.contrib.django.raven_compat',
     'us_ignite.common',
     'us_ignite.profiles',
@@ -351,3 +350,5 @@ MAILCHIMP_LIST = 'set in local.py and production.py'
 MAILCHIMP_GCTC_API_KEY = 'set in local.py and production.py'
 MAILCHIMP_GCTC_LIST = 'set in local.py and production.py'
 """
+
+GEOPOSITION_GOOGLE_MAPS_API_KEY = ''

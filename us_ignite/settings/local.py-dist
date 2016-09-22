@@ -116,10 +116,6 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
-        'django_browserid': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
     }
 }
 

@@ -5,10 +5,10 @@ import hashlib
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from us_ignite.profiles import communications, managers, search
+from us_ignite.profiles import communications, managers
 from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
 
-from django_browserid.signals import user_created
+# from django_browserid.signals import user_created
 from django_extensions.db.fields import (
     AutoSlugField,
     CreationDateTimeField,
@@ -149,12 +149,12 @@ class ProfileLink(models.Model):
 
 # Mozilla persona flow:
 # Welcome email when a new account is created:
-user_created.connect(
-    communications.send_welcome_email, dispatch_uid='browserid_welcome_email')
-# Create a profile on new account creation:
-user_created.connect(
-    Profile.active.get_or_create_for_user,
-    dispatch_uid='browserid_create_profile')
+# user_created.connect(
+#     communications.send_welcome_email, dispatch_uid='browserid_welcome_email')
+# # Create a profile on new account creation:
+# user_created.connect(
+#     Profile.active.get_or_create_for_user,
+#     dispatch_uid='browserid_create_profile')
 
 # US Ignite registration flow:
 # Welcome email when new account is created:
@@ -164,8 +164,8 @@ user_activated.connect(
     Profile.active.get_or_create_for_user,
     dispatch_uid='registration_create_profile')
 
-# Search:
-watson.register(
-    Profile.objects.filter(is_public=True, user__is_active=True),
-    search.ProfileSearchAdapter
-)
+# # Search:
+# watson.register(
+#     Profile.objects.filter(is_public=True, user__is_active=True),
+#     search.ProfileSearchAdapter
+# )

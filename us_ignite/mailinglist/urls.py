@@ -1,6 +1,6 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from . import views
 
-urlpatterns = patterns(
-    'us_ignite.mailinglist.views',
-    url(r'^$', 'mailing_subscribe', name='mailing_subscribe'),
-)
+urlpatterns = [
+    url(r'^$', views.mailing_subscribe, name='mailing_subscribe'),
+]

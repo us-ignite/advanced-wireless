@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.conf.urls import patterns, url
+from django.conf.urls import *
 from django.shortcuts import redirect
 from django.http import Http404
 from django.template.response import TemplateResponse
@@ -27,11 +27,10 @@ class HubRequestAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         _approve_request = self.admin_site.admin_view(self.approve_request)
-        urls = patterns(
-            '',
+        urls = [
             url(r'^approve/(?P<request_id>\d+)/$', _approve_request,
                 name='approve_hub_request')
-        )
+        ]
         urls += super(HubRequestAdmin, self).get_urls()
         return urls
 

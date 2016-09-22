@@ -13,6 +13,7 @@ class SnippetAdminForm(forms.ModelForm):
         widgets = {
             'body': TinyMCE(attrs={'cols': 80, 'rows': 30}),
         }
+        fields = '__all__'
 
 
 class SnippetAdmin(admin.ModelAdmin):

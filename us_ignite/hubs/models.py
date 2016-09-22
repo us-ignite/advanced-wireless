@@ -5,7 +5,7 @@ from django.db import models
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT
-from us_ignite.hubs import managers, search
+from us_ignite.hubs import managers
 
 from geoposition.fields import GeopositionField
 from django_extensions.db.fields import (
@@ -203,8 +203,8 @@ class HubActionClusterMembership(models.Model):
     class Meta:
         ordering = ('-created', )
 
-# Search:
-watson.register(
-    Hub.active.all(),
-    search.HubSearchAdapter
-)
+# # Search:
+# watson.register(
+#     Hub.active.all(),
+#     search.HubSearchAdapter
+# )

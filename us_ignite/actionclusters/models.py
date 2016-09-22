@@ -12,7 +12,7 @@ from taggit.managers import TaggableManager
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT, AutoUUIDField
-from us_ignite.actionclusters import managers, search
+from us_ignite.actionclusters import managers
 from datetime import date
 
 
@@ -309,8 +309,8 @@ class ActionClusterMedia(models.Model):
     class Meta:
         ordering = ('created', )
 
-# Search:
-watson.register(
-    ActionCluster.active.all(),
-    search.ActionClusterSearchAdapter
-)
+# # Search:
+# watson.register(
+#     ActionCluster.active.all(),
+#     search.ActionClusterSearchAdapter
+# )

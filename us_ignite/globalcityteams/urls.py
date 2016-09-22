@@ -1,12 +1,12 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from . import views
 from django.views.generic import TemplateView
 from django.views.generic import RedirectView
 
 
 to_template = lambda t: TemplateView.as_view(template_name=t)
 
-urlpatterns = patterns(
-    'us_ignite.globalcityteams.views',
+urlpatterns = [
     url(r'^$', to_template('globalcityteams/index.html'),
         name='globalcityteams'),
     url(r'^faq/$', to_template('globalcityteams/faq.html'),
@@ -23,13 +23,13 @@ urlpatterns = patterns(
     url(r'^leadership-fund/leadership-application/$', to_template('globalcityteams/leadership_fund_leadership_application.html'), name='globalcityteams_leadership_fund_leadership_application'),
 
     url(r'^upload/$', to_template('globalcityteams/document-upload.html')),
-    url(r'^events/$', 'event_list', name='event_list'),
-    url(r'^events/(?P<slug>[-\w]+)/$', 'event_detail', name='event_detail'),
-    url(r'^search/$', 'search', name='search'),
-    url(r'^news/$', 'post_list', name='news_list'),
+    url(r'^events/$', views.event_list, name='event_list'),
+    url(r'^events/(?P<slug>[-\w]+)/$', views.event_detail, name='event_detail'),
+    url(r'^search/$', views.search, name='search'),
+    url(r'^news/$', views.post_list, name='news_list'),
     url(r'^news/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
-        'post_detail', name='news_detail'),
-    url(r'^subscribe/$', 'mailing_subscribe', name='subscribe'),
+        views.post_detail, name='news_detail'),
+    url(r'^subscribe/$', views.mailing_subscribe, name='subscribe'),
     url(r'^TechJam2015?/$', RedirectView.as_view(
         url='https://s3.amazonaws.com/us-ignite-org/static/pdf/Global+City+Teams+TECH+JAM+Prelim+Agenda.pdf'), name='tech_jam_2015_pdf'),
-)
+]

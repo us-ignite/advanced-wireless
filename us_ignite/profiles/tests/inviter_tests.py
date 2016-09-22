@@ -8,7 +8,7 @@ from django.core import mail
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from django_browserid import auth
+# from django_browserid import auth
 from us_ignite.profiles import inviter
 
 
@@ -29,23 +29,23 @@ create_user = 'django.contrib.auth.models.User.objects.create_user'
 get_user = 'django.contrib.auth.models.User.objects.get'
 
 
-class TestCreateBrowserIDUser(TestCase):
-
-    @patch(create_user)
-    def test_create_user_succeeds(self, create_mock):
-        email = 'no-reply@us-ignite.org'
-        username = auth.default_username_algo(email)
-        inviter.create_browserid_user(email)
-        create_mock.assert_called_once_with(username, email, first_name='')
-
-    @patch(get_user)
-    @patch(create_user, side_effect=db.IntegrityError)
-    def test_create_user_fails_and_returns(self, create_mock, get_mock):
-        email = 'other@us-ignite.org'
-        username = auth.default_username_algo(email)
-        inviter.create_browserid_user(email)
-        create_mock.assert_called_once_with(username, email, first_name='')
-        get_mock.assert_called_once_with(email=email)
+# class TestCreateBrowserIDUser(TestCase):
+#
+#     @patch(create_user)
+#     def test_create_user_succeeds(self, create_mock):
+#         email = 'no-reply@us-ignite.org'
+#         username = auth.default_username_algo(email)
+#         inviter.create_browserid_user(email)
+#         create_mock.assert_called_once_with(username, email, first_name='')
+#
+#     @patch(get_user)
+#     @patch(create_user, side_effect=db.IntegrityError)
+#     def test_create_user_fails_and_returns(self, create_mock, get_mock):
+#         email = 'other@us-ignite.org'
+#         username = auth.default_username_algo(email)
+#         inviter.create_browserid_user(email)
+#         create_mock.assert_called_once_with(username, email, first_name='')
+#         get_mock.assert_called_once_with(email=email)
 
 
 profile_get_or_create = 'us_ignite.profiles.models.Profile.objects.get_or_create'

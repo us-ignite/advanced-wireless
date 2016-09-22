@@ -10,7 +10,7 @@ from taggit.managers import TaggableManager
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT
-from us_ignite.organizations import managers, search
+from us_ignite.organizations import managers
 
 
 class Organization(models.Model):
@@ -82,8 +82,8 @@ class OrganizationMember(models.Model):
         return u'%s membership of %s' % (self.organization, self.user)
 
 
-# Search:
-watson.register(
-    Organization.active.all(),
-    search.OrganizationSearchAdapter
-)
+# # Search:
+# watson.register(
+#     Organization.active.all(),
+#     search.OrganizationSearchAdapter
+# )

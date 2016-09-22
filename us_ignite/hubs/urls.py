@@ -1,16 +1,16 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from . import views
 
 
-urlpatterns = patterns(
-    'us_ignite.hubs.views',
-    url(r'^$', 'hub_list', name='hub_list'),
-    url(r'^apply/$', 'hub_application', name='hub_application'),
-    url(r'^(?P<slug>[-\w]+)/$', 'hub_detail', name='hub_detail'),
-    url(r'^(?P<slug>[-\w]+)/locations.json$', 'hub_locations_json',
+urlpatterns = [
+    url(r'^$', views.hub_list, name='hub_list'),
+    url(r'^apply/$', views.hub_application, name='hub_application'),
+    url(r'^(?P<slug>[-\w]+)/$', views.hub_detail, name='hub_detail'),
+    url(r'^(?P<slug>[-\w]+)/locations.json$', views.hub_locations_json,
         name='hub_locations_json'),
-    url(r'^(?P<slug>[-\w]+)/membership/$', 'hub_membership',
+    url(r'^(?P<slug>[-\w]+)/membership/$', views.hub_membership,
         name='hub_membership'),
-    url(r'^(?P<slug>[-\w]+)/membership/remove/$', 'hub_membership_remove',
+    url(r'^(?P<slug>[-\w]+)/membership/remove/$', views.hub_membership_remove,
         name='hub_membership_remove'),
-    url(r'^(?P<slug>[-\w]+)/edit/$', 'hub_edit', name='hub_edit'),
-)
+    url(r'^(?P<slug>[-\w]+)/edit/$', views.hub_edit, name='hub_edit'),
+]

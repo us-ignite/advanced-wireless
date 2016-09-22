@@ -56,7 +56,7 @@ class ActionClusterForm(forms.ModelForm):
 
 
 ActionClusterLinkFormSet = inlineformset_factory(
-    ActionCluster, ActionClusterURL, max_num=3, extra=3, can_delete=False)
+    ActionCluster, ActionClusterURL, max_num=3, extra=3, can_delete=False, fields='__all__')
 
 
 def is_embedable_url(url):

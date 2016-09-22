@@ -83,7 +83,7 @@ class ProfileForm(forms.ModelForm):
 
 
 ProfileLinkFormSet = inlineformset_factory(
-    Profile, ProfileLink, max_num=3, extra=3, can_delete=False)
+    Profile, ProfileLink, max_num=3, extra=3, can_delete=False, exclude=[])
 
 
 class InviterForm(forms.Form):

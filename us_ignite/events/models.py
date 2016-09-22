@@ -11,7 +11,7 @@ from taggit.managers import TaggableManager
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
-from us_ignite.events import managers, exporter, search
+from us_ignite.events import managers, exporter
 
 
 class Audience(models.Model):
@@ -177,8 +177,8 @@ class EventURL(models.Model):
     def __unicode__(self):
         return self.name
 
-# Search:
-watson.register(
-    Event.published.all(),
-    search.EventSearchAdapter
-)
+# # Search:
+# watson.register(
+#     Event.published.all(),
+#     search.EventSearchAdapter
+# )

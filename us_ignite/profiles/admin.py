@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.contrib import admin
-from django.conf.urls import patterns, url
+from django.conf.urls import *
 from django.shortcuts import render, redirect
 
 from us_ignite.profiles.models import Profile, ProfileLink
@@ -27,11 +27,10 @@ class ProfileAdmin(admin.ModelAdmin):
     def get_urls(self):
         _invite_users = self.admin_site.admin_view(self.invite_users)
         _export_users = self.admin_site.admin_view(self.export_users)
-        urls = patterns(
-            '',
+        urls = [
             url(r'^inviter/$', _invite_users, name='invite_users'),
             url(r'^export/$', _export_users, name='export_users'),
-        )
+        ]
         urls += super(ProfileAdmin, self).get_urls()
         return urls
 

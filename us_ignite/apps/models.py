@@ -12,7 +12,7 @@ from taggit.managers import TaggableManager
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
-from us_ignite.apps import managers, search
+from us_ignite.apps import managers
 
 
 class Feature(models.Model):
@@ -324,8 +324,8 @@ class PageApplication(models.Model):
     def __unicode__(self):
         return u'%s for page %s' % (self.application, self.page)
 
-# Search
-watson.register(
-    Application.published.all(),
-    search.ApplicationSearchAdapter
-)
+# # Search
+# watson.register(
+#     Application.published.all(),
+#     search.ApplicationSearchAdapter
+# )

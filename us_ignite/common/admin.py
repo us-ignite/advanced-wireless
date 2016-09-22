@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.redirects.models import Redirect
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 
 
 admin.site.unregister(Redirect)

@@ -52,7 +52,7 @@ class ApplicationForm(forms.ModelForm):
 
 
 ApplicationLinkFormSet = inlineformset_factory(
-    Application, ApplicationURL, max_num=3, extra=3, can_delete=False)
+    Application, ApplicationURL, max_num=3, extra=3, can_delete=False, fields='__all__')
 
 
 def is_embedable_url(url):

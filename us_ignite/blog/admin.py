@@ -21,6 +21,7 @@ class PostAdminForm(forms.ModelForm):
         widgets = {
             'content': TinyMCE(attrs={'cols': 80, 'rows': 30}),
         }
+        fields = '__all__'
 
 
 class PostAttachmentInline(admin.StackedInline):

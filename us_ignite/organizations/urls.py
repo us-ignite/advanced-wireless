@@ -1,11 +1,11 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from . import views
 
 
-urlpatterns = patterns(
-    'us_ignite.organizations.views',
-    url(r'^$', 'organization_list', name='organization_list'),
-    url(r'^(?P<slug>[-\w]+)/$', 'organization_detail',
+urlpatterns = [
+    url(r'^$', views.organization_list, name='organization_list'),
+    url(r'^(?P<slug>[-\w]+)/$', views.organization_detail,
         name='organization_detail'),
-    url(r'^(?P<slug>[-\w]+)/edit/$', 'organization_edit',
+    url(r'^(?P<slug>[-\w]+)/edit/$', views.organization_edit,
         name='organization_edit'),
-)
+]

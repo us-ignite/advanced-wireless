@@ -1,6 +1,7 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from . import views
 
-urlpatterns = patterns(
-    'us_ignite.news.views',
-    url(r'^$', 'article_list', name='article_list'),
-)
+
+urlpatterns = [
+    url(r'^$', views.article_list, name='article_list'),
+]

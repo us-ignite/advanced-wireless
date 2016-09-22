@@ -25,3 +25,4 @@ certs/
 *.psd
 snapshots/
 .idea
+venv

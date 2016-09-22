@@ -80,4 +80,4 @@ class EventForm(forms.ModelForm):
 
 
 EventURLFormSet = inlineformset_factory(
-    Event, EventURL, max_num=3, can_delete=False)
+    Event, EventURL, max_num=3, can_delete=False, fields='__all__')

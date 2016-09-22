@@ -1,11 +1,14 @@
 from django.conf import settings
-from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
 from django.views.generic import RedirectView
-
+from django.conf.urls import *
 from django.contrib import admin
-
+from us_ignite.sections import views as sections
+from us_ignite.people import views as people
+from us_ignite.common import views as common
+from us_ignite.blog import views as blog
+from django.views.static import serve
 admin.autodiscover()
 
 
@@ -13,10 +16,9 @@ admin.autodiscover()
 handler404 = 'us_ignite.common.views.custom_404'
 handler500 = 'us_ignite.common.views.custom_500'
 
-urlpatterns = patterns(
-    '',
-    url(r'^$', 'us_ignite.sections.views.home', name='home'),
-    url(r'^dashboard/$', 'us_ignite.people.views.dashboard', name='dashboard'),
+urlpatterns = [
+    url(r'^$', sections.home, name='home'),
+    url(r'^dashboard/$', people.dashboard, name='dashboard'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('us_ignite.profiles.urls')),
     url(r'^people/', include('us_ignite.people.urls')),
@@ -34,38 +36,33 @@ urlpatterns = patterns(
     url(r'^news/', include('us_ignite.news.urls')),
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
     url(r'^overview/', include('us_ignite.visualize.urls')),
-    url(r'^browserid/', include('django_browserid.urls')),
-)
+]
 
 # Global city teams:
-urlpatterns += patterns(
-    '',
+urlpatterns += [
     url(r'^globalcityteams/actioncluster/',
         include('us_ignite.actionclusters.urls')),
     url(r'^globalcityteams/',
         include('us_ignite.globalcityteams.urls', namespace='globalcityteams')),
     url(r'^globalcityteams/participation-guide', TemplateView.as_view(template_name='globalcityteams/participation-guide.html'))
-)
+]
 
 
-urlpatterns += patterns(
-    '',
+urlpatterns += [
     url(r'^about/', include('us_ignite.sections.urls')),
     url(r'^get-involved/', include('us_ignite.sections.urls_get_involved')),
     url(r'^(?P<section>(about|get-involved))/(?P<slug>[-\w]+)/$',
-        'us_ignite.sections.views.section_page_detail',
+        sections.section_page_detail,
         name='section_page_detail'),
-)
+]
 
-urlpatterns += patterns(
-    'us_ignite.common.views',
-    url(r'^404/$', 'custom_404', name='http404'),
-    url(r'^500/$', 'custom_500', name='http500'),
-)
+urlpatterns += [
+    url(r'^404/$', common.custom_404, name='http404'),
+    url(r'^500/$', common.custom_500, name='http500'),
+]
 
 # Static templates:
-urlpatterns += patterns(
-    '',
+urlpatterns += [
     url(r'^robots.txt$', TemplateView.as_view(
         template_name='robots.txt', content_type='text/plain')),
     url(r'^kit/$', TemplateView.as_view(template_name='kit.html')),
@@ -81,37 +78,32 @@ urlpatterns += patterns(
     url(r'^(?i)smartcityworks/$', TemplateView.as_view(template_name='smartcityworks.html')),
     url(r'^awt/', include('us_ignite.advanced_wireless_testbed.urls')),
 
-)
+]
 
 
 # US Ignite legacy redirects:
-urlpatterns += patterns(
-    '',
+urlpatterns += [
     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
-        'us_ignite.blog.views.legacy_redirect', name='legacy_post'),
-)
+        blog.legacy_redirect, name='legacy_post'),
+]
 
-urlpatterns += patterns(
-    '',
-    url(r'^tiny_mce/(?P<path>.*)$', 'django.views.static.serve', {'document_root': 'us_ignite/assets/js/tiny_mce/'})
-)
+urlpatterns += [
+    url(r'^tiny_mce/(?P<path>.*)$', serve, {'document_root': 'us_ignite/assets/js/tiny_mce/'})
+]
 
 if settings.DEBUG:
-    urlpatterns += patterns(
-        '',
+    urlpatterns += [
         url(r'^screens/$', TemplateView.as_view(template_name='screens.html')),
-    )
+    ]
 
     urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += patterns(
-        '',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve,
             {'document_root': settings.MEDIA_ROOT}),
-    )
+    ]
 
     # Used by the debug toolbar when DEBUG is on:
-    import debug_toolbar
-    urlpatterns += patterns(
-        '',
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    )
+    # import debug_toolbar
+    # urlpatterns += [
+    #     url(r'^__debug__/', include(debug_toolbar.urls)),
+    # ]

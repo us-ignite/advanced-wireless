@@ -29,7 +29,7 @@ class HubForm(forms.ModelForm):
 
 
 HubURLFormSet = inlineformset_factory(
-    Hub, HubURL, max_num=3, extra=3, can_delete=False)
+    Hub, HubURL, max_num=3, extra=3, can_delete=False, fields=[])
 
 
 class HubAppMembershipForm(forms.Form):

@@ -1,10 +1,10 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from . import views
 
 
-urlpatterns = patterns(
-    'us_ignite.testbeds.views',
-    url(r'^$', 'testbed_list', name='testbed_list'),
-    url(r'^(?P<slug>[-\w]+)/$', 'testbed_detail', name='testbed_detail'),
-    url(r'^(?P<slug>[-\w]+)/locations.json$', 'testbed_locations_json',
+urlpatterns = [
+    url(r'^$', views.testbed_list, name='testbed_list'),
+    url(r'^(?P<slug>[-\w]+)/$', views.testbed_detail, name='testbed_detail'),
+    url(r'^(?P<slug>[-\w]+)/locations.json$', views.testbed_locations_json,
         name='testbed_locations_json'),
-)
+]

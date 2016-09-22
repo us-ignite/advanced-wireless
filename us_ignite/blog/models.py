@@ -8,7 +8,7 @@ from django_extensions.db.fields import (
     CreationDateTimeField, ModificationDateTimeField)
 from taggit.managers import TaggableManager
 
-from us_ignite.blog import managers, search
+from us_ignite.blog import managers
 
 
 class Post(models.Model):
@@ -138,8 +138,8 @@ class BlogLink(models.Model):
         return self.name
 
 
-# Search:
-watson.register(
-    Post.published.all(),
-    search.PostSearchAdapter
-)
+# # Search:
+# watson.register(
+#     Post.published.all(),
+#     search.PostSearchAdapter
+# )

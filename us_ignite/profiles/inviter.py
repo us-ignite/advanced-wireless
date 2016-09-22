@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-from django_browserid import auth
+# from django_browserid import auth
 from us_ignite.profiles import models
 
 
@@ -24,7 +24,8 @@ def create_browserid_user(email, first_name=''):
     if username_algo is not None:
         username = username_algo(email)
     else:
-        username = auth.default_username_algo(email)
+        # username = auth.default_username_algo(email)
+        pass
     try:
         return User.objects.create_user(username, email, first_name=first_name)
     except IntegrityError as err:

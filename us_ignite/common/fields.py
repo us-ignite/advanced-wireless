@@ -3,7 +3,7 @@ import shortuuid
 from django.db import models
 from django.utils.encoding import force_unicode
 
-from south.modelsinspector import add_introspection_rules
+# from south.modelsinspector import add_introspection_rules
 
 URL_HELP_TEXT = u'Please enter a URL starting with http or https'
 
@@ -51,4 +51,4 @@ class AutoUUIDField(models.SlugField):
     def get_internal_type(self):
         return "SlugField"
 
-add_introspection_rules([], ["^us_ignite\.common\.fields\.AutoUUIDField"])
+# add_introspection_rules([], ["^us_ignite\.common\.fields\.AutoUUIDField"])

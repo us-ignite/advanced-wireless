@@ -5,7 +5,7 @@ from django.db import models
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import AutoUUIDField, URL_HELP_TEXT
-from us_ignite.resources import managers, search
+from us_ignite.resources import managers
 
 from django_extensions.db.fields import (
     AutoSlugField,
@@ -122,8 +122,8 @@ class Resource(models.Model):
         return self.url
 
 
-# Search:
-watson.register(
-    Resource.published.all(),
-    search.ResourceSearchAdapter
-)
+# # Search:
+# watson.register(
+#     Resource.published.all(),
+#     search.ResourceSearchAdapter
+# )

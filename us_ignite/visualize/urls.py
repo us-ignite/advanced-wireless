@@ -1,7 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+from . import views
 
-urlpatterns = patterns(
-    'us_ignite.visualize.views',
-    url(r'^$', 'visual_list', name='visual_list'),
-    url(r'^data.json$', 'visual_json', name='visual_json'),
-)
+
+urlpatterns = [
+    url(r'^$', views.visual_list, name='visual_list'),
+    url(r'^data.json$', views.visual_json, name='visual_json'),
+]

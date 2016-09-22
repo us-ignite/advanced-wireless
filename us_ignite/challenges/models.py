@@ -11,7 +11,7 @@ from taggit.managers import TaggableManager
 
 from us_ignite.constants import IMAGE_HELP_TEXT
 from us_ignite.common.fields import URL_HELP_TEXT
-from us_ignite.challenges import managers, search
+from us_ignite.challenges import managers
 
 
 class Challenge(models.Model):
@@ -196,8 +196,8 @@ class EntryAnswer(models.Model):
             answer.save()
         return answer
 
-    # Search:
-watson.register(
-    Challenge.active.all(),
-    search.ChallengesSearchAdapter
-)
+#     # Search:
+# watson.register(
+#     Challenge.active.all(),
+#     search.ChallengesSearchAdapter
+# )
