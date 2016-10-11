@@ -3,11 +3,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
 from django.views.generic import RedirectView
 from django.conf.urls import *
+from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import set_language
+
 from django.contrib import admin
 from us_ignite.sections import views as sections
 from us_ignite.people import views as people
 from us_ignite.common import views as common
-from us_ignite.blog import views as blog
+# from us_ignite.blog import views as blog
 from django.views.static import serve
 admin.autodiscover()
 
@@ -16,9 +19,11 @@ admin.autodiscover()
 handler404 = 'us_ignite.common.views.custom_404'
 handler500 = 'us_ignite.common.views.custom_500'
 
+
 urlpatterns = [
     url(r'^$', sections.home, name='home'),
     url(r'^dashboard/$', people.dashboard, name='dashboard'),
+    # url('^i18n/$', set_language, name='set_language'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('us_ignite.profiles.urls')),
     url(r'^people/', include('us_ignite.people.urls')),
@@ -30,7 +35,7 @@ urlpatterns = [
     url(r'^challenges/', include('us_ignite.challenges.urls')),
     url(r'^contact/', include('us_ignite.relay.urls')),
     url(r'^resources/', include('us_ignite.resources.urls')),
-    url(r'^blog/', include('us_ignite.blog.urls')),
+    # url(r'^blog/', include('us_ignite.blog.urls')),
     url(r'^search/', include('us_ignite.search.urls')),
     url(r'^map/', include('us_ignite.maps.urls')),
     url(r'^news/', include('us_ignite.news.urls')),
@@ -82,10 +87,10 @@ urlpatterns += [
 
 
 # US Ignite legacy redirects:
-urlpatterns += [
-    url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
-        blog.legacy_redirect, name='legacy_post'),
-]
+# urlpatterns += [
+#     url(r'^(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
+#         blog.legacy_redirect, name='legacy_post'),
+# ]
 
 urlpatterns += [
     url(r'^tiny_mce/(?P<path>.*)$', serve, {'document_root': 'us_ignite/assets/js/tiny_mce/'})

@@ -1,9 +1,11 @@
 # Django settings for us_ignite project.
 import os
 import dj_database_url
+from django import VERSION as DJANGO_VERSION
+
 
 DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+# TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Walter Lau', 'walter@fissionstrategy.com'),
@@ -92,14 +94,55 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    # 'compressor.finders.CompressorFinder',
 )
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+# TEMPLATE_LOADERS = (
+#     'django.template.loaders.filesystem.Loader',
+#     'django.template.loaders.app_directories.Loader',
+# )
+PROJECT_APP_PATH = os.path.dirname(os.path.abspath(__file__))
+PROJECT_APP = os.path.basename(PROJECT_APP_PATH)
+PROJECT_ROOT = BASE_DIR = os.path.dirname(PROJECT_APP_PATH)
+
+print here('templates'),
+print os.path.join(PROJECT_ROOT, "templates")
+TEMPLATES = [
+{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [
+        here('templates'),
+        # os.path.join(PROJECT_ROOT, "templates")
+    ],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+            # list if you haven't customized them:
+            'django.contrib.auth.context_processors.auth',
+            'django.template.context_processors.debug',
+            'django.template.context_processors.i18n',
+            'django.template.context_processors.media',
+            'django.template.context_processors.static',
+            'django.template.context_processors.tz',
+            'django.contrib.messages.context_processors.messages',
+            'django.template.context_processors.request',
+            # 'us_ignite.common.context_processors.settings_available',
+            # 'us_ignite.apps.context_processors.applications_context',
+            "mezzanine.conf.context_processors.settings",
+            "mezzanine.pages.context_processors.page",
+        ],
+        "builtins": [
+            "mezzanine.template.loader_tags",
+        ],
+    },
+
+},
+]
+
+if DJANGO_VERSION < (1, 9):
+    del TEMPLATES[0]["OPTIONS"]["builtins"]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -112,38 +155,54 @@ MIDDLEWARE_CLASSES = (
     'djangosecure.middleware.SecurityMiddleware',
     'us_ignite.common.middleware.DoNotTrackMiddleware',
     'us_ignite.common.middleware.URLRedirectMiddleware',
+
+    "mezzanine.core.request.CurrentRequestMiddleware",
+    "mezzanine.core.middleware.RedirectFallbackMiddleware",
+    "mezzanine.core.middleware.TemplateForDeviceMiddleware",
+    "mezzanine.core.middleware.TemplateForHostMiddleware",
+    "mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware",
+    "mezzanine.core.middleware.SitePermissionMiddleware",
+    # Uncomment the following if using any of the SSL settings:
+    # "mezzanine.core.middleware.SSLRedirectMiddleware",
+    "mezzanine.pages.middleware.PageMiddleware",
+    # "mezzanine.core.middleware.FetchFromCacheMiddleware",
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
-    'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages',
-    # 'django_browserid.context_processors.browserid',
-    'us_ignite.common.context_processors.settings_available',
-    'us_ignite.apps.context_processors.applications_context',
-)
+# TEMPLATE_CONTEXT_PROCESSORS = (
+#     "mezzanine.conf.context_processors.settings",
+#     "mezzanine.pages.context_processors.page",
+#     'django.contrib.auth.context_processors.auth',
+#     'django.core.context_processors.debug',
+#     'django.core.context_processors.i18n',
+#     'django.core.context_processors.media',
+#     'django.core.context_processors.static',
+#     'django.core.context_processors.tz',
+#     'django.core.context_processors.request',
+#     'django.contrib.messages.context_processors.messages',
+#     # 'django_browserid.context_processors.browserid',
+#     'us_ignite.common.context_processors.settings_available',
+#     'us_ignite.apps.context_processors.applications_context',
+#
+#
+# )
+
+PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
+PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
 ROOT_URLCONF = 'us_ignite.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'us_ignite.wsgi.application'
 
-TEMPLATE_DIRS = (
-    here('templates'),
-)
 
 # Authentication:
 AUTHENTICATION_BACKENDS = (
     'us_ignite.profiles.backends.authentication.EmailModelBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    # 'django.contrib.auth.backends.ModelBackend',
+    "mezzanine.core.auth_backends.MezzanineBackend"
     # 'django_browserid.auth.BrowserIDBackend',
 )
-
+FILE_UPLOAD_PERMISSIONS = 0o644
 
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.BCryptPasswordHasher',
@@ -174,7 +233,20 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'embed_video',
     'watson',
-    'tinymce',
+    # 'tinymce',
+
+    "mezzanine.boot",
+    "mezzanine.conf",
+    "mezzanine.core",
+    "mezzanine.generic",
+    "mezzanine.pages",
+    "mezzanine.blog",
+    "mezzanine.forms",
+    "mezzanine.galleries",
+    "mezzanine.twitter",
+
+    # 'us_ignite.blog_mez',
+
     'raven.contrib.django.raven_compat',
     'us_ignite.common',
     'us_ignite.profiles',
@@ -187,7 +259,7 @@ INSTALLED_APPS = (
     'us_ignite.organizations',
     'us_ignite.challenges',
     'us_ignite.relay',
-    'us_ignite.blog',
+    # 'us_ignite.blog',
     'us_ignite.uploads',
     'us_ignite.resources',
     'us_ignite.maps',
@@ -198,6 +270,14 @@ INSTALLED_APPS = (
     'us_ignite.visualize',
     'us_ignite.testbeds',
     'us_ignite.globalcityteams',
+)
+
+OPTIONAL_APPS = (
+    # "debug_toolbar",
+    "django_extensions",
+    "compressor",
+    PACKAGE_NAME_FILEBROWSER,
+    PACKAGE_NAME_GRAPPELLI,
 )
 
 # A sample logging configuration. The only tangible logging
@@ -313,22 +393,22 @@ WP_URL = 'http://us-ignite-wp.herokuapp.com'
 WP_EMAIL = ''
 
 # TinyMCE configuration:
-TINYMCE_DEFAULT_CONFIG = {
-    'theme': 'advanced',
-    'theme_advanced_toolbar_location': 'top',
-    'plugins': 'table,paste',
-    'theme_advanced_buttons1': (',code,|,bold,italic,underline,'
-                                '|,formatselect,|,bullist,numlist,|,undo,redo,'
-                                '|,link,unlink,anchor|,tablecontrols,'),
-    'theme_advanced_blockformats': 'p,h2,h3,h4',
-    'forced_root_block': 'p',
-    'custom_undo_redo_levels': 20,
-    'cleanup_on_startup': True,
-    'relative_urls': False,
-}
-TINYMCE_SPELLCHECKER = False
-TINYMCE_COMPRESSOR = False
-TINYMCE_FILEBROWSER = False
+# TINYMCE_DEFAULT_CONFIG = {
+#     'theme': 'advanced',
+#     'theme_advanced_toolbar_location': 'top',
+#     'plugins': 'table,paste',
+#     'theme_advanced_buttons1': (',code,|,bold,italic,underline,'
+#                                 '|,formatselect,|,bullist,numlist,|,undo,redo,'
+#                                 '|,link,unlink,anchor|,tablecontrols,'),
+#     'theme_advanced_blockformats': 'p,h2,h3,h4',
+#     'forced_root_block': 'p',
+#     'custom_undo_redo_levels': 20,
+#     'cleanup_on_startup': True,
+#     'relative_urls': False,
+# }
+# TINYMCE_SPELLCHECKER = False
+# TINYMCE_COMPRESSOR = False
+# TINYMCE_FILEBROWSER = False
 
 # Production flag:
 IS_PRODUCTION = True
@@ -352,3 +432,32 @@ MAILCHIMP_GCTC_LIST = 'set in local.py and production.py'
 """
 
 GEOPOSITION_GOOGLE_MAPS_API_KEY = ''
+
+####################
+# DYNAMIC SETTINGS #
+####################
+
+# set_dynamic_settings() will rewrite globals based on what has been
+# defined so far, in order to provide some better defaults where
+# applicable. We also allow this settings module to be imported
+# without Mezzanine installed, as the case may be when using the
+# fabfile, where setting the dynamic settings below isn't strictly
+# required.
+
+# GRAPPELLI_INSTALLED = False
+# ADMIN_REMOVAL = []
+# RATINGS_RANGE = range(1, 5)
+# TESTING = False
+# BLOG_SLUG = 'blog'
+# COMMENTS_UNAPPROVED_VISIBLE = True
+# COMMENTS_REMOVED_VISIBLE = False
+# COMMENTS_DEFAULT_APPROVED = True
+# # COMMENTS_NOTIFICATION_EMAILS = ",".join(ALL_EMAILS)
+# COMMENT_FILTER = None
+
+try:
+    from mezzanine.utils.conf import set_dynamic_settings
+except ImportError:
+    pass
+else:
+    set_dynamic_settings(globals())

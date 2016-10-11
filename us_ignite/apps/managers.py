@@ -4,14 +4,14 @@ from django.db import models
 class ApplicationActiveManager(models.Manager):
 
     def get_query_set(self):
-        return (super(ApplicationActiveManager, self).get_query_set()
+        return (super(ApplicationActiveManager, self).get_queryset()
                 .filter(~models.Q(status=self.model.REMOVED)))
 
 
 class ApplicationPublishedManager(models.Manager):
 
     def get_query_set(self):
-        return (super(ApplicationPublishedManager, self).get_query_set()
+        return (super(ApplicationPublishedManager, self).get_queryset()
                 .filter(status=self.model.PUBLISHED))
 
     def get_featured(self):

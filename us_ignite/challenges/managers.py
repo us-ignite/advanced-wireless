@@ -10,7 +10,7 @@ class ActiveChallengesManager(models.Manager):
 
     def get_query_set(self, *args, **kwargs):
         return (super(ActiveChallengesManager, self)
-                .get_query_set(*args, **kwargs)
+                .get_queryset(*args, **kwargs)
                 .filter(~models.Q(status=self.model.REMOVED)))
 
 

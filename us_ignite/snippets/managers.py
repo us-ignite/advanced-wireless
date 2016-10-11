@@ -5,7 +5,7 @@ class SnippetPublishedManager(models.Manager):
 
     def get_query_set(self, *args, **kwargs):
         return (super(SnippetPublishedManager, self)
-                .get_query_set(*args, **kwargs)
+                .get_queryset(*args, **kwargs)
                 .filter(status=self.model.PUBLISHED))
 
     def get_featured(self):

@@ -26,9 +26,9 @@ urlpatterns = [
     url(r'^events/$', views.event_list, name='event_list'),
     url(r'^events/(?P<slug>[-\w]+)/$', views.event_detail, name='event_detail'),
     url(r'^search/$', views.search, name='search'),
-    url(r'^news/$', views.post_list, name='news_list'),
-    url(r'^news/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
-        views.post_detail, name='news_detail'),
+    # url(r'^news/$', views.post_list, name='news_list'),
+    # url(r'^news/(?P<year>\d{4})/(?P<month>\d{1,2})/(?P<slug>[-\w]+)/$',
+    #     views.post_detail, name='news_detail'),
     url(r'^subscribe/$', views.mailing_subscribe, name='subscribe'),
     url(r'^TechJam2015?/$', RedirectView.as_view(
         url='https://s3.amazonaws.com/us-ignite-org/static/pdf/Global+City+Teams+TECH+JAM+Prelim+Agenda.pdf'), name='tech_jam_2015_pdf'),

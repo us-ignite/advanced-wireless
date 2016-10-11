@@ -14,7 +14,7 @@ class ProfileActiveManager(models.Manager):
 
     def get_query_set(self):
         kwargs = {'user__is_active': True}
-        return (super(ProfileActiveManager, self).get_query_set().
+        return (super(ProfileActiveManager, self).get_queryset().
                 select_related('user')
                 .filter(**kwargs))
 

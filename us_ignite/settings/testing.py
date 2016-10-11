@@ -21,7 +21,7 @@ INSTALLED_APPS += (
 )
 
 EXCLUDED_APPS = (
-    'south',
+    # 'south',
 )
 
 INSTALLED_APPS = filter(
@@ -42,7 +42,7 @@ NOSE_ARGS = [
     '--nocapture',
     '--failure-detail',
     '--with-progressive',
-    '--logging-filter=-south',
+    # '--logging-filter=-south',
     '--with-blockage',
 ]
 
@@ -52,8 +52,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # ignore South
-SOUTH_TESTS_MIGRATE = False
-SKIP_SOUTH_TESTS = True
+# SOUTH_TESTS_MIGRATE = False
+# SKIP_SOUTH_TESTS = True
 
 CACHES = {
     'default': {

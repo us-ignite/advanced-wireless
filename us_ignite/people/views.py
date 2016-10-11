@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from us_ignite.apps.models import Application
 from us_ignite.awards.models import UserAward
-from us_ignite.blog.models import Post
+# from us_ignite.blog.models import Post
 from us_ignite.common import pagination, forms
 from us_ignite.events.models import Event
 from us_ignite.actionclusters.models import ActionCluster
@@ -188,7 +188,7 @@ def dashboard(request):
         'application_list': application_list[:3],
         'actioncluster_list': actioncluster_list[:3],
         'similar_applications': similar_applications,
-        'post_list': get_post_list(),
+        'post_list': False,
         'hub_list': hub_list[:7],
         'hub_event_list': Event.published.get_for_hubs(hub_id_list)[:6],
         'featured_event_list': get_featured_events(),

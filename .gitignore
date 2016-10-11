@@ -26,3 +26,4 @@ certs/
 snapshots/
 .idea
 venv
+dev.db

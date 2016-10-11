@@ -1,45 +1,45 @@
 # Production
 Django == 1.10
-dj-database-url == 0.4.1
-gevent == 1.0
-greenlet==0.4.2
-gunicorn==18.0
-wsgiref==0.1.2
+dj-database-url==0.4.1
+gevent==1.1.2
+greenlet==0.4.10
+gunicorn==19.6
+wsgiref
 psycogreen==1.0
-django-storages == 1.1.8
-boto == 2.23.0
-django_compressor == 1.4
-django-registration == 2.1.2
-requests == 2.2.0
-fancy_tag == 0.2.0
-# django-browserid == 0.9
-shortuuid == 0.4
-django-extensions == 1.3.2
+django-storages==1.1.8
+boto==2.23.0
+django_compressor==2.1
+django-registration==2.1.2
+requests==2.2.0
+fancy_tag==0.2.0
+# django-browserid
+shortuuid==0.4
+django-extensions==1.7.4
 # git+git://github.com/madewithbytes/django-taggit.git@3d2294e#egg=taggit
-django-taggit == 0.20.2
-Pillow == 2.3.0
-twython == 3.1.2
-requests-oauthlib == 0.4.0
-oauthlib == 0.6.1
-redis == 2.9.0
-django-redis-cache == 0.10.2
-pytz == 2013.9
-python-dateutil == 2.2
-icalendar == 3.6.1
-django-geoposition == 0.3.0
-py-bcrypt == 0.4
-django-secure == 1.0
-easy-thumbnails == 1.4
-bleach == 1.4
-html5lib == 0.999
-django-embed-video == 2.11.0
-django-watson == 1.2.2
-Markdown == 2.3.1
-mailchimp == 2.0.7
-django-tinymce == 2.3.0
-raven>=3
-
-django-debug-toolbar == 1.2.1
+django-taggit==0.20.2
+Pillow==3.4.*
+twython==3.1.2
+requests-oauthlib==0.4.0
+oauthlib==0.6.1
+redis==2.9.0
+django-redis-cache==0.10.2
+pytz==2013.9
+python-dateutil==2.2
+icalendar==3.6.1
+django-geoposition==0.3.0
+py-bcrypt==0.4
+django-secure==1.0
+easy-thumbnails==2.3
+bleach==1.4
+html5lib==0.999
+django-embed-video==1.1.0
+django-watson==1.2.2
+Markdown==2.3.1
+mailchimp==2.0.7
+django-tinymce==2.3.0
+raven==5.21.0
+mezzanine
+django-debug-toolbar==1.2.1
 
 # Compiled
-psycopg2
+#psycopg2
