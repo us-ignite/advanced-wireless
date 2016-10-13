@@ -318,9 +318,10 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
     'theme_advanced_toolbar_location': 'top',
     'plugins': 'table,paste',
-    'theme_advanced_buttons1': (',code,|,bold,italic,underline,'
+    'theme_advanced_buttons1': (',bold,italic,underline,'
                                 '|,formatselect,|,bullist,numlist,|,undo,redo,'
                                 '|,link,unlink,anchor|,tablecontrols,'),
+    'theme_advanced_buttons2': "bullist,numlist,|,outdent,indent,blockquote,hr,|,link,unlink,anchor,image,justifyleft,justifycenter,justifyright,justifyfull|,code,removeformat,cleanup",
     'theme_advanced_blockformats': 'p,h2,h3,h4',
     'forced_root_block': 'p',
     'custom_undo_redo_levels': 20,
