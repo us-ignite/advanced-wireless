@@ -43,3 +43,18 @@ def section_page_detail(
         'body': instance.body,
     }
     return TemplateResponse(request, template, context)
+
+
+def section_page_gigabit(
+        request, slug, template='get-involved/welcome.html'):
+    instance = get_object_or_404(SectionPage, slug=slug, section='get-involved')
+    if not instance.is_visible_by(request.user):
+        raise Http404
+    template = instance.template if instance.template else template
+    context = {
+        'object': instance,
+        'title': instance.title,
+        'slug': instance.slug,
+        'body': instance.body,
+    }
+    return TemplateResponse(request, template, context)

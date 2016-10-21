@@ -25,3 +25,6 @@ certs/
 *.psd
 snapshots/
 .idea
+dev.db
+us_ignite/settings/localvenv.py
+venv
