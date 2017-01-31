@@ -35,6 +35,7 @@ urlpatterns = patterns(
     url(r'^subscribe/', include('us_ignite.mailinglist.urls')),
     url(r'^overview/', include('us_ignite.visualize.urls')),
     url(r'^browserid/', include('django_browserid.urls')),
+    url(r'^smart-communities/', include('us_ignite.smart_gigabit_communities.urls')),
 )
 
 # Global city teams:

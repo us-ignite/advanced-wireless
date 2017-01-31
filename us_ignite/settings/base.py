@@ -176,6 +176,7 @@ INSTALLED_APPS = (
     'watson',
     'tinymce',
     'south',
+    'adminsortable2',
     'raven.contrib.django.raven_compat',
     'us_ignite.common',
     'us_ignite.profiles',
@@ -199,6 +200,7 @@ INSTALLED_APPS = (
     'us_ignite.visualize',
     'us_ignite.testbeds',
     'us_ignite.globalcityteams',
+    'us_ignite.smart_gigabit_communities',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -352,3 +354,8 @@ MAILCHIMP_LIST = 'set in local.py and production.py'
 MAILCHIMP_GCTC_API_KEY = 'set in local.py and production.py'
 MAILCHIMP_GCTC_LIST = 'set in local.py and production.py'
 """
+
+SOUTH_MIGRATION_MODULES = {
+    'taggit': 'taggit.south_migrations',
+}
+
