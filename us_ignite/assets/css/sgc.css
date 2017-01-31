@@ -4269,7 +4269,7 @@ h4,
 h5,
 h6 {
   font-family: "Lato", sans-serif;
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;
   color: inherit;
   text-rendering: optimizeLegibility;
@@ -4296,7 +4296,7 @@ h2 {
 
 /* line 309, /Users/gholme4/Documents/us-ignite/bower_components/foundation-sites/scss/typography/_base.scss */
 h3 {
-  font-size: 1.1875rem; }
+  font-size: 1.75rem; }
 
 /* line 309, /Users/gholme4/Documents/us-ignite/bower_components/foundation-sites/scss/typography/_base.scss */
 h4 {
@@ -7116,7 +7116,9 @@ body {
 /* line 55, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 .header-bar {
   background-color: #000;
-  padding: 20px 0; }
+  padding: 20px 30px;
+  position: relative;
+  max-height: 290px; }
   @media screen and (min-width: 40em) {
     /* line 55, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     .header-bar {
@@ -7124,50 +7126,144 @@ body {
   /* line 63, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .header-bar .logo {
     max-width: 230px; }
-  /* line 67, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    @media screen and (max-width: 39.9375em) {
+      /* line 63, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      .header-bar .logo {
+        max-width: 200px; } }
+  /* line 71, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  .header-bar .menu-button {
+    color: #fefefe;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 30px;
+    width: 30px;
+    height: 30px; }
+  /* line 81, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .header-bar .jump-to-container {
     margin-top: 20px; }
-    /* line 69, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    @media screen and (max-width: 39.9375em) {
+      /* line 81, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      .header-bar .jump-to-container {
+        display: none; } }
+    /* line 88, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    .header-bar .jump-to-container.active {
+      display: block; }
+    /* line 92, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     .header-bar .jump-to-container label {
       display: inline-block;
       color: #fefefe;
-      text-align: right;
       width: 90%;
+      font-weight: 600;
       line-height: 40px; }
-    /* line 80, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      @media screen and (min-width: 40em) {
+        /* line 92, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        .header-bar .jump-to-container label {
+          text-align: right; } }
+    /* line 104, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     .header-bar .jump-to-container select {
       display: inline-block;
       color: #fefefe;
       padding-left: 15px; }
 
-/* line 88, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 114, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 select {
   background-color: rgba(255, 255, 255, 0.5);
   border: none; }
 
-/* line 93, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 119, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 .social-bar {
   background-color: #ff8100;
   margin-top: 20px;
   color: #fefefe;
   padding: 15px 35px; }
-  /* line 99, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  @media screen and (max-width: 39.9375em) {
+    /* line 119, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    .social-bar {
+      display: none; } }
+  /* line 129, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  .social-bar.active {
+    display: block; }
+  /* line 133, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .social-bar h4 {
     font-size: 18px;
     font-weight: 700;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif; }
-  /* line 106, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 140, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .social-bar ul {
     margin: 0;
     padding: 0;
     display: inline-block;
     list-style: none; }
-    /* line 112, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 146, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     .social-bar ul li {
       display: inline-block;
       margin-right: 5px; }
-      /* line 115, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 149, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       .social-bar ul li a {
         color: #fefefe;
         font-size: 28px; }
+
+/* line 157, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+main {
+  padding-top: 50px; }
+  @media screen and (min-width: 40em) {
+    /* line 157, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    main {
+      padding-top: 90px; } }
+  /* line 164, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  main h3 {
+    font-weight: 300; }
+  /* line 168, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  main section {
+    padding: 30px 15px; }
+    /* line 172, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    main section:nth-child(even) {
+      background-color: #e6e5e1; }
+    /* line 176, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    main section:nth-child(odd) {
+      background-color: #f4f3f1; }
+    /* line 180, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    main section:first-of-type {
+      background-color: #fefefe; }
+
+/* line 186, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+footer {
+  background-color: #0a0a0a;
+  color: #fefefe; }
+  /* line 187, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  footer .cta {
+    background-color: #43766e;
+    color: #fefefe;
+    padding: 30px 15px;
+    text-align: center; }
+    @media screen and (min-width: 40em) {
+      /* line 187, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .cta {
+        padding: 60px 15px;
+        text-align: left; } }
+    @media screen and (max-width: 39.9375em) {
+      /* line 197, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .cta h2 {
+        font-size: 24px; } }
+    @media screen and (max-width: 39.9375em) {
+      /* line 202, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .cta h2 span {
+        display: block;
+        margin-bottom: 15px; } }
+    /* line 210, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    footer .cta .button {
+      font-weight: normal;
+      background-color: rgba(255, 255, 255, 0.3); }
+      /* line 213, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .cta .button:hover {
+        background-color: rgba(255, 255, 255, 0.5); }
+  /* line 220, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  footer .main {
+    padding: 30px 15px; }
+    @media screen and (min-width: 40em) {
+      /* line 220, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .main {
+        padding: 60px 15px;
+        text-align: left; } }
