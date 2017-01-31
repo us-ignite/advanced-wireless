@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}css/ie.css" />
 <![endif]-->
 <!--[if (gte IE 9) | (!IE)]><!-->
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/sgc.css?v={{ random_int }}"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/sgc.css"/>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Roboto:400,500,700,900" rel="stylesheet">
@@ -30,51 +30,18 @@
                     <img alt="" src="{{ STATIC_URL }}img/sgc-logo.png" />
                 </div>
             </div>
-            <div class="columns medium-6">
-                <div class="jump-to-container">
-                    <div class="row collapse">
-                        <div class="columns medium-3">
-                             <label>Jump to:</label> 
-                        </div>
-                        <div class="columns medium-9">
-                             <select>
-                                <option>Smart Gigabit Community Name</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+            <div class="columns medium-5">
+               <select></select>
             </div>
-            <div class="columns medium-3">
+            <div class="columns medium-4">
                 <div class="social-bar show-for-medium-up">
                  <h4>Share This</h4>
                     <ul class="show-for-medium-up">
                        
-                        <li class="">
-                            <a href="https://www.facebook.com/USIgnite" class="s" target="_blank">
-                                <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="https://twitter.com/US_Ignite" class="" target="_blank">
-                            <i class="fa fa-twitter-square" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="https://plus.google.com/115026873083967953743/posts" class="" target="_blank">
-                                <i class="fa fa-google-plus-square" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="h" class="" target="_blank">
-                                <i class="fa fa-linkedin-square" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="h" class="" target="_blank">
-                                <i class="fa fa-envelope-square" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        
+                        <li class=""><a href="https://www.facebook.com/USIgnite" class="s" target="_blank"><span class=""></span></a></li>
+                        <li class=""><a href="https://twitter.com/US_Ignite" class="" target="_blank"><span class=""></span></a></li>
+                        <li class=""><a href="https://plus.google.com/115026873083967953743/posts" class="" target="_blank"><span class=""></span></a></li>
+                        <li class=""><a href="http://www.youtube.com/user/USIgnite1" class="" target="_blank"><span class=""></span></a></li>
                     </ul>
                 </div>
                  <!-- end .social-bar -->
@@ -83,27 +50,7 @@
     </div>
        
     <main>
-        <h2>INTRO PART</h2>
-        <h3>{{ intro }}</h3>
-        <p>{{ desc }}</p>
-        {% for pitch in pitch_list %}
-            <p>Title: {{ pitch.title }}</p>
-            <p>Subtitle: {{ pitch.subtitle }}</p>
-            <p>Content: {{ pitch.content }}</p>
-            <p>Logo:</p>
-            <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
-            {% if pitch.pitch_video %}
-                <p>PITCH VIDEO: {{ pitch.pitch_video }}</p>
-            {% else %}
-                <p>PITCH IMAGE: </p>
-                <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.pitch_image }}" alt="">
-            {% endif %}
-            <p>FB: {{ pitch.facebook }}</p>
-            <p>TW: {{ pitch.twitter }}</p>
-            <p>YT: {{ pitch.youtube }}</p>
-            <p>GP: {{ pitch.google }}</p>
-            <p>Email them: {{ pitch.email }}</p>
-        {% endfor %}
+
     </main>
        
 
@@ -147,9 +94,13 @@
 <script src="{{ STATIC_URL }}js/vendor/respond.min.js"></script>
 <![endif]-->
 
-
+<script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.js"></script>
+<script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.dropdown.js"></script>
+<script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.orbit.js"></script>
+<script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.topbar.js"></script>
+<script src="{{ STATIC_URL }}bower_components/foundation/js/foundation/foundation.dropdown.js"></script>
 <script src="{{ STATIC_URL }}js/vendor/jquery-ui-1.10.4.custom.js"></script>
-<script src="{{ STATIC_URL }}js/sgc.js"></script>
+<script src="{{ STATIC_URL }}js/app.js"></script>
 
 
 

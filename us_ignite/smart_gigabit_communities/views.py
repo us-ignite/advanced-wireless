@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.template.response import TemplateResponse
 from models import *
+import random
 # Create your views here.
 
 
@@ -22,11 +23,13 @@ def reverse_pitch(request):
            " vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna." \
            " Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
 
+    random_int = random.uniform(0.1, 2.0)
     pitch_list = Pitch.objects.filter(active=True).order_by('order').all()[:6]
     context = {
         'intro': intro,
         'desc': desc,
-        'pitch_list': pitch_list
+        'pitch_list': pitch_list,
+        'random_int': random_int
     }
 
     return TemplateResponse(request, 'smart_gigabit_communities/reverse_pitch.html', context)
