@@ -16,10 +16,10 @@ class Pitch(models.Model):
     modified = ModificationDateTimeField()
     order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
-    facebook = models.SlugField(blank=True, null=True)
-    twitter = models.SlugField(blank=True, null=True)
-    youtube = models.SlugField(blank=True, null=True)
-    google = models.SlugField(blank=True, null=True)
+    facebook = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    youtube = models.URLField(blank=True, null=True)
+    google = models.URLField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
 

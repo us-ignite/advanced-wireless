@@ -40,8 +40,11 @@
                              <label>Jump to:</label> 
                         </div>
                         <div class="columns medium-9">
-                             <select>
-                                <option>Smart Gigabit Community Name</option>
+                            <select id="jump-to-pitch">
+                                <option value>Select pitch...</option>
+                                {% for pitch in pitch_list %}
+                                    <option value="pitch{{ pitch.id }}">{{ pitch.title }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -102,7 +105,7 @@
         </section>
         {% for pitch in pitch_list %}
             
-            <section class="pitch">
+            <section class="pitch" id="pitch{{ pitch.id }}">
                 <div class="row collapse">
                     {% if forloop.counter|divisibleby:"2" %} {# is even #}
                         <div class="columns medium-6 medium-push-6">
