@@ -106,9 +106,9 @@
         {% for pitch in pitch_list %}
             
             <section class="pitch" id="pitch{{ pitch.id }}">
-                <div class="row collapse">
+                <div class="row collapse" data-equalizer data-equalize-on="medium">
                     {% if forloop.counter|divisibleby:"2" %} {# is even #}
-                        <div class="columns medium-6 medium-push-6">
+                        <div class="columns medium-6 medium-push-6 bar-column" data-equalizer-watch>
                             <div class="content">                               
                                 <div class="logo">
                                     <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
@@ -124,31 +124,34 @@
                                     </div>
                                     <div class="columns small-7">
                                         <ul class="socials text-right">
+                                            {% if pitch.facebook %}
                                             <li class="">
-                                                <a href="https://www.facebook.com/USIgnite" class="s" target="_blank">
+                                                <a href="{{ pitch.facebook }}" class="s" target="_blank">
                                                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
                                                 </a>
                                             </li>
+                                            {% endif %}
+                                            {% if pitch.twitter %}
                                             <li class="">
-                                                <a href="https://twitter.com/US_Ignite" class="" target="_blank">
+                                                <a href="{{ pitch.twitter }}" class="" target="_blank">
                                                 <i class="fa fa-twitter-square" aria-hidden="true"></i>
                                                 </a>
                                             </li>
+                                            {% endif %}
+                                            {% if pitch.youtube %}
                                             <li class="">
-                                                <a href="https://plus.google.com/115026873083967953743/posts" class="" target="_blank">
+                                                <a href="{{ pitch.youtube }}" class="" target="_blank">
                                                     <i class="fa fa-google-plus-square" aria-hidden="true"></i>
                                                 </a>
                                             </li>
+                                            {% endif %}
+                                            {% if pitch.google %}
                                             <li class="">
-                                                <a href="h" class="" target="_blank">
-                                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                                                <a href="{{ pitch.google }}" class="" target="_blank">
+                                                    <i class="fa fa-google-plus-square" aria-hidden="true"></i>
                                                 </a>
                                             </li>
-                                            <li class="">
-                                                <a href="h" class="" target="_blank">
-                                                    <i class="fa fa-envelope-square" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
+                                            {% endif %}
                                         </ul>
                                         <!-- /.socials -->
                                     </div>
@@ -156,7 +159,7 @@
                             </div>
                             <!-- /.content -->        
                         </div>
-                        <div class="columns medium-6 medium-pull-6">
+                        <div class="columns medium-6 medium-pull-6" data-equalizer-watch>
                             <div class="media">
                                 {% if pitch.pitch_video %}
                                     <div class="video">
@@ -168,7 +171,7 @@
                             </div>           
                         </div>
                     {% else %}
-                        <div class="columns medium-6">
+                        <div class="columns medium-6 bar-column" data-equalizer-watch>
                             <div class="content">                               
                                 <div class="logo">
                                     <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
@@ -184,31 +187,34 @@
                                     </div>
                                     <div class="columns small-7">
                                         <ul class="socials text-right">
+                                            {% if pitch.facebook %}
                                             <li class="">
-                                                <a href="https://www.facebook.com/USIgnite" class="s" target="_blank">
+                                                <a href="{{ pitch.facebook }}" class="s" target="_blank">
                                                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
                                                 </a>
                                             </li>
+                                            {% endif %}
+                                            {% if pitch.twitter %}
                                             <li class="">
-                                                <a href="https://twitter.com/US_Ignite" class="" target="_blank">
+                                                <a href="{{ pitch.twitter }}" class="" target="_blank">
                                                 <i class="fa fa-twitter-square" aria-hidden="true"></i>
                                                 </a>
                                             </li>
+                                            {% endif %}
+                                            {% if pitch.youtube %}
                                             <li class="">
-                                                <a href="https://plus.google.com/115026873083967953743/posts" class="" target="_blank">
+                                                <a href="{{ pitch.youtube }}" class="" target="_blank">
+                                                    <i class="fa fa-youtube-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            {% endif %}
+                                            {% if pitch.google %}
+                                            <li class="">
+                                                <a href="{{ pitch.google }}" class="" target="_blank">
                                                     <i class="fa fa-google-plus-square" aria-hidden="true"></i>
                                                 </a>
                                             </li>
-                                            <li class="">
-                                                <a href="h" class="" target="_blank">
-                                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li class="">
-                                                <a href="h" class="" target="_blank">
-                                                    <i class="fa fa-envelope-square" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
+                                            {% endif %}
                                         </ul>
                                         <!-- /.socials -->
                                     </div>
@@ -216,7 +222,7 @@
                             </div>
                             <!-- /.content -->      
                         </div>
-                        <div class="columns medium-6">
+                        <div class="columns medium-6" data-equalizer-watch>
                             <div class="media">
                                 {% if pitch.pitch_video %}
                                     <div class="video">
@@ -234,7 +240,13 @@
                
             
         {% endfor %}
-       
+        <div class="back-to-top" id="back-to-top">
+            <div class="row hide-for-medium">
+                <div class="columns">
+                    <span> BACK TO TOP </span>
+                </div>
+            </div>
+        </div>
     </main>
        
 
@@ -346,6 +358,7 @@
 <![endif]-->
 
 <script src="{{ STATIC_URL }}js/vendor/jquery-ui-1.10.4.custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/js/foundation.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
 <script src="{{ STATIC_URL }}js/sgc.js"></script>
 
