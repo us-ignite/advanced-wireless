@@ -172,25 +172,73 @@
 
         <div class="main">
             <div class="row">
-                <div class="columns medium-3">
+                <div class="columns medium-2">
                     <img alt="" src="{{ STATIC_URL }}img/usignite-white.png" />
+                    <br><br>
                 </div>
-                <div class="columns medium-3">
-
+                <div class="columns medium-4">
+                    <p><strong>Smart Gigabit Communities is a lorem ipsum dolor al sigmet of the sed ut perspciiat unde omnis iste natus error sit.</strong></p>
                 </div>
                 <div class="columns medium-6">
-
+                    <h5><strong>Sign up for the US Ignite Newsletter</strong></h5>
+                    <form id="signup-form" action="" method="">
+                        <div class="row">
+                            <div class="columns medium-9">
+                                 <input type="text" name="email" placeholder="Enter your email address" required />
+                            </div>
+                            <div class="columns medium-3">
+                                 <button class="button">SIGN UP</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 
             </div>
         </div>
         <!-- /.main -->
-        
-        <div class="row">
-            <div class="columns">
-                <p class="copyright">© Copyright 2017 US Ignite. All Rights Reserved </p>
+        <div class="copy">
+            <div class="row">
+                <div class="columns medium-6 medium-push-6">
+                    <p class="copyright text-right">To contact US Ignite, email info@us-ignite.org</p>
+                    <p>
+                        <ul class="socials">
+                            <li class="">
+                                <a href="https://www.facebook.com/USIgnite" class="s" target="_blank">
+                                    <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="https://twitter.com/US_Ignite" class="" target="_blank">
+                                <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="https://plus.google.com/115026873083967953743/posts" class="" target="_blank">
+                                    <i class="fa fa-google-plus-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="h" class="" target="_blank">
+                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="h" class="" target="_blank">
+                                    <i class="fa fa-envelope-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.socials -->
+                    </p>
+                </div>
+                <div class="columns medium-6 medium-pull-6">
+                    <p class="copyright">© Copyright {% now "Y" %} US Ignite. All Rights Reserved. </p>
+                    
+                </div>
+                
             </div>
         </div>
+        <!-- /.copy -->
     </footer>
     <!-- /footer -->
 
@@ -212,27 +260,9 @@
 <script src="{{ STATIC_URL }}js/vendor/respond.min.js"></script>
 <![endif]-->
 
-
 <script src="{{ STATIC_URL }}js/vendor/jquery-ui-1.10.4.custom.js"></script>
 <script src="{{ STATIC_URL }}js/sgc.js"></script>
 
-
-
-
-<script type="text/javascript">
-    WebFontConfig = {
-        google: { families: [ 'Lato:100,300,400,700,900:latin' ] }
-    };
-    (function() {
-        var wf = document.createElement('script');
-        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-        wf.type = 'text/javascript';
-        wf.async = 'true';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(wf, s);
-    })();
-</script>
 
 {% include "includes/google_analytics.html" %}
 </body>

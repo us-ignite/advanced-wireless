@@ -105,12 +105,13 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          outputStyle: 'compressed',
+          outputStyle: 'uncompressed',
           sourceComments: true
         },
         files: {
-          'us_ignite/assets/css/app.css': 'scss/app.scss',
-          'us_ignite/assets/css/ie.css': 'scss/ie.scss'
+          //'us_ignite/assets/css/app.css': 'scss/app.scss',
+          'us_ignite/assets/css/sgc.css': 'scss/sgc.scss',
+          //'us_ignite/assets/css/ie.css': 'scss/ie.scss'
         }
       }
     },

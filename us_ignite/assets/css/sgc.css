@@ -4304,7 +4304,7 @@ h4 {
 
 /* line 309, /Users/gholme4/Documents/us-ignite/bower_components/foundation-sites/scss/typography/_base.scss */
 h5 {
-  font-size: 1.0625rem; }
+  font-size: 1.125rem; }
 
 /* line 309, /Users/gholme4/Documents/us-ignite/bower_components/foundation-sites/scss/typography/_base.scss */
 h6 {
@@ -4325,7 +4325,7 @@ h6 {
     font-size: 1.5625rem; }
   /* line 309, /Users/gholme4/Documents/us-ignite/bower_components/foundation-sites/scss/typography/_base.scss */
   h5 {
-    font-size: 1.25rem; }
+    font-size: 1.375rem; }
   /* line 309, /Users/gholme4/Documents/us-ignite/bower_components/foundation-sites/scss/typography/_base.scss */
   h6 {
     font-size: 1rem; } }
@@ -4589,7 +4589,7 @@ kbd {
   vertical-align: middle;
   border: 1px solid transparent;
   border-radius: 0;
-  padding: 0.85em 1em;
+  padding: 0.85em 1.4em;
   margin: 0 0 1rem 0;
   font-size: 0.9rem;
   background-color: #ff8100;
@@ -4768,7 +4768,7 @@ kbd {
     position: relative;
     top: 0.4em;
     float: right;
-    margin-left: 1em;
+    margin-left: 1.4em;
     display: inline-block; }
   /* line 277, /Users/gholme4/Documents/us-ignite/bower_components/foundation-sites/scss/components/_button.scss */
   .button.arrow-only::after {
@@ -7134,7 +7134,7 @@ body {
   .header-bar .menu-button {
     color: #fefefe;
     position: absolute;
-    right: 20px;
+    right: 30px;
     top: 20px;
     font-size: 30px;
     width: 30px;
@@ -7217,7 +7217,7 @@ main {
     font-weight: 300; }
   /* line 168, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   main section {
-    padding: 30px 15px; }
+    padding: 30px 30px; }
     /* line 172, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main section:nth-child(even) {
       background-color: #e6e5e1; }
@@ -7261,9 +7261,50 @@ footer {
         background-color: rgba(255, 255, 255, 0.5); }
   /* line 220, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   footer .main {
-    padding: 30px 15px; }
+    padding: 30px 30px;
+    color: #fefefe; }
     @media screen and (min-width: 40em) {
       /* line 220, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .main {
-        padding: 60px 15px;
+        padding: 60px 30px;
         text-align: left; } }
+    @media screen and (min-width: 40em) {
+      /* line 229, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .main p {
+        padding: 0 15px; } }
+  /* line 237, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  footer .copy {
+    padding: 0 30px; }
+    @media screen and (max-width: 39.9375em) {
+      /* line 240, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .copy p {
+        text-align: left !important; } }
+    /* line 246, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    footer .copy .socials {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: inline-block; }
+      @media screen and (min-width: 40em) {
+        /* line 246, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        footer .copy .socials {
+          display: none; } }
+      /* line 255, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .copy .socials li {
+        display: inline-block;
+        margin-right: 10px; }
+      /* line 259, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .copy .socials a {
+        color: #fefefe;
+        font-size: 1.5rem; }
+
+/* line 270, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+.button {
+  font-weight: 600; }
+  /* line 273, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  .button.block {
+    display: block; }
+
+/* line 278, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+input[type="text"], input[type="email"] {
+  padding: 1rem; }

@@ -1,0 +1,280 @@
+@import "vars";
+@import "sgc_settings";
+@import "../bower_components/foundation-sites/scss/foundation";
+
+@import '../bower_components/font-awesome/scss/font-awesome';
+  $oldIE: false !default;
+// Foundation global styles 
+@include foundation-global-styles;
+
+// Individual foundation components
+@include foundation-grid;
+@include foundation-typography;
+@include foundation-button;
+@include foundation-forms;
+@include foundation-visibility-classes;
+@include foundation-float-classes;
+@include foundation-accordion;
+@include foundation-accordion-menu;
+@include foundation-badge;
+@include foundation-breadcrumbs;
+@include foundation-button-group;
+@include foundation-callout;
+@include foundation-close-button;
+@include foundation-drilldown-menu;
+@include foundation-dropdown;
+@include foundation-dropdown-menu;
+@include foundation-flex-video;
+@include foundation-label;
+@include foundation-media-object;
+@include foundation-menu;
+@include foundation-menu-icon;
+@include foundation-off-canvas;
+@include foundation-orbit;
+@include foundation-pagination;
+@include foundation-progress-bar;
+@include foundation-slider;
+@include foundation-sticky;
+@include foundation-reveal;
+@include foundation-switch;
+@include foundation-table;
+@include foundation-tabs;
+@include foundation-thumbnail;
+@include foundation-title-bar;
+@include foundation-tooltip;
+@include foundation-top-bar;
+
+
+body {
+	background: none;
+	font-family: 'Lato', sans-serif;
+	
+ }
+
+// HEADER
+.header-bar {
+ 	background-color: #000;
+ 	padding: 20px 30px;
+ 	position: relative;
+ 	max-height: 290px;
+ 	@include breakpoint(medium) { 
+ 		max-height: 120px;
+ 	}
+ 	.logo {
+ 		max-width: 230px;
+
+ 		@include breakpoint(small down) { 
+			max-width: 200px;
+		}
+ 	}
+
+ 	.menu-button {
+ 		color: $white;
+ 		position: absolute;
+ 		right: 30px;
+ 		top: 20px;
+ 		font-size: 30px;
+ 		width: 30px;
+ 		height: 30px;
+ 	}
+
+ 	.jump-to-container {
+ 		margin-top: 20px;
+
+ 		@include breakpoint(small down) { 
+			display: none;
+		}
+
+		&.active {
+			display: block;
+		}
+
+ 		label {
+ 			display: inline-block;
+ 			color: $white;
+ 			
+ 			width: 90%;
+ 			font-weight: 600;
+ 			line-height: 40px;
+
+ 			@include breakpoint(medium) { 
+ 				text-align: right;
+ 			}
+ 		}
+ 		select {
+ 			display: inline-block;
+ 			color: $white;
+ 			padding-left: 15px;
+ 		}
+
+ 		
+ 	}
+ }
+
+ select {
+ 	background-color: rgba(255,255,255,0.5);
+ 	border: none;
+ }
+
+.social-bar {
+ 	background-color: $primary-color;
+ 	margin-top: 20px;
+ 	color: $white;
+ 	padding: 15px 35px;
+
+ 	@include breakpoint(small down) { 
+		display: none;
+	}
+
+	&.active {
+		display: block;
+	}
+
+ 	h4 {
+ 		font-size: 18px;
+ 		font-weight: 700;
+ 		text-transform: uppercase;
+ 		font-family: 'Roboto', sans-serif;
+ 	}
+
+ 	ul {
+ 		margin: 0;
+ 		padding: 0;
+ 		display: inline-block;
+ 		list-style: none;
+
+ 		li {
+ 			display: inline-block;
+ 			margin-right: 5px;
+ 			a {
+ 				color: $white;
+ 				font-size: 28px;
+ 			}
+ 		}
+ 	}
+}
+
+main {
+	padding-top: 50px;
+
+	@include breakpoint(medium) {
+		padding-top: 90px;
+	}
+
+	h3 {
+		font-weight: 300;
+	}
+
+	section {
+		padding: 30px 30px;
+
+		
+		&:nth-child(even) {
+			background-color: #e6e5e1;
+		}
+
+		&:nth-child(odd) {
+			background-color: #f4f3f1;
+		}
+
+		&:first-of-type {
+			background-color: $white;
+		}
+	}
+}
+
+footer {
+	.cta {
+		background-color: #43766e;
+		color: $white;
+		padding: 30px 15px;
+		text-align: center;
+		@include breakpoint(medium) { 
+			padding: 60px 15px;
+			text-align: left;
+		}
+
+		h2 {
+			@include breakpoint(small down) { 
+				font-size: 24px;
+			}
+
+			span {
+				@include breakpoint(small down) { 
+					display: block;
+					margin-bottom: 15px;
+				}
+			}
+		}
+
+		.button {
+			font-weight: normal;
+			background-color: rgba(255,255,255,0.3);
+			&:hover {
+				background-color: rgba(255,255,255,0.5);
+			}
+
+		}
+	}
+
+	.main {
+		padding: 30px 30px;
+		color: $white;
+
+		@include breakpoint(medium) { 
+			padding: 60px 30px;
+			text-align: left;
+		}
+
+		p {
+			@include breakpoint(medium) {
+				padding: 0 15px;
+			}
+		}
+
+	}
+
+	.copy {
+		padding: 0 30px;
+
+		p {
+			@include breakpoint(small down) {
+				text-align: left !important;
+			}
+		}
+
+		.socials {
+			@include breakpoint(medium) {
+				display: none;
+			}
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: inline-block;
+
+			li {
+				display: inline-block;
+				margin-right: 10px;
+			}
+			a {
+				color: $white;
+				font-size: 1.5rem;
+			}
+		}
+	}
+
+	background-color: $black;
+	color: $white;
+}
+
+.button {
+	font-weight: 600;
+
+	&.block {
+		display: block;
+	}
+}
+
+input[type="text"], input[type="email"] {
+	padding: 1rem;
+}
