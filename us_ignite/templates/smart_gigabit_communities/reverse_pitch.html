@@ -94,63 +94,144 @@
                    
                 </div>
                 <div class="columns medium-6">
-
-                    <p>{{ desc }}</p>
-                   
-                </div>
-            </div>
-        </section>
-        <section>
-            <div class="row">
-                <div class="columns medium-6">
                     <div class="content">
-                        <h3>{{ intro }}</h3>
-                    </div>                   
-                </div>
-                <div class="columns medium-6">
-                    <div class="media">
                         <p>{{ desc }}</p>
                     </div>
                 </div>
             </div>
         </section>
-        <section>
-            <div class="row">
-                <div class="columns medium-6">
-                    <div class="media">
-                        <h3>{{ intro }}</h3>
-                    </div> 
-                </div>
-                <div class="columns medium-6">
-                    <div class="content">
-                        <h3>{{ intro }}</h3>
-                    </div> 
-                </div>
-            </div>
-        </section>
+        {% for pitch in pitch_list %}
+            
+            <section class="pitch">
+                <div class="row collapse">
+                    {% if forloop.counter|divisibleby:"2" %} {# is even #}
+                        <div class="columns medium-6 medium-push-6">
+                            <div class="content">                               
+                                <div class="logo">
+                                    <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
+                                </div>
+                                <h3>{{ pitch.title }}</h3>
+                                <p class="lead">{{ pitch.subtitle }}</p>
 
-        <div class="row">
-            <div class="columns">
-                {% for pitch in pitch_list %}
-                    <p>Title: {{ pitch.title }}</p>
-                    <p>Subtitle: {{ pitch.subtitle }}</p>
-                    <p>Content: {{ pitch.content }}</p>
-                    <p>Logo:</p>
-                    <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
-                    {% if pitch.pitch_video %}
-                        <p>PITCH VIDEO: {{ pitch.pitch_video }}</p>
+                                <p class="description">{{ pitch.content }}</p>
+                                
+                                <div class="row">
+                                    <div class="columns small-5">
+                                        <p><a href="{{ pitch.email }}">EMAIL THEM  <i class="show-for-medium fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
+                                    </div>
+                                    <div class="columns small-7">
+                                        <ul class="socials text-right">
+                                            <li class="">
+                                                <a href="https://www.facebook.com/USIgnite" class="s" target="_blank">
+                                                    <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a href="https://twitter.com/US_Ignite" class="" target="_blank">
+                                                <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a href="https://plus.google.com/115026873083967953743/posts" class="" target="_blank">
+                                                    <i class="fa fa-google-plus-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a href="h" class="" target="_blank">
+                                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a href="h" class="" target="_blank">
+                                                    <i class="fa fa-envelope-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.socials -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.content -->        
+                        </div>
+                        <div class="columns medium-6 medium-pull-6">
+                            <div class="media">
+                                {% if pitch.pitch_video %}
+                                    <div class="video">
+                                        <iframe  src="{{ pitch.pitch_video }}" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                {% else %}
+                                    <img alt="{{ pitch.title }}" src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.pitch_image }}">
+                                {% endif %}
+                            </div>           
+                        </div>
                     {% else %}
-                        <p>PITCH IMAGE: </p>
-                        <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.pitch_image }}" alt="">
+                        <div class="columns medium-6">
+                            <div class="content">                               
+                                <div class="logo">
+                                    <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
+                                </div>
+                                <h3>{{ pitch.title }}</h3>
+                                <p class="lead">{{ pitch.subtitle }}</p>
+
+                                <p class="description">{{ pitch.content }}</p>
+                                
+                                <div class="row">
+                                    <div class="columns small-5">
+                                        <p><a href="{{ pitch.email }}">EMAIL THEM  <i class="show-for-medium fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
+                                    </div>
+                                    <div class="columns small-7">
+                                        <ul class="socials text-right">
+                                            <li class="">
+                                                <a href="https://www.facebook.com/USIgnite" class="s" target="_blank">
+                                                    <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a href="https://twitter.com/US_Ignite" class="" target="_blank">
+                                                <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a href="https://plus.google.com/115026873083967953743/posts" class="" target="_blank">
+                                                    <i class="fa fa-google-plus-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a href="h" class="" target="_blank">
+                                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a href="h" class="" target="_blank">
+                                                    <i class="fa fa-envelope-square" aria-hidden="true"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.socials -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.content -->      
+                        </div>
+                        <div class="columns medium-6">
+                            <div class="media">
+                                {% if pitch.pitch_video %}
+                                    <div class="video">
+                                        <iframe  src="{{ pitch.pitch_video }}" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                {% else %}
+                                    <img alt="{{ pitch.title }}" src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.pitch_image }}">
+                                {% endif %}
+                            </div>
+                        </div>
                     {% endif %}
-                    <p>FB: {{ pitch.facebook }}</p>
-                    <p>TW: {{ pitch.twitter }}</p>
-                    <p>YT: {{ pitch.youtube }}</p>
-                    <p>GP: {{ pitch.google }}</p>
-                    <p>Email them: {{ pitch.email }}</p>
-                {% endfor %}
-            </div>
-        </div>
+                </div>
+
+            </section>
+               
+            
+        {% endfor %}
+       
     </main>
        
 
@@ -199,8 +280,9 @@
         <div class="copy">
             <div class="row">
                 <div class="columns medium-6 medium-push-6">
-                    <p class="copyright text-right">To contact US Ignite, email info@us-ignite.org</p>
-                    <p>
+                    <div class="contact">
+                        <p class="contact text-right">To contact US Ignite, email info@us-ignite.org</p>
+
                         <ul class="socials">
                             <li class="">
                                 <a href="https://www.facebook.com/USIgnite" class="s" target="_blank">
@@ -229,7 +311,7 @@
                             </li>
                         </ul>
                         <!-- /.socials -->
-                    </p>
+                    </div>
                 </div>
                 <div class="columns medium-6 medium-pull-6">
                     <p class="copyright">© Copyright {% now "Y" %} US Ignite. All Rights Reserved. </p>
@@ -261,6 +343,7 @@
 <![endif]-->
 
 <script src="{{ STATIC_URL }}js/vendor/jquery-ui-1.10.4.custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
 <script src="{{ STATIC_URL }}js/sgc.js"></script>
 
 
