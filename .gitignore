@@ -26,5 +26,6 @@ certs/
 snapshots/
 .idea
 dev.db
+dev2.db
 us_ignite/settings/localvenv.py
 venv
