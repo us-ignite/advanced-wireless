@@ -27,6 +27,17 @@
 			$("html, body").animate({ scrollTop: "0"}, 700);
 
 		});
+
+		var controller = new ScrollMagic.Controller();
+
+		// build scene
+		var scene = new ScrollMagic.Scene({
+				triggerElement: "#footer-cta",
+				reverse:false,
+				offset: -300
+			})
+			.setTween("#footer-cta-content", 0.5, {opacity: 1, scale: 1}) // trigger a TweenMax.to tween
+			.addTo(controller);
 	});
 
 })(jQuery);
