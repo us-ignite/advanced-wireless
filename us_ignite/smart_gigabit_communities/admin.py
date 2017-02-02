@@ -8,5 +8,8 @@ from adminsortable2.admin import SortableAdminMixin
 class PitchAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('active', 'title', 'subtitle')
 
+    class Meta:
+        verbose_name_plural = "Pitches"
+
 
 admin.site.register(Pitch, PitchAdmin)
