@@ -111,7 +111,7 @@
                         <div class="columns medium-6 medium-push-6 bar-column" data-equalizer-watch>
                             <div class="content">                               
                                 <div class="logo">
-                                    <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
+                                    <img src="{{ pitch.logo.url }}" alt="">
                                 </div>
                                 <h3>{{ pitch.title }}</h3>
                                 <p class="lead">{{ pitch.subtitle }}</p>
@@ -166,7 +166,7 @@
                                         <iframe  src="{{ pitch.pitch_video }}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 {% else %}
-                                    <img alt="{{ pitch.title }}" src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.pitch_image }}">
+                                    <img alt="{{ pitch.title }}" src="{{ pitch.pitch_image.url }}">
                                 {% endif %}
                             </div>           
                         </div>
@@ -174,7 +174,7 @@
                         <div class="columns medium-6 bar-column" data-equalizer-watch>
                             <div class="content">                               
                                 <div class="logo">
-                                    <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
+                                    <img src="{{ pitch.logo.url }}" alt="">
                                 </div>
                                 <h3>{{ pitch.title }}</h3>
                                 <p class="lead">{{ pitch.subtitle }}</p>
@@ -229,7 +229,7 @@
                                         <iframe  src="{{ pitch.pitch_video }}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 {% else %}
-                                    <img alt="{{ pitch.title }}" src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.pitch_image }}">
+                                    <img alt="{{ pitch.title }}" src="{{ pitch.pitch_image.url }}">
                                 {% endif %}
                             </div>
                         </div>
