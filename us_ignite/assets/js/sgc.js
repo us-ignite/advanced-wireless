@@ -38,6 +38,24 @@
 			})
 			.setTween("#footer-cta-content", 0.5, {opacity: 1, scale: 1}) // trigger a TweenMax.to tween
 			.addTo(controller);
+		
+		var $pitches = $(".pitch");
+
+		$pitches.each(function (i, el) {
+			var $pitch = $(el);
+			var pitchId = $pitch.attr("id");
+			var tweenSelector = "#" + pitchId + " .media, #" + pitchId + " .content";
+			var triggerSelect = "#" + pitchId;
+			//console.log(selector);
+			new ScrollMagic.Scene({
+				triggerElement: triggerSelect,
+				reverse:false,
+				offset: -75
+			})
+			.setTween(tweenSelector, 0.3, {opacity: 1, "top": "0"})
+			.addTo(controller);
+		});
+
 	});
 
 })(jQuery);
