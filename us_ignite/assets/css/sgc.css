@@ -7401,94 +7401,99 @@ footer {
       footer .cta {
         padding: 60px 15px;
         text-align: left; } }
-    /* line 412, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
-    footer .cta h2 {
-      -ms-transform: scale(0.5);
-      /* IE 9 */
-      -webkit-transform: scale(0.5);
-      /* Safari */
-      transform: scale(0.5);
-      opacity: 0; }
-      @media screen and (max-width: 39.9375em) {
-        /* line 412, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
-        footer .cta h2 {
-          font-size: 24px; } }
-      @media screen and (max-width: 39.9375em) {
-        /* line 421, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
-        footer .cta h2 span {
-          display: block;
-          margin-bottom: 15px; } }
-    /* line 429, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    @media screen and (max-width: 39.9375em) {
+      /* line 412, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .cta h2 {
+        font-size: 24px; } }
+    @media screen and (max-width: 39.9375em) {
+      /* line 423, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .cta h2 span {
+        display: block;
+        margin-bottom: 15px; } }
+    /* line 431, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     footer .cta .button {
       font-weight: normal;
       background-color: rgba(255, 255, 255, 0.3); }
-      /* line 432, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 434, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .cta .button:hover {
         background-color: rgba(255, 255, 255, 0.5); }
-  /* line 439, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 438, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      footer .cta .button i {
+        position: relative;
+        display: inline-block;
+        -webkit-animation: bounce 2s infinite ease-in-out; }
+  /* line 447, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   footer .main {
     padding: 30px 30px;
     color: #fefefe; }
     @media screen and (min-width: 40em) {
-      /* line 439, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 447, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .main {
         padding: 60px 30px;
         text-align: left; } }
     @media screen and (min-width: 40em) {
-      /* line 448, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 456, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .main p {
         padding: 0 15px; } }
-  /* line 456, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 464, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   footer .copy {
     padding: 0 30px; }
     @media screen and (max-width: 39.9375em) {
-      /* line 459, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 467, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .copy p {
         text-align: left !important; } }
-    /* line 465, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 473, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     footer .copy .socials {
       margin-bottom: 15px; }
       @media screen and (min-width: 40em) {
-        /* line 465, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 473, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         footer .copy .socials {
           display: inline-block;
           margin-bottom: 0; } }
-    /* line 474, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 482, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     footer .copy .contact p {
       margin-right: 20px;
       display: inline-block; }
 
-/* line 485, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 493, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 .button {
   font-weight: 600; }
-  /* line 488, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 496, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .button.block {
     display: block; }
 
-/* line 493, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 501, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 input[type="text"], input[type="email"] {
   padding-left: 1rem;
   padding-right: 1rem; }
 
-/* line 498, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 506, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 .socials {
   list-style: none;
   margin: 0;
   padding: 0;
   display: inline-block; }
-  /* line 505, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 513, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .socials li {
     display: inline-block;
     margin-right: 10px; }
-  /* line 509, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 517, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .socials a {
     color: #fefefe;
     font-size: 1.5rem;
     line-height: 1; }
-    /* line 514, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 522, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     .socials a:hover {
       opacity: 0.7; }
 
-/* line 520, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 528, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 a {
   transition: color 0.25s ease-out, opacity 0.25s ease-out; }
+
+@-webkit-keyframes bounce {
+  0%, 20%, 60%, 100% {
+    -webkit-transform: translateX(0); }
+  40% {
+    -webkit-transform: translateX(15px); }
+  80% {
+    -webkit-transform: translateX(10px); } }

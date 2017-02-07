@@ -31,6 +31,7 @@
 		var controller = new ScrollMagic.Controller();
 
 		// build scene
+		/*
 		var scene = new ScrollMagic.Scene({
 				triggerElement: "#footer-cta",
 				reverse:false,
@@ -38,6 +39,7 @@
 			})
 			.setTween("#footer-cta-content", 0.5, {opacity: 1, scale: 1}) // trigger a TweenMax.to tween
 			.addTo(controller);
+		*/
 		
 		var $pitches = $(".pitch");
 
@@ -52,7 +54,7 @@
 				reverse:false,
 				offset: -75
 			})
-			.setTween(tweenSelector, 0.3, {opacity: 1, "top": "0"})
+			.setTween(tweenSelector, 0.5, {opacity: 1, "top": "0"})
 			.addTo(controller);
 		});
 
