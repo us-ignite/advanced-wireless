@@ -355,7 +355,4 @@ MAILCHIMP_GCTC_API_KEY = 'set in local.py and production.py'
 MAILCHIMP_GCTC_LIST = 'set in local.py and production.py'
 """
 
-SOUTH_MIGRATION_MODULES = {
-    'taggit': 'taggit.south_migrations',
-}
 

@@ -1,3 +1,4 @@
+{% load snippets_tags thumbnail %}
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
@@ -111,7 +112,7 @@
                         <div class="columns medium-6 medium-push-6 bar-column" data-equalizer-watch>
                             <div class="content">                               
                                 <div class="logo">
-                                    <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
+                                    <img src="{% thumbnail pitch.logo 0x150 %}" alt="{{ pitch.title }}">
                                 </div>
                                 <h3>{{ pitch.title }}</h3>
                                 <p class="lead">{{ pitch.subtitle }}</p>
@@ -166,7 +167,7 @@
                                         <iframe  src="{{ pitch.pitch_video }}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 {% else %}
-                                    <img alt="{{ pitch.title }}" src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.pitch_image }}">
+                                    <img alt="{{ pitch.title }}" src="{% thumbnail pitch.pitch_image 580x315 crop %}">
                                 {% endif %}
                             </div>           
                         </div>
@@ -174,7 +175,7 @@
                         <div class="columns medium-6 bar-column" data-equalizer-watch>
                             <div class="content">                               
                                 <div class="logo">
-                                    <img src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.logo }}" alt="">
+                                    <img  src="{% thumbnail pitch.logo 0x150  %}" alt="{{ pitch.title }}" >
                                 </div>
                                 <h3>{{ pitch.title }}</h3>
                                 <p class="lead">{{ pitch.subtitle }}</p>
@@ -229,7 +230,7 @@
                                         <iframe  src="{{ pitch.pitch_video }}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 {% else %}
-                                    <img alt="{{ pitch.title }}" src="{{ SITE_URL }}{{ MEDIA_URL }}{{ pitch.pitch_image }}">
+                                    <img alt="{{ pitch.title }}" src="{% thumbnail pitch.pitch_image 580x315 crop %}">
                                 {% endif %}
                             </div>
                         </div>
@@ -240,8 +241,8 @@
                
             
         {% endfor %}
-        <div class="back-to-top" id="back-to-top">
-            <div class="row hide-for-medium">
+        <div class="back-to-top hide-for-medium" id="back-to-top">
+            <div class="row">
                 <div class="columns">
                     <span> BACK TO TOP </span>
                 </div>
@@ -257,8 +258,9 @@
                 <div class="columns">
                     <h2 id="footer-cta-content"><span>Contact Lorem Ipsum to iventore versatiles es!</span> &nbsp;&nbsp; 
                         <a class="button">
-                            CALL TO ACTION
+                            <span>CALL TO ACTION
                             <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </span>
                         </a>
                     </h2>
                 </div>
