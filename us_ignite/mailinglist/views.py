@@ -15,6 +15,7 @@ logger = logging.getLogger('us_ignite.mailinglist.views')
 MAILING_LISTS = {
     'default': settings.MAILCHIMP_LIST,
     'globalcityteams': settings.MAILCHIMP_GCTC_LIST,
+    'sgc_launch': settings.MAILCHIMP_SGC_LIST,
 }
 
 
@@ -33,10 +34,13 @@ def subscribe_email(form_data, slug):
     }
     if slug == 'globalcityteams':
         return mailing_list.subscribe(settings.MAILCHIMP_GCTC_LIST, email_data)
+    elif slug == 'sgc_launch':
+        return mailing_list.subscribe(settings.MAILCHIMP_SGC_LIST, email_data)
     else:
         return mailing_list.subscribe(settings.MAILCHIMP_LIST, email_data)
 
 def mailing_subscribe(request, slug='default'):
+    print slug
     """Handles MailChimp email registration."""
     if request.method == 'POST':
         form = EmailForm(request.POST)
@@ -46,6 +50,8 @@ def mailing_subscribe(request, slug='default'):
                 messages.success(request, 'Successfully subscribed.')
                 if slug == 'globalcityteams':
                     redirect_to = 'https://www.us-ignite.org/globalcityteams/'
+                elif slug == 'sgc_launch':
+                    redirect_to = 'smart_gigabit_communities_reverse_pitch'
                 else:
                     redirect_to = 'home'
             except mailchimp.ListAlreadySubscribedError:

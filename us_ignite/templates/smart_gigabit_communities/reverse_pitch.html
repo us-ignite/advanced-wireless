@@ -279,13 +279,13 @@
                 </div>
                 <div class="columns medium-6">
                     <h5><strong>Sign up for the US Ignite Newsletter</strong></h5>
-                    <form id="signup-form" action="" method="">
+                    <form id="signup-form" action="{% url 'mailing_subscribe' %}sgc_launch/" method="post">
                         <div class="row">
                             <div class="columns medium-9">
                                  <input type="text" name="email" placeholder="Enter your email address" required />
                             </div>
                             <div class="columns medium-3">
-                                 <button class="button">SIGN UP</button>
+                                 <button class="button">SIGN UP</button>{% csrf_token %}
                             </div>
                         </div>
                     </form>
