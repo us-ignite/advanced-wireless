@@ -7,21 +7,8 @@ import random
 
 def reverse_pitch(request):
     # "Static" text here. OPTIONAL
-    intro = "Donec sed odio dui. Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit" \
-            " sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet."
-    desc = "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet," \
-           " consectetur adipiscing elit. Aenean lacinia bibendum nulla sed consectetur." \
-           " Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. " \
-           "Vestibulum id ligula porta felis euismod semper." \
-           " Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor." \
-           " Cras mattis consectetur purus sit amet fermentum. Duis mollis," \
-           " est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit." \
-           " Aenean lacinia bibendum nulla sed consectetur. Integer posuere erat a ante venenatis dapibus posuere velit aliquet." \
-           "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor." \
-           " Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh," \
-           " ut fermentum massa justo sit amet risus. Praesent commodo cursus magna," \
-           " vel scelerisque nisl consectetur et. Maecenas sed diam eget risus varius blandit sit amet non magna." \
-           " Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus."
+    intro = "US Ignite Will Convene Reverse Pitch Events in Nine Communities Throughout the United States "
+    desc = "From Arizona to Texas to Vermont, US Ignite will co-host and sponsor multiple reverse pitch events for technologists and entrepreneurs throughout February and March. This reverse pitch competition is for makers, developers and entrepreneurs developing ultra high-bandwidth hardware, software and applications that want to impact their local community. Entrepreneurs will hear pitches from civic organizations and then compete for part of a prize pool of cash and in-kind services. US Ignite will co-sponsor these events in nine of the organization's Smart Gigabit Communities, which are a network of communities nationwide that have each committed to leverage next-generation smart city and Internet technologies to keep pace with the world's rapidly changing, technology-driven economy."
 
     random_int = random.uniform(0.1, 2.0)
     pitch_list = Pitch.objects.filter(active=True).order_by('order').all()[:6]
