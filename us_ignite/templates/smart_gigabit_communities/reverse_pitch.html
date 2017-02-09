@@ -24,7 +24,9 @@
 
 </head>
 <body class="sgc-body">
-    <div class="header-bar">
+    <div id="messages">{% include "includes/messages.html" %}</div>
+    <div class="notification"></div>
+    <div class="header-bar" style="background-image: url({{ STATIC_URL }}img/Smart-Gigabit-Communities.jpg);">
         <div id="menu-button" class="menu-button hide-for-medium">
             <i class="fa fa-bars" aria-hidden="true"></i>
         </div>
@@ -256,9 +258,9 @@
         <div class="cta" id="footer-cta">
             <div class="row">
                 <div class="columns">
-                    <h2 id="footer-cta-content"><span>Contact Lorem Ipsum to iventore versatiles es!</span> &nbsp;&nbsp; 
-                        <a class="button">
-                            <span>CALL TO ACTION
+                    <h2 id="footer-cta-content"><span>See what the Smart Gigabit Communities are doing!</span> &nbsp;&nbsp; 
+                        <a class="button" href="http://eepurl.com/cBnwAv">
+                            <span>GET STARTED
                             <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                             </span>
                         </a>
@@ -268,7 +270,7 @@
         </div>
          <!-- /.cta -->
 
-        <div class="main">
+        <div class="main" style="background-image: url({{ STATIC_URL }}img/Header-and-Footer.jpg);">
             <div class="row">
                 <div class="columns medium-2">
                     <img alt="" src="{{ STATIC_URL }}img/usignite-white.png" />
