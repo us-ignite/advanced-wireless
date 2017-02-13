@@ -58,7 +58,6 @@
 			.addTo(controller);
 		});
 
-		console.log($("#messages .messages").length);
 		if ($("#messages .messages").length > 0)
 		{
 			$("#messages .messages li").each(function (i, el) {
