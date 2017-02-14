@@ -25,3 +25,4 @@ class Pitch(models.Model):
 
     class Meta:
         ordering = ('order', )
+        verbose_name_plural = "Pitches"
