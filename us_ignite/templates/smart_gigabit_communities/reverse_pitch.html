@@ -112,10 +112,12 @@
                 <div class="row collapse" data-equalizer data-equalize-on="medium">
                     {% if forloop.counter|divisibleby:"2" %} {# is even #}
                         <div class="columns medium-6 medium-push-6 bar-column" data-equalizer-watch>
-                            <div class="content">                               
+                            <div class="content"> 
+                                {% if pitch.logo %}                              
                                 <div class="logo">
                                     <img src="{% thumbnail pitch.logo 0x150 %}" alt="{{ pitch.title }}">
                                 </div>
+                                {% endif %}
                                 <h3>{{ pitch.title }}</h3>
                                 <p class="lead">{{ pitch.subtitle }}</p>
 
@@ -123,7 +125,7 @@
                                 
                                 <div class="row">
                                     <div class="columns small-5">
-                                        <p><a href="{{ pitch.email }}">EMAIL THEM  <i class="show-for-medium fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
+                                        <p><a href="{{ pitch.email }}">LEARN MORE <i class="show-for-medium fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
                                     </div>
                                     <div class="columns small-7">
                                         <ul class="socials text-right">
@@ -169,16 +171,18 @@
                                         <iframe  src="{{ pitch.pitch_video }}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 {% else %}
-                                    <img alt="{{ pitch.title }}" src="{% thumbnail pitch.pitch_image 580x315 crop %}">
+                                    <img alt="{{ pitch.title }}" src="{% thumbnail pitch.pitch_image 600x600 crop %}">
                                 {% endif %}
                             </div>           
                         </div>
                     {% else %}
                         <div class="columns medium-6 bar-column" data-equalizer-watch>
                             <div class="content">                               
+                                {% if pitch.logo %}                              
                                 <div class="logo">
-                                    <img  src="{% thumbnail pitch.logo 0x150  %}" alt="{{ pitch.title }}" >
+                                    <img src="{% thumbnail pitch.logo 0x150 %}" alt="{{ pitch.title }}">
                                 </div>
+                                {% endif %}
                                 <h3>{{ pitch.title }}</h3>
                                 <p class="lead">{{ pitch.subtitle }}</p>
 
@@ -186,7 +190,7 @@
                                 
                                 <div class="row">
                                     <div class="columns small-5">
-                                        <p><a href="{{ pitch.email }}">EMAIL THEM  <i class="show-for-medium fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
+                                        <p><a href="{{ pitch.email }}">LEARN MORE <i class="show-for-medium fa fa-long-arrow-right" aria-hidden="true"></i></a></p>
                                     </div>
                                     <div class="columns small-7">
                                         <ul class="socials text-right">
@@ -232,7 +236,7 @@
                                         <iframe  src="{{ pitch.pitch_video }}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 {% else %}
-                                    <img alt="{{ pitch.title }}" src="{% thumbnail pitch.pitch_image 580x315 crop %}">
+                                    <img alt="{{ pitch.title }}" src="{% thumbnail pitch.pitch_image 600x600 crop %}">
                                 {% endif %}
                             </div>
                         </div>
