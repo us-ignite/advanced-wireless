@@ -119,7 +119,7 @@
                                 <h3>{{ pitch.title }}</h3>
                                 <p class="lead">{{ pitch.subtitle }}</p>
 
-                                <p class="description">{{ pitch.content }}</p>
+                                <p class="description">{{ pitch.content|safe }}</p>
                                 
                                 <div class="row">
                                     <div class="columns small-5">
@@ -182,7 +182,7 @@
                                 <h3>{{ pitch.title }}</h3>
                                 <p class="lead">{{ pitch.subtitle }}</p>
 
-                                <p class="description">{{ pitch.content }}</p>
+                                <p class="description">{{ pitch.content|safe }}</p>
                                 
                                 <div class="row">
                                     <div class="columns small-5">
