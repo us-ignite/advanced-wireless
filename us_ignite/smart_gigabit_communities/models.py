@@ -21,8 +21,9 @@ class Pitch(models.Model):
     youtube = models.URLField(blank=True, null=True)
     google = models.URLField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
-
+    email_text = models.CharField(default="EMAIL THEM", max_length=50)
 
     class Meta:
         ordering = ('order', )
         verbose_name_plural = "Pitches"
+
