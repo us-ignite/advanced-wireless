@@ -20,8 +20,10 @@ class Pitch(models.Model):
     twitter = models.URLField(blank=True, null=True)
     youtube = models.URLField(blank=True, null=True)
     google = models.URLField(blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
-    email_text = models.CharField(default="EMAIL THEM", max_length=50)
+    link_text = models.CharField(default="LEARN MORE", max_length=50)
+
 
     class Meta:
         ordering = ('order', )
