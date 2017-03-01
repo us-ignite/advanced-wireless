@@ -15,9 +15,13 @@ handler500 = 'us_ignite.common.views.custom_500'
 
 urlpatterns = patterns(
     '',
-    url(r'^$', include('us_ignite.advanced_wireless_testbed.urls')),
-    # url(r'^dashboard/$', 'us_ignite.people.views.dashboard', name='dashboard'),
     url(r'^admin/', include(admin.site.urls)),
+)
+urlpatterns += patterns(
+    'us_ignite.advanced_wireless_testbed.views',
+    url(r'^$', 'awt_frontpage', name='awt_frontpage'),
+    url(r'^awt_default_subscribe/$', 'awt_default_subscribe', name='awt_default_subscribe'),
+    # url(r'^dashboard/$', 'us_ignite.people.views.dashboard', name='dashboard'),
     # url(r'^accounts/', include('us_ignite.profiles.urls')),
     # url(r'^people/', include('us_ignite.people.urls')),
     # url(r'^apps/', include('us_ignite.apps.urls')),
