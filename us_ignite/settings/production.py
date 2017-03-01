@@ -11,13 +11,15 @@ PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 # settings is one directory up now
 here = lambda *x: os.path.join(PROJECT_ROOT, '..', *x)
 
-SITE_URL = 'https://www.us-ignite.org'
+SITE_URL = 'https://www.advancedwireless.org'
 
 ALLOWED_HOSTS = [
     'beta.us-ignite.org',
     'us-ignite.herokuapp.com',
     'www.us-ignite.org',
     'us-ignite.org',
+    'www.us-ignite.org',
+    'advancedwireless.org',
 ]
 
 # HTTPS configuration:
@@ -100,5 +102,5 @@ STATIC_FILES_VERSION = 'v1'
 COMPRESS_STORAGE = 'us_ignite.common.storage.CachedS3BotoStorage'
 
 # TinyMCE configuration:
-TINYMCE_JS_URL = 'https://www.us-ignite.org/tiny_mce/tiny_mce.js'
-TINYMCE_JS_ROOT = "https://www.us-ignite.org/tiny_mce"
+TINYMCE_JS_URL = 'https://www.advancedwireless.org/tiny_mce/tiny_mce.js'
+TINYMCE_JS_ROOT = "https://www.advancedwireless.org/tiny_mce"
