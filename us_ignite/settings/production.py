@@ -15,11 +15,9 @@ SITE_URL = 'https://www.advancedwireless.org'
 
 ALLOWED_HOSTS = [
     'beta.us-ignite.org',
-    'us-ignite.herokuapp.com',
-    'www.us-ignite.org',
-    'us-ignite.org',
-    'www.us-ignite.org',
+    'advancedwireless.herokuapp.com',
     'advancedwireless.org',
+    'www.advancedwireless.org',
 ]
 
 # HTTPS configuration:
