@@ -7174,105 +7174,108 @@ body {
 select {
   background-color: rgba(255, 255, 255, 0.5);
   border: none; }
+  /* line 123, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  select option {
+    color: #000; }
 
-/* line 124, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 128, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 .social-bar {
   background-color: #ff8100;
   margin-top: 20px;
   color: #fefefe;
   padding: 15px 35px; }
   @media screen and (max-width: 39.9375em) {
-    /* line 124, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 128, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     .social-bar {
       display: none; } }
-  /* line 134, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 138, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .social-bar.active {
     display: block; }
-  /* line 138, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 142, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .social-bar h4 {
     font-size: 18px;
     font-weight: 700;
     text-transform: uppercase;
     font-family: 'Roboto', sans-serif; }
-  /* line 145, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 149, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .social-bar ul {
     margin: 0;
     padding: 0;
     display: inline-block;
     list-style: none; }
-    /* line 151, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 155, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     .social-bar ul li {
       display: inline-block;
       margin-right: 5px; }
-      /* line 154, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 158, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       .social-bar ul li a {
         color: #fefefe;
         font-size: 28px; }
 
-/* line 162, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 166, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 main {
   padding-top: 50px; }
   @media screen and (min-width: 40em) {
-    /* line 162, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 166, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main {
       padding-top: 90px; } }
-  /* line 169, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 173, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   main h3 {
     font-weight: 300; }
-  /* line 173, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 177, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   main section {
     padding: 30px 30px; }
-    /* line 176, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 180, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main section .logo {
       margin-bottom: 40px; }
       @media screen and (max-width: 39.9375em) {
-        /* line 176, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 180, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         main section .logo {
           margin-bottom: 20px; } }
-    /* line 184, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 188, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main section.pitch {
       padding-top: 0; }
       @media screen and (max-width: 39.9375em) {
-        /* line 184, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 188, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         main section.pitch {
           padding-top: 60px;
           padding-bottom: 10px; } }
-      /* line 192, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 196, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section.pitch h3 {
         font-weight: 800; }
-      /* line 196, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 200, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section.pitch .description {
         margin-bottom: 40px; }
-      /* line 200, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 204, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section.pitch .media {
         margin: 25px 0 25px 0;
         position: relative;
         top: 100px;
         opacity: 0; }
         @media screen and (min-width: 40em) {
-          /* line 200, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+          /* line 204, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
           main section.pitch .media {
             margin: 135px 0 75px 0; } }
-      /* line 212, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 216, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section.pitch .content {
         position: relative;
         top: 100px;
         opacity: 0; }
         @media screen and (min-width: 40em) {
-          /* line 212, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+          /* line 216, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
           main section.pitch .content {
             padding-top: 50px; } }
-      /* line 225, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 229, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section.pitch:nth-child(even) {
         background-color: #e6e5e1; }
-        /* line 228, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 232, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         main section.pitch:nth-child(even) .bar-column {
           position: relative; }
           @media screen and (min-width: 40em) {
-            /* line 228, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+            /* line 232, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
             main section.pitch:nth-child(even) .bar-column {
               padding-right: 50px; }
-              /* line 235, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+              /* line 239, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
               main section.pitch:nth-child(even) .bar-column:before {
                 content: "";
                 display: block;
@@ -7282,11 +7285,11 @@ main {
                 top: 100%;
                 position: absolute;
                 background-color: #e6e5e1; } }
-        /* line 253, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 257, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         main section.pitch:nth-child(even) .media {
           position: relative; }
           @media screen and (max-width: 39.9375em) {
-            /* line 256, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+            /* line 260, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
             main section.pitch:nth-child(even) .media:before {
               content: "";
               display: block;
@@ -7296,17 +7299,17 @@ main {
               top: 100%;
               position: absolute;
               background-color: #e6e5e1; } }
-      /* line 271, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 275, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section.pitch:nth-child(odd) {
         background-color: #f4f3f1; }
-        /* line 274, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 278, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         main section.pitch:nth-child(odd) .bar-column {
           position: relative; }
           @media screen and (min-width: 40em) {
-            /* line 274, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+            /* line 278, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
             main section.pitch:nth-child(odd) .bar-column {
               padding-left: 50px; }
-              /* line 283, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+              /* line 287, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
               main section.pitch:nth-child(odd) .bar-column:before {
                 content: "";
                 display: block;
@@ -7316,11 +7319,11 @@ main {
                 top: 100%;
                 position: absolute;
                 background-color: #f4f3f1; } }
-        /* line 300, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 304, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         main section.pitch:nth-child(odd) .media {
           position: relative; }
           @media screen and (max-width: 39.9375em) {
-            /* line 303, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+            /* line 307, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
             main section.pitch:nth-child(odd) .media:before {
               content: "";
               display: block;
@@ -7330,18 +7333,18 @@ main {
               top: 100%;
               position: absolute;
               background-color: #f4f3f1; } }
-    /* line 322, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 326, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main section:first-of-type {
       background-color: #fefefe;
       padding-bottom: 60px; }
-      /* line 326, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 330, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section:first-of-type .content {
         position: relative; }
         @media screen and (min-width: 40em) {
-          /* line 326, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+          /* line 330, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
           main section:first-of-type .content {
             padding-left: 50px; } }
-        /* line 332, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 336, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         main section:first-of-type .content:before {
           content: "";
           display: block;
@@ -7352,80 +7355,80 @@ main {
           position: absolute;
           background-color: #fefefe; }
         @media screen and (max-width: 39.9375em) {
-          /* line 344, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+          /* line 348, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
           main section:first-of-type .content:before {
             height: 110px; } }
-    /* line 355, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 359, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main section:last-of-type .media:before {
       display: none !important; }
-    /* line 361, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 365, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main section:last-of-type .bar-column:before {
       display: none !important; }
-    /* line 368, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 372, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main section .socials {
       display: block; }
-      /* line 371, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 375, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section .socials li {
         margin-right: 8px; }
-      /* line 374, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 378, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       main section .socials a {
         color: #afafaf;
         font-size: 20px; }
-        /* line 378, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 382, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         main section .socials a:hover {
           color: #43766e; }
-  /* line 385, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 389, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   main .back-to-top {
     background-color: #e6e5e1;
     text-align: center;
     padding: 20px 15px 30px 15px; }
-    /* line 390, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 394, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     main .back-to-top span {
       color: #b6b6b4;
       cursor: pointer;
       font-weight: 600; }
 
-/* line 398, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 402, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 footer {
   background-color: #0a0a0a;
   color: #fefefe; }
   @media screen and (max-width: 39.9375em) {
-    /* line 398, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 402, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     footer {
       padding-bottom: 60px; } }
-  /* line 403, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 407, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   footer .cta {
     background-color: #43766e;
     color: #fefefe;
     padding: 30px 15px;
     text-align: center; }
     @media screen and (min-width: 40em) {
-      /* line 403, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 407, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .cta {
         padding: 60px 15px;
         text-align: left; } }
     @media screen and (max-width: 39.9375em) {
-      /* line 416, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 420, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .cta h2 {
         font-size: 24px; } }
     @media screen and (max-width: 39.9375em) {
-      /* line 427, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 431, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .cta h2 > span {
         display: block;
         margin-bottom: 15px; } }
-    /* line 435, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 439, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     footer .cta .button {
       font-weight: normal;
       background-color: rgba(255, 255, 255, 0.3); }
-      /* line 438, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 442, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .cta .button:hover {
         background-color: rgba(255, 255, 255, 0.5); }
-      /* line 442, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 446, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .cta .button i {
         position: relative;
         display: inline-block;
         -webkit-animation: bounce 1.8s infinite ease-in-out; }
-  /* line 451, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 455, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   footer .main {
     padding: 30px 30px;
     color: #fefefe;
@@ -7433,66 +7436,66 @@ footer {
     background-size: cover;
     background-position: center; }
     @media screen and (min-width: 40em) {
-      /* line 451, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 455, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .main {
         padding: 60px 30px;
         text-align: left; } }
     @media screen and (min-width: 40em) {
-      /* line 460, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 464, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .main p {
         padding: 0 15px; } }
-  /* line 472, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 476, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   footer .copy {
     padding: 10px 30px 0 30px; }
     @media screen and (max-width: 39.9375em) {
-      /* line 475, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+      /* line 479, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
       footer .copy p {
         text-align: left !important; } }
-    /* line 481, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 485, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     footer .copy .socials {
       margin-bottom: 15px; }
       @media screen and (min-width: 40em) {
-        /* line 481, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+        /* line 485, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
         footer .copy .socials {
           display: inline-block;
           margin-bottom: 0; } }
-    /* line 490, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 494, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     footer .copy .contact p {
       margin-right: 20px;
       display: inline-block; }
 
-/* line 501, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 505, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 .button {
   font-weight: 600; }
-  /* line 504, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 508, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .button.block {
     display: block; }
 
-/* line 509, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 513, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 input[type="text"], input[type="email"] {
   padding-left: 1rem;
   padding-right: 1rem; }
 
-/* line 514, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 518, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 .socials {
   list-style: none;
   margin: 0;
   padding: 0;
   display: inline-block; }
-  /* line 521, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 525, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .socials li {
     display: inline-block;
     margin-right: 10px; }
-  /* line 525, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+  /* line 529, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
   .socials a {
     color: #fefefe;
     font-size: 1.5rem;
     line-height: 1; }
-    /* line 530, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+    /* line 534, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
     .socials a:hover {
       opacity: 0.7; }
 
-/* line 536, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 540, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 a {
   transition: color 0.25s ease-out, opacity 0.25s ease-out; }
 
@@ -7502,11 +7505,11 @@ a {
   50% {
     -webkit-transform: translateX(12px); } }
 
-/* line 547, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 551, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 #messages {
   display: none; }
 
-/* line 551, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
+/* line 555, /Users/gholme4/Documents/us-ignite/scss/sgc.scss */
 .notification {
   display: none;
   position: fixed;

@@ -90,9 +90,10 @@
 
     <!-- dummy repeat of posts to show it might look with more data -->
     <div class="row object--list">
-    {% for object in page.object_list_bottom %}
+    {% for object in page.object_list %}
       <div class="columns large-3{% if forloop.last %} end{% endif %}">
-        {% include "includes/lists/object_block_base.html" with object=object %}
+       
+        {{ object.name }}
       </div>
     {% endfor%}
     </div>
