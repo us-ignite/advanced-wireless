@@ -32,7 +32,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'publication_date')
     search_fields = ('slug', 'title', 'content', 'excerpt')
     date_hierarchy = 'publication_date'
-    prepopulated_fields = {'slug': ('title',)}
+
     form = PostAdminForm
     inlines = [PostAttachmentInline]
 
