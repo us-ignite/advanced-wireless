@@ -44,3 +44,4 @@ django-debug-toolbar == 1.2.1
 
 # Compiled
 psycopg2
+django-lockdown==1.1
