@@ -28,6 +28,106 @@
 
 </script>
 
+<style>
+
+.right_info .detail_1 {
+    padding-bottom: 60px;
+}
+.right_info .detail  {
+    padding: 55px 40px;
+}
+
+@media (max-width: 960px) {
+    .right_info .detail_3, .right_info .detail {
+        padding: 50px 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .right_info .detail_3, .right_info .detail {
+        padding: 45px 20px;
+    }
+}
+
+.detail .right_container p, .partner_sec .right_container p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 25px;
+    float: none;
+}
+
+.detail_3 .right_container p {
+	font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 25px;
+    float: none;
+    color: #fff;
+}
+
+a {
+	color: #f37428;
+}
+
+a:hover {
+	color: #f37428;
+}
+
+.list {
+	list-style: initial;
+	margin: initial;
+	font-size: 16px;
+    line-height: 24px;
+    padding-left: 15px;
+}
+
+.list li {
+	list-style: initial;
+	margin-bottom: 25px;
+
+}
+
+.detail_3 .list li {
+	color: #fff;
+}
+
+.right_info .detail_2 p {
+	float: none;
+	font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 25px;
+}
+
+[data-toggle] {
+	cursor: pointer;
+
+	text-decoration: underline;
+}
+
+[data-content] {
+	display: none;
+}
+
+ol.list {
+	list-style-type: decimal;
+}
+
+ol.list > li {
+	list-style-type: decimal;
+	padding-left: 15px;
+	margin-bottom: 5px;
+}
+
+ul.list {
+	list-style-type: disc;
+
+}
+
+ul.list > li {
+	list-style-type: disc;
+
+}
+</style>
+
 <div id="wrapper">
 
     <!-- Left -->
@@ -61,8 +161,11 @@
                         <ul class="nav navbar-nav">
                             <li><a href="#sec_one">Top</a></li>
                             <li><a href="#sec_two">About</a></li>
-                            <li><a href="#sec_tharee">Partners</a></li>
-                            <li><a href="#sec_four">Get Involved</a></li>
+                            <li><a href="#sec_three">Team</a></li>
+                            <li><a href="#sec_four">Partners</a></li>
+                            <li><a href="#sec_five">News</a></li>
+                            <li><a href="#sec_six">Get Involved</a></li>
+                            <li><a href="#sec_seven">FAQ</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -78,129 +181,250 @@
                 {# Mesages are used to display any user notification. #}
                 {% include "includes/messages.html" %}
                 
-                <a target="_blank" class="default" href="http://usignite.org"><span>US Ignite, Inc.</span></a> and Northeastern University have been selected by the National Science Foundation (NSF) to lead the project office of NSF's Platform for Advanced Wireless Research (PAWR) program. The PAWR Project Office, or PPO, will manage nearly $100 million in public and private investments to stand-up and oversee city-scale testing platforms to accelerate fundamental research on wireless communication and networking technologies.
-                <br><br>
-                The PPO will work closely with the wireless research community and industry in the design, development, deployment, and operations of the research platforms. PAWR will enable experimental exploration of robust new wireless devices, communication techniques, networks, systems, and services that will revolutionize the nation’s wireless ecosystem, thereby enhancing broadband connectivity, leveraging the emerging Internet of Things (IoT), and sustaining US leadership and economic competitiveness for decades to come.
+                <a target="_blank" class="default" href="http://usignite.org"><span>US Ignite, Inc.</span></a> and <a href="https://www.northeastern.edu/"><span>Northeastern University</span></a> have been selected by the National Science Foundation (NSF) to lead the project office of NSF's Platforms for Advanced Wireless Research (PAWR) program. The PAWR Project Office, or PPO, will manage nearly $100 million in public and private investments to stand-up and oversee city-scale testing platforms to accelerate fundamental research on wireless communication and networking technologies.
             </div>
         </div>
+
         
+
+        <!-- Partner Sec -->
+        <div class="detail">
+            <div class="right_container">
+                <p>The PPO will collaborate closely with NSF, the wireless research community, local communities, and industry in the design, development, deployment, and initial operations of the research platforms. PAWR will enable experimental exploration of robust new wireless devices, communication techniques, networks, systems, and services that will revolutionize the nation’s wireless ecosystem, thereby enhancing broadband connectivity, leveraging the emerging Internet of Things (IoT), and sustaining US leadership and economic competitiveness for decades to come.</p>
+
+                <p>Once deployed, the platforms will address pre-competitive research challenges on at-scale research platforms, increasing education about wireless technologies and data networking, increasing academic-industry cooperative partnerships, and accelerating technology commercialization and transfer from academia to industry. In short, PAWR is designed to help overcome the so-called “valley of death” that sometimes limits breakthrough technology advancements.</p>
+
+                 <p style="margin: 50px auto; text-align: center;" ><a href="{{ STATIC_URL }}awt/images/Valley-of-Death-ci3hnpng" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/Valley-of-Death-ci3hn.png" alt="Valley of Death"/></a></p>
+
+                <p>Participating companies will benefit by: helping to sustain U.S. industry leadership; shaping design of research platforms; and securing cutting-edge research returns well in excess of initial investment. Participating communities will benefit by: building core wireless capabilities through creative university partnerships; attracting government and corporate research funding and local wireless jobs; and utilizing advanced wireless capabilities to enhance city services and economic development.</p>
+            </div>
+        </div>
+
         <!-- Detail 2 -->
         <div class="about_main_sec" id="sec_two">
-        <div class="detail_2">
-            <div class="right_container">
-                <h2>What is it?</h2>
-                <p>This public-private partnership will offer the benefit of addressing pre-competitive research challenges on at-scale research platforms, increasing education about wireless technologies and data networking, increasing industry-academic cooperative partnerships, and enabling technology commercialization and transfer from academia to industry. Participating companies will benefit by: helping to sustain U.S. industry leadership; shaping design of research platforms; assisting in selection of platform participants; and securing cutting-edge research returns well in excess of initial investment.</p>
+	        <div class="detail_2" style="padding-top: 50px; padding-bottom: 50px;">
+	            <div class="right_container">
+	                <h2>About</h2>
+	                <p style="margin-bottom: 0;"><strong>Why Now? </strong>Over the last decade, the use of wireless, Internet-connected devices (e.g., smart phones, connected tablets, and wearables) in the United States has nearly doubled. As the momentum of this exponential growth continues, the transfer of ever-increasing amounts of data intensifies Internet traffic, and the need for increased capacity grows.</p>
 
-                <p style="margin-top: 30px;">
-                    NSF currently funds over $50M annually in fundamental, pre-competitive wireless research (3-6 years out) with over 400 university researchers. This research could be greatly strengthened by PAWR.
-                </p>
+	                <ul class="list" data-content="1" style="margin-top: 25px;">
+						<li>Increases in Internet traffic place never-before-imagined demands on conventional 4G LTE networks and public WiFi networks, which may not be able to keep pace with the growing demand.</li>
 
-                <p style="margin-top: 50px;" ><a href="{{ STATIC_URL }}awt/images/Valley-of-Death-ci3hnpng" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/Valley-of-Death-ci3hn.png" alt="Valley of Death"/></a></p>
+						<li>Wireless carriers, device and equipment vendors, and researchers around the world are looking toward the next generation of wireless technologies (popularly called ‘5G’) and beyond to support this unparalleled growth in devices and traffic.</li>
 
-                {% comment %}
-                <h2 style="margin-top: 30px;">How does it work?</h2>
-                {% endcomment %}
-                <p style="margin-top: 100px;" ><a href="{{ STATIC_URL }}awt/images/How does it Work_.png" class="default hover-open" target="_blank"><img src="{{ STATIC_URL }}awt/images/How does it Work_ (1).png" alt="How Does It Work?"/></a></p>
-               
-            </div>
-        </div>
+						<li>Over the last year, a new Industry Consortium comprising more than 25 leading networking vendors, device manufacturers, and wireless carriers has been established to support the PAWR effort, garnering approximately $50 million in cash and in-kind contributions.</li>
+
+						<li>Last year, the United States became the first country in the world to make vast quantities of high-frequency millimeter wave spectrum – frequencies that have the ability to send large amounts of data quickly but that don’t travel as far as the lower-frequency waves used today in 4G networks – available for both licensed and unlicensed use.</li>
+
+						<li>This newly available millimeter wave spectrum, in combination with other spectrum already available, promises to enable faster speeds and increased capacity in future wireless networks.</li>
+
+						<li>Research conducted on PAWR platforms will advance robust new wireless devices, communication techniques, networks, systems, and services will revolutionize the Nation’s wireless ecosystem.</li>
+
+						<li>PAWR will enable rapid commercialization of promising technologies, provide hands-on practical training to a new generation of graduate students, increase job opportunities, and support overall economic vitality.</li>
+
+						<li>The results from this effort will sustain U.S. leadership and economic competitiveness in wireless communications and technology for the next decade and beyond.</li>
+	                </ul>
+
+	                <p>
+	                	 <a class="default" data-toggle="1" data-hide-text="See More" data-show-text="See Less">See More</a>
+	                </p>
+
+	                <p style="margin-top: 30px;">
+	                    <strong>What Comes Next? </strong>Designing, developing, deploying, and operating the platforms for advanced wireless research:
+	                </p>
+
+	                <ul class="list" data-content="2" style="margin-top: 25px;">
+
+						<li>Within four months of its establishment, and in conjunction with the PAWR Industry Consortium, the PPO will develop a Request for Proposals (RFP) calling for teams of communities and research universities to propose the design, development, deployment, and initial operations of multiple platforms for advanced wireless research across the country. For academic or municipal leaders interested in submitting a PAWR proposal, we anticipate hosting a Proposers Day in the Washington DC area after the PAWR RFP is announced. If you are interested, please fill out the form in the “Get Involved” section of this site and we will notify you when registration for that event is available.</li>
+
+						<li>The PPO will re-issue the RFP annually on an as-needed basis to reflect the nature of the contributions from the PAWR Industry Consortium and planned investment by NSF.  It is anticipated that the PPO will have annual deadlines for submission during each of the first three years (i.e., 2017, 2018, and 2019).</li>
+
+						<li>Each year, following receipt of proposals in response to the RFP, the PPO will run a merit review process, comparable to that of NSF, to evaluate the submitted proposals. </li>
+
+						<li>The awardees of the RFP will be selected based on the merit review process, in consultation with NSF and the PAWR Industry Consortium. </li>
+
+						<li>Selected awardees of the RFP will be sub-awardees of the PPO.</li>
+
+						<li>The announcement of the subawardees for the first research platforms is anticipated early next year (2018).  The location(s) of the platform(s) will be announced at that time.</li>
+
+						<li>It is anticipated that the first set of platforms for advanced wireless research will be available for use by late 2019 or early 2020. </li>
+					</ul>
+
+					<p data-content="2"><strong>Research atop PAWR (Content Accordion)</strong></p>
+
+					<ul class="list" data-content="2" style="margin-top: 25px;">
+						<li>The PPO is responsible for allocating and managing time for experimentation on the platforms for advanced wireless research.</li>
+
+						<li>The allocation of time will be shared equally between industry and NSF-supported academic researchers and will be complementary. Allocations to NSF-supported researchers will advance fundamental knowledge in the long term, while allocations to industry researchers will accelerate nearer-term research and development activities.</li>
+
+						<li>NSF anticipates issuing a solicitation calling for proposals from the academic community to support basic research on the platforms by early 2020.</li>
+
+					</ul>
+	                <p>
+	                	 <a class="default" data-toggle="2" data-hide-text="See More" data-show-text="See Less">See More</a>
+	                </p>
+
+	            
+	            </div>
+	        </div>
         
-        <!-- Detail 3 -->
-        <div class="detail_3">
-        <div class="right_container">
-            <h2>INITIAL TOPIC AREAS TO BE ENABLED BY RESEARCH PLATFORMS</h2>
-            
-            <!-- Block -->
-            <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_1.png" alt="mmWave"></i>
-                <h3>mmWave</h3>
-                <p>mmWave to enable R&D and systems testing at the millimeter-wave bands that are above 26 GHz, with a target of 100 Gbps in data rates for small-cell networks that cover a few city blocks.</p>
-            </div>
-            
-            <!-- Block -->
-            <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_2.png" alt="Dynamic Spectrum"></i>
-                <h3>Dynamic Spectrum</h3>
-                <p>Dynamic Spectrum to focus on the spectral bands that are sub-6GHz, and aim to identify spectral opportunities in existing networks and establish usage models for novel spectrum-driven applications, while also studying co-existence and protection issues.</p>
-            </div>
-            
-            <!-- Block -->
-            <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_3.png" alt="Architecture"></i>
-                <h3>Architecture</h3>
-                <p>Architecture to test data network architectures for next-generation networks that operate with a wireless edge. </p>
-            </div>
-            
-            <!-- Block -->
-            <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_4.png" alt="Mobility-at-Scale"></i>
-                <h3>Mobility-at-Scale</h3>
-                <p>Mobility-at-Scale to address larger issues with network-mobility from the transport to MAC layers, including evaluation of large-scale, dense, heterogeneous wireless networks, including issues such as connection management, load balancing, and mobility management.</p>
-            </div>
-            
-            <!-- Block -->
-            <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_5.png" alt="Wide-area Whitespace"></i>
-                <h3>Wide-area Whitespace</h3>
-                <p>Wide-area Whitespace to utilize novel whitespace-based wireless networks to design, build and demonstrate 1Gbps connectivity to remote locations via long-range wireless mesh connections.</p>
-            </div>
-            
-            <!-- Block -->
-            <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_6.png" alt="Network Metrology"></i>
-                <h3>Network Metrology</h3>
-                <p>Network Metrology to advance capabilities to measure and monitor wireless network performance and support research on methods to improve the security, reliability and performance of wireless networks.</p>
-            </div>
-            
-            <!-- Block -->
-            <div class="block">
-                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_7.png" alt="City-scale Testbed"></i>
-                <h3>Applications/Services in later years</h3>
-                <p>Platforms will serve as examples of Smart and Connected Community networks that demonstrate potential applications/services including Cyber-Physical Systems, Cyber-Security, Internet of Things, Robotics, Smart and Connected Health, and Big Data.</p>
+	        <!-- Detail 3 -->
+	        <div class="detail_3">
+		        <div class="right_container">
+		            <p><strong>Example topic areas to be enabled by Research Platforms</strong> <br>
+						It is anticipated that initial research on the PAWR platforms will address topic areas such as the following plus promising new areas of research:
+
+		            </p>
+
+		            <!-- Block -->
+		            <div class="block">
+		                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_1.png" alt="mmWave"></i>
+		                <h3>mmWave</h3>
+		                <p>mmWave to enable R&D and systems testing at the millimeter-wave bands that are above 26 GHz, with a target of 100 Gbps in data rates for small-cell networks that cover a few city blocks.</p>
+		            </div>
+		            
+		            <!-- Block -->
+		            <div class="block">
+		                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_2.png" alt="Dynamic Spectrum"></i>
+		                <h3>Dynamic Spectrum</h3>
+		                <p>Dynamic Spectrum to focus on the spectral bands that are sub-6GHz, and aim to identify spectral opportunities in existing networks and establish usage models for novel spectrum-driven applications, while also studying co-existence and protection issues.</p>
+		            </div>
+		            
+		            <!-- Block -->
+		            <div class="block">
+		                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_3.png" alt="Architecture"></i>
+		                <h3>Architecture</h3>
+		                <p>Architecture to test data network architectures for next-generation networks that operate with a wireless edge. </p>
+		            </div>
+		            
+		            <!-- Block -->
+		            <div class="block">
+		                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_4.png" alt="Mobility-at-Scale"></i>
+		                <h3>Mobility-at-Scale</h3>
+		                <p>Mobility-at-Scale to address larger issues with network-mobility from the transport to MAC layers, including evaluation of large-scale, dense, heterogeneous wireless networks, including issues such as connection management, load balancing, and mobility management.</p>
+		            </div>
+		            
+		            <!-- Block -->
+		            <div class="block">
+		                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_5.png" alt="Wide-area Whitespace"></i>
+		                <h3>Wide-area Whitespace</h3>
+		                <p>Wide-area Whitespace to utilize novel whitespace-based wireless networks to design, build and demonstrate 1Gbps connectivity to remote locations via long-range wireless mesh connections.</p>
+		            </div>
+		            
+		            <!-- Block -->
+		            <div class="block">
+		                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_6.png" alt="Network Metrology"></i>
+		                <h3>Network Metrology</h3>
+		                <p>Network Metrology to advance capabilities to measure and monitor wireless network performance and support research on methods to improve the security, reliability and performance of wireless networks.</p>
+		            </div>
+		            
+		            <!-- Block -->
+		            <div class="block">
+		                <i><img src="{{ STATIC_URL }}awt/images/detail_icon_7.png" alt="City-scale Testbed"></i>
+		                <h3>Applications/Services in later years</h3>
+		                <p>Platforms will serve as examples of Smart and Connected Community networks that demonstrate potential applications/services including Cyber-Physical Systems, Cyber-Security, Internet of Things, Robotics, Smart and Connected Health, and Big Data.</p>
+		            </div>
+
+		            <p>Collectively, these PAWR research efforts will accelerate the deployment of a new generation of super-fast, ultra-low latency, high-capacity networks will enable breakthrough applications for consumers, smart cities, and the Internet of Things that cannot even be imagined today. </p>
+
+		            <p data-content="3"><strong>Possible advances in the next decade could bring:</strong></p>
+
+		            <ul class="list" data-content="3" >
+						<li>Mobile phones and tablets that can download full length HD movies in less than 5 seconds, 100 times faster than 4G (6 minutes) and 25,000 times faster than 3G (26 hours).</li>
+
+						<li>First responders and emergency room doctors who get live, real-time video and sensor data from police vehicles, ambulances, and drones, along with patient vitals and medical records—all before the patient arrives at the hospital door.</li>
+
+						<li>Semi- or fully-autonomous vehicles that can communicate with the outside world and with each other to improve travel efficiency and safety. </li>
+
+						<li>Factories equipped with always-connected smart manufacturing equipment that self-diagnose and repair themselves before they break.</li>
+
+						<li>Gigabit-speed wireless broadband available in businesses, public transportation stations, stadiums, campuses, schools, malls, parks, and other public spaces.</li>
+
+						<li>Virtual reality training environments and simulators that allow entry-level workers to develop and demonstrate skills in high-demand fields like solar energy installation—anytime, from anywhere.</li>
+					</ul>
+
+		            <p>
+		            	<a style="color: #fff" class="default" data-toggle="3" data-hide-text="See what PAWR’s research efforts could bring in the next decade." data-show-text="See Less">See what PAWR’s research efforts could bring in the next decade.</a>
+		            </p>
+
+		           
+		        </div>
+	    	</div>
+	    </div>
+
+	    <div class="about_main_sec" id="sec_three">
+        	<div class="detail_2" style="padding-top: 50px; padding-bottom: 50px;">
+	            <div class="right_container">
+	            	<h2>PPO Team</h2>
+	                <p>The PAWR Project Office is led by a team from both US Ignite and Northeastern University</p>
+
+	                <p>
+	                	<strong style="font-size:18px;">US Ignite</strong><br>
+	                	<strong>Bryan Mikesh</strong>
+	                </p>
+	                <p>
+	                	<strong style="font-size:18px;">US Ignite</strong><br>
+	                	<strong>Tommaso Melodia</strong>
+	                </p>
+	            </div>
             </div>
         </div>
-    </div>
-    </div>
         
         <!-- Partner Sec -->
-        <div class="partner_sec" id="sec_tharee">
+        <div class="partner_sec" id="sec_four">
             <div class="right_container">
-                <h2>Partners</h2>
+                <h2>PPO Partners</h2>
                 <ul>
-                    <li><a href="http://www.nsf.gov/pubs/2016/nsf16096/nsf16096.jsp"><img src="{{ STATIC_URL }}awt/images/01_NSF.png" alt="NSF"></a></li>
-                    <li><a href="https://www.bell-labs.com/"><img src="{{ STATIC_URL }}awt/images/02_nokia bell labs.jpg" alt="Nokia Bell Labs"></a></li>
-                    <li><a href="http://www.samsung.com/us/experience/go/?cid=ppc-"><img src="{{ STATIC_URL }}awt/images/03_samsung.png" alt="Samsung"></a></li>
+                	<li><a href="https://www.bell-labs.com/"><img src="{{ STATIC_URL }}awt/images/02_nokia bell labs.jpg" alt="Nokia Bell Labs"></a></li>
+                	 <li><a href="http://www.samsung.com/us/experience/go/?cid=ppc-"><img src="{{ STATIC_URL }}awt/images/03_samsung.png" alt="Samsung"></a></li>
                     <li><a href="http://www.keysight.com/main/home.jspx?cc=US&amp;lc=eng"><img src="{{ STATIC_URL }}awt/images/04_Keysight.png" alt="Keysight"></a></li>
-                    <li><a href="http://www.juniper.net/us/en/"><img src="{{ STATIC_URL }}awt/images/05_juniper.png" alt="Juniper"></a></li>
-                    <li><a href="http://www.interdigital.com/"><img src="{{ STATIC_URL }}awt/images/06_interdigital_logo.jpg" alt="Interdigital"></a></li>
                     <li><a href="http://www.ni.com/en-us.html"><img src="{{ STATIC_URL }}awt/images/07_national instruments.png" alt="National Instruments"></a></li>
-                    <li><a href="https://www.qualcomm.com/"><img src="{{ STATIC_URL }}awt/images/08_qualcomm.png" alt="Qualcomm"></a></li>
-                    <li><a href="http://www.viavisolutions.com/en-us"><img src="{{ STATIC_URL }}awt/images/09_viavi.png" alt="Viavi Solutions"></a></li>
                     <li><a href="https://www.sprint.com/"><img src="{{ STATIC_URL }}awt/images/10_sprint.png" alt="Sprint"></a></li>
-                    <li><a href="http://www.ctia.org/"><img src="{{ STATIC_URL }}awt/images/11_ctia.jpg" alt="CTIA"></a></li>
-                    <li><a href="https://www.att.com/"><img src="{{ STATIC_URL }}awt/images/12_att.png" alt="AT&T"></a></li>
-                    <li><a href="http://www.intel.com/content/www/us/en/homepage.html"><img src="{{ STATIC_URL }}awt/images/13_intel.png" alt="Intel"></a></li>
-                    <li><a href="http://www.verizon.com/home/verizonglobalhome/ghp_landing.aspx"><img src="{{ STATIC_URL }}awt/images/14_verizon.png" alt="Verizon"></a></li>
-                    <li><a href="http://www.t-mobile.com/"><img src="{{ STATIC_URL }}awt/images/15_tmobile.png" alt="T-Mobile"></a></li>
-                    <li><a href="http://www.htc.com/us/"><img src="{{ STATIC_URL }}awt/images/16_htc.png" alt="HTC America"></a></li>
-                    <li><a href="http://www.carlsonwireless.com/"><img src="{{ STATIC_URL }}awt/images/17_carlson.png" alt="Carlson Wireless"></a></li>
-                    <li><a href="http://www.sharedspectrum.com/"><img src="{{ STATIC_URL }}awt/images/18_ssc.gif" alt="Shared Spectrum"></a></li>
-                    <li><a href="http://www.commscope.com/"><img src="{{ STATIC_URL }}awt/images/_CommScope Logo.png" alt="CommScope"></a></li>
                     <li><a href="http://oracle.com/"><img src="{{ STATIC_URL }}awt/images/_oracle.png" alt="Oracle"></a></li>
+                    <li><a href="http://www.juniper.net/us/en/"><img src="{{ STATIC_URL }}awt/images/05_juniper.png" alt="Juniper"></a></li>
+                    <li><a href="http://www.commscope.com/"><img src="{{ STATIC_URL }}awt/images/_CommScope Logo.png" alt="CommScope"></a></li>
+                    <li><a href="http://www.viavisolutions.com/en-us"><img src="{{ STATIC_URL }}awt/images/09_viavi.png" alt="Viavi Solutions"></a></li>
+                    <li><a href="http://www.interdigital.com/"><img src="{{ STATIC_URL }}awt/images/06_interdigital_logo.jpg" alt="Interdigital"></a></li>
+                    <li><a href="http://www.intel.com/content/www/us/en/homepage.html"><img src="{{ STATIC_URL }}awt/images/13_intel.png" alt="Intel"></a></li>
+                    <li><a href="https://www.qualcomm.com/"><img src="{{ STATIC_URL }}awt/images/08_qualcomm.png" alt="Qualcomm"></a></li>
+                    <li><a href="https://www.att.com/"><img src="{{ STATIC_URL }}awt/images/12_att.png" alt="AT&T"></a></li>
+                    <li><a href="http://www.t-mobile.com/"><img src="{{ STATIC_URL }}awt/images/15_tmobile.png" alt="T-Mobile"></a></li>
+                    <li><a href="http://www.verizon.com/home/verizonglobalhome/ghp_landing.aspx"><img src="{{ STATIC_URL }}awt/images/14_verizon.png" alt="Verizon"></a></li>
+                    <li><a href="http://www.ctia.org/"><img src="{{ STATIC_URL }}awt/images/11_ctia.jpg" alt="CTIA"></a></li>
+                    <li><a href="http://www.htc.com/us/"><img src="{{ STATIC_URL }}awt/images/16_htc.png" alt="HTC America"></a></li>
+                    <li><a href="http://www.sharedspectrum.com/"><img src="{{ STATIC_URL }}awt/images/18_ssc.gif" alt="Shared Spectrum"></a></li>
+                    <li><a href="http://www.carlsonwireless.com/"><img src="{{ STATIC_URL }}awt/images/17_carlson.png" alt="Carlson Wireless"></a></li>
                     <li><a href="http://www.atis.org/"><img src="{{ STATIC_URL }}awt/images/ATIS.png" alt="ATIS"></a></li>
+                    
                     <li><a href="http://www.tiaonline.org/"><img src="{{ STATIC_URL }}awt/images/tia.png" alt="TIA"></a></li>
                     <li><a href="https://www.ericsson.com/"><img src="{{ STATIC_URL }}awt/images/ericsson.png" alt="Ericsoon"></a></li>
+
+                    <li><a href="https://www.anritsu.com/en-US"><img src="{{ STATIC_URL }}awt/images/anritsu.png" alt="Anritsu"></a></li>
+
+                    <li><a href="http://www.fibertower.com/"><img src="{{ STATIC_URL }}awt/images/fibertower.png" alt="Fiber Tower"></a></li>
+
+                    <li><a href="http://www.crowncastle.com/"><img src="{{ STATIC_URL }}awt/images/crowncastle.png" alt="Crown Castle"></a></li>
+
                 </ul>
+            </div>
+        </div>
+
+        <div class="about_main_sec" id="sec_five">
+        	<div class="detail_2" style="padding-top: 50px; padding-bottom: 50px;">
+	            <div class="right_container">
+	            	<h2 style="float:none;">News</h2>
+	                <div class="fluid-video">
+	                	<iframe  src="https://www.youtube.com/embed/cxC8ftbnHZw" frameborder="0" allowfullscreen></iframe>
+	                </div>
+	            </div>
             </div>
         </div>
         
         <!-- Involed Sec -->
-        <div class="involed_sec" id="sec_four">
+        <div class="involed_sec" id="sec_six">
             <div class="right_container">
-                <h3>Get Involved</h3>
-                <p>Wireless solutions have and will continue to provide essential services, supporting the emerging Internet of Things and the Smart and Connected Communities of the future.</p>
-                <p>The platforms for advanced wireless research will drive new opportunities for innovation, high-skilled jobs, high-growth startups, and smart, connected community services.</p>
-                <p>If you are a company and are interested in joining this effort, fill out this information, and we will get in touch with you.</p>
+                <h3 style="float: none;">Potential Proposers</h3>
+                <p style="float: none;">If you are a potential proposer or team of proposers (i.e., university/city/local companies) interesting in responding to the PAWR RFP, please fill out this information and we will be in touch with you:</p>
                 <form method="post" action="{% url 'awt_frontpage' %}">
                     {{ form.email_list }}
                     <div class="row">
@@ -212,12 +436,10 @@
                         </div>
                     </div>
                      <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                              {{ form.email }}
                         </div>
-                        <div class="col-md-6">
-                             {{ form.organization }}
-                        </div>
+                        
                     </div>
                     <br>
                     <button class="call_btn">SUBMIT</button>
@@ -225,8 +447,38 @@
                     {% csrf_token %}
                 </form>
                 <br><br>
-                <h3>Stay In Touch</h3>
-                <p> If you want to get updates on the activities surrounding this effort, join our announcements list.</p>
+                <h3  style="float: none;">Companies</h3>
+                <p style="float: none;"> If you are a company and are interested in joining this effort, fill out this information, and we will be in touch with you.</p>
+
+                <form method="post" action="{% url 'awt_default_subscribe' %}">
+                     {{ pawr_form.email_list }}
+                   
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ pawr_form.firstname }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ pawr_form.lastname }}
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                             {{ pawr_form.email }}
+                        </div>
+                        <div class="col-md-6">
+                             {{ pawr_form.organization }}
+                        </div>
+                    </div>
+                   
+                    <br>
+                    <button class="call_btn">SUBMIT</button>
+                      
+                    {% csrf_token %}
+                </form>
+
+                <br><br>
+                <h3 style="float: none;">Potential Proposers</h3>
+                <p style="float: none;">If you are a potential proposer or team of proposers (i.e., university/city/local companies) interesting in responding to the PAWR RFP, please fill out this information and we will be in touch with you:</p>
 
                 <form method="post" action="{% url 'awt_default_subscribe' %}">
                      {{ pawr_form.email_list }}
@@ -242,14 +494,420 @@
                 </form>
             </div>
         </div>
+        <div class="involed_sec detail" id="sec_seven" style="background-color: #fff;">
+            <div class="right_container">
+                <h2 style="padding-left: 0; color: #000;">FAQ</h2>
+
+                <p style="color: #000;">The PAWR Project Office will collaborate closely with NSF, the wireless research community, local communities, and industry in the design, development, deployment, and initial operations of the research platforms. FAQs are listed below:</p>
+
+                <p style="color: #000;"><strong>Questions relating to overall PAWR strategy and timing:</strong></p>
+                <ol class="list" >
+					<li>
+						<a class="default" data-toggle="5">Please describe the overall PAWR timeline?</a>
+
+						<span data-content="5"><br><br><em>Designing, developing, deploying, and operating the platforms for advanced wireless research:</em><br><br></span>
+
+						<ul class="list" data-content="5">
+							<li>Within four months of its establishment (i.e., from March 8), and in conjunction with the PAWR Industry Consortium, the PPO will develop a Request for Proposals (RFP) calling for teams of communities and research universities to propose the design, development, deployment, and initial operations of multiple platforms for advanced wireless research across the country. For academic or municipal leaders interested in submitting a PAWR proposal, we anticipate hosting a Proposers Day in the Washington DC area after the PAWR RFP is announced. If you are interested, please fill out the form in the “Get Involved” section of this site and we will notify you when registration for that event is available.</li>
+							<li>The PPO will re-issue the RFP annually on an as-needed basis to reflect the nature of the contributions from the PAWR Industry Consortium and planned investment by NSF.  It is anticipated that the PPO will have annual deadlines for submission during each of the first three years (i.e., 2017, 2018, and 2019).</li>
+							<li>Each year, following receipt of proposals in response to the RFP, the PPO will run a merit review process, comparable to that of NSF, to evaluate the submitted proposals. </li>
+							<li>The awardees of the RFP will be selected based on the merit review process, in consultation with NSF and the PAWR Industry Consortium. </li>
+							<li>Selected awardees of the RFP will be sub-awardees of the PPO.</li>
+							<li>The announcement of the subawardees for the first research platforms is anticipated early next year (2018).  The location(s) of the platform(s) will be announced at that time.</li>
+							<li>It is anticipated that the first set of platforms for advanced wireless research will be available for use by late 2019 or early 2020. </li>
+							
+						</ul>
+						<span data-content="5"><br><em>Research atop PAWR:</em><br><br></span>
+						<ul data-content="5" class="list">
+							<li>
+							The PPO is responsible for allocating and managing time for experimentation on the platforms for advanced wireless research.</li>
+							<li>The allocation of time will be shared equally between industry and NSF-supported academic researchers and will be complementary. Allocations to NSF-supported researchers will advance fundamental knowledge in the long term, while allocations to industry researchers will accelerate nearer-term research and development activities.</li>
+							<li>NSF anticipates issuing a solicitation calling for proposals from the academic community to support basic research on the platforms by early 2020.</li>
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="6"> How would you characterize the research platforms and how many will there be?</a>
+
+						<span data-content="6"><br><br></span>
+
+						<ul data-content="6" class="list">
+							<li>We anticipate 4 locations focusing on mid-sized cities or mid-sized areas within larger cities.</li>
+							<li>The research platforms will be built on software-defined radios – devices capable of operating across multiple radio frequencies and connected via a programmable back-end network infrastructure with access to high-speed network connectivity such as Internet2 or other backhaul (i.e., not production networks).</li>
+							<li>Researchers will be able to take advantage of the multi-use capability of the research platform by “plugging in” additional experimental technologies.</li>
+							<li>Requests for proposals (RFPs) will seek proposed platforms that have the capability to support a minimum number of research topic areas (e.g., mmWave, Dynamic Spectrum, Architecture) plus other topic areas as proposed by respondents.</li>
+							<li>Proposed experimental research platforms will allow researchers to validate cutting-edge technologies (e.g., radio layer, protocol, sensors, core architecture), spectrum usage paradigms, application performance, and/or service behavior.</li>
+							
+						</ul>
+						
+					</li>
+
+					<li>
+						<a class="default" data-toggle="7">What are some of the platform research topics likely to be? How fixed are these vs. open to change or modification?</a>
+
+						<span data-content="7"><br><br></span>
+
+						<ul data-content="7" class="list">
+							<li>There will be a minimum of 6 -7 likely platform research topics, each spanning a broad research area (see the list below).  Note that we intend for these research platforms to enable fundamental, pre-competitive research on topics that will support advanced wireless networking innovations, along with potential competitive research led by members of the industry consortium.</li>
+							<li>These topics are not fixed; the expectation is that PIs, industry, and communities will be able to refine and add to these research topics to ensure that they benefit the US wireless ecosystem. Topics may include:<br><br>
+
+								<ol class="list">
+									<li>mm-waves</li>
+                                    <li>dynamic spectrum</li>
+                                    <li>very long-range backhaul</li>
+                                    <li>network architecture</li>
+                                    <li>large-scale mobility</li>
+                                    <li>wireless network (e.g. cellular) measurements</li>
+                                    <li>other topics suggested by PIs, industry, and communities</li>
+								</ol>
+
+							</li>
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="8">How do you envision these research platforms interacting with corporate (e.g., private) testbeds?</a>
+
+						<span data-content="8"><br><br></span>
+
+						<ul data-content="8" class="list">
+							<li> Given the focus on pre-competitive research, we expect the outcomes from these research platforms to feed into corporate/private testbeds that focus on competitive research and associated intellectual property (IP) attributes.</li>
+							<li>We also expect that these research platforms will act as fertile testing grounds for large-scale validation of industry equipment/algorithms/architectures that may not be feasible with smaller private testbeds.
+
+						</ul>
+					</li>
+
+
+					<li>
+						<a class="default" data-toggle="9">Can companies still join the industry consortium?</a>
+
+						<span data-content="9"><br><br></span>
+
+						<ul data-content="9" class="list">
+							<li> Yes – up until release of the RFP. For more information, please contact the PPO via the “Get Involved” section of the website.</li>
+						</ul>
+					</li>
+					
+				</ol>
+				<br><br>
+				<p style="color: #000;"><strong>Questions relating to the Requests for Proposals that will be released by the PPO:</strong></p>
+
+				<ol class="list">
+					<li>
+						<a class="default" data-toggle="10"> What is the role of PPO in the design of the research platforms?
+</a>
+
+						<span data-content="10"><br><br></span>
+
+						<ul data-content="10" class="list">
+							<li>The PPO will develop general design specifications (i.e., a framework for the design of the research platforms), with input from NSF, the research community, and the industry consortium. It will share these as part of the Request for Proposals (RFP) process. The proposers will propose specific designs for the individual research platforms, utilizing that framework.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="11">Can local corporate sponsors participate in the city-university research platform (design, development, and deployment) proposals? Can industry contribute to a proposal without being part of the Industry Consortium described in the solicitation?</a>
+
+						<span data-content="11"><br><br></span>
+
+						<ul data-content="11" class="list">
+							<li> Local for-profit and non-profit partners are welcomed (and in fact, encouraged) to the extent that they enhance the capabilities, reach, and sustainability of a proposed research platform. Industry Consortium members may not participate in platform proposals; other companies may choose to collaborate directly with the individual proposers.</li>
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="12">Can Federally-Funded Research and Development Centers (FFRDCs) participate in the design, development, and deployment of the research platforms and/or in conducting experiments on the research platforms once they are operational? How about federal laboratories?</a>
+
+						<span data-content="12"><br><br></span>
+
+						<ul data-content="12" class="list">
+							<li>The proposer lead will be defined in the solicitation and may consist of universities and non-profit organizations only.  It is anticipated that each subsequently-funded research platform will comprise a city-university team; this team may also involve corporate partners, FFRDCs, and federal labs. Similarly, FFRDCs and federal labs may participate in conducting experiments on the eventual research platforms. However, note that NSF funding to FFRDCs and federal labs is provided only under unique circumstances, as specified in NSF’s Grant Proposal Guide (see <a href="http://www.nsf.gov/pubs/policydocs/pappguide/nsf16001/gpg_1.jsp#categories">http://www.nsf.gov/pubs/policydocs/pappguide/nsf16001/gpg_1.jsp#categories).</a></li>
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="13">Has there been thought as to how to make the research platforms “living”/dynamically adaptable?</a>
+
+						<span data-content="13"><br><br></span>
+
+						<ul data-content="13" class="list">
+							<li>Yes, staying current with rapidly evolving technologies will be essential to the long-term utility and success of the research platforms, including sustenance. Plans to address this requirement will be a key review criterion in the evaluation of future research platform proposals (to be submitted in response to RFPs). </li>
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="14">Will there be review criteria for the research platform proposals that go beyond the technical details of setting up the research platforms? For example, will the review process consider a given proposing team’s capacity to provide local community services/impact?</a>
+
+						<span data-content="14"><br><br></span>
+
+						<ul data-content="14" class="list">
+							<li>Consideration will be given to the positive impacts of a given research platform on the community proposing to host it – not only in terms of potential pilot deployments of advanced technologies, but also with respect to jobs, workforce development, and economic competitiveness, for example. This consideration will take place in the context of the core focus of the research platforms (i.e., to support fundamental, pre-competitive research with the goal of quickly identifying technologies with potential commercialization opportunities). Please note that provision of commercial-grade local community services is not an immediate goal of the PAWR effort.</li>
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="15">In terms of team structure, whom do you anticipate leading the teams charged with designing, developing, and deploying the research platforms (e.g., cities or universities)? </a>
+
+						<span data-content="15"><br><br></span>
+
+						<ul data-content="15" class="list">
+							<li> Either a city or a university may lead a proposing team; each proposal must make the case that the lead is capable of following through on the design, development, deployment, and operation of the proposed research platform.</li>
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="16">Can projects be led by independent non-profit organizations, given the emphasis on commercialization? </a>
+
+						<span data-content="16"><br><br></span>
+
+						<ul data-content="16" class="list">
+							<li>  Yes, non-profits are eligible to apply as leads for research platform proposals. As a reminder, project proposals must clearly demonstrate that the chosen lead is the most capable to follow through on the design, development, and deployment of the proposed research platform.</li>
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="17"> Is cost sharing allowed and/or included in the review process?</a>
+
+						<span data-content="17"><br><br></span>
+
+						<ul data-content="17" class="list">
+							<li> Cost sharing is not allowed.</li>
+						</ul>
+					</li>
+				</ol>
+
+				<br><br>
+				<p style="color: #000;"><strong>Questions relating to the research to be enabled by the research platforms:</strong></p>
+
+				<ol class="list">
+					<li>
+						<a class="default" data-toggle="18">   Is it incumbent on potential users to learn how to use the research platform interfaces or will there be tutorials created/support provided?</a>
+
+						<span data-content="18"><br><br></span>
+
+						<ul data-content="18" class="list">
+							<li>As with any system, there will be a learning curve – but it is anticipated that the research platforms will have staff and tutorials to assist users and mitigate this learning curve. Past efforts such as GENI and related CISE research infrastructure projects have demonstrated that providing active user support is critical to ensuring widespread user adoption.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="19">  Should we only think about short-term (three years or less until commercialization) projects to evaluate on the research platforms envisioned in the PAWR: PPO program solicitation?</a>
+
+						<span data-content="19"><br><br></span>
+
+						<ul data-content="19" class="list">
+							<li>Certainly not. The research platforms are meant to support fundamental, pre-competitive academic research, for which impacts may very well be realized 10 or more years into the future, i.e., well beyond the typical three-year duration of an NSF research grant.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="20"> Do you envision following an approach by which experiments to be run on the research platforms are vetted in some way to determine their suitability?</a>
+
+						<span data-content="20"><br><br></span>
+
+						<ul data-content="20" class="list">
+							<li>Yes. Proposals will be reviewed by a Research Committee (of which the PPO is a member) to ensure research conducted on the platforms aligns with the goals of the PAWR program. Details of the criteria and process will be established by the PPO in consultation with NSF, the Industry Consortium, and relevant academic/community stakeholders. </li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="21"> Is there a general sense of the geographic area to be covered by these research platforms (i.e., how large they should be)?</a>
+
+						<span data-content="21"><br><br></span>
+
+						<ul data-content="21" class="list">
+							<li> The answer to this question may vary depending on the goals and scope of each individual research platform. For a given research platform, the geographic area will be a function of the type of wireless networks that the research platform will feature, the scale of the networks, and the effort involved in setting up and maintaining a research platform of that scale.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="22">  Are there any expectations as far as open interfaces for the research platforms?</a>
+
+						<span data-content="22"><br><br></span>
+
+						<ul data-content="22" class="list">
+							<li> The intent is for the research platforms to feature both open hardware and open software interfaces, and to be reusable by others.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="23">Could some of the funding also support graduate student assistantships, for example, for applied research that can be deployed in cities?</a>
+
+						<span data-content="23"><br><br></span>
+
+						<ul data-content="23" class="list">
+							<li>Funding for (basic/applied) research to be conducted on the research platforms can come from NSF, the PAWR Industry Consortium, or other sponsors. NSF funding for principal investigators will come through NSF research programs on wireless communications and networking, and the research conducted on the research platforms with assistance of graduate/undergraduate students is expected to be included in proposals submitted to these programs, rather than in the proposals for the platforms themselves.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="23">Will implementation funding for designing, developing, and deploying the research platforms include funding for graduate students?</a>
+
+						<span data-content="23"><br><br></span>
+
+						<ul data-content="23" class="list">
+							<li> Funding for designing, developing, and deploying the research platforms is expected to include appropriate levels of student support to the extent that such effort is necessary for the completion of the research platforms. Guidelines about graduate student support are expected to be similar to what is provided for the NSF CISE Research Infrastructure program.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="24">In what spectrum bands are the research platforms expected to operate, and will there be a need for licensing?</a>
+
+						<span data-content="24"><br><br></span>
+
+						<ul data-content="24" class="list">
+							<li> We expect the research platforms to use a diverse set of spectrum bands depending on the types of wireless networks to be supported. These can be anywhere between 300 MHz to 100 GHz. We expect the research platform proposers to be aware of the Federal Communication Commission’s (FCC) spectrum policies: the FCC has created a new Program Experimental License that will allow for testing on a wide swath of frequencies. Proposers are expected to obtain such licenses and include these as part of their proposals to validate the feasibility of the proposed research platforms to work in the bands to be supported. The FCC website for receiving applications to this new Experimental License is expected to be online by the time the proposals for platforms are due.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="25">Can one do research on the design and development of the research platforms, or only as part of research projects to be enabled by the research platforms? 
+</a>
+
+						<span data-content="25"><br><br></span>
+
+						<ul data-content="25" class="list">
+							<li> A mix of both is anticipated. These research platforms constitute research infrastructures for the wireless networking and communications research community. As the research platforms mature over time, they will support less research in the design and development aspects and more research as a result of the availability of the infrastructure.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="26">Are the research topic areas listed above the only areas of research NSF is interested in funding for the research platforms? 
+</a>
+
+						<span data-content="26"><br><br></span>
+
+						<ul data-content="26" class="list">
+							<li> Neither NSF nor the PPO will predefine the research foci for the research platforms. We have provided sample research areas, but these are meant to be only examples. We do expect the research platforms to cover a wide range of emerging research areas.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="27">Is there an expectation that the research conducted on the platforms will inherently lead to commercialization in the short term?
+</a>
+
+						<span data-content="27"><br><br></span>
+
+						<ul data-content="27" class="list">
+							<li> PAWR is an open, pre-competitive, fundamental research effort. Both the PAWR Industry Consortium and NSF seek to explore a multitude of research concepts through these research platforms. There are no formal expectations of commercialization, but such outcomes would be encouraged as an end product. </li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="28"> Is the PAWR program more engineering- or research-focused (e.g., GENI was more engineering-focused)?
+</a>
+
+						<span data-content="28"><br><br></span>
+
+						<ul data-content="28" class="list">
+							<li>This first part of the PAWR program is constituted by building the research platforms, which will involve a mix of engineering as well as research in infrastructure. The second part of the program will entail support for fundamental and applied research to be conducted on the research platforms.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="29"> How will heterogeneity, security and privacy, and coexistence be addressed in these research platforms?
+</a>
+
+						<span data-content="29"><br><br></span>
+
+						<ul data-content="29" class="list">
+							<li> These are all critical questions that research in advanced networking should address. Proposers of the research platforms are encouraged to consider incorporating support for research on these vital questions as part of their design, development, and deployment.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="29"> Shouldn’t we test existing ideas first, rather than call for new ones?
+</a>
+
+						<span data-content="29"><br><br></span>
+
+						<ul data-content="29" class="list">
+							<li>These do not need to be exclusive activities. The Advanced Wireless Research Initiative aims to explore research at scale in real-world settings outside of the laboratory. Existing ideas that have been successfully demonstrated in the laboratory environment will be able to use the envisioned research platforms to demonstrate viability at scale.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="30"> How do you maintain mid- and long-term research projects while also accounting for public interest and the need to translate innovations to the marketplace quickly in order to justify local investment?
+</a>
+
+						<span data-content="30"><br><br></span>
+
+						<ul data-content="30" class="list">
+							<li>The research platforms are expected to serve the research communities for a decade or more, but the individual research projects that will be conducted on the research platforms can be short-, medium-, and/or long-term. The successful projects that deliver results in the short-term will constitute the immediate return on investment.</li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="31"> Can industry receive funding from NSF if collaborating on the research platform proposal?
+</a>
+
+						<span data-content="31"><br><br></span>
+
+						<ul data-content="31" class="list">
+							<li>NSF does not intend to provide funding to for-profit entities under the PAWR program. PAWR Industry Consortium members are not eligible to be named participants on any research platform proposal. </li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="32">  How “small” is a small city? Is there any advantage to a rural area participating?
+</a>
+
+						<span data-content="32"><br><br></span>
+
+						<ul data-content="32" class="list">
+							<li> There are several problems of interest to rural areas that a small city may consider tackling as part of a research platform. However, as a critical mass of individuals is needed to test the research platforms (specific user densities are required to validate any testing), small cities must demonstrate the presence of appropriate user densities that the follow-on research may require as part of the corresponding proposal. The emphasis is on city-scale, rather than ‘city size’. </li>
+							
+						</ul>
+					</li>
+
+					<li>
+						<a class="default" data-toggle="33"> Can multiple universities form a team to apply for a research platform?
+</a>
+
+						<span data-content="33"><br><br></span>
+
+						<ul data-content="33" class="list">
+							<li>  Yes, given the scale of these research platforms, we anticipate such teaming arrangements. </li>
+							
+						</ul>
+					</li>
+
+
+				</ol>
+
+
+            </div>
+        </div>
         
     </div>
 </div>
+<div style="clear:both; display:block;"></div>
+
+<div style="margin-top: 50px; padding: 15px; background-color: #ee2e24;"></div>
 
     
 <!-- Js -->
 <script src="{{ STATIC_URL }}awt/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js"></script>
 <script src="{{ STATIC_URL }}awt/js/bootstrap.min.js"></script>  
+
+
 <script>
 $(window).scroll(function() {
     var topHeight = $( '.logo' ).height();
@@ -318,9 +976,42 @@ $('a:not(.default)').click(function(){
 });
 
 $(document).ready(function () {
-  $(".navbar-nav li a").click(function(event) {
-    $(".navbar-collapse").collapse('hide');
-  });
+	$(".navbar-nav li a").click(function(event) {
+		$(".navbar-collapse").collapse('hide');
+	});
+
+	$("[data-toggle]").on("click", function (e) {
+		e.preventDefault();
+			
+		var $dataToggle = $(this);
+		var id = $dataToggle.data("toggle");
+		console.log(id);
+		var $dataContent = $("[data-content='" + id + "']");
+
+		if ($dataContent.is(":visible"))
+		{
+			$dataContent.hide();
+
+			if ( $dataToggle[0].hasAttribute("data-hide-text") )
+			{
+				var hideText = $dataToggle.data("hide-text");
+				$dataToggle.html(hideText);
+			}
+			
+		}
+		else
+		{
+			$dataContent.show();
+
+			if ( $dataToggle[0].hasAttribute("data-show-text") )
+			{
+				var showText = $dataToggle.data("show-text");
+				$dataToggle.html(showText);
+			}
+		}
+	});
+
+	 $(".fluid-video").fitVids();
 
 });
 
