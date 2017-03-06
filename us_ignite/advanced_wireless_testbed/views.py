@@ -30,16 +30,16 @@ def subscribe_email(form_data):
             'FNAME': form_data['firstname'],
             'LNAME': form_data['lastname'],
         }
-        return mailing_list.subscribe(settings.MAILCHIMP_PAWR_LIST, email_data, awt_merge_vars)
+        return mailing_list.subscribe(settings.MAILCHIMP_AWT_POTENTIAL_PROPOSER_LIST, email_data, awt_merge_vars)
     elif form_data['email_list'] == 'awt_companies':
         awt_merge_vars = {
             'FNAME': form_data['firstname'],
             'LNAME': form_data['lastname'],
             'ORGANIZATI': form_data['organization']
         }
-        return mailing_list.subscribe(settings.MAILCHIMP_PAWR_LIST, email_data, awt_merge_vars)
+        return mailing_list.subscribe(settings.MAILCHIMP_AWT_COMPANY_LIST, email_data, awt_merge_vars)
     elif form_data['email_list'] == 'awt_interested_observers':
-        return mailing_list.subscribe(settings.MAILCHIMP_PAWR_LIST, email_data)
+        return mailing_list.subscribe(settings.MAILCHIMP_AWT_INTERESTED_OBSERVERS_LIST, email_data)
     else:
         return
 
