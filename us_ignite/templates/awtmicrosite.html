@@ -126,6 +126,18 @@ ul.list > li {
 	list-style-type: disc;
 
 }
+@media screen and (max-width: 767px) {
+	.nav_sec .navbar-brand {
+	    height: 78px;
+	}
+}
+
+@media screen and (min-width: 961px) {
+	.partner_sec p {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+}
 </style>
 
 <div id="wrapper">
@@ -229,7 +241,7 @@ ul.list > li {
 	                	 <a class="default" data-toggle="1" data-hide-text="See More" data-show-text="See Less">See More</a>
 	                </p>
 
-	                <p style="margin-top: 30px;">
+	                <p style="margin-bottom: 0;">
 	                    <strong>What Comes Next? </strong>Designing, developing, deploying, and operating the platforms for advanced wireless research:
 	                </p>
 
@@ -250,9 +262,16 @@ ul.list > li {
 						<li>It is anticipated that the first set of platforms for advanced wireless research will be available for use by late 2019 or early 2020. </li>
 					</ul>
 
-					<p data-content="2"><strong>Research atop PAWR (Content Accordion)</strong></p>
+					<p>
+	                	 <a class="default" data-toggle="2" data-hide-text="See More" data-show-text="See Less">See More</a>
+	                </p>
 
-					<ul class="list" data-content="2" style="margin-top: 25px;">
+
+					<p style="margin-bottom: 0;">
+	                    <strong>Research atop PAWR </strong>
+	                </p>
+
+					<ul class="list" data-content="50" style="margin-top: 25px;">
 						<li>The PPO is responsible for allocating and managing time for experimentation on the platforms for advanced wireless research.</li>
 
 						<li>The allocation of time will be shared equally between industry and NSF-supported academic researchers and will be complementary. Allocations to NSF-supported researchers will advance fundamental knowledge in the long term, while allocations to industry researchers will accelerate nearer-term research and development activities.</li>
@@ -261,7 +280,7 @@ ul.list > li {
 
 					</ul>
 	                <p>
-	                	 <a class="default" data-toggle="2" data-hide-text="See More" data-show-text="See Less">See More</a>
+	                	 <a class="default" data-toggle="50" data-hide-text="See More" data-show-text="See Less">See More</a>
 	                </p>
 
 	            
@@ -374,6 +393,9 @@ ul.list > li {
         <div class="partner_sec" id="sec_four">
             <div class="right_container">
                 <h2>PPO Partners</h2>
+
+                <p>
+                Reflecting the importance of the PAWR platforms to the development of wireless technology, NSF and more than twenty-five private-sector companies and associations in the U.S. wireless industry have cumulatively pledged approximately $100 million in cash and in-kind support to the design, development, deployment, and initial operations of the PAWR platforms:</p>
                 <ul>
                 	<li><a href="https://www.bell-labs.com/"><img src="{{ STATIC_URL }}awt/images/02_nokia bell labs.jpg" alt="Nokia Bell Labs"></a></li>
                 	 <li><a href="http://www.samsung.com/us/experience/go/?cid=ppc-"><img src="{{ STATIC_URL }}awt/images/03_samsung.png" alt="Samsung"></a></li>
