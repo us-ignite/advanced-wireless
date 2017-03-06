@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Platforms for Advanced Wireless Research (PAWR) Program Office</title>
+<title>Platforms for Advanced Wireless Research (PAWR) Project Office</title>
 <!-- Bootstrap -->
 <link href="{{ STATIC_URL }}awt/css/bootstrap.css" rel="stylesheet">
 <link href="{{ STATIC_URL }}awt/css/style.css" rel="stylesheet">
@@ -68,7 +68,7 @@ a {
 	color: #f37428;
 }
 
-a:hover {
+a:hover, a:active {
 	color: #f37428;
 }
 
@@ -147,7 +147,7 @@ ul.list > li {
         <div class="left_info_inn">
             <!-- Logo -->
             <div class="logo">
-                <h1>Platforms for Advanced<br> Wireless Research (PAWR) Program Office</h1>
+                <h1>Platforms for Advanced<br> Wireless Research (PAWR) Project Office</h1>
                 <i><img src="{{ STATIC_URL }}awt/images/awt_logo.png" alt=""></i>            
             </div>
             
@@ -164,8 +164,8 @@ ul.list > li {
                         <div class="navbar-brand">
                             <a href="#">
                             <i><img src="{{ STATIC_URL }}awt/images/awt_logo_small.png" alt=""></i>
-                            <h1>Platforms for Advanced <br> Wireless Research (PAWR)<br> Program Office</h1>
-                            <h1 class="xsmall">Platforms for <br>Advanced Wireless <br>Research (PAWR) <br>Program Office</h1>
+                            <h1>Platforms for Advanced <br> Wireless Research (PAWR)<br> Project Office</h1>
+                            <h1 class="xsmall">Platforms for <br>Advanced Wireless <br>Research (PAWR) <br>Project Office</h1>
                             </a>                        
                         </div>
                     </div>
@@ -188,20 +188,22 @@ ul.list > li {
     <!-- Right -->
     <div class="right_info" id="sec_one">
         <!-- Detail 1 -->
-        <div class="detail_1">
+        <div class="detail_1" style="padding-bottom: 0;">
             <div class="right_container">
                 {# Mesages are used to display any user notification. #}
                 {% include "includes/messages.html" %}
                 
-                <a target="_blank" class="default" href="http://usignite.org"><span>US Ignite, Inc.</span></a> and <a href="https://www.northeastern.edu/"><span>Northeastern University</span></a> have been selected by the National Science Foundation (NSF) to lead the project office of NSF's Platforms for Advanced Wireless Research (PAWR) program. The PAWR Project Office, or PPO, will manage nearly $100 million in public and private investments to stand-up and oversee city-scale testing platforms to accelerate fundamental research on wireless communication and networking technologies.
+                
             </div>
         </div>
 
         
 
         <!-- Partner Sec -->
-        <div class="detail">
+        <div class="detail" style='padding-top: 0;'>
             <div class="right_container">
+            	<p><a target="_blank" class="default" href="http://usignite.org"><span>US Ignite, Inc.</span></a> and <a href="https://www.northeastern.edu/"><span>Northeastern University</span></a> have been selected by the National Science Foundation (NSF) to lead the project office of NSF's Platforms for Advanced Wireless Research (PAWR) program. The PAWR Project Office, or PPO, will manage nearly $100 million in public and private investments to stand-up and oversee city-scale testing platforms to accelerate fundamental research on wireless communication and networking technologies.</p>
+
                 <p>The PPO will collaborate closely with NSF, the wireless research community, local communities, and industry in the design, development, deployment, and initial operations of the research platforms. PAWR will enable experimental exploration of robust new wireless devices, communication techniques, networks, systems, and services that will revolutionize the nation’s wireless ecosystem, thereby enhancing broadband connectivity, leveraging the emerging Internet of Things (IoT), and sustaining US leadership and economic competitiveness for decades to come.</p>
 
                 <p>Once deployed, the platforms will address pre-competitive research challenges on at-scale research platforms, increasing education about wireless technologies and data networking, increasing academic-industry cooperative partnerships, and accelerating technology commercialization and transfer from academia to industry. In short, PAWR is designed to help overcome the so-called “valley of death” that sometimes limits breakthrough technology advancements.</p>
@@ -230,7 +232,7 @@ ul.list > li {
 
 						<li>This newly available millimeter wave spectrum, in combination with other spectrum already available, promises to enable faster speeds and increased capacity in future wireless networks.</li>
 
-						<li>Research conducted on PAWR platforms will advance robust new wireless devices, communication techniques, networks, systems, and services will revolutionize the Nation’s wireless ecosystem.</li>
+						<li>Research conducted on PAWR platforms will advance robust new wireless devices, communication techniques, networks, systems, and services that will revolutionize the Nation’s wireless ecosystem.</li>
 
 						<li>PAWR will enable rapid commercialization of promising technologies, provide hands-on practical training to a new generation of graduate students, increase job opportunities, and support overall economic vitality.</li>
 
@@ -380,10 +382,18 @@ ul.list > li {
 	                <p>
 	                	<strong style="font-size:18px;">US Ignite</strong><br>
 	                	<strong>Bryan Mikesh</strong>
+	                	<strong>Bill Wallace</strong>
+						<strong>Joe Kochan</strong>
+						<strong>Nick Maynard</strong>
+						<strong>Bill Maguire</strong>
+						<strong>Nancy Jemison</strong>
+						<strong>Senthil Veeraragavan</strong>
 	                </p>
 	                <p>
-	                	<strong style="font-size:18px;">US Ignite</strong><br>
+	                	<strong style="font-size:18px;">Northeastern University</strong><br>
 	                	<strong>Tommaso Melodia</strong>
+	                	<strong>Kaushik Chowdhury</strong>
+						<strong>Manu Gosain</strong>
 	                </p>
 	            </div>
             </div>
@@ -402,6 +412,7 @@ ul.list > li {
                     <li><a href="http://www.keysight.com/main/home.jspx?cc=US&amp;lc=eng"><img src="{{ STATIC_URL }}awt/images/04_Keysight.png" alt="Keysight"></a></li>
                     <li><a href="http://www.ni.com/en-us.html"><img src="{{ STATIC_URL }}awt/images/07_national instruments.png" alt="National Instruments"></a></li>
                     <li><a href="https://www.sprint.com/"><img src="{{ STATIC_URL }}awt/images/10_sprint.png" alt="Sprint"></a></li>
+                    <li><a href="https://www.ericsson.com/"><img src="{{ STATIC_URL }}awt/images/ericsson.png" alt="Ericsoon"></a></li>
                     <li><a href="http://oracle.com/"><img src="{{ STATIC_URL }}awt/images/_oracle.png" alt="Oracle"></a></li>
                     <li><a href="http://www.juniper.net/us/en/"><img src="{{ STATIC_URL }}awt/images/05_juniper.png" alt="Juniper"></a></li>
                     <li><a href="http://www.commscope.com/"><img src="{{ STATIC_URL }}awt/images/_CommScope Logo.png" alt="CommScope"></a></li>
@@ -419,7 +430,7 @@ ul.list > li {
                     <li><a href="http://www.atis.org/"><img src="{{ STATIC_URL }}awt/images/ATIS.png" alt="ATIS"></a></li>
                     
                     <li><a href="http://www.tiaonline.org/"><img src="{{ STATIC_URL }}awt/images/tia.png" alt="TIA"></a></li>
-                    <li><a href="https://www.ericsson.com/"><img src="{{ STATIC_URL }}awt/images/ericsson.png" alt="Ericsoon"></a></li>
+                    
 
                     <li><a href="https://www.anritsu.com/en-US"><img src="{{ STATIC_URL }}awt/images/anritsu.png" alt="Anritsu"></a></li>
 
@@ -435,6 +446,13 @@ ul.list > li {
         	<div class="detail_2" style="padding-top: 50px; padding-bottom: 50px;">
 	            <div class="right_container">
 	            	<h2 style="float:none;">News</h2>
+
+	            	<ul class="list" style="margin-bottom: 30px;">
+	            		<li style="margin-bottom: 10px;"><a target="_blank" href="">NSF Press Release</a></li>
+						<li style="margin-bottom: 10px;"><a target="_blank" href="https://www.us-ignite.org//news">US Ignite Blog Post</a></li>
+						<li style="margin-bottom: 10px;"><a target="_blank" href="#">Northeastern University Press Release</a></li>
+
+					</ul>
 	                <div class="fluid-video">
 	                	<iframe  src="https://www.youtube.com/embed/cxC8ftbnHZw" frameborder="0" allowfullscreen></iframe>
 	                </div>
@@ -757,27 +775,7 @@ ul.list > li {
 						</ul>
 					</li>
 
-					<li>
-						<a class="default" data-toggle="23">Could some of the funding also support graduate student assistantships, for example, for applied research that can be deployed in cities?</a>
-
-						<span data-content="23"><br><br></span>
-
-						<ul data-content="23" class="list">
-							<li>Funding for (basic/applied) research to be conducted on the research platforms can come from NSF, the PAWR Industry Consortium, or other sponsors. NSF funding for principal investigators will come through NSF research programs on wireless communications and networking, and the research conducted on the research platforms with assistance of graduate/undergraduate students is expected to be included in proposals submitted to these programs, rather than in the proposals for the platforms themselves.</li>
-							
-						</ul>
-					</li>
-
-					<li>
-						<a class="default" data-toggle="23">Will implementation funding for designing, developing, and deploying the research platforms include funding for graduate students?</a>
-
-						<span data-content="23"><br><br></span>
-
-						<ul data-content="23" class="list">
-							<li> Funding for designing, developing, and deploying the research platforms is expected to include appropriate levels of student support to the extent that such effort is necessary for the completion of the research platforms. Guidelines about graduate student support are expected to be similar to what is provided for the NSF CISE Research Infrastructure program.</li>
-							
-						</ul>
-					</li>
+					
 
 					<li>
 						<a class="default" data-toggle="24">In what spectrum bands are the research platforms expected to operate, and will there be a need for licensing?</a>
