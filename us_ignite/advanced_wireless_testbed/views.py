@@ -24,7 +24,7 @@ def subscribe_email(form_data):
         'euid': uid,
         'leid': uid,
     }
-
+    print form_data
     if form_data['email_list'] == 'awt_potential_proposers':
         awt_merge_vars = {
             'FNAME': form_data['firstname'],
@@ -60,7 +60,7 @@ def awt_default_subscribe(request, form=None):
     if request.method == 'POST':
         if form == 'potential_proposers':
             form = PotentialProposerForm(request.POST)
-        elif form == 'awt_companies':
+        elif form == 'companies':
             form = CompanyForm(request.POST)
         elif form == 'interested_observers':
             form = InterestedObserverForm(request.POST)
