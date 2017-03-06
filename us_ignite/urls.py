@@ -20,6 +20,11 @@ urlpatterns = patterns(
 urlpatterns += patterns(
     'us_ignite.advanced_wireless_testbed.views',
     url(r'^$', 'awt_frontpage', name='awt_frontpage'),
+    url(r'^awt_default_subscribe/potential_proposers/$', 'awt_default_subscribe', {'form': 'potential_proposers'},
+        name='awt_potential_proposers'),
+    url(r'^awt_default_subscribe/companies/$', 'awt_default_subscribe', {'form': 'companies'}, name='awt_companies'),
+    url(r'^awt_default_subscribe/interested_observers/$', 'awt_default_subscribe', {'form': 'interested_observers'},
+        name='awt_interested_observers'),
     url(r'^awt_default_subscribe/$', 'awt_default_subscribe', name='awt_default_subscribe'),
     # url(r'^dashboard/$', 'us_ignite.people.views.dashboard', name='dashboard'),
     # url(r'^accounts/', include('us_ignite.profiles.urls')),
