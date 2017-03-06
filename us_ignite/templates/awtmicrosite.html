@@ -147,7 +147,7 @@ ul.list > li {
         <div class="left_info_inn">
             <!-- Logo -->
             <div class="logo">
-                <h1>Platforms for Advanced<br> Wireless Research (PAWR) Program Office</h1>
+                <h1>Platforms for Advanced<br> Wireless Research (PAWR) Program Office </h1>
                 <i><img src="{{ STATIC_URL }}awt/images/awt_logo.png" alt=""></i>            
             </div>
             
@@ -382,7 +382,7 @@ ul.list > li {
 	                	<strong>Bryan Mikesh</strong>
 	                </p>
 	                <p>
-	                	<strong style="font-size:18px;">US Ignite</strong><br>
+	                	<strong style="font-size:18px;">Northeastern University</strong><br>
 	                	<strong>Tommaso Melodia</strong>
 	                </p>
 	            </div>
@@ -447,19 +447,19 @@ ul.list > li {
             <div class="right_container">
                 <h3 style="float: none;">Potential Proposers</h3>
                 <p style="float: none;">If you are a potential proposer or team of proposers (i.e., university/city/local companies) interesting in responding to the PAWR RFP, please fill out this information and we will be in touch with you:</p>
-                <form method="post" action="{% url 'awt_frontpage' %}">
-                    {{ form.email_list }}
+                <form method="post" action="{% url 'awt_potential_proposers' %}">
+                    {{ potential_proposer_form.email_list }}
                     <div class="row">
                         <div class="col-md-6">
-                            {{ form.firstname }}
+                            {{ potential_proposer_form.firstname }}
                         </div>
                         <div class="col-md-6">
-                            {{ form.lastname }}
+                            {{ potential_proposer_form.lastname }}
                         </div>
                     </div>
                      <div class="row">
                         <div class="col-md-12">
-                             {{ form.email }}
+                             {{ potential_proposer_form.email }}
                         </div>
                         
                     </div>
@@ -470,25 +470,25 @@ ul.list > li {
                 </form>
                 <br><br>
                 <h3  style="float: none;">Companies</h3>
-                <p style="float: none;"> If you are a company and are interested in joining this effort, fill out this information, and we will be in touch with you.</p>
+                <p style="float: none;"> If you are a company and are interested in joining this effort, fill out this information, and we will be in touch with you:</p>
 
-                <form method="post" action="{% url 'awt_default_subscribe' %}">
-                     {{ pawr_form.email_list }}
+                <form method="post" action="{% url 'awt_companies' %}">
+                     {{ company_form.email_list }}
                    
                     <div class="row">
                         <div class="col-md-6">
-                            {{ pawr_form.firstname }}
+                            {{ company_form.firstname }}
                         </div>
                         <div class="col-md-6">
-                            {{ pawr_form.lastname }}
+                            {{ company_form.lastname }}
                         </div>
                     </div>
                      <div class="row">
                         <div class="col-md-6">
-                             {{ pawr_form.email }}
+                             {{ company_form.email }}
                         </div>
                         <div class="col-md-6">
-                             {{ pawr_form.organization }}
+                             {{ company_form.organization }}
                         </div>
                     </div>
                    
@@ -499,14 +499,14 @@ ul.list > li {
                 </form>
 
                 <br><br>
-                <h3 style="float: none;">Potential Proposers</h3>
-                <p style="float: none;">If you are a potential proposer or team of proposers (i.e., university/city/local companies) interesting in responding to the PAWR RFP, please fill out this information and we will be in touch with you:</p>
+                <h3 style="float: none;"> Interested Observers</h3>
+                <p style="float: none;">If you want to get updates on the status of the PAWR effort, join our announcements list:</p>
 
-                <form method="post" action="{% url 'awt_default_subscribe' %}">
-                     {{ pawr_form.email_list }}
+                <form method="post" action="{% url 'awt_interested_observers' %}">
+                     {{ interested_observers.email_list }}
                     <div class="row">
                         <div class="col-md-12">
-                             {{ pawr_form.pawr_email }}
+                             {{ interested_observers.email }}
                         </div>
                     </div>
                     <br>
