@@ -68,8 +68,8 @@ a {
 	color: #f37428;
 }
 
-a:hover, a:active {
-	color: #f37428;
+a:hover, a:active,a:focus {
+	color: #f37428 !important;
 }
 
 .list {
@@ -220,7 +220,7 @@ ul.list > li {
 
                 <p>Participating companies will benefit by: helping to sustain US industry leadership; shaping design of research platforms; and securing cutting-edge research returns well in excess of initial investment. Participating communities will benefit by: building core wireless capabilities through creative university partnerships; attracting government and corporate research funding and local wireless jobs; and utilizing advanced wireless capabilities to enhance city services and economic development.</p>
 
-                <p>Are you interested in knowing more?  Check out our <a href="#">FAQs</a> and <a href="#">join our mailing list.</a></p>
+                <p>Are you interested in knowing more?  Check out our <a href="#" class="default" data-goto="faqs">FAQs</a> and <a href="#" class="default" data-goto="get-involved">join our mailing list.</a></p>
             </div>
         </div>
 
@@ -673,7 +673,7 @@ ul.list > li {
         
         <!-- Involed Sec -->
         <div class="involed_sec" id="sec_six">
-            <div class="right_container">
+            <div class="right_container" id="get-involved">
                 <h3 style="float: none;">Potential Proposers</h3>
                 <p style="float: none;">If you are a potential proposer or team of proposers (i.e., university/city/local companies) interesting in responding to the PAWR RFP, please fill out this information and we will be in touch with you:</p>
                 <form method="post" action="{% url 'awt_potential_proposers' %}">
@@ -747,7 +747,7 @@ ul.list > li {
         </div>
         <div class="involed_sec detail" id="sec_seven" style="background-color: #fff;">
             <div class="right_container">
-                <h2 style="padding-left: 0; color: #000;">FAQ</h2>
+                <h2 style="padding-left: 0; color: #000;" id="faqs">FAQ</h2>
 
                 <p style="color: #000;">The PAWR Project Office will collaborate closely with NSF, the wireless research community, local communities, and industry in the design, development, deployment, and initial operations of the research platforms. FAQs are listed below:</p>
 
@@ -1263,6 +1263,14 @@ $(document).ready(function () {
 	});
 
 	 $(".fluid-video").fitVids();
+
+	$("[data-goto]").on("click", function(e) {
+	 	e.preventDefault();
+
+
+	 	var id = $(this).attr("data-goto");
+	 	$("html, body").animate({ scrollTop: ($("[id='" + id + "']").offset().top - 10) });
+	});
 
 });
 
