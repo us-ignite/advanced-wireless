@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 # settings is one directory up now
 here = lambda *x: os.path.join(PROJECT_ROOT, '..', *x)
 
-SITE_URL = 'https://www.us-ignite.org'
+SITE_URL = 'https://us-ignite.herokuapp.com'
 
 ALLOWED_HOSTS = [
     'beta.us-ignite.org',
@@ -21,10 +21,10 @@ ALLOWED_HOSTS = [
 ]
 
 # HTTPS configuration:
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 60 * 5
-SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 60 * 5
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = env('SECRET_KEY')
