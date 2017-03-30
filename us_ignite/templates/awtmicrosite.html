@@ -143,6 +143,41 @@ ul.list > li {
 	width: 100%;
 	margin-bottom: 10px;
 }
+
+.callout {
+	padding: 36px 16px 16px 16px;
+    border: 1px solid rgba(10, 10, 10, 0.25);
+    color: #fff;
+    position: relative;
+    background-color: #ee2e24;
+    margin-bottom: 2.5rem;
+}
+
+.callout p {
+	font-size: 18px !important;
+	line-height: 1.5 !important;
+	margin-bottom: 0 !important;
+}
+
+.callout p a, .callout p a:active, .callout p a:focus {
+	color: #fff !important;
+	text-decoration: underline;
+}
+
+.close-callout {
+	right: 10px;
+	line-height: 1 !important;
+	top: 6px;
+	font-size: 32px !important;
+	position: absolute;
+    color: #fff;
+    cursor: pointer;
+    
+}
+
+.close-callout:hover {
+	opacity: 0.8;
+}
 </style>
 
 <div id="wrapper">
@@ -207,7 +242,12 @@ ul.list > li {
         <!-- Partner Sec -->
         <div class="detail" style='padding-top: 0;'>
             <div class="right_container">
-            
+            	
+            	<div class="callout" data-callout>
+            		<span class="close-callout" href="#" data-close>&times;</span>
+            		<p>Join us in Arlington, VA on April 27 for an Information Day regarding the Platforms for Advanced Wireless Research (PAWR) program. <strong><a target="_blank" href="https://docs.google.com/forms/d/1b8Z-tdLH5p8OuelCxGkuV_k70ah4DuAckp3ikvvFiXI/viewform?edit_requested=true">Register Today!</a></strong></p>
+            	</div>
+
             	<p>
             	The Platforms for Advanced Wireless Research (PAWR) program is a joint effort by the National Science Foundation and a wireless Industry Consortium to create city-scale testing platforms to accelerate fundamental research on wireless communication and networking technologies. The PAWR Project Office (PPO) is managing this $100 million public-private partnership to stand-up and oversee these eventual testing platforms. The PPO is run by <a target="_blank" class="default" href="http://usignite.org"><span>US Ignite, Inc.</span></a>, and <a href=" http://www.coe.neu.edu"><span>Northeastern University</span></a>.
             	</p>
@@ -1335,6 +1375,16 @@ $(document).ready(function () {
 
 	 	var id = $(this).attr("data-goto");
 	 	$("html, body").animate({ scrollTop: ($("[id='" + id + "']").offset().top - 10) });
+	});
+
+	$("[data-callout]").each(function(i, el) {
+		var $el = $(el);
+
+		$el.find("[data-close]").on("click", function (e) {
+			e.preventDefault();
+
+			$el.slideUp();
+		});
 	});
 
 });
