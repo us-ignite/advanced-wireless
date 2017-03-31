@@ -86,6 +86,22 @@ a:hover, a:active,a:focus {
 
 }
 
+.info-day-list {
+	list-style: initial;
+	margin: initial;
+	font-size: 16px;
+    line-height: 24px;
+    padding-left: 15px;
+    margin-bottom: 25px;
+    margin-left: 15px;
+}
+
+.info-day-list li {
+	list-style: initial;
+	margin-bottom: 10px;
+
+}
+
 .detail_3 .list li {
 	color: #fff;
 }
@@ -178,6 +194,14 @@ ul.list > li {
 .close-callout:hover {
 	opacity: 0.8;
 }
+
+.info_day_sec > div {
+	background-color: #fff !important;
+}
+
+.info_day_sec {
+	float: left;
+}
 </style>
 
 <div id="wrapper">
@@ -212,6 +236,7 @@ ul.list > li {
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="#sec_one">Top</a></li>
+                            <li><a href="#sec_eight">Information Day</a></li>
                             <li><a href="#sec_two">About</a></li>
                             <li><a href="#sec_three">Team</a></li>
                             <li><a href="#sec_four">Partners</a></li>
@@ -263,6 +288,39 @@ ul.list > li {
                 <p>Are you interested in knowing more?  Check out our <a href="#" class="default" data-goto="faqs">FAQs</a> and <a href="#" class="default" data-goto="get-involved">join our mailing list.</a></p>
             </div>
         </div>
+
+        <div class="info_day_sec" id="sec_eight">
+        	<div class="detail_2" style="padding-top: 50px; padding-bottom: 50px;">
+	            <div class="right_container">
+	            	<h2 style="float:none;">PAWR Information Day - Thursday, April 27 in Arlington, VA</h2>
+
+	            	<p>Join the PAWR Project Office on April 27 as we present a unique opportunity to learn more details about the PAWR program goals and process, including:</p>
+	           		<ul class="info-day-list">
+						<li>Technical focus areas for the emerging solutions that PAWR seeks to support</li>
+						<li>Research goals for advanced wireless use cases</li>
+						<li>PPO's role and organization during project selection and project execution</li>
+						<li>“Office hours” with members of the PAWR Project Office to answer any questions</li>
+						<li>“Teaming hours” for attendees to explore opportunities to partner with each other (e.g., a community seeking researchers, or researchers seeking community assistance)</li>
+					</ul>
+
+					<div data-content="70">
+						<p>PAWR Information Day will be a full-day event (10:00AM -5:00PM ET) followed by an evening reception/cash bar. We anticipate leaders from local governments, universities, industry, and other stakeholders will attend. Registration for the event is free.</p>
+
+						<ul class="info-day-list">
+							<li>To register for the event, visit:https://goo.gl/forms/tRzheVwF1zpGnAT22</li>
+							<li>To book a room at the Hyatt Centric Arlington please visit: https://arlington.centric.hyatt.com/en/hotel/home.html</li>
+						</ul>
+
+						<p>The registration form includes an opportunity for individuals interested in PAWR to share information about their organization's technical expertise and research focus to facilitate teaming and partnerships.</p>
+
+						<p>See you at PAWR Information Day on April 27!<p>
+
+	            	</div>
+
+	            	<p><a class="default" data-toggle="70" data-hide-text="See More" data-show-text="See Less">See More</a></p>
+	            </div>
+	        </div>
+	    </div>
 
         <!-- Detail 2 -->
         <div class="about_main_sec" id="sec_two">
@@ -1326,6 +1384,7 @@ $(window).scroll(function() {
         });
 
 $('a:not(.default)').click(function(){
+	console.log($.attr(this, 'href') + " " + $( $.attr(this, 'href') ).offset().top + "px");
     $('html, body').animate({
         scrollTop: $( $.attr(this, 'href') ).offset().top
     }, 500);
