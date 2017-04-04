@@ -2,19 +2,19 @@ from django import forms
 
 
 class EmailForm(forms.Form):
+    USER_TYPE_CHOICES = [
+        ('', 'Which of these best describes you?'),
+        ('awt_potential_proposers', 'Potential Proposer'),
+        ('awt_companies', 'Company'),
+        ('awt_interested_observers', 'Interested Observer'),
+    ]
+
     firstname = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'First Name', 'required': ''}))
     lastname = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Last Name', 'required': ''}))
-    organization = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Organization', 'required': ''}))
+    organization = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Organization'}))
     email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email Address', 'required': ''}))
-    email_list = forms.CharField(required=False, widget=forms.TextInput(attrs={'type': 'hidden', 'value': 'awt', 'id': ''}))
-    USER_TYPE_CHOICES= (
-    ('', 'Which of these best describes you?'),
-    ('Potential Proposer', 'Potential Proposer'),
-    ('Company', 'Company'),
-    ('Interested Observer', 'Interested Observer'),
-    )
     user_type = forms.ChoiceField(required=True, choices=USER_TYPE_CHOICES, widget=forms.Select(attrs={'required': ''}))
-    comments = forms.CharField(required=True, widget=forms.Textarea(attrs={"max_length": 100, "rows": 3}))
+    comments = forms.CharField(required=False, widget=forms.Textarea(attrs={"max_length": 100, "rows": 3}))
 
 
 class PawrEmailForm(forms.Form):
@@ -23,6 +23,7 @@ class PawrEmailForm(forms.Form):
 
 
 class PotentialProposerForm(forms.Form):
+    user_type = forms.CharField(required=True, )
     firstname = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'First Name', 'required': ''}))
     lastname = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Last Name', 'required': ''}))
     email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email Address', 'required': ''}))
