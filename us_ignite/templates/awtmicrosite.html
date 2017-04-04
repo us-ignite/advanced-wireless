@@ -202,6 +202,31 @@ ul.list > li {
 .info_day_sec {
 	float: left;
 }
+
+textarea {
+	font-size: 20px;
+	padding: 12px;
+	width: 100%;
+
+}
+
+select {
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	width: 100%;
+	font-size: 20px;
+	padding: 20px;
+	-moz-appearance: menulist-button;
+    -webkit-appearance: menulist-button;
+    margin-bottom: 32px;
+    margin-top: 32px;
+}
+
+form label {
+	color: #fff;
+	font-size: 20px;
+}
 </style>
 
 <div id="wrapper">
@@ -830,75 +855,47 @@ ul.list > li {
         <!-- Involed Sec -->
         <div class="involed_sec" id="sec_six">
             <div class="right_container" id="get-involved">
-                <h3 style="float: none;">Potential Proposers</h3>
-                <p style="float: none;">If you are a potential proposer or team of proposers (i.e., university/city/local companies) interesting in responding to the PAWR RFP, please fill out this information and we will be in touch with you:</p>
-                <form method="post" action="{% url 'awt_potential_proposers' %}">
-                    {{ potential_proposer_form.email_list }}
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{ potential_proposer_form.firstname }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ potential_proposer_form.lastname }}
-                        </div>
-                    </div>
-                     <div class="row">
-                        <div class="col-md-12">
-                             {{ potential_proposer_form.email }}
-                        </div>
-                        
-                    </div>
-                    <br>
-                    <button class="call_btn">SUBMIT</button>
-                      
-                    {% csrf_token %}
-                </form>
-                <br><br>
+                
                 <h3  style="float: none;">Companies</h3>
                 <p style="float: none;"> If you are a company and are interested in joining this effort, fill out this information, and we will be in touch with you:</p>
 
-                <form method="post" action="{% url 'awt_companies' %}">
-                     {{ company_form.email_list }}
+                <form method="post" action="{% url 'awt_default_subscribe' %}">
+                     {{ form.email_list }}
                    
                     <div class="row">
                         <div class="col-md-6">
-                            {{ company_form.firstname }}
+                            {{ form.firstname }}
                         </div>
                         <div class="col-md-6">
-                            {{ company_form.lastname }}
+                            {{ form.lastname }}
                         </div>
                     </div>
-                     <div class="row">
+                    <div class="row">
                         <div class="col-md-6">
-                             {{ company_form.email }}
+                             {{ form.email }}
                         </div>
                         <div class="col-md-6">
-                             {{ company_form.organization }}
+                             {{ form.organization }}
                         </div>
                     </div>
-                   
-                    <br>
-                    <button class="call_btn">SUBMIT</button>
-                      
-                    {% csrf_token %}
-                </form>
-
-                <br><br>
-                <h3 style="float: none;"> Interested Observers</h3>
-                <p style="float: none;">If you want to get updates on the status of the PAWR effort, join our announcements list:</p>
-
-                <form method="post" action="{% url 'awt_interested_observers' %}">
-                     {{ interested_observers.email_list }}
                     <div class="row">
                         <div class="col-md-12">
-                             {{ interested_observers.email }}
+                             {{ form.user_type }}
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                        	<label>Comments</label>
+                             {{ form.comments }}
+                        </div>
+                    </div>
+                   
                     <br>
                     <button class="call_btn">SUBMIT</button>
                       
                     {% csrf_token %}
                 </form>
+
             </div>
         </div>
         <div class="involed_sec detail" id="sec_seven" style="background-color: #fff;">
