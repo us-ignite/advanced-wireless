@@ -24,22 +24,18 @@ def subscribe_email(form_data):
         'euid': uid,
         'leid': uid,
     }
-    print form_data
+    awt_merge_vars = {
+        'FNAME': form_data['firstname'],
+        'LNAME': form_data['lastname'],
+        'ORGANIZATI': form_data['organization'],
+        'COMMENTS': form_data['comments']
+    }
     if form_data['email_list'] == 'awt_potential_proposers':
-        awt_merge_vars = {
-            'FNAME': form_data['firstname'],
-            'LNAME': form_data['lastname'],
-        }
         return mailing_list.subscribe(settings.MAILCHIMP_AWT_POTENTIAL_PROPOSER_LIST, email_data, awt_merge_vars)
     elif form_data['email_list'] == 'awt_companies':
-        awt_merge_vars = {
-            'FNAME': form_data['firstname'],
-            'LNAME': form_data['lastname'],
-            'ORGANIZATI': form_data['organization']
-        }
         return mailing_list.subscribe(settings.MAILCHIMP_AWT_COMPANY_LIST, email_data, awt_merge_vars)
     elif form_data['email_list'] == 'awt_interested_observers':
-        return mailing_list.subscribe(settings.MAILCHIMP_AWT_INTERESTED_OBSERVERS_LIST, email_data)
+        return mailing_list.subscribe(settings.MAILCHIMP_AWT_INTERESTED_OBSERVERS_LIST, email_data, awt_merge_vars)
     else:
         return
 
@@ -56,14 +52,9 @@ def awt_frontpage(request):
     return TemplateResponse(request, 'awtmicrosite.html', context)
 
 
-def awt_default_subscribe(request, form=None):
+def awt_default_subscribe(request):
     if request.method == 'POST':
-        if form == 'potential_proposers':
-            form = PotentialProposerForm(request.POST)
-        elif form == 'companies':
-            form = CompanyForm(request.POST)
-        elif form == 'interested_observers':
-            form = InterestedObserverForm(request.POST)
+        form = EmailForm(request.POST)
         if form.is_valid():
             try:
                 subscribe_email(form.cleaned_data)
