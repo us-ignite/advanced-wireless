@@ -30,11 +30,11 @@ def subscribe_email(form_data):
         'ORGANIZATI': form_data['organization'],
         'COMMENTS': form_data['comments']
     }
-    if form_data['email_list'] == 'awt_potential_proposers':
+    if form_data['user_type'] == 'awt_potential_proposers':
         return mailing_list.subscribe(settings.MAILCHIMP_AWT_POTENTIAL_PROPOSER_LIST, email_data, awt_merge_vars)
-    elif form_data['email_list'] == 'awt_companies':
+    elif form_data['user_type'] == 'awt_companies':
         return mailing_list.subscribe(settings.MAILCHIMP_AWT_COMPANY_LIST, email_data, awt_merge_vars)
-    elif form_data['email_list'] == 'awt_interested_observers':
+    elif form_data['user_type'] == 'awt_interested_observers':
         return mailing_list.subscribe(settings.MAILCHIMP_AWT_INTERESTED_OBSERVERS_LIST, email_data, awt_merge_vars)
     else:
         return

@@ -13,7 +13,6 @@ class EmailForm(forms.Form):
     lastname = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Last Name', 'required': ''}))
     organization = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Organization'}))
     email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email Address', 'required': ''}))
-    email_list = forms.CharField(required=False, widget=forms.TextInput(attrs={'type': 'hidden', 'value': 'awt', 'id': ''}))
     user_type = forms.ChoiceField(required=True, choices=USER_TYPE_CHOICES, widget=forms.Select(attrs={'required': ''}))
     comments = forms.CharField(required=False, widget=forms.Textarea(attrs={"max_length": 100, "rows": 3}))
 
