@@ -112,7 +112,6 @@ MIDDLEWARE_CLASSES = (
     'djangosecure.middleware.SecurityMiddleware',
     'us_ignite.common.middleware.DoNotTrackMiddleware',
     'us_ignite.common.middleware.URLRedirectMiddleware',
-    # 'lockdown.middleware.LockdownMiddleware',
 )
 
 
