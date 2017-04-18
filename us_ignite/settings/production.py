@@ -107,5 +107,8 @@ COMPRESS_STORAGE = 'us_ignite.common.storage.CachedS3BotoStorage'
 TINYMCE_JS_URL = 'https://www.advancedwireless.org/tiny_mce/tiny_mce.js'
 TINYMCE_JS_ROOT = "https://www.advancedwireless.org/tiny_mce"
 
-# LOCKDOWN_PASSWORDS = ('adwlockdown', 'ZcMxY6jzPMB6B43')
+MIDDLEWARE_CLASSES += (
+    'lockdown.middleware.LockdownMiddleware',
+)
+LOCKDOWN_PASSWORDS = ('adwlockdown', 'ZcMxY6jzPMB6B43')
 
