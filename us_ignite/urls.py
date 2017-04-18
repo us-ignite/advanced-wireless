@@ -21,7 +21,7 @@ urlpatterns += patterns(
     'us_ignite.advanced_wireless_testbed.views',
     url(r'^$', 'awt_frontpage', name='awt_frontpage'),
 
-    url(r'^rfp/$', RedirectView.as_view(url='https://www.advancedwireless.org#sec_eight')),
+    url(r'^rfp/$', RedirectView.as_view(url='https://www.advancedwireless.org#sec_nine')),
 
     url(r'^awt_default_subscribe/potential_proposers/$', 'awt_default_subscribe', {'form': 'potential_proposers'},
         name='awt_potential_proposers'),
