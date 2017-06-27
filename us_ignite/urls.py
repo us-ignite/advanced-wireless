@@ -29,6 +29,7 @@ urlpatterns += patterns(
     url(r'^awt_default_subscribe/interested_observers/$', 'awt_default_subscribe', {'form': 'interested_observers'},
         name='awt_interested_observers'),
     url(r'^awt_default_subscribe/$', 'awt_default_subscribe', name='awt_default_subscribe'),
+    url(r'^industry_consortium_poc/$', 'awt_industry', name='awt_industry'),
     # url(r'^dashboard/$', 'us_ignite.people.views.dashboard', name='dashboard'),
     # url(r'^accounts/', include('us_ignite.profiles.urls')),
     # url(r'^people/', include('us_ignite.people.urls')),

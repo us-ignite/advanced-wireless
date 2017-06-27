@@ -7,6 +7,10 @@ import mailchimp
 from django.conf import settings
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from us_ignite.common.decorators import throttle_view
+
+
 
 logger = logging.getLogger('us_ignite.advanced_wireless_testbed.views')
 
@@ -82,3 +86,15 @@ def awt_default_subscribe(request):
     return TemplateResponse(request, 'awtmicrosite.html', context)
 
 
+# @throttle_view(methods=['POST'], duration=5)
+def awt_industry(request):
+    # username = request.POST['username']
+    # password = request.POST['password']
+    context = {}
+    if request.method == 'POST':
+        if request.POST.get('passwd') == '8TGpube4HuTw22G':
+            return TemplateResponse(request, 'pawr_consortium_contacts_for_proposers.html')
+        else:
+            context = {'incorrect_password': True}
+
+    return TemplateResponse(request, 'awt_industry_login.html', context=context)
