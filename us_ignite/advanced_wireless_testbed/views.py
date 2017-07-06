@@ -92,7 +92,7 @@ def awt_industry(request):
     # password = request.POST['password']
     context = {}
     if request.method == 'POST':
-        if request.POST.get('passwd') == '8TGpube4HuTw22G':
+        if request.POST.get('passwd') == '3ss7Jii8HD7Nsdv':
             return TemplateResponse(request, 'pawr_consortium_contacts_for_proposers.html')
         else:
             context = {'incorrect_password': True}
