@@ -1,0 +1,38 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns:mv="http://macVmlSchemaUri" xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Industry Consortium Point of Contacts for PAWR RFP</title>
+<link href="{{ STATIC_URL }}awt/css/bootstrap.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}awt/css/style.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}awt/css/custom.css" rel="stylesheet">
+<link href="{{ STATIC_URL }}awt/css/font-awesome.min.css" rel="stylesheet">
+<link rel="shortcut icon" hrf="{{ STATIC_URL }}images/favicon.ico" />
+</head>
+
+<body>
+<div id="wrapper">
+<div class="left_info" style="padding-bottom:100px;">
+	<div class="logo" style='float:none;'>
+		<img src="https://us-ignite-org.s3.amazonaws.com/static/awt/images/awt_logo.png" width="320" style='align-items: left;'>
+        <h1>Industry Consortium Point of Contacts for PAWR RFP</h1>
+	</div>
+	<div style="padding-left:20px; margin-top:50px;">
+        {% if incorrect_password %}
+        <p style="color:red;">Incorrect Password, please try again</p>
+        {% endif %}
+        <p>Please enter the password to enter the page</p>
+        <form action="" method="post" style="">{% csrf_token %}
+            Password: <input type="password" name="passwd" id="passwd" style="color:#000 !important; background-color:#fff !important; border-color:#000 !important; font-size:12px !important; padding:none !important; width:200px !important;">
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>
