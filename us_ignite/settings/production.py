@@ -21,10 +21,10 @@ ALLOWED_HOSTS = [
 ]
 
 # HTTPS configuration:
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 60 * 5
-SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_HSTS_SECONDS = 60 * 5
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = env('SECRET_KEY')
@@ -111,4 +111,3 @@ TINYMCE_JS_ROOT = "https://www.advancedwireless.org/tiny_mce"
 #     'lockdown.middleware.LockdownMiddleware',
 # )
 # LOCKDOWN_PASSWORDS = ('adwlockdown', 'ZcMxY6jzPMB6B43')
-
